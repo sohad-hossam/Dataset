@@ -1,0 +1,8 @@
+UNION query with different datatypes on each side of UNION is producing inconsistent results 
+The following query is producing unexpected results in CTC.  It is not consistent and sometimes produces unexpected results and sometimes passes.  However, it can be reproduced.
+
+SELECT IntKey, IntNum FROM BQT1.SmallA UNION SELECT StringKey, StringNum FROM BQT2.MediumB ORDER BY IntKey
+
+The datatypes of each side of the union are not the same and sometimes rmdata.getColumnTypeName(++col) indicates its a string and sometimes it says its an integer.
+
+It is my understanding that the column should be implicitly converted to a consistent type (in this case a string). 

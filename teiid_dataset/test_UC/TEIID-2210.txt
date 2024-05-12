@@ -1,0 +1,2 @@
+Create Object Translator to support Infinispan and other Map oriented data sources
+Create the Object-translator that can support map oriented data sources (i.e., Infinispan, Coherence, etc.).   The OBJECTABLE function can be used to tabularize the object once retrieved from the translator.

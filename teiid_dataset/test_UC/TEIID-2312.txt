@@ -1,0 +1,7 @@
+Allow resource adaptor to support "security-domain"
+Currently 
+* LDAP
+* Salesforce
+* Google
+
+connectors require user-id/password for making connections with underlying systems, but I do not think they support defining the "security-domain" so that the logged-in user's credentials can be passed through to sources.

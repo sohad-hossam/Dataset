@@ -1,0 +1,2 @@
+Allow selector to be used with fixed width
+To allow for fixed width files containing multiple record types, the selector functionality should apply to fixed width as well.  At least initially this will be restricted to only the overall selector as positional selector column references won't be possible.

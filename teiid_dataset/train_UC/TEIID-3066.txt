@@ -1,0 +1,4 @@
+SOLR: Provide count(*) capability natively by translator
+count(*) capability currently supported by counting each row in the engine, this needs to be natively supported. The suggested implementation path can use information from below link
+
+http://stackoverflow.com/questions/5050746/solr-solrj-how-can-i-determine-the-total-number-of-documents-in-an-index

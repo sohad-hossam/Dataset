@@ -1,0 +1,2 @@
+Document execution properties in the client developers guide.
+I failed to find documentation on "disableLocalTxn" in the reference guide. This needs to be documented in the reference guide.

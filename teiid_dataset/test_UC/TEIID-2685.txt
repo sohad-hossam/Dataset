@@ -1,0 +1,4 @@
+Add SAP Netweaver translator based on OData
+Based on http://scn.sap.com/docs/DOC-44986 document, the SAP net weaver gateway's metadata is enhanced by SAP, that does not behave as expected by the complete OData spec.
+
+Teiid needs to introduce a new translator called "sap-nw" based on OData that take these SAP specific metadata into account 

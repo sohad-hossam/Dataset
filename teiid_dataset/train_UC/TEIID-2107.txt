@@ -1,0 +1,2 @@
+Key usage can convert an outer join into an inner join
+If a left outer join is against a table/view with a index and the join is using all equi-join predicates and there is an additional predicate beyond what is in the index, then the join will be erroneously converted to an inner join.

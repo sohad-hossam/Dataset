@@ -1,0 +1,2 @@
+Limit clause does not work with XML queries
+Defect Tracker #24430: Limit clause does not work with XML queries it probably should probably work the same as specifying the rowlimit function on the root mapping class(es)

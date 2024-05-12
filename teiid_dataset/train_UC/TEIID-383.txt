@@ -1,0 +1,2 @@
+Whe running svcmgr the output is sent to the hostcontroller log instead of the console
+When svcmgr is run, the output is going to the hostcontroller log file, when it should be going to the console.    There's no ability to execute any of the options.

@@ -1,0 +1,2 @@
+Document the recommended approach to using Teiid entitlements
+Document the recommended approach to using Teiid entitlements and indicate what happens when permissions are applied to a Virtual Layer for which the underlying (virtual) model already has entitlements assigned.   Any concerns, regarding how data might be accidentally exposed, should be highlighted.    Yes, we say an experienced person should be the one responsible for security, but we must also provide direction to this person in order that they be successful.

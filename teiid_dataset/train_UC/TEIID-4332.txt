@@ -1,0 +1,2 @@
+Enhance costing to better guess at ndv
+Our logic for determining ndv is mostly ad hoc and varies greatly depending upon the position in the plan.  This needs to be more standardized and based upon consistent assumptions - also additional information such as predicates and foreign keys should influence the calculation.

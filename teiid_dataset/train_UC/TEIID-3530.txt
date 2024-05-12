@@ -1,0 +1,6 @@
+dependent join enhancements
+We need to address several aspects of dependent joins:
+
+- allow for translators to control if bind variables will be used (oracle should not)
+- remove the dependentJoinPushdownThreshold option and allow the planner to fully push the join based upon the plan
+- have rule choose dependent make a better determination of when to use a temp table vs. in predicates.

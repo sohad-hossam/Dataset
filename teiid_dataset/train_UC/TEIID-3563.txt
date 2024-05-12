@@ -1,0 +1,2 @@
+Problems with capabilities initialization
+TEIID-3474 and somewhat TEIID-3483 introduced an issue with initializing capabilities.  Postgresql effectively requires the database version set as a workaround.

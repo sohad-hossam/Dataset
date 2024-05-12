@@ -1,0 +1,22 @@
+OData - $count after $expand does not work
+If user declares $count after $expand, OData service should return count if referenced entities instead of whole entities.
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0/$count
+*Result:* 
+{code:xml}
+...
+<a:link rel="http://docs.oasis-open.org/odata/ns/related/Orders_FK0" title="Orders_FK0" href="http://localhost:8080/odata4/olingo_basic/Source/Customers(1)/Orders_FK0">
+  <m:inline>
+    <a:feed>
+      <a:entry>
+...
+{code}
+*Expected result:* 
+{code:xml}
+<a:link rel="http://docs.oasis-open.org/odata/ns/related/Orders_FK0" title="Orders_FK0" href="http://localhost:8080/odata4/olingo_basic/Source/Customers(1)/Orders_FK0">
+<!-- I am not sure about the representation, but this is only example -->
+  <m:count>4</m:count>
+...
+{code}
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398298

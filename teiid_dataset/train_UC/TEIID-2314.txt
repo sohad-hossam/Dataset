@@ -1,0 +1,5 @@
+Unable to read class Name of resource adapter
+We can read the coinfig properties of any resource adapter (*.rar). However we can not read the ManagedConnectionFactory class name and some other information in resource adapter rars.
+Following link explains how to read properties, however mentions that need some modification in teiid subsystem to show class name also.
+
+https://community.jboss.org/message/778401

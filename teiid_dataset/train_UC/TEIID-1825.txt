@@ -1,0 +1,2 @@
+EnhancementTimer class using the wrong logger class, results in errors accessing the Teiid through JDBC
+This class is using jboss logger, should be using the JDK logger.

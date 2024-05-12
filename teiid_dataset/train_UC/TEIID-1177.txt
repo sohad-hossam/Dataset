@@ -1,0 +1,6 @@
+Allow for implicit temp table definition with just a query, omitting the columns 
+currently you must use target columns to define a temp table with a query expression:
+insert into #temp (x, y,z) select x, y, z from t
+
+but the following should be allowed as well:
+insert into #temp select x, y, z from t

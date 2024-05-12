@@ -1,0 +1,13 @@
+Issue with Teiid SOAP War on JBoss 4.2.3 GA
+Some issues discovered running the Teiid SOAP war on JBoss 4.2.3...
+
+1.) The log location is relative which worked for our kitted Tomcat deployment where we knew the directory structure. Need an alternative for deployment in a JBossAS container.
+2.) Getting JSP compiler errors on the index page... for example: 
+
+An error occurred at line: 89 in the jsp file: /index.jsp
+The method getContextpath() is undefined for the type HttpServletRequest
+
+3.) The anonymous username used for getting the WSDL was changed in the Membership interface, but no the client.
+4.) A class loading issue related the MetaMatrixAuthenticationException class.
+5.) MAR files are corrupt in the teiid-soap project
+

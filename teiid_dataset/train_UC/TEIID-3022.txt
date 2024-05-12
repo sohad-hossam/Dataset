@@ -1,0 +1,2 @@
+refine removed vdb handling
+With TEIID-2105 the server will reject requests against a non-active vdb, which includes a removed vdb.  This is against the original intent of allowing for lazy cleanup.  We should either have a vdb remove proactively terminate all sessions and fully cleanup or we should reinstate the lazy logic.  At this point it probably makes the most sense to go the first route as there is other logic (materialization management for one) now checking the vdb state and assuming that removal will invalidate the vdb.

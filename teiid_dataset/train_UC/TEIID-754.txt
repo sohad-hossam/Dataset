@@ -1,0 +1,69 @@
+LOCATE() function isn't being translated correctly by Oracle Connector
+The rewritten/translated query for the MMx LOCATE() function to Oracle's instr() function does not appear to be correct.
+
+SELECT locate(INTNUM, '234567890', 1) FROM SMALLA WHERE INTKEY = 26
+
+Is being rewritten for Oracle as:
+
+SELECT instr('234567890', to_char(SmallA.IntNum), 2) FROM SmallA WHERE SmallA.IntKey = 26
+
+
+In this case Oracle will return 0 for instr() because Oracle starts at position 1.
+
+The query should be:
+
+SELECT instr('234567890', to_char(SmallA.IntNum), 1) FROM SmallA WHERE SmallA.IntKey = 26
+
+
+
+Furthermore, if I pass a negative value to LOCATE() it appears we assume position 1. If the negative value is sent to Oracle, Oracle goes from the end of the string. We should prevent this (if not already).
+
+In 5.5.1 the rewritten query is even different and may ore may not be correct. I have not checked 5.5.3/5.5.4 and/or Westport/Teiid.
+
+Here are the test cases that should cover this issue:
+
+    public void testRewriteLocate() throws Exception {
+        String input = "SELECT locate(INTNUM, 'chimp', 1) FROM SMALLA"; //$NON-NLS-1$
+        String output = "SELECT instr('chimp', to_char(SmallA.IntNum), 1) FROM SmallA"; //$NON-NLS-1$
+
+        helpTestVisitor(getTestVDBPath(),
+            input,
+            new Integer(TranslatedCommand.EXEC_TYPE_QUERY),
+            output);
+    }
+    public void testRewriteLocate2() throws Exception {
+        String input = "SELECT locate(STRINGNUM, 'chimp') FROM SMALLA"; //$NON-NLS-1$
+        String output = "SELECT instr('chimp', SmallA.StringNum) FROM SmallA"; //$NON-NLS-1$
+
+        helpTestVisitor(getTestVDBPath(),
+            input,
+            new Integer(TranslatedCommand.EXEC_TYPE_QUERY),
+            output);
+    }
+    public void testRewriteLocate3() throws Exception {
+        String input = "SELECT locate(INTNUM, '234567890', 1) FROM SMALLA WHERE INTKEY = 26"; //$NON-NLS-1$
+        String output = "SELECT instr('234567890', to_char(SmallA.IntNum), 1) FROM SmallA WHERE SmallA.IntKey = 26"; //$NON-NLS-1$
+
+        helpTestVisitor(getTestVDBPath(),
+            input,
+            new Integer(TranslatedCommand.EXEC_TYPE_QUERY),
+            output);
+    }
+    public void testRewriteLocate4() throws Exception {
+        String input = "SELECT locate('c', 'chimp', 1) FROM SMALLA"; //$NON-NLS-1$
+        String output = "SELECT 1 FROM SmallA"; //$NON-NLS-1$
+
+        helpTestVisitor(getTestVDBPath(),
+            input,
+            new Integer(TranslatedCommand.EXEC_TYPE_QUERY),
+            output);
+    }
+    public void testRewriteLocate5() throws Exception {
+        String input = "SELECT locate(STRINGNUM, 'chimp', -5) FROM SMALLA"; //$NON-NLS-1$
+        String output = "SELECT instr('chimp', SmallA.StringNum, 1) FROM SmallA"; //$NON-NLS-1$
+
+        helpTestVisitor(getTestVDBPath(),
+            input,
+            new Integer(TranslatedCommand.EXEC_TYPE_QUERY),
+            output);
+    } 

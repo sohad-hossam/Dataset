@@ -1,0 +1,4 @@
+Function pushdown issues
+Function validation should not prevent a function name from containing a '.' and nameinsource should be respected for ddl foreign functions.
+
+We also have an issue with function names conflicting with system function names any time there is a check of just the descriptor name without checking the schema.

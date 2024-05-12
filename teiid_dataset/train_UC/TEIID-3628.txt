@@ -1,0 +1,2 @@
+Server socket setting issues
+The bootstrap settings need to be for the child rather than the parent.  Also we should enable tcpNoDelay so that small messages are immediately sent.

@@ -1,0 +1,2 @@
+Redo the weather example
+Currently soap access through the weather example doesn't work (after updating the url rest works fine) due to service changes.  However rather than relying on an external service, we should include in the web services example a war for AS deployment.

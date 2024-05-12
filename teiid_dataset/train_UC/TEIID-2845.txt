@@ -1,0 +1,7 @@
+MongoDB: Join processing produces wrong results in some cases
+When two or more tables are used to build single document in the MongoDB, depending upon the JOIN query used it may produce wrong results.
+
+- support for inner is not turned ON, this should be allowed
+- For example cross-join between parent and embedded table
+- right-join between parent and embedded table
+- depending upon the parent the ordering of left and right join 

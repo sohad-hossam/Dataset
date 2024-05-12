@@ -1,0 +1,2 @@
+Relax hard coded restriction on accessnode parallelism
+There is currently a hard coded maximum of 10 parallel queries in the access node.  This should be allowed to be higher either by direct configuration or just allowing the concurrent max to suffice.

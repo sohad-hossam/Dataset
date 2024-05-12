@@ -1,0 +1,6 @@
+Complex type values not resolved in translator execution
+Embedded complex types do not have metadata associated and will fail to resolve resulting in an exception:
+ {code}
+java.lang.RuntimeException: unknown property type: RMTSAMPLEFLIGHT.FlightDetails
+    at org.odata4j.format.xml.AtomFeedFormatParser.parseProperties(AtomFeedFormatParser.java:210) ~[odata4j-core-0.8.0-SNAPSHOT-redhat.jar:na]
+{code}

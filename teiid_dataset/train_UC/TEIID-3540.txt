@@ -1,0 +1,4 @@
+Salesforce translator returning duplicate records on querying with certain criteria
+Salesforce translator is returning each record twice when I query over a view model which is made over a Salesforce source model. 
+
+Please find more details in the Steps to reproduce below.

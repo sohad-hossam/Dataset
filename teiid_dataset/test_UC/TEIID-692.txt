@@ -1,0 +1,2 @@
+Delete SOAP Project From SVN
+The Web Service functionality is being removed from TEIID in 6.2 and replaced with comparable functionality using other Red Hat/JBoss products. The teiid-soap project need to be removed from SVN.

@@ -1,0 +1,2 @@
+Allow column type to be altered
+Add ddl support for alter column type to assist in importing.

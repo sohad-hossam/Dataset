@@ -1,0 +1,31 @@
+NOT IN construct behaves inconsistently
+As discussed in https://developer.jboss.org/message/939309#939309, an inconsistent behavior of the NOT IN clause occurs when NULL values are returned by the subquery.
+
+For example, let us suppose to have a table defined as:
+{code:sql}
+CREATE TABLE test1 (col1 character varying(10));
+
+insert into test1 values ('a');  
+insert into test1 values ('b');  
+insert into test1 values ('c');  
+insert into test1 values ('d'); 
+{code}
+
+If I enumerate values in the NOT IN clause and one of them is a NULL value:
+{code:sql}
+select * from pg.test1 where col1 NOT IN ('a', NULL, 'b'); 
+{code}
+
+the result is not empty (as it would be expected) but 'c' and 'd' are returned.
+
+Looking at the query plan, the NULL is wrongly removed from the list:
+
+{code:sql}
+----------------------------------------------------------------------------  
+OPTIMIZATION COMPLETE:  
+PROCESSOR PLAN:  
+AccessNode(0) output=[pg.test1.col1] SELECT g_0.col1 FROM pg.test1 AS g_0 WHERE g_0.col1 NOT IN ('a', 'b')  
+  
+  
+============================================================================  
+{code}

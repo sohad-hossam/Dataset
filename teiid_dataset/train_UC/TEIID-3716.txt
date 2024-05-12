@@ -1,0 +1,95 @@
+Error joining file data sources
+I have defined a file data source in the VDB and I am running a query that joins a CSV file to another relation (a relational table or a subquery like in the following example).
+Two different exceptions are thrown if a INNER or LEFT OUTER JOIN is used:
+
+{code:sql}
+SELECT 
+csv_table.* 
+FROM
+(call f1.getFiles('csvFile.csv')) f,
+	TEXTTABLE(to_chars(f.file,'UTF-8') 
+		COLUMNS 
+		"a" STRING ,
+		"b" STRING 
+		DELIMITER ',' 
+		QUOTE '''' 
+		SKIP 1 
+	) csv_table
+LEFT JOIN (SELECT '1' as a, '2' as b) as t ON csv_table.a = t.a;
+{code}
+
+{code:sql}
+16:30:25,220 ERROR [org.teiid.PROCESSOR] (Worker11_QueryProcessorQueue278) 49Wb3t6yP73K TEIID30019 Unexpected exception for request 49Wb3t6yP73K.16: org.teiid.core.TeiidComponentException: TEIID30328 Unable to evaluate f.file: No value was available
+        at org.teiid.query.util.CommandContext.getFromContext(CommandContext.java:501) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:705) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:680) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.NestedTableJoinStrategy.process(NestedTableJoinStrategy.java:93) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:227) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.SourceState.prefetch(SourceState.java:211) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.JoinNode.prefetch(JoinNode.java:247) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:239) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:150) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:344) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+{code}
+
+If INNER JOIN is used:
+{code:sql}
+SELECT 
+csv_table.* 
+FROM
+(call f1.getFiles('csvFile.csv')) f,
+	TEXTTABLE(to_chars(f.file,'UTF-8') 
+		COLUMNS 
+		"a" STRING ,
+		"b" STRING 
+		DELIMITER ',' 
+		QUOTE '''' 
+		SKIP 1 
+	) csv_table
+JOIN (SELECT '1' as a, '2' as b) as t ON csv_table.a = t.a;
+{code}
+
+the following exception is thrown:
+{code:sql}
+16:32:18,260 ERROR [org.teiid.PROCESSOR] (Worker11_QueryProcessorQueue281) 49Wb3t6yP73K TEIID30019 Unexpected exception for request 49Wb3t6yP73K.18: java.lang.AssertionError: Cannot use a depenedent join when the join involves a correlated nested table.
+        at org.teiid.query.optimizer.relational.rules.RuleImplementJoinStrategy.execute(RuleImplementJoinStrategy.java:88) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:792) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:223) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:159) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:434) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:461) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:632) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:333) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+{code}
+
+It seems that the structure of the CSV file is not relevant since this issue can be reproduced  even providing a file that does not exist.

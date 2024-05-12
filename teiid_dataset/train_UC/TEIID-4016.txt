@@ -1,0 +1,14 @@
+Teiid parser fails to address co-existence of SQL comment and cache hint prior to rest of SQL string
+Please review analysis of the issue in TEIIDDES-2802.
+
+In summary, when a comment is located in front of the cache hint in an sql string, the cache hint is dropped from the resulting language objects. This is due to the regular expression used for finding cache hints in the parser template.
+
+For Designer to fix this issue, Teiid needs to fix it as well since the results of the parsers should match, ie. there is no point in Designer retaining the cache hint if Teiid does not.
+
+The following unit test demonstrates this issue:
+{code}
+String sql = "/* HELLO */ /*+ cache(ttl:180000) */ SELECT col1 FROM tbl WHERE col2 IN /*+ MJ */ (SELECT col1 FROM tbl2) /* trailing comment */ ";
+String expSql = "/*+ cache(ttl:180000) */ SELECT col1 FROM tbl WHERE col2 IN /*+ MJ */ (SELECT col1 FROM tbl2) /* trailing comment */ ";
+Command command = QueryParser.getQueryParser().parseCommand(sql, new ParseInfo());
+assertEquals(expSql, command.toString()); // this will fail due to no cache hint
+{code}

@@ -1,0 +1,2 @@
+Required Connector Properties Should Have A Default Value If They Are Marked As An Expert Property
+The JDBC connector's "connection-definition" property is marked as an expert property but does not have a default value. Expert properties generally require very little maintenance and are normally not presented initially to a user. If a default value cannot be assigned to a required property it should not be marked as "expert." There might be other connectors with similar issues.

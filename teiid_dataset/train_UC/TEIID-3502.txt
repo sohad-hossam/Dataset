@@ -1,0 +1,7 @@
+Teiid returns integer/long overflow values
+The values from basic math operations, such as:
+SELECT abs(-2147483648)
+SELECT -2147483648 -1
+SELECT 2147483648 +1
+etc.
+

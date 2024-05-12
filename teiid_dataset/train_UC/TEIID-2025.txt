@@ -1,0 +1,2 @@
+sql/xml type does not work over ODBC
+The odbc logic is calling getClob for SQL/XML, which currently results in an exception.  It would be better to use getCharacterStream.

@@ -1,0 +1,7 @@
+Need method to control max amount of buffer disk space
+There needs to be a configurable limit to how much disk space buffer manager is able to use. 
+
+Currently, you can specify the limit per file and the limit of how many files buffer manager can have open at one time, but there is no means of keeping buffer manager for eating up all the available disk space and then resulting in unpredictable behavior and stability. 
+
+It's fine if queries that need the file buffer manager but find it is full fail outright when it is full. 
+

@@ -1,0 +1,2 @@
+Teiid inappropriately narrowing
+issuing a query such as "select 1.0/2" should be done with non-integral division (.5), but the resolver is choosing integer division and returning 0.

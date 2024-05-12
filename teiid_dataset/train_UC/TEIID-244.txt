@@ -1,0 +1,38 @@
+Salesforce Connector should offer the abilty to query about object deletions.
+Genentech wants to materialize lots of SalesForce data in Oracle, to speed up their reporting query times. It makes a significant difference because SFDC does not support joins, whereas Oracle does. Wanting the best of both worlds, they also want the data to be as fresh as possible -- ideally, the mat views would be no more than 10 minutes out-of-sync with the live data.
+
+The amount of data in SalesForce already takes 20+ minutes to cache, and it will slowly grow over time. So, the current materialization process will not meet the cache coherence (freshness) requirement, since the data will be stale by the time the staging table is populated and swapped in.
+
+How would you speed it up? 
+
+.......response....
+
+  I actually put together a custom materialization script
+(attached,with doc and sample config file) for Credit Suisse for doing
+these sorts of partial refreshes.  It is Oracle-specific, but since
+that is what you are doing too it should work for you too.
+
+However, the use case at Credit Suisse was for doing these partial
+refreshes nightly, with full refreshes done weekly.  There is (just as
+with our standard materialization scripts) a short period (when the
+table names are being swapped) when the materialization won't be stable
+(queries could fail or return unexpected results).  I don't know if
+that makes it not suitable for doing 10 minute refreshes.
+
+I would recommend instead using the materialization only for historical
+data (from overnight materialization run), and unioning it to the live
+data for the newer stuff. That is, query SFDC only for data where
+createdDate or LastModifiedDate = today, and union that with the
+current data.  Two issues you'd need to deal with in your logic:
+
+-if the same record is retrieved from both sources (meaning it was an
+existing record that had been modified today), the historical record
+should be discarded in favor of the live one.
+
+-deleted records - how to detect records that were deleted today?  If
+you could ask SFDC exactly what was deleted today that would be great,
+but that is probably wishful thinking.  So failing that you would need
+to ask SFDC for the keys for all live records, and then discard from
+the historical data any records with keys not on that list.  Or, you
+could just live with having the deleted records in the view for an
+extra day...

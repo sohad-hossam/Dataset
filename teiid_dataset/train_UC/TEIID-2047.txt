@@ -1,0 +1,2 @@
+Schema objects were being merged incompletely during the metadata load
+When Schema/models objects are loaded they all get merged into a Metadata Store. However, after the load the schema are only partially being merged in terms of their properties. One such property defines it is physical or view model, so now all models are being merged as source models.

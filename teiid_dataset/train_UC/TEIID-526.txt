@@ -1,0 +1,2 @@
+Make node conversion logic common
+There is a duplication in node conversion logic between frameutil and rulepushaggregates.

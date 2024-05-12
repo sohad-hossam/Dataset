@@ -1,0 +1,6 @@
+physical procedural mapping results in inconsistent results
+Defect Tracker #24951: testing a query with multiple physical procedure calls using the new mapping style results in inconsistent/incorrect results. As a test case, sptest6, a physical procedure that doubles the integer value passed into it, was called twice in a view transformation, with a result set consisting of the the source, input, and result values for each call to the procedure. 2 issues were seen: 
+1) Source and input value columns only showed the value of the last input parameter for all rows. 
+2) The result values for the first procedure call were correct for every row, but the result values for the second procedure call were the same for every row (it only showed the last result value calculated for all the rows). 
+
+After mapping the physical procedure to a virtual procedure, no issue was seen.  Issue can be seen in "view.two_bqt_sptest6_test" in attached vdb, or at mm://sluxtech09:55391 (http://sluxtech09:18391).

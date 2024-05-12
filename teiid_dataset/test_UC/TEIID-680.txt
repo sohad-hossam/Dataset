@@ -1,0 +1,5 @@
+Add "socket" transport as service 
+Add mechanism to start a socket transport as service when query engine starts. The socket transport can be used in two fold.
+
+1) In client/server mode
+2) In embedded mode (on demand). When a embedded is started then socket transport is started, then some other client can connect to it until "embedded" is alive.

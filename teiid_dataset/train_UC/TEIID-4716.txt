@@ -1,0 +1,2 @@
+Teiid -Prelease doesn't update the jdg slot number in kit
+The jdg-slot is not being substituted when the dist module is packaged.

@@ -1,0 +1,2 @@
+JDBC Client code has few messages in INFO level, they should be at DETAIL level
+Especially logging of the URL properties need to be at detail level

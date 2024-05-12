@@ -1,0 +1,2 @@
+Implement column level incoming dependencies
+The original implementation of the usage table did not implement the ElementName column.   Additional logic will be needed in the metadatavalidator to determine what contributes to the column.

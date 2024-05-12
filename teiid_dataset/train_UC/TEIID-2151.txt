@@ -1,0 +1,9 @@
+Passthrough authentication is not working shows below exception
+{code}
+Caused by: org.teiid.core.TeiidComponentException: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.client.util.ExceptionUtil.convertException(ExceptionUtil.java:60) [teiid-client-8.1.0.Beta2-SNAPSHOT.jar:8.1.0.Beta2-SNAPSHOT]
+	at org.teiid.transport.LocalServerConnection$1.invoke(LocalServerConnection.java:137) [teiid-runtime-8.1.0.Beta2-SNAPSHOT.jar:8.1.0.Beta2-SNAPSHOT]
+	at $Proxy18.executeRequest(Unknown Source)	at org.teiid.jdbc.StatementImpl.execute(StatementImpl.java:640) [teiid-client-8.1.0.Beta2-SNAPSHOT.jar:8.1.0.Beta2-SNAPSHOT]
+{code}
+
+The reason looks like the "passthrough" connection property check is being done after the 'authentcation()' call on the LocalServerConnection

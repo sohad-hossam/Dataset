@@ -1,0 +1,6 @@
+MIN and MAX on boolean not supported in Vertica
+Vertica does not support calling MIN and MAX aggregate functions on boolean values, attempting that fails with
+
+{noformat}
+Remote com.vertica.support.exceptions.SyntaxErrorException: [Vertica][VJDBC](3457) ERROR: Function MIN(boolean) does not exist, or permission is denied for MIN(boolean)
+{noformat}

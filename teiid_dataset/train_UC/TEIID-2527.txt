@@ -1,0 +1,2 @@
+Dynamically change the sources in a multi-source model
+As a step toward a more dynamic VDB, it would be useful to allow data sources to be dynamically added/removed from a multi-source model.  For more, see https://community.jboss.org/message/821113

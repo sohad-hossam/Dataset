@@ -1,0 +1,2 @@
+subqueries used in xmltable coulmn defaults are not resolved
+The subqueries should be resolved and then fail validation.  Currently they will produce a low level exception.

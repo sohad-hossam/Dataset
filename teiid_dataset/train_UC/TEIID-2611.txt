@@ -1,0 +1,2 @@
+Client forwards compatibility issue
+TEIID-2504 introduced a regression such that 8.3 and older clients against a 8.4+ or 7.7.7+ servers will throw an exception when doing a multi-batch query.  

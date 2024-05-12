@@ -1,0 +1,2 @@
+Accumulo: Resource adapter fails to load
+"org/apache/commons/configuration" module seemed to be removed, this needs to be corrected.

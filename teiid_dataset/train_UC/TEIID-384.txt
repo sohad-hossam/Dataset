@@ -1,0 +1,8 @@
+Remove the ValidateCriteriaVisitor
+The ValidateCriteriaVisitor is enforcing a confusing restricting on searchability - based upon virtual layer metadata and only for the user query.  This is meaningless since the searchability should actually be associated with the datatype.  With our runtime types the only restrictions are on
+BLOB - not searchable
+CLOB - searchable like
+XML - not searchable
+OBJECT - not searchable
+These should be imposed appropriately by the ValidationVisitor.  Searchability metadata will then only be used to determine pushdown eligibility.
+

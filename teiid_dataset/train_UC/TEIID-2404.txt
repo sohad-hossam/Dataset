@@ -1,0 +1,9 @@
+Expose buffermanager monitoring properties
+We should expose:
+
+BufferServiceImpl.getUserBufferSpace - the number of megs currently used by the buffermanager disk storage.
+
+A rough total of the memory buffer space used can be added, which would be from the BufferFrontedCacheStore concurrent bits set X block size.
+
+Also the BufferManagerImpl could report the total estimate of objects held in memory.
+

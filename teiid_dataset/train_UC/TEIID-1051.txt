@@ -1,0 +1,4 @@
+Make the Connector (type) and RAR name be the same
+Currently in the Admin API in 7.0 M3
+
+getConnectorNames() call returns the Connectors that are available in the system. These are the Teiid Connector RAR files. However, ".RAR" extension is truncated for this call. When the a Connection Factory is created, it contains the "rar-name" as the full name with the extension. They both need to be same.

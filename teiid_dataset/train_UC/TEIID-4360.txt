@@ -1,0 +1,2 @@
+default token type needs to be "bearer" for OAuth2 access code negotiation
+Oauth2 authentication with security domain fails if remote server does not contain token_type in json response (access/refresh tokens), as specified by RFC. See forum reference for more details: in my case a workaround was found by Ramesh Reddy defaulting to "Bearer" tiken type.

@@ -1,0 +1,2 @@
+Default of 20 code tables is too small
+The default of 20 code tables of 10000 rows each is easily exhausted.  It would be better to have max code tables, max records, and max records per table setting, which would allow for more tables, while still being conservative in the overall number of tables allowed.

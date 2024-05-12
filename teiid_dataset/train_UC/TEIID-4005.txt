@@ -1,0 +1,10 @@
+Allow dependent join row value to be split
+For some queries having a dependent join row value that spans multiple target tables should be split among those targets.
+
+For example rather than:
+
+(g_0.e1, g_1.e2) IN (<dependent values>))
+
+Use the pre 8.7 form:
+
+(g_0.e1 IN (<dependent values>)) AND (g_1.e2 IN (<dependent values>))

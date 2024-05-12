@@ -1,0 +1,2 @@
+Require Java 1.8 for building/runtime
+There are several places where we are implicitly depending upon 1.8 features to build - such as the larger key size from TestDhKeyGenerator.  These issues do not affect compatibility with a 1.7 runtime.

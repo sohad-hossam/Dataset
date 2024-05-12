@@ -1,0 +1,12 @@
+dependent join handling of multi-way joins
+In scenarios where the same column is used multiple times in a multi-way dependent join, it's affect may be duplicated in source predicates.
+
+For example:
+
+select pm1.g1.e1, pm1.g1.e2, pm2.g1.e2 FROM pm1.g2, pm1.g1, /*+ makedep */ pm2.g1 where pm1.g1.e1 = pm2.g1.e1 and pm1.g2.e1 = pm2.g1.e1
+
+Should have a source query of the form:
+
+SELECT g_0.e1 AS c_0, g_0.e2 AS c_1 FROM pm2.g1 AS g_0 WHERE g_0.e1 IN (<dependent values>) ORDER BY c_0
+
+Rather than having multiple dependent values predicates.

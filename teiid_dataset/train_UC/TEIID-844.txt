@@ -1,0 +1,2 @@
+Implement metadata creation in the SalesForce connector.
+The SF connector should use the new connector metadata API to produce it's own metadata.

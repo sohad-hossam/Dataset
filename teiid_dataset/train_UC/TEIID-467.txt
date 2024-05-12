@@ -1,0 +1,2 @@
+Simplify DBIDGenerator logic
+DBIDGenerator should be simplified.  Synchronization should be on a per block basis.  It's all performed in a transaction, there's no need for looping in the db code.  Also should only expose 1 method to get the next id - all others are not utilized.  Finally it should more easily tested rather than by toggling a switch on the singleton.

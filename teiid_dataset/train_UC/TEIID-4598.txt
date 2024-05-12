@@ -1,0 +1,33 @@
+NPE when analytic Source function for Greenplum doesn't get pushdown
+In customers exact words 
+when executing the following 
+~~~
+USER COMMAND:
+SELECT GPDBDEV.kr_cust_team_target.team, LAG(ALL convert(GPDBDEV.kr_cust_team_target.target_amount, string)) OVER (PARTITION BY GPDBDEV.kr_cust_team_target.team ORDER BY GPDBDEV.kr_cust_team_target."year", GPDBDEV.kr_cust_team_target."month") FROM GPDBDEV.kr_cust_team_target
+~~~
+Gives NPE 
+11:59:38,611 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue3) TEIID30019 Unexpected exception for request BWIVpfi0IyEK.0: java.lang.NullPointerException
+	at org.teiid.query.function.FunctionDescriptor.newInstance(FunctionDescriptor.java:91) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.function.aggregate.UserDefined.<init>(UserDefined.java:44) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.GroupingNode.initAccumulator(GroupingNode.java:291) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.WindowFunctionProjectNode.initializeAccumulators(WindowFunctionProjectNode.java:414) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.WindowFunctionProjectNode.buildResults(WindowFunctionProjectNode.java:339) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.WindowFunctionProjectNode.nextBatchDirect(WindowFunctionProjectNode.java:232) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:150) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_91]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_91]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_91]

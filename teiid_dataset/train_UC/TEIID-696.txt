@@ -1,0 +1,13 @@
+Add unit test coverage for use of a procedure variable as non join criteria
+Add regression test coverage to verify the following query scenario doesn't result in the referenced procedure variable being pushed to the connector:
+
+SELECT 
+	pm1.g1.e1 AS pm1g1e1, 
+	pm1.g2.e1 AS pm1g2e1, 
+	pm1.g1.e2 AS pm1g1e2, 
+	pm1.g2.e2 AS pm1g2e2 
+FROM 
+	pm1.g1 
+	LEFT OUTER JOIN pm1.g2 
+		ON pm1.g1.e1 = pm1.g2.e1 
+		AND pm1.g2.e2 = VARIABLES.myVar

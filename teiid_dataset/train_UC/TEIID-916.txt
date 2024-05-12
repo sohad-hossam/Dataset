@@ -1,0 +1,2 @@
+Initial client socket timeout is too low under load
+Under stress tests errors are seen with socket connections during the handshake since the timeout is set to 3 seconds by default.

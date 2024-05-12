@@ -1,0 +1,2 @@
+Temp logic should support the array type
+If a temp table is made the dependent side of a multi-column dependent join, the index logic should support the array type for more efficient processing. 

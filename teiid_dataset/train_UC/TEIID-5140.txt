@@ -1,0 +1,8 @@
+Teiid 10 postgres driver version
+I tried several drivers from https://jdbc.postgresql.org/download.html and figured out that 9.4-1203 JDBC 42 is the newest working driver for my application.
+ 
+Newer drivers cause Teiid to fail on datasource creation with error "Reason:TEIID60011 No column found on table xxxx.pg_toast.pg_toast_16446 with name chunk_id"
+
+Please update docs about what driver version is recommended (or tested) and if there is any reason to update to newer postgres drivers (what benefits it brings and how teiid uses it). 
+
+Might be good idea to ship driver within teiid package or at least keep updated _docs\teiid\datasources\postgresql\readme.txt_ to contain recommended driver name.

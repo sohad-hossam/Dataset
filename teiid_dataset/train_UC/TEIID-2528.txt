@@ -1,0 +1,2 @@
+Support an encypted storage mode
+We should provide an option to use encrypted files for our temporary storage.

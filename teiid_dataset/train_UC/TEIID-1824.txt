@@ -1,0 +1,2 @@
+SQL/XML performance enhancement
+The sql/xml processing functions, xmlforrest, xmlelement, xsltransform, etc. make use of stax factories by creating a newInstance each time.  This is much too heavy-weight.  The factories should be shared as much as possible.  The woodstox input/ouput factories in particular can be static.

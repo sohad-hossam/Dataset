@@ -1,0 +1,2 @@
+Allow for a 2048 bit DH key exchange
+There's a general recommendation to migrate to longer dh key lengths - https://weakdh.org/imperfect-forward-secrecy-ccs15.pdf

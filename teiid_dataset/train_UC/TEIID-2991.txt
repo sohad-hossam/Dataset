@@ -1,0 +1,2 @@
+Add an embedded web service example
+With fixing other embedded issue I have a simple web scenario that should be turned into an example.

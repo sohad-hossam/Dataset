@@ -1,0 +1,2 @@
+Reduce use of map look ups for projection
+GroupingNode, SelectNode, and JoinNode are using map lookups to project tuples.  This should be precomputed instead.

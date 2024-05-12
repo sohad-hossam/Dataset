@@ -1,0 +1,2 @@
+Test Case failures in teiid-engine
+Attached are the surefire reports.

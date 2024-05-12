@@ -1,0 +1,5 @@
+SOLR: Translator ignores "Name In Source" attribute of table columns
+When I create a source model in teiid designer and I specify "Name In Source" attribute in one of the table columns, SOLR translator will ignore the "Name In Source" attribute and it will use a column name to create SOLR query.
+
+
+

@@ -1,0 +1,8 @@
+JGroups Channel creation in domain mode is invalid
+In domain mode configuration where the JGroups channel is configured, it is configured to be used as a separate channel where it would require separate protocol stack, which is also discouraged form. The suggested configuration is to create a forked channel as
+
+{code}
+<channel name="ee" stack="udp" cluster="ejb">
+       <fork name="teiid-cluster"/>
+</channel>
+{code}

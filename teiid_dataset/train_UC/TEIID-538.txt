@@ -1,0 +1,5 @@
+Using adminapi, importing VDB subsequent times causes a an exception that says the VDB already exist in the extensions
+A VDB cannot be imported more than once because subsequent imports causes an exception that says the VDB already exist in the extensions.   There are 2 problems here:
+
+1.  The actual exception, SQL Exception - invalid sql, wasn't seen
+2.  The sql being used was missing a ending quote.

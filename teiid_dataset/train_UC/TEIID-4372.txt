@@ -1,0 +1,2 @@
+Impala AVG returns double when bigdecimal is expected
+Impala will return double for avg(int) for example, and the driver will fail to convert when getBigDecimal is called.  We need to workaround this.

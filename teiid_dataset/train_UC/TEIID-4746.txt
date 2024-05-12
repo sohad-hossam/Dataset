@@ -1,0 +1,2 @@
+CommandContext connection is broken for Embedded admin operations
+Admin operations (for example asynch materialization management queries) in Teiid Embedded cannot use the CommandContext.getConnection method because it assumes the server default localprofile.

@@ -1,0 +1,4 @@
+Allow nested MERGE of entities in MongoDB translators
+When MERGE is on child table, Allow parent table to be participate in another "MERGE" or "EMBEDDEBLE" scenario.
+
+This will allow greater number of tables to be collapsed into single document.

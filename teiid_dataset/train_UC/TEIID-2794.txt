@@ -1,0 +1,2 @@
+ambiguous function calls are not properly handled
+For user defined or possibly translator functions that are given the same name the first exact match to the function name and types will be used as the function rather than reporting an ambiguous match.

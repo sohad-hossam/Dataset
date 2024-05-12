@@ -1,0 +1,75 @@
+Updating an existing VDB via copy-paste in the filesystem causes ConcurrentModificationException
+If you have a vdb deployed in Teiid and deploy an updated version by pasting the VDB into the deploy directory, a ConcurrentModificationException is thrown.  It appears that the original is undeployed, but the new one is not deployed.  You cannot connect to the VDB after the exception.
+
+11:51:12,223 INFO  [RUNTIME] VDB "Lobs.1[OracleClobs[OracleClobs/oracle/OracleClobs]]" undeployed.
+11:51:12,615 INFO  [PROCESSOR] Clearing prepared plan cache
+11:51:12,616 ERROR [AbstractKernelController] Error installing to Real: name=vfszip:/NotBackedUp/jdoyle/Teiid_955/jboss-5.1.0.GA/server/default/deploy/Lobs.vdb/ state=PreReal mode=Manual requiredState=Real
+org.jboss.deployers.spi.DeploymentException: Error during deploy: vfszip:/NotBackedUp/jdoyle/Teiid_955/jboss-5.1.0.GA/server/default/deploy/Lobs.vdb/
+        at org.jboss.deployers.spi.DeploymentException.rethrowAsDeploymentException(DeploymentException.java:49)
+        at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:177)
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.doDeploy(DeployersImpl.java:1439)
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1157)
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.install(DeployersImpl.java:1098)
+        at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:348)
+        at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:1631)
+        at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:934)
+        at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1082)
+        at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:984)
+        at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:822)
+        at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:553)
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.process(DeployersImpl.java:781)
+        at org.jboss.deployers.plugins.main.MainDeployerImpl.process(MainDeployerImpl.java:702)
+        at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.process(MainDeployerAdapter.java:117)
+        at org.jboss.system.server.profileservice.hotdeploy.HDScanner.scan(HDScanner.java:362)
+        at org.jboss.system.server.profileservice.hotdeploy.HDScanner.run(HDScanner.java:255)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+        at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+        at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)
+Caused by: java.util.ConcurrentModificationException
+        at java.util.LinkedHashMap$LinkedHashIterator.nextEntry(LinkedHashMap.java:373)
+        at java.util.LinkedHashMap$KeyIterator.next(LinkedHashMap.java:384)
+        at org.teiid.dqp.internal.process.SessionAwareCache.clearCache(SessionAwareCache.java:185)
+        at org.teiid.dqp.internal.process.SessionAwareCache.clearForVDB(SessionAwareCache.java:179)
+        at org.teiid.dqp.internal.process.DQPCore.clearPlanCache(DQPCore.java:560)
+        at org.teiid.dqp.internal.process.DQPCore.clearCache(DQPCore.java:612)
+        at org.teiid.jboss.deployers.RuntimeEngineDeployer$1.added(RuntimeEngineDeployer.java:214)
+        at org.teiid.deployers.VDBRepository.notifyAdd(VDBRepository.java:225)
+        at org.teiid.deployers.VDBRepository.addVDB(VDBRepository.java:84)
+        at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:145)
+        at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:60)
+        at org.jboss.deployers.spi.deployer.helpers.AbstractSimpleRealDeployer.internalDeploy(AbstractSimpleRealDeployer.java:62)
+        at org.jboss.deployers.spi.deployer.helpers.AbstractRealDeployer.deploy(AbstractRealDeployer.java:50)
+        at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:171)
+        ... 24 more
+11:51:12,619 WARN  [HDScanner] Failed to process changes
+org.jboss.deployers.client.spi.IncompleteDeploymentException: Summary of incomplete deployments (SEE PREVIOUS ERRORS FOR DETAILS):
+
+*** DEPLOYMENTS IN ERROR: Name -> Error
+
+vfszip:/NotBackedUp/jdoyle/Teiid_955/jboss-5.1.0.GA/server/default/deploy/Lobs.vdb/ -> org.jboss.deployers.spi.DeploymentException: Error during deploy: vfszip:/NotBackedUp/jdoyle/Teiid_955/jboss-5.1.0.GA/server/default/deploy/Lobs.vdb/
+
+
+DEPLOYMENTS IN ERROR:
+  Deployment "vfszip:/NotBackedUp/jdoyle/Teiid_955/jboss-5.1.0.GA/server/default/deploy/Lobs.vdb/" is in error due to the following reason(s): java.util.ConcurrentModificationException
+
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.checkComplete(DeployersImpl.java:993)
+        at org.jboss.deployers.plugins.deployers.DeployersImpl.checkComplete(DeployersImpl.java:939)
+        at org.jboss.deployers.plugins.main.MainDeployerImpl.checkComplete(MainDeployerImpl.java:873)
+        at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.checkComplete(MainDeployerAdapter.java:128)
+        at org.jboss.system.server.profileservice.hotdeploy.HDScanner.scan(HDScanner.java:369)
+        at org.jboss.system.server.profileservice.hotdeploy.HDScanner.run(HDScanner.java:255)
+        at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+        at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+        at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+        at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)

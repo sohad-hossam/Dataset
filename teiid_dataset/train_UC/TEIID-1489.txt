@@ -1,0 +1,6 @@
+Teiid assumes fqns in transformations, but they are no longer required to be there
+It looks like with the uuid refactoring we no long maintain that the designer indexed transformations will contain only fully qualified group names.  
+
+This will cause a good deal of problems at runtime as partially qualified names are subject to visibility rules and can conflict with session level tables.
+
+I would prefer to address this on the teiid though better metadata logic, rather than requiring fqns in transformation queries.

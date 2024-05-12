@@ -1,0 +1,4 @@
+MetadataFactory is not replacing . in column names
+On import we are not automatically replacing . with _
+
+Also we are missing a validation that . is not allowed.

@@ -1,0 +1,4 @@
+Detect when returnable procedure results need to be processed in the procedure
+With TEIID-3052 we are now fully processing almost all results in the originating procedure scope whereas before we were effective performing pipelining in that the results were created off of the tuple source on demand.  
+
+With some upfront or processing time detection we could see when the processorplan is relying upon resources from the program scope and if not go ahead and pop/return the results as before.  We could also develop a better strategy for dealing with the case when resources are needed.

@@ -1,0 +1,2 @@
+Expand star support
+The * construct will currently produce a null pointer exception.  It should be supported if possible.

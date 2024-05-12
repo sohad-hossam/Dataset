@@ -1,0 +1,2 @@
+additional controls for dependent joins
+We should add back the ability for the user to set the max in size on all translators and also determine a cutoff value for cost based dependent joins after which the dependent join will not be performed if the independent side has too many distinct values.

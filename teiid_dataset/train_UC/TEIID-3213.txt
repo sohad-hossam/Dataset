@@ -1,0 +1,15 @@
+Getting error when running adminshell load {script}
+Running the 8.10  beta adminshell and getting the following error when running one of the examples:
+
+ ./adminshell.sh load ./examples/PrintAllVDBAndDatasources.groovy 
+
+===> static org.teiid.adminshell.AdminShell.*
+===> static org.teiid.adminshell.AdminShell.*, static org.teiid.adminshell.GroovySqlExtensions.*
+===> static org.teiid.adminshell.AdminShell.*, static org.teiid.adminshell.GroovySqlExtensions.*, org.teiid.adminapi.*
+FATAL: groovy.lang.MissingPropertyException: No such property: load for class: groovysh_evaluate
+groovy.lang.MissingPropertyException: No such property: load for class: groovysh_evaluate
+	at org.codehaus.groovy.runtime.ScriptBytecodeAdapter.unwrap(ScriptBytecodeAdapter.java:50)
+	at org.codehaus.groovy.runtime.callsite.PogoGetPropertySite.getProperty(PogoGetPropertySite.java:49)
+	at org.codehaus.groovy.runtime.callsite.AbstractCallSite.callGroovyObjectGetProperty(AbstractCallSite.java:231)
+	at groovysh_evaluate.run(groovysh_evaluate:3)
+	at groovysh_evaluate$run.call(Unknown Source)

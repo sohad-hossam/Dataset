@@ -1,0 +1,2 @@
+Refine plan/annotation logic
+The annotation and plan debug logic should be used more pervasively in the query engine.  Also the client plannode and annotation classes should be used in the engine.

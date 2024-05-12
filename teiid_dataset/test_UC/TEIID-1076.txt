@@ -1,0 +1,35 @@
+When running BQT tests, an Assertion error is seen when batches are being processed
+I am testing BQT pushdown on MS3 and seeing several "java.lang.AssertionError" occurring on all sources.  This is one example of a query and the exception.  Any idea what is going on?
+
+SELECT BQT1.SmallA.StringKey, BQT1.SmallB.ByteNum FROM BQT1.SmallA, BQT1.SmallB WHERE BQT1.SmallA.StringKey = convert(BQT1.SmallB.ByteNum, string) AND BQT1.SmallA.IntKey >= 0 AND BQT1.SmallB.IntKey >= 0 ORDER BY BQT1.SmallA.StringKey
+
+
+
+2010-04-28 08:17:11,027 ERROR [org.teiid.CONNECTOR] (WorkManager(2)-25_QueryProcessorQueue344368) Connector worker process failed for atomic-request=111.0.1.179477
+java.lang.AssertionError: Assertion failed.
+	at com.metamatrix.core.util.Assertion.failed(Assertion.java:76)
+	at com.metamatrix.core.util.Assertion.assertTrue(Assertion.java:71)
+	at com.metamatrix.core.util.Assertion.assertTrue(Assertion.java:63)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:284)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.more(ConnectorWorkItem.java:143)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:90)
+	at com.metamatrix.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:260)
+	at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:106)
+	at com.metamatrix.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:147)
+	at com.metamatrix.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:103)
+	at com.metamatrix.query.processor.BatchCollector.collectTuples(BatchCollector.java:71)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:249)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:179)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:48)
+	at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:194)
+	at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:191)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:180)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:191)
+	at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+	at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+	at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+2010-04-28 08:17:11,027 WARN  [org.teiid.PROCESSOR] (WorkManager(2)-25_QueryProcessorQueue344368) Processing exception 'java.lang.AssertionError: Assertion failed.' for request 111.0. Exception type com.metamatrix.api.exception.MetaMatrixProcessingException thrown from com.metamatrix.core.util.Assertion.failed(Assertion.java:76). Enable more detailed logging to see the entire stacktrace.

@@ -1,0 +1,2 @@
+wrong handling if pg client requests ssl, but it's not configured on the server
+If the client requests ssl, but it's not configured on the server, the server should respond with N rather than sending back an exception when requiresSecure is true.

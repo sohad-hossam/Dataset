@@ -1,0 +1,4 @@
+proactive buffering not occurring for the inner side of an outer join on "MERGE JOIN (SORT/ALREADY_SORTED)"
+The issue here is this is an outer join and the inner side (the already sorted side) will be buffered regardless.  Current logic does not catch blocked exceptions from one side and pro-actively buffer the other - rather we are serially performing the sort and then continue with the loading of the inner side
+
+For inner joins there is a clear trade-off between execution speed and buffering so this behavior may have to be hint or config driven for non-dependent non-outer joins.

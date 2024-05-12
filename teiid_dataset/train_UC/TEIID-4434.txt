@@ -1,0 +1,2 @@
+Results returned by google spreadhseet may have columns missing labels, preventing the VDB to load
+see forum reference (extended descriptions, screenshots...)

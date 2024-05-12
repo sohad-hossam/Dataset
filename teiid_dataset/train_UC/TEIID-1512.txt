@@ -1,0 +1,2 @@
+show plan statement clob isn't readable
+The show plan statement produces clobs that are unreadable.  This is because the resultset treats them as remote instead of local.

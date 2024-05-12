@@ -1,0 +1,77 @@
+Wrong Data returned when a procedure is executed in the SELECT clause
+I've found the following problem when executing a stored procedure in the SELECT clause. It calculates wrong data in a seemingly random fashion.
+
+This is a stored procedure which was created to determine whether a given coordinate lies within a specific rectangle. If this procedure is tested in a simple manner (SELECT .. FROM (EXEC ..)) the results are correctly retuned (0 = outside the rectangle and 1 otherwise).
+{code:sql}
+    CREATE virtual procedure point_inside_store (
+                                pos_x float
+                               ,pos_y float
+          ) RETURNS (
+                 "insideFence" integer
+          ) AS
+          BEGIN
+             DECLARE integer insideFence = 0 ;
+             DECLARE float lowerLimit = 0.0 ;
+             DECLARE float upperLimit = 17.0 ;
+             DECLARE float leftLimit = 0.0 ;
+             DECLARE float rightLimit = 53.0 ;
+             IF (
+                  pos_x >= leftLimit
+                  AND pos_x <= rightLimit
+                  AND pos_y >= lowerLimit
+                  AND pos_y <= upperLimit
+             )
+             BEGIN
+                  insideFence = 1 ;
+             END
+             SELECT
+                    insideFence ;
+         END
+{code}
+
+If now the same procedure is included in a SELECT clause of a query: 
+{code:sql}
+    SELECT
+        "citmp.KoordX"
+        ,"citmp.KoordY"
+        ,(
+            SELECT
+                    "store.insideFence"
+                FROM
+                    (
+                        EXEC procs.point_inside_store (
+                            CAST (
+                                "citmp.KoordX" AS float
+                            )
+                            ,CAST (
+                                "citmp.KoordY" AS float
+                            )
+                        )
+                    ) as "store"
+        ) as "insideStore"
+        ,(
+            SELECT
+                    "firstsection.insideFence"
+                FROM
+                    (
+                        EXEC procs.point_inside_store (
+                            CAST (
+                                "citmp.KoordX" AS float
+                            )
+                            ,CAST (
+                                "citmp.KoordY" AS float
+                            )
+                        )
+                    ) as "firstsection"
+        ) as "insideFirstsection"
+    FROM
+        "test.sample_coords" as "citmp"
+    ORDER BY
+        insideStore ASC
+        ,insideFirstsection DESC;;
+{code}
+it calculates different results. The same coordinates that yielded 0 before now yield 1.
+!wrong_data.jpg|thumbnail!
+
+Note that the main query has 2 columns executing the exact same procedure but there are result sets, that have different values in the last two columns. This should not be possible.
+In attachment you will find sample_coords table with a sample of coordinates.

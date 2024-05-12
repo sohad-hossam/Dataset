@@ -1,0 +1,6 @@
+Embedded cleanups
+Shutdown should not attempt proactive closing of connections - this is not thread safe and the connections will already appropriately detect dqp shutdown through the localtransport.
+
+The workspace dir should be treated as a file path rather than a url by the configuration service.
+
+The temp directory should be shared by all teiid instances, rather than being instance specific.

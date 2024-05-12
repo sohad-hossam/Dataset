@@ -1,0 +1,2 @@
+Additional cassandra type handling
+We should have support for cassandra blobs/custom as varbinary (converting from bytebuffer to byte[]), list (as an array type), and better uuid handling for uuid/timeuuid support.

@@ -1,0 +1,2 @@
+warning with translator usage
+With TEIID-2904 the set of default properties - including import properties - is being added to the vdbtranslatormetadata property set, so that when we create the translator instances the import properties are being seen as unused and result in a warning.

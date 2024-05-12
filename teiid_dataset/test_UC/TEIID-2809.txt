@@ -1,0 +1,4 @@
+Support for property substitution in vdb.xml files
+I have created a vdb.xml where i have declared my translators in it. I would like to pass some parameters to one of my translators so that i do not need to change my vdb.xml whenever there is a change in value. These parameters derive the values from the system properties. So, i am using ${} notation to pass the value of the system properties to my translator. When i try to deploy my VDB and try to access the parameters inside the translator, These system properties are not being resolved to the actual values. 
+
+As per the thread https://community.jboss.org/thread/236325, this is not being supported as of now and requires an enhancement.

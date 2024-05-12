@@ -1,0 +1,2 @@
+Change widenComparisonToString to false by default
+TEIID-3722 added an option to not widen comparisons to string, but defaulted to true to maintain legacy compatibility.  It's more consistent with other databases to default to false.

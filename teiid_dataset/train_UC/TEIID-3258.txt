@@ -1,0 +1,2 @@
+Add support for quoted identifiers in set/show
+The set / show statements assume that only non-qualified identifiers will be used.

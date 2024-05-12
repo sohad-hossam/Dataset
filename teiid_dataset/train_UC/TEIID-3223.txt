@@ -1,0 +1,4 @@
+An issue with time in WHERE clause - SQLServer
+Teiid is not able to manage WHERE clause with time value.
+translator: sqlserver
+base DB: SQL Server 2012/2008/2005

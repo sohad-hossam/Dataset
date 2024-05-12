@@ -1,0 +1,7 @@
+adminApi getSchema does not include namespace info in the DDL
+I was following this community example
+https://community.jboss.org/wiki/MicrosoftExcelDocumentIntoRelationalTable
+
+The DDL returned for the deployed dynamic vdb is attached.  However, the DDL does not include a namespace statement like this 
+
+SET NAMESPACE 'http://www.teiid.org/translator/excel/2014' AS teiid_excel

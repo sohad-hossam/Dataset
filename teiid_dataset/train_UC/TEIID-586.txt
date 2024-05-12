@@ -1,0 +1,2 @@
+Like pushdown handling
+Both salesforce and ldap like semantics are not the same as SQL. We could capture this with more capabilities supportsLikeCaseSensitive and supportsLikeWildcardSingleCharacter repectively, or another approach would be to allow the connector to generically indicate partial support and have the query engine both push down the conjunct and leave a copy to be applied after the query. With either explicit supports or generic partial support it would only applicable to top level where clause conjuncts.

@@ -1,0 +1,2 @@
+Possible duplicate rows at when using nested table feature. When using TABLE or XMLTABLE or TEXTTABLE.
+When using the XMLTable, or TextTable or TABLE semantics to use the Nested table reference http://docs.jboss.org/teiid/7.1.0.Final/reference/en-US/html_single/#nested_table, with multiple batch (more than 512 rows) there could be a duplicate row at the beginning of the next batch. 

@@ -1,0 +1,30 @@
+Aggregation is performed incorrectly for JOIN queries
+Aggregation is performed incorrectly for JOIN queries, like this
+{code:sql}
+select count(v2.b) from views.v1 right join views.v2 on true group by v1.b;
+
+select count(v2.b) from views.v1 join (call procs.pr()) v2 on true group by v1.b;
+
+select count(v2.b) from views.v1 left join (call procs.pr()) v2 on true group by v1.b;
+
+select count(v2.b) from views.v1 right join (call procs.pr()) v2 on true group by v1.b;
+{code}
+showing as a result:
+{code}
+1
+1
+1
+{code}
+
+though these ones work correctly:
+{code:sql}
+select count(v2.b) from views.v1 join views.v2 on true group by v1.b;
+
+select count(v2.b) from views.v1 left join views.v2 on true group by v1.b;
+{code}
+showing
+{code}
+1
+1
+2
+{code}

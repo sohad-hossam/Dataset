@@ -1,0 +1,2 @@
+Generated keys should be passed from triggers
+In the context of an update trigger we should be able to convey the generated keys to the caller.  In the case where only a single insert occurs, this should be automatic.  Otherwise we'll need functions/variables to get/set the generated keys in the procedure.  For example see the LAST_INSERT_ID function on mysql.

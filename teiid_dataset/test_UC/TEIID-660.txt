@@ -1,0 +1,2 @@
+Move sort removal to the rewriter
+Sort removal is currently run as a rule, but that fails to remove sorts from subqueries since they are seen as top level commands.  Sort removal should be treated as simply part of the rewrite cannonicallization process.

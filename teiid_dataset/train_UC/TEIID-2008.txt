@@ -1,0 +1,2 @@
+Allow client max object size to be settable
+The default 32 MB for max object size may be too small in custom scenarios or when there are numerous warnings attached to results.  This should be a settable property via the client settings properties. 

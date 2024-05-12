@@ -1,0 +1,2 @@
+Add support for typed getObject calls
+With the new 1.7 support getObject(x, class) signatures were added, but throw a feature not supported exception.

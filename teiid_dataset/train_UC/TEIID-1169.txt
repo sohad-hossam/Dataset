@@ -1,0 +1,4 @@
+VDBs are not being displayed in Jopr
+After deploying the DynamicPortfolio (example), I went to Jopr, but did not find the VDB tree node. All appears to be correct otherwise. (I'll attach a screenshot.)
+
+The VDB is successfully deployed--I've queried against it.

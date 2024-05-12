@@ -1,0 +1,9 @@
+Need Excel file importer / connector
+Really need to add an Excel connector in SP1.  The easiest way to do this is probably with one of the open source JDBC drivers that work over Excel files.  
+
+Something like:
+https://xlsql.dev.java.net/ - Excel JDBC driver (GPL unfortunately, so we probably can't distribute the driver)
+http://www.andykhan.com/jexcelapi/ - Java Excel API (GPL too)
+http://xlsjdbc.sourceforge.net/ - LGPL (uses Apache POI), really cheesy and maybe not being updated
+http://jakarta.apache.org/poi/ - Excel API, event-based and not particularly friendly
+http://www.vistaportal.com/products/vistajdbc-QA.htm - commercial

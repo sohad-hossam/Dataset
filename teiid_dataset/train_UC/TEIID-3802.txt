@@ -1,0 +1,22 @@
+HANA translator modifies boolean to tinyint in type conversion
+Teiid modifies boolean data type to tinyint before pushing the query down to the HANA instance.
+This brings following issue while having a query similar to this one:
+{code:sql}
+SELECT BQT1.SMallA.BooleanValue,cast(BQT2.SmallB.CharValue as boolean) FROM BQT1.SmallA,BQT2.SmallB WHERE BQT1.SmallA.BooleanValue = cast(BQT2.SmallB.CharValue as boolean)
+{code}
+which Teiid modifies to:
+{code:sql}
+SELECT g_0."BOOLEANVALUE", cast(g_1."CHARVALUE" AS tinyint) FROM "BQT1"."SMALLA" AS g_0, "BQT2"."SMALLB" AS g_1 WHERE g_0."BOOLEANVALUE" = cast(g_1."CHARVALUE" AS tinyint)
+{code}
+
+But the problem is not present for:
+{code:sql}
+SELECT BQT1.SMallA.BooleanValue FROM BQT1.SmallA WHERE BQT1.SmallA.BooleanValue = cast(BQT1.SmallA.CharValue as boolean)
+{code}
+
+It seems that the Cartesian product and comparing values from different sources are the cause of the issue. But HANA has internal type BOOLEAN, so there might be no point at modifying the type to TINYINT after all. I also checked, that the pushed query (which causes the issue) with the casting altered to BOOLEAN runs well on HANA. The following query returns expected results when pushed directly to HANA instance:
+{code:sql}
+SELECT g_0."BOOLEANVALUE", cast(g_1."CHARVALUE" AS boolean) FROM "BQT1"."SMALLA" AS g_0, "BQT2"."SMALLB" AS g_1 WHERE g_0."BOOLEANVALUE" = cast(g_1."CHARVALUE" AS boolean)
+{code}
+
+NOTE: The CharValue columns are modelled as VARCHAR/string in fact. Thus the cast is a valid operation.

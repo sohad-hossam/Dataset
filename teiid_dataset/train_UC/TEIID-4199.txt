@@ -1,0 +1,5 @@
+Redshift fails locate pushdown
+The LOCATE(x,y,z) function translates incorrectly:
+Query: SELECT INTKEY, STRINGKEY FROM Source.SmallA WHERE LOCATE('1', STRINGKEY, 2) IN (1, 2)
+Source-specific command: SELECT g_0.intkey, g_0.stringkey FROM smalla AS g_0 WHERE (position('1' in substr(g_0.stringkey, 2)) + 1) IN (1, 2)
+Root exception message: Caused by: org.postgresql.util.PSQLException: ERROR: function SUBSTR does not exist (Hint: use SUBSTRING instead)

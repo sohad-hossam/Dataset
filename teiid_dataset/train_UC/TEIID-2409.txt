@@ -1,0 +1,2 @@
+To add execution id into data src command_log
+When we try to analyze the command_log, for some user query, it push multiple data source queries to same data source, in this case, both request id and source command id are same, so it is impossible to pair those data source queries from the command_log (please see discussion: https://community.jboss.org/message/799183#799183). Adding the execution id into the data source command_log should make following combination key unique (request id + source command id + execution id)

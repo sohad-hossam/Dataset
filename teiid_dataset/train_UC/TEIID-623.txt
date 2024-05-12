@@ -1,0 +1,13 @@
+Updating Common Extension Classpath With New/Changed UDF JARs Does Not Make Those JARs Visible Even After A UDF Reload
+In Teiid Designer, after a new UDF JAR is added the following code is executed:
+
+        EmbeddedAdmin admin = (EmbeddedAdmin)adminConnection.getAdminAPI();
+        admin.setSystemProperty(DQPEmbeddedProperties.COMMON_EXTENSION_CLASPATH, buildUDFClasspath());
+        admin.reloadUDF();
+
+The buildUDFClasspath() method builds an extension jar classpath with just the UDF JARS. So it would look something like this:
+
+        extensionjar:udfjar1.jar;extensionjar:udfjar2
+
+When the Designer tries to query using Teiid embedded that new JAR is not found on the extension classpath. The reload should pick up the newly added or updated JARS on the extension classpath.
+

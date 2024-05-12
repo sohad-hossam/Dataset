@@ -1,0 +1,10 @@
+Cannot pass xml result from one select as critera to another select
+I've created a VDB with procedures to create and parse XML, as wall as one to invoke the WS connector.  SQL that unites them all into a single call passing the created XML into the invoke procedure is failing:
+
+SELECT t.* FROM table (EXEC cis.CountryInfoServiceXML.CapitalCity.create_CapitalCity('US')) AS request, table (EXEC CountryInfoService.invoke('SOAP11', '', request.xml_out, 'http://www.oorsprong.org/websamples.countryinfo/CountryInfoService.wso')) AS response, table (EXEC cis.CountryInfoServiceXML.CapitalCity.extract_CapitalCityResponse(RESPONSE.result)) AS t;
+
+
+13:23:02,501 ERROR [PROCESSOR] Unexpected exception for request wHnSpxDdmkGB.5
+[TeiidComponentException] ERR.015.006.0033: Error Code:ERR.015.006.0033 Message:Unable to evaluate request.xml_out: No value was available
+        at org.teiid.query.util.CommandContext.getFromContext(CommandContext.java:389)
+        at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:629)

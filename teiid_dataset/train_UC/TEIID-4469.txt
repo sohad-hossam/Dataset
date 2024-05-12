@@ -1,0 +1,19 @@
+Insert with query expression does not apply source hint to target
+"INSERT INTO ... SELECT ..." statements result in a ProjectIntoNode which seems to prevent any source hints from being passed down to the relevant source.  These work correctly with an "INSERT INTO ... VALUES ..." statement.  I've included example user and final query plan data below for the non-working [1] and working [2] insert statements.
+
+[1] source hint not applied to ProjectIntoNode:
+USER COMMAND:
+INSERT /*+sh test:'append' */ INTO test.TEST (ID, "VALUE") SELECT X.id AS ID, X."value" AS "VALUE" FROM (SELECT bqt.SMALLA.INTKEY AS id, bqt.SMALLA.INTNUM AS "value" FROM bqt.SMALLA WHERE bqt.SMALLA.INTKEY = 0) AS X
+...
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+ProjectIntoNode(0) output=[Count] test.TEST
+  AccessNode(1) output=[bqt.SMALLA.INTKEY AS ID, bqt.SMALLA.INTNUM AS "VALUE"] SELECT /*+sh test:'append' */ g_0.INTKEY, g_0.INTNUM FROM bqt.SMALLA AS g_0 WHERE g_0.INTKEY = 0
+
+[2] source hint applied to AccessNode:
+USER COMMAND:
+INSERT /*+sh test:'append' */ INTO test.TEST (ID, "VALUE") VALUES ('-1', '-1')
+...
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+AccessNode(0) output=[Count] INSERT /*+sh test:'append' */ INTO test.TEST (ID, "VALUE") VALUES ('-1', '-1')

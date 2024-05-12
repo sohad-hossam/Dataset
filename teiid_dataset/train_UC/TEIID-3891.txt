@@ -1,0 +1,2 @@
+MetadataFactory create function from method does not account for primitive return types
+The metadatafactory will set the type to object rather than finding a more appropriate runtime type for primitive return values.

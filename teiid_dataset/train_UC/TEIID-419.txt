@@ -1,0 +1,4 @@
+Missing message for key "WorkerPool.New_thread" in: com.metamatrix.common.i18n
+Enabled trace logging with all context and ran some server side code and see a few of these in log output:
+
+<Missing message for key "WorkerPool.New_thread" in: com.metamatrix.common.i18n>

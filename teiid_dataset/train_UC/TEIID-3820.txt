@@ -1,0 +1,2 @@
+SimpleDB column import order may not be consistent
+The attributes are first ordered in a HashMap, so the order from the source is not preserved.

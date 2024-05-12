@@ -1,0 +1,11 @@
+java.lang.IllegalStateException: Failed to find template for: translator-file  while attempting to call Admin.getTemplatePropertyDefinitions("file")
+Trying to access property info for Translators via Designer's hook through Admin API.
+
+    protected void refreshTranslators( Collection<Translator> translators ) throws Exception {
+        for (Translator translator : translators) {
+            Collection<PropertyDefinition> propDefs = this.admin.getTemplatePropertyDefinitions(translator.getName());
+	     this.translatorByNameMap.put(translator.getName(), new TeiidTranslator(translator, propDefs, this));
+        }
+    }
+
+So when the loop gets to the "file" translator, the admin.getTemplatePropertyDefinitions("file") ends up logging: java.lang.IllegalStateException: Failed to find template for: translator-file

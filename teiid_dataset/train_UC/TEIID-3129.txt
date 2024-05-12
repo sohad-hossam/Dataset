@@ -1,0 +1,16 @@
+Limit is not added with multiple nulls in select on outer query to an inline view
+When a query does multiple null selects in the in the outer query to an inline view and you only have a DISTINCT constant selected from the view definition, a limit 1 is expected to be applied to the inline view query which does not happen. Here is the sample query-
+
+SELECT DISTINCT c1, null as c2, null as c3 FROM(
+    SELECT c1, c2 FROM (
+        SELECT 'const_col_1' as c1, ID as c2 FROM FIRST_SCHEMA.FIRST_TABLE
+        UNION ALL
+        SELECT 'const_col_2' as c1, ID as c2 FROM SECOND_SCHEMA.SECOND_TABLE
+    ) as v
+) as v1
+
+The query will contain queries to the inline view without a limit like the following-
+SELECT 'const_col_1' FROM h2extended.TEST.FIRST_SCHEMA.FIRST_TABLE AS g_0 -------------------LIMIT 1 is not applied here
+
+Full query plan and the detail are capture in this discussion-
+https://developer.jboss.org/thread/248787

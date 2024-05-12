@@ -1,0 +1,2 @@
+Add xquery to message when it is invalid
+Teiid TEIID30154 conveys the saxon exception, but not the xquery value that causes the issue.

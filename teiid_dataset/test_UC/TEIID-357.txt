@@ -1,0 +1,2 @@
+Create a cannonical set of push down functions
+Currently the engine may pushdown aliases of common functions (convert/cast, nvl/ifnull, lower/lcase, etc.) duplications should be removed by the rewriter to a canonical set defined by constants so that connector developers know what system functions to expect.

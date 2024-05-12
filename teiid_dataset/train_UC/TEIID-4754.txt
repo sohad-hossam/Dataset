@@ -1,0 +1,25 @@
+Wrong result with bidirectional relationship
+From the forum post, two tables that relate to each other:
+
+EmployeeMasterEntity (PK EmployeeID, FK Departments)
+OrganizationalUnitEntity (PK OrganizationalUnitID, FK Managers)
+
+With data like:
+
+EmployeeMasterEntity
+EmployeeID                       Department
+1                                       10000001 
+2                                       10000002 
+3                                       10000001 
+ 
+OrganizationalUnitEntity
+OrganizationaUnitID           UnitManager
+10000001                          1
+10000002                          2
+10000003                          2
+
+Will not return the correct results for a query such as:
+
+http://localhost:8080/odata4/TestOdata.1/InterlemView/EmployeeMasterEntity(3)/Departments?$format=json
+
+This is due to using the wrong relationship for the navigation.

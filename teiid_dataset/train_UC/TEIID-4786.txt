@@ -1,0 +1,2 @@
+Report more information with max block exception
+When the max block exception occurs in the buffer manager it reports the batch manager and batch id - but those can only be traced back to a query based upon a detail/trace log of buffer manager activity.  We should provide more information, which at the very least should include the number of rows/columns, how large it actually is, column types, etc.

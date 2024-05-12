@@ -1,0 +1,2 @@
+Add a ddl equivalent to the metadata tag
+Generally we'll need something that is equivalent to the metadata tag - that can specify a repo and options.  In a zip deployment this will allow splitting the ddl over multiple files.

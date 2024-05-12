@@ -1,0 +1,2 @@
+enabled cipher suites property cannot be set
+The enabled cipher suites property will fail to parse as expected in placed on the ssl config element.  The xsd and other information needs updated.

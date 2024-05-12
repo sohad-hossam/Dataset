@@ -1,0 +1,36 @@
+Infinispan-dsl-cache translator: comparison operators(GE,LE) problem with string
+Comparison of string values provides wrong results for GE and LE operators. I provide example queries, notice the number of rows returned by the queries.
+For query: {code:sql}SELECT BQT1.SmallA.StringNum FROM BQT1.SmallA WHERE BQT1.SmallA.StringNum <= -22 ORDER BY StringNum{code}
+* Process Tree:
+{code:plain}
+LimitNode(0) output=[g_0.stringNum] limit 100
+    AccessNode(1) output=[g_0.stringNum] SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0 WHERE g_0.stringNum <= '-22' ORDER BY g_0.stringNum
+{code}
+* SRC CMD: {code:sql}SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0 WHERE g_0.stringNum <= '-22' ORDER BY g_0.stringNum{code}
+* result 0 rows
+
+But for query: {code:sql}SELECT BQT1.SmallA.StringNum FROM BQT1.SmallA WHERE BQT1.SmallA.StringNum < -22 ORDER BY StringNum{code}
+* Process Tree:
+	{code:plain}ProjectNode(0) output=[c.stringNum AS StringNum] [c.stringNum AS StringNum]
+	  LimitNode(1) output=[c.stringNum] limit 100
+	    SortNode(2) output=[c.stringNum] [SORT] [c.stringNum]
+	      SelectNode(3) output=[c.stringNum] c.stringNum < '-22'
+		AccessNode(4) output=[c.stringNum] SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0{code}
+* SRC CMD: {code:sql}SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0{code}
+* result 14 rows
+
+And query: {code:sql}SELECT BQT1.SmallA.StringNum FROM BQT1.SmallA WHERE BQT1.SmallA.StringNum = -22 ORDER BY StringNum{code}
+* Process Tree:
+{code:plain}LimitNode(0) output=[c.stringNum AS StringNum] limit 100
+		AccessNode(1) output=[c.stringNum AS StringNum] SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0 WHERE g_0.stringNum = '-22' ORDER BY g_0.stringNum{code}
+* SRC CMD: {code:sql}SELECT g_0.stringNum FROM SmallAs.smallARemotecache AS g_0 WHERE g_0.stringNum = '-22' ORDER BY g_0.stringNum{code}
+* result 1 row
+
+The first query should then return 15 rows instead of 0. Also the queries differ in a way they are processed, the first one is pushed down to infinispan, the other two are processed by teiid, which is probably a regression originally tracked here: TEIID-3424
+
+The same cause introduces problems with similar queries:
+{code:sql}Select IntKey, StringKey From BQT1.SmallA WHERE NOT(StringKey > 10 AND IntKey < 47) ORDER BY IntKey{code}
+Which is processed as:
+* Process Tree: 
+		{code:plain}LimitNode(0) output=[c.intKey AS IntKey, c.stringKey AS StringKey] limit 100
+		  AccessNode(1) output=[c.intKey AS IntKey, c.stringKey AS StringKey] SELECT g_0.intKey, g_0.stringKey FROM SmallAs.smallARemotecache AS g_0 WHERE (g_0.stringKey <= '10') OR (g_0.intKey >= 47) ORDER BY g_0.intKey{code}

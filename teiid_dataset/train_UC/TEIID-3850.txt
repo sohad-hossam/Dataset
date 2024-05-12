@@ -1,0 +1,2 @@
+Source caching with the cache directive can be at the wrong scope
+Source caching with the cache directive can be at the wrong scope since the conversion from the cache directive to the determinism level lacks break statements.

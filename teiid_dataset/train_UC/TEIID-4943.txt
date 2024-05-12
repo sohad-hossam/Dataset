@@ -1,0 +1,12 @@
+Minimize creating redundant copied predicates
+When an inner join with a predicate that can be copied is pushed, we will still create the copied criteria.  In some situations, this over-constraining is not desirable.  We should minimize when this occurs.  For example:
+
+select col1 from t1, t2 where t1.col = t2.col and t1.col = 1
+
+should pushdown as:
+
+select col1 from t1, t2 where t1.col = t2.col and t1.col = 1
+
+not:
+
+select col1 from t1, t2 where t1.col = t2.col and t1.col = 1 and t2.col = 1

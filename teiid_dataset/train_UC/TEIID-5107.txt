@@ -1,0 +1,4 @@
+teiid-olingo-*.war not deploying in wildfly when using domain
+The Teiid odata war is only deploying in standalone.
+
+The workaround in domain mode is to re-deploy the war using the admin console.

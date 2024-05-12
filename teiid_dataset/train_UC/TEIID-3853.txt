@@ -1,0 +1,2 @@
+BatchedUpdateNode should not report requires transaction true
+We expect BatchedUpdates to be executed atomicly at the source, so the node should not report a transaction as being required.

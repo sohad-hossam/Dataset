@@ -1,0 +1,43 @@
+Swagger translator bugs and enhancement request
+This JIRA is in response to instructions from Ramesh Reddy in the teiid-dev mailing list (http://lists.jboss.org/pipermail/teiid-dev/2016-July/000997.html)
+
+Bugs
+
+1) JsonSerializer.deserialize with an unnamed array
+If a Rest endpoint is called that returns an unnamed array such as:
+
+[
+  {
+    "scheduleId": 10007,
+    "timeStamp": 1468000572174,
+    "value": 2813018112
+  },
+  {
+    "scheduleId": 10007,
+    "timeStamp": 1468000602173,
+    "value": 2817523712
+  }
+]
+
+the JsonSerializer.deserialize method throws an EmptyStackException in the
+END_ARRAY case because the 'fieldName' stack is empty.  A check for empty
+in the if clause fixes the problem:
+
+  if (arrayLevel > objectLevel && !fieldName.empty())...
+
+2) DDL generation
+When the schema DDL is generated from the Swagger, all procedure parameters
+have their NullType set to NullType.No_Nulls.  Can this be set depending on
+the Swagger parameter 'required' field?  For instance:
+
+  boolean required = parameter.getRequired();
+  pp.setNullType(required ? NullType.No_Nulls : NullType.Nullable);
+
+
+Enhancement idea:
+
+REST apis that are not Swagger based could be used with the Swagger
+translator if a user could provide a swagger.json file they've created in
+the Swagger Editor.  I've added some changes to SwaggerMetadataProcessor
+that allow a user to specify an importer property, swaggerFilePath, that's
+used in the getSchema method to load the Swagger metadata from file.

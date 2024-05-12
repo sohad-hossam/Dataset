@@ -1,0 +1,2 @@
+Change all package names to org.teiid
+With a major version switch we should change our packages over to teiid.  This will need to be coordinated with the designer as well.

@@ -1,0 +1,2 @@
+VDB file extention must be all lowercase
+Might be obvious, but the file extension of a VDB must be all lowercase.  The web console looked like it deployed and enabled it, but if you go into the Runtime tab, the VDB is not there.

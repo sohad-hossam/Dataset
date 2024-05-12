@@ -1,0 +1,5 @@
+Error Finding Latest active VDB suing Postgres as a Repository
+Attempting to connect to a VDB in Teiid while using a Postgres VDB, I encountered the  following exception:
+
+[VirtualDatabaseException] ERR.008.006.0035: Error processing query: SELECT VDB_UID,VDB_NM,VDB_VERSION FROM RT_VIRTUAL_DBS WHERE UCASE( VDB_NM )=? AND VDB_VERSION=? AND (VDB_STATUS=3 OR VDB_STATUS=3)
+1 [PSQLException]ERROR: function ucase(character varying) does not existv

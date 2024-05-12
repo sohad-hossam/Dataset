@@ -1,0 +1,3 @@
+JDG: Does not support 1-to-1 relationship
+When the primary object has a defined  1-to-1 relationship, the internal relationship isn't generating a second table by the metadata processor, even though its defined in the protobuf definition file and the marshallers.   And when the second table is manually built, and then tried to preview, the server is throwing a methodNotFound exception, because its looking back on the primary object for the method, not the internal object.
+

@@ -1,0 +1,4 @@
+Support solr authentication
+From the comments on https://developer.jboss.org/wiki/IntegrateApacheSolrWithTeiid
+
+There is a request to support authentication into solr - which supports pluggable auth, such as basic auth.

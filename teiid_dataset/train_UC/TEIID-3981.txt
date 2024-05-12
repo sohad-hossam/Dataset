@@ -1,0 +1,4 @@
+Salesforce-34 connector dependency on "com.force.api" is wrong
+connector-salesforce-34 depends on connector-salesforce, which depends on translator-salesforce that depends on com.force.api.22
+
+This need to be corrected through exclusions in the pom.xml. I believe the Teiid kit is fine, but will need to be double checked.

@@ -1,0 +1,8 @@
+Better highlighting in the query plan when an identified possible issue is seen
+Looking a query plan that's printed in the server log, I see the following line:
+
+"LOW Relational Planner Negation is not supported by source People - People.Person.id < 2 was not pushed"
+
+Can the words "LOW Relational Planner Negation" be rephrased?
+
+The word "LOW" used in the context of the criteria not being pushed down would seem to me to be a possible CRITICAL issue to performance.   And I'm not sure most users will claim to know what Relational Planner Negation means and what its implying on an error message.

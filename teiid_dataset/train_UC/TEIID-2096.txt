@@ -1,0 +1,45 @@
+Colons need to be escaped
+$ psql -h vdb.engineering.redhat.com -p 35432 -U sgreen -d EngVDBR
+Password for user sgreen: 
+psql (9.1.4, server 8.1.4)
+WARNING: psql version 9.1, server version 8.1.
+         Some psql features might not work.
+SSL connection (cipher: DHE-RSA-AES256-SHA, bits: 256)
+Type "help" for help.
+
+EngVDBR=> SELECT class, COUNT(*) FROM Bugzilla.audit_log GROUP BY class;
+                       class                       | count 
+---------------------------------------------------+-------
+ Bugzilla::Component                               |  3686
+ Bugzilla::Extension::ExternalBugs::Bug            |  3110
+ Bugzilla::Extension::ExternalBugs::Type           |     4
+ Bugzilla::Extension::ExternalBugs::Type::Bugzilla |     1
+ Bugzilla::Extension::Releases::Release            |     5
+ Bugzilla::Field                                   |    27
+ Bugzilla::Field::Choice::cf_extra_component       |   421
+ Bugzilla::Field::Choice::cf_extra_version         |    20
+ Bugzilla::Field::Choice::cf_verified              |     1
+ Bugzilla::FlagType                                |    89
+ Bugzilla::Group                                   |    34
+ Bugzilla::Milestone                               |    81
+ Bugzilla::Product                                 |    30
+ Bugzilla::Release                                 |    66
+ Bugzilla::User                                    |  3316
+ Bugzilla::Version                                 |    79
+(16 rows)
+
+EngVDBR=> SELECT * FROM Bugzilla.audit_log WHERE class = 'Bugzilla::Component' LIMIT 1;
+ user_id | class | object_id | field | removed | added | at_time 
+---------+-------+-----------+-------+---------+-------+---------
+(0 rows)
+
+EngVDBR=> SELECT * FROM Bugzilla.audit_log WHERE class = 'Bugzilla\:\:Component' LIMIT 1;
+ user_id |        class        | object_id |    field     | removed | added  |  
+      at_time        
+---------+---------------------+-----------+--------------+---------+--------+--
+---------------------
+  271726 | Bugzilla::Component |     91289 | initialowner | 173606  | 295575 | 2
+012-05-19 19:33:15.0
+(1 row)
+
+Question is. Why do the colons need to be backspaced to get a result?

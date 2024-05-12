@@ -1,0 +1,6 @@
+Implement ST_Transform
+Implement [ST_Transform|http://postgis.org/docs/ST_Transform.html] system function. This would be used to transform geometry between different coordinate systems. This needs SPATIAL_REF_SYS table and a supporting library.
+
+There are a couple of options for implementing this:
+* http://trac.osgeo.org/proj4j/ - Port of the C library used by PostGIS. Fewest dependencies and should keep us close to PostGIS in capabilities. There will be a little boilerplate to interface with JTS.
+* http://docs.geotools.org/latest/userguide/library/referencing/index.html - GeoTools referencing module. I think we would need to develop a simple plugin to interface with our SPATIAL_REF_SYS table. GeoTools is active and has good docs, but brings in a lot of dependencies.

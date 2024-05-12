@@ -1,0 +1,4 @@
+Invalid session terminination after 30 minutes
+A user session is being automatically being terminated after 30 minutes., because max life of session is set to 30 minutes.
+
+The configuration file contains wrong "session.timeoutInMilli" value, and default value also set to 10 minutes, which should be in-definite.

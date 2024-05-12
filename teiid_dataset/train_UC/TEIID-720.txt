@@ -1,0 +1,2 @@
+Translate criteria validation issues
+Translate criteria should not accept criteria containing an OR, since the logic assumes that it can always use predicates independently (or worse the current logic would turn an OR into an AND).  Also the validation check needs to check each user predicate and not exit early if a particular criteria type is not being translated.

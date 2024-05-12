@@ -1,0 +1,2 @@
+Federate process hangs after the execution and never exits
+After executing the "example" code in the Federate Embedded, the process (JVM) is failing to exit. Normally, when the main thread dies all the non-daemon threads should exit too.

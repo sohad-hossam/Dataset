@@ -1,0 +1,2 @@
+Remove the use of variablevalues on commands
+Storing variable values is no longer needed, since it is only needed from a dynamic context which has access to the user command.

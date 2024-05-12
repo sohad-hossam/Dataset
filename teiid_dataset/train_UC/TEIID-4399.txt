@@ -1,0 +1,2 @@
+Remove $levels restrictions
+Once https://issues.apache.org/jira/browse/OLINGO-1009 is addressed the ODataSQLBuilder restrictions for OLINGO-1009 in the processExpandOption should be removed.  Also additional unit tests will be needed.

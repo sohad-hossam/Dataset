@@ -1,0 +1,2 @@
+SF connector fails to connect.
+Changes for JCA including the migration to cxf have some residual issues.

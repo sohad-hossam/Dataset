@@ -1,0 +1,4 @@
+Oracle sequence insert override change
+The current behavior is to replace existing insert values if the column appears to be a sequence.  This is a hack and prevents the proper usage of an overriding insert value.  The new behavior will look for the sequence name in source only if a value is not supplied and the column is marked as auto_increment.
+
+This is a breaking changes that needs to be highlighted in the release notes.

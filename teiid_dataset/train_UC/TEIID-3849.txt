@@ -1,0 +1,3 @@
+Writes using Cassandra connector are very slow
+The connector seems to execute the insert queries one by one rather than using batched approach, also the API used is the synchronous one instead of the future based async API [session.executeAsync()]
+Cassandra writes are generally very fast, but it was noted in one scenario that on a single node Cassandra setup inserting a set 50k records and 3 columns took more than 25 mins.

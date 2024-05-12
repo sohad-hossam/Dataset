@@ -1,0 +1,79 @@
+Incorrect aggregate rewriting on DB2/AS400 using UDF
+When I run the following query, the count(*) in the middle inline view, gets rewritten as a sum and a count in the most inner inline view. This has something to do with my the parseDate_ UDF. This is a change from EDS 5.2 where it worked correctly. I've included logs from both for contrast.
+
+Query:
+{code}
+SELECT
+  examiner,
+  exam_date,
+  exam_date_code,
+  num_claims,
+  company_id,
+  1 AS enterprise_id
+FROM
+  (
+    SELECT
+      examiner,
+      parseDate_(exam_date_code) AS exam_date,
+      exam_date_code,
+      company_id,
+      COUNT(*) AS num_claims
+    FROM
+      (
+        SELECT
+          CASE
+            WHEN (ME4.ADJUSR <> ' ')
+              AND (ME4.APRUSR <> ' ')
+            THEN
+              CASE
+                WHEN ME4.APRDAT >= ME4.ADJDAT
+                THEN ME4.APRUSR
+                ELSE ME4.ADJUSR
+              END
+            WHEN (ME4.APRUSR <> ' ')
+              AND (ME4.ADJUSR = ' ')
+            THEN ME4.APRUSR
+            WHEN (ME4.APRUSR = ' ')
+              AND (ME4.ADJUSR <> ' ')
+            THEN ME4.ADJUSR
+            ELSE MED.ADJUSR
+          END AS examiner,
+          CASE
+            WHEN (ME4.ADJUSR <> ' ')
+              AND (ME4.APRUSR <> ' ')
+            THEN
+              CASE
+                WHEN ME4.APRDAT >= ME4.ADJDAT
+                THEN ME4.APRDAT
+                ELSE ME4.ADJDAT
+              END
+            WHEN (ME4.APRUSR <> ' ')
+              AND (ME4.ADJUSR = ' ')
+            THEN ME4.APRDAT
+            WHEN (ME4.APRUSR = ' ')
+              AND (ME4.ADJUSR <> ' ')
+            THEN ME4.ADJDAT
+            ELSE MED.LSTCHG
+          END                          AS exam_date_code,
+          CONVERT(MED.COMPNO, INTEGER) AS company_id
+        FROM
+          FCC.MEDMAS AS MED
+        INNER JOIN
+          FCC.ME4MAS AS ME4
+        ON
+          MED.BRANCD = ME4.BRANCD
+          AND MED.BATDAT = ME4.BATDAT
+          AND MED.BATSEQ = ME4.BATSEQ
+          AND MED.SEQNUM = ME4.SEQNUM
+        WHERE
+          (MED.SYSDAT >= curdate_('-11 months 1st day'))
+          AND (MED.LINENO = 1)
+          AND (MED.STATCD <> 'O')
+          AND ((ME4.ADJUSR <> ' ')
+            OR (ME4.APRUSR <> ' ')
+            OR (MED.ADJUSR <> ' '))) AS Event
+    GROUP BY
+      Event.examiner,
+      Event.exam_date_code,
+      Event.company_id) AS Count_By_Examiner_ID
+{code}

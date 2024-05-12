@@ -1,0 +1,2 @@
+JDBC Metadata SQLXML type is wrong
+JDBC Metadata should report the sql type for SQLXML as 2009 not 2000

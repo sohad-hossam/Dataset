@@ -1,0 +1,8 @@
+Result of query depends on Locale
+Description: Some kind of queries ends with SQL syntax error (or incorrect result) because of real numbers are translated to locale-specific-string (e.g. -24 => -24,0 for sk_SK locale).
+
+Testing environment:
+a) Locale: sk_SK (Slovakia), cs_CZ(Czech)
+b) OS: fedora 20
+c) arch: x86_64
+d) java: sun 1.7, openJDK_1.7

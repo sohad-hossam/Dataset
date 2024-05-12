@@ -1,0 +1,8 @@
+Update and Delete Operations fail in One-2-One mapping in MongoDB Translator
+When two tables are defined in ONE-2-ONE relation like defined in TEIID-2830, the UPDATE and DELETE operations on those tables end up in failure always.
+
+for ex:
+{code}
+DELETE FROM Address WHERE CustomerId = '1002'
+UPDATE Address SET Street = 'Highway 100' WHERE CustomerId = '1002'
+{code}

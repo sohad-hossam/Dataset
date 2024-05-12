@@ -1,0 +1,52 @@
+NPE in RuleMergeVirtual when running a query with nested CTEs
+I defined the following view, based on a table in PostgreSQL (pg.test_a):
+{code:sql}
+create view tv1 as
+WITH 
+	alias as (SELECT a from pg.test_a),
+	alias2 as (select t2.a as a1, t1.a from alias t1 join (SELECT a from pg.test_a) t2 on t1.a=t2.a),
+	alias3 as (select t2.a as a1, t1.a from alias t1 join alias2 t2 on t1.a=t2.a)
+SELECT alias3.a1 FROM alias2 join alias3 on alias3.a=alias2.a;
+{code}
+
+When I run this query:
+{code:sql}
+with
+CTE1 as (
+	select a1 from ( 
+		with CTE11 as (select a1 from views.tv1) 
+			select a1 from CTE11
+	) as  SUBQ1),
+CTE2 as (
+	select a1 from ( 
+		with CTE21 as (select a1 from views.tv1) 
+			select a1 from CTE21
+	) as  SUBQ2)  
+select * from CTE1 as T1 join CTE2 as T2 on T1.a1=T2.a1
+{code}
+
+this exception is thrown:
+{code:sql}
+16:36:34,749 ERROR [org.teiid.PROCESSOR] (Worker17_QueryProcessorQueue112) cMD3wCUrebvy TEIID30019 Unexpected exception for request cMD3wCUrebvy.34: java.lang.NullPointerException
+        at org.teiid.query.optimizer.relational.rules.RuleMergeVirtual.doMerge(RuleMergeVirtual.java:218)
+        at org.teiid.query.optimizer.relational.rules.RuleMergeVirtual.execute(RuleMergeVirtual.java:84)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:870)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:226)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.planWith(RelationalPlanner.java:361)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:206)
+        at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:159)
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:445)
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:473)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:655)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:337)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+{code}
+
+The same error occurs using inline views too.

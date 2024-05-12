@@ -1,0 +1,84 @@
+WS SOAP Response with WS-A Headers results in ClassCastException
+When sending a WS-A SOAP request successfully the service responds with WS-A Headers. The result is a ClassCastException as the fornat the XML is parsed in is  javax.xml.transform.dom.DOMSource rather than the expected javax.xml.transform.stax.StAXSource 
+
+D: 5
+Address: http://localhost:8080/jboss-jaxws-addressing/AddressingService
+Encoding: UTF-8
+Http-Method: POST
+Content-Type: text/xml; charset=UTF-8
+Headers: {Accept=[*/*], cache-control=[no-cache], connection=[keep-alive], Content-Length=[573], content-type=[text/xml; charset=UTF-8], host=[localhost:8080], pragma=[no-cache], SOAPAction=[""], user-agent=[Apache CXF 2.7.14.redhat-1]}
+Payload: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/" xmlns:tns="http://www.jboss.org/jbossws/ws-extensions/wsaddressing" xmlns:wsa="http://www.w3.org/2005/08/addressing">
+  <soap:Header>
+    <wsa:MessageID>UUID-100</wsa:MessageID>
+    <wsa:To>http://www.w3.org/2005/08/addressing/anonymous</wsa:To>
+    <wsa:ReplyTo>http://www.w3.org/2005/08/addressing/anonymous</wsa:ReplyTo>
+    <wsa:Action>http://www.w3.org/2005/08/addressing/ServiceIface/sayHelloToName</wsa:Action>
+  </soap:Header>
+  <soap:Body>
+    <tns:sayHello>Stelios</tns:sayHello>
+  </soap:Body>
+</soap:Envelope>
+
+--------------------------------------
+19:04:45,385 INFO  [org.apache.cxf.services.AddressingService.AddressingServicePort.ServiceIface] (http-localhost/127.0.0.1:8080-1) Outbound Message
+---------------------------
+ID: 5
+Response-Code: 200
+Encoding: UTF-8
+Content-Type: text/xml
+Headers: {}
+Payload: <soap:Envelope xmlns:soap="http://schemas.xmlsoap.org/soap/envelope/">
+  <soap:Header>
+    <Action xmlns="http://www.w3.org/2005/08/addressing">http://www.jboss.org/jbossws/ws-extensions/wsaddressing/ServiceIface/sayHelloResponse</Action>
+    <MessageID xmlns="http://www.w3.org/2005/08/addressing">urn:uuid:747217df-668e-4152-acb4-360d2b40a967</MessageID>
+    <RelatesTo xmlns="http://www.w3.org/2005/08/addressing">UUID-100</RelatesTo>
+  </soap:Header>
+  <soap:Body>
+    <ns2:sayHelloResponse xmlns:ns2="http://www.jboss.org/jbossws/ws-extensions/wsaddressing">
+      <return>Hello World!</return>
+    </ns2:sayHelloResponse>
+  </soap:Body>
+</soap:Envelope>
+
+--------------------------------------
+19:04:45,390 ERROR [org.teiid.CONNECTOR] (Worker11_QueryProcessorQueue20) Connector worker process failed for atomic-request=KoRkVR60P+Nr.0.9.4: java.lang.ClassCastException: javax.xml.transform.dom.DOMSource cannot be cast to javax.xml.transform.stax.StAXSource
+    at org.teiid.translator.ws.WSProcedureExecution.execute(WSProcedureExecution.java:136) [translator-ws-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_65]
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_65]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_65]
+    at java.lang.reflect.Method.invoke(Method.java:497) [rt.jar:1.8.0_65]
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at com.sun.proxy.$Proxy159.execute(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_65]
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_65]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_65]
+    at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_65]
+
+19:04:45,394 ERROR [org.teiid.PROCESSOR] (Worker10_QueryProcessorQueue21) TEIID30019 Unexpected exception for request KoRkVR60P+Nr.0: java.lang.ClassCastException: javax.xml.transform.dom.DOMSource cannot be cast to javax.xml.transform.stax.StAXSource
+    at org.teiid.translator.ws.WSProcedureExecution.execute(WSProcedureExecution.java:136)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_65]
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_65]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_65]
+    at java.lang.reflect.Method.invoke(Method.java:497) [rt.jar:1.8.0_65]
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at com.sun.proxy.$Proxy159.execute(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_65]
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_65]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_65]
+    at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_65]

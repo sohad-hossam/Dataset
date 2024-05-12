@@ -1,0 +1,4 @@
+Support "pass though" SQL commands to sources
+Currently there is no mechanism in Teiid, when a query is submitted to a runtime engine that is passed through the query engine unadulterated and unmodified and submitted directly to a source connector. All queries are parsed, optimized, re-written.  Some times this limits the functionality in Teiid, when a user would like to execute a query that is very "source" specific. For example Oracle supports lots of Oracle specific functions that are not supported by the SQL spec, to support execution of these in Teiid user need to resort to UDF, which is cumbersome and involves modelling. 
+
+Another benefit of this is also to pass DDL to sources, currently since Teiid does not support DDL, this is not possible at all.

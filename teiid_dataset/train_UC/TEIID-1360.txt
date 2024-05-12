@@ -1,0 +1,2 @@
+with clause not processed in views
+Due to their handling in RelationalPlanner, with clauses are not processed in views or inline views.  User commands and procedure command statements work as expected.

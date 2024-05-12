@@ -1,0 +1,90 @@
+Osisoft translator - Syntax error on datasource for queries with LOCATE
+Running a query with LOCATE function causes a syntax error on the PI server:
+{code:sql}
+SELECT INTKEY FROM BQT1.SmallA WHERE LOCATE(2, INTKEY, 1) = 1
+{code}
+is pushed as
+{code:sql}
+SELECT g_0.IntKey AS c_0 FROM dvqe..SmallA AS g_0 WHERE cast(g_0.IntKey AS String)'2'1 = 1
+{code}
+and fails with
+{noformat}
+org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [SQL: SELECT TOP 100 g_0.IntKey AS c_0 FROM dvqe..SmallA AS g_0 WHERE cast(g_0.IntKey AS String)'2'1 = 1]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:363)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_141]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_141]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_141]
+        at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_141]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy79.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_141]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [rt.jar:1.8.0_141]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [rt.jar:1.8.0_141]
+        at java.lang.Thread.run(Thread.java:748) [rt.jar:1.8.0_141]
+Caused by: java.sql.SQLException: [PIOLEDBENT] [SQL Parser] [Line 1:90] Syntax error near '2'
+        at com.osisoft.jdbc.StatementImpl.executeQuery(StatementImpl.java:360)
+        at org.jboss.jca.adapters.jdbc.WrappedStatement.executeQuery(WrappedStatement.java:344)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:119) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        ... 18 more
+Caused by: com.osisoft.rdsa.RdsaException: [PIOLEDBENT] [SQL Parser] [Line 1:90] Syntax error near '2'
+        at com.osisoft.rdsa.Command.ExecuteReader(Native Method)
+        at com.osisoft.rdsa.Command.executeReader(Command.java:79)
+        at com.osisoft.jdbc.StatementImpl.executeQuery(StatementImpl.java:356)
+        ... 20 more
+{noformat}
+
+Furthermore, query such as 
+{code:sql}
+SELECT INTKEY, LOCATE(1, STRINGNUM) FROM BQT1.SmallA
+{code}
+fails on teiid (before push down) with
+{noformat}
+java.lang.IndexOutOfBoundsException: Index: 2, Size: 2
+        at java.util.ArrayList.rangeCheck(ArrayList.java:653) [rt.jar:1.8.0_141]
+        at java.util.ArrayList.get(ArrayList.java:429) [rt.jar:1.8.0_141]
+        at org.teiid.translator.jdbc.pi.PIExecutionFactory$1.translate(PIExecutionFactory.java:89) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.translate(JDBCExecutionFactory.java:539) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.pi.PIExecutionFactory.translate(PIExecutionFactory.java:260) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.SQLConversionVisitor.append(SQLConversionVisitor.java:111) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.SQLStringVisitor.visit(SQLStringVisitor.java:834) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.SQLConversionVisitor.visit(SQLConversionVisitor.java:306) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.DerivedColumn.acceptVisitor(DerivedColumn.java:47) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.SQLStringVisitor.append(SQLStringVisitor.java:91) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.SQLConversionVisitor.append(SQLConversionVisitor.java:130) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.SQLStringVisitor.append(SQLStringVisitor.java:106) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.SQLStringVisitor.visit(SQLStringVisitor.java:767) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.Select.acceptVisitor(Select.java:110) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.language.visitor.SQLStringVisitor.append(SQLStringVisitor.java:91) [teiid-api-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.SQLConversionVisitor.append(SQLConversionVisitor.java:130) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.TranslatedCommand.translateCommand(TranslatedCommand.java:76) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.JDBCBaseExecution.translateCommand(JDBCBaseExecution.java:120) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:114) [translator-jdbc-8.12.11.6_4-redhat-64-6.jar:8.12.11.6_4-redhat-64-6]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:363)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_141]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_141]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_141]
+        at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_141]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy79.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_141]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149) [rt.jar:1.8.0_141]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624) [rt.jar:1.8.0_141]
+        at java.lang.Thread.run(Thread.java:748) [rt.jar:1.8.0_141]
+{noformat}

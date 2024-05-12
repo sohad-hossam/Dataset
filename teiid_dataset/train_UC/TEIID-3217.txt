@@ -1,0 +1,2 @@
+XMLTable type conversions result in npe
+We are creating an empty set of conversion rules which results in an npe when doing a conversion to a numeric type.

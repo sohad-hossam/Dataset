@@ -1,0 +1,5 @@
+import-vdb VDB name case-sensitive
+I have built couple of VDBs using designer, their names are all CAPS and wanted to import these 2 VDBs as views in my 3rd VDB. As the VDB name is cases insensitive in connect string i used lower case to connect to the VDB to do JDBC import. After i completed my 3rd VDB when i tried to deploy the VDB onto the server it is going into INACTIVE state, after changing my connection string to upper case and reimporting the VDB i was able to deploy the 3rd VDB and it state turned to ACTIVE.
+
+The VDB import definition seem's to be case sensitive and this may be the cause of the errors.
+I haven't tested this in Dynamic VDB.

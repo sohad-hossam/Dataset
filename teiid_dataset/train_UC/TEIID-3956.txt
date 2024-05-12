@@ -1,0 +1,2 @@
+Retrieving just a stream property fails for OData4
+A property query, such as table/lobColumn will fail as under the covers an NPE occurs in the property handling logic.

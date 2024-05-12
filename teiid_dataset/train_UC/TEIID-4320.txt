@@ -1,0 +1,2 @@
+Costing calculation issues
+When determining if a dependent join should be used we'll rule out too many scenarios based upon requiring additional ndv info - when that can be determined from cardinality alone.   Also we are inappropriately assuming key usage in predicate costing - as it does not consider the node which may not represent a single table.

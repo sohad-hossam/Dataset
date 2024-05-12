@@ -1,0 +1,2 @@
+DDL vdb is expensive to process
+For many ddl operations, a fresh transformationmetadata instance is created, which requires converting the Database to runtime form.  The larger the DDL vdb, the more expensive this becomes.

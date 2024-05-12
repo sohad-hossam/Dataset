@@ -1,0 +1,2 @@
+Use both the general and specific hint in the oracle hint
+The documentation behavior is to use the specific OR general hint (preferring the specific).  The request is to use both.  Will likely implement as a behavioral change without the need to specify a translator property to enable.

@@ -1,0 +1,25 @@
+Missing message when password is null (MMAdmin)
+I was experimenting with security disabled. I tried logging into the Console without a password and received an error (Login failed - Unspecified error). The same thing with MMAdmin produces this:
+
+admin $ connectAsAdmin("foo","","mm://localhost:31000");
+// Error: // Uncaught Exception: Method Invocation createAdmin : at Line: 99 : in file: URL: jar:file:/home/pnittel/jbedsp0521/server/lib/teiid-adminshell-6.1.0-SNAPSHOT.jar!/scripts/server.bsh : .createAdmin ( username , password .toCharArray ( ) , url ) 
+
+Target exception: java.lang.IllegalArgumentException: <Missing message for key "ERR.014.001.00100" in: com.metamatrix.admin.i18n>
+
+On the bright side, omitting the username produces a meaningfule error:
+
+admin $ connectAsAdmin("","","mm://localhost:31000");
+// Error: // Uncaught Exception: Method Invocation createAdmin : at Line: 99 : in file: URL: jar:file:/home/pnittel/jbedsp0521/server/lib/teiid-adminshell-6.1.0-SNAPSHOT.jar!/scripts/server.bsh : .createAdmin ( username , password .toCharArray ( ) , url ) 
+
+Target exception: java.lang.IllegalArgumentException: The user parameter may not be null or empty.
+
+To set this up,
+1 - Login to the Console as Admin
+2 - Go to the Security Summary panel
+3 - Uncheck "Enable Authorization and Authentication"
+4 - Click Apply
+5 - Enter the Admin password
+6 - Click OK
+7 - Restart the server
+
+You may now login as anything, but not nothing. :-)

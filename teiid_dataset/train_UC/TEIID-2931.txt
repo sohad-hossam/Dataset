@@ -1,0 +1,2 @@
+Perform equi-join full outer joins in a streaming manner
+A pass to compute the right outer matches is only needed when there is non-equi join criteria, since we'll already have determined the right outer values that fail to match the equi-join predicates on the first pass.  Note that second passes are limited only to the match regions, but we don't have effective buffering logic for that so we just fully buffer each side.

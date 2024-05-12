@@ -1,0 +1,2 @@
+Embedded kit is missing connector jars
+A late change to the embedded example switched to using the FileConnectionImpl, however the jar was not included.  It makes sense in general though to allow the usage of our connector jars outside of a rar deployment, since that provides a convenient ConnectionFactory and familiar configuration options.

@@ -1,0 +1,2 @@
+Non-pushdown update set clause values are not properly compensated for
+When a physical update has a non-pushdown value in the set clause, it will fail to plan even if compensation is possible.

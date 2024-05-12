@@ -1,0 +1,6 @@
+With clause used in evaluatable subquery in a fully pushed user query is seen as missing temp table
+A query such as:
+
+WITH qry_0 as /\*+ no_inline */ (SELECT e2 AS a1, e1 as str FROM pm1.g1 AS t), qry_1 as /\*+ no_inline */ (SELECT 'b' AS a1) select (select a1 || 'a' from qry_1) as x, a1 from qry_0
+
+where the projected scalar subquery cannot be pushed down, but the rest of the query can will result in the with plan for qry_1 not being associated with the parent RelationalPlan and results in an exception that the temporary table cannot be found.  This does not occur if the clause is inlined (9.0+).

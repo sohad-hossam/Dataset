@@ -1,0 +1,4 @@
+Update the build process to use new Nexus Maven repository
+The repository needs to be replaced with the new one.
+
+http://community.jboss.org/wiki/MavenRepository-FAQ

@@ -1,0 +1,51 @@
+Impala Translator - With Clause Support
+I'm getting an error using the With clause in Teiid connecting to Impala
+{code}
+with t as (select * from schema_name.table_name)
+select * from t;
+{code}
+
+Error:
+{code}
+org.teiid.runtime.client.TeiidClientException: java.lang.RuntimeException: Remote org.teiid.core.TeiidProcessingException: TEIID30504 warehouse: 11300 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH t (col1, col2, col3) AS (SELECT g_0.`col1`, g_0.`col2`, g_0.`col3` FROM schema_name.table_name g_0) SELECT g_0.col1, g_0.col2, g_0.col3 FROM t g_0]
+
+
+Elapsed Time:  0 hr, 0 min, 0 sec, 841 ms.
+{code}
+
+Full error stack:
+{code}
+14:37:35,491 INFO  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue1) ImpalaExecutionFactory Commit=true;DatabaseProductName=Impala;DatabaseProductVersion=2.5.0-cdh5.7.0;DriverMajorVersion=2;DriverMajorVersion=5;DriverName=ImpalaJDBC;DriverVersion=02.05.31.1051;IsolationLevel=1
+14:37:35,516 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue1) Connector worker process failed for atomic-request=u1RZzQGciJra.0.1.0: org.teiid.translator.jdbc.JDBCExecutionException: 11300 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH t (col1, col2, col3) AS (SELECT g_0.`col1`, g_0.`col2`, g_0.`col3` FROM schema_name.table_name g_0) SELECT g_0.col1, g_0.col2, g_0.col3 FROM t g_0]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.13.3.jar:8.13.3]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:359)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_91]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_91]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_91]
+        at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_91]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy29.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_91]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_91]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_91]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_91]
+Caused by: java.sql.SQLDataException: [Simba][JDBC](11300) A ResultSet was expected but not generated from query "WITH t (col1, col2, col3) AS (SELECT g_0.`col1`, g_0.`col2`, g_0.`col3` FROM schema_name.table_name g_0) SELECT g_0.col1, g_0.col2, g_0.col3 FROM t g_0". Query not executed.
+        at com.cloudera.exceptions.ExceptionConverter.toSQLException(Unknown Source)
+        at com.cloudera.jdbc.common.SStatement.checkCondition(Unknown Source)
+        at com.cloudera.jdbc.common.SPreparedStatement.executeWithParams(Unknown Source)
+        at com.cloudera.jdbc.common.SPreparedStatement.executeQuery(Unknown Source)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.13.3.jar:8.13.3]
+        ... 18 more
+{code}
+
+Taking the prepared statement and executing against Impala directly, succeeds without any issues.
+
+Is the With clause supported in the Impala translator?

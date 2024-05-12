@@ -1,0 +1,8 @@
+Recursion Limit not being processed for XML documents - Possible recursion issue?
+I ran the E2ERecursiveXmlTextSource test. It involves setting a limit of 3 on the recursion, and then changing the limit to 4 (where all XML document queries will pass). I found the limit exception was being thrown regardless of the setting (even up to 10).
+
+I changed the behavior from THROW to RECORD and now the queries do not return (in a timely manner), leading me to worry that recursion may be the cause, not the limit itself.
+
+Model Project Set and server log will be attached.
+
+Just looked at the command log and it looks pretty weird. I'd be inclined to start there. I AM able to successfully query the source (text).

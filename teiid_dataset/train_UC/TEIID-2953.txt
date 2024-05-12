@@ -1,0 +1,4 @@
+DB2:  doesn't work with composite key
+If I run a sql with composite key in DB2, Teiid translates it to something incorrect DB2 sql.
+
+However, it works for postgres, mysql, and oracle.

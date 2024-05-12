@@ -1,0 +1,2 @@
+Import metadata from Object translator is not defining primary key
+The infinispan implementation of the object translator getMetadata is not defining the primary key.  If the resource-adapter has defined it, it should expose it.   This key is important for push-down capability.   The user could define this after the fact (i.e, in dynamic vdb or in designer), but from a usability stand point, it would be better if the translator exposed it.

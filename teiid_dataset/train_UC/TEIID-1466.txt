@@ -1,0 +1,25 @@
+MySQL syntax error in cast from date to timestamp
+If you have a table in MySQL with a field declared of type DATE, queries which need to cast that field to a timestamp fail.
+
+E.g. consider a MySQL table T with a field A of type DATE, and create the corresponding source model. If you submit the following two queries, the first works and the second fails.
+
+{noformat}
+SELECT A FROM T;
+{noformat}
+
+{noformat}
+SELECT CAST(A AS TIMESTAMP) FROM T;
+{noformat}
+
+This happens because in the second case, Teiid pushes to MySQL a query like the following:
+
+{noformat}
+SELECT CAST(g_0.A AS TIMESTAMP) FROM T AS g_0;
+{noformat}
+
+That syntax is not valid because MySQL doesn't support casting to timestamp. I think that if it would be possible to cast to datetime instead of timestamp, the query will work. Unfortunately, Teiid doesn't support the datetime data type... so there's no solution.
+
+I've found two workarounds, which prevent Teiid from pushing the cast to the source:
+# The first is to change the data type at the source, that is, by declaring the A field as DATETIME instead of DATE. But this is not alway possible.
+# The other is to declare the field of type dateTime or timestamp in the source model, while leaving the "Native Type" property to DATE
+

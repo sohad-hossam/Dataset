@@ -1,0 +1,16 @@
+AssertionError with independent side of a dependent join that has an ordered limit
+An independent side with a nested ordered limit:
+
+with a (x, y, z) as (select e1, e2, e3 from pm1.g1) SELECT a.x, b.e1 from a, /*+ makeind */ (SELECT * from pm1.g2, a where e1 = x and z = 1 order by e2 limit 2) as b where a.x = b.e1
+
+will cause an assertion error in sorting the dependent values:
+
+java.lang.AssertionError: Assertion failed.
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:68)
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:60)
+	at org.teiid.query.processor.relational.SortUtility.<init>(SortUtility.java:151)
+	at org.teiid.query.processor.relational.SortUtility.<init>(SortUtility.java:187)
+	at org.teiid.query.processor.relational.DependentCriteriaProcessor$TupleState.sort(DependentCriteriaProcessor.java:113)
+
+Because the schema being used is from the below the limit/order by and effectively the source node.

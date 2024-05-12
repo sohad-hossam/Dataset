@@ -1,0 +1,11 @@
+PlanToProcessConverter logical conjunction contains condition with no effect (x==x)
+There is a condition with no effect on resulting boolean value:
+https://github.com/teiid/teiid/blob/6e31f7c3a576ae85fd96dd4003790064552b9110/engine/src/main/java/org/teiid/query/optimizer/relational/PlanToProcessConverter.java#L163
+
+The code in question is:
+{code:java}
+childNode.getProperty(Info.SET_OPERATION) == childNode.getProperty(Info.SET_OPERATION)
+{code}
+which is always true (comparation of exactly the same objects).
+Given the fact that the boolean expression is a conjunction, it does not affect the accessibility of the following code.
+But if it should be another condition instead, it might be a problem.

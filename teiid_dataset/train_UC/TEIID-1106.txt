@@ -1,0 +1,2 @@
+Create the ModeShape connector to be used with the ModeShape jdbc driver to access the ModeShape JCR repository
+None

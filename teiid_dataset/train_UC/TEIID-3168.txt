@@ -1,0 +1,2 @@
+SQL Server requires N prefix for unicode literals
+SQL Server requires the use of the N prefix for string literals when there are non-ascii/windows characters present.

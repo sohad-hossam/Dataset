@@ -1,0 +1,2 @@
+Otherwise evaluatable constructs will inhibit pushdown
+TEIID-1522 introduced a corner case regression such that a constant projection was inlined (removing the need for a fake dependent join), but the resulting expressions were not seen as able to be pushded due to a curdate function preventing the pre-evaluation of non-pushable constructs.

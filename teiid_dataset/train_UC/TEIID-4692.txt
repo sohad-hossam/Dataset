@@ -1,0 +1,2 @@
+upsert delegating override not correct
+The supportsUpsert method references the wrong delegate method.

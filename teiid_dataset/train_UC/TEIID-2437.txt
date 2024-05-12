@@ -1,0 +1,48 @@
+Issuing query against SYS.VirtualDatabases causes SingleInstanceCommunicationException
+Issuing query:  select * from SYS.VirtualDatabases   using Squirrel produces this error on client:
+
+Error: org.teiid.net.socket.SingleInstanceCommunicationException
+SQLState:  08S01
+ErrorCode: 0
+
+The server log shows this error:
+
+12:34:41,665 ERROR [org.teiid.TRANSPORT] (New I/O worker #1) Unhandled exception, closing client instance: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype string for column 1 doesn't match the runtime type "java.lang.Integer". Please ensure that the column's modeled datatype matches the expected data.
+	at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:732) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:291) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1443) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1414) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1174) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:346) [rt.jar:1.7.0_13]
+	at org.teiid.net.socket.Message.writeExternal(Message.java:56) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1443) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1414) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1174) [rt.jar:1.7.0_13]
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:346) [rt.jar:1.7.0_13]
+	at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:115) [teiid-runtime-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.jboss.netty.channel.Channels.write(Channels.java:704) [netty-3.6.2.Final-redhat-1.jar:3.6.2.Final-redhat-1]
+	at org.jboss.netty.channel.Channels.write(Channels.java:671) [netty-3.6.2.Final-redhat-1.jar:3.6.2.Final-redhat-1]
+	at org.jboss.netty.channel.AbstractChannel.write(AbstractChannel.java:248) [netty-3.6.2.Final-redhat-1.jar:3.6.2.Final-redhat-1]
+	at org.teiid.transport.SSLAwareChannelHandler$ObjectChannelImpl.write(SSLAwareChannelHandler.java:94) [teiid-runtime-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.transport.SocketClientInstance.send(SocketClientInstance.java:82) [teiid-runtime-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.transport.ServerWorkItem.sendResult(ServerWorkItem.java:135) [teiid-runtime-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.transport.ServerWorkItem$1.onCompletion(ServerWorkItem.java:105) [teiid-runtime-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:130) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:37) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:75) [teiid-client-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:785) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:583) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.flushBatch(BatchCollector.java:191) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:166) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:400) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:296) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:224) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:253) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:123) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:298) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_13]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_13]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_13]
+
+

@@ -1,0 +1,11 @@
+org.teiid.query.sql.lang.SubqueryFromClause does not quote keywords in the alias
+new SubqueryFromClause("user", QueryParser.getQueryParser()                                                                              .parseCommand("select 1")).toString()
+yields
+(SELECT 1) AS user
+
+it should be
+(SELECT 1) AS "user"
+
+Briefly looking at the code, I think the problem is in org.teiid.query.sql.visitor.SQLStringVisitor.escapeSinglePart(String).escape.  
+
+Shouldn't it check SQLStringVisitor.isReservedWord(String)?

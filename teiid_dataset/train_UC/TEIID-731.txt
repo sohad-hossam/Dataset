@@ -1,0 +1,43 @@
+NPE when trying to execute a query through the LDAP connector
+Another of the Genentech test VDBs uses the LDAP connector. after modeling everything and creating the bindings, here's the exception I received when I tried a query:
+
+Error 2009-07-21 11:13:54.314 Error processing query 
+com.metamatrix.jdbc.MMSQLException: com.metamatrix.api.exception.MetaMatrixComponentException
+	at com.metamatrix.jdbc.MMSQLException.create(MMSQLException.java:82)
+	at com.metamatrix.jdbc.MMSQLException.create(MMSQLException.java:63)
+	at com.metamatrix.jdbc.MMStatement.executeSql(MMStatement.java:433)
+	at com.metamatrix.jdbc.MMStatement.execute(MMStatement.java:328)
+	at net.sourceforge.sqlexplorer.sqlpanel.SqlExecProgress.processQuery(SqlExecProgress.java:192)
+	at net.sourceforge.sqlexplorer.sqlpanel.SqlExecProgress.run(SqlExecProgress.java:121)
+	at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: [MetaMatrixComponentException]
+1 [NullPointerException]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.switchBatch(DataTierTupleSource.java:128)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:89)
+	at com.metamatrix.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:110)
+	at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:160)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:264)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:210)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)
+Caused by: java.lang.NullPointerException
+	at java.util.Hashtable.put(Unknown Source)
+	at com.metamatrix.connector.ldap.LDAPConnection.initializeLDAPContext(LDAPConnection.java:126)
+	at com.metamatrix.connector.ldap.LDAPConnection.<init>(LDAPConnection.java:77)
+	at com.metamatrix.connector.ldap.LDAPConnector.getConnection(LDAPConnector.java:58)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWrapper.getConnectionDirect(ConnectorWrapper.java:67)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWrapper.getConnection(ConnectorWrapper.java:62)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.createConnection(ConnectorWorkItem.java:140)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.createExecution(ConnectorWorkItem.java:288)
+	at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.createExecution(SynchConnectorWorkItem.java:100)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.process(ConnectorWorkItem.java:152)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.run(SynchConnectorWorkItem.java:69)
+	... 4 more
+
+Pertinent artifacts are attached.

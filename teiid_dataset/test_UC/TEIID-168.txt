@@ -1,0 +1,4 @@
+Refine caching behavior
+Connector resultset caching should be replaced with relation and procedure caching.  This would initially be backed by the buffermanager, based upon hints/costing, and be utilized by the planner rather than the resolver.  It would be good if we also detected the level of determinism.
+
+Query resultset caching should also be backed by the buffermanager.

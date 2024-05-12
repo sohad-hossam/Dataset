@@ -1,0 +1,16 @@
+While importing from Deployed BQT2 VDB, JDBC type of 0 and type name NULL was returned for column with design-time type varbinary
+1) Open attached project in Designer 
+2) Deploy the BQT2.vdb
+3) Create another project
+4) Import the VDB metadata via JDBC Importer into your second project (will end up being a read-only VDB source model)
+5) On *finish* you'll get an exception when processing the type_varbinary column because the type returned is "0" and type name of "null"
+
+{code}
+java.lang.IllegalArgumentException: Expected argument to be non-null but got null
+	at org.teiid.core.designer.util.CoreArgCheck.isNotNull(CoreArgCheck.java:142)
+	at org.teiid.core.designer.util.CoreArgCheck.isNotNull(CoreArgCheck.java:128)
+	at org.teiid.designer.sdt.types.BuiltInTypesManager.getBuiltInDatatype(BuiltInTypesManager.java:477)
+	at org.teiid.designer.sdt.types.WorkspaceDatatypeManager.getBuiltInDatatype(WorkspaceDatatypeManager.java:94)
+	at org.teiid.designer.jdbc.relational.impl.RelationalModelProcessorImpl.findType(RelationalModelProcessorImpl.java:1450)
+	at org.teiid.designer.jdbc.relational.impl.RelationalModelProcessorImpl.setColumnInfo(RelationalModelProcessorImpl.java:1321)
+{code} 

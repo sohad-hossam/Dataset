@@ -1,0 +1,4 @@
+Support temporary table on commit behavior
+Now that our temporary tables are transactionally aware we should support the on commit clause.  
+
+Our current default for on commit is effectively "preserve rows", which is contrary to the sql specification.  We should also offer delete rows and possible drop (similar to pg sql).

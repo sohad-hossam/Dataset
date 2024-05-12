@@ -1,0 +1,50 @@
+ORDER BY and UNION fails
+I can reproduce this in Teiid 8.7.0.Final and nightly build from master (09e396f). The same query works fine when performed directly against Oracle.
+
+{code:sql}
+select
+   "FOO"."FOO_ID" "FOO_ID"
+from (
+   (select "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS" group by "ITEMS"."ITEM_ID")
+   union all
+   (select "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS")
+) "FOO"
+order by "FOO_ID" desc;
+{code}
+
+{code}
+03:47:21,218 WARN  [org.teiid.CONNECTOR] (Worker7_QueryProcessorQueue189) 6w9Z3uBcAONA Connector worker process failed for atomic-request=6w9Z3uBcAONA.8.1.39: org.teiid.translator.jdbc.JDBCExecutionException: 904 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_1."ITEM_ID" AS c_0 FROM "BLAH"."ITEMS" g_1 GROUP BY g_1."ITEM_ID" UNION ALL SELECT g_0."ITEM_ID" AS c_0 FROM "BLAH"."ITEMS" g_0 ORDER BY FOO_ID DESC]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:326) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0_02]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0_02]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+Caused by: java.sql.SQLSyntaxErrorException: ORA-00904: "FOO_ID": invalid identifier
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:450)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1017)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:655)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:249)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:566)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:215)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:58)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:776)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:897)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1034)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3820)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3867)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1502)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+	... 13 more
+{code}

@@ -1,0 +1,2 @@
+data type for XMLTable for ordinality column is incorrect
+The XMLTable XMLColumn for ordinality constructor is hard-coding a type of STRING, rather than INTEGER.

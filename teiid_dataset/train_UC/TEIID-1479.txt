@@ -1,0 +1,2 @@
+Teiid Documentation does not include MS SQL Server as an available translator in section 10.2.2. JDBC Translator of the Reference Guide
+Teiid Documentation does not include MS SQL Server as an available translator in section "10.2.2. JDBC Translato" of the Reference Guide.   I checked versions 7.3 and 7.1.

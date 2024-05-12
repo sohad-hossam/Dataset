@@ -1,0 +1,2 @@
+wellformed parameter not exposed in parser for to_chars/to_bytes
+Part of the resolution for TEIID-2441 was to add an optional parameter to to_chars/to_bytes to control if the function was supposed to be validating.  The parser is enforcing that the encoding is a literal, so it needs updated for the parameter as well.

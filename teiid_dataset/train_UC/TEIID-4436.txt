@@ -1,0 +1,54 @@
+TEIID11008:PSQLException-ERROR: missing FROM-clause entry for table "anon_grp0" running a query with GROUP BY and UNION ALL
+Running the following query:
+{code:sql}
+select * from (
+	select
+		test_a.a
+	from pg.test_a
+	group by
+		test_a.a
+	union all
+	select
+		1 as a
+) as x
+where a = 1;
+{code}
+
+where test_a is a table in PostgreSQL, the following exception is thrown:
+{code:sql}
+01:07:04,815 WARN  [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue114) enPDJlWH1O/y Connector worker process failed for atomic-request=enPDJlWH1O/y.34.5.30: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."a" FROM "public"."test_a" AS g_0 WHERE anon_grp0.gcol0 = 1 GROUP BY g_0."a"]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:365)
+        at sun.reflect.GeneratedMethodAccessor93.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy29.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: PSQLException-ERROR: missing FROM-clause entry for table "anon_grp0"
+  Position: 52
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 17 more
+
+01:07:05,004 WARN  [org.teiid.PROCESSOR] (Worker11_QueryProcessorQueue116) enPDJlWH1O/y TEIID30020 Processing exception for request enPDJlWH1O/y.34 'TEIID30504 test_tables_pg: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."a" FROM "public"."test_a" AS g_0 WHERE anon_grp0.gcol0 = 1 GROUP BY g_0."a"]'. Originally TeiidProcessingException 'PSQLException-ERROR: missing FROM-clause entry for table "anon_grp0"
+  Position: 52' QueryExecutorImpl.java:2157. Enable more detailed logging to see the entire stacktrace.
+{code}
+
+I reproduced this error in Teiid-9.1.0.Alpha2

@@ -1,0 +1,7 @@
+subquery unnesting missed
+A query such as:
+
+select b.SYMBOL from  PRODUCT b where  exists (select 1 from PRICES d where d.SYMBOL=b.SYMBOL)
+
+where there is no key between the symbol columns will not unnested when it should be eligible.
+

@@ -1,0 +1,2 @@
+encrypt requests datasource property not honored
+The encrypt requests TeiidDataSource property is not being set in the properties used to make the connection.

@@ -1,0 +1,2 @@
+Invalid source query for subquery referencing a common table
+TeiidProcessingException when using a With Clause requiring  semi-join optimization and having a cross-source with clause subquery.

@@ -1,0 +1,2 @@
+Provide deployer for the Translation Layer components.
+The translation layer properties will be provided to the teiid engine through "-tl.xml" properties. Teiid must provide a deployer to read this properties and create appropriate translation layer.

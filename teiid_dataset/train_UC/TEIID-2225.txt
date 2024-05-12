@@ -1,0 +1,6 @@
+ResultSet.isLast() blocks in non-continuous query mode
+I am executing a query using submitExecute(StatementCallback) under non-continuous mode.  In the onRow() method of the callback, I execute ResultSet.isLast().  The query is against an execution whose next() method initially throws DataNotAvailable.NO_POLLING.  Some time later, it calls ExecutionContext.dataAvailable().  After 255 rows reported through the callback's onRow(), ResultSet.isLast() hangs.
+
+I know that the entire result set is ultimately returned from the execution's next() and it returns null at the last call.
+
+See https://community.jboss.org/thread/205559?tstart=0 for more detail

@@ -1,0 +1,52 @@
+ANSI 89 joins not translating to 92 syntax correctly
+SQL 89 syntax being translated to SQL 92 has the ON portion of the join in the wrong place when there are multiple tables.
+
+Example source query:
+
+select sum(Table3.sales) as c1,
+     Table1.customer_id as c2,
+     Table1.customer_name as c3,
+     Table2.store_id as c4
+from 
+    dim_customer Table1,
+    dim_store Table2,
+     fact_sales Table3
+where (     Table1.customer_id = Table3.customer_id 
+        and Table1.customer_id = 3184 
+        and Table2.store_id = Table3.store_id 
+        and Table2.store_id = 9020 
+        and Table3.customer_id = 3184 
+        and Table3.store_id = 9020 ) 
+group by Table1.customer_id, Table1.customer_name, Table2.store_id
+
+
+is translated to
+
+SELECT SUM(g_2.sales), g_0.customer_id, g_0.customer_name, g_1.store_id
+  FROM dim_customer g_0 
+  JOIN dim_store g_1 
+  JOIN fact_sales g_2
+    ON g_1.store_id = g_2.store_id
+    ON g_0.customer_id = g_2.customer_id 
+ WHERE g_0.customer_id = 3184
+   AND g_1.store_id = 9020
+   AND g_2.customer_id = 3184
+   AND g_2.store_id = 9020 
+ GROUP BY g_0.customer_id, g_0.customer_name, g_1.store_id
+ 
+ 
+ 
+ 
+ Notice the two JOIN... JOIN... followed by two ON... ON... statements.  Our database (Impala) doesn't recognize this pattern of join syntax.  I haven't tested to determine if it's just Impala that doesn't recognize this syntax (implying a translator bug) or core query parsing.  Expected query should be something close to:
+ 
+ SELECT SUM(g_2.sales), g_0.customer_id, g_0.customer_name, g_1.store_id
+   FROM dim_customer g_0 
+   JOIN fact_sales g_2
+     ON g_0.customer_id = g_2.customer_id 
+   JOIN dim_store g_1 
+     ON g_1.store_id = g_2.store_id
+  WHERE g_0.customer_id = 3184
+    AND g_1.store_id = 9020
+    AND g_2.customer_id = 3184
+    AND g_2.store_id = 9020 
+ GROUP BY g_0.customer_id, g_0.customer_name, g_1.store_id

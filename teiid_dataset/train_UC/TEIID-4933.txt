@@ -1,0 +1,3 @@
+Enhance CouchbaseMetadataProcessor to add sampleKeyspaces property and support more typed table name
+* add a sampleKeyspaces, default is *, means sample all keyspaces, which same as previous design, if set sampleKeyspaces, then specific Keyspaces be sampled
+* add support more typed name in same keyspace, for a sample Keyspace, in some times there may need more typed name to define table name

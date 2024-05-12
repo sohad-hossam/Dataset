@@ -1,0 +1,7 @@
+Odd resolving error with implicit temp groups
+If a query expression is used to insert into an implicit temporary table and no columns are specified the resolver will complain when the query column names do not match those defined on the implicit table.  For example:
+
+insert into #tmp_dates ... defines the temp table ...
+insert into #tmp_dates select <some expression>
+
+Will complain that 'expr1' is not defined by #tmp_dates. Rather the column definitions should be assumed from the earlier statement.

@@ -1,0 +1,2 @@
+Make Admin API changes to support newly added services to runtime engine
+With addition of new services to embedded profile, the Admin API methods needs to modified to fit the needs. Also, since Server and Embedded platform are going to be supported based on the current embedded runtime, the API methods need to consolidated from previous version.

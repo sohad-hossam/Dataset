@@ -1,0 +1,2 @@
+Rename sap-nw-gateway Translator
+SAP has dropped NetWeaver for the name of their OData server product. We should rename the translator to sap-gateway.

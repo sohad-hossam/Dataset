@@ -1,0 +1,2 @@
+The RAR should be unbundled when packaged in the jboss kit
+The RAR file should be unbundled, instead of zipped up, when it is packaged in the jboss kit.  This change is being pushed up stream.

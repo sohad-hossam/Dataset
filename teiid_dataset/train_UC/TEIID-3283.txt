@@ -1,0 +1,6 @@
+Create workaround for sybase grouping issue
+Sybase with a query such as:
+
+select 1 from x group by y
+
+will just return 1, instead of 1 for each row expected by the grouping.

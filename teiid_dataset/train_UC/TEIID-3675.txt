@@ -1,0 +1,2 @@
+Remove JwtBearerGrant CXF classes
+When CXF version > 3.0.4 remove JwtBearerGrant related CXF classes, and use ones from CXF

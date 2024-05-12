@@ -1,0 +1,4 @@
+Add more options for costing during import
+With many jdbc sources full cardinality is reported from the index info for non statistical indexes (such as mysql).  This should be used to set the cardinality of the table.  Failing that there should be an option to use an aggregate call or other source stats.
+
+This is not quite the same as TEIID-245 as it's happening at import time, but the two do overlap.

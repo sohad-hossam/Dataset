@@ -1,0 +1,2 @@
+Sessions can not be shown in web-console runtime sub-panel
+In CLI, the command of '/subsystem=teiid:list-sessions(vdb-name=*,vdb-version=*)' can not list the session infomation of designated VDB.  This bug also cause that  the session information can not be shown in web console.

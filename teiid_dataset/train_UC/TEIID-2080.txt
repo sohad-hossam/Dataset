@@ -1,0 +1,4 @@
+Have teiid support a native postgresql client optional parameter, min_messages
+Currently we are using postgresql-odbc, and unixODBC to connect to teiid via the emulated postgresql ODBC connection on port 35432. Unfortunately, this is cumbersome to use, requires fiddling with setting up ODBC, and is difficult for integration into non-java languages (that have to use the ODBC connection).
+
+What we would like is for teiid to emulate a postgresql database such that we can point typical postgresql tools (such as psql) to port 35432 (or some other port) and they will "work". That would also allow us to use each languages native/preferred method of connecting to a postgresql database to connect to teiid. E.g. DBD::Postgres for perl, ruby-pg for ruby, pg/pgdb in python, etc.

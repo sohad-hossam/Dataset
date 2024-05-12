@@ -1,0 +1,11 @@
+Add system functions for GeoJSON
+Add system functions to convert between GEOMETRY and GeoJSON. These will be helpful for sources that use GeoJSON (like MongoDB and RethinkDB).
+
+Conversion will be GeometryType (WKB) ↔ JTS Geometry ↔ GeoJSON.
+* https://github.com/bjornharrtell/jts2geojson
+* http://geojson.org/geojson-spec.html
+* http://wiki.geojson.org/GeoJSON_draft_version_5
+
+I don't believe these are part of the OGC spec, but it would probably be best to implement them similar to PostGIS.
+* http://postgis.org/docs/ST_AsGeoJSON.html
+* http://postgis.org/docs/ST_GeomFromGeoJSON.html

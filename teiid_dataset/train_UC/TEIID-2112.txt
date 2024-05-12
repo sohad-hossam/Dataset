@@ -1,0 +1,4 @@
+consistent handling of local timezone on xsd:date, xsd:datetime, and xsd:time values that have no timezone specified.
+The server is taking the incoming ts string and converting it to a Z value via the server timezone (handled by STax).  When the response document is delivered Saxon converts a non-timezoned value into an assumed Z value - which is not consistent with the STax handling.  This is within the bounds of XML processing as the absence of timezone information leaves the timezone interpretation up to the implementation - "timezone of some unspecified locality as prescribed by the appropriate legal authority".
+
+However, these two paths should be consistent,so a patch would set the local timezone on xsd:date, xsd:datetime, and xsd:time values that have no timezone specified.

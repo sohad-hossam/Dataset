@@ -1,0 +1,21 @@
+Restart during materialization load, does not update Materialized views anymore
+Under some circumstances, start and stop the server several times at different points, some Materialized Views are not being updated by the server.
+
+It is observable that in status table some views are no longer updated. In server log are being printed lots of INFO lines.
+
+Waited more than 15 minutes and the server was not capable of recovering.
+
+See the _StatusTableAfterStop.csv_ file to observe the status table content after stopping the server.
+
+See the _StatusTableAfterStart.csv_ file to observe the status table content after approximately 15 minutes after restart.
+
+Check _server.log_  for the Teiid Server log.
+
+See that hundreds of lines similar to the following occur
+
+
+{panel:title=Server.log}
+2017-01-31 13:06:34,597 INFO  [org.teiid.COMMAND_LOG] (Teiid Timer0) JfGY9cInAbrb 	START USER COMMAND:	startTime=2017-01-31 13:06:34.597	requestID=JfGY9cInAbrb.0	txID=null	sessionID=JfGY9cInAbrb	applicationName=internal	principal=embedded-async	vdbName=CountryServiceListVDB	vdbVersion=1	sql=execute SYSADMIN.matViewStatus('NumberingPlan', 'numbering_plan')
+{panel}
+
+The server cannot continue to load materialized views.

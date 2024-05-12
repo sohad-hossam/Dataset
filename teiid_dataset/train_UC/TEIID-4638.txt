@@ -1,0 +1,52 @@
+Mongo translator - nested embeddable tables - INNER JOIN is not symetric
+I have three tables bound together in nested EMBEDDABLE scenario \[1\]. I have three respective collections in Mongo \[2\]. Issuing SQL query with INNER JOIN on first two tables, result depends on order of tables in JOIN (i.e. _a JOIN b_ vs. _b JOIN a_) \[3, 4\].
+
+{code:sql|title=\[1\] DDL}
+CREATE FOREIGN TABLE Issue (
+    id integer PRIMARY KEY,
+    name varchar(25),
+    reporter_id integer,
+    FOREIGN KEY (reporter_id) REFERENCES Person (id)
+) OPTIONS(UPDATABLE 'TRUE');
+
+CREATE FOREIGN TABLE Person (
+    id integer PRIMARY KEY,
+    name varchar(25),
+    company_id integer,
+    FOREIGN KEY (company_id) REFERENCES Company (id)
+) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:EMBEDDABLE" 'TRUE');
+
+CREATE FOREIGN TABLE Company (
+    id integer PRIMARY KEY,
+    name varchar(25)
+) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:EMBEDDABLE" 'TRUE');
+{code}
+{code:plain|title=\[2\] Mongo data}
+> db.Company.find()
+{ "_id" : 11, "name" : "comp11" }
+> db.Person.find()
+{ "_id" : 11, "name" : "p11", "company_id" : 11, "Company" : { "name" : "comp11" } }
+> db.Issue.find()
+{ "_id" : 11, "name" : "i11", "reporter_id" : 11, "Person" : { "name" : "p11", "company_id" : 11, "Company" : { "name" : "comp11" } } }
+{code}
+
+\[3\]
+ *Query 1*
+{code:sql}
+SELECT a.*, b.* FROM Company a INNER JOIN Person b ON a.id = b.company_id
+{code}
+*Result*
+||id||name||id||name||company_id||
+\[4\]
+ *Query 2*
+{code:sql}
+SELECT a.*, b.* FROM Person b INNER JOIN Company a ON a.id = b.company_id
+{code}
+*Result*
+||id||name||id||name||company_id||
+|<null>|comp11|11|p11|11|
+
+*Note 1*
+Person <--> Issue relationship is not affected by this issue.
+*Note 2*
+In \[4\], first _id_ in result is _null_. I will report this as a separate issue.

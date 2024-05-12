@@ -1,0 +1,2 @@
+Runtime discovery of VDBs
+Teiid server should be able to discover VDBs at runtime and automatically load them to the extent possible - i.e. if the server is not configured to require entitlements and all connectors are running, the server should load the VDB as a new version and allow queries.

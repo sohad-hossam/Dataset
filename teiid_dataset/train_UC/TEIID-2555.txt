@@ -1,0 +1,8 @@
+Support pushdown of entire dependent joins
+If the data volume is not too large then in many circumstances pushing down the entire independent side of the join to perform the entire join at the source can enhance performance.
+
+This would likely be built upon TEIID-2249 to make use of a make dep hint option.  It would also likely be an expansion of the common table pushdown logic - but will require more extensive planning changes as the default logic is geared toward only the equi-join columns.  
+
+It has also been requested that the default preference for pushdown be based upon the estimated data width.
+
+There is an issue with the form of the plan as with the existing logic it would be nearly impossible to back out of the decision to perform the full pushdown (which is why a hint is initially preferable).

@@ -1,0 +1,22 @@
+Apply LIMIT 1 optimization for DISTINCT in UNION situations
+The translator does not support select expressions.  Query:
+SELECT  DISTINCT  DATAMART_NAME AS c_9, '_constant_' AS c_10 FROM (SELECT datamart_name FROM
+  (
+      SELECT 'DATACOM Datamart' AS DATAMART_NAME FROM SECURITY_DM_DATACOM_DEV_R140_CA31_CMGRD1.VIEWOBJACCESS
+      UNION ALL
+     SELECT 'DB2 D91A Datamart' AS DATAMART_NAME FROM SECURITY_DM_DB2_D91APTIB_CMGRD1.VIEWOBJACCESS
+  ) AS t
+) a
+
+Final part of plan:
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+SortNode(0) output=[datamart_name AS c_9, '_constant_' AS c_10] [DUP_REMOVE]
+  ProjectNode(1) output=[datamart_name AS c_9, '_constant_' AS c_10] [datamart_name AS c_9, '_constant_' AS c_10]
+    UnionAllNode(2) output=[datamart_name]
+      AccessNode(3) output=['DATACOM Datamart' AS DATAMART_NAME] SELECT 'DATACOM Datamart' FROM SECURITY_DM_DATACOM_DEV_R140_CA31_CMGRD1.VIEWOBJACCESS AS g_0
+      AccessNode(4) output=['DB2 D91A Datamart' AS DATAMART_NAME] SELECT 'DB2 D91A Datamart' FROM SECURITY_DM_DB2_D91APTIB_CMGRD1.VIEWOBJACCESS AS g_0
+
+Expected LIMIT 1 in the access nodes.  Comment from Steven:  "More than likely we are not checking across a union for this optimization."
+
+See  https://community.jboss.org/message/883460 for more details and complete plan

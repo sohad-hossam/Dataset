@@ -1,0 +1,58 @@
+UNION of two similar JOIN queries fails with ASSERTION FAILED error if it contains table function of procedural call with arguments
+UNION of two similar JOINs containing table function of procedural call with arguments, like:
+{code:sql}SELECT d.col_t2 FROM "ds.test_t1", table(CALL views.pr0("arg1" => col_t1)) x
+	JOIN "ds.test_t2" d 
+		ON true
+--
+UNION
+--
+SELECT d.col_t2 FROM "ds.test_t1", table(CALL views.pr0("arg1" => col_t1)) x
+	JOIN "ds.test_t2" d 
+		ON true{code}
+fails with error:
+{code}2017-11-11 16:16:57,158 ERROR [org.teiid.PROCESSOR] (Worker2_QueryProcessorQueue23) wbDLp863MJn9 TEIID30019 Unexpected exception for request wbDLp863MJn9.7: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+	at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:287)
+	at org.teiid.dqp.internal.process.TupleSourceCache$CopyOnReadTupleSource.nextTuple(TupleSourceCache.java:103)
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:394)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+	at org.teiid.query.processor.relational.SourceState.prefetch(SourceState.java:211)
+	at org.teiid.query.processor.relational.SourceState.rowCountLE(SourceState.java:158)
+	at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:227)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.BatchIterator.finalRow(BatchIterator.java:69)
+	at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:70)
+	at org.teiid.query.processor.BatchIterator.getCurrentTuple(BatchIterator.java:84)
+	at org.teiid.common.buffer.AbstractTupleSource.hasNext(AbstractTupleSource.java:92)
+	at org.teiid.query.processor.relational.NestedTableJoinStrategy.process(NestedTableJoinStrategy.java:119)
+	at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:235)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:150)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.UnionAllNode.nextBatchDirect(UnionAllNode.java:147)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:152)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:115)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:479)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:284)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745){code}
+even if procedure doesn't use that argument at all.

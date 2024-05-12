@@ -1,0 +1,4 @@
+Re-license under a more permissive license
+There has been some interest in Teiid re-licensing with a more permissive license, such as the ASL or MIT license.  Beyond the obvious work of altering headers and license files, we need permission from the original copyright/copyleft holders to approve the change.
+
+We'd likely want to use the ASL, but if there are any concerns about GPL compatibility we'll consider the MIT license.

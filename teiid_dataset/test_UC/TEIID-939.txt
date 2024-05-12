@@ -1,0 +1,2 @@
+MySQL nested set query pushdown failure
+By default our translator is adding parens around nested set queries, this is not supported by MySQL.  The parens can safely be dropped as long as both the parent and the child are the same set operation (union, or union all).  This generic solution still leaves the problem for MySQL that you cannot left nest a union under a union all.  That case should be rare and can be worked around on mysql 5.

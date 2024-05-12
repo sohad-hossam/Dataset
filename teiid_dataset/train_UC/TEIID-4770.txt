@@ -1,0 +1,8 @@
+The convert script generates empty GRANT statements for roles that don't have permission to access a certain schema.
+The convert script generates empty GRANT statements for roles that don't have permission to access a certain schema.
+
+E.g. GRANT ON SCHEMA glims TO mica;
+
+When you try to deploy the script, the server complains that it expects a permission type (like select or alter) here.
+
+These lines should probably be removed.

@@ -1,0 +1,9 @@
+vararg stored procedure error with empty call
+A stored procedure with a single in parameter that is marked as varargs will throw an error in the LanguageBridgeFactory because the resolver will have resolved the procedure as if using named parameters and will pass a null array.
+
+For example:
+
+create foreign procedure proc (VARIADIC z integer) returns (x string);
+
+call proc() //will fail
+

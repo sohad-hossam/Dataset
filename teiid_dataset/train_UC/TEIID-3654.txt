@@ -1,0 +1,8 @@
+Exception with system table subquery
+Issuing a subquery against a system table such as:
+
+SELECT t.Name FROM SYS.Tables as t, (SELECT DISTINCT c.TableName FROM SYS.Columns AS c) AS X__1 WHERE t.Name = X__1.TableName
+
+Results in the exception: TEIID30328 Unable to evaluate X__2.TableName: No value was available
+
+This is due to the project not being pushed and the project columns not being updated appropriately.

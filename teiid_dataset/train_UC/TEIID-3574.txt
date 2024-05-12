@@ -1,0 +1,66 @@
+Teiid ODBC driver inconsistent error logs
+When comparing behaviour of ODBC driver with behaviour of JDBC driver there are a few inconsistencies.
+For particular malformed query there is:
+# no error log entry for ODBC driver, while for JDBC there is a comprehensive explanation in the server logs.
+#* Example query:
+{code:sql}
+SELECT title, COUNT() FROM employeefixed
+{code}
+#* JDBC log entry:
+{code:plain}WARN  [org.teiid.PROCESSOR] (Worker13_QueryProcessorQueue382) TEIID30020 Processing exception for request pIU27iFFv21F.7 'TEIID31100 Parsing error: Encountered ", COUNT([*])[*] FROM employeefixed" at line 1, column 21.
+Was expecting: "char" | "cast" | "convert" | "all" | "any" | "array_agg" | "case" | "distinct" | "exists" | "false" ...'. Originally QueryParserException QueryParser.java:214. Enable more detailed logging to see the entire stacktrace.
+{code}
+#* ODBC log entry:
+none present
+# error log but also exception stack trace
+#* Example query:
+{code:sql}
+SELECT title, city, COUNT(title) FROM employeefixed GROUP BY title
+{code}
+#* JDBC log entry:
+{code:plain}
+WARN  [org.teiid.PROCESSOR] (Worker14_QueryProcessorQueue384) TEIID30020 Processing exception for request pIU27iFFv21F.8 'TEIID30492 [EmployeeFixedData.EmployeeFixed.city] cannot be used outside of aggregate functions since they are not present in a GROUP BY clause.'. Originally QueryValidatorException Request.java:305. Enable more detailed logging to see the entire stacktrace.
+{code}
+#* ODBC log entry:
+{code:plain}
+WARN  [org.teiid.PROCESSOR] (Worker14_QueryProcessorQueue383) TEIID30020 Processing exception for request RPpTChkE/84O.40 'TEIID30492 [EmployeeFixedData.EmployeeFixed.city] cannot be used outside of aggregate functions since they are not present in a GROUP BY clause.'. Originally QueryValidatorException Request.java:305. Enable more detailed logging to see the entire stacktrace.
+ERROR [org.teiid.ODBC] (Worker14_QueryProcessorQueue383) TEIID40015 Unexpected error occurred: java.util.concurrent.ExecutionException: org.teiid.jdbc.TeiidSQLException: TEIID30492 [EmployeeFixedData.EmployeeFixed.city] cannot be used outside of aggregate functions since they are not present in a GROUP BY clause.
+	at org.teiid.client.util.ResultsFuture.convertResult(ResultsFuture.java:104) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture.get(ResultsFuture.java:99) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.odbc.ODBCServerRemoteImpl$5.onCompletion(ODBCServerRemoteImpl.java:586) [teiid-runtime-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture$1.exceptionOccurred(ResultsFuture.java:68) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.jdbc.StatementImpl$2.onCompletion(StatementImpl.java:518) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:1001) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.close(RequestWorkItem.java:556) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:352) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:254) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_75]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_75]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_75]
+Caused by: org.teiid.jdbc.TeiidSQLException: TEIID30492 [EmployeeFixedData.EmployeeFixed.city] cannot be used outside of aggregate functions since they are not present in a GROUP BY clause.
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.jdbc.StatementImpl.postReceiveResults(StatementImpl.java:667) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.jdbc.StatementImpl.access$100(StatementImpl.java:63) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.jdbc.StatementImpl$2.onCompletion(StatementImpl.java:515) [teiid-client-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	... 14 more
+Caused by: org.teiid.api.exception.query.QueryValidatorException: TEIID30492 [EmployeeFixedData.EmployeeFixed.city] cannot be used outside of aggregate functions since they are not present in a GROUP BY clause.
+	at org.teiid.dqp.internal.process.Request.validateWithVisitor(Request.java:305) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.Request.validateQuery(Request.java:268) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:385) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.PreparedStatementRequest.generatePlan(PreparedStatementRequest.java:115) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:435) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.PreparedStatementRequest.processRequest(PreparedStatementRequest.java:290) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:613) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:315) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+	... 8 more
+{code}

@@ -1,0 +1,8 @@
+Path to config file has been remove from deploy.properties and Teiid is looking in the wrong location.
+Earlier versions of deploy.properties had this line.
+
+dqp.configFile=./deploy/configuration.xml
+
+This line is gone from the current version of the file, and Teiid is looking in the top level folder, not the ./deploy folder for the configuration.xml
+
+ 

@@ -1,0 +1,2 @@
+Support odata batching
+We nearly have support for OData batching, but the ODataBatchingProvider is registered as a class and not as an instance.  Otherwise it appears that a multipart/mixed post to an entity/$batch will allow for batching in OData4j.

@@ -1,0 +1,4 @@
+staging table performance
+Large staging tables should be indexed based upon their usage to improve performance. 
+
+Further usage analysis could limit the size of the initial staging table, but is somewhat complicated - and references can be used in dynamic sql. 

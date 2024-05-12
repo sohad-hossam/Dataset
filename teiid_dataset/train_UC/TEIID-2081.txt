@@ -1,0 +1,16 @@
+Cannot break the continuous execution
+Per comments made on Jun 20, 2012 : https://community.jboss.org/thread/201379?tstart=0
+
+Sample code (java servlet and translator), and exception dump attached.
+
+************
+A.R.:
+My task is to stop continuous execution from client by close() the statement from inside the StatementCallBack.onRow(s, rs) after 1-2 minutes of processing. I want to have the retrieved results stored in ResultsFuture (which I populate with every row retrieved during execution).
+
+I just found that to properly cancel the continuous execution, the statement should be closed at the moment when StatementCallBack.onRow method fired on the last row of resultset for this round of executuon. If statement closed somewhere in the middle of resultset, the execution gets in infinite loop, throwing TeiidSQLException: Error trying to operate on closed ResultSet.
+
+Attached is the sample code, it works against the dynamicvdb-portfolio example from Teiid. H2 database has default 25 rows in Product table. This SQL was used: "select * from Accounts.PRODUCT". Any value of rowCount other than 49 gives the exception dump.
+
+************
+S.H.:
+There are several things here.  The first is that there is an issue with the NonBlockingRowProcessor, when it calls onException in the while loop, it needs to break.  Instead it keeps looping.  The next issue is that you don't want to see exceptions related to closure as hard errors.

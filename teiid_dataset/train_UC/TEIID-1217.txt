@@ -1,0 +1,2 @@
+Derive VDB Name Using Version During Deployment in Jopr
+Need to add a configuration to the file based deployment of vdbs that contains version. From this the vdb file name should be derived. For example, if I deploy a vdb called MyVDB.vdb with a version of 3, the derived file name would be MyVDB.3.vdb.

@@ -1,0 +1,56 @@
+Wrong rewriting of CTEs when pushed down to PostgreSQL
+Running the following query:
+{code:sql}
+WITH 
+	cte1 as (SELECT * from pg.test_a),
+	cte2 as (select * from cte1),
+	cte3 as (select * from cte1)
+SELECT * FROM cte2 join cte3 on cte2.a=cte3.a
+{code} 
+
+where pg.test_a is a table defined in PostgreSQL, this exception is thrown:
+{code:sql}
+19:42:22,287 WARN  [org.teiid.CONNECTOR] (Worker20_QueryProcessorQueue228) ezaCNEtY3C+P Connector worker process failed for atomic-request=ezaCNEtY3C+P.121.3.48: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH cte1 (a, b) AS (SELECT g_0."a", g_0."b" FROM "public"."test_a" AS g_0), cte1 (a, b) AS (SELECT g_0."a", g_0."b" FROM "public"."test_a" AS g_0), cte2 (a,b) AS (SELECT g_0.a, g_0.b FROM cte1 AS g_0), cte3 (a, b) AS (SELECT g_0.a, g_0.b FROM cte1 AS g_0) SELECT g_1.a, g_1.b, g_0.a, g_0.b FROM cte2 AS g_0, cte3 AS g_1 WHERE g_0.a = g_1.a]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:359)
+        at sun.reflect.GeneratedMethodAccessor92.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy56.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ERROR: WITH query name "cte1" specified more than once
+  Position: 78
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 17 more
+{code}
+
+I am not sure if the problem below might be also related, but an exception is thrown by running the following query with nested CTEs:
+{code:sql}
+WITH 
+	 cte1 as (SELECT 1 as a)
+	,cte3 as (with cte3_1 as (select cte1.a from cte1 join pg.test_a t1 on cte1.a=t1.a) select * from cte3_1)
+SELECT * FROM cte3;;
+{code}
+
+The exception is:
+{code:sql}
+20:00:37,731 WARN  [org.teiid.PROCESSOR] (Worker21_QueryProcessorQueue239) ezaCNEtY3C+P TEIID30020 Processing exception for request ezaCNEtY3C+P.125 'TEIID30226 Temporary table "cte1" does not exist.'. Originally QueryProcessingException TempTableStore.java:564. Enable more detailed logging to see the entire stacktrace.
+{code}

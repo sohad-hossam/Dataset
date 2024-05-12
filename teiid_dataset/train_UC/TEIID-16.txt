@@ -1,0 +1,2 @@
+view layers cannot be merged with non-deterministic projected symbols
+Defect Tracker #24747: Non-deterministic functions used in the select clause of a nested view may prevent the view from being removed if the expression is used in more than one place in the upper view.

@@ -1,0 +1,2 @@
+Wrong Content-Type in error response from odata
+When submitting an odata request that causes an error on server side, the response has the Content-Type header set to just "application", which causes clients to fail.

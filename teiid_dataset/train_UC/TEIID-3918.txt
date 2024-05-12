@@ -1,0 +1,4 @@
+HIVE translator does not support direct query procedure
+I used EXEC native (sqlstring) to let my query be executed directly on my Hive without Teiid's modification of my query. This works with MySQL. For HIVE I got: 
+
+"org.teiid.jdbc.TeiidSQLException: TEIID30504 Hive13: TEIID24000 This EXEC native('select a.game, a.lang, get_json_object(a.json, \"$.product\") from test.event_log a') command not supported.

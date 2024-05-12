@@ -1,0 +1,2 @@
+OData 4 procedure/action result set lob handling incorrect
+To mimic designer rest logic, procedures with a single column lob result set were treated as having a primitive result.  In general multiple rows can be returned, so this handling will need to be removed.

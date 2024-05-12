@@ -1,0 +1,6 @@
+Add "SOURCE_NAME" column automatically for Multi-Source models
+Currently Teiid adds SOURCE_NAME pseudo column when the model defines as multi-source  to all the tables. This is not reflected in the metadata. However based on the community requests it looks like providing a way to automatically adding this to the tables and procedures is useful in dynamic vdb scenarios.
+
+This can be added when a property like 
+
+<property name="multi-source-column" value="{name-of-column}"/>

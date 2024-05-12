@@ -1,0 +1,2 @@
+Support SQL 2003 order by with expressions
+Defect Tracker #25000: SQL 2003 allows the order by clause to contain expressions instead of just simple simple symbol names.  Since we already support expressions in the group by clause (which is actually against the SQL spec), it would make since to support expressions in the order by as well.

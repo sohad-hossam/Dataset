@@ -1,0 +1,22 @@
+Teiid Partial Results Mode: unavailability of datasource causes error (which is not masked)
+Description of problem:
+Querying a vdb-table which is formed as union of two tables from different datasources. Even though "set partialresultsmode true" is run as initial query, instead of retreiving 0 rows from a datasources that is down, exception is promoted.
+
+Version-Release number of selected component (if applicable):
+DV 6.1 ER1
+
+How reproducible:
+Every time
+
+Steps to Reproduce:
+1. Define one valid and one invalid datasource(invalid connection-url).
+2. Create vdb which maps tables from both datasources.
+3. Set partialresultsmode to true
+4. Execute query on the given vdb-table
+
+Actual results:
+TeiidSQLException
+TEIID30498 Remote org.teiid.api.exception.query.QueryPlannerException: TEIID30498 Capabilities for ORBQT were not avaialable.  The command could not be planned properly.
+
+Expected results:
+0 rows from invalid datasource.

@@ -1,0 +1,2 @@
+add xml deployment for Teiid Embedded
+We can accept a Reader for the VDBMetadataParser to turn into a VDBMetadata object for deployment (there is already a protected deplyVDB that takes VDBMetadata).  There are some additional considerations here, such as allowing for vdb specific connector repositories and the setting of classloaders and other logic typically handled by a server deployment.

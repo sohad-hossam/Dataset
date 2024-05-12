@@ -1,0 +1,30 @@
+ joining 2 procedures results in QueryPlannerException: TEIID30275 Join region with unsatisfied access patterns cannot be satisfied by the join criteria
+I have a query like this where I join a regular table with a virtual procedure.
+ 
+{code:sql}
+select gd.patientid, ip.production  
+from prod_P_GeneralData gd  
+join pr_patient_in_production ip on ip.patientid = gd.patientid  
+where gd.status = 1;  
+{code}
+ 
+This works fine and returns 58 rows with no null values. The pr_patient_in_production procedure has 1 input parameter called patientid (integer) and one output parameter called production (boolean)
+ 
+Adding a second procedure call results in an excepion:
+ 
+{code:sql}
+select gd.patientid, lrs.datetime, lrs.varvalue as phtype  
+from prod_P_GeneralData gd  
+join pr_patient_in_production ip on ip.patientid = gd.patientid  
+join pr_retrieve_labres lrs on  
+  lrs.patientid_in = gd.patientid  
+  and lrs.production = ip.production  
+  and lrs.resultgroup_in  = 'pH-type'  
+  and lrs.varvalue = 1  
+where gd.status = 1  
+order by lrs.datetime, lrs.entertime desc  
+{code}
+ 
+This pr_retrieve_labres procedure has patientid_in (integer), production (boolean) and resultgroup_in(string) as input parameters and also some output parameters.
+ 
+The exception is: Error: TEIID30275 Remote org.teiid.api.exception.query.QueryPlannerException: TEIID30275 Join region with unsatisfied access patterns cannot be satisfied by the join criteria, Access patterns: [[Access Pattern: Unsatisfied [ip.patientid] History [[ip.patientid]]], [Access Pattern: Unsatisfied [lrs.production, lrs.patientid_in] History [[lrs.patientid_in, lrs.production, lrs.resultgroup_in]]]]

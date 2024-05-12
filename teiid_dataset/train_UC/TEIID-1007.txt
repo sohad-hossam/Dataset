@@ -1,0 +1,4 @@
+Remove unnecessary inline views over group bys
+Our check for removing a view layer only checks for a grouping node, it should check to see if any of the projected columns are used in the group by.
+
+e.g. instead of select max(c1) from (select c1 from table) v1 -> select max(c1) from table

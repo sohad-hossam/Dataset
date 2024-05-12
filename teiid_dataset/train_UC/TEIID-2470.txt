@@ -1,0 +1,2 @@
+Allow Embedded to use zip deployments
+With the generalization to support dynamic zip deployments, embedded should support a zip deployment as well.

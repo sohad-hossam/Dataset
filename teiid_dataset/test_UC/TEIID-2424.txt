@@ -1,0 +1,2 @@
+Create OSGi bundles for Embedded
+Embedded should be available as an OSGi bundle(s).  It may also be useful for Designer to consume us through bundles as well.

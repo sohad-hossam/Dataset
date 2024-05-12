@@ -1,0 +1,2 @@
+Order by clause causes org.teiid.core.TeiidException
+Adding ORDER BY when querying a VIEW made up of a VIEW using 3+ UNION ALL statements using GROUP BY in the source VIEWS causes an error. 

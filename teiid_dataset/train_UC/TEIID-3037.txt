@@ -1,0 +1,12 @@
+Incorrect odata4j jar name
+When deploying Teiid 8.8.0.Final, odata4j fails to initialize due to the wrong jar name.
+
+MSC000001: Failed to start service jboss.module.service."deployment.teiid-odata-8.8.0.Final.war".main: org.jboss.msc.service.StartException in service jboss.module.service."deployment.teiid-odata-8.8.0.Final.war".main: JBAS018759: Failed to load module: deployment.teiid-odata-8.8.0.Final.war:main
+
+Module declaration is set as:
+<resource-root path="odata4j-core-0.8.0-SNAPSHOT-redhat.jar" />
+
+But the provided jar name is:
+odata4j-core-0.8.0-SNAPSHOT-redhat-redhat.jar
+
+There is an extra "-redhat" in the jar name.

@@ -1,0 +1,6 @@
+Join planning produces cross joins with limited costing
+The join planning logic does not gracefully handle a lack of costing information in effective cross joins (where there is still outside criteria).  For example with a small table x that only has cardinality set and a large table y with no costing information, the join structure
+
+from x inner join y as y1 on x.col = y1.col inner join y as y2 on x.col1 = y2.col1
+
+can result in a cross join plan between y1 and y2 (although the specifics of the plan may verify from version to version - in 7.7 the cross join will likely be pushed down, while in 8.4 a dependent join can be created depending upon the size of x, but can still produce a pushed cross join).

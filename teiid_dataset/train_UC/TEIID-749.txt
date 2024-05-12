@@ -1,0 +1,2 @@
+Replace the TestNoArgConnector Test with an integration test.
+None

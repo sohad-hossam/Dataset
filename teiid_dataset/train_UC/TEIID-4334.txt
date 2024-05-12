@@ -1,0 +1,5 @@
+Prepared insert resolving failure with implicitly named temp table
+Similar to TEIID-3994 we will fail to execute a prepared update with explicit columns against a temp table with an implicit name:
+
+create local temporary table #x (e1 string)
+insert into #x (e1) values (?) -- fails with a resolving exception

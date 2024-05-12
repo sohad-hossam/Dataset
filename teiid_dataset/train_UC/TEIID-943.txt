@@ -1,0 +1,2 @@
+Fully implement client streaming of lobs/readers/streams
+Client transmission of large objects is either not implemented or is implemented through fully materializing.  We should instead allow for streaming backed by temp files on the server.

@@ -1,0 +1,2 @@
+Teiid ports need to have the ability to restrict cipher suites
+When using either 1-way or 2-way ssl for the EDS/Teiid connections, there is currently no way to restrict connections to 128 bit cipher suites.  The capability needs to be added to the product.

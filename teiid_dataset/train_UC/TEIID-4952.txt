@@ -1,0 +1,2 @@
+release notes is not having tokens replaced
+When the server kit feature pack is built the release notes is not having project.version replaced.

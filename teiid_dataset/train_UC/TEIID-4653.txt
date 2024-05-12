@@ -1,0 +1,74 @@
+SybaseIQ translator: Input parameter not set in prepared statement in source command
+There seems to be problem with prepared statements which are being push to the datasource without binding parameters.
+The query engine fails with following error:
+{code}
+13:08:00,044 WARN  [org.teiid.CONNECTOR] (Worker18_QueryProcessorQueue72) Connector worker process failed for atomic-request=PYp5BTTPF3pK.25.0.16: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [{ts '2000-01-01 00:00:03.0'}] SQL: SELECT g_0."intkey", g_0."timestampvalue" FROM "bqt-server"."dvqe"."SmallA" AS g_0 WHERE g_0."timestampvalue" = ?]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366)
+	at sun.reflect.GeneratedMethodAccessor169.invoke(Unknown Source) [:1.7.0_71]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_71]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy80.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+Caused by: java.sql.SQLException: JZ0SA: Prepared Statement: Input parameter not set, index: 0.
+	at com.sybase.jdbc4.jdbc.ErrorMessage.raiseError(Unknown Source)
+	at com.sybase.jdbc4.tds.TdsParam.prepareForSend(Unknown Source)
+	at com.sybase.jdbc4.jdbc.ParamManager.checkParams(Unknown Source)
+	at com.sybase.jdbc4.tds.TdsCursor.a(Unknown Source)
+	at com.sybase.jdbc4.tds.TdsCursor.open(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybStatement.executeQuery(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybPreparedStatement.executeQuery(Unknown Source)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	... 17 more
+{code}
+
+The message indicates, that a prepared statement which is being pushed has not bound parameter values set.
+h2.First Example
+Example query:
+{code:sql}
+SELECT IntKey, timestampvalue FROM BQT1.SmallA WHERE timestampvalue = TIMESTAMPCREATE( {d'2000-01-01'}, {t'00:00:03'})
+{code}
+Resulting DATA SRC COMMAND:
+{code:sql}
+SELECT g_0.intkey, g_0.timestampvalue FROM BQT1.SmallA AS g_0 WHERE g_0.timestampvalue = {ts'2000-01-01 00:00:03.0'}
+{code}
+Resulting SOURCE SRC COMMAND:
+{code:sql}
+[SELECT g_0."intkey", g_0."timestampvalue" FROM "bqt-server"."dvqe"."SmallA" AS g_0 WHERE g_0."timestampvalue" = ?]
+{code}
+
+h2. Second example
+Query:
+{code:sql}
+SELECT bqt2.smalla.intkey, g2.intkey, bqt2.smalla.bytenum FROM bqt2.smalla LEFT JOIN LATERAL (SELECT intkey FROM bqt2.mediuma WHERE bqt2.smalla.bytenum = bqt2.mediuma.bytenum) AS g2 ON true ORDER BY bqt2.smalla.intkey, g2.intkey
+{code}
+DATA SRC COMMAND 1:
+{code:sql}
+SELECT g_0.bytenum, g_0.intkey FROM BQT2.SmallA AS g_0
+{code}
+SOURCE SRC COMMAND 1:
+{code:sql}
+[SELECT g_0."bytenum", g_0."intkey" FROM "bqt-server"."dvqe"."SmallA" AS g_0]
+{code}
+DATA SRC COMMAND 2:
+{code:sql}
+SELECT g_0.intkey FROM BQT2.MediumA AS g_0 WHERE g_0.bytenum = -128
+{code}
+SOURCE SRC COMMAND 2:
+{code:sql}
+[SELECT g_0."intkey" FROM "bqt-server"."dvqe"."MediumA" AS g_0 WHERE g_0."bytenum" = ?]
+{code}
+h4.Note:
+There should be more DATA SRC commands similar to DATA SRC COMMAND 2, as such query should be performed in a loop for every result from DATA SRC COMMAND 1. But due to error in DATA SRC COMMAND 2, the loop is ended.

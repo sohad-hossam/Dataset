@@ -1,0 +1,4 @@
+Correct handling with subquery in on clause
+With the translator capability supportsSubqueryInOn false, we can still plan a query with a subquery in the on clause if non-join criteria on the inner side of a left outer join is used in the user query on clause (it is temporarily pushed out of the join and then added back in rule collapse source).
+
+Additionally the oracle translator should not support subquery in on for oracle 11 and earlier.

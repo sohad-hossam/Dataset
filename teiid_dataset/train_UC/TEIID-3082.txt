@@ -1,0 +1,2 @@
+Error with sideways correlation and aggregate decomposition
+Staged grouping does not consider the sideways correlation variables and so processing will fail with value not available exceptions.

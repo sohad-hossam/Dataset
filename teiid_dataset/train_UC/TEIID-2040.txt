@@ -1,0 +1,2 @@
+Failed Assertion during org.teiid.query.processor.relational.SortUtility.<init>
+The issue here is with push aggregates running after choose dependent and altering the schema of the independent side of a join that is later referenced by the dependent sort logic.

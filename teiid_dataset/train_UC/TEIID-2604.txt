@@ -1,0 +1,2 @@
+ODBC string error response message is incorrect
+The null termination character is missing from the error response message options.  This is typically only thrown for internal/protocol errors.  Clients may not behave as expected to this response.

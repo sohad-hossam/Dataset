@@ -1,0 +1,2 @@
+Hana and Vertica should be marked as requiring a source
+An error getting a connection will effectively be ignored as the translators are marked as not needing a source connection.  Typically then a null connection will cause an NPE as seen with TEIID-4336

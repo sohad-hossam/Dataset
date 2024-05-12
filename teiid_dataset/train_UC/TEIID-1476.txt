@@ -1,0 +1,2 @@
+correct preventable exceptions
+A user experienced unexpected exceptions during a system failure.  We should correct the preventable exceptions to have a clearer log.

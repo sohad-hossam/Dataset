@@ -1,0 +1,2 @@
+oids are not unique in pg_attribute
+The pg_attribute table is not reporting a distinct set of oids even though it is marked as a pk column.

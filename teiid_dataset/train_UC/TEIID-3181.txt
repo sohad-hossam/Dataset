@@ -1,0 +1,2 @@
+Use Teiid as default JAAS application name
+Enhancement for the client side of setting up JDBC connections using GSS API. Suggestion is to use "Teiid" as default JAAS application name. This is to be used in case jaasName is not supplied in the connection properties.

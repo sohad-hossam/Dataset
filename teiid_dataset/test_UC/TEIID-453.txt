@@ -1,0 +1,2 @@
+Convert vmnaming into a singleton
+VMNaming is currently static.

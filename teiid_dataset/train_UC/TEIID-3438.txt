@@ -1,0 +1,10 @@
+Null value returned from BlobImpl getBytes
+If translator retrieveValue return a empty Blob, the engine will throw NPE as below
+
+Caused by: java.lang.NullPointerException
+	at javax.sql.rowset.serial.SerialBlob.<init>(SerialBlob.java:100)
+	at org.teiid.common.buffer.LobManager.persistLob(LobManager.java:226)
+	at org.teiid.common.buffer.LobManager.updateReferences(LobManager.java:141)
+	at org.teiid.common.buffer.TupleBuffer.addTupleBatch(TupleBuffer.java:203)
+	at org.teiid.query.processor.BatchCollector.flushBatchDirect(BatchCollector.java:229)
+	at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:653)

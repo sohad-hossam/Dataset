@@ -1,0 +1,11 @@
+Failure description is incomplete
+Trying to add a translator to be loaded by the AS 7 server, and getting this error:
+
+
+13:51:24,836 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 46) Operation ("add") failed - address: ([
+    ("subsystem" => "teiid"),
+    ("translator" => "object")
+]) - failure description: "Translator \"TEIID50009\" not found in the module \"object\" "
+
+
+The "TEIID50009", based on the description, looks like it should have been the name of translator not found?  I'm not sure, but the sentence is confusing.

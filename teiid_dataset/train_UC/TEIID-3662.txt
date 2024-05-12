@@ -1,0 +1,21 @@
+IN predicate against a materialized/temp table index without an order by returns wrong results
+Seeing strange behavior when doing a simple select from {{SPATIAL_REF_SYS}}.
+
+This works as expected:
+{code}
+select srid, proj4text from spatial_ref_sys where srid in (3875,4326);
+ srid |                                                   proj4text                                                    
+------+----------------------------------------------------------------------------------------------------------------
+ 3875 | +proj=tmerc +lat_0=0 +lon_0=21 +k=1 +x_0=21500000 +y_0=0 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs
+ 4326 | +proj=longlat +datum=WGS84 +no_defs
+(2 rows)
+{code}
+
+Swapping the values in the IN causes only one row to be returned.
+{code}
+select srid, proj4text from spatial_ref_sys where srid in (4326,3875);
+ srid |              proj4text              
+------+-------------------------------------
+ 4326 | +proj=longlat +datum=WGS84 +no_defs
+(1 row)
+{code}

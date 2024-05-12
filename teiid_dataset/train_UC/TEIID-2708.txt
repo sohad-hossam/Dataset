@@ -1,0 +1,4 @@
+DataRolePolicyDecider configuration
+In the conversion over to AS 7 the bean properties for DataRolePolicyDecider were not added to the configuration.  More than likely this was because the bean itself is pluggable.
+
+We either need to add these properties to the configuration or add an alternative mechanism for setting them (system and/or vdb properties would probably be just fine).  

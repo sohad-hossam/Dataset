@@ -1,0 +1,14 @@
+HANA translator: boolean type converted to tinyint in each convert
+HANA translator blindly converts boolean values to tinyint when a boolean column is pushed as part of a convert function to datasource.
+Example query:
+{code:sql}
+SELECT CONCAT2(stringNum,booleanvalue) FROM BQT1.SmallA;
+{code}
+and its DATA SRC COMMAND:
+{code:sql}
+SELECT CONCAT2(g_0.STRINGNUM, convert(g_0.BOOLEANVALUE, string)) FROM BQT1.SMALLA AS g_0
+{code}
+and its SOURCE SRC COMMAND:
+{code:sql}
+SELECT CASE WHEN g_0."STRINGNUM" IS NULL AND cast(g_0."BOOLEANVALUE" AS tinyint) IS NULL THEN NULL ELSE concat(ifnull(g_0."STRINGNUM", ''), ifnull(cast(g_0."BOOLEANVALUE" AS tinyint), '')) END FROM "BQT1"."SMALLA" AS g_0
+{code}

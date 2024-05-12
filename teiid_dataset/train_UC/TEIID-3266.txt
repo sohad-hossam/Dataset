@@ -1,0 +1,4 @@
+Support set session characteristics for txn isolation level
+We should support set session characteristics - at least for the transaction isolation level.  For example: https://mariadb.com/kb/en/sql-99/38-sql-sessions/sql-session-management/set-session-characteristics-statement/
+
+This is used by Tableau TEIID-3073

@@ -1,0 +1,6 @@
+MSSQL pagination with select distinct
+I'm using Teiid 9.0.0 with mssql translator on a sql server 2012 database
+
+It seems sql server 2012 does not allow pagination with row fetch when used in select distinct query; i'm getting the following exception:
+
+TEIID30504 dataModel_ptVDB: 145 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT DISTINCT g_0."Customer_ID" AS c_0, g_0."CalculatedField" AS c_1 FROM "data"."red4"."Customerview" g_0 ORDER BY @@version OFFSET 0 ROWS FETCH NEXT 10 ROWS ONLY]

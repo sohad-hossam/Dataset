@@ -1,0 +1,2 @@
+Index metadata strings container their entire record line.
+The strings parsed by the IndexMetadataFactory still contain their entire record line since the substring function is used without creating new strings.

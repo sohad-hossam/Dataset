@@ -1,0 +1,4 @@
+Add additional make dep hint options
+make dep hints should support additional options to facilitate TEIID-2249.  This includes:
+min - the minimum number of rows to trigger a dependent join full pushdown
+max - the maximum number of rows allowed before rejecting the dependent join (this would apply in both full pushdown and partial non-pushdown scenarios - in the latter though it will likely refer to the number of distinct values)  

@@ -1,0 +1,14 @@
+Add native-query functionality to pushdown functions
+Source functions should also support the parameterized native-query extension property to easily add calls that use non-standard or mapped function syntax.  
+
+For an operator like pg bit shift left:
+
+{code}
+create foreign function bsl (arg1 integer, arg2 integer) returns integer OPTIONS ("teiid_rel:native-query" '$1 << $2')
+{code}
+
+For an oracle sequence:
+
+{code}
+create foreign function seq_nextval () returns integer OPTIONS ("teiid_rel:native-query" 'seq.nextval')
+{code}

@@ -1,0 +1,2 @@
+Allow embedded to be clusterable
+Now that we've pulled in infinispan/jgroup dependencies, there's nothing preventing us from allowing a fully clusertable embedded.

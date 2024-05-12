@@ -1,0 +1,2 @@
+Add parsing restrictions for 0 length
+Related to TEIID-5111 the parser and other logic should ensure that length of 0 is not allowed in ddl as a length value.

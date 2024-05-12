@@ -1,0 +1,29 @@
+External Materialization interleaving loads SYSADMIN.loadMatView
+There is a possibility of two concurrent loads of single materialized view when using SYSADMIN.loadMatView function. I observed the issue while:
+# Waiting for ttl-driven reload and in right time I triggered another load explicitly by invoking the loadMatView function.
+# Invoking SYSADMIN.loadMatView function multiple times in quick succession.
+
+The view definition:
+{code:sql}
+CREATE VIEW external_long_ttl (
+   customer_id integer NOT NULL,
+   total_amount integer
+) OPTIONS (MATERIALIZED 'TRUE', UPDATABLE 'FALSE',
+ MATERIALIZED_TABLE 'Source.JSTASTNY.dv_matviews_mat_view',
+   "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+      "teiid_rel:MATVIEW_STATUS_TABLE" 'Source.JSTASTNY.dv_matviews_statustable',
+      "teiid_rel:ON_VDB_START_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_create) SELECT id, vdb_create+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:ON_VDB_DROP_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_drop) SELECT id, vdb_drop+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO dv_matviews_mat_view_stage(customer_id,total_amount) SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;',
+      "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'exec Source.native(''truncate table ${db.table.prefix}dv_matviews_mat_view_stage'');MERGE INTO dv_matviews_check_table(id,before_load) SELECT id, before_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'exec Source.native(''RENAME TABLE ${db.table.prefix}dv_matviews_mat_view_stage TO ${db.table.prefix}dv_matviews_mat_view_temp'');exec Source.native(''RENAME TABLE ${db.table.prefix}dv_matviews_mat_view TO ${db.table.prefix}dv_matviews_mat_view_stage'');exec Source.native(''RENAME TABLE ${db.table.prefix}dv_matviews_mat_view_temp TO ${db.table.prefix}dv_matviews_mat_view'');MERGE INTO dv_matviews_check_table(id,after_load) SELECT id, after_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_ONERROR_ACTION" 'WAIT',
+   "teiid_rel:MATVIEW_TTL" 20000)
+      AS SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;
+{code}
+Query to explicitly load the view:
+{code:sql}
+exec SYSADMIN.loadMatView(schemaName=>'View',viewname=>'external_long_ttl', invalidate=>'true')
+{code}
+I attached a log which starts with ttl-driven load, then the explicit load is performed. The issue noticed is in teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT , where primary and staging tables are being swapped. The second load (explicit) can't find the original table, as the ttl-driven load had already renamed it.
+But this situation of two concurrent loads should never occur.

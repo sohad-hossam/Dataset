@@ -1,0 +1,2 @@
+incorrect metadata for array columns in pg metadata
+The array columns are not correctly defined - they are setting a type and then a separate runtime type.  We should just be using the array type name from the start.

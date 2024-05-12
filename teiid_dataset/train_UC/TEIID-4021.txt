@@ -1,0 +1,9 @@
+MSSQL Pagination
+I'm using Teiid 8.11.3 with mssql translator.
+I have a huge table over sql server 2008 on which i'm applying pagination.
+I noticed slowliness in the query execution over this table at each time I increase the pagination.
+I monitored the JDBC queries execute by teiid and found out that it is using top n according to the limit used into the query.
+For example:
+in teiid : Select * from mytable LIMIT 90 , 10
+is translated in JDBC: select top 100 from mytable
+Since my table contains millions of records, when fetching the last page, the executed jdbc query is retrieving the whole table top n, to return in result the last 10 records. And the execution is taking too much time.

@@ -1,0 +1,2 @@
+Better handling for pg transport rewrite
+The regexes used for handling several pg constructs are not generally safe and need to be aware of sql structure.

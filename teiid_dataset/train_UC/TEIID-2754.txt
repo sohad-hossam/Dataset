@@ -1,0 +1,6 @@
+DatabaseMetaData reports views as tables
+The client already has a check for isVirtual & system table type to report a "system view".
+
+We have a "View" type in our metadata, but we generally do not use it in our metadata code. 
+
+So we either could set the view type on the server (although this seems like a broad change) or add another DatabaseMetaData check for isVirtual & table.

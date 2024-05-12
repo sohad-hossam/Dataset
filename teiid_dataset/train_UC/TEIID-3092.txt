@@ -1,0 +1,2 @@
+error with xml project minimization
+The project minimization logic will not look at the appropriate parent chain for each binding and can result in dropping columns that are used from the query which would be seen at runtime as a value not available from context exception.  This became apparent with TEIID-3081 where the map order changed in different vms.

@@ -1,0 +1,2 @@
+Wrong results with merge join SORT_DISTINCT with a full sort that is distinct beyond the join columns
+To speed up processing of a sort merge join we attempt to eliminate extra comparisons by detecting if the equi-join column values are distinct.  In plans where the sorted values are distinct beyond the equi-join values such that the equi-join column values are non-distinct, then incorrect results can be returned.

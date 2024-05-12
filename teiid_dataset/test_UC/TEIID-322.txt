@@ -1,0 +1,2 @@
+Add META-INF/services/java.sql.Driver
+JDBC 4.0 allows for inclusion of Drivers through a META-INF/services file rather than a static DriverManager call

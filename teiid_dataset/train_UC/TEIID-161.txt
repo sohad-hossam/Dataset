@@ -1,0 +1,2 @@
+Move common type conversion logic into a centralized facility for connectors
+Since we allow the flexibility for physical model types to not actually match source type (as in not simply the closest runtime type), every connector is currently responsible for not only converting to a known runtime type but potentially converting to the desired runtime type.  This logic has been encapsulated behind the typefacility converttoruntimetype and transformvalue.  It would be nice however to automatically handle the known conversions.

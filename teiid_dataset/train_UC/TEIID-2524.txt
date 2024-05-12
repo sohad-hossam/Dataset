@@ -1,0 +1,6 @@
+Hive metadata import leaves whitespace characters in column names
+When hive translator starts with the newest Hive it runs "describe" command which returns Hive column names with white spaces.
+
+Maybe just use trim() in HiveMetadataProcessor.java?  
+
+  String name = rs.getString(1).trim();

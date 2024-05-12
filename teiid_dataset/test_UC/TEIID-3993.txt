@@ -1,0 +1,67 @@
+Teiid:  indexOutOfBoundsException on union + count distinct query
+I ran into IndexOfBoundsException from teiid query optimizer when running the following query:
+
+select "SugarCRMDataSource_public_sales_location"."country" as "SugarCRMDataSource_public_sales_location_country",
+"FoodmartDataSource_public_store"."store_country" as "FoodmartDataSource_public_store_store_country",
+'1|1' as "JS_Discriminator_COL",
+count(DISTINCT "SugarCRMDataSource_public_sales_fact"."amount") as "CountDistinct_SugarCRMDataSource_public_sales_fact_amount"
+from "SugarCRMDataSource_public"."sales_fact" "SugarCRMDataSource_public_sales_fact"
+inner join "SugarCRMDataSource_public"."sales_location" "SugarCRMDataSource_public_sales_location" on ("SugarCRMDataSource_public_sales_fact"."sales_location_id" = "SugarCRMDataSource_public_sales_location"."id")
+inner join "FoodmartDataSource_public"."store" "FoodmartDataSource_public_store" on ("SugarCRMDataSource_public_sales_location"."state" = "FoodmartDataSource_public_store"."store_state")
+group by "SugarCRMDataSource_public_sales_location"."country", "FoodmartDataSource_public_store"."store_country"
+
+UNION ALL
+select "SugarCRMDataSource_public_sales_location"."country" as "SugarCRMDataSource_public_sales_location_country",
+NULL as "FoodmartDataSource_public_store_store_country",
+'1|0' as "JS_Discriminator_COL",
+count(DISTINCT "SugarCRMDataSource_public_sales_fact"."amount") as "CountDistinct_SugarCRMDataSource_public_sales_fact_amount"
+from "SugarCRMDataSource_public"."sales_fact" "SugarCRMDataSource_public_sales_fact"
+inner join "SugarCRMDataSource_public"."sales_location" "SugarCRMDataSource_public_sales_location" on ("SugarCRMDataSource_public_sales_fact"."sales_location_id" = "SugarCRMDataSource_public_sales_location"."id")
+inner join "FoodmartDataSource_public"."store" "FoodmartDataSource_public_store" on ("SugarCRMDataSource_public_sales_location"."state" = "FoodmartDataSource_public_store"."store_state")
+group by "SugarCRMDataSource_public_sales_location"."country"
+
+UNION ALL
+select NULL as "SugarCRMDataSource_public_sales_location_country",
+"FoodmartDataSource_public_store"."store_country" as "FoodmartDataSource_public_store_store_country",
+'0|1' as "JS_Discriminator_COL",
+count(DISTINCT "SugarCRMDataSource_public_sales_fact"."amount") as "CountDistinct_SugarCRMDataSource_public_sales_fact_amount"
+from "SugarCRMDataSource_public"."sales_fact" "SugarCRMDataSource_public_sales_fact"
+inner join "SugarCRMDataSource_public"."sales_location" "SugarCRMDataSource_public_sales_location" on ("SugarCRMDataSource_public_sales_fact"."sales_location_id" = "SugarCRMDataSource_public_sales_location"."id")
+inner join "FoodmartDataSource_public"."store" "FoodmartDataSource_public_store" on ("SugarCRMDataSource_public_sales_location"."state" = "FoodmartDataSource_public_store"."store_state")
+group by "FoodmartDataSource_public_store"."store_country"
+
+UNION ALL
+select NULL as "SugarCRMDataSource_public_sales_location_country",
+NULL as "FoodmartDataSource_public_store_store_country",
+'0|0' as "JS_Discriminator_COL",
+count(DISTINCT "SugarCRMDataSource_public_sales_fact"."amount") as "CountDistinct_SugarCRMDataSource_public_sales_fact_amount"
+from "SugarCRMDataSource_public"."sales_fact" "SugarCRMDataSource_public_sales_fact"
+inner join "SugarCRMDataSource_public"."sales_location" "SugarCRMDataSource_public_sales_location" on ("SugarCRMDataSource_public_sales_fact"."sales_location_id" = "SugarCRMDataSource_public_sales_location"."id")
+inner join "FoodmartDataSource_public"."store" "FoodmartDataSource_public_store" on ("SugarCRMDataSource_public_sales_location"."state" = "FoodmartDataSource_public_store"."store_state")
+order by "SugarCRMDataSource_public_sales_location_country", "FoodmartDataSource_public_store_store_country"
+ limit 1000
+
+And here is the exception:
+
+Caused by: java.lang.IndexOutOfBoundsException: Index: 4, Size: 4
+        at java.util.ArrayList.rangeCheck(ArrayList.java:635)
+        at java.util.ArrayList.get(ArrayList.java:411)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.setColStatEstimates(NewCalculateCostUtil.java:411)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.setCardinalityEstimate(NewCalculateCostUtil.java:313)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.estimateSetOpCost(NewCalculateCostUtil.java:252)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.computeNodeCost(NewCalculateCostUtil.java:204)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.updateCardinality(NewCalculateCostUtil.java:136)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.updateCardinality(NewCalculateCostUtil.java:133)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.updateCardinality(NewCalculateCostUtil.java:133)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.computeCostForTree(NewCalculateCostUtil.java:122)
+        at org.teiid.query.optimizer.relational.rules.RuleCalculateCost.execute(RuleCalculateCost.java:50)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:807)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:223)
+        at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:159)
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:435)
+        at org.teiid.dqp.internal.process.PreparedStatementRequest.generatePlan(PreparedStatementRequest.java:119)
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:463)
+        at org.teiid.dqp.internal.process.PreparedStatementRequest.processRequest(PreparedStatementRequest.java:294)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:640)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:337)
+        ... 22 more

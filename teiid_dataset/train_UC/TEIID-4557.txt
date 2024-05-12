@@ -1,0 +1,4 @@
+Enable memory management at the query level
+Allows managing (and limiting if needed) the memory consumed by the execution of a particular view.  Maybe this can be done through a max. memory and swapping settings on the view. 
+
+Would it also be possible to set a global memory limit for the execution of any query in the server or in a particular VDB. This provides a simple and general setting to guarantee no query can monopolize server resources

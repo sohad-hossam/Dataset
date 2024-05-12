@@ -1,0 +1,2 @@
+cannot specify both auto increment and primary key via ddl
+the grammar does not accept auto increment and primary key

@@ -1,0 +1,4 @@
+Wrong pushdown of ST_Touches to Oracle
+The ST_Touches is currently pushed down as SDO_TOUCHES to Oracle, however, the correct function name is SDO_TOUCH.
+
+http://docs.oracle.com/database/121/SPATL/GUID-93B1E298-BE8D-45B9-A1D4-9B310ABB1252.htm#SPATL1040

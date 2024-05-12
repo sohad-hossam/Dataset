@@ -1,0 +1,2 @@
+Improve numeric transforms
+The numeric transforms should use valueof methods as much as possible to reuse pooled instances.

@@ -1,0 +1,2 @@
+Improve error reporting with inherently updatable views
+The inherent update info check is superseded all other validations because it is running during resolve and does not contain appropriate detail and may be miss-leading in indicating that a procedure is needed.

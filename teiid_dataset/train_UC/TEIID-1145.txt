@@ -1,0 +1,9 @@
+Unable to deploy VDB with virtual BQT2 model
+John Doyle attempted to import BQT2 and execute through a virtual model in a VDB.
+
+1) Imported BQT2 and created source model in Designer
+2) Created VDB with BQT2 and deployed to Teiid, was able to query through DTP
+3) Created Virtual BQT2 model and created VDB with both models.
+4) Exception deploying this VDB to Teiid. (SEE ATTACHED LOG)
+
+Note that this appears to work with other DB's. These BQT2 models, do contain columns that require the "builtInDatatypes.xsd". Unlike MMX VBD's, we aren't including this XML schema in each VDB. Since the BQT2 Source model deploys and queries fine without it, it's weird that a Virtual model which also required it is failing deployment.  This is the only special circumstances I could find looking at the use-case and it may or may not be relevant.

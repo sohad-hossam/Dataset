@@ -1,0 +1,63 @@
+PrestoDB tranlator - NPE while executing CHR function with illegal argument (char)
+If executing query with *CHR(integer)* function with argument of type char (illegal argument) against PrestoDB, Teiid throws NPE (note, there is no problem with *CHAR(integer)* function with same argument).
+
+{code:sql|title=Query}
+SELECT CHR(charvalue) FROM BQT1.Smalla
+{code}
+{code:plain|title=Log}
+14:19:45,184 DEBUG [org.teiid.TRANSPORT] (New I/O worker #3) processing message:MessageHolder: key=222 contents=Invoke interface org.teiid.client.DQP.executeRequest
+14:19:45,185 DEBUG [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) Request Thread A7WqBzZhsyYM.39 with state NEW
+14:19:45,185 DEBUG [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) A7WqBzZhsyYM.39 Command has no cache hint and result set cache mode is not on.
+14:19:45,185 DEBUG [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) A7WqBzZhsyYM.39 executing  SELECT CHR(charvalue) FROM BQT1.Smalla
+14:19:45,186 ERROR [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) TEIID30019 Unexpected exception for request A7WqBzZhsyYM.39: java.lang.NullPointerException
+	at org.teiid.query.sql.visitor.EvaluatableVisitor.visit(EvaluatableVisitor.java:87) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.symbol.Function.acceptVisitor(Function.java:173) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.AbstractNavigator.visitVisitor(AbstractNavigator.java:54) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrPostOrderNavigator.preVisitVisitor(PreOrPostOrderNavigator.java:55) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrPostOrderNavigator.visit(PreOrPostOrderNavigator.java:191) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.symbol.Function.acceptVisitor(Function.java:173) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrderNavigator.doVisit(PreOrderNavigator.java:40) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.visitor.EvaluatableVisitor.isEvaluatable(EvaluatableVisitor.java:241) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.visitor.EvaluatableVisitor.isFullyEvaluatable(EvaluatableVisitor.java:235) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewriteExpressionDirect(QueryRewriter.java:2142) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.access$000(QueryRewriter.java:101) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter$3.replaceExpression(QueryRewriter.java:641) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.visitor.ExpressionMappingVisitor.visit(ExpressionMappingVisitor.java:162) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.symbol.ExpressionSymbol.acceptVisitor(ExpressionSymbol.java:63) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.AbstractNavigator.visitVisitor(AbstractNavigator.java:54) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrPostOrderNavigator.postVisitVisitor(PreOrPostOrderNavigator.java:61) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrPostOrderNavigator.visit(PreOrPostOrderNavigator.java:183) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.symbol.ExpressionSymbol.acceptVisitor(ExpressionSymbol.java:63) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.AbstractNavigator.visitNode(AbstractNavigator.java:63) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.AbstractNavigator.visitNodes(AbstractNavigator.java:76) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PreOrPostOrderNavigator.visit(PreOrPostOrderNavigator.java:342) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.lang.Select.acceptVisitor(Select.java:168) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.sql.navigator.PostOrderNavigator.doVisit(PostOrderNavigator.java:40) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewriteExpressions(QueryRewriter.java:648) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewriteQuery(QueryRewriter.java:485) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewriteCommand(QueryRewriter.java:225) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewrite(QueryRewriter.java:170) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.rewriter.QueryRewriter.rewrite(QueryRewriter.java:174) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:420) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:470) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:642) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:337) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_92]
+
+14:19:45,188 DEBUG [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) A7WqBzZhsyYM.39 Finished Processing
+14:19:45,188 DEBUG [org.teiid.PROCESSOR] (Worker22_QueryProcessorQueue115) java.lang.NullPointerException Sending error to client A7WqBzZhsyYM.39
+14:19:45,188 DEBUG [org.teiid.TRANSPORT] (Worker22_QueryProcessorQueue115) send message: MessageHolder: key=222 contents=ResultsMessage rowCount=0 finalRow=-1
+{code}
+{code:sql|title=Source table DDL}
+CREATE FOREIGN TABLE SmallA ( ... CharValue char(1) OPTIONS (NATIVE_TYPE 'char(1)', NAMEINSOURCE 'charvalue')...)
+{code}
+{code:sql|title=View DDL}
+CREATE VIEW SmallA (...CharValue char...) OPTIONS (...) AS SELECT ... CharValue ... FROM Source.smalla;
+{code}

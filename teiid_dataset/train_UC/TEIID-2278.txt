@@ -1,0 +1,22 @@
+Restarting server causes NPE when reading metadata for the vdb that uses 'ws' translator
+Running the twitter quick start and when server is restarted, the following stacks trace is produced:
+
+13:04:27,756 ERROR [org.jboss.threads.executor] (teiid-async-threads - 4) Task execution failed for task org.teiid.jboss.VDBService$6@15d0ff7: java.lang.NullPointerException
+	at org.teiid.query.metadata.MetadataValidator.addColumn(MetadataValidator.java:295) [teiid-engine-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.query.metadata.MetadataValidator.validate(MetadataValidator.java:240) [teiid-engine-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.query.metadata.MetadataValidator.access$000(MetadataValidator.java:63) [teiid-engine-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.query.metadata.MetadataValidator$ResolveQueryPlans.execute(MetadataValidator.java:183) [teiid-engine-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.query.metadata.MetadataValidator.validate(MetadataValidator.java:73) [teiid-engine-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.deployers.VDBRepository.finishDeployment(VDBRepository.java:289) [teiid-runtime-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.runtime.AbstractVDBDeployer.metadataLoaded(AbstractVDBDeployer.java:170) [teiid-runtime-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.jboss.VDBService.access$900(VDBService.java:91) [teiid-jboss-integration-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.teiid.jboss.VDBService$6.run(VDBService.java:395) [teiid-jboss-integration-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
+	at org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33)
+	at org.jboss.threads.QueueExecutor.runTask(QueueExecutor.java:801)
+	at org.jboss.threads.QueueExecutor.access$100(QueueExecutor.java:45)
+	at org.jboss.threads.QueueExecutor$Worker.run(QueueExecutor.java:821)
+	at java.lang.Thread.run(Thread.java:680) [classes.jar:1.6.0_35]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+
+
+If I clean the data/teiid-data directory and restart, its ok, but restart again, NPE is produced again.

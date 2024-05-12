@@ -1,0 +1,8 @@
+MySQL translator (mysql, mysql5) - convert( ..., float [double]) uses  "+ 0.0" construction
+convert(... , float) and convert(..., double) functions use for conversion "+ 0.0". But if the result is used in the more complex expression, translator does not take into account priority of the operators.
+
+*Query:* SELECT StringKey, (convert(StringKey, float)+(-3)) AS StringKeyPlusNeg3, (convert(StringKey, float) - (-3)) AS StringKeyMinusNeg3, (convert(StringKey, float)*(-3)) AS StringKeyTimesNeg3, (convert(StringKey, float)/(-3)) AS StringKeyDivNeg3 FROM table WHERE IntKey == 1 ORDER BY StringKey
+
+*Result:* 1 | -2 | 4 | 1 | 1
+
+*Source-specific query:* SELECT g_0.STRINGKEY AS c_0, (g_0.STRINGKEY + 0.0 + -3.0) AS c_1, (g_0.STRINGKEY + 0.0 - -3.0) AS c_2, _*(g_0.STRINGKEY + 0.0 * -3.0)*_ AS c_3, _*(g_0.STRINGKEY + 0.0 / -3.0)*_ AS c_4 FROM smalla AS g_0 WHERE g_0.INTKEY > 0 AND g_0.INTKEY <= 10 ORDER BY c_0

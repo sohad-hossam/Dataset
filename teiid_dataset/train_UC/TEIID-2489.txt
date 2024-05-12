@@ -1,0 +1,15 @@
+Enable the case insensitive use of the translator override properties 
+The translator override properties must match exactly the property.  Example:  SupportsNativeQueries must be supportsNativeQueries (starting with lowercase 's') in order for it to work.  
+
+Conversation:
+
+
+It looks like there are several considerations.
+
+The simplest change would be for AdminObjectImpl to use a string insensitive treemap for properties.
+
+The variation on that (which is basically what Van is suggesting) if we do not want all admin object properties to be case insensitive would be to allow subclasses to set their own property maps.
+
+If not one of those, we would at least change the properties to use a LinkedHashMap rather than a HashMap so that the order allows us to determine precedence (but there would be other changes needed as well).
+
+Generally the strategy of explicitly setting the defaults/parent values on VDBTranslatorMetaData would seem to have some drawbacks.  The primary one is that override translators are essentially modified from their metadata state.  Any write-out of the VDBMetadata from what I can see will then include all of the additional properties.  It seems like we should instead be setting the parent VDBTranslatorMetaData on the child and then resolving the property hierarchy in the TranslatorUtil.

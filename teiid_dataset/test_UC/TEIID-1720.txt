@@ -1,0 +1,4 @@
+Support for JBoss AS 7.x as host environment
+Currently Teiid 7.x line is based on JBoss AS 5.1.0. Migrate host environment to JBoss AS 7.x.
+
+This JIRA will be used to put in some initial work, then will be used bucket to add sub-tasks involved in the overhaul.

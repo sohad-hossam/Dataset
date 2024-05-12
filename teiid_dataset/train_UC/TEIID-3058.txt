@@ -1,0 +1,25 @@
+Cassandra:  cannot compare timestamp field in where clause
+It seems like Teiid is having problem to compare translate CQL if there is timestamp comparison in where clause:
+
+ORIGINAL SQL:
+select "cassandrads_sales"."product_family" as "cassandrads_sales_product_family",
+"cassandrads_sales"."product_family" as "cassandrads_sales_product_family1"
+from "cassandrads"."sales" "cassandrads_sales"
+where "cassandrads_sales"."the_date" <= '2013-05-01 00:00:00'
+ limit 1000
+
+TRANSLATED CQL:
+
+SELECT cassandrads.sales.product_family FROM cassandrads.sales WHERE cassandrads.sales.the_date <= {ts'2013-05-01 00:00:00.0'} LIMIT 1000
+
+And I got this error:
+
+Caused by: org.teiid.translator.TranslatorException: line 1:55 no viable alternative at input '2013-05-01 00:00:0
+        at org.teiid.translator.cassandra.CassandraQueryExecution.execute(CassandraQueryExecution.java:80)
+        at org.teiid.translator.cassandra.CassandraQueryExecution.execute(CassandraQueryExecution.java:72)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:325)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:135)
+
+If it is not possible to do time/ data comparison for CQL, maybe you guys should consider to do it in memory instead.  Thanks.
+

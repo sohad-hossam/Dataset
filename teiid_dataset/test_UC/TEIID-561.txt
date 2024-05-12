@@ -1,0 +1,2 @@
+Having multiple copies of "configuration.xml" is error prone
+Currently Teiid has two different configuration.xml files, one for the server and one for Embedded. The server xml contains more information than the embedded and it partially is auto generated based on the cdk files of the connectors. The Embedded does not have this feature, and needs to be modified manually. these both should be combined to have a single "configuration" file.

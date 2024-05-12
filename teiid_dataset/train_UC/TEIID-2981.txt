@@ -1,0 +1,2 @@
+Add an OData query parameter that caches the resultset
+The Teiid caching guide indicates that the /*+ cache */ SQL hint is neccessary in order to cache results [1] .  We would like two features added to the OData support:  (1) to have a query parameter that basically injects the hint into the SQL statement run against the VDB and (2) a configuration setting that turns on OData resultset caching for all result sets smaller than some size (perhaps 256 as the default)

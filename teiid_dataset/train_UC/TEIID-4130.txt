@@ -1,0 +1,8 @@
+Prevent blocked exceptions from being thrown in AccessNode open
+Having the access node block in open can lead to unintended consequences in parent nodes.  For example with tuplesource caching it can create additional tuplesource instances such the cached source is closed prematurely (as it thinks that all readers have been satisfied).  This results in exceptions similar to:
+
+TEIID30019 Unexpected exception for request 2TLgULsEBZvO.8: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+...
+	at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:286) \[teiid-engine-8.7.5.6_2-redhat-1.jar:8.7.5.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.TupleSourceCache$CopyOnReadTupleSource.nextTuple(TupleSourceCache.java:103) \[teiid-engine-8.7.5.6_2-redhat-1.jar:8.7.5.6_2-redhat-1]
+...

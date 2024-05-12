@@ -1,0 +1,2 @@
+Serialization of long sqlexception/warning next chains can lead to oom
+The serialization logic for exception chains is not correct and will output exponentially too many instances of chained exceptions, which can lead to out of memory conditions.

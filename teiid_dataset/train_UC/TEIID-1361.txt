@@ -1,0 +1,2 @@
+Salesforce IN predicate handling
+If the name in source of the table of an IN left hand expression do not match exactly with the Teiid name, the the translator will erroneously drop the predicate.

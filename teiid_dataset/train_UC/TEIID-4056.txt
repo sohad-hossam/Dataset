@@ -1,0 +1,15 @@
+OData - PUT cannot parse entity
+If user want to update entity using HTTP PUT method, OData service returns error that JSON document is not valid. Even if entity is in XML format.
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/PutTable(1) or http://localhost:8080/odata4/olingo_basic/Source/PutTable(2)
+*Method:* PUT
+*Request reader:* Content-type: application/json or Content-type: application/xml
+*Error:* The syntax of the JSON document is not valid.
+*Entity JSON:*
+{code:plain}
+{"intnum@odata.type":"Int32","intnum":5,"stringval@odata.type":"String","stringval":"5","timestampval@odata.type":"DateTimeOffset","timestampval":"2005-01-01T00:00:05Z","clobval@odata.type":"Binary","clobval":"Y2xvYl92YWx1ZV8wMDAwNQ=="}
+{code}
+*Entity XML:*
+{code:xml}
+<?xml version='1.0' encoding='UTF-8'?><entry xmlns="http://www.w3.org/2005/Atom" xmlns:xml="http://www.w3.org/XML/1998/namespace" xmlns:m="http://docs.oasis-open.org/odata/ns/metadata" xmlns:d="http://docs.oasis-open.org/odata/ns/data" xmlns:gml="http://www.opengis.net/gml" xmlns:georss="http://www.georss.org/georss"><category scheme="http://docs.oasis-open.org/odata/ns/scheme"/><content type="application/xml"><m:properties><d:intnum m:type="Int32">4</d:intnum><d:stringval>4</d:stringval><d:timestampval m:type="DateTimeOffset">2004-01-01T00:00:04Z</d:timestampval><d:clobval m:type="Binary">Y2xvYl92YWx1ZV8wMDAwNA==</d:clobval></m:properties></content></entry>
+{code}

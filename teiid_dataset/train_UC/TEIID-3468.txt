@@ -1,0 +1,2 @@
+Exception with same table name in materialization procedures
+The sql defining the mat view procedures is not qualifying the reference to the schemaName, and throwing an exception when the scalar subquery returns more than 1 value.

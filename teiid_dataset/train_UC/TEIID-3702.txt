@@ -1,0 +1,4 @@
+dependency and validation logic incorrect
+With TEIID-3042 validation of triggers was added, but does not properly account for the parsing/resolving - however it is only being run in the case where there are no columns defined on the view and they are instead inferred from the definition.
+
+Similarly dependencies are only being determined on view with no columns defined.

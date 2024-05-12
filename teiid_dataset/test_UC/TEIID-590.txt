@@ -1,0 +1,2 @@
+Embedded has classloading issues with JBoss AS
+Since Teiid uses the same libraries as JBoss Cache, JBoss TS, and JGroups, there are version incompatibilities that needs to be dealt with. This JIRA should provide guidance as to how to deploy into 4.2.2 and 5.0

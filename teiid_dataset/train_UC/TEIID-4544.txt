@@ -1,0 +1,6 @@
+Change Teradata defaults for dependent joins
+Teradata does not suggest hard limits on in predicates, but uses the wording:
+
+"Queries that contain thousands of arguments within an IN or NOT IN clause sometimes fail."
+
+It has been reported that the defaults of 50 in predicates with 1000 values each will cause such a failure.

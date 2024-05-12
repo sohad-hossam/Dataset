@@ -1,0 +1,30 @@
+window functions in view return incorrect results
+conditions and limits above a view are too broadly allowed to be pushed through a view layer containing window functions.
+
+From the forum posting for example:
+
+{code}
+SELECT
+        "StateProvinceID"
+        , COUNT(*) OVER (PARTITION BY a."CountryRegionCode") AS num
+    FROM salestaxrate a
+    WHERE "TaxType" = 3{code}
+
+returns the correct counts, where as 
+
+{code}
+SELECT *
+FROM
+(
+    SELECT
+        "StateProvinceID"
+        , COUNT(*) OVER (PARTITION BY a."CountryRegionCode") AS num
+    FROM salestaxrate a
+    WHERE "TaxType" = 3
+) x
+WHERE "StateProvinceID" = 45
+{code}
+
+returns counts where the state province id condition is applied before the windowing.
+
+The currently logic will only prevent the criteria from being pushed if it is directly applied against a computed window value.

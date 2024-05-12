@@ -1,0 +1,20 @@
+NPE When using External Materialization management is use
+When I was issuing query that has externalized materialization with management option to true, I am seeing NPE. Tried to see why NPE is occurring was not able to figure out (yet) 
+
+{code}
+14:37:50,269 ERROR [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue8477) 0z97J5OWq7x9 Connector worker process failed for atomic-request=0z97J5OWq7x9.7.1.4220: java.lang.NullPointerException
+	at org.teiid.translator.jdbc.JDBCQueryExecution.next(JDBCQueryExecution.java:338)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:385) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:203) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:301) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_65]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.9.0.Alpha1-SNAPSHOT.jar:8.9.0.Alpha1-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_65]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_65]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_65]
+{code}

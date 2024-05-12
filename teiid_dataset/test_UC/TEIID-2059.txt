@@ -1,0 +1,2 @@
+Allow local connections to be used without load issues
+Start-up may result in local connections to inactive vdbs.

@@ -1,0 +1,2 @@
+SQL naming issue with several layers of inline views
+Several layers of inline views in a source query can cause the alias generation logic to use improper names for higher level symbols resulting in invalid source sql.

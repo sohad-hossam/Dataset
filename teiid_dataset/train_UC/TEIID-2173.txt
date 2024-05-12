@@ -1,0 +1,9 @@
+Need a way to clear validation errors on VDBMetaData / ModelMetaData.
+Scenario:
+I am working with a VDB in object form, then deploy the xml form of it via the AdminAPI.  Later, I retrieve the VDBMetaData object - using  adminAPI.getVDBs().  Then I want to make some changes to it and attempt a redeploy.
+
+Problem;
+If there was a problem with the original VDB deployment, the VDBMetaData object may have validation errors.  In order to successfully redeploy, I need to clear the validation errors.
+
+I dont see a way to conveniently clear the model errors so I can attempt a redeploy.  Can you add a method to clear the validation errors or clone the model without errors, so that I can redeploy?
+

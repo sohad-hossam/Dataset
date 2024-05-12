@@ -1,0 +1,46 @@
+Boolean syntax is broken on pg 9.5 data sources
+Running the following query using test_pg as a PostgreSQL data source working on 9.5 version:
+{code:sql}
+with mytab as
+(
+    select d>2 as col1
+    FROM "test_pg.test_d"
+)
+select * from mytab where col1 = true ;;
+{code}
+will fail with the following error message:
+{code}
+2017-04-27 16:04:50,560 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue6) 94Wi2JTG/lCK Connector worker process failed for atomic-request=94Wi2JTG/lCK.0.0.0: org.teiid.trans
+lator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."d" > 2 AS c_0 FROM "public"."test_d" AS g_0 WHERE g_0."
+d" > 2 = TRUE LIMIT 100]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:365)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy56.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ОШИБКА: ошибка синтаксиса (примерное положение: "=")
+  Позиция: 75
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 18 more
+{code}

@@ -1,0 +1,3 @@
+DatabaseMetadata issues
+MMDatabaseMetadata getColumns is_nullable has YES/NO reversed
+getIndexInfo should return both unique and non-unique indexes

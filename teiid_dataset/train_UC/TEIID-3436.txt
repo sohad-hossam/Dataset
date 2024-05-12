@@ -1,0 +1,2 @@
+OData V2: Add array type support to the odata translator
+Arrays of basic types in odata responses should be convertible into a runtime array type.

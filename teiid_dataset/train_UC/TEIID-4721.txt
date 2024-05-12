@@ -1,0 +1,2 @@
+Aggregate name incorrect in FunctionCategoryConstants
+In TEIID-2815 the word Aggregate was spelled with an extra e.

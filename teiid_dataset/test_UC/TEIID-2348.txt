@@ -1,0 +1,2 @@
+Internal procedures can have a name conflict
+The compensating procedures used for inherent loop processing and other constructs use a loop cursor name of x - which will not correctly resolve if the update is being processed against a view/table named x.

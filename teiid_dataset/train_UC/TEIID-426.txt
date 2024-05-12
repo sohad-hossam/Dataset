@@ -1,0 +1,3 @@
+JDBC Driver name should be changed from "Metamatrix xxx Driver" to "Teiid xxx Driver'
+Currently the name of the JDBC Driver in MMDriver and Embedded Driver mention that they are "Metamatrix drivers" this should be changed to "Teiid". Also the version number must be changed for the 6.0
+

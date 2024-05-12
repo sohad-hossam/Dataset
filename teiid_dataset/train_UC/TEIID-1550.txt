@@ -1,0 +1,7 @@
+Row level security enhancements
+To assist with implementing row level security through UDFs the following enhancements are requested:
+
+1. Add the ability for data roles to cover functions.
+2. Add the ability to get the JAAS subject from the CommandContext so that UDFs can perform attribute or other checks on the subject easily.
+
+Actual row level security will then be up to the implementer of the UDF.

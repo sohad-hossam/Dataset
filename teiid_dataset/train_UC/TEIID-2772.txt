@@ -1,0 +1,2 @@
+System tables should report array information
+The procedure columns and columns tables should report at least the type name as the array type. Currently we only report the base component type.

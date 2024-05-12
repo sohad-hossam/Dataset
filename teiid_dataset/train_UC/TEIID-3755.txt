@@ -1,0 +1,2 @@
+Allow embedded to set the default authentication type
+There is currently not a config property to set the default authentication type.

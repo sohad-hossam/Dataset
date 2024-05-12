@@ -1,0 +1,2 @@
+Local connections should use calling thread
+locsl connections block on jdbc operations, but mostly do not use the calling thread in the engine.

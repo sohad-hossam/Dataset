@@ -1,0 +1,2 @@
+Authorization Realms are being checked in case dependent way
+When enforcing the data role entitlements on VDB the realm is computed as = Vdb-Name + Version and checked against the VDB that user is connected to. If the user connected to VDB with a different case (as connection is case in-independent of the VDB name) than what the VDB is defined as, then the user is never entitled against data which he/she should be.

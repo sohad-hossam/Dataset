@@ -1,0 +1,21 @@
+HIVE2:  got Invalid table alias or column reference when running UNION ALL query on HIVE2
+If I tried to combine 2 tables from a same HIVE2 data source using UNION ALL, I got "Invalid table alias or column reference" error.
+
+Query that I submitted to Teiid originally:
+
+select "name"
+from (Select * from hive2.opportunities_small UNION ALL Select * from
+hive2.opportunities) "query"
+group by "name"
+order by "name"
+
+Query that Teiid generated:
+
+SELECT v_0.c_0 FROM (SELECT c_0 FROM (SELECT g_1.name AS c_0 FROM
+opportunities_small g_1 UNION ALL SELECT g_0.name AS c_0 FROM opportunities
+g_0) X__) v_0 GROUP BY v_0.c_0 ORDER BY v_0.c_0
+
+Error:
+
+Invalid table alias or column reference 'v_0': (possible column names are: c_0)
+

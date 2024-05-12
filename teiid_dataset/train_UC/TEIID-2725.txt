@@ -1,0 +1,31 @@
+Group by doesn't work with MongoDB
+Group by SQL with/ without aggregate function returns incorrect values:
+
+For example:
+
+Original SQL:
+
+select "grade", sum("score") as "sum_score" from "mongoDBDS"."grades" group by "grade" order by "grade"
+
+ 
+
+Transform query:
+
+SELECT grades.grade AS c_0, SUM(grades.score) AS c_1 FROM grades GROUP BY grades.grade ORDER BY c_0
+
+$group:{ "_id" : "$grade" , "c_1" : { "$sum" : "$score"}}
+
+$project:{ "c_0" : "$grade" , "c_1" : 1}
+
+$sort:{ "c_0" : 1}
+
+Expected Result:
+grade   score
+A	187
+F	55
+
+Actual Result:  (INCORRECT)
+grade	score
+	242
+
+It only returns SUM(score) and group by fields are ignore. 

@@ -1,0 +1,6 @@
+Reached maximum thread count "10" for worker pool "async-teiid-threads"
+Cannot configure system to remove the following warning:
+
+*TEIID30009 Reached maximum thread count "10" for worker pool "async-teiid-threads" with a queue size high of "44". Queued work waited 500 ms prior to executing. To avoid queuing of work you may consider increasing "max-threads" or decreasing the "max-active-plans" in the "standalone-teiid.xml" file.*
+
+Already tried what is explained [here|https://developer.jboss.org/thread/275761] but applied for the standalone mode without any success.

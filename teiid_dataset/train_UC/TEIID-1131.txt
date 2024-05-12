@@ -1,0 +1,4 @@
+Document/expand sequence support
+Currently sequence workaround logic only exists for oracle and is undocumented.  We should look at expanding sequence support - even for dynamic vdbs, see SQuriel's handling of system queries for retrieving sequence metadata.
+
+At least allowing the workaround logic to work for all sources that support sequences (Postgres, DB2, etc.) would be good.

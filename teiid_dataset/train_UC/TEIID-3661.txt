@@ -1,0 +1,22 @@
+Spatial functions broken
+Spatial functions (like {{ST_GeomFromText}}) are broken in the JBoss kit by the module refactor that happened around 8.11.0.Beta2.
+
+{code}
+select st_geomfromtext('POINT(0 0)');
+{code}
+
+{code}
+Caused by: java.lang.NoClassDefFoundError: org/xml/sax/helpers/DefaultHandler
+	at java.lang.ClassLoader.defineClass1(Native Method) [rt.jar:1.7.0_79]
+	at java.lang.ClassLoader.defineClass(ClassLoader.java:800) [rt.jar:1.7.0_79]
+	at org.jboss.modules.ModuleClassLoader.doDefineOrLoadClass(ModuleClassLoader.java:361) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	at org.jboss.modules.ModuleClassLoader.defineClass(ModuleClassLoader.java:482) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	... 61 more
+Caused by: java.lang.ClassNotFoundException: org.xml.sax.helpers.DefaultHandler from [Module "com.vividsolutions:main" from local module loader @1de368ab (finder: local module finder @3cecc1e1 (roots: /home/tom/wkspace/teiid-8.12.0.Beta2-SNAPSHOT/modules,/home/tom/wkspace/teiid-8.12.0.Beta2-SNAPSHOT/modules/system/layers/dv,/home/tom/wkspace/teiid-8.12.0.Beta2-SNAPSHOT/modules/system/layers/base))]
+	at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:213) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:459) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:408) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:389) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:134) [jboss-modules.jar:1.3.6.Final-redhat-1]
+	... 65 more
+{code}

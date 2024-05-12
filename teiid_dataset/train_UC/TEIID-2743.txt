@@ -1,0 +1,2 @@
+XMLTable does not account for DST
+The fix for TEIID-2112 does not consider DST server timezones.  While it is not typically expected for a server to be running in DST, we should still handle this situation.

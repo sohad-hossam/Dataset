@@ -1,0 +1,2 @@
+Add a more localized way to set the default escape
+To support geoserver and ODBC integration in general we should provide a more localized way of setting the default escape for like predicates.

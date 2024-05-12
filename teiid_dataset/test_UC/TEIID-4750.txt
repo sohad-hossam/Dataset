@@ -1,0 +1,2 @@
+Map to BigInteger in more circumstances
+We currently default to a bigdecimal mapping when a more specific biginteger mapping could be used.  I think the original intent was to lessen our usage of the biginteger type as it's effectively derived from bigdecimal, but because of the weakness in the handling of precision/scale as the types propagate, biginteger can be more appropriate.

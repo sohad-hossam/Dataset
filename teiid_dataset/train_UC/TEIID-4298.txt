@@ -1,0 +1,49 @@
+Support in Odata4 for the Partner NavigationProperty attribute
+in Teiid 9.0 it would be useful to create a bidirectional link between tables, like in odata2
+
+for example:
+
+<EntityType Name="Product">
+    <Key>
+        <PropertyRef Name="ProductID"/>
+    </Key>
+    <Property Name="ProductID" Type="Edm.Int32" Nullable="false" p5:StoreGeneratedPattern="Identity"/>
+    <Property Name="ProductName" Type="Edm.String" Nullable="false" MaxLength="40"/>
+    <Property Name="SupplierID" Type="Edm.Int32"/>
+    <Property Name="CategoryID" Type="Edm.Int32"/>
+    <Property Name="QuantityPerUnit" Type="Edm.String" MaxLength="20"/>
+    <Property Name="UnitPrice" Type="Edm.Decimal" Precision="19" Scale="4"/>
+    <Property Name="UnitsInStock" Type="Edm.Int16"/>
+    <Property Name="UnitsOnOrder" Type="Edm.Int16"/><Property Name="ReorderLevel" Type="Edm.Int16"/>
+
+    <Property Name="Discontinued" Type="Edm.Boolean" Nullable="false"/>
+    <NavigationProperty Name="Category" Type="NorthwindModel.Category" Partner="Products">
+        <ReferentialConstraint Property="CategoryID" ReferencedProperty="CategoryID"/>
+    </NavigationProperty>
+    <NavigationProperty Name="Order_Details" Type="Collection(NorthwindModel.Order_Detail)" Partner="Product"/>
+    <NavigationProperty Name="Supplier" Type="NorthwindModel.Supplier" Partner="Products">
+        <ReferentialConstraint Property="SupplierID" ReferencedProperty="SupplierID"/>
+    </NavigationProperty>
+</EntityType>
+
+<EntityType Name="Category">
+    <Key>
+        <PropertyRef Name="CategoryID"/>
+    </Key>
+    <Property Name="CategoryID" Type="Edm.Int32" Nullable="false" p5:StoreGeneratedPattern="Identity"/>
+    <Property Name="CategoryName" Type="Edm.String" Nullable="false" MaxLength="15"/>
+    <Property Name="Description" Type="Edm.String" MaxLength="max"/>
+    <Property Name="Picture" Type="Edm.Binary" MaxLength="max"/>
+    <NavigationProperty Name="Products" Type="Collection(NorthwindModel.Product)" Partner="Category"/>
+</EntityType>
+
+It seems that the two tables are related through NavigationProperty and Partner
+In fact I can see all the Categories of a certain Product
+
+http://services.odata.org/V4/Northwind/Northwind.svc/Products(10)/Category
+
+or viceversa the products of a certain Category
+
+http://services.odata.org/V4/Northwind/Northwind.svc/Categories(8)/Products
+
+While in Teiid using odata2 this works just by creating a FK from one table to the other one, with odata4 this does not happen

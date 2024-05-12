@@ -1,0 +1,2 @@
+Dup removal doesn't respect desc ordering if all projected columns are sorted on
+The sort utility logic has a bug that treats no sort elements and all sort elements as needing the default sort specification, which is ascending.

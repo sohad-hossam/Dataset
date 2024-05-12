@@ -1,0 +1,2 @@
+Allow permission conditions and masking to be pluggable
+The AuthorizationValidator or similar interface should allow for alternative implementations to be plugged in for providing permission conditions and column masking.

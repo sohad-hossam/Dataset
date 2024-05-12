@@ -1,0 +1,6 @@
+Misc improvements
+The typing and batch sizing logic is burdensome to bulk data loads into temp tables.
+
+We are always setting a plan description even if the client hasn't requested it.
+
+Prepared plans are being invalided even if they don't depend on metadata changes.

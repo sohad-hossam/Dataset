@@ -1,0 +1,6 @@
+HIVE:  decimal datatype is treated like a string
+Teiid maps Decimal column (DECIMAL(9,4)) to "java.lang.String" when using org.teiid.translator.hive.HiveExecutionFactory.  I would expect it to map to "java.math.BigDecimal" or something else.
+
+Here is my table:
+
+CREATE TABLE tableWithAllTypes(column_bigint BIGINT, column_boolean BOOLEAN, column_char CHAR(1), column_decimal DECIMAL(9,4), column_double DOUBLE, column_float FLOAT, column_int INT, column_smallint SMALLINT, column_string STRING, column_timestamp TIMESTAMP, column_tinyint TINYINT, column_varchar VARCHAR(64)) ROW FORMAT DELIMITED FIELDS TERMINATED BY ',';

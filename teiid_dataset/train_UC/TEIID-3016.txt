@@ -1,0 +1,4 @@
+Add headers parameter to invokeHttp
+There is a need to set common headers, such as content type and accepts.  Since there may be other custom values it probably makes sense to do this as a generic parameter as Ramesh suggests:
+
+    call restBDM.invokeHttp(action => 'POST', endpoint =>  qp, headers=>'ContentType=application/json;Accepts=application/text')  

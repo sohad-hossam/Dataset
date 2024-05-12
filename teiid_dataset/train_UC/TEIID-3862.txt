@@ -1,0 +1,20 @@
+Documentation in kit for certain datasources missing
+The following data sources do not have documentation under 
+
+"docs/teiid/datasources"
+
+where typically a standalone.xml changes and/or CLI scripts are provided.
+
+access
+hana
+hsql
+informix
+modeshape
+netezza
+sybase
+teradata
+
+excel
+hbase
+odata
+odata4

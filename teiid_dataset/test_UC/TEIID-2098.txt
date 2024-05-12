@@ -1,0 +1,4 @@
+Caching does not interact well with Statement.setMaxRows
+Most of the time setting maxRows will cause the plan to not be cachable and the results will be cached/reused regardless of what subsequent maxRows are set to.
+
+Finally a general issue is that if the query cannot have maxRows set as a limit (if there is already a limit or it's a procedure call) then the maxRows is ignored.

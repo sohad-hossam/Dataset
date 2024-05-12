@@ -1,0 +1,2 @@
+Invalid aggregate value
+There's a regression in TEIID-3119 - an incorrect aggregate value can be returned when using group/sort aggregation.

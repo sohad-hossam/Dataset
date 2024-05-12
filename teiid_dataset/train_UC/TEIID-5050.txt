@@ -1,0 +1,4 @@
+CLOB instead of STRING
+Postgresql translator should replace source's datatype `text` for `clob` instead of `string(4000)` by default. 
+
+In general teiid should be able to handle any input source without data corruption. So if source's column datatype doesn't fit into string(4000), it should use some kind of unlimited datatype e.g. `clob`.

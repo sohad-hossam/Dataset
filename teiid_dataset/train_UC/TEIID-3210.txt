@@ -1,0 +1,2 @@
+Refine ordered comparison pushdown support
+The support for <, > and  <=.>= was split a between comparison ordered and negated support (the logic being that not >= is the same as < and with or support <> is implied).  However it's more natural that all inclusive/exclusive comparisons are supported.   

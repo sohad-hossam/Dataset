@@ -1,0 +1,2 @@
+Selectivity is over estimated in joins with multiple predicates.  
+Selectivity is over estimated in joins with multiple predicates.  This is partial due to optional predicates discovered during copy criteria and partially due to always using the independent estimate of selectivity.

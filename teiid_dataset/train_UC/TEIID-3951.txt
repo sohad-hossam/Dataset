@@ -1,0 +1,34 @@
+Stored procedure in view model from SQL server 2000
+There are some issues on some procedures developed on a SQL server 2000 when a view model reading the procedures from a source model is created.
+
+The source model is connected with the SQL server 2000 via jdts1.3.1 driver.  When the source procedure is exteciting it works fine, while running the virtual procedure the stack trace is the following:
+
+2016-02-04 11:59:16,769 WARN  [org.teiid.CONNECTOR] (Worker93_QueryProcessorQueue1047) V/FcQRQWrBI2 TEIID30004 Connector returned a 0 row non-last batch: CASALE_GROUP.
+
+2016-02-04 11:59:16,769 WARN  [org.teiid.CONNECTOR] (Worker93_QueryProcessorQueue1049) V/FcQRQWrBI2 Connector worker process failed for atomic-request=V/FcQRQWrBI2.7.1.141: org.teiid.core.types.TransformationException: TEIID10072 Invalid integer format in String: Villa, Ground Floor - Tel. 9389
+    at org.teiid.core.types.basic.StringToIntegerTransform.transformDirect(StringToIntegerTransform.java:43)
+    at org.teiid.core.types.Transform.transform(Transform.java:47)
+    at org.teiid.core.types.DataTypeManager.transformValue(DataTypeManager.java:942)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.correctTypes(ConnectorWorkItem.java:572)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:435)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:226)
+    at sun.reflect.GeneratedMethodAccessor102.invoke(Unknown Source)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:497)
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+    at com.sun.proxy.$Proxy57.more(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:309)
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+    at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+    at java.lang.Thread.run(Thread.java:745)
+
+2016-02-04 11:59:16,785 WARN  [org.teiid.PROCESSOR] (Worker92_QueryProcessorQueue1050) V/FcQRQWrBI2 TEIID30020 Processing exception for request V/FcQRQWrBI2.7 'TEIID10072 Invalid integer format in String: Villa, Ground Floor - Tel. 9389'. Originally TransformationException StringToIntegerTransform.java:43. Enable more detailed logging to see the entire stacktrace.
+
+The same procedure, with the same table and data on SQL Server 2008 works fine

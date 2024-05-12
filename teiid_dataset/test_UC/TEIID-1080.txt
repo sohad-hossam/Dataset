@@ -1,0 +1,7 @@
+Change Admin API, to support the Translation Layer and Connection layer concepts.
+Now that we have two separate layers to define a connector the Admin API must be modified to aid in managing the lifecycle of the Translation Layer and Connection Layer. Some obvious methods will be
+
+- addTranslator(name, properties)
+- deleteTranslator(name)
+
+will keep the current data source methods for the connection. The previous names with "Connection Factory" will be removed/renamed.

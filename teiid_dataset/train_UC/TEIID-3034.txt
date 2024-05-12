@@ -1,0 +1,8 @@
+Add support for OData query parameters
+There are some OData v2 query parameters that don't appear to work as of Teiid 8.7 (please see teiid forum thread 241566 on this topic). I believe these are all OData v2 conventions.
+
+?$inlineCount=allpages&$top=N   :  always returns count = $top
+
+$expand   : does not appear to work (but no ostensible error)
+
+$count  :  "TEIID30088 Unrelated order by column g0.SYSID cannot be used in a SET query, with SELECT DISTINCT, or GROUP BY"  occurs using this URI pattern entity/$count  , per the OData documentation for using this parameter

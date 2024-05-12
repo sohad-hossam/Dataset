@@ -1,0 +1,2 @@
+Redo Quick Start guide for Teiid 8.0 changes
+Currently the Quick start document for 8.0 still shows the techniques used with the Teiid 7 as per data creation deployment etc. This needs be revised for 8.0

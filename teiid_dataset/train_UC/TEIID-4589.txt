@@ -1,0 +1,73 @@
+Teiid throws NPE if multi-value insert is issued on global temporary table
+If multi-value insert is issued \[1\] on global temporary table \[2\], Teiid throws NPE \[3\]. Any subsequent query end with AssertionError \[4\].
+
+{code:sql|title= \[1\] Query}
+INSERT INTO tabglob (id, name) VALUES (1, 'name1'), (2, 'name2')
+{code}
+{code:xml|title= \[2\] VDB}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="teiid-aaa" version="1">
+ <model name="v1" type="VIRTUAL">
+  <metadata type="DDL">
+   <![CDATA[
+    CREATE GLOBAL TEMPORARY TABLE tabglob (id integer PRIMARY KEY, name string) OPTIONS (UPDATABLE 'TRUE');
+   ]]>
+  </metadata>
+ </model>
+</vdb>
+{code}
+{code:plain|title= \[3\] Exception}
+11:24:01,973 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue12) TEIID30019 Unexpected exception for request edwdbaNhKnsM.6: java.lang.NullPointerException
+	at org.teiid.query.processor.relational.PlanExecutionNode.open(PlanExecutionNode.java:78) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.open(RelationalPlan.java:136) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:231) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+
+11:24:01,974 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue12) TEIID30019 Unexpected exception for request edwdbaNhKnsM.6: java.lang.NullPointerException
+	at org.teiid.query.processor.relational.PlanExecutionNode.closeDirect(PlanExecutionNode.java:151) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.InsertPlanExecutionNode.closeDirect(InsertPlanExecutionNode.java:106) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.close(RelationalNode.java:334) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.close(RelationalPlan.java:159) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.closeProcessing(QueryProcessor.java:252) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.close(RequestWorkItem.java:518) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:374) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}
+{code:plain|title= \[4\] Error}
+11:26:06,639 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue21) TEIID30019 Unexpected exception for request j4uY4TiN1IJ8.4: java.lang.AssertionError: Transaction already associated with request.
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73) [teiid-common-core-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:68) [teiid-common-core-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.Request.getTransactionContext(Request.java:352) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.Request.createProcessor(Request.java:342) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:474) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:642) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:337) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}

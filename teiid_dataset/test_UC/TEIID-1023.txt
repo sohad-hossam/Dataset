@@ -1,0 +1,19 @@
+Chanage "MaxResultRows" Connector Property to default to "unlimited"
+Teiid supports a property called "MaxResultRows" in Connector
+properties, which defaults to 10,000 rows. The expected behavior of this
+is to throw an exception when user queries more than 10,000 rows through
+this connector.
+
+However, this default behavior seems like a exceptional condition than
+normal behavior expected by user any time. This *was* designed more for
+the development time aid than the runtime.
+
+Here is an example of community user tripping over it.
+http://community.jboss.org/message/532560#532560
+
+I propose, we change the default value of this property to "-1" that
+means the "MaxResultRows" will be set to "unlimited" in the default
+scenario. If user requires to restrict max rows they can *explicitly*
+set a value that they are comfortable with.
+
+Note the default "unlimited" is value changed from "0" to "-1".

@@ -1,0 +1,2 @@
+Retrieval of AUTO GENERATED Keys does not work with JDBC Translator 
+Auto generation of JDBC identity keys not working because the statement that executed the insert is closed before the the "stmt.getGeneratedKeys()" is called.

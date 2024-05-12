@@ -1,0 +1,4 @@
+mmadmin should format XML documents
+We need a tool that will display XML document output formated in such a way that we can easily read it. 
+
+If we choose another tool, it should be capable of supporting this formating.

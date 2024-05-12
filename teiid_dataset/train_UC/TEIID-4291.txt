@@ -1,0 +1,4 @@
+Object translator does not take into account folders where determining table name
+When obtaining the table name and using it to match the registered class (configured in RA), the logic doesn't take into account when folders are used.   The name is returned like: folder[.folder].tableName
+
+Nee to change logic to strip folder(s) to get the tableName.

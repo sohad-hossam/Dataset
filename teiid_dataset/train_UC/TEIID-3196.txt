@@ -1,0 +1,2 @@
+Remove Teradata join pushdown restriction
+Teradata is marked as not supporting outer joins.  It looks like this should be at most just full outer joins based upon the older code.  But it's possible that the restriction is not needed at all based upon the Teradata docs.

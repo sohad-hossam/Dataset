@@ -1,0 +1,6 @@
+Metadata TYPE_NAME value is null for String Columns
+The metadata TYPE_NAME value for string datatypes is apparently returning null.  I am running against a JBoss AS7.1Final server with Teiid 8.0Beta2.  
+
+My application (openshift web client) establishes connection from a DataSource, eg connection = dataSource.getConnection(), 
+then resultSet = connection.getMetaData().getColumns();
+when iterating thru the resultSet, the value for columnName="TYPE_NAME" is null for string types.  Other types seem to return a correct value.

@@ -1,0 +1,2 @@
+StaxSource XMLEvent error with a comment
+Having a stax xmlevent source processed by xmltable that contains comments will result in an IllegalStateException.

@@ -1,0 +1,7 @@
+Translator Overrides panel appears to have 2 properties mixed up
+I've attached a screen shot that includes the Translator Overrides panel from Designer and a section of the code from the implemented ExecutionFactory that's setting MaxInCriteriaSize and MaxDependentInPredicates.
+
+And looking at the overrides panel, it appears there's a couple of issues (correct me if I'm wrong):
+
+-  the values for "Max number of IN predicate entries and Max number of dependent values ....." are swapped
+-  the title for "Max number of dependent values across all IN predicates", appears to be incorrect as to how its applied?  Isn't that value applied for each IN predicate?     So if "Max number of IN predicates" is 2, and "Max number of dependent values..." is 1000, then a 1000 for each IN predicate (or a total of 2000 max) will be allowed.   Is that correct?

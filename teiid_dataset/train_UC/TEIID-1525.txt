@@ -1,0 +1,2 @@
+update the hibernate usage with a note about id generation
+None

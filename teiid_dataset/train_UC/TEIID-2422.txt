@@ -1,0 +1,6 @@
+Offer support for a timestampdiff based upon calendar fields
+There is little consistency among timestampdiff implementations, however ours seems to be based off of the db2 (http://pic.dhe.ibm.com/infocenter/dzichelp/v2r2/topic/com.ibm.db2z9.doc.sqlref/src/tpc/db2z_bif_timestampdiff.htm) timestampdiff in terms of intervals - but does not make all the same assumptions in the calculation of the answer.
+
+It would be good to provide an option so that our timestampdiff or another system function would calculate differences based upon calendar fields (following the behavior of SQL Server) rather than just based upon the interval - for example the months between 2012-02-20 and 2012-03-01 would report 1 rather than the current answer of 0).
+
+There is also a general issue with the consistency of the results with the pushdowned versions of timestampdiff as vendor support varies.

@@ -1,0 +1,8 @@
+No results with cross source outer join and offset only
+TEIID-3568 introduced a regression where when only an offset is used, the pushed limit will effectively prevent any results.
+
+So a query like:
+
+select ... sourcea.tbl left outer join sourceb.tbl ... offset 1 row
+
+will push a limit 1 to the sourcea.tbl query, effectively eliminating all results.

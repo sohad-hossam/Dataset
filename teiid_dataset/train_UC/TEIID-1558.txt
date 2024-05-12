@@ -1,0 +1,2 @@
+Salesforce Connector gives NPE when the resultset is empty
+When querying a Relational Model created from the Salesforce importer and the criteria returns zero rows, instead of an empty resultset a Null Pointer Exception is given.

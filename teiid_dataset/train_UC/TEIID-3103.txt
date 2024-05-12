@@ -1,0 +1,2 @@
+ODBC fetch fails to send command complete
+If a fetch statement hits the fetch limit before the end of the results it fails to send a command complete.

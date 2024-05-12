@@ -1,0 +1,2 @@
+OData inline count is not correct when used with skip/top
+Inline count should be computed prior to the application of top/skip.  Currently we apply it afterwords (they are added to the root query on the limit clause).

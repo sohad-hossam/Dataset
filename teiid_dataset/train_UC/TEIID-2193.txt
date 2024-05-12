@@ -1,0 +1,31 @@
+System Catalog queries producing IllegalArgumentException:  Invalid Type
+All System Catalog queries are producing IllegalArgumentException:  Invalid Type
+
+Example queries:
+select * from SYS.VirtualDatabases
+select VDBName, SchemaName, Name, Type, NameInSource, IsPhysical, SupportsUpdates, UID, Cardinality, Description, IsSystem, IsMaterialized from SYS.Tables
+
+09:50:55,300 DEBUG [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue12) Request Thread FwKHlqK21Snf.6 - error occurred: java.lang.IllegalArgumentException: Invalid type: org.teiid.metadata.Schema.
+	at org.teiid.query.metadata.TransformationMetadata.createInvalidRecordTypeException(TransformationMetadata.java:619) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.metadata.TransformationMetadata.getModelID(TransformationMetadata.java:253) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.metadata.TempMetadataAdapter.getModelID(TempMetadataAdapter.java:175) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.metadata.TempMetadataAdapter.getModelID(TempMetadataAdapter.java:175) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.plantree.PlanNode.recordDebugAnnotation(PlanNode.java:423) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.rules.RulePushLimit.raiseAccessOverLimit(RulePushLimit.java:235) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.rules.RuleRaiseAccess.raiseAccessNode(RuleRaiseAccess.java:293) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.rules.RuleRaiseAccess.execute(RuleRaiseAccess.java:76) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:457) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:199) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:188) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:433) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:453) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:532) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:280) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:219) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:249) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:123) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:298) [teiid-engine-8.1.0.Final.jar:8.1.0.Final]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0]

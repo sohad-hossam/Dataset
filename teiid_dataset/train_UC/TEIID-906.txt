@@ -1,0 +1,2 @@
+Add support for a set statement
+We should add support in the JDBC driver to set execution properties via a set statement.  This makes it unnecessary to us the custom MMStatement api in most circumstances.

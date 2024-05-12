@@ -1,0 +1,6 @@
+Always preserve columns order in google spreadsheets models
+I recently started using google spreadsheet datasources, and noticed that - at least sometime - the DDL model created by teiid has all columns but in a different (sort of random) order. This happened in particular using a google spreadsheet generated (linked to) google form, see forum reference attached. 
+
+Google form allows users to fill a lot of fields, which are collected as record columns in the google spreadsheet, then teiid makes that data available for integration with other sources - which is awesome, btw.
+
+Creating a view in the VDB works anyway, since the query selects column "letters" like SELECT A,B,C and the right columns are selected, but having the model completely different from the source is weird and makes it difficult to work with it directly, if needed.

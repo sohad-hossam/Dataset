@@ -1,0 +1,4 @@
+SOLR: Type date should be converted into Timestamp
+SOLR translator converts solr's date type into java.sql.Date, but SOLR's date format is rather timestamp[1]. When the solr's date is converted into java.sql.Date, the information about hours,minutes and seconds will be lost.
+
+[1] "TimestampValue": "1999-12-31T23:00:00Z",

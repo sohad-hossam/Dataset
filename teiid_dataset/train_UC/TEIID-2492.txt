@@ -1,0 +1,2 @@
+AssertionError from aliased unrelated order by item
+The planning logic leaves alias symbols in the order by clause for unrelated items, which causes an assertion error when creating the translator command.

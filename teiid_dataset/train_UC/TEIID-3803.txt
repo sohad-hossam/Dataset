@@ -1,0 +1,43 @@
+Kerberos with ODBC with MutualAuth fails
+When Active Directory is used for Kerberos authentication, and Windows ODBC client issues connection request it may fail with following exception. 
+
+{code}
+00:29:15,561 ERROR [org.teiid.ODBC] (New I/O worker #19) TEIID40015 Unexpected error occurred: org.teiid.client.security.LogonException: TEIID40014 Kerberos context login failed
+	at org.teiid.transport.LogonImpl.neogitiateGssLogin(LogonImpl.java:203) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.odbc.ODBCServerRemoteImpl.logon(ODBCServerRemoteImpl.java:236) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_79]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_79]
+	at org.teiid.transport.ODBCClientInstance.processMessage(ODBCClientInstance.java:127) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.transport.ODBCClientInstance.receivedMessage(ODBCClientInstance.java:116) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.transport.SSLAwareChannelHandler.messageReceived(SSLAwareChannelHandler.java:211) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.jboss.netty.channel.SimpleChannelHandler.handleUpstream(SimpleChannelHandler.java:88) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.DefaultChannelPipeline$DefaultChannelHandlerContext.sendUpstream(DefaultChannelPipeline.java:791) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:296) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.unfoldAndFireMessageReceived(FrameDecoder.java:462) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.callDecode(FrameDecoder.java:443) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.handler.codec.frame.FrameDecoder.messageReceived(FrameDecoder.java:310) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.SimpleChannelUpstreamHandler.handleUpstream(SimpleChannelUpstreamHandler.java:70) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:564) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.DefaultChannelPipeline.sendUpstream(DefaultChannelPipeline.java:559) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:109) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:328) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:90) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.util.ThreadRenamingRunnable.run(ThreadRenamingRunnable.java:108) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.util.internal.DeadLockProofWorker$1.run(DeadLockProofWorker.java:42) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_79]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_79]
+Caused by: javax.security.auth.login.LoginException: TEIID50103 Wrong Response returned from teiid-security security domain; Expecting a Kerberoes response
+	at org.teiid.jboss.JBossSessionService.buildGSSResult(JBossSessionService.java:138) [teiid-jboss-integration-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.jboss.JBossSessionService.neogitiateGssLogin(JBossSessionService.java:106) [teiid-jboss-integration-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.services.SessionServiceImpl.neogitiateGssLogin(SessionServiceImpl.java:545) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	at org.teiid.transport.LogonImpl.neogitiateGssLogin(LogonImpl.java:173) [teiid-runtime-8.7.4.redhat-1.jar:8.7.4.redhat-1]
+	... 30 more
+{code}

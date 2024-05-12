@@ -1,0 +1,2 @@
+Exception with unresolved Array expression hashcode
+The type is being used in the hashCode, but it may not be set.

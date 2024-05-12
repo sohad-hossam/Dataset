@@ -1,0 +1,35 @@
+Teradata15 - teiid shifts date/time/timestamp values according to timezone.
+Teiid shifts date/time/timestamp values returned from teradata according to user.timezone value [1], [2]. However, when I execute source-specific command, teradata returns correct values [3].
+
+[1] 
+*Query:* SELECT * FROM smalla ORDER BY IntKey
+*-Duser.timezone:* GMT+5
+*Result:*
+|| IntKey || DateValue || TimeValue || TimeStampValue ||
+|0 | 1999-12-31 | 19:00:00 | 1999-12-31 19:00:00.0|
+|1 | 2000-01-01 | 20:00:00 | 1999-12-31 19:00:01.0|
+|2 | 2000-01-02 | 21:00:00 | 1999-12-31 19:00:02.0|
+|3 | 2000-01-03 | 22:00:00 | 1999-12-31 19:00:03.0|
+|...|...|...|...|
+
+[2] 
+*Query:* SELECT * FROM smalla ORDER BY IntKey
+*-Duser.timezone:* GMT+1
+*Result:*
+|| IntKey || DateValue || TimeValue || TimeStampValue ||
+|0 | 1999-12-31 | 23:00:00 | 1999-12-31 23:00:00.0|
+|1 | 2000-01-01 | 00:00:00 | 1999-12-31 23:00:01.0|
+|2 | 2000-01-02 | 01:00:00 | 1999-12-31 23:00:02.0|
+|3 | 2000-01-03 | 02:00:00 | 1999-12-31 23:00:03.0|
+|...|...|...|...|
+
+[3] 
+*Query:* SELECT g_0.IntKey AS c_0, g_0.DateValue AS c_1, g_0.TimeValue AS c_2, g_0.TimestampValue AS c_3 FROM smalla AS g_0 ORDER BY 1
+*local timezone:* GMT+1/GMT+5
+*Result:*
+|| c_0 || c_1 || c_2 || c_3 ||
+|0 | 2000-01-01 | 00:00:00 | 2000-01-01 00:00:00.0|
+|1 | 2000-01-02 | 01:00:00 | 2000-01-01 00:00:01.0|
+|2 | 2000-01-03 | 02:00:00 | 2000-01-01 00:00:02.0|
+|3 | 2000-01-04 | 03:00:00 | 2000-01-01 00:00:03.0|
+|...|...|...|...|

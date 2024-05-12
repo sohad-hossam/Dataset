@@ -1,0 +1,2 @@
+Add ability to load translator module based "slot" classfication
+Currently translator configuration in the Teiid sub-system can only load from module name, which always points to "main" slot. This configuration needs to be expanded such that user can define a specific "slot" of module to use to load the configured translator

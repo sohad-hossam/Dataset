@@ -1,0 +1,37 @@
+NullPointException in GroupingNode.initialize
+When executing this query:
+
+select year(nv.variabletime) as y, case when dv.varvalue is null then 'missing' else 'wrong' end as t, count(*) as aantal_missing_or_different
+from wodan_derived_variables nv 
+left join tv_retrieve_dervals dv on 
+	dv.admissionid = nv.admissionid and 
+	dv.Datetime = nv.variabletime and
+	dv.VariableID = 30003400
+where nv.variableid = 'PF'
+and (dv.varvalue is null or round(nv.numericvalue,0) <> round(dv.varvalue,0))
+group by year(nv.variabletime), dv.varvalue is null
+order by y, t
+
+I get an exception: 
+
+2017-03-28 11:34:19,461 ERROR [org.teiid.PROCESSOR] (Worker440_QueryProcessorQueue34086834) vF6xRF3a6hIs TEIID30019 Unexpected exception for request vF6xRF3a6hIs.52: java.lang.NullPointerException
+        at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:219)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+        at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91)
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226)
+        at org.teiid.query.processor.QueryProcessor.getBuffer(QueryProcessor.java:289)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:154)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:477)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:282)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)

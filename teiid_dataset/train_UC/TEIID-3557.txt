@@ -1,0 +1,25 @@
+Can't reload VDB in domain mode
+Can't reload VDB in domain mode, get the following error:
+
+Server throws the following exception:
+[Server:server-one] 12:26:45,678 ERROR [org.teiid.RUNTIME] (teiid-async-threads - 1) TEIID40088 Could not replicate object org.teiid.query.tempdata.GlobalTableStoreImpl@4e6c9a30: java.lang.IllegalStateException: cluster 'ModeShape.1' is already connected to singleton transport: [dummy-1435055090515, loopback.1, ModeShape.1, loopback-dynamic.1, $TEIID_BM$, dummy-1435055090188, dummy-1435055205654, $TEIID_ED$, teiid-cache, ddl2-vdb.1]
+[Server:server-one] 	at org.jgroups.stack.ProtocolStack.startStack(ProtocolStack.java:919) [jgroups-3.2.13.Final-redhat-1.jar:3.2.13.Final-redhat-1]
+[Server:server-one] 	at org.jgroups.JChannel.startStack(JChannel.java:827) [jgroups-3.2.13.Final-redhat-1.jar:3.2.13.Final-redhat-1]
+[Server:server-one] 	at org.jgroups.JChannel._preConnect(JChannel.java:525) [jgroups-3.2.13.Final-redhat-1.jar:3.2.13.Final-redhat-1]
+[Server:server-one] 	at org.jgroups.JChannel.connect(JChannel.java:277) [jgroups-3.2.13.Final-redhat-1.jar:3.2.13.Final-redhat-1]
+[Server:server-one] 	at org.jgroups.JChannel.connect(JChannel.java:268) [jgroups-3.2.13.Final-redhat-1.jar:3.2.13.Final-redhat-1]
+[Server:server-one] 	at org.teiid.replication.jgroups.JGroupsObjectReplicator.replicate(JGroupsObjectReplicator.java:563) [teiid-runtime-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.deployers.CompositeGlobalTableStore.createInstance(CompositeGlobalTableStore.java:57) [teiid-runtime-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.jboss.VDBService$1.finishedDeployment(VDBService.java:156) [teiid-jboss-integration-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.deployers.VDBRepository.notifyFinished(VDBRepository.java:352) [teiid-runtime-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.deployers.VDBRepository.finishDeployment(VDBRepository.java:308) [teiid-runtime-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.runtime.AbstractVDBDeployer.metadataLoaded(AbstractVDBDeployer.java:202) [teiid-runtime-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.jboss.VDBService.access$1100(VDBService.java:85) [teiid-jboss-integration-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.jboss.VDBService$6.run(VDBService.java:411) [teiid-jboss-integration-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at org.teiid.jboss.VDBService$7.run(VDBService.java:442) [teiid-jboss-integration-8.7.1.6_2-redhat-2.jar:8.7.1.6_2-redhat-2]
+[Server:server-one] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]
+[Server:server-one] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]
+[Server:server-one] 	at java.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25]
+[Server:server-one] 	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+
+VDB reload works fine in standalone mode.

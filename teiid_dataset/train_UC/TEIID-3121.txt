@@ -1,0 +1,12 @@
+Teiid Standalone Server
+Perform the server installation steps as part of the build and add the result to the downloads page. It seems like this is something that everyone who isn't using the embedded kit has to do anyways, and would hopefully eliminate confusion caused by people trying to deploy the runtime in unsupported versions of JBoss.
+
+* Teiid Runtime
+* Teiid Web Console
+* JBoss EAP 6.1 Alpha
+* Resteasy JAX-RS Patch
+
+End result would simplify the installation process to:
+1. Unzip Teiid server.
+2. Run `bin/add-user.sh` script.
+3. Deploy custom translators, VDB, etc.

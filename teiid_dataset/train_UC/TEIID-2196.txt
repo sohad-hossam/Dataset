@@ -1,0 +1,3 @@
+The clearCache method (adminShell) which accepts the VDB name should verify the VDB name and report if not found
+The clearCache(type, vdb, vdb-version) should report when the VDB and version specified does not exist. Presently (version 7.7.1/EDS 5.3) it appears to have been successful, even if the VDB name specified is a wildcard character. As an example, no exception was thrown for this:
+clearCache("PREPARED_PLAN_CACHE","*",1)

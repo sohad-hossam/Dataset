@@ -1,0 +1,14 @@
+Separate commons-net and mongo-java-driver from api module
+{code}
+file/api/
+└── main
+    ├── commons-net-3.5.jar
+    ├── file-api-9.3.0.Beta2-SNAPSHOT.jar
+    └── module.xml
+mongodb/api/
+└── main
+    ├── module.xml
+    ├── mongodb-api-9.3.0.Beta2-SNAPSHOT.jar
+    └── mongo-java-driver-2.13.1.jar
+{code}
+As above snippets, commons-net and mongo-java-driver are packaged together with api module, some times feel confused if set up auto-detect and create module in runtime.

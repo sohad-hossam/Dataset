@@ -1,0 +1,8 @@
+Can the teiid object associated with where the problem is found be added to the error message
+Using the attached dynamic vdb, against the database that was created using the attached DDL, produces the following errors:
+
+ERROR: Element Perf.HISTORY."TIME" of history is neither nullable nor has a default value. A value must be specified in the insert.
+ERROR: Element Perf.HISTORY.FILL of history is neither nullable nor has a default value. A value must be specified in the insert.
+
+Because of these errors, the VDB isn't deployed.
+Not sure why these are not just WARNINGS.

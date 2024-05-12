@@ -1,0 +1,2 @@
+Remove the HTTPClient Usage from the XML Connector and use the Common XML Connector
+Need to remove the HTTPClient  usage from the XML Connector and use the Axis client in the Common XML Connector to reduce download size

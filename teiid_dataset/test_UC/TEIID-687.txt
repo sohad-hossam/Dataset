@@ -1,0 +1,2 @@
+JDBC Connector should be Metadata Aware Connector
+Based on TEIID-685, JDBC Connector must implement this interface(s), so that any JDBC sources can be used in dynamic data integration

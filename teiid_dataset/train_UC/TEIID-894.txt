@@ -1,0 +1,17 @@
+Query inexplicably failing Query Testing only with MySQL
+Series 9000, #7 fails with MySql and passes with all the other sources.
+
+Original Query
+SELECT BQT1.SmallA.IntKey, BQT2.SmallB.FloatNum FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.IntKey = BQT2.SmallB.FloatNum AND BQT1.SmallA.IntKey >= 0 AND BQT2.SmallB.IntKey >= 0 ORDER BY BQT1.SmallA.IntKey;
+
+It's supposed to return 25 rows, but returns 0. Let's ignore the "ORDER BY" since it just adds to the code (and doesn't factor into the issue since it works the same with or without).
+
+If I remove the "AND BQT2.SmallB.IntKey >= 0", it works! I get 25 rows.
+SELECT BQT1.SmallA.IntKey, BQT2.SmallB.FloatNum FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.IntKey = BQT2.SmallB.FloatNum AND BQT1.SmallA.IntKey >= 0;
+
+If I switch it so the first condition is removed and the second remains, it FAILS
+SELECT BQT1.SmallA.IntKey, BQT2.SmallB.FloatNum FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.IntKey = BQT2.SmallB.FloatNum AND BQT2.SmallB.IntKey >= 0;
+
+What doesn't it like about "BQT2.SmallB >= 0" ?? I ran this query--and the one with only "BQT1.SmallA >= 0"--with OPTION DEBUG.
+
+Stuff is attached.

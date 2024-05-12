@@ -1,0 +1,2 @@
+bulk values are set directly from client
+Using a prepared bulk query, such as "insert ... values (?, ...)" that is passed to the source, the bound values are coming directly from the client rather than being the resolved form - which will be the correct runtime object and type.

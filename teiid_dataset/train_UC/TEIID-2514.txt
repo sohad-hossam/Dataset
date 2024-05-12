@@ -1,0 +1,2 @@
+Switch to AS 7 consults only first multi-source source during getMetadata() processing
+In a multi-source VDB model, the ExecutionFactory getMetadata() processing is driven only within the context of the first source that is defined in the multi-source model.  If this data source is unavailable, the VDB model is not deployed.  In prior releases, Teiid would redrive the getMetadata() process within the context of each of the defined data sources (first to last) until metadata is returned or the list of data sources is exhausted.

@@ -1,0 +1,4 @@
+parseTimestamp issue with Oracle
+parseTimestamp is pushed as to_timestamp.  However TO_TIMESTAMP is not generally valid unless the format string covers the entire string input value otherwise there is an exception about the picture ending.  
+
+This means in general that we cannot pushdown the parseDate/Time/Timestamp operations to oracle as that is behavioral different with the java format routines, which will process just to the end of the format string.  

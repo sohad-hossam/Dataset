@@ -1,0 +1,16 @@
+Issues with OData query generation logic
+When the ODataExpressionToSQLBuilder changes the ctxExpression, ctxQuery and other state it needs to revert back, but currently does not.
+
+For example reordering the predicate:
+
+/odata4/vdb/PM1/G1?$filter=e1 eq $root/G1(1)/e1
+
+to
+
+/odata4/vdb/PM1/G1?$filter=$root/G1(1)/e1 eq e1
+
+results in a source query:
+
+SELECT g0.e1, g0.e2, g0.e3 FROM PM1.G1 AS g0 WHERE (SELECT g1.e1 FROM PM1.G1 AS g1 WHERE g1.e2 = 1) = (SELECT g1.e1 FROM PM1.G1 AS g1 WHERE g1.e2 = 1) ORDER BY g0.e2
+
+That has both sides of the predicate as subqueries.

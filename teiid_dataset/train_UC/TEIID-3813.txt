@@ -1,0 +1,33 @@
+Informix translator - convert function in definition of view is not pushed down
+I defined a view (see definition below). When I try to select all rows from the view, teiid/informix jdbc driver throws an exception.
+
+Teiid DDL:
+{code:sql}
+CREATE VIEW U6 (StringCol string,
+    IntCol integer)
+  AS
+    SELECT CONVERT(BQT1.SmallA.IntNum, string) AS StringCol, BQT1.SmallA.IntNum AS IntCol
+    FROM BQT1.SmallA
+    UNION ALL
+    SELECT BQT1.SmallB.StringNum, CONVERT(BQT1.SmallB.StringNum, integer)
+    FROM BQT1.SmallB;
+}
+{code}
+
+Query:
+{code:sql}
+SELECT * FROM VQT.U6
+{code}
+
+Source-specific query
+{code:sql}
+SELECT g_1.intnum AS c_0, g_1.intnum AS c_1 FROM smalla AS g_1 UNION ALL SELECT g_0.stringnum AS c_0, g_0.stringnum AS c_1 FROM smallb AS g_0
+{code}
+
+Actual exception:
+{code:text}
+Caused by: java.sql.SQLException: The statement failed because corresponding column data types must be compatible for each UNION, INTERSECT, or MINUS query.
+	at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:408)
+	at com.informix.jdbc.IfxSqli.addException(IfxSqli.java:3178)
+...
+{code}

@@ -1,0 +1,2 @@
+Fix for exception when CASE resolves to NULL.
+Refer to internal case 232624.

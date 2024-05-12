@@ -1,0 +1,4 @@
+Consolidate internal and external materialization management
+- Currently there separate SYSADMIN procedures for internal and external materialization to refresh them, we need to provide single set
+
+- The management of the (usage of status table) is not fully utilized by the internal materialization this needs to addressed such that both external and internal use this table to keep track of load status

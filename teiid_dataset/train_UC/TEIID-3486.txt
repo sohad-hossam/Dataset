@@ -1,0 +1,2 @@
+Add array data type support to Loopback Translator
+Adding the array data type support will be nice for testing purposes.

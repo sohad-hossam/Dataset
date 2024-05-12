@@ -1,0 +1,2 @@
+Sybase translator should support parse/format timestamp
+The format map for sybase is already associated with the translator.  We should also update the supported functions.

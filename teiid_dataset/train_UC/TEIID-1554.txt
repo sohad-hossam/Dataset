@@ -1,0 +1,41 @@
+NullPointerException in NodeEditor
+NPE in NodeEditor with the following SQL:
+SQL SELECT B."SYSID", B."USERID", (SELECT COUNT(*) FROM (SELECT * FROM notes.RETRIEVE_NOTES WHERE OBJECT_PKEY = XMLSERIALIZE(XMLELEMENT("SECURITY.BASEUSER", XMLATTRIBUTES(B."SYSID",B."USERID")) as String)) as foo) as C_notesForObject, 'SECURITY.BASEUSER' as "_objecttype_" FROM "SECURITY.BASEUSER" as B ORDER BY B."USERID" ASC LIMIT 10
+
+Stack trace:
+org.teiid.jdbc.TeiidSQLException: org.teiid.core.TeiidException
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:109)
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:69)
+	at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:497)
+	at org.teiid.jdbc.PreparedStatementImpl.executeQuery(PreparedStatementImpl.java:214)
+	at com.ca.chorus.db.DbExecutor.withResultSet(DbExecutor.java:198)
+	at com.ca.chorus.db.DbExecutor.gatherResults(DbExecutor.java:367)
+	at com.ca.chorus.db.DbExecutor.gatherResults(DbExecutor.java:361)
+	at com.ca.chorus.teiidtest.TestTeiid.run(TestTeiid.java:72)
+	at com.ca.chorus.teiidtest.TestTeiid.main(TestTeiid.java:24)
+Caused by: [TeiidException]
+1 [NullPointerException]
+	at org.teiid.client.ResultsMessage.setException(ResultsMessage.java:177)
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:557)
+	at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java:335)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:218)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.NullPointerException
+	at org.teiid.query.optimizer.relational.plantree.NodeEditor.findAllNodesHelper(NodeEditor.java:123)
+	at org.teiid.query.optimizer.relational.plantree.NodeEditor.findAllNodes(NodeEditor.java:102)
+	at org.teiid.query.optimizer.relational.rules.RuleCollapseSource.execute(RuleCollapseSource.java:85)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:458)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:227)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:148)
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:429)
+	at org.teiid.dqp.internal.process.PreparedStatementRequest.generatePlan(PreparedStatementRequest.java:138)
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:452)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:372)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:174)
+	... 7 more

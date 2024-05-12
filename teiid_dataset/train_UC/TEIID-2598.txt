@@ -1,0 +1,2 @@
+7.4 compatibility
+Exception result messages from a 7.4 and prior server are not handled correctly by 7.5+ clients and cause the connection to be dropped since the client assumes that it is not compatible.

@@ -1,0 +1,2 @@
+Delegating does not work for the createXXXExecution methods
+It's not explicit in the docs, but the base delegation logic basically requires you to override createExecution and not the createXXXExecution methods.  Otherwise if the BaseDelegatingExecutionFactory.createExecution is called, then the delegate will be called instead.

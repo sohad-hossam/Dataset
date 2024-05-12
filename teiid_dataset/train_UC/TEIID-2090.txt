@@ -1,0 +1,2 @@
+arraytable fails with a null array
+If a null array value is passed into arraytable, then an NPE will be raised rather than simply not returning a row value.

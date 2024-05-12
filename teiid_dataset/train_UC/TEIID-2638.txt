@@ -1,0 +1,9 @@
+CLI Scripts are incorrectly referencing the cache within the cache container, should reference cache container
+The domain and standalone cli scripts need to have the following lines corrected:
+
+/profile=ha/subsystem=teiid:add(async-thread-pool=teiid-async, distributed-cache-jgroups-stack=udp, resultset-cache-infinispan-container=resultset-repl, preparedplan-cache-infinispan-container=preparedplan, policy-decider-module=org.jboss.teiid)
+
+
+/subsystem=teiid:add(async-thread-pool=teiid-async, resultset-cache-infinispan-container=resultset, preparedplan-cache-infinispan-container=preparedplan, policy-decider-module=org.jboss.teiid)
+
+so that the cache containers map to teiid-cache, and not the cache within the container.   This isn't seen in the standalone-teiid.xml, cause those settings to do point to the "teiid" cache container.

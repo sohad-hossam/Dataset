@@ -1,0 +1,2 @@
+ENHANCEMENT: function resolving should also consider return type
+Defect Tracker #24030: The use of PreparedStatements will cause functions to sometimes not resolve.  However additional type information may be available if the function is used in comparison criteria.  In this case the return type may also be used to match the signature of the function.

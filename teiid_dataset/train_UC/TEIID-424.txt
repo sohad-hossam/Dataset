@@ -1,0 +1,2 @@
+Update client properties
+The client properties for socket and ssl configuration need to reflect the current state of the code.  They should also use org.teiid instead of com.metamatrix.  Providing backwards compatibility will be addressed later.

@@ -1,0 +1,2 @@
+OData entity row created twice
+The logic to detect duplicate entities in the simple case of no duplicates causes each entity row to be created twice.

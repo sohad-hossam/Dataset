@@ -1,0 +1,10 @@
+Cannot make references to view columns in view update
+Issuing an update against an updatable view with an instead of trigger that uses a view column in a set expression will fail at runtime saying that a reference to the value cannot be found.
+
+for example with a gx view: update gx set x = x || 'a' where y = 2
+
+would result in:
+
+org.teiid.core.TeiidComponentException: TEIID30328 Unable to evaluate x: No value was available
+	at org.teiid.query.util.CommandContext.getFromContext(CommandContext.java:501)
+	at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:696)

@@ -1,0 +1,66 @@
+Informix translator - constant time values are translated as timestamp
+Teiid translates constant time value (e.g. '02:00:00') as a _timestamp_ (\{ts '1970-01-01 02:00:00'\}) even if column is of type _time_.
+
+*DDL:*
+{code:xml}
+  <model name="Source" type="PHYSICAL">
+...
+    <metadata type="DDL">
+      <![CDATA[
+CREATE FOREIGN TABLE SmallA (
+...
+    TimeValue time OPTIONS (NATIVE_TYPE 'datetime hour to fraction(1)', NAMEINSOURCE 'timevalue'),
+...
+{code}
+
+*Example query:*
+{code:sql}SELECT TimeValue FROM Source.SmallA WHERE TimeValue > '21:00:00' OR TimeValue < '02:00:00'{code}
+
+*Source-specific command:* 
+{code:sql}SELECT g_0.timevalue FROM smalla AS g_0 WHERE g_0.timevalue > {ts '1970-01-01 21:00:00.0'} OR g_0.timevalue < {ts '1970-01-01 02:00:00.0'}{code}
+
+*Exception:*
+{code:plain}
+09:08:35,320 WARN  [org.teiid.CONNECTOR] (Worker7_QueryProcessorQueue65) Connector worker process failed for atomic-request=c/y8mqFekM4p.9.1.4: org.teiid.translator.jdbc.JDBCExecutionException: -1261 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.timevalue FROM smalla AS g_0 WHERE g_0.timevalue > {ts '1970-01-01 21:00:00.0'} OR g_0.timevalue < {ts '1970-01-01 02:00:00.0'}]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_40]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_40]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_40]
+	at java.lang.reflect.Method.invoke(Method.java:497) [rt.jar:1.8.0_40]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy47.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_40]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_40]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_40]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_40]
+Caused by: java.sql.SQLException: Too many digits in the first field of datetime or interval.
+	at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:408)
+	at com.informix.jdbc.IfxSqli.addException(IfxSqli.java:3178)
+	at com.informix.jdbc.IfxSqli.receiveError(IfxSqli.java:3458)
+	at com.informix.jdbc.IfxSqli.dispatchMsg(IfxSqli.java:2369)
+	at com.informix.jdbc.IfxSqli.receiveMessage(IfxSqli.java:2294)
+	at com.informix.jdbc.IfxSqli.executePrepare(IfxSqli.java:1264)
+	at com.informix.jdbc.IfxPreparedStatement.setupExecutePrepare(IfxPreparedStatement.java:308)
+	at com.informix.jdbc.IfxPreparedStatement.processSQL(IfxPreparedStatement.java:289)
+	at com.informix.jdbc.IfxPreparedStatement.<init>(IfxPreparedStatement.java:182)
+	at com.informix.jdbc.IfxSqliConnect.createPreparedStmt(IfxSqliConnect.java:6108)
+	at com.informix.jdbc.IfxSqliConnect.prepareStatement(IfxSqliConnect.java:2509)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:744)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:730)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:405)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.getPreparedStatement(JDBCBaseExecution.java:196) [translator-jdbc-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:121) [translator-jdbc-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+	... 18 more
+Caused by: java.sql.SQLException
+	at com.informix.util.IfxErrMsg.getSQLException(IfxErrMsg.java:408)
+	at com.informix.jdbc.IfxSqli.receiveError(IfxSqli.java:3463)
+	... 31 more
+{code}

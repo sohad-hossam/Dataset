@@ -1,0 +1,6 @@
+Salesforce connector should explicitly handle InvalidQueryLocatorFault
+There is a hard limit of 5 on the number of handles a single Salesforce user can have to server side result sets - see http://www.salesforce.com/us/developer/docs/api100/Content/sforce_api_calls_query_querylocator.htm
+
+This means, that in cases where a customer is doing a lot of queries that return large result sets (larger than SF will return in a single SOAP response), it is very possible that they will run into this limit.  This limit should manifest itself as an InvalidQueryLocatorFault thrown when the Salesforce queryMore() operation is called.
+
+I see in the current code (queryMore method of com.metamatrix.connector.salesforce.connection.impl.ConnectionImpl) that we don't explicitly catch this fault.  We should catch this fault and throw a ConnectorException that clearly explains what is happening (if the message SFDC returns here isn't clear enough).

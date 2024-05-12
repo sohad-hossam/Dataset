@@ -1,0 +1,2 @@
+Dependent join planning modifies left outer to inner join
+When planning a dependent join with a nested left outer join, the left outer join can get modified to an inner join inappropriately.

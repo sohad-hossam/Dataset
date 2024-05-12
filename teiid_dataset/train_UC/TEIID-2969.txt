@@ -1,0 +1,4 @@
+timestamp parse format issues
+Oracle and Postgresql pushdown of parse/format of timestamps is generally incorrect as the format string is left unquoted. Also Postgresql does not support the same syntax as oracle.
+
+Also pushdown of timestampdiff is not correct for pg for fields other than DAY and YEAR.  Fractional seconds are not implemented and all of the other fields seem to return just the calendar field difference, not the number of intervals different - e.g. the difference in hours for timestamps that are years apart is just the 24 hour difference.

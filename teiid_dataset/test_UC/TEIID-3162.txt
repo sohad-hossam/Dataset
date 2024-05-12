@@ -1,0 +1,9 @@
+Class files checked into Git
+It looks like a large number of class files were accidentally checked into Git. This is generally considered bad practice. The files are in the salesforce-api and google-api modules.
+
+Can verify using the Github file search. https://github.com/teiid/teiid/find/master (type ".class", not sure how to link to it).
+
+Can do something like this to remove them:
+{code}
+find . -name '*.class' -exec git rm {} \;
+{code}

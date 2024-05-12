@@ -1,0 +1,2 @@
+Remove server db platform code
+Most of the platform code is unused and can have the logic that is used replaced easily.

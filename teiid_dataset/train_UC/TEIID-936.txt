@@ -1,0 +1,19 @@
+Query never returns from processing
+I'm executing TPCR Query #16. It processes correctly, and very quickly, in Designer, which is using an older Teiid query engine. The current Teiid, running via AdminShell, never returns from this query. Both are using the same VDB.
+
+Two tables are involved PART (200,000 rows) and PARTSUPP (800,000 rows). The output will contain 18,314 rows.
+
+The transformation query is:
+SELECT 
+		P_BRAND, P_TYPE, P_SIZE, COUNT(DISTINCT PS_SUPPKEY) AS supplier_cnt 
+FROM 
+		TPCR.PARTSUPP, TPCR.PART 
+WHERE 
+		(P_PARTKEY = PS_PARTKEY) AND (P_BRAND <> 'Brand#45') AND (P_TYPE NOT LIKE 'MEDIUM POLISHED%') AND (P_SIZE IN (49, 14, 23, 45, 19, 3, 36, 9)) AND (PS_SUPPKEY NOT IN (SELECT S_SUPPKEY FROM TPCR.SUPPLIER WHERE S_COMMENT LIKE '%Customer%Complaints%')) 
+GROUP BY P_BRAND, P_TYPE, P_SIZE
+
+The query being executed is: select * from vTpcr.Q16 ORDER BY supplier_cnt desc, p_brand, p_type, p_size
+
+I have tried to execute shorter version of the transformation query in AdminShell to no avail. This query: SELECT P_BRAND, P_TYPE, P_SIZE FROM TPCR.PARTSUPP, TPCR.PART WHERE (P_PARTKEY = PS_PARTKEY) AND (P_BRAND <> 'Brand#45') AND (P_TYPE NOT LIKE 'MEDIUM POLISHED%'); did not return in a reasonable time. 
+
+Teiid seems to use a fair percentage of the CPU for a while, then usage drops to ~0.1%

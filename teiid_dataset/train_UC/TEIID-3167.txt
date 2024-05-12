@@ -1,0 +1,6 @@
+Enhance TEXTTABLE to support TRIM as a configurable option for Delimited Text Files
+In case of Delimited text files, currently, we always TRIM the input data.
+The enhancement request is to make this behaviour configurable, and let user determine, whether the leading or trailing spaces for the column text should be trimmed or not.
+
+Refer thread https://developer.jboss.org/message/905658?et=watches.email.thread#905658 for complete background discussion.
+

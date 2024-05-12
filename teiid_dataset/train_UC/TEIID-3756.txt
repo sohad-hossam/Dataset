@@ -1,0 +1,27 @@
+Order By clause specified in STRING_AGG function is skipped when pushed down to PostgreSQL
+I defined a small table in PostgreSQL as follows:
+{code:sql}
+create table test_string_agg (col1 varchar(10))
+
+insert into test_string_agg VALUES ('b');
+insert into test_string_agg VALUES ('a');
+insert into test_string_agg VALUES ('c');
+{code}
+
+When I run a query with a STRING_AGG function where an ORDER BY clause is specified, the strings are not concatenated in the expected order. For example, these three queries:
+
+{code:sql}
+select string_agg(col1, ' , ' order by col1) from pg.test_string_agg;
+select string_agg(col1, ' , ' order by col1 desc) from pg.test_string_agg;
+select string_agg(col1, ' , ' order by col1 asc) from pg.test_string_agg;
+{code}
+
+return all the same result "b , a , c".
+
+It seems that the ORDER BY clause is not pushed down to PostgreSQL, in fact all the three rewritten queries executed in PostgreSQL look like:
+
+{code:sql}
+SELECT STRING_AGG(g_0."col1", ' , ') FROM "public"."test_string_agg" AS g_0	
+{code}
+
+If the STRING_AGG function is not pushed down (e.g. in MySQL), I get an expected result.

@@ -1,0 +1,2 @@
+OData V4: Support system options over the operation based collections
+Currently the system options like $top, $skip, $filter are not supported on results returned from Functions/Actions. Per OData specification this should be supported.

@@ -1,0 +1,18 @@
+Oracle translator - OFFSET function does not work
+Oracle translator translates OFFSET function as:
+{code:sql}
+SELECT c_0 FROM (SELECT VIEW_FOR_LIMIT.*, ROWNUM ROWNUM_ FROM (***Query***) VIEW_FOR_LIMIT WHERE ROWNUM <= -2147483604) WHERE ROWNUM_ > 45
+{code}
+
+This always returns an empty result because of *ROWNUM <= -2147483604*.
+
+Example:
+Query:
+{code:sql}
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY OFFSET 45 ROWS
+{code}
+
+Source-specific command:
+{code:sql}
+SELECT c_0 FROM (SELECT VIEW_FOR_LIMIT.*, ROWNUM ROWNUM_ FROM (SELECT trunc(g_0."INTKEY") AS c_0 FROM "DV"."SMALLA" g_0 ORDER BY c_0) VIEW_FOR_LIMIT WHERE ROWNUM <= -2147483604) WHERE ROWNUM_ > 45
+{code}

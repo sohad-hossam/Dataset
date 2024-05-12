@@ -1,0 +1,8 @@
+Infinispan hotrod translator doesn't overcome error in unrelated proto-schema
+Infinispan Hotrod translator can't overcome an error in any proto-schema on the JDG server.
+
+It ends with a message, that there's an issue with a proto-schema. Doesn't say which.
+
+Note, that this can be completely unrelated proto-schema to Teiid. Then the only solution is to reload JDG, or possibly clear proto-schema cache.
+
+If Teiid is checking for errors in .errors cache, it should be selective and look only for the newly added proto-schema.

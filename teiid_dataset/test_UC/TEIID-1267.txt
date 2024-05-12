@@ -1,0 +1,2 @@
+Add support for non-pushdown subquery evaluation on update statements
+Please add support for non-pushdown subquery evaluation on INSERT/UPDATE/DELETE statements

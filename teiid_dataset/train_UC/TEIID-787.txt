@@ -1,0 +1,8 @@
+Merge Oracle Spatial Connector functionality into Oracle Connector
+It seems that the Oracle Spatial Connector is an extension of the Oracle Connector.  Because it is an extension and the functionality, translators, capabilities, etc, are the same it means we need to manage the same connector in two different places not to mention have the same dependencies required and offered by two different packages.  
+
+Because of this duplication, I recommend that the Oracle Spatial Connector be merged with the Oracle Connector.  This should be as simple as merging the supported functions defined by the Oracle Spatial Connector with the Oracle Connector and migrating Oracle Spatial specific unit tests.
+
+Because the functions offered by the Oracle Spatial Connector are not system functions, the function definition for the Oracle Spatial functions should be kept separate and offered to the user as a post installation task if they choose to use spatial functions.
+
+For example, if a user decides to use Oracle as a data source, they would choose the Oracle Connector regardless of whether or not they planned on using spatial functions.  The connector binding configuration would be the same in either case.  If the user requires the use of the spatial functions, the only post-installation/configuration step would be to install the Oracle Spatial Function Definitions into their Teiid run-time environment or into Teiid Designer to make them available at design-time.  

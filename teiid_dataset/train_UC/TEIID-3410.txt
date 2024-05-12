@@ -1,0 +1,6 @@
+OData object URI does not resolve to a usable URL.
+OData object URI does not resolve to a usable URL. When accessing a VDB via odata with a browser either via JSON or XML the uri listed in the metadata is not valid, it doesn't have the FQN of the table, only the type shows FQN:
+
+"__metadata" : {
+"uri" : "http://localhost:8080/odata/ODataRHQ/rhq_agent(10001)",
+ "type" : "RHQ32.rhq_agent"

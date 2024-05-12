@@ -1,0 +1,39 @@
+Resolving of entityid with additional system options fail
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/$entity/?$id=Customers(1)&$expand=Orders_FK0
+*Returned status code:* 404
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/$entity/?$id=Customers(1)&$select=name
+*Returned status code:* 500
+In this case response does not contain mandatory OData-version header and server throws exception:
+{code:plain}
+12:20:40,911 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/odata4].[odata4]] (http-/127.0.0.1:8080-1) JBWEB000236: Servlet.service() for servlet odata4 threw exception: java.util.EmptyStackException
+	at java.util.Stack.peek(Stack.java:102) [rt.jar:1.8.0-internal]
+	at org.apache.olingo.server.core.uri.parser.UriParseTreeVisitor.visitSelectSegment(UriParseTreeVisitor.java:2195)
+	at org.apache.olingo.server.core.uri.antlr.UriParserParser$SelectSegmentContext.accept(UriParserParser.java:3611)
+	at org.apache.olingo.server.core.uri.parser.UriParseTreeVisitor.visitSelectItem(UriParseTreeVisitor.java:2168)
+	at org.apache.olingo.server.core.uri.antlr.UriParserParser$SelectItemContext.accept(UriParserParser.java:3541)
+	at org.apache.olingo.server.core.uri.parser.UriParseTreeVisitor.visitSelectEOF(UriParseTreeVisitor.java:2153)
+	at org.apache.olingo.server.core.uri.parser.Parser.parseUri(Parser.java:228)
+	at org.apache.olingo.server.core.ErrorHandler.handleServerError(ErrorHandler.java:93)
+	at org.apache.olingo.server.core.ErrorHandler.handleException(ErrorHandler.java:85)
+	at org.apache.olingo.server.core.OData4HttpHandler.process(OData4HttpHandler.java:70)
+	at org.teiid.olingo.web.ODataServlet.service(ODataServlet.java:50) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-2.jar:1.0.2.Final-redhat-2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:295) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:214) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.teiid.olingo.web.ODataFilter.doFilter(ODataFilter.java:194) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:246) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:214) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:231) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:149) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:512) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:169) [jboss-as-web-7.5.4.Final-redhat-4.jar:7.5.4.Final-redhat-4]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:150) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:97) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:102) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:854) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:926) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}

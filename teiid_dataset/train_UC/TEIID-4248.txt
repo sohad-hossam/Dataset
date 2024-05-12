@@ -1,0 +1,4 @@
+Build change for 8.13 caused the release notes to miss the version replacement
+Substitution is not happening for the release notes:
+
+http://docs.jboss.org/teiid/8.13.0.Final/teiid-releasenotes.html

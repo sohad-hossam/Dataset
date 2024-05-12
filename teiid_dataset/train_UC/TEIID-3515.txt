@@ -1,0 +1,4 @@
+make makedep and related hints consistent
+There are three places where hints can be specified, in the options clause, after an item, and before in a comment block.
+
+We should ensure that the comment block supports all options max/join for makedep, and that makeind should have the same options as makedep.

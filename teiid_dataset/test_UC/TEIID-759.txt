@@ -1,0 +1,2 @@
+XQuery parameter evaluation fails
+Non-constant xquery parameter evaluation is failing since the commandcontext is not used for the expression evaluation.

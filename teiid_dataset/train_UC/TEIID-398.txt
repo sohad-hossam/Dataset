@@ -1,0 +1,33 @@
+mmadmin: exportDataRoles gives NPE if no roles present for VDB - Should throw better exception.
+While creating mmadmin tests for NIAP, I found that attempting to export roles from a VDB with no data roles, got an NPE. It should be getting a more meaningful exception.
+
+exportDataRoles("NiapWebVdb","2","/home/pnittel/mmx/552niap/TestMmadmin/testroles.xml");
+// Error: // Uncaught Exception: Method Invocation ObjectConverterUtil.write : at Line: 600 : in file: URL: jar:file:/home/pnittel/mmx/552niap/tools/lib/mmadmin.jar!/scripts/serveradmin.bsh : ObjectConverterUtil .write ( currentContext ( ) .internalAdmin .exportDataRoles ( vdbName , vdbVersion ) , filename ) 
+
+Called from method: exportDataRoles : at Line: 1 : in file: <unknown file> : exportDataRoles ( "NiapWebVdb" , "2" , "/home/pnittel/mmx/552niap/TestMmadmin/testroles.xml" ) 
+Target exception: java.lang.NullPointerException
+
+java.lang.NullPointerException
+	at com.metamatrix.core.util.ObjectConverterUtil.write(ObjectConverterUtil.java:121)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at bsh.Reflect.invokeMethod(Unknown Source)
+	at bsh.Reflect.invokeStaticMethod(Unknown Source)
+	at bsh.Name.invokeMethod(Unknown Source)
+	at bsh.BSHMethodInvocation.eval(Unknown Source)
+	at bsh.BSHPrimaryExpression.eval(Unknown Source)
+	at bsh.BSHPrimaryExpression.eval(Unknown Source)
+	at bsh.BSHBlock.evalBlock(Unknown Source)
+	at bsh.BSHBlock.eval(Unknown Source)
+	at bsh.BshMethod.invokeImpl(Unknown Source)
+	at bsh.BshMethod.invoke(Unknown Source)
+	at bsh.BshMethod.invoke(Unknown Source)
+	at bsh.Name.invokeLocalMethod(Unknown Source)
+	at bsh.Name.invokeMethod(Unknown Source)
+	at bsh.BSHMethodInvocation.eval(Unknown Source)
+	at bsh.BSHPrimaryExpression.eval(Unknown Source)
+	at bsh.BSHPrimaryExpression.eval(Unknown Source)
+	at bsh.Interpreter.run(Unknown Source)
+	at com.metamatrix.script.shell.MMAdmin.main(MMAdmin.java:50)

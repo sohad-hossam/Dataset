@@ -1,0 +1,2 @@
+Dynamic VDB that imports another VDB does not get redeployed if the imported VDB is redeployed
+When using a Dynamic VDB that imports another VDB it isn't redeployed if the imported VDB is redeployed.  You can in the log it undeploys the top VDB and the imported VDB but only redeploys the imported one.  The top VDB then doesn't exist until it's redeployed.

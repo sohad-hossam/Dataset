@@ -1,0 +1,2 @@
+Missing translators in cli scripts
+hana was missing from the cli scripts and added by another issue - but we are still missing jpa2, simpledb, and ucanaccess.

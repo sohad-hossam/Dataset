@@ -1,0 +1,22 @@
+MongoDB:  failed to translate to mongo query with boolean value expression
+Fail to translate the following SQL to mongo query:
+
+select "grade",
+"name",
+"score",
+"state",
+"grade" as "test",
+("name" = "state") as "name2"
+from "mongoDBDS"."grades"
+where "grade" = 'B'
+
+However, it works with the query contains group by and boolean value expression:
+
+elect "grade" as "test",
+"grade",
+("name" = "state") as "name2",
+sum("score") as "sum_score"
+from "mongoDBDS"."grades"
+where "grade" = 'B'
+group by "grade", "grade", ("name" = "state")
+order by "grade", "test", "name2"

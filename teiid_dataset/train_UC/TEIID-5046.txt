@@ -1,0 +1,34 @@
+DuplicateRecordException when adding some tables with dots in columns
+when adding such table:
+{code:sql}
+create table t1 (
+"a.b" int,
+"a_b" int
+);
+{code}
+we will get the following stacktrace:
+{noformat}
+2017-08-31 15:21:34,121 WARN  [org.teiid.RUNTIME] (Worker1_async-teiid-threads1)  TEIID50036 VDB test.1 model "test_pg" metadata failed to load. Reason:TEIID60016 Duplicate Column te
+st_pg.t1.a_b: org.teiid.metadata.DuplicateRecordException: TEIID60016 Duplicate Column test_pg.t1.a_b
+        at org.teiid.metadata.MetadataFactory.addColumn(MetadataFactory.java:198)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.addColumn(JDBCMetdataProcessor.java:449)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.processColumns(JDBCMetdataProcessor.java:410)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getColumns(JDBCMetdataProcessor.java:385)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getTables(JDBCMetdataProcessor.java:336)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:166)
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:306)
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:69)
+        at org.teiid.query.metadata.NativeMetadataRepository.getMetadata(NativeMetadataRepository.java:96)
+        at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:62)
+        at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55)
+        at org.teiid.jboss.VDBService$6.run(VDBService.java:341)
+        at org.teiid.jboss.VDBService$7.run(VDBService.java:392)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:284)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)
+{noformat}
+
+I suppose the problem related to auto replacement of dots on underscores which was fixed in TEIID-4913 issue. Maybe it's worth to introduce some kind of indexes in column names if there is already a column with the same name instead of throwing out DuplicateRecordException. Or maybe there is an another solution.

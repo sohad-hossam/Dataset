@@ -1,0 +1,14 @@
+Better handling of connector depdendencies
+Connector dependencies by in large really fall into two categories - our built-in jars or jars that are intended to be at a system level (such as a driver).  By only allowing these jars to exist under a post delegation class loader there are many downsides - it has a negative impact on memory, it can cause issues with classloader leaks, makes built in connector patching more difficult, and simply won't work in the case of native oracle drivers.  Here are the steps we would like to take to address this:
+
+Promote all top-level built-in connector jars to the lib - this would be things like connector-jdbc, connector-ldap, etc.
+
+Add the notion of the common extension classpath to the dqp.
+
+Change the common extension classpath to be a delegating classloader.
+
+Change the meaning of the connector classpath to "required common dependencies", then at the start of any connector service ensure/add all entries from the connector classpath into the common extension classpath.  The common extension classpath will be cached and managed similar to the connector classloader cache.  Changes to extension modules will cause it to be reloaded.  Since this approach does not actually threat connector classpath setting as a classpath ordering of the entries doe not matter and thus patch jars would not be useful in this setting.  Rather users would simply replace the extension module they are attempting to patch.
+
+The connector type classpath would remain and still specifies required post delegation libraries. 
+
+How Designer is managing dependencies does not need to initially change at all.  Basically all jars added as connector dependencies will be treated as common.  The only scenario that won't work initially is a custom connector requiring post-delegation libraries.  We can address this at a later time.   

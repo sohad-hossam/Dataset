@@ -1,0 +1,6 @@
+Salesforce import issues
+Salesforce fields provide isNillable(), but we don't currently use that metadata.
+
+Whether the field is defaulted should also be reflected in the metadata beyond just the extension property COLUMN_DEFAULTED so that we'll understand that a non-nullable column can still be omitted from insert.
+
+Also the 34 importer does not know how to handle the composite address type which is reported as an error, but should be just detail log as the composite fields are also added.

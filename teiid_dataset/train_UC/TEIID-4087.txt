@@ -1,0 +1,8 @@
+OData - Math function round doesn't accept decimal number as parameter
+Reference service which supports OData V4:
+*ULR:* http://services.odata.org/V4/Northwind/Northwind.svc/Employees/?$filter=EmployeeID%20eq%20round(4.2)
+*Result:* Employee with ID 4
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=intkey%20eq%20round(4.2)
+*Actual result:* {"error": {"code": null, "message": "TEIID30558 Error converting parameter number 1 with value \"4,2\" of class java.math.BigDecimal to expected type integer." }}
+*Expected result:* Entity with intkey 4

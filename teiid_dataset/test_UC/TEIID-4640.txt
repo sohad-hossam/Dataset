@@ -1,0 +1,72 @@
+Mongo translator - embeddable tables - creation of collection fails
+I use Teiid to create collection in MongoDB (with first INSERT).
+This scenario works for simple tables. However, if I have embeddable tables \[1\], parent table creation fails \[2, 3\].
+
+{code:sql|title=\[1\] DDL}
+CREATE FOREIGN TABLE Person (
+    id integer PRIMARY KEY,
+    name varchar(25),
+    company_id integer,
+    FOREIGN KEY (company_id) REFERENCES Company (id)
+) OPTIONS(UPDATABLE 'TRUE');
+
+CREATE FOREIGN TABLE Company (
+    id integer PRIMARY KEY,
+    name varchar(25)
+) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:EMBEDDABLE" 'TRUE');
+{code}
+
+{code:sql|title=\[2\] Insert queries}
+INSERT INTO Company (id, name) VALUES (11, 'comp11');
+INSERT INTO Person(id, name, company_id) VALUES (11, 'p11', 11);
+{code}
+
+{code:plain|title=\[3\] Exception}
+09:23:19,306 WARN  [org.teiid.PROCESSOR] (Worker33_QueryProcessorQueue527) TEIID30020 Processing exception for request 7MaF5Ey1GjEO.32 'TEIID30504 local: { "serverUsed" : "dvqe03.mw.lab.eng.bos.redhat.com:27017" , "spec" : { "name" : "FK0" , "ns" : "Person" , "key" : { "company_id" : 1}} , "ok" : 0.0 , "errmsg" : "namespace mismatch"}'. Originally TeiidProcessingException CommandResult.java:76.: org.teiid.core.TeiidProcessingException: TEIID30504 local: { "serverUsed" : "dvqe03.mw.lab.eng.bos.redhat.com:27017" , "spec" : { "name" : "FK0" , "ns" : "Person" , "key" : { "company_id" : 1}} , "ok" : 0.0 , "errmsg" : "namespace mismatch"}
+	at org.teiid.dqp.internal.process.DataTierTupleSource.exceptionOccurred(DataTierTupleSource.java:401) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:161) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:391) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: org.teiid.translator.TranslatorException: { "serverUsed" : "dvqe03.mw.lab.eng.bos.redhat.com:27017" , "spec" : { "name" : "FK0" , "ns" : "Person" , "key" : { "company_id" : 1}} , "ok" : 0.0 , "errmsg" : "namespace mismatch"}
+	at org.teiid.translator.mongodb.MongoDBUpdateExecution.execute(MongoDBUpdateExecution.java:79)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at sun.reflect.GeneratedMethodAccessor91.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at com.sun.proxy.$Proxy47.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 6 more
+Caused by: com.mongodb.CommandFailureException: { "serverUsed" : "dvqe03.mw.lab.eng.bos.redhat.com:27017" , "spec" : { "name" : "FK0" , "ns" : "Person" , "key" : { "company_id" : 1}} , "ok" : 0.0 , "errmsg" : "namespace mismatch"}
+	at com.mongodb.CommandResult.getException(CommandResult.java:76)
+	at com.mongodb.CommandResult.throwOnError(CommandResult.java:140)
+	at com.mongodb.DBCollectionImpl.createIndex(DBCollectionImpl.java:399)
+	at com.mongodb.DBCollection.createIndex(DBCollection.java:597)
+	at org.teiid.translator.mongodb.MongoDBUpdateExecution.createIndex(MongoDBUpdateExecution.java:608)
+	at org.teiid.translator.mongodb.MongoDBUpdateExecution.getCollection(MongoDBUpdateExecution.java:578)
+	at org.teiid.translator.mongodb.MongoDBUpdateExecution.executeInternal(MongoDBUpdateExecution.java:85)
+	at org.teiid.translator.mongodb.MongoDBUpdateExecution.execute(MongoDBUpdateExecution.java:77)
+	... 18 more
+{code}
+
+If collection in Mongo exists, no exception is thrown and all data are properly inserted.

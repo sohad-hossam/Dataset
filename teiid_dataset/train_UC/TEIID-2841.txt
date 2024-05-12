@@ -1,0 +1,59 @@
+MongoDB: Wrong results returned with MERGE in ONE-1-ONE relation
+If Schema is like 
+
+{code}
+            CREATE FOREIGN TABLE  Customer (
+                CustomerId integer PRIMARY KEY,
+                FirstName varchar(25),
+                LastName varchar(25)
+            ) OPTIONS(UPDATABLE 'TRUE');
+             
+            CREATE FOREIGN TABLE Address (
+                CustomerId integer PRIMARY KEY,
+                Street varchar(50),
+                City varchar(25),
+                State varchar(25),
+                Zipcode varchar(6),
+                FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId)
+             ) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:MERGE" 'Customer');
+{code}
+
+and we did inserts like
+
+{code}
+insert into Customer (customerId ,firstname,lastname) values ('1002','Syed','Iqbal');
+insert into Address (customerId,street,city,state,zipcode) values ('1002','123 Main St','Chicago','IL','60659');
+insert into Customer (customerId ,firstname,lastname) values ('1000','Ramesh','Reddy');
+{code}
+
+the data in mongo is in form 
+
+{code}
+{
+	"Address" : {
+		"Street" : "123 Main St",
+		"City" : "Chicago",
+		"State" : "IL",
+		"Zipcode" : "60659",
+		"_id" : DBRef("Customer", 1002)
+	},
+	"FirstName" : "Syed",
+	"LastName" : "Iqbal",
+	"Notes" : [ ],
+	"_id" : 1002
+}
+{ "_id" : 1000, "FirstName" : "Ramesh", "LastName" : "Reddy" }
+{code}
+
+and if you issue
+
+{code}
+SELECT * FROM Address
+{code}
+
+you will see
+
+||CustomerId||Street||City||State||
+|1002|123 Main St|Chicago|IL|
+|<null>|<null>|<null>|<null>|
+

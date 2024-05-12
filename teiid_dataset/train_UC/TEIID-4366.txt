@@ -1,0 +1,4 @@
+Provide CORS support on OData Service
+Good write up CORS can be found here https://developer.mozilla.org/en-US/docs/Web/HTTP/Access_control_CORS
+
+OData needs to implement CORS support to be valuable with java script based client development technologies.

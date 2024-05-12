@@ -1,0 +1,2 @@
+Add Hive Translator that support HDFS
+Hive provides SQL interface to data that is stored inside the Hadoop based data store. Build a Teiid translator for Hive interface to access the data in the Hadoop.

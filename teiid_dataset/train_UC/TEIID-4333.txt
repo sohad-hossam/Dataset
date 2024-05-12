@@ -1,0 +1,2 @@
+Change default of SupportsComapareCriteriaOrdered to true
+Change the default of translator capability SupportsComapareCriteriaOrdered from false to true.    In JDG 6.6, a fix was made to correct the issue with querying LT, LTE, GT and GTE on string columns.

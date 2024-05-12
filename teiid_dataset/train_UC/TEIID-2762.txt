@@ -1,0 +1,86 @@
+Can't deploy or execute VDB by JBDS with setting useDisk property to false
+Description of problem:
+Can't deploy or execute VDB by JBDS with setting useDisk property to false.
+
+Version-Release number of selected component (if applicable):
+EDS 5.3.1
+
+Steps to Reproduce:
+1. Set following property to false;
+ $JBOSS_HOME/server/default/deploy/teiid/teiid-jboss-beans.xml
+ ~~
+   <bean name="BufferService" class="org.teiid.services.BufferServiceImpl">
+    <!-- Use disk for buffer management -->
+      <property name="useDisk">true</property>
+ ~~
+
+2. Deploy or execute VDB whose size is 2.38MB by JBDS
+
+Actual results:
+Following ERROR was thrown by teiid server.
+
+2013-12-04 16:14:45,800 ERROR [org.teiid.TRANSPORT] (New I/O server worker #2-1) Unhandled exception, closing client instance
+java.lang.IllegalArgumentException
+    at java.nio.Buffer.limit(Buffer.java:247)
+    at org.teiid.common.buffer.impl.MemoryStorageManager$MemoryFileStore.readWrite(MemoryStorageManager.java:74)
+    at org.teiid.common.buffer.FileStore.write(FileStore.java:178)
+    at org.teiid.common.buffer.FileStore.write(FileStore.java:171)
+    at org.teiid.common.buffer.FileStore$2.write(FileStore.java:238)
+    at java.io.BufferedOutputStream.write(BufferedOutputStream.java:105)
+    at org.jboss.netty.buffer.HeapChannelBuffer.getBytes(HeapChannelBuffer.java:116)
+    at org.jboss.netty.buffer.DynamicChannelBuffer.getBytes(DynamicChannelBuffer.java:156)
+    at org.jboss.netty.buffer.AbstractChannelBuffer.readBytes(AbstractChannelBuffer.java:381)
+    at org.teiid.transport.ObjectDecoder.decode(ObjectDecoder.java:158)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.callDecode(FrameDecoder.java:282)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.messageReceived(FrameDecoder.java:214)
+    at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:302)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.unfoldAndFireMessageReceived(FrameDecoder.java:317)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.callDecode(FrameDecoder.java:299)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.messageReceived(FrameDecoder.java:214)
+    at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:274)
+    at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:261)
+    at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:350)
+    at org.jboss.netty.channel.socket.nio.NioWorker.processSelectedKeys(NioWorker.java:281)
+    at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:201)
+    at org.jboss.netty.util.internal.IoWorkerRunnable.run(IoWorkerRunnable.java:46)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+    at java.lang.Thread.run(Thread.java:662
+
+Expected results:
+Can deploy or execute VDB
+
+Additional info:
+Original buffer size used in org.teiid.common.buffer.impl.MemoryStorageManager was initialized by MAX_FILE_SIZE(131072bytes) at L47. However, readWrite() tried to allocate more size to the buffer at L74.
+
+org.teiid.common.buffer.impl.MemoryStorageManager.java
+~~~
+	public static final int MAX_FILE_SIZE = 1 << 17;  // L44
+~~~
+		private ByteBuffer buffer = ByteBuffer.allocate(MAX_FILE_SIZE);  // L47
+~~~
+		@Override
+		protected synchronized int readWrite(long fileOffset, byte[] b, int offSet,
+				int length, boolean write) {
+			if (!write) {
+				if (fileOffset >= getLength()) {
+					return -1;
+				}
+				int position = (int)fileOffset;
+				buffer.position(position);
+				length = Math.min(length, (int)getLength() - position);
+				buffer.get(b, offSet, length);
+				return length;	
+			}
+			int requiredLength = (int)(fileOffset + length);
+			if (requiredLength > buffer.limit()) {
+				buffer.limit(requiredLength);   //L74
+			}
+			buffer.position((int)fileOffset);
+			buffer.put(b, offSet, length);
+			return length;
+~~~
+
+According to JavaSE7's javadoc, it's not allowed to assign a larger limit size  to the Buffer than it's capacity.
+
+http://docs.oracle.com/javase/7/docs/api/java/nio/Buffer.html

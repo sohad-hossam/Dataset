@@ -1,0 +1,7 @@
+Configurable CommonTableExpression support for DB2
+The LIMIT clause (FETCH FIRST...) inside CTE (WITH...) is not supported on pre-V9 versions of DB2 on z/OS, or new versions of DB2 running in Compatibility Mode.
+The CTE support in DB2 translator should be configurable.
+
+See more information:
+https://community.jboss.org/thread/235503
+

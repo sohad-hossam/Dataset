@@ -1,0 +1,4 @@
+Incorrect rewrite of not  disjunctive criteria
+The rewrite of a condition such as "not((a or b) AND c)" with a,b,c predicates where c a is predicate that is negatable, such as col1 = 1.  The result should have the negated form of col1 <> 1, but instead has col1 = 1.  This is because the col1 = 1 predicate is repeated in the result, but not cloned and the rewriter modifies the same instance.
+
+ 

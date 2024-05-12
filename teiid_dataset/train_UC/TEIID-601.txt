@@ -1,0 +1,22 @@
+Check for duplicate process at the statup and avoid it
+I've set up a JBEDSP server on my laptop. I have been able to connect from the Console, but not really able to do much querying. This morning, I am no longer able to connect to the server (I tried SQuirreL and Console). 
+
+Steve H. reviewed the server log and found the following to be central to the issue at hand. NOTE: I am NOT running this in  a cluster.
+
+Exception in thread "ServiceMonitoringThread" No response for remote method call
+	at com.metamatrix.common.messaging.jgroups.JGroupsMessageBus$2.invoke(JGroupsMessageBus.java:145)
+	at $Proxy27.checkState(Unknown Source)
+	at com.metamatrix.platform.registry.ProcessMonitor$2.run(ProcessMonitor.java:125)
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+	at java.util.TimerThread.run(Timer.java:462)
+May 14, 2009 16:15:48.437 [Worker3_SocketWorker1|0] ERROR <ROUTER|0> Unexpected exception for session 1900
+java.lang.NullPointerException
+	at com.metamatrix.platform.registry.ServiceRegistryBinding.setService(ServiceRegistryBinding.java:298)
+	at com.metamatrix.platform.registry.ServiceRegistryBinding.markServiceAsBad(ServiceRegistryBinding.java:314)
+	at com.metamatrix.platform.service.proxy.SingleInvokationProxy.invoke(SingleInvokationProxy.java:89)
+	at $Proxy24.validateSession(Unknown Source)
+	at com.metamatrix.common.comm.platform.socket.server.ServerWorkItem.run(ServerWorkItem.java:93)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)

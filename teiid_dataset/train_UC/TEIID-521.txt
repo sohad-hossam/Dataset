@@ -1,0 +1,34 @@
+Prepared statement methods addBatch() and clearBatch() can cause NullPointerException
+When attempting to debug an unrelated issue I discovered that the batch processing methods on a prepared statement can result in a NullPointerException depending on when the methods are called.
+
+For example:  
+
+java.lang.NullPointerException
+	at com.metamatrix.jdbc.MMStatement.clearBatch(MMStatement.java:274)
+	at com.metamatrix.jdbc.TestPreparedStatementBatchedUpdate.testInserts(TestPreparedStatementBatchedUpdate.java:102)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at junit.framework.TestCase.runTest(TestCase.java:154)
+	at junit.framework.TestCase.runBare(TestCase.java:127)
+	at junit.framework.TestResult$1.protect(TestResult.java:106)
+	at junit.framework.TestResult.runProtected(TestResult.java:124)
+	at junit.framework.TestResult.run(TestResult.java:109)
+	at junit.framework.TestCase.run(TestCase.java:118)
+	at junit.framework.TestSuite.runTest(TestSuite.java:208)
+	at junit.framework.TestSuite.run(TestSuite.java:203)
+	at junit.framework.TestSuite.runTest(TestSuite.java:208)
+	at junit.framework.TestSuite.run(TestSuite.java:203)
+	at org.eclipse.jdt.internal.junit.runner.junit3.JUnit3TestReference.run(JUnit3TestReference.java:130)
+	at org.eclipse.jdt.internal.junit.runner.TestExecution.run(TestExecution.java:38)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:460)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.runTests(RemoteTestRunner.java:673)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.run(RemoteTestRunner.java:386)
+	at org.eclipse.jdt.internal.junit.runner.RemoteTestRunner.main(RemoteTestRunner.java:196)
+
+Is a result of calling clearBatch() on a statement after it was done executing a batched update.  It appears this is simply a need of NOT calling clearBatch() at the wrong time but I feel that we should gracefully handle this situation as a clearBatch() call may appear in a try/catch/finally block.
+
+The same goes for addBatch() if no parameters have been set.  Not sure if we should actually throw an exception in such a case or not as it makes no sense to call addBatch() with no parameters defined but it would also make sense that we would not throw a nasty NPE in such a case.
+
+I have only seen this on R050502 and R050503 and have not looked at R050504c or Teiid.

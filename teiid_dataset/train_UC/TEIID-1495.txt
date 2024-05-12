@@ -1,0 +1,2 @@
+Validate the TeraData Translator
+Currently the Teiid does provide a Teradata translator, however it has been taken from the old MMX code, however it was never validated with Teiid to make sure this works correctly with the data source.

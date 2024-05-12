@@ -1,0 +1,2 @@
+Salesforce 34 resource adapter should default to the 34 api
+The salesforce-34 resource adapter ra.xml still points to the 22 api url by default.  It should point to 34.

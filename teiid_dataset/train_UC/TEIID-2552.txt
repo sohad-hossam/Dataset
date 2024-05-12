@@ -1,0 +1,5 @@
+Upgrade javacc-maven-plugin from 2.4.1 to 2.6
+javacc-maven-plugin 2.6 is needed due to other components are already using 2.6.
+
+Also, its already been determined that Teiid fails to compile when 2.6 is used.
+

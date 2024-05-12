@@ -1,0 +1,7 @@
+DeleteDataSource method on Admin API does not completely delete the Connection Factory
+ConnectionFactory requires a two step creation process
+
+1) create the resource-adaptor section
+2) connection factory section
+
+The delete is removing the (2) and not (1). Thus any subsequent creates using the same name fails.

@@ -1,0 +1,2 @@
+Forward and Backward Compatibility of MetaMatrix JDBC Driver
+The MetaMatrix JDBC driver should be forward and backward compatible with newer/older versions of Enterprise Server.  It is understood that certain protocol changes may break the compatibility but this should only happen in major releases and not affect Service Packs and maintenance releases.

@@ -1,0 +1,11 @@
+Incorrect work of left join statement
+the following query:
+{code:sql}
+SELECT a.email, b.email, lower(a.email), lower(b.email) FROM test_tables.test_emails as a left join views.test_view_emails as b on lower(a.email)=lower(b.email)
+{code}
+leads to the following results:
+ !test_emails_bug1.jpg|thumbnail! 
+
+though running the same query on PostgreSQL leads to the following results:
+ !test_emails_pg.jpg|thumbnail! 
+so this query mentioned above must work as on PostgreSQL putting null values for the b field table where conditions can't be performed.

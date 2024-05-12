@@ -1,0 +1,2 @@
+Issue with entitysets/properties ending in auth or token
+To handle oauth, we are check for uri.endsWith("auth") || uri.endsWith("token") - however valid uris can end with those characters as well.  An ioexception will be thrown instead of seeing the expected results - we also need to not simply throw an ioexception in ODataServlet as there is no server log of the exception and the client sees a 500 error.

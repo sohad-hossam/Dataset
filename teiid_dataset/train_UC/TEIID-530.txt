@@ -1,0 +1,2 @@
+Schema Imports in Auto-discovered WSDL Missing Application Context
+The URL for imported schemas in the auto-discovered WSDL is missing the application  context. The dynamic WSDL schema urls are being created correctly.

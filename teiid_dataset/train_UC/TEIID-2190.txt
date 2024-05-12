@@ -1,0 +1,10 @@
+Key usage can remove predicates
+The implementation strategy for predicate realignment can drop non-column equi join predicates and predicates involving the same column reused multiple times.
+
+i.e. 
+create local temporary table x (e1 string, e2 integer, primary key (e1));
+create local temporary table x1 (e1 string, e2 integer)
+...
+select x.e1 from x inner join x1 on x.e1 = x1.e1 and upper(x.e1) = x1.e2
+
+May end up not applying the upper predicate.

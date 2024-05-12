@@ -1,0 +1,4 @@
+More complex join:  ORDER BY and LIMIT not pushed down
+Query: SELECT B."SYSID", B."USERID", J0.APPNAME as "SYSOFUSER@APPNAME", B."NAME", B."PROC", B."SUSPEND", B."UID", (select count(*) from (select * from notes.RETRIEVE_NOTES where OBJECT_PKEY = xmlserialize(xmlelement("SECURITY.BASEUSER", XMLATTRIBUTES(B."SYSID",B."USERID")) as String)) as foo) as C_notesForObject, 'SECURITY.BASEUSER' as "__objecttype__" FROM "SECURITY.BASEUSER" as B left join security.sysinfo J0 on J0.sysid=B.sysid ORDER BY J0.APPNAME ASC LIMIT 9990,10; args: []
+
+I think there are two problems with the plan for this query:  First, neither the ORDER BY nor the LIMIT clause are pushed down to DB2.  However, if it is was pushed down, the plan should apply the ORDER & LIMIT before it tries to join to the notes table.

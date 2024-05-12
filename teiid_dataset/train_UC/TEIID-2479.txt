@@ -1,0 +1,17 @@
+Selecting from SYS model throws exception
+We have a dynamic vdb deployed into our Teiid 8.3 environment, but whenever we connect to the vdb via the pgsql emulation socket using the standard postgresql tools, and attempt to select any value from any tables in the SYS scheama, we are given an error
+
+{noformat}
+TestVDB=> select * from sys.keys;
+ERROR:  Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+DETAIL:  org.teiid.jdbc.TeiidSQLException: Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+TestVDB=> select * from sys.columns;
+ERROR:  Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+DETAIL:  org.teiid.jdbc.TeiidSQLException: Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+TestVDB=> select * from sys.tables;
+ERROR:  Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+DETAIL:  org.teiid.jdbc.TeiidSQLException: Group specified is ambiguous, resubmit the query by fully qualifying the group name: pg_attribute
+TestVDB=>
+{noformat}
+
+It looks like the teiid parser is getting confused somehow with multiple pg_attribute fields on those tables or something.

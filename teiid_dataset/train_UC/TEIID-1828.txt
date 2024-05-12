@@ -1,0 +1,16 @@
+Dependent critiera in query plan but missing in actual query and additional information is provided
+tested on EDS 5.2 ER3 and ER6, same results:
+
+We're running a query which has two sets of dependent criteria in one of the queries. The plan looks ok, and in the command log we see that EDS is getting both sets of dependent criteria and bringing back rows which we would expect to be passed into the final query.
+
+The problem is that the final query has 1=1 in the place of where the dependent criteria should be.
+
+In the plan:
+
++ Query:SELECT g_0.account_code AS c_0, g_0.book_code AS c_1, SUM(g_0.func_amount) AS c_2 FROM TSL_SQL_Source.TSL.TSL_FINANCIAL_ACCOUNT_ITEMS_T2 AS g_0 WHERE (g_0.business_date = {d'2011-06-29'}) AND (g_0.account_code IN (<dependent values>)) AND (g_0.book_code IN (<dependent values>)) GROUP BY g_0.account_code, g_0.book_code ORDER BY c_0 NULLS FIRST
+
+The source specific query from the command log:
+
+2011-11-14 11:35:35,313 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue60) Source-specific command: SELECT g_0.ACCOUNT_CODE AS c_0, g_0.BOOK_CODE AS c_1, SUM(g_0.FUNC_AMOUNT) AS c_2 FROM TSL_FINANCIAL_ACCOUNT_ITEMS_T2 g_0 WHERE g_0.BUSINESS_DATE = {d '2011-06-29'} AND 1 = 1 AND 1 = 1 GROUP BY g_0.ACCOUNT_CODE, g_0.BOOK_CODE ORDER BY c_0 NULLS FIRST
+
+Stats should be correct in the VDB. We also updated the stats using the system procedures just before executing the query.

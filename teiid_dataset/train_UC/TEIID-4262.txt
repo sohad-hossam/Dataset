@@ -1,0 +1,7 @@
+Wrong result (empty or NULL) with an view and a single disjunction for join criteria
+The following query returns an empty result instead of 1:
+{code:sql}
+SELECT alias3.a1 FROM (select 1 as a) as alias2 INNER JOIN (SELECT t2.a AS a1, t1.a FROM (SELECT 1 AS a) AS t1 INNER JOIN (select 1 as a) as t2 ON t1.a = t2.a)  AS alias3 ON ((alias3.a = alias2.a) OR (alias3.a > alias2.a))
+{code}
+
+when updating the parent join on removing the alias3 view layer, the OR condition is being converted to AND - which can never be true.

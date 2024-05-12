@@ -1,0 +1,12 @@
+Inconsistent synchronization around odbc sync handling
+There is a narrow race condition when an odbc message is followed by sync - the isExecuting check is supposed to prevent the sync until the execution is complete, but is not synchronized.
+
+The result can be an exception in the pg client:
+
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.ArrayList.rangeCheck(ArrayList.java:653)
+	at java.util.ArrayList.get(ArrayList.java:429)
+	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1825)
+	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+
+As the pendingExecuteQueue will have been cleared by the early response to sync.

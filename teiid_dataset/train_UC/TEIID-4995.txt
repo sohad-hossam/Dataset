@@ -1,0 +1,6 @@
+Investigate use of org.apache.poi.ss.usermodel.DataFormatter in Excel translator
+For integer values in a string column, values are displayed as a decimal value (for example, a value "5" is displayed as "5.0").  It looks like org.apache.poi.ss.usermodel.DataFormatter [1] by default attempts to format values in the same manner as Excel would display it [2], and would result in the integer value "5" being displayed as "5".  In the case of string columns, this would avoid the user needing to modify source data to compensate as indicated as workarounds in TEIID-3947.
+
+[1] https://poi.apache.org/apidocs/org/apache/poi/ss/usermodel/DataFormatter.html
+[2] The default number format will mimic the Excel General format: "#" for whole numbers and "#.##########" for decimal numbers.
+

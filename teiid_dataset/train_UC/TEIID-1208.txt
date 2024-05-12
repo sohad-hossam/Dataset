@@ -1,0 +1,2 @@
+VDB "getStatus" through Admin API always returning "INACTIVE"
+When VDB status is queried through Admin API, it is always being returned as "INACTIVE", even though the VDB itself is active.

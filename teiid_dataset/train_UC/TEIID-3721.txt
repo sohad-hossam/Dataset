@@ -1,0 +1,4 @@
+Add OPTIONS capability to Procedure ResultSet
+Currently there is no way to add metadata on Procedures return value if the return value is "ResultSet".
+
+Actually you can call _setProperty_ add on _ColumnSet<Procedure>_ metadata object, but _DDLStringFactory_ will not recognize it, also I believe JAVACC file needs to updated for this to recognize.

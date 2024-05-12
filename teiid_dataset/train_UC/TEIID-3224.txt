@@ -1,0 +1,3 @@
+MongoDB: support direct query execution for Shell type command
+Use case: to support external mat view in mongoDB, we need to execute query such as: db.collection.remove({}), db.collection.copyTo()  to delete & rename staging table.
+Teiid currently only support aggregate query: https://issues.jboss.org/browse/TEIID-2740

@@ -1,0 +1,2 @@
+OData skipToken not properly honored
+If a skip token is provided, we still start providing results from the start of the result set.

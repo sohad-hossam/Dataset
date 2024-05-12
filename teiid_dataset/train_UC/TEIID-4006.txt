@@ -1,0 +1,9 @@
+Texttable column header option toString incorrect
+The header keyword is omitted:
+
+COLUMNS x 'y' ...
+
+but should be:
+
+COLUMNS x HEADER 'y' ...
+

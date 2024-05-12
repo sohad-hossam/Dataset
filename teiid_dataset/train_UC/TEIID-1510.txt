@@ -1,0 +1,2 @@
+RulePushAggregates should consider cost in addition to key information
+RulePushAggregates currently only considers whether a key is in use in the grouping columns to not stage an aggregate.  It should additionally use a cost check to see if the staged aggregate is cost effective. 

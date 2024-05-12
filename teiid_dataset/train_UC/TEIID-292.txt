@@ -1,0 +1,2 @@
+use non-nio client sockets
+We could use non-nio client sockets to remove the netty library from the client.  To allow for our current usage model, we would still need to allow for multi-threaded calls and client timeouts.  We could optionally not use a separate reader thread.

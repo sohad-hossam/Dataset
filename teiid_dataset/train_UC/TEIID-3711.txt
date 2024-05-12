@@ -1,0 +1,351 @@
+Teiid XML Plan not showing Aggregate function
+The SQL contains aggregation function but the aggregation function(count, sum, etc) is missing from Teiid Plan. The plan should provide which aggregate functions is being worked on.
+ 
+Below is the SQL and the plan.
+ 
+SQL:
+ 
+select a.ACCOUNT_ID as ACCOUNT_ID, b.company_name as company_name, c.ssn as ssn, count(a.shares_count) as total_shares
+                     from UbuntuMySQL.PORTFOLIO.HOLDINGS a, UbuntuMySQL.PORTFOLIO.PRODUCT b,HadoopSrcModel.default.account c
+                     WHERE a.PRODUCT_ID = b.ID and a.ACCOUNT_ID = c.ACCOUNT_ID GROUP BY  a.ACCOUNT_ID,b.company_name, c.ssn
+ 
+XML Plan:
+ 
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+- <node name="ProjectNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>3</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>ACCOUNT_ID (integer)</value>
+ 
+ 
+<value>company_name (string)</value>
+ 
+ 
+<value>ssn (string)</value>
+ 
+ 
+<value>total_shares (integer)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Child 0">
+ 
+ 
+- <node name="GroupingNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>4</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>gcol0 (integer)</value>
+ 
+ 
+<value>gcol1 (string)</value>
+ 
+ 
+<value>gcol2 (string)</value>
+ 
+ 
+<value>agg0 (long)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Child 0">
+ 
+ 
+- <node name="JoinNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>5</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>gcol1 (integer)</value>
+ 
+ 
+<value>gcol2 (string)</value>
+ 
+ 
+<value>ssn (string)</value>
+ 
+ 
+<value>agg0 (integer)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Child 0">
+ 
+ 
+- <node name="GroupingNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>6</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>gcol0 (string)</value>
+ 
+ 
+<value>gcol1 (integer)</value>
+ 
+ 
+<value>gcol2 (string)</value>
+ 
+ 
+<value>agg0 (integer)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Child 0">
+ 
+ 
+- <node name="AccessNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>7</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>expr (string)</value>
+ 
+ 
+<value>ACCOUNT_ID (integer)</value>
+ 
+ 
+<value>COMPANY_NAME (string)</value>
+ 
+ 
+<value>SHARES_COUNT (integer)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Query">
+ 
+ 
+<value>SELECT convert(g_0.ACCOUNT_ID, string), g_0.ACCOUNT_ID, g_1.COMPANY_NAME, g_0.SHARES_COUNT FROM UbuntuMySQL.PORTFOLIO.HOLDINGS AS g_0, UbuntuMySQL.PORTFOLIO.PRODUCT AS g_1 WHERE g_0.PRODUCT_ID = g_1.ID</value>
+ 
+</property>
+ 
+- <property name="Model Name">
+ 
+ 
+<value>UbuntuMySQL</value>
+ 
+</property>
+</node>
+</property>
+ 
+- <property name="Grouping Columns">
+ 
+ 
+<value>convert(a.ACCOUNT_ID, string)</value>
+ 
+ 
+<value>a.ACCOUNT_ID</value>
+ 
+ 
+<value>b.COMPANY_NAME</value>
+ 
+</property>
+ 
+- <property name="Sort Mode">
+ 
+ 
+<value>false</value>
+ 
+</property>
+</node>
+</property>
+ 
+- <property name="Child 1">
+ 
+ 
+- <node name="AccessNode">
+ 
+ 
+- <property name="Relational Node ID">
+ 
+ 
+<value>8</value>
+ 
+</property>
+ 
+- <property name="Output Columns">
+ 
+ 
+<value>account_id (string)</value>
+ 
+ 
+<value>ssn (string)</value>
+ 
+</property>
+ 
+- <property name="Cost Estimates">
+ 
+ 
+<value>Estimated Node Cardinality: -1.0</value>
+ 
+</property>
+ 
+- <property name="Query">
+ 
+ 
+<value>SELECT g_0.account_id AS c_0, g_0.ssn AS c_1 FROM HadoopSrcModel."default".account AS g_0 ORDER BY c_0</value>
+ 
+</property>
+ 
+- <property name="Model Name">
+ 
+ 
+<value>HadoopSrcModel</value>
+ 
+</property>
+</node>
+</property>
+ 
+- <property name="Join Strategy">
+ 
+ 
+<value>ENHANCED SORT JOIN RAN AS SORT MERGE (ALREADY_SORTED/ALREADY_SORTED)</value>
+ 
+</property>
+ 
+- <property name="Join Type">
+ 
+ 
+<value>INNER JOIN</value>
+ 
+</property>
+ 
+- <property name="Join Criteria">
+ 
+ 
+<value>anon_grp2.gcol0=c.account_id</value>
+ 
+</property>
+</node>
+</property>
+ 
+- <property name="Grouping Columns">
+ 
+ 
+<value>anon_grp2.gcol1</value>
+ 
+ 
+<value>anon_grp2.gcol2</value>
+ 
+ 
+<value>c.ssn</value>
+ 
+</property>
+ 
+- <property name="Sort Mode">
+ 
+ 
+<value>false</value>
+ 
+</property>
+</node>
+</property>
+ 
+- <property name="Select Columns">
+ 
+ 
+<value>anon_grp1.gcol0 AS ACCOUNT_ID</value>
+ 
+ 
+<value>anon_grp1.gcol1 AS company_name</value>
+ 
+ 
+<value>anon_grp1.gcol2 AS ssn</value>
+ 
+ 
+<value>IFNULL(convert(anon_grp1.agg0, integer), 0) AS total_shares</value>
+ 
+</property>
+ 
+- <property name="Data Bytes Sent">
+ 
+ 
+<value>0</value>
+ 
+</property>
+ 
+- <property name="Planning Time">
+ 
+ 
+<value>149</value>
+ 
+</property>
+</node>

@@ -1,0 +1,33 @@
+NPE when querying RAR description of infinispan-hotrod resource adapter
+When running the read-rar-description on the infinispan-hotrod resource adapter, a NPE is logged in the server log:
+{noformat}
+10:59:10,245 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 2) JBAS014612: Operation ("read-rar-description") failed - address: ([("subsystem" => "teiid")]): java.lang.NullPointerException
+        at org.teiid.deployers.ExtendedPropertyMetadata.addProperty(ExtendedPropertyMetadata.java:119)
+        at org.teiid.deployers.ExtendedPropertyMetadata.<init>(ExtendedPropertyMetadata.java:105)
+        at org.teiid.jboss.ReadRARDescription.buildNode(TeiidOperationHandler.java:1613)
+        at org.teiid.jboss.ReadRARDescription.executeOperation(TeiidOperationHandler.java:1583)
+        at org.teiid.jboss.ReadRARDescription.executeOperation(TeiidOperationHandler.java:1543)
+        at org.teiid.jboss.BaseOperationHandler$1.execute(BaseOperationHandler.java:79)
+        at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:710) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:545) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.AbstractOperationContext.completeStepInternal(AbstractOperationContext.java:338) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.AbstractOperationContext.executeOperation(AbstractOperationContext.java:314) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.OperationContextImpl.executeOperation(OperationContextImpl.java:1152) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.ModelControllerImpl.internalExecute(ModelControllerImpl.java:335) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.ModelControllerImpl.execute(ModelControllerImpl.java:204) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler.doExecute(ModelControllerClientOperationHandler.java:209) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler.access$300(ModelControllerClientOperationHandler.java:136) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run(ModelControllerClientOperationHandler.java:158) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run(ModelControllerClientOperationHandler.java:154) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.8.0_131]
+        at javax.security.auth.Subject.doAs(Subject.java:422) [rt.jar:1.8.0_131]
+        at org.jboss.as.controller.AccessAuditContext.doAs(AccessAuditContext.java:94) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.controller.remote.ModelControllerClientOperationHandler$ExecuteRequestHandler$1.execute(ModelControllerClientOperationHandler.java:154) [jboss-as-controller-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.protocol.mgmt.AbstractMessageHandler$ManagementRequestContextImpl$1.doExecute(AbstractMessageHandler.java:364) [jboss-as-protocol-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at org.jboss.as.protocol.mgmt.AbstractMessageHandler$AsyncTaskRunner.run(AbstractMessageHandler.java:473) [jboss-as-protocol-7.5.16.Final-redhat-1.jar:7.5.16.Final-redhat-1]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_131]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_131]
+        at java.lang.Thread.run(Thread.java:748) [rt.jar:1.8.0_131]
+        at org.jboss.threads.JBossThread.run(JBossThread.java:122) [jboss-threads-2.1.2.Final-redhat-1.jar:2.1.2.Final-redhat-1]
+
+{noformat}

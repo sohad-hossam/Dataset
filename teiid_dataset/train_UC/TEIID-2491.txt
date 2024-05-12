@@ -1,0 +1,4 @@
+ODBC ScriptReader workarounds do not handle EOF
+Issuing a query such as select 'foo'::bar
+
+will result in an error since the workaround to drop the ::bar appends the EOF to the sql text.

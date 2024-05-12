@@ -1,0 +1,2 @@
+ValueValidationVisitor needs the variable context
+Resolving parameter values no longer sets the values directly on the command.  The visitor will have to follow references to determine if the values are valid.

@@ -1,0 +1,4 @@
+Teiid Login Issue with special characters
+When we try to login to teiid programmatically through datasource, we are having problem with username having special characters.
+We are encoding the special character as per url encoding
+eg : username %xyz is encoded as %25xyz but teiid does not decode the special character while passing username. So the username passed by teiid is %25xyz which fails authentication as the actual username is %xyz

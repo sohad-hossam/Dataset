@@ -1,0 +1,4 @@
+Correct inefficient buffermanager tuplesource and managedbatch scans
+MemoryState should hold ManagedBatches in a linkedhashset rather than a list so that explicit management of last access is unnecessary and the removal call performs better than a linear search.  
+
+Removetuplesources should be changed to use an explicit set of tuplesources on the tuplegroupinfo rather than doing a linear scan of all tuplesources.

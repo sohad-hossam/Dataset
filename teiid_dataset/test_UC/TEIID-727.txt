@@ -1,0 +1,2 @@
+Lookup function does not implicitly convert search argument
+The lookup function search argument should be of the same type as the key element, otherwise seemingly valid lookups will return no results i.e. lookup('foo', 'bar', 'integercolumn', <short value>)

@@ -1,0 +1,2 @@
+Limit pushdown is incorrect for simpledb
+The limit clause for simpledb sets a page size rather than fully limiting results, thus our pushdown is incorrect.

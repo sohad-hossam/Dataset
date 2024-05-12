@@ -1,0 +1,4 @@
+Enable and document a check for data roles and permissions
+1. Implement a DisabledAuthorizationValidator. Document how to use it in Teiid 8;
+2. Update doc how to use "allow-create-temporary-tables" property for temp tables creation in Teiid 8
+3. validator should not treat common table expressions as temp tables

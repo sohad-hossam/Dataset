@@ -1,0 +1,2 @@
+Add NOT (negation) support for other non-equality sql criteria, example Not Like, Not In, etc.
+Add NOT (negation) support for when using other non-equality type sql criteria.  Example:  Not in (1,2,..)  or Not like (' ').

@@ -1,0 +1,10 @@
+Rename and align infinispan translators/resource-adapters for their purpose 
+The infinispan-cache and infinispan-cache-dsl translators/resource-adapters need to be renamed and aligned for what their purpose is.  Because using "dsl" as part of the name is confusing, because both translators now support querying using JDG DSL language.
+
+infinispan-cache:   
+-  rename to  infinispan-cache-library-mode (or leave as infinispan-cache and it be assume library mode)
+-  deprecate the access to remote-cache because the other infinispan-cache-dsl translator provides this feature.
+-  this will enable the cleaning of the documentation to be specific to library mode
+
+infinispan-cache-dsl:
+-  rename to infinispan-cache-hot-rod (or something other than "dsl")  because this all about remote cache access using hot rod client

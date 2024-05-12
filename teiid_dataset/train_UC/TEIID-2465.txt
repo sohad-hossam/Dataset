@@ -1,0 +1,2 @@
+Add additional size limitations
+We should introduce a limit to lob (which is currently only correct for up to 2 gigs) and single tuplebuffer results in storage as to prevent too much resource consumption from a single use.

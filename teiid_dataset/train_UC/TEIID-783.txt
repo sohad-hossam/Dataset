@@ -1,0 +1,2 @@
+Fetch enhancements
+Allow fetchsize to be set on resultsets and do not cache batches on the client when the cursor type is forward only.

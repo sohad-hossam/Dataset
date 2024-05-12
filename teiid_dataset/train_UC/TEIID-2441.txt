@@ -1,0 +1,2 @@
+Invalid character detected for charset {0}.  The text may be encoded in a different charset.
+The error could return a more clear statement

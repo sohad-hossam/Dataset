@@ -1,0 +1,2 @@
+Temp table becomes unusable by other threads
+If an update fails, the atomic rollback processing fails to properly unlock the write lock.  Any other subsequent thread accessing the table would be locked out.

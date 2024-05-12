@@ -1,0 +1,89 @@
+ROUND() function fails when pushed down to PostgreSQL with real/double precision datatypes 
+I defined in PostgreSQL the following table:
+{code:sql}
+CREATE TABLE round_test
+(
+  col1 real,
+  col2 double precision
+)
+{code}
+
+Running one of these queries:
+{code:sql}
+select ROUND(col1,1) FROM pg.round_test;
+
+select ROUND(col2,1) FROM pg.round_test;
+{code}
+
+the ROUND function is pushed down to PostgreSQL that throws the following exceptions, respectively:
+{code:sql}
+13:32:45,934 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue30) DoIZjz21JLyd Connector worker process failed for atomic-request=DoIZjz21JLyd.13.0.3: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT round(g_0."col1", 1) AS c_0 FROM "public"."round_test" AS g_0]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:349)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_67]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_67]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_67]
+        at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy47.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+Caused by: org.postgresql.util.PSQLException: ERROR:  function round(real, integer) does not exist
+  HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+  Position: 8
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.0.Beta1.jar:8.12.0.Beta1]
+        ... 18 more
+{code}
+
+and
+
+{code:sql}
+13:33:25,912 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue30) DoIZjz21JLyd Connector worker process failed for atomic-request=DoIZjz21JLyd.13.0.3: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT round(g_0."col2", 1) AS c_0 FROM "public"."round_test" AS g_0]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:349)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_67]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_67]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_67]
+        at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy47.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+Caused by: org.postgresql.util.PSQLException: ERROR:  function round(double precision, integer) does not exist
+  HINT:  No function matches the given name and argument types. You might need to add explicit type casts.
+  Position: 8
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.0.Beta1.jar:8.12.0.Beta1]
+        ... 18 more
+{code}

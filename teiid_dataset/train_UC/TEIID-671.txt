@@ -1,0 +1,6 @@
+Teiid should accept LongNum, DoubleNum, and BigDecimalValue in numeric function
+Teiid Query Testing
+
+1.  Ran CTC query testing against Teiid and received Exception when actual results were expected.
+2.  The queries contained LongNum, DoubleNum, and BigDecimalValue.  We should accept LongNum, DoubleNum, and BigDecimalValue in numeric function.
+3.  Attached is a spreadsheet with a sampling of the query results.

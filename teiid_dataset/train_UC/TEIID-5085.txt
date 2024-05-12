@@ -1,0 +1,24 @@
+NullPointerException after SortUtility blocks in initialSort
+If SortUtility blocks during the initial sort, an npe is later thrown as can be seen in TestJDBCSocketTransport.testXmlTableScrollable
+
+java.lang.NullPointerException
+	at org.teiid.query.processor.relational.MergeJoinStrategy.compareToPrevious(MergeJoinStrategy.java:277)
+	at org.teiid.query.processor.relational.MergeJoinStrategy.process(MergeJoinStrategy.java:235)
+	at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:231)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:277)
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:98)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:277)
+	at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:277)
+	at org.teiid.query.processor.BatchCollector$BatchProducerTupleSource.nextTuple(BatchCollector.java:90)
+	at org.teiid.query.processor.relational.GroupingNode.groupPhase(GroupingNode.java:577)
+	at org.teiid.query.processor.relational.GroupingNode.nextBatchDirect(GroupingNode.java:373)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:277)
+	at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:277)
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:141)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:148)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:111)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:160)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:142)
+	at org.teiid.query.processor.relational.SubqueryAwareEvaluator.evaluateSubquery(SubqueryAwareEvaluator.java:354)

@@ -1,0 +1,2 @@
+Add an option to not normalize salesforce names
+The normalization process for salesforce names can be non-obvious to follow.  The only requirement is that column names don't contain a period - other than that we should have an option to allow the names to be imported more or less undisturbed.

@@ -1,0 +1,2 @@
+Support merge statement pushdown
+We should add support for the merge statement to be pushded down.

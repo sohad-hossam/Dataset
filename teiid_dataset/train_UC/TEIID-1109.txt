@@ -1,0 +1,17 @@
+NPE Connecting to a Teiid DataSource (XA) Without Setting Expected Properties 
+I created a datasource for a VDB with XA sources underlying. I didn't add any of the required custom properties (server, host, etc) just used the default properties provided by the datasource template. This resulted in the following when I tried to connect:
+
+Caused by: java.lang.NullPointerException
+	at java.util.Hashtable.put(Hashtable.java:394)
+	at java.util.Properties.setProperty(Properties.java:143)
+	at org.teiid.jdbc.BaseDataSource.buildProperties(BaseDataSource.java:194)
+	at org.teiid.jdbc.TeiidDataSource.buildProperties(TeiidDataSource.java:106)
+	at org.teiid.jdbc.TeiidDataSource.buildEmbeddedProperties(TeiidDataSource.java:228)
+	at org.teiid.jdbc.TeiidDataSource.getConnection(TeiidDataSource.java:215)
+	at org.teiid.jdbc.BaseDataSource$1.createConnection(BaseDataSource.java:340)
+	at org.teiid.jdbc.XAConnectionImpl.getMMConnection(XAConnectionImpl.java:110)
+	at org.teiid.jdbc.XAConnectionImpl.getConnection(XAConnectionImpl.java:96)
+	at org.jboss.resource.adapter.jdbc.xa.XAManagedConnection.<init>(XAManagedConnection.java:56)
+	at org.jboss.resource.adapter.jdbc.xa.XAManagedConnectionFactory.newXAManagedConnection(XAManagedConnectionFactory.java:475)
+	at org.jboss.resource.adapter.jdbc.xa.XAManagedConnectionFactory.getXAManagedConnection(XAManagedConnectionFactory.java:453)
+	... 32 more

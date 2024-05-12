@@ -1,0 +1,2 @@
+Change to use community bom
+Teiid should import dependencies from the community bom (https://github.com/jboss-integration/jboss-integration-platform-bom/)

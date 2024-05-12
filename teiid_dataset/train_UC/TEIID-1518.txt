@@ -1,0 +1,2 @@
+Add a correlated subquery evaluation cache
+The subquery aware evaluator should cache deterministic evaluations for reuse.

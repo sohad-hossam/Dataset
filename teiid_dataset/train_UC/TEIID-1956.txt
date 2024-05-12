@@ -1,0 +1,6 @@
+WHERE clause throws org.teiid.jdbc.TeiidSQLException: Index: 2, Size: 1
+I am trying to execute a query similar to the following query:
+
+select count(*) from SCHEMA1.STUDENTVIEW as STD_VIEW left join SCHEMA1.LIBRARY LIB on STD_VIEW.sid = LIB.sid where LIB.sid = STD_VIEW.sid and LIB.semister = '4';
+
+The above query works fine in DB2. But throws org.teiid.jdbc.TeiidSQLException: Index: 2, Size: 1 when trying to execute in Teiid Designer version 7.6.

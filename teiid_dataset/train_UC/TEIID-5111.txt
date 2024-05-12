@@ -1,0 +1,6 @@
+Teiid Designer uses 0 as a default length value
+If you create a view in teiid designer, but define it with an expression:
+
+select case when rand() < .5 then 'heads' else 'tails' end as x
+
+A string column length will be set to 0.  On the server this may cause issues such as with the odata layer that will check facets against the length of 0.

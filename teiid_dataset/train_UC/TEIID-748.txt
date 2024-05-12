@@ -1,0 +1,4 @@
+QueryRewriter null handling
+The rewriter changes several criteria fragments into true/false criteria ignoring the affect of nulls.  i.e. pm1.g1.e1 like '%' is not same as 1 = 1 since null e1 values should not be allowed to pass.
+
+This is not a regression, but has been a problem since the switch to three valued logic.

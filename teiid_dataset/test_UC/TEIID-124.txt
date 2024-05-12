@@ -1,0 +1,2 @@
+insert with query should be supported at the connector level
+Defect Tracker #25005: Insert into with a query is now supported at the query level and is the ANSI standard way of representing select into.  Insert with a query should become the dominant concept rather than select into, and it should be supported through the connector layer so that same source operations do not have the overhead of a select into.

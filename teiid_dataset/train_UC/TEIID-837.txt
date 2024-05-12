@@ -1,0 +1,14 @@
+deleteVDBAndConnectorBindings gets NPE
+Not too sure this method makes a lot of sense since the bindings are part of the VDB itself, but...
+
+When it's executed from AdminShell, the following is spewed forth:
+
+Identifier supplied can not be null and must adhere to the naming patterns; Please check the java docs for the proper naming patterns.
+// Error: // Uncaught Exception: Typed variable declaration : at Line: 1020 : in file: URL: jar:file:/home/pnittel/teiid62RC1/adminshell/lib/teiid-adminshell-6.2.0-SNAPSHOT.jar!/scripts/adminapi.bsh : connectorBindings .iterator ( ) 
+
+Target exception: java.lang.NullPointerException: Null Pointer in Method Invocation
+
+In this case, I'd given this command:
+deleteVDBAndConnectorBindings("NiapThing", "1");
+
+Good news is the VDB /is/ deleted when this is executed.

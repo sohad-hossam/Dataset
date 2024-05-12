@@ -1,0 +1,2 @@
+Add schema name to oracle packaged objects
+The fix for TEIID-3870 did not include the schema name - which could be need if the same package name exists in multiple schemas.

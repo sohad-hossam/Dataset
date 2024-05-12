@@ -1,0 +1,2 @@
+Inconsistencies with row count handling
+With TEIID-3271 we addressed returning all of the update counts from a bulk operation such that the direct JDBC logic was correct.  However this left the logic inconsistent with the projectintonode (which could result in invalid rowcount variables) and with the accumulo, solr, and simpledb translators.

@@ -1,0 +1,4 @@
+OAuth2 add option to set access_token directly in login module
+OAuth2 login module expects that auth service issues a 'refresh_token' together with an access_token. Then it can be used together with 'access_token_uri' to get a valid access_token automatically.
+Still this prevents Teiid from being configured for such OAuth2 implementations, that don't provide the refresh_token.
+One option how to workaround this inconsistency in OAuth2 service implementations is to provide option to set the access_token directly in a login-module. This would resolve the issue for never expiring or long-lasting access_token.

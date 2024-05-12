@@ -1,0 +1,2 @@
+validate min/max non-comparable
+min and max aggregates are currently not validated to ensure that they operate on only comparable types.  

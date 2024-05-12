@@ -1,0 +1,2 @@
+Update sql detection should be expanded
+Update sql detection needs to also look for create and drop statements.  The check that is being done in mmstatement/preparedstatement must be done sooner so that execution does not proceed.

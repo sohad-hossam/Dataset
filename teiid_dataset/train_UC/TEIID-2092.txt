@@ -1,0 +1,2 @@
+Allow for streaming processing of json
+The jsontoxml function saves an intermediate copy of the xml representation.  We should also have the ability to stream process the resulting xml to avoid the intermediate copy.

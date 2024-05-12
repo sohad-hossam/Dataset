@@ -1,0 +1,8 @@
+Class cast exception with source batched update command
+A source batched update command will cause:
+
+Caused by: java.lang.ClassCastException: org.teiid.query.sql.lang.BatchedUpdateCommand cannot be cast to org.teiid.query.sql.lang.ProcedureContainer
+
+    at org.teiid.dqp.internal.process.DataTierTupleSource.checkForUpdates(DataTierTupleSource.java:223)
+
+    at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:148

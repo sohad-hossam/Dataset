@@ -1,0 +1,8 @@
+Dynamic VDB with Google Spreadsheet source - no metadata 
+Deployed Dynamic VDB with Google Spreadsheet source.  This is in the server log: 
+
+16:17:49,286 WARN  [org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 2) TEIID31070 Empty model;There are no tables, procedures or functions defined in this model importVDBSrcModel
+
+According to the translator docs https://docs.jboss.org/author/display/TEIID/Google+Spreadsheet+Translator "There are no google-spreadsheet importer settings, but it does provide metadata for dynamic VDBs."
+
+No metadata is returned.

@@ -1,0 +1,5 @@
+Regression with outer join optimization
+TEIID-4886 does not account for all tree structures and is producing a null pointer exception:
+
+java.lang.NullPointerException
+        at org.teiid.query.optimizer.relational.plantree.PlanNode.replaceChild(PlanNode.java:313)         at org.teiid.query.optimizer.relational.rules.RulePlanJoins.groupAcrossLeftOuter(RulePlanJoins.jav        at org.teiid.query.optimizer.relational.rules.RulePlanJoins.execute(RulePlanJoins.java:157) 

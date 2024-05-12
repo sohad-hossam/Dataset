@@ -1,0 +1,13 @@
+QueryRewriter issue with certain UDFs
+Encountered NPE in QueryRewriter with the following stacktrace:
+
+java.lang.ArrayIndexOutOfBoundsException: 1
+	at com.metamatrix.query.rewriter.QueryRewriter.simplifyParseFormatFunction(QueryRewriter.java:1690)
+	at com.metamatrix.query.rewriter.QueryRewriter.simplifyWithInverse(QueryRewriter.java:1368)
+	at com.metamatrix.query.rewriter.QueryRewriter.rewriteCriteria(QueryRewriter.java:1314)
+	at com.metamatrix.query.rewriter.QueryRewriter.rewriteCriteria(QueryRewriter.java:1112)
+	at com.metamatrix.query.rewriter.QueryRewriter.rewriteCriteria(QueryRewriter.java:1095)
+	at com.metamatrix.query.rewriter.QueryRewriter.rewriteCriteria(QueryRewriter.java:1091)
+	at com.metamatrix.query.optimizer.relational.rules.FrameUtil.convertCriteria(FrameUtil.java:537)
+
+The issue was traced back to usage of a UDF named 'parsedate_'.  The QueryRewriter makes assumption about function starting with the word 'parse'.  see next comment for more info.

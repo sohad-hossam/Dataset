@@ -1,0 +1,2 @@
+DDL procedure update count not handled correctly
+The handling for procedure.updateCount was based upon the index file logic that effectively needed to have 1 subtracted from the value.  So when ddl specified 2, it was actually be interpreted as 1.  The index metadata workaround needs to be moved and the rest of the handling needs to be made consistent.

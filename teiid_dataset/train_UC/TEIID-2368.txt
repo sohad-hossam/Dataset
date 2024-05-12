@@ -1,0 +1,12 @@
+Dynamic VDB deployment fails when using importer.importIndexes in the case of a index containing a hidden column
+We are trying to use dynamic VDB. For better performance, we use <property name="importer.importIndexes" value="true"/> to input the index for an oracle datasource.
+
+ 
+
+But vdb deployment failed with following error:
+
+     [TEIID60011 No column found with name SYS_NC00032$]
+
+ 
+
+Debugging through teiid code, it looks like that if the index contains the hidden column (like SYS_NC00032), then index loading failed, teiid was trying to call getColumnByName() for those hidden column which does not exist in the column map.

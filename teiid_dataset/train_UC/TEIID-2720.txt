@@ -1,0 +1,2 @@
+Update Infinispan connector/translator to support JDG 6.2
+Update Infinispan connector/translator to support JDG 6.2

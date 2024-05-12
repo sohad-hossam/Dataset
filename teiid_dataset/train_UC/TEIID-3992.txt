@@ -1,0 +1,2 @@
+Improve performance of pg system tables
+Once materialization is removed from the pg catalog tables performance can be an issue.  At least for the common metadata queries issued with every request.

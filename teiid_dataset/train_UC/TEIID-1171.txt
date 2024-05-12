@@ -1,0 +1,2 @@
+Add support for the with clause
+The with clause would be a useful feature to take advantage of common sub expressions.

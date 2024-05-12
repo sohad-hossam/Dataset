@@ -1,0 +1,4 @@
+Use certificates in Salesforce SOAP API calls
+Currently salesforce connector supports user/password authentication. It would be nice if we can use certificates.
+
+https://help.salesforce.com/apex/HTViewHelpDoc?id=security_keys_uploading_mutual_auth_cert_api.htm&language=en_US

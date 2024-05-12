@@ -1,0 +1,2 @@
+HiveTranslator should not use a Calendar for the Hive getDate
+The Hive JDBC driver does not support the get Date/Timestamp methods with Calendar parameters. This is handled correctly for time stamp but not for date. Data should be handled as well.

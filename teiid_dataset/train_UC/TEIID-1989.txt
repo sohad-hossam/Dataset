@@ -1,0 +1,4 @@
+Interval counter
+In order to coordinate reusable executions across time windows, the CommandContext should include a counter of the number of intervals that have been executed.  An interval is defined as all participating executions returning null.
+
+For more details, see https://community.jboss.org/thread/197562?start=0&tstart=0

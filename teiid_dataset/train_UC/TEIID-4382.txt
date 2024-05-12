@@ -1,0 +1,2 @@
+array_agg does not properly handle array values
+array_agg(array value) - will fail to create the expected multi-dimensional array value as the ArrayAgg logic does not properly unnest the ArrayImpl values.

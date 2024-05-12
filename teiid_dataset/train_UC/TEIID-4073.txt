@@ -1,0 +1,2 @@
+OData filters should accept boolean expressions
+With an expression such as $filter=true we will throw a class cast, since the logic expects a Criteria and not a general Expression.

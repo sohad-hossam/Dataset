@@ -1,0 +1,2 @@
+Translator for OSIsoft PI
+We have several customers that are using OSIsoft to get time sliced data.   We'd like JDV/Teiid to be able to pull data from OSIsoft (OSIsoft is a data source for JDV/Teiid).

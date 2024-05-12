@@ -1,0 +1,77 @@
+Support securing ssl keystore password via VAULT at jdbc/odbc transport 
+Failed to set up the ssl at teiid jdbc transport layer by using JBOSS vault to secure ssl keystore password: 
+
+Here is the detail I did at my failure tests:
+
+ 
+At first, create my vault and ading folowing section into standalone-teiid.xmlt:
+
+    <vault>
+
+        <vault-option name="KEYSTORE_URL" value="c:\\vault\\vault.keystore"/>
+
+        <vault-option name="KEYSTORE_PASSWORD" value="MASK-CGClE.QFRs1"/>
+
+        <vault-option name="KEYSTORE_ALIAS" value="vault"/>
+
+        <vault-option name="SALT" value="12345678"/>
+
+        <vault-option name="ITERATION_COUNT" value="50"/>
+
+        <vault-option name="ENC_FILE_DIR" value="c:\\vault\\"/>
+
+    </vault>
+
+ 
+Here is the SSL definition for teiid JDBC tranport at standalone-teiid.xml
+
+ 
+            <transport name="jdbc" socket-binding="teiid-jdbc">
+
+                <ssl mode="enabled" keymanagement-algorithm="SunX509">
+
+                    <keystore name="c:\\vault\\test.keystore" password="${VAULT::keystore_pw::PASSWORD::ZWQxMWNiMzktOThmNS00NWIyLWFjZTUtNmExYWFiNzUyOTk5TElORV9CUkVBS3ZhdWx0}"/>
+
+                </ssl>
+
+            </transport>
+
+ 
+Here is the error log:
+
+09:40:55,750 WARNING [org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink] (New I/O server boss #1 ([id: 0x00175b9a, /0.0.0.0:31050])) Failed to initialize an accepted socket.: java.io.IOException: Keystore was tampered with, or password was incorrect
+
+at sun.security.provider.JavaKeyStore.engineLoad(JavaKeyStore.java:771) [rt.jar:1.6.0_34]
+
+at sun.security.provider.JavaKeyStore$JKS.engineLoad(JavaKeyStore.java:38) [rt.jar:1.6.0_34]
+
+at java.security.KeyStore.load(KeyStore.java:1185) [rt.jar:1.6.0_34]
+
+at org.teiid.net.socket.SocketUtil.loadKeyStore(SocketUtil.java:221) [teiid-client-8.2.0.Beta1.jar:8.2.0.Beta1]
+
+at org.teiid.net.socket.SocketUtil.getSSLContext(SocketUtil.java:171) [teiid-client-8.2.0.Beta1.jar:8.2.0.Beta1]
+
+at org.teiid.transport.SSLConfiguration.getServerSSLEngine(SSLConfiguration.java:76) [teiid-runtime-8.2.0.Beta1.jar:8.2.0.Beta1]
+
+at org.teiid.transport.SSLAwareChannelHandler.getPipeline(SSLAwareChannelHandler.java:228) [teiid-runtime-8.2.0.Beta1.jar:8.2.0.Beta1]
+
+at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink$Boss.registerAcceptedChannel(NioServerSocketPipelineSink.java:276) [netty-3.2.6.Final.jar:]
+
+at org.jboss.netty.channel.socket.nio.NioServerSocketPipelineSink$Boss.run(NioServerSocketPipelineSink.java:246) [netty-3.2.6.Final.jar:]
+
+at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_34]
+
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_34]
+
+at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_34]
+
+Caused by: java.security.UnrecoverableKeyException: Password verification failed
+
+at sun.security.provider.JavaKeyStore.engineLoad(JavaKeyStore.java:769) [rt.jar:1.6.0_34]
+
+... 11 more
+
+ 
+In side the debug, it looks like teiid did not substitude password from the vault keystore at all. It uses password string "${VAULT::keystore_pw::PASSWORD::ZWQxMWNiMzktOThmNS00NWIyLWFjZTUtNmExYWFiNzUyOTk5TElORV9CUkVBS3ZhdWx0}" to access keystore directly.
+
+ 

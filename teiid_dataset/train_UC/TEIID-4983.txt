@@ -1,0 +1,2 @@
+Couchbase tests rely on unpredictable order
+The insert tests and others have metadata built off of json which depending upon the jre may return elements in a different order.

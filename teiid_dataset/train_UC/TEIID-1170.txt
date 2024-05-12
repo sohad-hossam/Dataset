@@ -1,0 +1,2 @@
+Support subqueries in temp table update/delete criteria
+Subqueries are currently not supported in temp table update/delete criteria.

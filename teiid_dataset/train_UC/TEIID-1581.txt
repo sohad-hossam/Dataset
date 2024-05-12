@@ -1,0 +1,2 @@
+Adding a JCA example for creating a Teiid Data Source to the kits 
+Adding the JCA example for creating a Teiid data source to the kits

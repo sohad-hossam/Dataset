@@ -1,0 +1,2 @@
+Refactor XML Connector to Common XML Connector to Minimize Dependencies
+Need to refactor the Axis client calls from XML Connector and SalesForce connector into a shared project to reduce the number of depencies and consequently reduce the size of the kit

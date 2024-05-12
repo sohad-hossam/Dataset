@@ -1,0 +1,16 @@
+incorrect xml generated from jsontoxml with nested arrays
+Non-root arrays are being nested, which is against the expectation defined in the reference.  Instead of:
+
+<root>
+<x>
+  <x>1</x>
+  <x>1</x>
+</x>
+</root>
+
+it should be:
+
+<root>
+<x>1</x>
+<x>1</x>
+</root>

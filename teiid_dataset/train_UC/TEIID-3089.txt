@@ -1,0 +1,5 @@
+TEIID10078 Invalid double format in String: Age
+Seeing the following error when querying attached excel file:
+
+TEIID10078 Invalid double format in String: Age
+

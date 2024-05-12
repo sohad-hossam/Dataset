@@ -1,0 +1,2 @@
+Sybase translator changes
+The logic for supporting date formats is in the code, but not exposed via a capability.  Also the type mapping in the translator should account for when time is supported as a type.

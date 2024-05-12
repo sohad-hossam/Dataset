@@ -1,0 +1,41 @@
+Materialization issue dynamic SQL command can't be executed due ambiguous group name  
+The defined model for materialization:
+{code}
+	<model name="PersonMatModel" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
+	CREATE view PersonMatView
+		(
+            name string,
+            id integer,
+            email string
+ 		) OPTIONS (MATERIALIZED 'TRUE', UPDATABLE 'TRUE',         
+               MATERIALIZED_TABLE 'PersonMatCache.Person', 
+               "teiid_rel:MATVIEW_TTL" 60000,
+               "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'execute PersonMatCache.native(''truncate cache'');',
+               "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT"  'execute PersonMatCache.native(''swap cache names'');', 
+                "teiid_rel:MATERIALIZED_STAGE_TABLE" 'PersonMatCache.Person',
+              "teiid_rel:MATVIEW_SHARE_SCOPE" 'NONE',
+               "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true', 
+               "teiid_rel:MATVIEW_STATUS_TABLE" 'Accounts.status',                
+               "teiid_rel:MATVIEW_ONERROR_ACTION" 'THROW_EXCEPTION')
+ 		AS SELECT  name, id, email from PersonInfoModel.Person;
+    	]]>
+   		</metadata>
+	</model>   
+{code}
+
+causes the following exception:
+{code}
+org.teiid.api.exception.query.QueryProcessingException: TEIID30168 Couldn't 
+execute the dynamic SQL command "EXECUTE IMMEDIATE ('SELECT count(*) as 
+rowCount FROM ' || matViewTable) AS rowCount integer INTO #load_count" with 
+the SQL statement "('SELECT count(*) as rowCount FROM ' || matViewTable)" due 
+to: Group specified is ambiguous, resubmit the query by fully qualifying the group 
+name: Person
+{code}
+
+And executing the following internal call that Teiid uses does produce the non-qualifed name
+{ccode}
+SELECT TargetName from SYSADMIN.MatViews WHERE VDBName = 'PeopleMat' AND SchemaName = 'PersonMatModel' AND Name = 'PersonMatView'
+{code}
+returns:  Person

@@ -1,0 +1,2 @@
+Add query plan info
+Table function nodes (array/xml/object/text table) should include their respective language object in the plan.  Also batched update node is not showing its commands.

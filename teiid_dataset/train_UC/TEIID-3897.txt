@@ -1,0 +1,2 @@
+dimensional check for ewkb is incorrect
+The geometry logic to prevent ewkb from being used is looking for the number of dimensions to be greater than 2 - this will never be the case with jts.  We should be looking instead at the coorinates for the z value.  A similar check is needed when just wkt is expected and not ewkt.

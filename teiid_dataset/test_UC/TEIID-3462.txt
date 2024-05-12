@@ -1,0 +1,4 @@
+Add support for semantic versioning of VDBs
+Semantic versioning [1] should be supported in the VDB versioning in order to be able to easier determine whether there are breaking changes from the client perspective and to more easily establish a link between client software versions and the VDBs they rely upon.
+
+[1] http://semver.org/

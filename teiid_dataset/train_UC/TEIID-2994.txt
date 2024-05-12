@@ -1,0 +1,2 @@
+DDL Option properties not namespaced for salesforce
+The Option keys for DDL with saleforce source are not getting namespaced.  This is inconsistent with other sources like excel.  See attached file - comparison of two tables - Excel source vs Salesforce source.  The excel keys are prefixed with a namespace teiid_excel:  but the salesforce keys are not. 

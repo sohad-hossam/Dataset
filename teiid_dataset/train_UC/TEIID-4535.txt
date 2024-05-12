@@ -1,0 +1,4 @@
+Issues with EventDistributor
+Non remote methods called twice in clustered mode and with the EventListener methods (add/remove listener).  The proxy will call the local and the remoting handling, which again will call the local.
+
+Also the Embedded logic is not properly initializing the eventdistributor as it is starting before the objectreplicator may have been created.

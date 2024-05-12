@@ -1,0 +1,2 @@
+NPE with uninitialized sub plan on close
+If a PlanExecutionNode is not opened, the contained plan is not initialized, but we still attempt to close it which can throw an NPE on a null BufferManager

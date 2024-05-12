@@ -1,0 +1,2 @@
+Include nested message in processing exception warnings
+In many instances (especially with initial non-teiid exceptions) the original intent of the exception is not clear in the warning logged by teiid because only the top level message is there (for teiid exceptions we'll typically have the code chain, but that's not necessarily useful for the user).  The root message would also be helpful so that detail logging is not needed.

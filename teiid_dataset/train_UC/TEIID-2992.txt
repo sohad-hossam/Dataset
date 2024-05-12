@@ -1,0 +1,14 @@
+MongoDB: Offset clause causes MongoDB to crash
+MongoDB(version < 2.5.2) will crash when offset clause is used in SQL query.
+
+Althought the bug[1] is in MongoDB (Adding big number into $limit causes Mongodb to shutdown), it is also caused by teiid because it adds max integer into $limit which seems to be unnecessary. 
+
+Sample query: 
+{code}
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY OFFSET 45 ROWS
+{code}
+Generated mongo command:
+{code}
+{ aggregate: "smalla", pipeline: [ { $project: { c_0: "$INTKEY" } }, { $sort: { c_0: 1 } }, { $skip: 45 }, { $limit: 2147483647 } ] }
+{code}
+[1] https://jira.mongodb.org/browse/SERVER-10136

@@ -1,0 +1,94 @@
+Error during using Teiid Local connections.
+Appplication fails with the below exceptions when using Teiid Local connections.Tried "passthroughAuthentication=true" but it fails during getConnection()
+
+our application flow is UI (GWT Layer) -> GWT RPC Services (our service) -> TEIID (translator / database).  we are hitting the exception shown above when we launch up our application where GWT is making call to one of the GWT service which internally makes connections to teiid to retrieve the data..
+
+ 
+
+[14:03:37.976][info][talledLocalContainer] 16 May 2012 14:03:37,975 PDT ERROR [CoyoteAdapter] An exception or error occurred in the container during the request processing
+
+[14:03:37.976][info][talledLocalContainer] java.lang.IllegalStateException: Security Context is null
+
+[14:03:37.976][info][talledLocalContainer]     at org.jboss.web.tomcat.security.SecurityAssociationActions$PopRunAsRoleAction.run(SecurityAssociationActions.java:156)
+
+[14:03:37.976][info][talledLocalContainer]     at java.security.AccessController.doPrivileged(Native Method)
+
+[14:03:37.976][info][talledLocalContainer]     at org.jboss.web.tomcat.security.SecurityAssociationActions.popRunAsIdentity(SecurityAssociationActions.java:302)
+
+[14:03:37.976][info][talledLocalContainer]     at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:193)
+
+[14:03:37.976][info][talledLocalContainer]     at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:92)
+
+[14:03:37.977][info][talledLocalContainer]     at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126)
+
+[14:03:37.977][info][talledLocalContainer]     at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+
+[14:03:37.977][info][talledLocalContainer]     at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:330)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:829)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:598)
+
+[14:03:37.977][info][talledLocalContainer]     at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)
+
+[14:03:37.977][info][talledLocalContainer]     at java.lang.Thread.run(Thread.java:722)
+
+[14:03:51.572][info][talledLocalContainer] 16 May 2012 14:03:51,572 PDT WARNING [BrowserLogger] Client side exception: Uncaught exception
+
+[14:03:51.572][info][talledLocalContainer] com.google.gwt.user.client.rpc.InvocationException:  from ObjectsService_Proxy.getObjects   Unknown.Nm(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.kFh(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.KLh(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.nrg(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.Prg(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.Beg(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.Eeg(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.573][info][talledLocalContainer]
+
+[14:03:51.573][info][talledLocalContainer]
+
+[14:03:51.612][info][talledLocalContainer] 16 May 2012 14:03:51,612 PDT WARNING [BrowserLogger] Client side exception: Uncaught exception
+
+[14:03:51.612][info][talledLocalContainer] com.google.gwt.user.client.rpc.InvocationException:  from ObjectsService_Proxy.getObjects   Unknown.Nm(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.kFh(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.KLh(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.nrg(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.Prg(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.Beg(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.Eeg(Unknown Source)
+
+[14:03:51.612][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.613][info][talledLocalContainer]    Unknown.anonymous(Unknown Source)
+
+[14:03:51.613][info][talledLocalContainer]
+
+[14:03:51.613][info][talledLocalContainer] 

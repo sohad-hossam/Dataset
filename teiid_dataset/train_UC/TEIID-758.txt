@@ -1,0 +1,4 @@
+Add locate function support to postgres
+Add support for locate to the postgresql translator.  The 2 arg form is trival, but just as their jdbc escape docs indicate the 3 arg version needs more effort.  For our purposes we'll use position('sub' in substr('string', fromIndex)).
+
+See TEIID-754 for possibly adding logic on the from index to ensure consistency with values less than 1.

@@ -1,0 +1,4 @@
+Issues with odbc metadata
+The values that we are sending the client for atttypmod in the column when using cursoring results in the pg odbc client reissuing the column metadata query for most column types.  Since the column metadata query is not that performant - TEIID-4122 - this results in significant overhead for wide selects.
+
+We also don't have a pg_type entry for varbinary and may need to add more array types.

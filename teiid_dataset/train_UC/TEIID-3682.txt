@@ -1,0 +1,2 @@
+Add logon properties to audit messages
+We expanded logon information in 8.12, but did not yet include all logon properties, which can include the client ip address - but there are limitations since the client ip and related fields would only be set for JDBC connections and not yet for local usage through ODBC/web.

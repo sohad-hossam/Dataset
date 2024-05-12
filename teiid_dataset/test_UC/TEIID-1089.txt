@@ -1,0 +1,2 @@
+Combine the ExecutionFactory and Capabilities class into single class
+Now that Translator development is focused around single class "ExecutionFactory", it makes sense to merge the capabilities also into this class. This simplifies the programming model for developing a "translator". Essentially, the users need to extend this single class for developing the custom connectors.

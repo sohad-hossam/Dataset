@@ -1,0 +1,2 @@
+Rationalize dqp services
+DQP services are initialized manually in the Embedded and Platform config sources.  This should be replaced with DI and the service framework rethought with respect to the platform.  For example both the Tracking and Transaction services are both currently singletons.  However they should either be free standing first class services or be controlled by the QueryService.

@@ -1,0 +1,2 @@
+Add the ability to support vararg functions
+It would be good to add resolving/metadata support for vararg functions.  For example coalesce is a vararg function, and in general UDFs would benefit from utilizing varargs.

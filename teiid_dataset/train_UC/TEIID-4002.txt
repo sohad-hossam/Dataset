@@ -1,0 +1,4 @@
+Configuring of JDG DSL resource adapter still requires marshaller and protobuf when using annotations to define schema
+To improve the usability of JDG as a materialized data source, the resource-adapter needs to be changed to not require the marshaller/protobuf file when the the pojo class has the defined annotations for specifying the schema.   
+
+Currently, the marshaller(s) and protobuf are required.

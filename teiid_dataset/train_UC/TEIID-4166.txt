@@ -1,0 +1,48 @@
+JDG remote cache translator (DSL) - In predicate does not support more than 1024 values
+JDG cache translator (local JDG) does not support more than 1024 values in IN predicate.
+
+The exception is thrown because 'maxClauseCount' is set to 1024.
+
+*Exception:*
+{code:plain}
+12:27:43,579 ERROR [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue73) TEIID30019 Unexpected exception for request Q4A3h+Gv1LIh.13: org.apache.lucene.search.BooleanQuery$TooManyClauses: maxClauseCount is set to 1024
+	at org.apache.lucene.search.BooleanQuery.add(BooleanQuery.java:136)
+	at org.hibernate.search.query.dsl.impl.BooleanQueryBuilder.createQuery(BooleanQueryBuilder.java:115)
+	at org.hibernate.hql.lucene.internal.builder.predicate.LuceneDisjunctionPredicate.getQuery(LuceneDisjunctionPredicate.java:51)
+	at org.hibernate.hql.lucene.internal.builder.predicate.LuceneInPredicate.getQuery(LuceneInPredicate.java:60)
+	at org.hibernate.hql.lucene.internal.builder.predicate.LuceneInPredicate.getQuery(LuceneInPredicate.java:35)
+	at org.hibernate.hql.lucene.internal.builder.predicate.LuceneRootPredicate.getQuery(LuceneRootPredicate.java:42)
+	at org.hibernate.hql.lucene.internal.builder.predicate.LuceneRootPredicate.getQuery(LuceneRootPredicate.java:32)
+	at org.hibernate.hql.ast.spi.SingleEntityQueryBuilder.build(SingleEntityQueryBuilder.java:174)
+	at org.hibernate.hql.lucene.internal.LuceneQueryRendererDelegate.getResult(LuceneQueryRendererDelegate.java:98)
+	at org.hibernate.hql.lucene.LuceneProcessingChain.getResult(LuceneProcessingChain.java:157)
+	at org.hibernate.hql.lucene.LuceneProcessingChain.getResult(LuceneProcessingChain.java:49)
+	at org.hibernate.hql.QueryParser.parseQuery(QueryParser.java:89)
+	at org.infinispan.query.dsl.embedded.impl.QueryEngine.transformJpaToLucene(QueryEngine.java:708)
+	at org.infinispan.query.dsl.embedded.impl.QueryEngine.buildLuceneQuery(QueryEngine.java:676)
+	at org.infinispan.query.dsl.embedded.impl.EmbeddedLuceneQuery.createCacheQuery(EmbeddedLuceneQuery.java:59)
+	at org.infinispan.query.dsl.embedded.impl.EmbeddedLuceneQuery.listInternal(EmbeddedLuceneQuery.java:74)
+	at org.infinispan.query.dsl.embedded.impl.EmbeddedLuceneQuery.list(EmbeddedLuceneQuery.java:68)
+	at org.infinispan.query.dsl.embedded.impl.DelegatingQuery.list(DelegatingQuery.java:45)
+	at org.teiid.resource.adapter.infinispan.DSLSearch.performSearch(DSLSearch.java:169)
+	at org.teiid.resource.adapter.infinispan.DSLSearch.performSearch(DSLSearch.java:130)
+	at org.teiid.translator.object.ObjectExecution.execute(ObjectExecution.java:259)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:359) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0-internal]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at com.sun.proxy.$Proxy81.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}

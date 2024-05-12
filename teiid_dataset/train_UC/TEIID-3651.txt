@@ -1,0 +1,2 @@
+misc performance enhancements
+To improve socket performance, there are some quick changes that can be made.

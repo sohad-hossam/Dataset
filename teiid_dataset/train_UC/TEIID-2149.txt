@@ -1,0 +1,4 @@
+Change the applicability of subqueryUnnestDefault
+subqueryUnnestDefault should only apply during rewrite, since it is run without cost analysis.
+
+However the unnest logic should always run in the optimizer and if necessary the user can use the NO_UNNEST hint to keep the subquery inline.

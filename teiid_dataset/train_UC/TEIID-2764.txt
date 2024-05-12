@@ -1,0 +1,9 @@
+Kerberos/SPNEGO Module Dependency Missing
+I encountered an issue where the LoginModule class was not found when trying to use the Kerberos and the SPNEGO Login Module
+
+
+A workaround was proposed to add the following to the to the org.jboss.teiid module.xml dependency list. 
+
+<module name="sun.jdk"/> <!-- Kerberos -->
+<module name="org.jboss.security.negotiation"/> <!-- SPNEGO -->
+

@@ -1,0 +1,2 @@
+Validate property setters
+If a property setter doesn't exist the property is treated as read only, however this likely indicates an error.  We can still allow read only properties, but that needs to be declarative instead.

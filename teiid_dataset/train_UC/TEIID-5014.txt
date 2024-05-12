@@ -1,0 +1,24 @@
+Unable to use parameterized query with node pg module and Teiid/JBoss VDB
+When using node pg 6.4.1 in a node application to connect to a JBoss VDB with Teiid, we are unable to successfully return data with a parameterized query.
+
+Example from node js application (failure):
+
+client.query("SELECT * FROM records WHERE recordType = $1", ['TYPE1'], function(err, result) { done(); })
+
+The above code will actually retrieve rows of data, but the connection will be terminated unexpectedly from the JBoss side, thus resulting in a failure. We can confirm though that the parameter is properly inserted into the variable, and rows of data can be retrieved without issue.
+
+Also, we have confirmed that when sending a static query, we are able to successfully return data without JBoss terminating the connection. We found this approach from the Teiid blog: http://teiid.blogspot.com/2013/02/access-teiid-from-nodejs.html
+
+Example from node js application (success):
+
+client.query("SELECT * FROM records WHERE recordType = 'TYPE1'", function(err, result) { done(); })
+
+Is there something different about a parameterized query vs. a static query that may cause this issue?
+
+Are you aware of other individuals who have successfully used parameterized queries with the node pg module and Teiid/JBoss VDB?
+
+Is it possible that how the ODBC settings for Teiid are configured may have an impact on parameterized queries vs. static queries?
+
+Link: https://teiid.gitbooks.io/documents/content/client-dev/ODBC_Support.html                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+
+Thank you so much for all your help!

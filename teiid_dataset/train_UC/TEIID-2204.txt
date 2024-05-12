@@ -1,0 +1,26 @@
+Teiid subsystem doesn't cleanly reload on AS7
+{noformat}
+Laika:teiid-7.1.1.Final hbraun$ ./bin/jboss-cli.sh --connect
+[standalone@localhost:9999 /] :reload
+{noformat}
+
+leads to 
+
+{noformat}
+12:44:46,665 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 46) JBAS014612: Operation ("add") failed - address: ([
+    ("subsystem" => "teiid"),
+    ("transport" => "embedded")
+]): java.lang.IllegalArgumentException: JBAS011857: NamingStore is null
+	at org.jboss.as.naming.NamingContext.<init>(NamingContext.java:149)
+	at org.jboss.as.naming.NamingContext.<init>(NamingContext.java:122)
+	at org.jboss.as.naming.InitialContext.<init>(InitialContext.java:85)
+	at org.jboss.as.naming.InitialContextFactory.getInitialContext(InitialContextFactory.java:44)
+	at javax.naming.spi.NamingManager.getInitialContext(NamingManager.java:667) [classes.jar:1.6.0_33]
+	at javax.naming.InitialContext.getDefaultInitCtx(InitialContext.java:288) [classes.jar:1.6.0_33]
+	at javax.naming.InitialContext.getURLOrDefaultInitCtx(InitialContext.java:316) [classes.jar:1.6.0_33]
+	at javax.naming.InitialContext.lookup(InitialContext.java:392) [classes.jar:1.6.0_33]
+	at org.teiid.jboss.TransportAdd.isEmbeddedRegistered(TransportAdd.java:217)
+	at org.teiid.jboss.TransportAdd.performRuntime(TransportAdd.java:195)
+	at org.jboss.as.controller.AbstractAddStepHandler$1.execute(AbstractAddStepHandler.java:50) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+
+{noformat}

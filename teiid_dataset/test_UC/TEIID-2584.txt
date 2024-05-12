@@ -1,0 +1,4 @@
+Add management features to materialization
+Currently Teiid supports internal and external materialization features. The internal is managed completely by the Teiid query engine along with the infinispan cache. 
+
+External materialization is completely unmanaged and left out to the user to manage it externally. This goals for this feature are unify the materialization logic for internal and external, such that both are managed similarly irrespective of the type of materialization chosen. 

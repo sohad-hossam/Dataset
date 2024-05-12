@@ -1,0 +1,20 @@
+Planner created incomplete identifiers when GROUP BY of inline view with UNION ALL
+Using the performance test suite VDB which uses TPCR, there were questions of the number of rows which should be returned for a specific query. To determine the correct nummber of rows to be returned, This query was executed through AdminShell:
+
+SELECT count(*) from ( select P_PARTKEY, P_NAME, P_MFGR, P_BRAND, P_TYPE, P_SIZE, P_CONTAINER, P_RETAILPRICE FROM TPCR01_SqlServerVirt.TPCR01.PART WHERE (P_RETAILPRICE > 911) AND (P_RETAILPRICE < 1400) UNION all SELECT CONVERT(P_PARTKEY,integer), P_NAME, P_MFGR, P_BRAND, P_TYPE, CONVERT(P_SIZE,integer), P_CONTAINER, P_RETAILPRICE FROM TPCR01_OracleVirt.PART WHERE (P_RETAILPRICE > 1200) AND (P_RETAILPRICE < 1500)) as x group by P_PARTKEY, P_NAME, P_MFGR, P_BRAND, P_TYPE, P_SIZE, P_CONTAINER, P_RETAILPRICE;
+
+The result was this:
+
+org.teiid.connector.jdbc.JDBCExecutionException: Error Code:904 Message:ORA-00904: "V_0"."P_SIZE": invalid identifier
+Executing statement:
+
+  [SQL: SELECT v_0.P_PARTKEY, v_0.c_7, v_0.c_0, v_0.c_1, v_0.c_3, v_0.P_SIZE, v_0.c_2, v_0.c_5, COUNT(*) FROM (SELECT g_0.P_MFGR AS c_0, g_0.P_BRAND AS c_1, g_0.P_CONTAINER AS c_2, g_0.P_TYPE AS c_3, g_0.P_PARTKEY AS c_4, g_0.P_RETAILPRICE AS c_5, g_0.P_SIZE AS c_6, g_0.P_NAME AS c_7 FROM PART g_0 WHERE (g_0.P_RETAILPRICE > 1200) AND (g_0.P_RETAILPRICE < 1500)) v_0 GROUP BY v_0.c_0, v_0.c_1, v_0.c_2, v_0.c_3, v_0.P_PARTKEY, v_0.c_5, v_0.P_SIZE, v_0.c_7]
+	at org.teiid.connector.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:98)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.processNewRequest(ConnectorWorkItem.java:293)
+	at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.process(ConnectorWorkItem.java:163)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.run(SynchConnectorWorkItem.java:60)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:636)

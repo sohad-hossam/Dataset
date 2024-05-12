@@ -1,0 +1,22 @@
+Issues setting up Teiid as an XA datasource in AS 7
+Ran across 2 issues when trying to setup Teiid as a XA data source based on the teiid-xa-ds.zml in the jboss kit:  docs/teiid/datasources/teiid/teiid-xa-ds.xml
+
+1 - ClassNotFound for the org.hibernate.dialect.Dialect, so added: 
+   <module name="org.hibernate"/>
+   to the teiid/client/main/module.xml
+
+2 - seeing this error:  TEIID10006 Decryption failed: java.lang.ClassNotFoundException   org.teiid.client.util.ExceptionHolder from [Module "org.jboss.jts:main"  but that was resolved after I changed security from:
+
+        <security>
+            <user-name>user</user-name>
+            <password>user</password>
+        </security>
+
+to:
+                    <xa-datasource-property name="User">
+                        user
+                    </xa-datasource-property>
+                    <xa-datasource-property name="Password">
+                        user
+                    </xa-datasource-property>
+

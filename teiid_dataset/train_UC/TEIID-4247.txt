@@ -1,0 +1,12 @@
+OData - support date and time functions
+The functions date() and time() are currently not supported in odata queries, e.g. running query {noformat}http://localhost:8080/odata4/olingo_basic/Source/SimpleDataTable?$filter=timeval%20gt%20time(now()){noformat}
+returns {code:xml}
+<?xml version='1.0' encoding='UTF-8'?>
+<error xmlns="http://docs.oasis-open.org/odata/ns/metadata">
+   <code>TEIID16027</code>
+   <message>TEIID16027 Function time is not currently supported </message>
+</error>
+{code}
+
+This is allowed behaviour per the [odata spec|http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398371], but it would be good to have these functions implemented.
+

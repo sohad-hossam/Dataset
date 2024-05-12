@@ -1,0 +1,2 @@
+Expose system and pushdown functions
+The system functions and pushdown functions are not added as normal schema scoped functions, and thus were not exposed by TEIID-3044.  We should properly expose them and if possible also add uuids and the ability to lookup system properties.

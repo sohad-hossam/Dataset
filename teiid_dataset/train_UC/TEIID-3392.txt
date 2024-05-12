@@ -1,0 +1,2 @@
+cached result set with lobs reports incorrect row number
+Using the cached result when a lob is part of the result will only report rows up to the beginning of the last batch.

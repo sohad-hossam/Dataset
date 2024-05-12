@@ -1,0 +1,93 @@
+import foreign schema "import qualifiers" problem
+Hi I'm trying to import a schema  but I get an error 
+
+{code:sql}
+IMPORT FOREIGN SCHEMA GLIMS 
+	FROM SERVER glims 
+	INTO glims
+    OPTIONS(
+       importer.useFullSchemaName false,
+       importer.tableTypes 'TABLE,VIEW'
+);
+{code}
+
+This results in an error:
+
+09:57:34,782 ERROR [org.teiid.RUNTIME] (Worker6)  TEIID30021 Uncaught exception processing work: org.teiid.metadata.ParseException: TEIID31259 In the
+statement ending with token ) on line 45 column 1 the ddl is not valid: TEIID60013 Duplicate Table TOAD_PLAN_TABLE
+        at org.teiid.query.parser.QueryParser.parseDDL(QueryParser.java:567)
+        at org.teiid.runtime.AbstractVDBDeployer.processVDBDDL(AbstractVDBDeployer.java:358)
+        at org.teiid.runtime.AbstractVDBDeployer.metadataLoaded(AbstractVDBDeployer.java:262)
+        at org.teiid.jboss.VDBService.access$1000(VDBService.java:82)
+        at org.teiid.jboss.VDBService$6.run(VDBService.java:362)
+        at org.teiid.jboss.VDBService$7.run(VDBService.java:392)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:282)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.teiid.metadata.DuplicateRecordException: TEIID60013 Duplicate Table TOAD_PLAN_TABLE
+        at org.teiid.metadata.Schema.addTable(Schema.java:51)
+        at org.teiid.metadata.MetadataFactory.addTable(MetadataFactory.java:179)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.addTable(JDBCMetdataProcessor.java:368)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.addTable(JDBCMetdataProcessor.java:351)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getTables(JDBCMetdataProcessor.java:324)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:166)
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:306)
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:69)
+        at org.teiid.query.metadata.NativeMetadataRepository.getMetadata(NativeMetadataRepository.java:96)
+        at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:62)
+        at org.teiid.metadata.MetadataRepository.loadMetadata(MetadataRepository.java:46)
+        at org.teiid.runtime.AbstractVDBDeployer$MetadataRepositoryWrapper.loadMetadata(AbstractVDBDeployer.java:85)
+        at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55)
+        at org.teiid.runtime.AbstractVDBDeployer$2.importSchema(AbstractVDBDeployer.java:334)
+        at org.teiid.query.parser.SQLParser.importSchema(SQLParser.java:15411)
+        at org.teiid.query.parser.SQLParser.ddlStmt(SQLParser.java:12641)
+        at org.teiid.query.parser.SQLParser.parseMetadata(SQLParser.java:12577)
+        at org.teiid.query.parser.QueryParser.parseDDL(QueryParser.java:561)
+        ... 11 more
+
+Changing the import statement to only the desired tables results in the same error.
+
+{code:sql}
+IMPORT FOREIGN SCHEMA GLIMS 
+LIMIT TO (LABANALYSE,LABANALYSECODE,LABANALYSESERIZIVCODE,LABERROR,LABFMD2ARTS,LABORDER,LABORDER2PRINT,LABPAT,LABPAT2ORDER,LABPRINTERCONFIG, LABPRINTERCONFIG_BACKUP,LABSPECIMEN,LABTITEL)
+	FROM SERVER glims 
+	INTO glims
+    OPTIONS(
+       importer.useFullSchemaName false,
+       importer.tableTypes 'TABLE,VIEW'
+);
+{code}
+
+Now explicitly stating that this TOAD_PLAN_TABLE should be ignored:
+
+{code:sql}
+IMPORT FOREIGN SCHEMA GLIMS 
+EXCEPT (TOAD_PLAN_TABLE)
+	FROM SERVER glims 
+	INTO glims
+    OPTIONS(
+       importer.useFullSchemaName false,
+       importer.tableTypes 'TABLE,VIEW'
+);
+{code}
+
+results in:
+
+[standalone@localhost:9990 /] deploy D:\workspaceTeiid\IZ\vdb4-vdb.ddl
+{"WFLYCTL0062: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {"WFLYCTL0080: Failed services" => {"jbos
+s.deployment.unit.\"vdb4-vdb.ddl\".PARSE" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"vdb4-vdb.ddl\".PARSE: WFLYSRV015
+3: Failed to process phase PARSE of deployment \"vdb4-vdb.ddl\"
+    Caused by: org.teiid.metadata.ParseException: TEIID30386 org.teiid.api.exception.query.QueryParserException: TEIID31100 Parsing error: Encountered
+ \"FOREIGN SCHEMA GLIMS [*]EXCEPT[*] (TOAD_PLAN_TABLE\" at line 40, column 9.
+Was expecting: \"from\" | \"limit\" | \"(\"
+    Caused by: org.teiid.api.exception.query.QueryParserException: TEIID31100 Parsing error: Encountered \"FOREIGN SCHEMA GLIMS [*]EXCEPT[*] (TOAD_PLA
+N_TABLE\" at line 40, column 9.
+Was expecting: \"from\" | \"limit\" | \"(\""},"WFLYCTL0412: Required services that are not installed:" => ["jboss.deployment.unit.\"vdb4-vdb.ddl\".PAR
+SE"],"WFLYCTL0180: Services with missing/unavailable dependencies" => undefined}}}
+
+Also a small note about the docs:
+
+In the [example|https://teiid.gitbooks.io/documents/content/v/9.2.x/reference/ddl_deployment_mode.html#import_schema] "LIMIT TO customers, orders" should be "LIMIT TO (customers, orders)".

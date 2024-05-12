@@ -1,0 +1,2 @@
+NPE with multi-column dependent join
+The problem will occur with a multi-column dependent join where the check for exceeding the max expected size is run and a secondary join column has a null value beyond the beginning of the data set.

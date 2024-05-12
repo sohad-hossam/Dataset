@@ -1,0 +1,2 @@
+Couchbase import nested array handling
+The import logic dim indexing logic will produce different results depending upon the order in which attributes are visited.  This is due to only having on Dimension per document.  The nesting structure needs to be considered more.

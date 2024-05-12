@@ -1,0 +1,2 @@
+Duplicate column exception mentions table instead
+The duplicate column exception from the MetadataFactory mentions table instead.

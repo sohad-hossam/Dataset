@@ -1,0 +1,2 @@
+NPE with texttable planning
+If a group by or a merge join is used over a texttable, or any table function, an npe will occur in sort planning.

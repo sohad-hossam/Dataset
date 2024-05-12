@@ -1,0 +1,2 @@
+default logging should be to java logging
+All non-main application system outs should be converted to java logs and the default logwriter should be to java.  Also the basic log configuration should default to warning.  The STDOUT target for embedded logging should be removed, as that can be controlled through java logging.

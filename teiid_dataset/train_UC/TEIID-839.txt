@@ -1,0 +1,11 @@
+adminAPI shutdown method gets NPE and does not shut down the server
+How to reproduce:
+
+1 - Start Teiid Server
+2 - Start AdminShell
+3 - connectAsAdmin to the running server
+4 - shutdown(1000);
+
+AdminShell disconnects, but the server remains up. (You can reconnect via AdminShell.) As I was getting the log to paste the NPE here, the server burped out a couple of MB of junk. Now I'll attach the logs.
+
+Start reading teiid.log.1 at line 3414.

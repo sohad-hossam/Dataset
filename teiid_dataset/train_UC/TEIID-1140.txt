@@ -1,0 +1,23 @@
+Unnecessary jars in the Teiid deployment
+The issue is discovered by https://jira.jboss.org/browse/JBDS-1277
+
+In the "deployers/teiid.deployer" directory, it has the following external library jars
+
+conflicting - the below jars need to be removed
+
+commons-logging-1.1.jar
+log4j-1.2.14.jar
+
+may conflict in certain profiles like "all", need more discretion
+
+jbosscache-core-3.1.0.GA.jar (remove the need for jboss cache for "default" environment)
+jgroups-2.6.10.GA.jar
+
+jdom-1.0.jar (remove the dependency on this and use JAXB, only single place this is being used)
+
+
+known-non conflicting as of 5.1 
+
+netty-3.1.5.GA.jar ( may have conflict in AS 6.0)
+saxon-9.1.0.8.jar
+saxon-9.1.0.8-dom.jar

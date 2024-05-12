@@ -1,0 +1,2 @@
+BufferManager reserve memory variable is decremented twice
+Web admin console shows negative value for Memory Used By Active Plans(KB)

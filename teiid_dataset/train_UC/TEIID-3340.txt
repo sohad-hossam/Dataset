@@ -1,0 +1,2 @@
+JDBC direct query execution binding is incorrect
+The binding logic is passing the literal and the 0 based index, when it should be passing the literal value and the 1 based index.

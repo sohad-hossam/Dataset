@@ -1,0 +1,40 @@
+NPE on calling the native query procedure with null variable parameter
+Calling the native query procedure and passing null as "variable" parameter like in the following example:
+{code:sql}
+exec my.native("request" => 'Select 1', "variable" => null)
+{code}
+
+the following exception is thrown:
+{code:sql}
+19:41:00,707 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue10) zC4UryNl1/3R TEIID30019 Unexpected exception for request zC4UryNl1/3R.5: java.lang.NullPointerException
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:958) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:183) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.<init>(ConnectorWorkItem.java:165) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager.registerRequest(ConnectorManager.java:203) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.DataTierManagerImpl.registerRequest(DataTierManagerImpl.java:966) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:179) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.relational.AccessNode.registerRequest(AccessNode.java:475) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.relational.AccessNode.open(AccessNode.java:248) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.relational.RelationalPlan.open(RelationalPlan.java:136) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:231) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:457) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:339) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:267) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.11.0.Final.jar:8.11.0.Final]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+{code}
+
+As a workaround, the query is successfully executed if the "variable" parameter is omitted:
+{code:sql}
+exec my.native("request" => 'Select 1')
+{code}

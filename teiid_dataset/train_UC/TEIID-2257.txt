@@ -1,0 +1,4 @@
+Improved support for empty result sets in continuous executions
+When a continuous execution produces an empty result set, the execution will live forever because the callback is never invoked.  
+
+For more details see: https://community.jboss.org/message/763981#763981

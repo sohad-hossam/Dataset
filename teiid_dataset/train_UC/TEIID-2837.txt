@@ -1,0 +1,22 @@
+Cassandra:  doesn't work with Case Sensitvie KEYSPACE and TABLE name
+Teiid doesn't work with KeySpace or Table which contains UpperCase.
+
+Reference From Cassandra -  Using double quote for Case Sensitive KeySpace and Table:
+
+http://www.datastax.com/docs/1.1/references/cql/CREATE_KEYSPACE
+
+Exception when try to deploy:
+
+java.lang.NullPointerException
+        at org.teiid.translator.cassandra.metadata.CassandraMetadataProcessor.processMetadata(CassandraMetadataProcessor.java:52)
+        at org.teiid.translator.cassandra.CassandraExecutionFactory.getMetadata(CassandraExecutionFactory.java:100)
+        at org.teiid.translator.cassandra.CassandraExecutionFactory.getMetadata(CassandraExecutionFactory.java:53)
+        at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:61)
+        at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55)
+        at org.teiid.runtime.EmbeddedServer.loadMetadata(EmbeddedServer.java:644)
+        at org.teiid.runtime.AbstractVDBDeployer.loadMetadata(AbstractVDBDeployer.java:161)
+        at org.teiid.runtime.EmbeddedServer.deployVDB(EmbeddedServer.java:605)
+        at org.teiid.runtime.EmbeddedServer.deployVDB(EmbeddedServer.java:536)
+
+
+

@@ -1,0 +1,4 @@
+Add login username to source query comment, also session and request Id
+The user occasionally has problematic queries and while they can go through the command logs to find some details sometimes under heavy usage the logs are rotated at such a rate that they lose the information.
+
+Please add the login id, session Id, and request Id to the source query comment.

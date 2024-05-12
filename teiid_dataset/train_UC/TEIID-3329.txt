@@ -1,0 +1,2 @@
+Rationalize older spatial support with the new
+MongoDB and Oracle had existing spatial support that should be updated to account for the new support if possible.

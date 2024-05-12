@@ -1,0 +1,12 @@
+Teiid could push some outer joins to the source database, but does not
+In the following SQL:
+
+select *
+from s1.t1 t1
+left outer join s2.t2 t2 on (t1.id = t2.id)
+left outer join s2.t3 t3 on (t2.id2 = t3.id2)
+where t1.name = 'x'
+option makedep s2.t2
+ 
+where t1 is in one database and t2 and t3 are in a different database,
+Teiid could push the second left outer join to the source database.  Currently, it does not and performs the join itself.  Some outer joins cannot be pushed, of course, but this one and others like it could be.

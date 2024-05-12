@@ -1,0 +1,7 @@
+Couchbase translator enable configuration of query consistency level
+In couchbase there are three modes of Query consistency with N1QL. <1>
+
+Teiid doesn't provide an option to alter default behaviour.
+Applicable solution would be an execution property for setting the consistency level, which user can set via translator override.
+
+<1> [Querying Data with N1QL|https://developer.couchbase.com/documentation/server/current/architecture/querying-data-with-n1ql.html]

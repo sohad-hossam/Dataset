@@ -1,0 +1,2 @@
+Fix install script on RHEL 6.5
+install.sh script fails on RHEL 6.5 system because of older versions of xmllint and coreutils.

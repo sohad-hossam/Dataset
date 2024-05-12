@@ -1,0 +1,2 @@
+Provide delegating Metadata Repository implementation class
+The Metadata Repository is interface defined to import metadata from variety of sources. It is useful to provide a base implementation of of delegating metadata repository such that it can be overridden by users to provide their own implementations, on top of already already available methods.

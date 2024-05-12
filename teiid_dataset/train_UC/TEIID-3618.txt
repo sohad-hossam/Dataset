@@ -1,0 +1,4 @@
+Salesforce SSO using OAuth2 (RefreshToken, JWT)
+The current Salesforce Connector is using password+token for credentials.  We should have the ability to use Salesforce SSO.
+
+Implementation the same as described here (we could use Keycloak or Picketlink for IDP) - https://login.salesforce.com/help/pdfs/en/salesforce_single_sign_on.pdf?

@@ -1,0 +1,4 @@
+Write a utility to convert a .VDB with Index file into -vdb.xml or DDL format
+Write a command line utility and provide in "bin" directory to convert the Designer based .vdb file with index metadata into -vdb.xml file and/or newer DDL format.
+
+This can be used to migrate the older VDBs mach easier to newer formats without use of Designer tooling.

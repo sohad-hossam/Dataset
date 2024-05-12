@@ -1,0 +1,24 @@
+Importing a non-existing VDB gives no warning
+When importing a "non-existing VDB" in a VDB, when the VDB is deployed, the VDB status is LOADING, and nothing else happens. 
+
+Ideally a warning should be thrown in logs.
+
+Ex:
+
+<code>
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="ReferenceDataVDB" version="1">
+	<description>ReferenceData VDB</description>
+
+	<import-vdb name="NonExistingVDB" version="1"/>
+	
+	<model name="ReferenceData" type="VIRTUAL">
+.....
+
+</code>
+Logs:
+
+<panel>
+12:56:11,529 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2)  WFLYSRV0027: Starting deployment of "ReferenceData-vdb.xml" (runtime-name: "ReferenceData-vdb.xml")
+12:56:11,953 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 1)  WFLYSRV0010: Deployed "ReferenceData-vdb.xml" (runtime-name : "ReferenceData-vdb.xml")
+</panel>

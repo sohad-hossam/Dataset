@@ -1,0 +1,24 @@
+UPDATE command with non-pushdown functions leads to TEIID30253 error
+Running the following queries:
+{code:sql}
+update test.textagg_test_2 set id =(select uuid());;
+{code}
+or
+{code:sql}
+update test.textagg_test_2 set id =(select rand());;
+{code}
+
+leads to the following errors:
+{code}
+TEIID30253 Source UPDATE or DELETE command "UPDATE test.textagg_test_2 SET id = (SELECT uuid() LIMIT 2)" contains non-pushdown constructs and no compensating action can be taken as the table lacks a unique key or the source does not support equality predicates. 
+{code}
+and
+{code}
+TEIID30253 Source UPDATE or DELETE command "UPDATE test.textagg_test_2 SET id = convert((SELECT rand() LIMIT 2), string)" contains non-pushdown constructs and no compensating action can be taken as the table lacks a unique key or the source does not support equality predicates. 
+{code}
+
+though the following query:
+{code:sql}
+update test.textagg_test_2 set id =(select now());;
+{code}
+works without errors.

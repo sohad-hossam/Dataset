@@ -1,0 +1,9 @@
+TEIID30019 Unexpected exception for request ... java.lang.AssertionError: Batch not found in storage
+Error pops up after execution simple select on temporary table:
+
+select *
+from #cataruw
+
+Exception: 
+Error: Batch not found in storage 73697
+

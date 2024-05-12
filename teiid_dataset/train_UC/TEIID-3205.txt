@@ -1,0 +1,3 @@
+Push down supported select expression even if other select expressions are not supported by the source
+If the source supports for example the searched case expression and does not support a custom function, having both in the select caused searched case expression not to be pushed. More details are here-
+https://developer.jboss.org/message/909439#909439

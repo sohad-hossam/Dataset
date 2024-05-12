@@ -1,0 +1,2 @@
+Temp table handling issues
+Session level temp tables are not handled correctly by prepared statements if the table has been removed.  The same is true for explicit temp tables in procedures that have been explicitly removed - ideally there would be a resolver error, but instead we should at least have a processing time exception.  Finally the clone method for query does not include the clone of the into group.

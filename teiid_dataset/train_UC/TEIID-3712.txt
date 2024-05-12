@@ -1,0 +1,6 @@
+Add support for DATE/TIME/TIMESTAMP keyword literals
+As per the spec we should support the literal format:
+
+DATE '...'
+TIME '...'
+TIMESTAMP '...'

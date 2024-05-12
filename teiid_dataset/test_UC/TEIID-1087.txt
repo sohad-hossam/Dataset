@@ -1,0 +1,2 @@
+Add Function to Extract fragments from XML
+We had a posting on the dev site (http://devcentral.metamatrix.com/node/2089809383) asking how they can retrieve an entire xml node from an input doc in a web service transformation instead of just the node text. Our current xPath function xPathValue() always return the text. We need something more like SQLXML extract()/extractvalue() so we can return the xml OR the text.

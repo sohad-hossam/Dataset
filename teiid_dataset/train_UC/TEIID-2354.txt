@@ -1,0 +1,9 @@
+Inherent insert using WHERE partitioning is incomplete
+Using a metadata structure such as:
+
+create foreign table b (custid integer, field1 varchar) options updatable true)
+create view c options (updatable true) as select * from b where custid = 1 union all select * from b where custid = 2;
+
+will fail to process INSERT into c (custid, field1) values (1, 'foo')
+
+because a null value will be inserted into be for the custid field.  The logic is treating the WHERE partitioning as if it were projected literals from the SELECT cause inappropriately.

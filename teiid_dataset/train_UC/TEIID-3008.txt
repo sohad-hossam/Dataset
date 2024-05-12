@@ -1,0 +1,2 @@
+limit being pushed even when already in the source query
+Limits are being pushed even when already pushed down - this is a regression from TEIID-2878

@@ -1,0 +1,2 @@
+API request:  Programatically modify the VDB
+I'd like an API to programatically modify the VDB.  It would be ideal to modify the VDB using DDL through Teiid.  Our primary use case is accessing a dynamic set of datasources through Teiid.  When a datasource is added, we would INSERT the appropriate entries into MODEL, PROPERTIES, DATASOURCES tables.  Teiid would reread the appropriate metadata from the associated translators.  

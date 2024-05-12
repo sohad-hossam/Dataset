@@ -1,0 +1,4 @@
+Remove outer join based solely on join predicates
+We currently remove outer joins based upon where clause predicates, but won't necessarily detect when to remove the the outer join based solely on join predicates:
+
+SELECT * from pm1.g1 inner join (pm1.g2 left outer join pm1.g3 on pm1.g2.e1=pm1.g3.e1) on pm1.g1.e1=pm1.g3.e1

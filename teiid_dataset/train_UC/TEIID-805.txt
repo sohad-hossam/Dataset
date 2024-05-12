@@ -1,0 +1,17 @@
+Enable JDBC Connector to provide a way to obtain connection through JNDI
+When Teiid is deployed in "embedded" profile under JBoss AS or Glassfish etc, it would be nice if the Data Source information can be obtained from container to used with Connector Binding for VDB. This will some times eliminates the providing the connection information in duplication, and also keeps the developers with configuring what they already know.
+
+This is going to experimental feature, as we think there may be some connection pooling, thread context issues with transactions etc.
+
+The prosed way to configure this will be providing the following property in the Connector Binding properties
+
+        <Connector Name="Books Connector" ComponentType="Oracle Connector">
+            <Properties>
+                <Property Name="ConnectionSource">JNDI:Books</Property>
+                <Property Name="DeployedName">Books Connector</Property>                
+            </Properties>
+        </Connector>
+
+Traditionally "ConnectionSource" is used to define a class name that is responsible to make the connection like Driver, Data Source class names, here the definition will be expanded to accommodate JNDI look up when the value of this property starts with "JNDI:" 
+
+If there are better alternative solutions please comment.

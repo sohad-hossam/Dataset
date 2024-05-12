@@ -1,0 +1,2 @@
+refreshmatviewrow should support composite keys
+The current refresh procedure only allows for simple primary keys.  This should be extended to allow for more complex scenarios.

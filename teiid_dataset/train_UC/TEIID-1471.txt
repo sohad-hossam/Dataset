@@ -1,0 +1,2 @@
+Projection should be minimized prior to view removal
+View removal may be inhibited by the placement of select clause items, such as non-deterministic functions, that are not meaningful to the query.  To minimize the work performed by optional join removal and by merge virtual we should run assign output elements prior to merging.

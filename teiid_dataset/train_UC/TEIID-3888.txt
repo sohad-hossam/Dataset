@@ -1,0 +1,2 @@
+Redshift - there is not function SUBSTR (RS uses SUBSTRING)
+Postgresql translator uses SUBSTR function to get substring of string (e.g. function LEFT(x,y)), but Redshift does not support function SUBSTR. It support SUBSTRING function instead.

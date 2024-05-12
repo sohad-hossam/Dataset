@@ -1,0 +1,8 @@
+PostgreSQL (simple capabilities) returning an unexpected number of rows
+Several BQT queries are failing in PostgreSQL (simple capabilities) with an unexpected number of rows returned.  
+An example query can be seen below.  This query is expecting 50 rows returned since there are 50 rows in smalla table but 
+only 44 rows are returned.
+
+SELECT * FROM BQT1.SmallA AS A WHERE EXISTS (SELECT INTKEY FROM BQT1.SmallA AS B WHERE B.INTKEY = A.INTKEY)
+
+vdb is attached. 

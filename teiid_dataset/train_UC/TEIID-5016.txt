@@ -1,0 +1,2 @@
+Exploit left outer join associativity prior to join planning
+Building upon TEIID-3652 there are circumstances where nested left outer joins can have be converted to an inner join prior to join planning.  They can be converted back to a left outer join by TEIID-3652 if needed for pushdown after join planning.

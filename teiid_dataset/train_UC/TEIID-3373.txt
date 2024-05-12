@@ -1,0 +1,2 @@
+Add an org.teiid logging context in the config
+It would be convenient to have an existing org.teiid entry in the logging config to allow admins to quickly enabled debug/trace logging.

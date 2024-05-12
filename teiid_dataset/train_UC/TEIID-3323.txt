@@ -1,0 +1,2 @@
+Add support for Vertica as as data source
+Add support for Vertica as a JDBC data source

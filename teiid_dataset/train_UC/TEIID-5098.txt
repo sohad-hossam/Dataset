@@ -1,0 +1,2 @@
+Unsyncronized static date format for Salesforce bulk inserts
+The date formatter used for bulk updates is static and unsynchronized, thus unpredictable errors or data corruption could occur with running concurrent bulk inserts.

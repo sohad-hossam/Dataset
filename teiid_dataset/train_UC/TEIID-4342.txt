@@ -1,0 +1,10 @@
+loadMatView afterLoadScript error when calling a function 
+I'm using Teiid 9.0.0
+
+Here is the afterloadscript: 
+"teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'execute  implify_dataModel.native(''ALTER TABLE "implify_data"."User" RENAME TO "implify_data"."User_temp"'');execute  implify_dataModel.native(''ALTER TABLE "implify_data"."User_stage" RENAME TO "implify_data"."User"'');execute  implify_dataModel.native(''ALTER TABLE "implify_data"."User_temp" RENAME TO "implify_data"."User_stage"'');execute implify_dataModel.native(''truncate table "implify_data"."User_stage"''); SELECT ON_VIEW_LOADED_COMPLETE(''VIEW.B7F553FA-4F52-45FE-82BD-E2C18A4658B2.User'')  '
+
+the call of the following function is causing the exception, but i did not find the log file where the exception is written
+SELECT ON_VIEW_LOADED_COMPLETE(''VIEW.B7F553FA-4F52-45FE-82BD-E2C18A4658B2.User'')
+
+if  I put the function into ON_VDB_DROP_SCRIPT, it is called successfully

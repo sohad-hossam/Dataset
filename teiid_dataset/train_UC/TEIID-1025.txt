@@ -1,0 +1,2 @@
+Help incomplete for showPlan
+I found the showPlan method listed in help. When I tried to get more information, help("showPlan"); just shows "void showPlan ( boolean xml )". Please add more detail--boolean xml is pretty cryptic. At least add the usual Javadoc formatting.

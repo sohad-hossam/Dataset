@@ -1,0 +1,2 @@
+Provide support for Composite Foreign Keys in MongoDB
+TEIID-2529 provided support for PK, but missed the FKs that have multiple keys, this need to be fixed

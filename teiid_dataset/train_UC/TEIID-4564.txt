@@ -1,0 +1,2 @@
+Add an option to AdminShell to specify the profile to use in domain mode
+Currently AdminShell defaults to the ha profile.  There is no option to switch the profile name.

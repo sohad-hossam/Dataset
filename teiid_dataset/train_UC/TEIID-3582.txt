@@ -1,0 +1,7 @@
+Add the query requestID to all lines for that query in the logs
+Currently when running a query, the logs show the requestId on most of the lines but not all, especially CONNECTOR.
+for example, the following line doesn't have it:
+
+14:13:34,071 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue13) Source-specific command: ....
+
+That's the problem. When lots of queries are running, user wants to grep through the log for that requestid and get just that one query's stuff.

@@ -1,0 +1,11 @@
+Regression in RuleCleanCriteria
+RuleCleanCriteria may not be adding in RuleRaiseNull when needed, which can result in invalid nodes under an accessnode.  This in turn may manifest itself as:
+
+java.lang.ArrayIndexOutOfBoundsException: -1
+	at java.util.ArrayList.elementData(ArrayList.java:338)
+	at java.util.ArrayList.get(ArrayList.java:351)
+	at org.teiid.query.optimizer.relational.rules.RuleCollapseSource.buildQuery(RuleCollapseSource.java:338)
+	at org.teiid.query.optimizer.relational.rules.RuleCollapseSource.buildQuery(RuleCollapseSource.java:373)
+	at org.teiid.query.optimizer.relational.rules.RuleCollapseSource.createQuery(RuleCollapseSource.java:228)
+
+As there may not be from clause items to collapse.

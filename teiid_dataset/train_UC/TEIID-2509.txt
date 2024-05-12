@@ -1,0 +1,4 @@
+Attempt to create second salesforce source fails
+Attempt to create a second salesforce datasource via the Admin api fails (stacktrace attached).  When I restart the server, it appears.
+
+I tried the same scenario with the Twitter WS example and it worked - did not need to restart server.

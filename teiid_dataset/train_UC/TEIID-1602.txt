@@ -1,0 +1,7 @@
+Add support for like_regex and other regex functions
+Consider adding:
+like_regex
+substring_regex (as well as ANSI substring handling)
+position_regex
+
+this would somewhat obviate the need to add similar predicate handling although that should be added eventually as well.

@@ -1,0 +1,2 @@
+More control over TTL Snapshot Refresh 
+The ttl load to may need to be changed to a blocking load or some configuration options provided to prevent stale reads after a certain time limit.

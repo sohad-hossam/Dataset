@@ -1,0 +1,2 @@
+Add new permission types for alter/execute
+In addition to CRUD, we should have more idiomatic permissions for allowing alter (alter) statements and for procedure/function execution (execute).  For backwards compatibility READ would still be accepted as the execute permission. 

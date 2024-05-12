@@ -1,0 +1,14 @@
+Selecting RAW(16) column via OData errors
+When selecting a RAW(16) column via OData, a runtime error is thrown w/ the following message:
+
+http://superdrake:8080/odata/Medbus/reqtracking.query?$format=json
+
+ {
+    "error": {
+        "code" : "ServerErrorException",
+        "message": {
+            "lang": "en-US",
+            "value": "[B cannot be cast to org.teiid.core.types.BinaryType"
+        }
+    }
+}

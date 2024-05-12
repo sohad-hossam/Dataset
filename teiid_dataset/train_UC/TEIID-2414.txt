@@ -1,0 +1,2 @@
+improper handling of prepared array values
+This is a regression from TEIID-2111.  Sending an array as a parameter value which is typed as object will result in resolver exception.

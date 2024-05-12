@@ -1,0 +1,6 @@
+Parameter alias without value returns http status code 500
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=intkey%20le%20@p1%20and%20intnum%20eq%20@p2&@p1=3
+
+*Result:* OData Library: An exception without message text was thrown.
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398304

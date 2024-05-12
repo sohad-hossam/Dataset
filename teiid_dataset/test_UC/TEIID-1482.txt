@@ -1,0 +1,2 @@
+Prevent unnecessary rebuffering of sorted results
+A plan that has a final (non-unrelated sort) sort will have the results rebuffered by the RequestWorkItem even though they are should already be available in a buffer.

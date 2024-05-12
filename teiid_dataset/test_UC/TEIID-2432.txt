@@ -1,0 +1,6 @@
+Dynamic VDB isLoading state doesnt change on fail
+I am deploying a dynamic VDB and polling the isLoading state to determine when the VDB deployment is finished.  
+
+In my case the VDB dataSource is not available.  I can see in the server log that the deployment fails immediately, but the isLoading state remains true.
+
+Is this in error, or what status should we be checking? 

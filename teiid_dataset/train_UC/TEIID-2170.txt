@@ -1,0 +1,14 @@
+Teiid Hibernate Dialect needs to be updated for Hibernate 4.x
+Currently Hibernate dialect is compiled with 3.5.2, running an example with latest 4.1.6 version, I see errors such as 
+
+{code}
+Exception in thread "main" java.lang.NoSuchFieldError: DOUBLE
+	at org.teiid.dialect.TeiidDialect.<init>(TeiidDialect.java:64)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:532)
+	at java.lang.Class.newInstance0(Class.java:372)
+	at java.lang.Class.newInstance(Class.java:325)
+	at org.hibernate.dialect.resolver.DialectFactory.constructDialect(DialectFactory.java:156)
+{code}

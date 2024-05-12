@@ -1,0 +1,4 @@
+HBase Connector/Translator
+Develop a HBase translator/connector.  Potentially using the Phoenix JDBC driver, supports most SQL and handles connections:
+
+https://github.com/forcedotcom/phoenix

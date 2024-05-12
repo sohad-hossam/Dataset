@@ -1,0 +1,2 @@
+Debug Plan is missing Annotation about JOIN  Pushdown
+When a translator supports the JOIN pushdown and the submitted query is not using the JOIN pushdown, there needs to be description in the plan as to why query planner did not include the JOIN in the pushdown query to translator.  Currently this is not available.

@@ -1,0 +1,3 @@
+Mongodb auto-increment primary key
+Auto-increment primary key are supported by Mongodb.
+Teiid needs to allow it go through when "_id" value not there in the INSERT statement. 

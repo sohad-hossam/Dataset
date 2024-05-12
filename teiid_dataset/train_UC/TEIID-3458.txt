@@ -1,0 +1,6 @@
+Update admin shell example(s) to assist with life cycle management tasks
+Add, or update existing examples, in the admin shell tool that provide examples for life cycle management tasks. These may include (but not limited to):
+deploying VDB
+configuring datasource / resource adapter
+deploying jdbc driver (type 4)
+???

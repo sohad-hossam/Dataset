@@ -1,0 +1,39 @@
+Settting a VDB with data roles from Teiid Designer 7.5 iand deploying to Teiid 8 get a parser error
+When I try to deploy a VDB with data roles set via teiid Designer  to Teiid 8 I get a parser error and the VDB fails to deploy. If I remove the data roles then the VDB deploys and I can access it.
+
+Below is the stack trace: Iam using Teiid Designer 7.5 & Teiid 8 Alpha1 on Jboss AS 7.1.0.CR1b.
+
+///////
+
+  
+
+04:15:42,233 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-4) Starting deployment of "H2Northwind.vdb"
+04:15:42,244 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-5) MSC00001: Failed to start service jboss.deployment.unit."H2Northwind.vdb".PARSE: org.jboss.msc.service.StartException in service jboss.deployment.unit."H2Northwind.vdb".PARSE: Failed to process phase PARSE of deployment "H2Northwind.vdb"
+at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:121) [jboss-as-server-7.1.0.CR1b.jar:7.1.0.CR1b]
+at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1824) [jboss-msc-1.0.1.GA.jar:1.0.1.GA]
+at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1759) [jboss-msc-1.0.1.GA.jar:1.0.1.GA]
+at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [:1.6.0_27]
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [:1.6.0_27]
+at java.lang.Thread.run(Thread.java:662) [:1.6.0_27]
+Caused by: org.jboss.as.server.deployment.DeploymentUnitProcessingException: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[19,13]
+Message: Unexpected element 'allow-alter' encountered
+at org.teiid.jboss.VDBParserDeployer.parseVDBXML(VDBParserDeployer.java:117)
+at org.teiid.jboss.VDBParserDeployer.scanVDB(VDBParserDeployer.java:84)
+at org.teiid.jboss.VDBParserDeployer.scanVDB(VDBParserDeployer.java:79)
+at org.teiid.jboss.VDBParserDeployer.deploy(VDBParserDeployer.java:68)
+at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:115) [jboss-as-server-7.1.0.CR1b.jar:7.1.0.CR1b]
+... 5 more
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[19,13]
+Message: Unexpected element 'allow-alter' encountered
+at org.teiid.adminapi.impl.VDBMetadataParser.parsePermission(VDBMetadataParser.java:179)
+at org.teiid.adminapi.impl.VDBMetadataParser.parseDataRole(VDBMetadataParser.java:140)
+at org.teiid.adminapi.impl.VDBMetadataParser.parseVDB(VDBMetadataParser.java:94)
+at org.teiid.adminapi.impl.VDBMetadataParser.unmarshell(VDBMetadataParser.java:63)
+at org.teiid.jboss.VDBParserDeployer.parseVDBXML(VDBParserDeployer.java:107)
+... 9 more
+
+04:15:42,247 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 1) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.deployment.unit."H2Northwind.vdb".PARSE: org.jboss.msc.service.StartException in service jboss.deployment.unit."H2Northwind.vdb".PARSE: Failed to process phase PARSE of deployment "H2Northwind.vdb"
+
+ 
+///////////end stack trace

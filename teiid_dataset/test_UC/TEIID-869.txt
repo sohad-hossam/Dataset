@@ -1,0 +1,2 @@
+Clean up metadata
+This is a top level issue for cleaning up many lingering issues with the metadata infrastructure.

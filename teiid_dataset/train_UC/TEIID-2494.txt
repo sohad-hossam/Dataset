@@ -1,0 +1,14 @@
+View definition column naming issue
+View definition columns that do not have names matching the view columns will not be named correctly if the view layer is preserved and pushed down.
+
+for example:
+
+SELECT MIN(x.count) FROM agg x
+
+will fail with agg defined as
+
+create foreign table smalla (intkey integer); 
+create view agg (count integer) as select count(\*) from smalla;
+
+but will function correctly with count(\*) as count
+		

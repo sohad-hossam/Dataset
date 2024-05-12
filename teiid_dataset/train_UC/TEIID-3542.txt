@@ -1,0 +1,6 @@
+Logging does not print full queries which contain ESCAPE '\u0000' clause
+Queries submitted to Teiid containing the NUL character for the ESCAPE character are not properly printed to jboss logging.
+
+Seems that the NUL character can be used within java Strings but when the String is printed to the display, it terminates at the first NUL character it reaches. This result in "... ESCAPE '\u0000' ... being printed as "... ESCAPE '".
+
+See [here|https://gist.github.com/phantomjinx/fef25524e7e9844c4f3d] for an example of a jboss log with such a query.

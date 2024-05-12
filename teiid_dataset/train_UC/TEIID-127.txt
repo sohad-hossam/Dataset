@@ -1,0 +1,2 @@
+Create a logging context specific to processing
+Currently processing (com.metamatrix.query.processor) exceptions are mapped to the planner context.  Either everything needs to be DQP or a specific context is needed.

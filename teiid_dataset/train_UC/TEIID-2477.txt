@@ -1,0 +1,2 @@
+Standardize and correct jdbc database version comparisons
+The simple string comparison of versions is not correct across version numbers of differing digits (10 is not higher than 9).  Generally the field needs standardized as well since for example we use the year designations for SQL Server but the driver reported version numbers will be the actual software versions.

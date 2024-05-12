@@ -1,0 +1,2 @@
+BigInteger mapped to string for OData 4
+ODataTypeManager does not map the Teiid BigInteger type, thus by default they are treated as string in the entity model.

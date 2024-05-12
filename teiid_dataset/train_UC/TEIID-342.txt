@@ -1,0 +1,2 @@
+Quick Start Example at teiid.org refers to Modeler, instead of Designer, in multiple places 
+The Quick Start example refers to the Designer as the Modeler in multiple places.   Don't think we want to mix the terms.

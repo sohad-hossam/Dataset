@@ -1,0 +1,2 @@
+User defined aggregate function return type is ignored
+The resolver is using the type of the first argument rather than the declared return type.

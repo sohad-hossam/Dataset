@@ -1,0 +1,4 @@
+Command Log logs a modfieid version of MMCommand
+The FileCommandLogger may be logging a different user command than the command the user actually submitted.  This was originally reported on 5.5.3 and may not affect Teiid but it should be verified and fixed if needed.
+
+Also, the tracking service interface should be modified to accept a String as the SQL command instead of a Command object.  The Command object serves no purpose to the tracking service and a String will produce less overhead.

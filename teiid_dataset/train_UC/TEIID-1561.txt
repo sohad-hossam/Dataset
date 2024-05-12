@@ -1,0 +1,2 @@
+Database Calender is not correctly being set in JDBC Translator
+When the JDBC translator extends the timezone property to set database calender, it is incorrectly being initialized for the executing thread.

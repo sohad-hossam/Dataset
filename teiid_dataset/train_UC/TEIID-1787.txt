@@ -1,0 +1,4 @@
+Prepared batch failure
+If a prepared batch of atomic queries is performed against a source that does not support support batching, then an NPE will be thrown by the batching logic.
+
+An example of this scenario would be batching against a temp table using simple insert statements.

@@ -1,0 +1,2 @@
+NPE with excluded tables and the salesforce importer
+If a child table is excluded from import a null pointer exception will occur when we process the relationship information.

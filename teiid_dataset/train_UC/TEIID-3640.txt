@@ -1,0 +1,2 @@
+Improper initialization when memory buffer size is over 2 GB.
+When the memory buffer size is over 2 GB, the initialization will not be correct as the number of segments is determined by a number that has been narrowed to an int.

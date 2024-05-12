@@ -1,0 +1,7 @@
+subquery as input to procedure fails
+A subquery as an input to a procedure (exec) will fail because it is never resolved.  Also within the scope of a procedure something like:
+
+select e1 into #t1 from pm1.g1;
+select e2 from (exec pm1.sq2((select max(e1) from #t1))) x;
+
+will fail since the temp table store is not known inside the procedure plan that is evaluating the input parameters.

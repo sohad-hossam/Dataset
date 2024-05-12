@@ -1,0 +1,2 @@
+SOAP module should not depend on the common-internal
+Ths SOAP project module has common-internal as the dependency.  This needs to be removed.

@@ -1,0 +1,33 @@
+Join between char and varchar
+Joins between char and varchar fields fail.
+
+Suppose to have a table T1 with a field A, declared as char(10), and a table T2 with a field B, declared as varchar(10). Suppose that the two tables have the following data.
+
+*T1*:
+||A||
+|ML0001|
+
+*T2*:
+||B||
+|ML0001|
+
+When performing a INNER JOIN with the condition {{T1.A = T2.B}} the result set is empty, even if the two record match correctly.
+
+This happens when the two base tables refer to two different sources, because if they are in the same source Teiid pushes the join to the source, which computes it correctly.
+
+I think the problem is in the comparison of the two strings. I have the table T1 in SQL Server 2000, and the table T2 in MySQL 5.1.
+If one asks SQL Server to convert the string to bytes, the result is {{0x4D4C3030303120202020}}, because the string is filled with (invisible) blanks in order to reach the limit of 10 characters. Note that if one asks for the length of that string, SQL Server states (correctly) that it is 6 characters.
+
+The string in MySQL is a VARCHAR(10), so its conversion to binary is {{0x4D4C30303031}}.
+I think that Teiid compares the two binary strings in their entire length. That comparison fails, and no match is found.
+
+The problem remains even if the table T1 is placed in MySQL, and T2 in SQL Server (the opposite situation). I also verified that the problem exists either when querying the source models or view models built over them.
+
+*Workaround:*
+A workaround exists but it is too complex (IMHO). I haven't tested it with many records, but I think it will slow down performances considerably.
+It consists in casting the string from char to varchar, and then trimming it (with RTRIM() and LTRIM() because SQL Server doesn't support TRIM()). So the join condition is:
+
+{noformat}
+RTRIM(LTRIM(CAST(T1.A AS VARCHAR))) = T2.B
+{noformat}
+

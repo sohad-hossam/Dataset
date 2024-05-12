@@ -1,0 +1,2 @@
+Add support for alternate collation
+Now that comparison code has been consolidated we should add the ability to set an alternative collator based upon a locale setting.

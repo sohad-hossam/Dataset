@@ -1,0 +1,2 @@
+Issues with matview scripts
+There are a couple of issues with the script logic.  The first is the use of the replace function in the update criteria for updateMatView - this is not generally safe.  There are also some checks for internal materialization that look for a null table in the system table, but it's actually the schema that will be null.

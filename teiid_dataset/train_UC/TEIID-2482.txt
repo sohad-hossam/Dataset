@@ -1,0 +1,2 @@
+Allow the use of the enhanced join for left outer joins
+Left equi outer joins are currently only implemented using the full sort merge join and would benefit from using the enhanced merge when the inner side is relatively small.

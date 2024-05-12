@@ -1,0 +1,2 @@
+Oracle connection not consistently usable after cancel
+With TEIID-3275 we made use of cancel calls more to ensure that cleanup was happening as quickly as possible.  However Oracle JDBC has a bug (independently reproducible outside Teiid) where if the cancelled statement does not reach the point of thrown an exception related to the cancel, then the next statement from that connection will throw the exception.

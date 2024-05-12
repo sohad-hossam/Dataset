@@ -1,0 +1,8 @@
+Move the packaging of teiid-jdbc.jar into is own project
+The issue with the way the teiid-jdbc.jar is packaged now, is that the teiid-web-console.zip gets included as a dependency.   
+{code}
+[INFO] +- org.jboss.teiid:teiid:jar:jdbc:8.12.5.redhat-2:compile
+[INFO] |  \- org.jboss.teiid.web-console:teiid-console-dist:zip:jboss-as7:2.5.6.Final-redhat-63-4:compile
+{code}
+
+And that becomes an issue when other external projects to Teiid include the jdbc driver as a dependency, in that they also end up requiring the web-console.zip.

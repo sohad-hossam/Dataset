@@ -1,0 +1,6 @@
+Multi-way join predicate inappropriately removed
+In a situation where copy criteria can work against a multi-way join predicate, such that the predicate is not pushed:
+
+t1.a = coalesce(t2.b, t3.c, t4.d) ... t1.a = t4.d
+
+The multi-way predicate can be marked as optional and removed.

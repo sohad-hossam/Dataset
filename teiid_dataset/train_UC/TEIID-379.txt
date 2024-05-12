@@ -1,0 +1,16 @@
+MySQL connector assumes that database is running in ANSI mode rather than the default mode
+I noticed with the legacy MetaMatrix product that our MySQL connector seems to assume that it is connecting to a MySQL database running in "ANSI" SQL mode
+
+For instance, we list in the capabilities class that MySQL supports || as a string concatenation parameter, but it actually only supports it if the SQL mode "PIPES_AS_CONCAT" is set - and this is one of the individual modes that gets set when you set the "ANSI" meta-mode (see http://dev.mysql.com/doc/refman/5.0/en/server-sql-mode.html#sqlmode_ansi for details).
+
+This is a bad assumption as it is not the default setting for MySQL (the default sql-mode setting is "", or no special modes).  I took a look at some of the databases used at Red Hat for testing MetaMatrix for MySQL (specifically, slntds03) and noticed that they have sql-mode set to ANSI on the server side.
+
+I took a look at the current Teiid trunk code and it is the same as the legacy MetaMatrix code in this regard, so Teiid has the same issue.
+
+Two possible resolutions are:
+
+-Rework the connector to remove any assumptions that sql-mode=ANSI
+
+-set sql-mode to ANSI when establishing new connections to MySQL (this can be done by sending the SQL statement 'set SESSION sql-mode="ANSI" after establishing a connection).
+
+Unfortunately there does not appear to be a way to set this mode via a JDBC connection property - you need to send the "set" command after establishing the connection.

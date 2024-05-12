@@ -1,0 +1,8 @@
+OData V2: $value on property is not supported
+A raw property value can be retrieved using the $value segment, like
+
+{code}
+http://localhost:8080/odata/vdb/table/property/$value
+{code}
+
+This should be suported, or should throw a proper error

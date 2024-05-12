@@ -1,0 +1,2 @@
+Teiid Admin Api not support to create XA datasource on Jboss server.
+Teiid Admin api does not support or does not have capability to create XA datasource on Jboss server.

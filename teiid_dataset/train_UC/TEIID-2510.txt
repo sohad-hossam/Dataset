@@ -1,0 +1,4 @@
+time-slice-in-millseconds setting typo
+I assume "time-slice-in-millseconds" is missing an 'i'. Should be "time-slice-in-milliseconds".
+
+May affect multiple versions.

@@ -1,0 +1,2 @@
+Finish shown initially in new connector binding wizard
+Finish shown initially in new connector binding wizard.  Next is expected.

@@ -1,0 +1,2 @@
+too much logging of source cancel
+With TEIID-3275 we made more pervasive use of cancel to ensure that pending work did not hold up close.  However that proactive cancel does not need to be reported in the command log and does not need to occur if we have read the last batch.

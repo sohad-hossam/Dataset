@@ -1,0 +1,2 @@
+PartialResultsWarning not being returned
+I'm trying to follow the example [here|https://docs.jboss.org/author/display/TEIID/Partial+Results+Mode] to return source failure information to my app. Partial results mode does work, but I'm getting {{TeiidSQLWarning}} instead of the expected {{PartialResultsWarning}}.

@@ -1,0 +1,2 @@
+ManagedConnectionFactory hashCode/equals
+There's been some drift with config properties that aren't reflected in several resource adapters.

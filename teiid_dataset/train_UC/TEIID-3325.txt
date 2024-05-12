@@ -1,0 +1,2 @@
+Subquery hints in row based conditions not honored
+Some of the subquery hints, such as DJ take affect during rewrite - which happens before security planning.

@@ -1,0 +1,8 @@
+OData returns bad number of entities with $count and $expand
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$count=true&$expand=Orders_FK0
+*Expected count:* 4
+*Actual count:* 9
+
+Similar behavior with $filter - http://localhost:8080/odata4/olingo_basic/Source/Customers/?$count=true&$filter=idcust%20lt%203&$expand=Orders_FK0
+
+OData should return only count of Customer entities.

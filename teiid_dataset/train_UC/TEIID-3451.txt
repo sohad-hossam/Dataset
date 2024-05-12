@@ -1,0 +1,13 @@
+OData does not inject schema into queries
+OData service does not inject a fully qualified object names for tables for  POSTS, PUTs, and DELETEs:
+
+12:50:34,367 DEBUG [org.teiid.COMMAND_LOG] (http-localhost/127.0.0.1:8080-1)    START USER COMMAND:     startTime=2015-04-22 12:50:34.367       requestID=XxHTbednhDq7.0        txID=null       sessionID=XxHTbednhDq7  applicationName=JDBC    principal=teiidUser@teiid-security      vdbName=ImsOne   vdbVersion=2    sql=INSERT INTO Subscription (SUBSCRIPTION_ID, CLIENT_NAME, DEST_CONNECTION_URI, DEST_SCHEMA_NAME, DEST_TABLE_NAME, PROVIDER_URL, TOPIC_NAME) VALUES (?, ?, ?, ?, ?, ?, ?)
+12:50:34,380 DEBUG [org.teiid.COMMAND_LOG] (http-localhost/127.0.0.1:8080-1)    ERROR USER COMMAND:     endTime=2015-04-22 12:50:34.379 requestID=XxHTbednhDq7.0        txID=null       sessionID=XxHTbednhDq7  principal=teiidUser@teiid-security      vdbName=ImsOne  vdbVersion=2    finalRowCount=null
+12:50:34,380 WARN  [org.teiid.PROCESSOR] (http-localhost/127.0.0.1:8080-1) TEIID30020 Processing exception for request XxHTbednhDq7.0 'Group specified is ambiguous, resubmit the query by fully qualifying the group name: Subscription'. Originally QueryResolverException ResolverUtil.java:814. Enable more detailed logging to see the entire stacktrace.
+12:50:34,383 WARN  [org.teiid.ODATA] (http-localhost/127.0.0.1:8080-1) TEIID16012 Could not produce a successful OData response.  Returning status ServerErrorException with message Group specified is ambiguous, resubmit the query by fully qualifying the group name: Subscription.
+
+Same insert works fine over JDBC.  Offending line from 8.7.0 public github:
+
+https://github.com/teiid/teiid/blob/8.7.x/odata/src/main/java/org/teiid/odata/ODataSQLBuilder.java#L969
+
+Note that private Table findTable() on line 925 depends upon org.odata4j.core.EdmEntitySet#getName to return the name, but this is not fully qualified

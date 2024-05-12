@@ -1,0 +1,71 @@
+Couchbase issues in functions where result is different datatype than the argument
+{code:sql|title=query1}
+SELECT IntNum ,1/IntNum FROM BQT1.SmallA WHERE IntNum <> 0
+{code}
+{code:title=error for query1}
+Error: TEIID20001 The modeled datatype integer for column 1 doesn't match the runtime type "java.lang.Integer". Please ensure that the column's modeled datatype matches the expected data.
+{code}
+
+{code:title=server.log for query1}
+10:37:30,613 ERROR [org.teiid.TRANSPORT] (New I/O worker #2) TEIID40113 Unhandled exception, aborting operation: org.teiid.transport.ObjectEncoder$FailedWriteException: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 1 doesn't match the runtime type "java.lang.Integer". Please ensure that the column's modeled datatype matches the expected data.
+	at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:136) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.jboss.netty.channel.Channels.write(Channels.java:704) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.Channels.write(Channels.java:671) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.jboss.netty.channel.AbstractChannel.write(AbstractChannel.java:248) [netty-3.6.10.Final-redhat-1.jar:3.6.10.Final-redhat-1]
+	at org.teiid.transport.SSLAwareChannelHandler$ObjectChannelImpl.write(SSLAwareChannelHandler.java:94) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.transport.SocketClientInstance.send(SocketClientInstance.java:94) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.transport.ServerWorkItem.sendResult(ServerWorkItem.java:135) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.transport.ServerWorkItem$1.onCompletion(ServerWorkItem.java:105) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:996) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:676) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.query.processor.BatchCollector.flushBatch(BatchCollector.java:223) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:194) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_121]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_121]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_121]
+Caused by: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 1 doesn't match the runtime type "java.lang.Integer". Please ensure that the column's modeled datatype matches the expected data.
+	at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:878) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:319) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1459) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1430) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348) [rt.jar:1.8.0_121]
+	at org.teiid.net.socket.Message.writeExternal(Message.java:61) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1459) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1430) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1178) [rt.jar:1.8.0_121]
+	at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:348) [rt.jar:1.8.0_121]
+	at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:131) [teiid-runtime-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	... 25 more
+Caused by: java.lang.ClassCastException: java.lang.Double cannot be cast to java.lang.Integer
+	at org.teiid.client.BatchSerializer$IntColumnSerializer.writeObject(BatchSerializer.java:563) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.BatchSerializer$ColumnSerializer.writeColumn(BatchSerializer.java:534) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:867) [teiid-client-8.12.11.6_4-redhat-64-5.jar:8.12.11.6_4-redhat-64-5]
+	... 36 more
+{code}
+
+{code:title=teiid-command.log for query1}
+10:37:30,390 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #2) QE2ZpDa/Btt5     START USER COMMAND: startTime=2017-08-24 10:37:30.39        requestID=QE2ZpDa/Btt5.50     txID=null sessionID=QE2ZpDa/Btt5        applicationName=JDBC          principal=user@teiid-security vdbName=couchbase   vdbVersion=1        sql=SELECT IntNum, 1/IntNum FROM BQT1.SmallA WHERE IntNum <> 0
+10:37:30,393 DEBUG [org.teiid.COMMAND_LOG] (Worker15_QueryProcessorQueue132) QE2ZpDa/Btt5           START DATA SRC COMMAND:       startTime=2017-08-24 10:37:30.393       requestID=QE2ZpDa/Btt5.50     sourceCommandID=2   executionID=29      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security sql=SELECT Couchbase_small.SmallA.IntNum, (1 / Couchbase_small.SmallA.IntNum) FROM Couchbase_small.SmallA
+10:37:30,393 DEBUG [org.teiid.COMMAND_LOG] (Worker15_QueryProcessorQueue132) QE2ZpDa/Btt5           SOURCE SRC COMMAND: endTime=2017-08-24 10:37:30.393         requestID=QE2ZpDa/Btt5.50     sourceCommandID=2   executionID=29      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security sourceCommand=[SELECT `$cb_c1_IntNum`, (1 / `$cb_c1_IntNum`) FROM `dvqe_small` `$cb_t1` LET `$cb_c1_IntNum` = `$cb_t1`.`IntNum` WHERE `$cb_t1`.`type` = 'SmallA'] 
+10:37:30,609 DEBUG [org.teiid.COMMAND_LOG] (Worker14_QueryProcessorQueue133) QE2ZpDa/Btt5           END SRC COMMAND:    endTime=2017-08-24 10:37:30.609         requestID=QE2ZpDa/Btt5.50     sourceCommandID=2   executionID=29      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security finalRowCount=50    cpuTime(ns)=3238883
+{code}
+
+There are other occurences:
+{code:sql|title=query2}
+SELECT IntNum, COS(Intnum) FROM BQT1.SmallA
+{code}
+{code:title=error for query2}
+Error: TEIID20001 The modeled datatype integer for column 1 doesn't match the runtime type "java.lang.Integer". Please ensure that the column's modeled datatype matches the expected data.
+{code}

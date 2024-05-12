@@ -1,0 +1,4 @@
+Teiid Embedded unable to login to JDBC data sources requiring username/password
+I took the PartsSupplier_VDB from the Designer and tried to use it in Teiid Embedded. Using a simple JDBC query tool, I was unable to login to the data sources (Oracle and SQL Server). Working with Ramesh, we found we could edit the configuration.def inside the VDB and edit the mm-encrypted password to plain text and it would work. As an alternative, we could use the configuration.xml file from the Designer and that worked.
+
+Ramesh will fill in the technical details...

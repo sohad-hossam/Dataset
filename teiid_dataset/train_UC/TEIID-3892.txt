@@ -1,0 +1,2 @@
+There is no pg type for geometry
+The pg_type table does not contain an entry for geometry nor a geometry array.

@@ -1,0 +1,2 @@
+Latest openjdk does not include anon cipher suites
+Running against OpenJDK 1.8.0.141 testAnonSSLConnect fails because the anon cipher suite is not available.  I could not determine yet if this is expected or a regression.

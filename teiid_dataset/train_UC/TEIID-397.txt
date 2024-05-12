@@ -1,0 +1,36 @@
+Console Error after changing Root Admin password
+1.  Went into Security/Summary and changed MetaMatrixAdmin password.
+2.  Bounced the server.
+3.  Console hung for about 10 minutes and finally returned with the below Error message.
+4.  Console was unstable.
+5.  Shut down Console and Restarted and everything seemed to be fine with the new password.
+
+com.metamatrix.console.util.ExternalException[0]: com.metamatrix.api.exception.ComponentCommunicationException[0]: com.metamatrix.common.comm.exception.ConnectionException[0]: com.metamatrix.api.exception.security.LogonException[0]: [MetaMatrixAuthenticationException]The username "metamatrixadmin" and/or password and/or payload token could not be authenticated by any membership domain.
+	at com.metamatrix.platform.security.session.service.SessionServiceImpl.authenticateUser(SessionServiceImpl.java:431)
+	at com.metamatrix.platform.security.session.service.SessionServiceImpl.createSession(SessionServiceImpl.java:624)
+	at sun.reflect.GeneratedMethodAccessor9.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.platform.service.proxy.SingleInvokationProxy.invoke(SingleInvokationProxy.java:48)
+	at $Proxy7.createSession(Unknown Source)
+	at com.metamatrix.platform.security.session.service.LogonHelper.logon(LogonHelper.java:69)
+	at sun.reflect.GeneratedMethodAccessor7.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.platform.service.proxy.ProxyManager$WrappedDelegator.invoke(ProxyManager.java:41)
+	at $Proxy8.logon(Unknown Source)
+	at com.metamatrix.common.comm.platform.socket.SocketLogon.logon(SocketLogon.java:133)
+	at sun.reflect.GeneratedMethodAccessor7.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:114)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)

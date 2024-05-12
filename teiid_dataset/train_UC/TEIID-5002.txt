@@ -1,0 +1,2 @@
+Use WildFly 11 Server Environment
+Move the server environment to latest WildFly version 11

@@ -1,0 +1,2 @@
+Cassandra:  update to cassandra driver to version 2.X
+The current cassandra driver is 2.X and API has been changed in this new driver.  However, Teiid is using Cassandra driver 1.0.4.  It will be nice if you guys can upgrade your cassandra driver version 2.X in the next release.  Thanks.

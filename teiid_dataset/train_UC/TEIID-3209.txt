@@ -1,0 +1,5 @@
+Issues with mat view ttl
+The docs / code have matview_ttl as required, but the code will also prefer to use the cache hint ttl if it also supplied.  I believe the cache hint should not be used in this case.
+
+Generally there is also: TEIID-2194 which we should probably prefer properties over the cache hint because they are more targeted and can be more easily be manipulated at runtime.
+

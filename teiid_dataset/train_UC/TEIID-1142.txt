@@ -1,0 +1,2 @@
+Teiid should work with EAP 5.1 
+Teiid kits must be able deploy inside the JBoss EAP 5.1 and work correctly.

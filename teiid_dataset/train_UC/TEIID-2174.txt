@@ -1,0 +1,2 @@
+DDL metadata types are case sensitive
+The map used to lookup types is case sensitive.

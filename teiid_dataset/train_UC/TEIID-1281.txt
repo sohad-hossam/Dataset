@@ -1,0 +1,4 @@
+DB2 substring index bounds are different than teiid
+DB2/Derby do not allow the start argument to be negative or be greater than or equal to the length.  The length parameter cannot be negative (Teiid returns null), and it plus the start cannot exceed the string length.
+
+In general we are inconsistent with our handling of negative string indexing.  For example the locate function.  We should look at making this more consistent in Teiid 8.

@@ -1,0 +1,46 @@
+SqlServer translator - insert/update statements - timestamp is cast to datetime
+For update statements (insert, update), *timestamp* values are cast to *datatime* type. In MSSQL, this type's range start from year 1753 (1753\-01\-01...). However, there is *datetime2* type, which start from 0001\-01\-01.
+
+This default cast to *datetime* prevents user from inserting value before year 1753 even if column in MSSQL is defined as datetime2.
+
+Note: Specifying column option NATIVE_TYPE has no effect on this issue.
+
+{code:plain|title=Stacktrace}
+Connector worker process failed for atomic-request=7owuBqBS/Vow.1.0.3: org.teiid.translator.jdbc.JDBCExecutionException: 242 TEIID11013:TEIID11004 Error executing statement(s): [SQL: UPDATE SmallA SET TimestampValue = CAST('0100-02-03 04:05:06.0' AS DATETIME)]
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:293) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.execute(JDBCUpdateExecution.java:84) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0-internal]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: The conversion of a varchar data type to a datetime data type resulted in an out-of-range value.
+	at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:216)
+	at com.microsoft.sqlserver.jdbc.TDSTokenHandler.onEOF(tdsparser.java:254)
+	at com.microsoft.sqlserver.jdbc.TDSParser.parse(tdsparser.java:84)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1510)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.doExecuteStatement(SQLServerStatement.java:792)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement$StmtExecCmd.doExecute(SQLServerStatement.java:689)
+	at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:5696)
+	at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1715)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:180)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:155)
+	at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeUpdate(SQLServerStatement.java:642)
+	at org.jboss.jca.adapters.jdbc.WrappedStatement.executeUpdate(WrappedStatement.java:375)
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:207) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 20 more
+{code}

@@ -1,0 +1,10 @@
+Need ability to push down LIMIT clause to Sybase
+Want to add the ability to push down LIMIT clause to Sybase, but it is not
+supported as of now, becasue the LIMIT translation capability is
+disabled.
+SybaseExecutionFactory#supportsRowLimit returns false and it is
+hard-coded. If it returns true, EDS can push down
+LIMIT to Sybase translating it to TOP clause, since SybaseExecutionFactory has translateLimit
+method which translate the LIMIT to TOP clause. The customer want a
+property which can be switched on the limit translation easily than
+writing java code.

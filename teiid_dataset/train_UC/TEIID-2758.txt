@@ -1,0 +1,2 @@
+add org.teiid.disableResultSetFetchSize property to ignore client set fetch size on resultset  
+add org.teiid.disableResultSetFetchSize property to ignore client set fetch size on resultset.

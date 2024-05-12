@@ -1,0 +1,7 @@
+The RelationalNode.collectNodeStats is only subtracting out the last node
+The "Node Cumulative Next Batch Process Time" Statistic
+
+If you have a look at the explain plan (attached). Following the definition,
+the JoinNode Node Cumulative Next Batch Process Time: 565471. So, it is the summation of AccessNode (Node Process Time: 892860) + DependentAccessNode (Node Process Time: 439) + JoinNode (Node Process Time: 2203120). The summation does not agree. 
+
+ The RelationalNode.collectNodeStats looks wrong (it's effectively only subtracting out the last node)

@@ -1,0 +1,2 @@
+Check for common math exceptions
+Rather than returning NaN or +-Infinity, it would be best for Teiid to throw an exception for float/double divide by zero, log of a non-positive value, etc.

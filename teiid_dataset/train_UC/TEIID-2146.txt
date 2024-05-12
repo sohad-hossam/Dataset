@@ -1,0 +1,4 @@
+Dependent join independent dup removal issue
+If a dependent join uses columns from the independent side beyond the join predicates and has unique values with duplicates for the predicate value from the independent side, then the duplicate removal will fail to remove the duplicates, since it is mistakenly using all columns.
+
+If the duplicates then span multiple dependent queries, such as would be the case with large dependent joins or when a source is used with limited value pushdown (such as sybase), then the join result can be incorrect with duplicate rows.

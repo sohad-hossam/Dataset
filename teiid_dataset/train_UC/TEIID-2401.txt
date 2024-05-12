@@ -1,0 +1,2 @@
+Add explicit state locks to processor and connector work
+Over successive refactorings there is no longer a single read barrier for multiple threads that process the work items.  If needed the connector lock can be exposed to translators.

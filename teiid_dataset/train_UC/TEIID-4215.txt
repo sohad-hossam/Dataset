@@ -1,0 +1,2 @@
+Clean up typos in error messages
+The error messages in i18n.properties have a few typos that are visible to end-users.  We should clean that up.

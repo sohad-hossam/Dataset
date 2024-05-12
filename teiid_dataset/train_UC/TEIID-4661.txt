@@ -1,0 +1,2 @@
+Subsequent queries hang after materialized view TTL expires.
+With a VDB using lazy-invalidate in a clustered configuration initially the materialized view is cached correctly but when the TTL expires (10 minutes) and the query is run again the state of the view changes to LOADING and never reverts to "LOADED", so the next query hangs.

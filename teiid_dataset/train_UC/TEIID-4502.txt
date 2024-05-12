@@ -1,0 +1,2 @@
+Remove references to deprecated UseConnectorMetadata in docs/examples
+There are still lingering references to UseConnectorMetadata that should be replaced with the relevant usage of cache-metadata

@@ -1,0 +1,2 @@
+MaxActivePlans is not being read from the configuration
+The DQPCore start should be setting the maxActivePlans from the configuration.

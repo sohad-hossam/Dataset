@@ -1,0 +1,2 @@
+Fix command logging regression - transaction id not logged by dqpcore
+The txn id was not being sent to the tracking service.

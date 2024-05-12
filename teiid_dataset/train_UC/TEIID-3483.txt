@@ -1,0 +1,2 @@
+Add an option to use DatabaseMetaData for hive/impala import
+With minor modifications I've confirmed that hive .13 + can do an import using the standard databasemetadata logic.  Also hive .12 with a .13 server seems to have an issue with the describe table statement such that the column types are null.

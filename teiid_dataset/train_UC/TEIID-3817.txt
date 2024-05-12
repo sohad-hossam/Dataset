@@ -1,0 +1,11 @@
+HANA FLOOR and CELING functions not applicable to boolean
+SAP HANA doesn't support FLOOR and CEILING functions for BOOLEAN type.
+Compared to postgresql, which also has BOOLEAN data type, it seems inconsistent.
+When querying postgres directly:
+{code:sql}
+SELECT CEILING(BooleanValue) FROM BQT1.SmallA
+{code}
+is not valid query.
+But through Teiid, it returns double values corresponding to the boolean value provided:
+0.0 for CEILING(false)
+1.0 for CELING(true)

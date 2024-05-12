@@ -1,0 +1,111 @@
+ORA-01789: query block has incorrect number of result columns
+This case is similar to TEIID-2963. I can reproduce this in nightly build from master (0c7879a), which includes that fix.
+
+Two selects from the same table in Oracle, and then a dummy select.
+
+{code:sql}
+select
+   "FOO"."SOURCE" "SOURCE",
+   "FOO"."FOO_ID" "FOO_ID"
+from (
+   (select 'X' "SOURCE", "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS" group by "ITEMS"."ITEM_ID")
+   union all
+   (select 'Y' "SOURCE", "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS")
+   union all
+   (select 'Z' "SOURCE", '123' "FOO_ID")
+) "FOO"
+order by "FOO_ID" desc
+limit 50;
+{code}
+
+Running that in Squirrel fails with this.
+
+{code}
+ORA-01789: query block has incorrect number of result columns
+{code}
+
+Formatted Oracle SQL from stacktrace below. Notice 'Y' is being selected in the second branch.
+
+{code:sql}
+SELECT c_0
+FROM (
+  (SELECT g_1."ITEM_ID" AS c_0 FROM "BLAH"."ITEMS" g_1 GROUP BY g_1."ITEM_ID") 
+  UNION ALL
+  (SELECT 'Y' AS c_0, g_0."ITEM_ID" AS c_1 FROM "BLAH"."ITEMS" g_0 ORDER BY c_0 DESC)
+)
+WHERE ROWNUM <= 50
+{code}
+
+{code}
+18:36:08,696 DEBUG [org.teiid.COMMAND_LOG] (New I/O worker #29) probZ0uIjf9B 	START USER COMMAND:	startTime=2014-05-20 18:36:08.696	requestID=probZ0uIjf9B.0	txID=null	sessionID=probZ0uIjf9B	applicationName=JDBCprincipal=user@teiid-security	vdbName=Blah	vdbVersion=1	sql=select
+   "FOO"."SOURCE" "SOURCE",
+   "FOO"."FOO_ID" "FOO_ID"
+from (
+   (select 'X' "SOURCE", "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS" group by "ITEMS"."ITEM_ID")
+   union all
+   (select 'Y' "SOURCE", "ITEMS"."ITEM_ID" "FOO_ID" from "BLAH"."ITEMS" "ITEMS")
+   union all
+   (select 'Z' "SOURCE", '123' "FOO_ID")
+) "FOO"
+order by "FOO_ID" desc
+limit 50
+18:36:08,701 DEBUG [org.teiid.COMMAND_LOG] (Worker6_QueryProcessorQueue124) probZ0uIjf9B 	START DATA SRC COMMAND:	startTime=2014-05-20 18:36:08.701	requestID=probZ0uIjf9B.0	sourceCommandID=5	executionID=102	txID=TransactionImple < ac, BasicAction: 0:ffff0a248478:-73f8bcbd:537bd3ec:49 status: ActionStatus.RUNNING >	modelName=blah	translatorName=oracle	sessionID=probZ0uIjf9B	principal=user@teiid-security	sql=SELECT g_1.ITEM_ID AS c_0 FROM blah.ITEMS AS g_1 GROUP BY g_1.ITEM_ID UNION ALL SELECT 'Y' AS c_0, g_0.ITEM_ID AS c_1 FROM blah.ITEMS AS g_0 ORDER BY c_0 DESC LIMIT 50
+18:36:08,731 DEBUG [org.teiid.COMMAND_LOG] (Worker6_QueryProcessorQueue124) probZ0uIjf9B 	ERROR SRC COMMAND:	endTime=2014-05-20 18:36:08.731	requestID=probZ0uIjf9B.0	sourceCommandID=5	executionID=102	txID=TransactionImple < ac, BasicAction: 0:ffff0a248478:-73f8bcbd:537bd3ec:49 status: ActionStatus.RUNNING >	modelName=blah	translatorName=oracle	sessionID=probZ0uIjf9B	principal=user@teiid-security	finalRowCount=null
+18:36:08,732 WARN  [org.teiid.CONNECTOR] (Worker6_QueryProcessorQueue124) probZ0uIjf9B Connector worker process failed for atomic-request=probZ0uIjf9B.0.5.102: org.teiid.translator.jdbc.JDBCExecutionException: 1789 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT c_0 FROM (SELECT g_1."ITEM_ID" AS c_0 FROM "BLAH"."ITEMS" g_1 GROUP BY g_1."ITEM_ID" UNION ALL SELECT 'Y' AS c_0, g_0."ITEM_ID" AS c_1 FROM "BLAH"."ITEMS" g_0 ORDER BY c_0 DESC) WHERE ROWNUM <= 50]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:326) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:135) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:369) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.UnionAllNode.nextBatchDirect(UnionAllNode.java:151) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchIterator.finalRow(BatchIterator.java:69) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:70) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchIterator.getCurrentTuple(BatchIterator.java:84) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.common.buffer.AbstractTupleSource.nextTuple(AbstractTupleSource.java:48) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortUtility.initialSort(SortUtility.java:272) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortUtility.sort(SortUtility.java:202) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortNode.sortPhase(SortNode.java:112) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortNode.getBuffer(SortNode.java:205) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.LimitNode.getBuffer(LimitNode.java:211) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalPlan.getBuffer(RelationalPlan.java:250) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.QueryProcessor.getBuffer(QueryProcessor.java:289) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:154) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:444) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:326) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:254) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.8.0.Alpha2-SNAPSHOT.jar:8.8.0.Alpha2-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+Caused by: java.sql.SQLSyntaxErrorException: ORA-01789: query block has incorrect number of result columns
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:450)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1017)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:655)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:249)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:566)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:215)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:58)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:776)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:897)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1034)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3820)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3867)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1502)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+	... 32 more
+
+18:36:08,751 DEBUG [org.teiid.COMMAND_LOG] (Worker6_QueryProcessorQueue124) probZ0uIjf9B 	ERROR USER COMMAND:	endTime=2014-05-20 18:36:08.751	requestID=probZ0uIjf9B.0	txID=TransactionImple < ac, BasicAction: 0:ffff0a248478:-73f8bcbd:537bd3ec:49 status: ActionStatus.RUNNING >	sessionID=probZ0uIjf9B	principal=user@teiid-security	vdbName=Blah	vdbVersion=1	finalRowCount=null
+18:36:08,752 WARN  [org.teiid.PROCESSOR] (Worker6_QueryProcessorQueue124) probZ0uIjf9B TEIID30020 Processing exception for request probZ0uIjf9B.0 'TEIID30504 blah: 1789 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT c_0 FROM (SELECT g_1."ITEM_ID" AS c_0 FROM "BLAH"."ITEMS" g_1 GROUP BY g_1."ITEM_ID" UNION ALL SELECT 'Y' AS c_0, g_0."ITEM_ID" AS c_1 FROM "BLAH"."ITEMS" g_0 ORDER BY c_0 DESC) WHERE ROWNUM <= 50]'. Originally TeiidProcessingException 'ORA-01789: query block has incorrect number of result columns
+' T4CTTIoer.java:450. Enable more detailed logging to see the entire stacktrace.
+{code}

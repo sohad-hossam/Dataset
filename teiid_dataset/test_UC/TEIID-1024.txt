@@ -1,0 +1,2 @@
+Support conversion between clob and sql/xml
+We should support the conversion between sql/xml and clob to broaden the ability of users to treat values as xml.

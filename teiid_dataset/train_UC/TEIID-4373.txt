@@ -1,0 +1,2 @@
+Resolving invalid hosts may take a long time in tests
+Depending upon the os configuration the unit tests for the client may take a long time due to invalid host names.  The logic can easily be changed though to delay the resolving and speed up the tests.

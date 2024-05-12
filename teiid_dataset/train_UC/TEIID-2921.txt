@@ -1,0 +1,2 @@
+Allow the projection raising (or order pushing) logic to work with non-simple ordering expressions
+Current logic is written to only support simple ordering expressions.  User desires the ability to use non-simple Order By statements (for example: including a case statement)

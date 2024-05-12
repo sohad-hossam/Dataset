@@ -1,0 +1,11 @@
+Module needs to be updated for new Saxon-HE
+Teiid built from GIT does not deploy because the bundled Saxon HE JAR does not match what is specified in module xml.
+
+See [here|https://github.com/teiid/teiid/blob/master/build/kits/jboss-as7/modules/system/layers/base/org/jboss/teiid/main/module.xml].
+
+Should be changed to something like:
+{code:xml}
+<resource-root path="Saxon-HE-${version.net.sf.saxon}.jar" />
+{code}
+
+Related to TEIID-3030.

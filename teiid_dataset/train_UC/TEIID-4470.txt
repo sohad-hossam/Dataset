@@ -1,0 +1,2 @@
+Google spreadsheet translator execution should not require metadata
+The google translator uses the connection metadata at execution time rather than just relying on name in source and other metadata.  An option should be added to just use the Teiid metadata.

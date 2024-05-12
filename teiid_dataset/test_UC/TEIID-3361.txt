@@ -1,0 +1,4 @@
+Add source query details to the command log
+The command log for convenience only contains the Teiid sql form of the source query.  It would be good to have the translators also add their actual form of the source query when possible to the command log just to have a single place to track things down.
+
+Currently this info is logged to the CONNECTOR context inconsistently in each translator. 

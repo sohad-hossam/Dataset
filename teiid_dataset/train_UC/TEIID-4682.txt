@@ -1,0 +1,115 @@
+PrestoDB translator - cannot use temp tables - PrestoDB could not commit transaction
+Teiid cannot properly insert data into temp table from PrestoDB tables. Teiid seems to try commit transaction on PrestoDB connection which is in auto-commit mode. Data are pulled from the PrestoDB, but operation fails on closing the processor.
+Query \[1\], log \[2\].
+
+{code:sql|title=\[1\]}
+INSERT INTO #t SELECT IntKey FROM Bqt1.Smalla
+{code}
+{code:plain|title=\[2\]}
+4:29:14,758 DEBUG [org.teiid.TRANSPORT] (New I/O worker #3) processing message:MessageHolder: key=248 contents=Invoke interface org.teiid.client.DQP.executeRequest
+14:29:14,763 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) Request Thread A7WqBzZhsyYM.47 with state NEW
+14:29:14,763 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47 Command has no cache hint and result set cache mode is not on.
+14:29:14,763 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47 executing  INSERT INTO #t SELECT IntKey FROM Bqt1.Smalla
+14:29:14,768 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) ProcessTree for A7WqBzZhsyYM.47 ProjectIntoNode(0) output=[Count] #t
+  AccessNode(1) output=[IntKey] SELECT g_0.IntKey FROM Source.SmallA AS g_0
+
+14:29:14,768 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) before getOrCreateTransactionContext:org.teiid.dqp.internal.process.TransactionServerImpl@168af7b8(A7WqBzZhsyYM)
+14:29:14,769 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) after getOrCreateTransactionContext : A7WqBzZhsyYM NONE ID:NONE
+14:29:14,769 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) before begin:org.teiid.dqp.internal.process.TransactionServerImpl@168af7b8(A7WqBzZhsyYM NONE ID:NONE)
+14:29:14,769 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) after begin : null
+14:29:14,769 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Creating TupleBuffer: 71 [Count] [class java.lang.Integer] batch size 2048 of type PROCESSOR
+14:29:14,769 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) before resume:org.teiid.dqp.internal.process.TransactionServerImpl@168af7b8(A7WqBzZhsyYM REQUEST ID:TransactionImple < ac, BasicAction: 0:ffff0a2804a3:-d43e932:586f78d7:23a status: ActionStatus.RUNNING >)
+14:29:14,769 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) after resume : null
+14:29:14,769 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Create State
+14:29:14,770 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Processing NEW request: SELECT g_0.IntKey FROM Source.SmallA AS g_0
+14:29:15,290 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Obtained execution
+14:29:15,290 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) Source-specific command: SELECT g_0.intkey FROM smalla AS g_0
+14:29:15,613 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Executed command
+14:29:15,614 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Processing MORE request
+14:29:15,614 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Getting results from connector
+14:29:15,772 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Obtained last batch, total row count: 50
+14:29:15,772 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Remove State
+14:29:15,772 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Processing Close : SELECT g_0.IntKey FROM Source.SmallA AS g_0
+14:29:15,773 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Closed execution
+14:29:15,773 DEBUG [org.teiid.CONNECTOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47.1.31 Closed connection
+14:29:15,773 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Creating TupleBuffer: 72 [#t.IntKey] [class java.lang.Integer] batch size 2048 of type PROCESSOR
+14:29:15,773 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) Creating temporary table #t
+14:29:15,774 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Creating STree: 73
+14:29:15,774 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Creating TupleBuffer: 75 [rowId, #t.IntKey] [class java.lang.Integer, class java.lang.Integer] batch size 2048 of type PROCESSOR
+14:29:15,774 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Removing TupleBuffer: 72
+14:29:15,774 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Removing TupleBuffer: 75
+14:29:15,775 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) QueryProcessor: closing processor
+14:29:15,775 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) A7WqBzZhsyYM.47 Finished Processing
+14:29:15,775 DEBUG [org.teiid.TXN_LOG] (Worker26_QueryProcessorQueue135) before commit:org.teiid.dqp.internal.process.TransactionServerImpl@168af7b8(A7WqBzZhsyYM REQUEST ID:TransactionImple < ac, BasicAction: 0:ffff0a2804a3:-d43e932:586f78d7:23a status: ActionStatus.RUNNING >)
+14:29:15,775 WARN  [com.arjuna.ats.jta] (Worker26_QueryProcessorQueue135) ARJUNA016039: onePhaseCommit on < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff0a2804a3:-d43e932:586f78d7:23a, node_name=1, branch_uid=0:ffff0a2804a3:-d43e932:586f78d7:23d, subordinatenodename=null, eis_name=java:/PrestoDB > (LocalXAResourceImpl@1e4cfe92[connectionListener=1a737904 connectionManager=4bd5154a warned=false currentXid=null productName=Presto productVersion=0.161 jndiName=java:/PrestoDB]) failed with exception XAException.XA_RBROLLBACK: org.jboss.jca.core.spi.transaction.local.LocalXAException: IJ001156: Could not commit local transaction
+	at org.jboss.jca.core.tx.jbossts.LocalXAResourceImpl.commit(LocalXAResourceImpl.java:176) [ironjacamar-core-impl-1.0.37.Final-redhat-1.jar:1.0.37.Final-redhat-1]
+	at com.arjuna.ats.internal.jta.resources.arjunacore.XAOnePhaseResource.commit(XAOnePhaseResource.java:120)
+	at com.arjuna.ats.internal.arjuna.abstractrecords.LastResourceRecord.topLevelPrepare(LastResourceRecord.java:152)
+	at com.arjuna.ats.arjuna.coordinator.AbstractRecord.topLevelOnePhaseCommit(AbstractRecord.java:423)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.onePhaseCommit(BasicAction.java:2287)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1488)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:98)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1211)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+	at org.teiid.dqp.internal.process.TransactionServerImpl.commitDirect(TransactionServerImpl.java:411) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.TransactionServerImpl.commit(TransactionServerImpl.java:542) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_92]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_92]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_92]
+	at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_92]
+	at org.teiid.logging.LogManager$LoggingProxy.invoke(LogManager.java:121) [teiid-api-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at com.sun.proxy.$Proxy19.commit(Unknown Source)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:494) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_92]
+Caused by: javax.resource.ResourceException: SQLException
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.checkException(BaseWrapperManagedConnection.java:1198)
+	at org.jboss.jca.adapters.jdbc.local.LocalManagedConnection.commit(LocalManagedConnection.java:107)
+	at org.jboss.jca.core.tx.jbossts.LocalXAResourceImpl.commit(LocalXAResourceImpl.java:171) [ironjacamar-core-impl-1.0.37.Final-redhat-1.jar:1.0.37.Final-redhat-1]
+	... 28 more
+Caused by: java.sql.SQLException: Connection is in auto-commit mode
+	at com.facebook.presto.jdbc.PrestoConnection.commit(PrestoConnection.java:144)
+	at org.jboss.jca.adapters.jdbc.local.LocalManagedConnection.commit(LocalManagedConnection.java:96)
+	... 29 more
+
+14:29:15,780 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) Rolling back txn TransactionImple < ac, BasicAction: 0:ffff0a2804a3:-d43e932:586f78d7:23a status: ActionStatus.RUNNING > restoring [] using rollback tables {}
+14:29:15,780 WARN  [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) TEIID30020 Processing exception for request A7WqBzZhsyYM.47 'TEIID30530 javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction.'. Originally XATransactionException TransactionImple.java:1223.: org.teiid.client.xa.XATransactionException: TEIID30530 javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction.
+	at org.teiid.dqp.internal.process.TransactionServerImpl.commitDirect(TransactionServerImpl.java:415) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.TransactionServerImpl.commit(TransactionServerImpl.java:542) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_92]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_92]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_92]
+	at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_92]
+	at org.teiid.logging.LogManager$LoggingProxy.invoke(LogManager.java:121) [teiid-api-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at com.sun.proxy.$Proxy19.commit(Unknown Source)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:494) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_92]
+Caused by: javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction.
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1223)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+	at org.teiid.dqp.internal.process.TransactionServerImpl.commitDirect(TransactionServerImpl.java:411) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 17 more
+
+14:29:15,781 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) Removing tuplesource for the request A7WqBzZhsyYM.47
+14:29:15,781 DEBUG [org.teiid.BUFFER_MGR] (Worker26_QueryProcessorQueue135) Removing TupleBuffer: 71
+14:29:15,781 DEBUG [org.teiid.PROCESSOR] (Worker26_QueryProcessorQueue135) org.teiid.client.xa.XATransactionException: TEIID30530 javax.transaction.RollbackException: ARJUNA016053: Could not commit transaction. Sending error to client A7WqBzZhsyYM.47
+14:29:15,782 DEBUG [org.teiid.TRANSPORT] (Worker26_QueryProcessorQueue135) send message: MessageHolder: key=248 contents=ResultsMessage rowCount=0 finalRow=-1
+{code}

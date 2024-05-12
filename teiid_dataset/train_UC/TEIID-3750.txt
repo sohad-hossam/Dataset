@@ -1,0 +1,2 @@
+Allow the parsing of an expression
+Now that we have an extension property, we could allow an expression to be used in parsing rather than just a string.

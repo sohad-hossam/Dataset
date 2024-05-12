@@ -1,0 +1,31 @@
+Setting more than 513MB for buffer-service-max-storage-object-size, OOME occurs at org.teiid.common.buffer.impl.BufferFrontedFileStoreCache.initialize()
+Setting more than 513MB for buffer-service-max-storage-object-size, OOME occurs at org.teiid.common.buffer.impl.BufferFrontedFileStoreCache.initialize().
+
+One of our user needs to set more than 512MB for buffer-service-max-storage-object-size to avoid TEIID30001[1], this limitation becomes a critical issue for them.
+
+Additional Information:
+By taking look at the source code[2], if the value of maxStorageObjectSize is more than equals with 536870912, the loop becomes infinit, and will cause OOME.
+
+[1]
+TEIID30001 Max block number exceeded by 233,144 21,422,155. Increase the maxStorageObjectSize to support larger storage objects.  Alternatively you could make the processor batch size smaller.
+
+[2]teiid/engine/src/main/java/org/teiid/common/buffer/impl/BufferFrontedFileStoreCache.java
+===
+public static final long MAX_ADDRESSABLE_MEMORY = 1l<<(ADDRESS_BITS+LOG_BLOCK_SIZE);
+~~
+static final int BLOCK_SIZE = 1 << LOG_BLOCK_SIZE;
+~~
+public void initialize() throws TeiidComponentException {
+~~
+  List<BlockStore> stores = new ArrayList<BlockStore>();
+  int size = BLOCK_SIZE;
+  int files = 32; //this allows us to have 64 terabytes of smaller block sizes
+  do {
+    stores.add(new BlockStore(this.storageManager, size, 30, files));
+    size <<=1;
+    if (files > 1) {
+      files >>= 1;
+    }
+  } while ((size>>1) < maxStorageObjectSize);
+~~
+===

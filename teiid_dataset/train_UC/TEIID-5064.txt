@@ -1,0 +1,2 @@
+Update olingo version to the 4.4
+The olingo version needs to be set to the teiid version of 4.2.0-teiid-8.

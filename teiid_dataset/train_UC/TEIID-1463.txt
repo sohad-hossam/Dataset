@@ -1,0 +1,2 @@
+limit buffering for large results
+In a forward only scenario, if a client lags behind the server a buffer will still be built containing much of result.  It would be good to limit the buffer size and prempt proactive processing when exceeded.

@@ -1,0 +1,53 @@
+Multisource SOURCE_NAME field pushes to source
+If a view transformation contains a union of a multi-source model and a non multisource model, because of https://issues.jboss.org/browse/TEIID-4728 the SOURCE_NAME column has to be created on the View and hence on the non-multisource model and if you don't mark that source model as multisource the SOURCE_NAME column is pushed to the source.
+
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<vdb name="multi_emp" version="1">
+<description/>
+<property name="validationDateTime" value="Mon Oct 31 08:01:36 CDT 2016"/>
+<property name="validationVersion" value="8.12.6"/>
+<model name="multi" type="PHYSICAL" visible="true">
+<property name="multisource" value="true"/>
+        <!-- optional properties -->
+        <property name="multisource.columnName" value="SOURCE_NAME"/>
+        <property name="multisource.addColumn" value="true"/> 
+        
+        <source connection-jndi-name="java:/deb" name="deb" translator-name="postgresql"/>
+        <source connection-jndi-name="java:/dv63" name="dv63" translator-name="postgresql"/>
+<metadata type="DDL"><![CDATA[
+CREATE FOREIGN TABLE emp (
+	id integer NOT NULL OPTIONS(NAMEINSOURCE '"id"', NATIVE_TYPE 'int4', CASE_SENSITIVE 'FALSE', FIXED_LENGTH 'TRUE', SEARCHABLE 'ALL_EXCEPT_LIKE'),
+	name string(2147483647) OPTIONS(NAMEINSOURCE '"name"', NATIVE_TYPE 'text'),
+        SOURCE_NAME string(50),
+	CONSTRAINT pk_emp PRIMARY KEY(id)
+) OPTIONS(UPDATABLE 'true',NAMEINSOURCE '"public"."emp"')
+]]></metadata>
+</model>
+<model name="Debbiedb" type="PHYSICAL" visible="true">
+<!--  Have to add this to make it work <property name="multisource" value="true"/> -->
+<source connection-jndi-name="java:/debbiedb" name="debbiedb" translator-name="postgresql"/>
+<metadata type="DDL"><![CDATA[
+CREATE FOREIGN TABLE mytable (
+	id integer NOT NULL OPTIONS(NAMEINSOURCE '"id"', NATIVE_TYPE 'int4', CASE_SENSITIVE 'FALSE', FIXED_LENGTH 'TRUE', SEARCHABLE 'ALL_EXCEPT_LIKE'),
+	name string(2147483647) OPTIONS(NAMEINSOURCE '"name"', NATIVE_TYPE 'text'),
+	age integer OPTIONS(NAMEINSOURCE '"age"', NATIVE_TYPE 'int4', CASE_SENSITIVE 'FALSE', FIXED_LENGTH 'TRUE', SEARCHABLE 'ALL_EXCEPT_LIKE'),
+	address string(2147483647) OPTIONS(NAMEINSOURCE '"address"', NATIVE_TYPE 'text'),
+        SOURCE_NAME string(50),
+	CONSTRAINT pk_id PRIMARY KEY(id)
+) OPTIONS(UPDATABLE 'true',NAMEINSOURCE '"public"."mytable"')
+]]></metadata>
+</model>
+<model name="Debbiev" type="VIRTUAL" visible="true">
+<property name="imports" value="Debbiedb"/>
+<property name="imports" value="multi"/>
+<metadata type="DDL"><![CDATA[
+CREATE VIEW comboview (
+	id integer,
+	name string(100),
+        SOURCE_NAME string(50)
+) 
+AS
+	SELECT id,name,SOURCE_NAME FROM multi.emp UNION ALL SELECT id, name, SOURCE_NAME FROM Debbiedb.mytable
+]]></metadata>
+</model>
+</vdb>

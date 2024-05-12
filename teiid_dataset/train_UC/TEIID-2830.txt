@@ -1,0 +1,43 @@
+One-2-One mapping in MongoDB should not require PK on child table
+A schema like
+{code}
+
+CREATE FOREIGN TABLE  Customer (
+    CustomerId integer PRIMARY KEY,
+    FirstName varchar(25),
+    LastName varchar(25),
+) OPTIONS(UPDATABLE 'TRUE');
+ 
+CREATE FOREIGN TABLE Address (
+    CustomerId integer,
+    Street varchar(50),
+    City varchar(25),
+    State varchar(25),
+    Zipcode varchar(6),
+    FOREIGN KEY (CustomerId) REFERENCES Customer (CustomerId),
+ ) OPTIONS(UPDATABLE 'TRUE', teiid_mongo:MERGE 'Customer');
+{code}
+
+will fail on second insert with NPE for lack of PK on the Address table
+
+{code}
+insert into Customer (customer_id ,first_name,last_name) values ('1002','Syed','Iqbal');
+
+insert into Address (customer_id,street,city,state,zipcode) values ('1002','123 Main St','Chicago','IL','60659');
+{code}
+
+
+the Exception is 
+
+{code}
+09:38:53,250 ERROR [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue11) 70p5084MEtHx Connector worker process failed for atomic-request=70p5084MEtHx.0.0.3: java.lang.NullPointerException
+	at org.teiid.translator.mongodb.MongoDocument.buildMergeKey(MongoDocument.java:252)
+	at org.teiid.translator.mongodb.MongoDocument.build(MongoDocument.java:143)
+	at org.teiid.translator.mongodb.MongoDocument.<init>(MongoDocument.java:64)
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.visit(MongoDBSelectVisitor.java:400)
+	at org.teiid.language.NamedTable.acceptVisitor(NamedTable.java:66) [teiid-api-8.7.0.Alpha2-SNAPSHOT.jar:8.7.0.Alpha2-SNAPSHOT]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.0.Alpha2-SNAPSHOT.jar:8.7.0.Alpha2-SNAPSHOT]
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.append(MongoDBSelectVisitor.java:95)
+	at org.teiid.translator.mongodb.MongoDBUpdateVisitor.visit(MongoDBUpdateVisitor.java:59)
+	at org.teiid.language.Insert.acceptVisitor(Insert.java:57) [teiid-api-8.7.0.Alpha2-SNAPSHOT.jar:8.7.0.Alpha2-SNAPSHOT]
+{code}

@@ -1,0 +1,6 @@
+Expand "allow-join" extension property on Foreign Key
+Currently "allow-join" property on a Foreign Key, defines if the joins based on that Foreign Key that are valid to push to the source or not, when JOIN capability is turned on at translator level. This feature is used in the MongoDB translator to allow JOINS to pushed to source.
+
+What I have seen is "allow-join" is blanket capability that says it supports all LEFT, RIGHT, INNER and CROSS JOINS.  It is useful to define this capability in fine grained manner to allow each kind of JOIN explicitly to control the JOIN behavior.
+
+The need came from MongoDB translator, where INNER,LEFT are possible but CROSS and RIGHT are not.

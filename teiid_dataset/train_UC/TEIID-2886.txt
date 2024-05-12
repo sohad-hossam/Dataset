@@ -1,0 +1,2 @@
+Sybase  dependent join IN clause too large
+If a full set of values (2000) is pushed down and there is any additional bind variables, then the driver will throw an exception.  

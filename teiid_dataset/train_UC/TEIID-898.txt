@@ -1,0 +1,6 @@
+Named procedure parameter error message too terse.
+The error message for a named procedure "EXEC VirtProcs.dyno( virtprocs.dyno.timein='04:00:00', virtprocs.dyno.byteme=125)" error is
+
+Invalid param name(s): [VIRTPROCS.DYNO.BYTEME, VIRTPROCS.DYNO.TIMEIN]
+
+which doesn't give any indication as to what names are expected, it just returns the names used in upper case.

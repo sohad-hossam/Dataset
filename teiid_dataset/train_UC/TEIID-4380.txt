@@ -1,0 +1,2 @@
+ODatat 4 deep insert works for only a single expand level
+Inserting an entity with a graph more complicated than a single expand won't work as expected - in most cases an exception will be thrown after the inserts are performed / committed.

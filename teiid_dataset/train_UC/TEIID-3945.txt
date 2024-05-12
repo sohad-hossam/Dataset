@@ -1,0 +1,2 @@
+Switch to more standard locations for google dependencies
+We add gdata dependencies to the JBoss third-party / developer repo since they weren't generally available at the time.  But now they are available through maven central.

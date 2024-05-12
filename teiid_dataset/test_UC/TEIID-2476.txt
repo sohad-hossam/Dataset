@@ -1,0 +1,2 @@
+Exclude hidden tables/columns from metadata
+We should offer or possibly default to filtering tables/columns that can not accessed out of the user metadata.  This should be done on the server side - however given the reuse we have of the system tables for example for materialized pg catalog queries - it is easier to add filters to the DatabaseMetadata (and ideally pg) metadata queries.

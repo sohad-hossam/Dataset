@@ -1,0 +1,4 @@
+In a cluster the distributed cache is cleared by a node rejoining
+The load event for a vdb (even startup) will trigger a clearing of the cache, which when clustered will include the distributed entries.  
+
+In a clustered mode we assume (and should possibly enforce) that vdb versioning must be used to differentiate vdbs so it should be safe to not clear the replicated area.

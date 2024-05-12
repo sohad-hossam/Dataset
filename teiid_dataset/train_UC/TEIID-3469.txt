@@ -1,0 +1,6 @@
+Incorrect DDL Schema when importing from Teiid Data Source Connection using Informix translator
+When importing from Teiid Data Source Connection using an Informix Translator, an incorrect schema DDL is set as "catalog"."schema"."table-name" instead of "catalog":"schema"."table-name", the delimiter between catalog and schema is set to '.' but Informix uses ':'.
+
+The '.' character must be replaced by a ':' between catalog and schema name when importing from Teiid Data Source Connection using Informix translator.
+
+useCatalogName attribute could be set to false as a workaround to this and ignore the occurance of "catalog".

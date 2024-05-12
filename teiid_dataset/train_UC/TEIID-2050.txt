@@ -1,0 +1,7 @@
+Move the default login properties file to "configuration" directory
+Currently the 
+
+teiid-security-users.properties
+teiid-security-roles.properties
+
+properties are defined inside the "modules" directory under "teiid", which is obscure and hard to find. Move them to the configuration directory along side application-users.properties file.

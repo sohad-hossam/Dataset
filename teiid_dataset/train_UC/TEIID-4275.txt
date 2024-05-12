@@ -1,0 +1,2 @@
+No NIS is setup for the Procedure parameters during the JDBC metadata import
+NameInSource property is not automatically set during the "NATIVE" matadata load of the metadata, and when a procedure's column is defined with spaces inside it, the SQLStringVisitor never quotes it, thus ends up parsing error when writing the queries.

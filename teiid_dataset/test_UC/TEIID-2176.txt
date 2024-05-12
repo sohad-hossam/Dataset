@@ -1,0 +1,4 @@
+Expose invoke procedures for querable sources
+We should add procedures similar to invokeMDX that allow native query execution.  This would compliment the canned native-query feature to allow fully dynamic query execution.
+
+TEIID-2111 will also provide vararg capabilities should we need it.

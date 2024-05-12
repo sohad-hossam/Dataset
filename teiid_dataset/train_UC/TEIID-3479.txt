@@ -1,0 +1,2 @@
+Typo in SecurityHelper method neogitiateGssLogin
+There is a typo in the new method neogitiateGssLogin in the SecurityHelper interface.  Definitely a nit but good to fix before GA and it proliferates

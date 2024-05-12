@@ -1,0 +1,2 @@
+Add UnitTest coverage for BatchedUpdate within a PreparedStatement
+Create unit test coverage for scenario when a batched update will occur within a PreparedStatement.  

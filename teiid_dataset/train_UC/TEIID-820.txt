@@ -1,0 +1,2 @@
+Add Derby XA Connector Type to Designer
+In order to support an updateable Portfolio database for our Teiid example, we need to be able to create a Derby XA connector. This connector type need to be added to the list of our pre-defined connectors.

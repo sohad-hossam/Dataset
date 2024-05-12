@@ -1,0 +1,18 @@
+Teiid with GSSAPI/kerberos authentication, remove need for jdbc clients to specify -Djava.security.krb5.realm and -Djava.security.krb5.kdc
+Currently any clients connecting to teiid with GSSAPI authentication need to specify the following JVM properties
+
+-Djava.security.krb5.realm
+-Djava.security.krb5.kdc
+
+Not specifying them causes errors saying to specify these properties. Other Java GSSAPI/kerberos projects (for example, jboss negotiation, [1]) don't need these properties to be set, instead seem to pull the values from /etc/krb5.conf (normal system kerberos configuration file) as needed. This is extremely ideal, as it allows sysadmins to change kerberos configuration for an entire system easily at once (for example, to use a new kdc) without having to then also manually reconfigure java clients.
+
+I've done some digging and it looks like a property exists called java.security.krb5.conf [2] which can take a String pointing to a krb5.conf file, in order to get the information needed for for kerberos auth. Is it possible to modify teiid jdbc driver so that if the realm/kdc properties aren't set, then it will automatically look for the system default krb5.conf (/etc/krb5.conf in linux, not sure what it is in windows) and set java.security.krb5.conf (unless it's already set to the OS default?) to that value and then get the client to work with that?
+
+[1] https://community.jboss.org/wiki/JBossNegotiation
+[2] http://stackoverflow.com/questions/1431999/java-and-kerberos-authentication-krb5-conf-versus-system-setproperty
+
+This would greatly streamline the configuration needed for teiid JDBC clients with GSSAPI.
+
+Thanks in advance,
+
+Graeme

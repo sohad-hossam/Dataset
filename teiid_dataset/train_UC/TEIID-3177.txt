@@ -1,0 +1,2 @@
+Enforce SSL connections over ODBC when Encryption Mode is enabled
+When connecting via ODBC transport, even if the encryption mode is set to enabled is still possible to establish non ssl connections. This allows clients to  connect via insecure method. We would like that the Teiid transport could reject connections if they are not properly set up using SSL transport.

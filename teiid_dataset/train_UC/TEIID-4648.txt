@@ -1,0 +1,2 @@
+MySQL unsigned type detection is incorrect
+The MySQL JDBC driver hard codes for all integral types in the DatabaseMetaData getTypeInfo call that they are unsigned - even the signed types.  This causes our logic to widen types that don't need widened.

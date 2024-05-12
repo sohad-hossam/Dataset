@@ -1,0 +1,20 @@
+JDBC warnings are not properly handled
+Adding warnings individually results in redundant exceptions.  See also TEIID-1829
+
+This is a behavior change though since the resulting warnings on the client side will be held by the cause.  Proper access would be:
+
+//warning will be an instanceof TeiidSQLWarning to convey model/source information
+SQLWarning warning = stmt.getWarnings();
+
+while (warning != null) {
+  Exception e = warning.getCause();
+  if (cause instanceof SQLWarning) {
+    //childWarning should now be the head of the source warning chain
+    SQLWarning childWarning = (SQLWarning)cause;
+    while (childWarning != null) {
+      //do something with childWarning
+      childWarning = childWarning.getNextWarning();
+    }
+  }
+  warning = warning.getNextWarning();
+}

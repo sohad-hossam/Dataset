@@ -1,0 +1,4 @@
+Issues with bigdecimal values and odata
+Usage of bigdecimal literals in odata4 translator literals or procedure parameters results in an exception about the facet not being satisfied.
+
+We are also with TEIID-4269 we were allowing more than just trailing 0s to be trimmed from the numeric values.  This results in situations where you could return an entity with a value, but could not look it up by that value (as it would no longer be equal).  We should instead let the facet fail if we can't just trim zeros.

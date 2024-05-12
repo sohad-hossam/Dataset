@@ -1,0 +1,10 @@
+PrestoDB translator - IFNULL is translated as NULLIF
+Teiid translates *NULLIF* function to *nullif*. However, those functions have different functionality. Note, this is the case for *COALESCE* with two arguments as well as that function is rewritten to *IFNULL*.
+See [PrestoDB doc|https://prestodb.io/docs/current/functions/conditional.html]
+
+{code:sql|title=Query}
+SELECT IFNULL(intnum, intkey) FROM BQT1.SmallA
+{code}
+{code:sql|title=Source command}
+SELECT nullif(g_0.intnum, g_0.intkey) FROM smalla AS g_0
+{code}

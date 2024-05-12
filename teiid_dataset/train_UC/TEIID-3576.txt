@@ -1,0 +1,4 @@
+Issues with waitForLoad
+TEIID-2059 should be refined in that the existing loginTimeout property should be used instead of waitForLoad.
+
+Also we're not properly using the property.  When waitForLoad is specified, we're actually using the system default property instead.

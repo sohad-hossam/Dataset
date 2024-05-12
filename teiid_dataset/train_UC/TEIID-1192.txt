@@ -1,0 +1,4 @@
+JDBC driver doesn't accept underscores _ in server names
+DBC driver does not support underscored in the server name. So
+jdbc:metamatrix:FederatedSearch_VDB@mm://127.0.0.1:31000;version=2 will work but its names counterpart
+jdbc:metamatrix:FederatedSearch_VDB@mm://sup_mm:31000;version=2 does not will not.

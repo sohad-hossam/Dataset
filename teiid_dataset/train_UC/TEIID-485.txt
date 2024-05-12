@@ -1,0 +1,2 @@
+Upgrade JBoss Cache to 3.1.0
+Upgrade JBoss Cache to 3.10 GA to be in sync with AS 5.1.0. Make sure this is the version used by the EAP 5.0

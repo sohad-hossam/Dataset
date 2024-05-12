@@ -1,0 +1,63 @@
+PrestoDB translator - dayof* functions not translated correctly
+Teiid pushes functions *dayofmonth*, *dayofweek* and *dayofyear* directly to PrestoDB. Functions in PrestoDB have different name - see [doc|https://prestodb.io/docs/current/functions/datetime.html].
+{code:sql|title=Query}
+SELECT IntKey, DAYOFMONTH(datevalue) AS DayFromDate FROM BQT1.SmallA
+{code}
+{code:sql|title=Source command}
+SELECT g_0.intkey, dayofmonth(g_0.datevalue) FROM smalla AS g_0
+{code}
+{code:plain|title=Exception}
+14:33:10,897 WARN  [org.teiid.CONNECTOR] (Worker28_QueryProcessorQueue137) Connector worker process failed for atomic-request=A7WqBzZhsyYM.48.0.32: org.teiid.translator.jdbc.JDBCExecutionException: 1 TEIID11008:TEIID11004 Error executing statement(s): [SQL: SELECT g_0.intkey, dayofmonth(g_0.datevalue) FROM smalla AS g_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.GeneratedMethodAccessor97.invoke(Unknown Source) [:1.8.0_92]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_92]
+	at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_92]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_92]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_92]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_92]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_92]
+Caused by: java.sql.SQLException: Query failed (#20170106_133310_04116_k4ss5): line 1:20: Function dayofmonth not registered
+	at com.facebook.presto.jdbc.PrestoResultSet.resultsException(PrestoResultSet.java:1799)
+	at com.facebook.presto.jdbc.PrestoResultSet.getColumns(PrestoResultSet.java:1747)
+	at com.facebook.presto.jdbc.PrestoResultSet.<init>(PrestoResultSet.java:125)
+	at com.facebook.presto.jdbc.PrestoStatement.execute(PrestoStatement.java:212)
+	at com.facebook.presto.jdbc.PrestoStatement.executeQuery(PrestoStatement.java:69)
+	at org.jboss.jca.adapters.jdbc.WrappedStatement.executeQuery(WrappedStatement.java:344)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:119) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 17 more
+Caused by: com.facebook.presto.sql.analyzer.SemanticException: line 1:20: Function dayofmonth not registered
+	at com.facebook.presto.sql.analyzer.ExpressionAnalyzer$Visitor.visitFunctionCall(ExpressionAnalyzer.java:823)
+	at com.facebook.presto.sql.analyzer.ExpressionAnalyzer$Visitor.visitFunctionCall(ExpressionAnalyzer.java:254)
+	at com.facebook.presto.sql.tree.FunctionCall.accept(FunctionCall.java:109)
+	at com.facebook.presto.sql.tree.StackableAstVisitor.process(StackableAstVisitor.java:26)
+	at com.facebook.presto.sql.analyzer.ExpressionAnalyzer$Visitor.process(ExpressionAnalyzer.java:273)
+	at com.facebook.presto.sql.analyzer.ExpressionAnalyzer.analyze(ExpressionAnalyzer.java:230)
+	at com.facebook.presto.sql.analyzer.ExpressionAnalyzer.analyzeExpression(ExpressionAnalyzer.java:1416)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.analyzeExpression(StatementAnalyzer.java:1791)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.analyzeSelect(StatementAnalyzer.java:1613)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.visitQuerySpecification(StatementAnalyzer.java:785)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.visitQuerySpecification(StatementAnalyzer.java:187)
+	at com.facebook.presto.sql.tree.QuerySpecification.accept(QuerySpecification.java:125)
+	at com.facebook.presto.sql.tree.AstVisitor.process(AstVisitor.java:27)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.visitQuery(StatementAnalyzer.java:549)
+	at com.facebook.presto.sql.analyzer.StatementAnalyzer.visitQuery(StatementAnalyzer.java:187)
+	at com.facebook.presto.sql.tree.Query.accept(Query.java:92)
+	at com.facebook.presto.sql.tree.AstVisitor.process(AstVisitor.java:27)
+	at com.facebook.presto.sql.analyzer.Analyzer.analyze(Analyzer.java:67)
+	at com.facebook.presto.sql.analyzer.Analyzer.analyze(Analyzer.java:59)
+	at com.facebook.presto.execution.SqlQueryExecution.doAnalyzeQuery(SqlQueryExecution.java:285)
+	at com.facebook.presto.execution.SqlQueryExecution.analyzeQuery(SqlQueryExecution.java:271)
+	at com.facebook.presto.execution.SqlQueryExecution.start(SqlQueryExecution.java:229)
+	at com.facebook.presto.execution.QueuedExecution.lambda$start$1(QueuedExecution.java:62)
+	... 3 more
+{code}

@@ -1,0 +1,2 @@
+All virtual entries on a physical model
+Physical schema should still allow virtual entires (views/procedures/functions).

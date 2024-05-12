@@ -1,0 +1,2 @@
+Expand native-query support
+The native-query extension metadata is currently understood only by jdbc.  We should add support in olap, ldap, salesforce, etc.

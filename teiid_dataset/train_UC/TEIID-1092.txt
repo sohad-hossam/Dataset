@@ -1,0 +1,2 @@
+Request to have variables at higher scopes
+Customer is requesting a global or session scoped variable.  They want the variable to persist outside of one procedure to other spawned procedures and subsequent queries. 

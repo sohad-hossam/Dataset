@@ -1,0 +1,15 @@
+float field gets converted to scientific notation when query is submitted to source
+When submitting the following query:
+
+SELECT COUNT(*) FROM salesforce_sales.salesforce.Opportunity where amount > 100000000;
+
+to a salesforce instance with the shown filter it returns the following error:
+
+org.teiid.runtime.client.TeiidClientException: java.lang.RuntimeException: Remote org.teiid.core.TeiidProcessingException: TEIID30504 SalesForce_Sales: com.sforce.soap.partner.MalformedQueryFault: MALFORMED_QUERY: 
+Opportunity WHERE Opportunity.Amount > 1.0E8
+                                          ^
+ERROR at Row:1:Column:64
+unexpected token: 'E8'
+Elapsed Time:  0 hr, 0 min, 1 sec, 109 ms.
+
+why is the quantity modified when the field is declared as float?

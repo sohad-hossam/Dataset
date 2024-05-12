@@ -1,0 +1,6 @@
+ORDER BY should have ability to include columns not specified in the SELECT clause
+Client request to allow an ORDER BY clause to include columns other than those specified in the SELECT clause, as in the following query:
+
+SELECT col1, col2, col3 
+FROM tableA
+ORDER BY col4

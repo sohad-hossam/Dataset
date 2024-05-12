@@ -1,0 +1,2 @@
+Initial SQLWarnings are reported twice
+Initial warnings are added to the statement list twice.  Once by statementimpl.postReceiveResults and one in the constructor for resultsetimpl.

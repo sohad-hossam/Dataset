@@ -1,0 +1,2 @@
+dynamic sql cannot use into with updates
+TEIID-3198 refined the dynamic sql handling such that the use of AS columns required a result set from the query.  However our materialization logic in SYSADMIN and our documentation indicated that the approach should be used.  We may need to offer backward compatibility and at the very least should update the materialization sql.

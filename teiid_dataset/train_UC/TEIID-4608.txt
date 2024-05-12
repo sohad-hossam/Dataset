@@ -1,0 +1,158 @@
+Insert statement - multi-value insert into view - incorrect type resolution if first tuple contains NULL
+If first tuple of multi-value insert contains NULL value (regular statement, not prepared statement), Teiid is not able to resolve types properly.
+*Example 1:*
+IntKey - primary key, type integer
+IntNum - regular column, type integer
+{code:sql}
+INSERT INTO tablea (IntKey, IntNum) VALUES (1, null), (2, 2);
+{code}
+This query ends with ClassCastException:
+{code:plain}
+14:24:39,133 ERROR [org.teiid.CONNECTOR] (Worker8_QueryProcessorQueue105) Connector worker process failed for atomic-request=8V7FTKxvQ5zY.14.0.34: java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Float
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.bindValue(JDBCExecutionFactory.java:957) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.sybase.BaseSybaseExecutionFactory.bindValue(BaseSybaseExecutionFactory.java:147) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.JDBCBaseExecution.bind(JDBCBaseExecution.java:107) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:243) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.execute(JDBCUpdateExecution.java:84) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.GeneratedMethodAccessor137.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:142)
+	at org.teiid.query.processor.relational.ProjectIntoNode.checkExitConditions(ProjectIntoNode.java:257)
+	at org.teiid.query.processor.relational.ProjectIntoNode.nextBatchDirect(ProjectIntoNode.java:228)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+
+14:24:39,136 ERROR [org.teiid.PROCESSOR] (Worker8_QueryProcessorQueue105) TEIID30019 Unexpected exception for request 8V7FTKxvQ5zY.14: java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Float
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.bindValue(JDBCExecutionFactory.java:957)
+	at org.teiid.translator.jdbc.sybase.BaseSybaseExecutionFactory.bindValue(BaseSybaseExecutionFactory.java:147)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.bind(JDBCBaseExecution.java:107)
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:243)
+	at org.teiid.translator.jdbc.JDBCUpdateExecution.execute(JDBCUpdateExecution.java:84)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at sun.reflect.GeneratedMethodAccessor137.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:142) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.ProjectIntoNode.checkExitConditions(ProjectIntoNode.java:257) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.ProjectIntoNode.nextBatchDirect(ProjectIntoNode.java:228) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}
+
+If I switch tuples, no exception occurs and insert finishes successfully.
+{code:sql}
+INSERT INTO tablea (IntKey, IntNum) VALUES (2, 2), (1, null);
+{code}
+
+*Example 2*
+IntKey - primary key, type integer
+CharValue - regular column, type char
+{code:sql}
+INSERT INTO tablea (IntKey, CharValue) VALUES (1, null), (2, convert('+', char));
+{code}
+This query ends with TEIID30328 Unable to evaluate convert(X.expr2, short):...
+{code:plain}
+14:41:35,053 WARN  [org.teiid.PROCESSOR] (Worker14_QueryProcessorQueue136) TEIID30020 Processing exception for request 8V7FTKxvQ5zY.30 'TEIID30328 Unable to evaluate convert(X.expr2, short): TEIID30384 Error while evaluating function convert'. Originally ExpressionEvaluationException 'TEIID10076 Invalid conversion from type class java.lang.Character with value '+' to type class java.lang.Short' DataTypeManager.java:940. Enable more detailed logging to see the entire stacktrace.
+{code}
+Again, switching tuples resolves the issue.
+{code:sql}
+INSERT INTO tablea (IntKey, CharValue) VALUES (2, convert('+', char)), (1, null);
+{code}
+
+
+This occurs only in case of view with defined _trigger instead of insert_. Here is my VDB for MSSQL, but I can see same behavior for MySql and PostgreSQL
+{code:xml}
+<metadata type="DDL">
+    CREATE FOREIGN TABLE SmallA (IntKey integer PRIMARY KEY,
+        StringKey string,
+        IntNum integer,
+        StringNum string,
+        FloatNum float,
+        LongNum bigint,
+        DoubleNum double,
+        ByteNum smallint,
+        DateValue date,
+        TimeValue time,
+        TimestampValue timestamp,
+        BooleanValue boolean,
+        CharValue char(1),
+        ShortValue smallint,
+        BigIntegerValue decimal,
+        BigDecimalValue decimal,
+        ObjectValue blob)
+    OPTIONS (UPDATABLE 'TRUE');
+</metadata>
+...
+<metadata type="DDL"><
+CREATE VIEW SmallA (IntKey integer PRIMARY KEY,
+    StringKey string,
+    IntNum integer,
+    StringNum string,
+    FloatNum float,
+    LongNum long,
+    DoubleNum double,
+    ByteNum byte,
+    DateValue date,
+    TimeValue time,
+    TimestampValue timestamp,
+    BooleanValue boolean,
+    CharValue char,
+    ShortValue short,
+    BigIntegerValue biginteger,
+    BigDecimalValue bigdecimal,
+    ObjectValue object)
+OPTIONS (UPDATABLE 'TRUE')
+AS
+SELECT IntKey, StringKey, IntNum,
+    StringNum, FloatNum, LongNum, DoubleNum,
+    convert(ByteNum, byte) AS ByteNum, DateValue, TimeValue, TimestampValue,
+    BooleanValue, CharValue, ShortValue,
+    convert(BigIntegerValue, biginteger) AS BigIntegerValue, BigDecimalValue,
+    convert(ObjectValue, object) AS ObjectValue
+FROM Source.SmallA;
+CREATE TRIGGER ON SmallA INSTEAD OF INSERT AS FOR EACH ROW
+BEGIN ATOMIC
+    INSERT INTO Source.smalla (IntKey, StringKey, IntNum, StringNum, FloatNum, LongNum, DoubleNum, ByteNum, DateValue, TimeValue, TimestampValue, BooleanValue, CharValue, ShortValue, BigIntegerValue, BigDecimalValue, ObjectValue) VALUES
+        (NEW.IntKey, NEW.StringKey, NEW.IntNum, NEW.StringNum, NEW.FloatNum, NEW.LongNum, NEW.DoubleNum, NEW.ByteNum, NEW.DateValue, NEW.TimeValue, NEW.TimestampValue,
+        NEW.BooleanValue, NEW.CharValue, NEW.ShortValue, NEW.BigIntegerValue, NEW.BigDecimalValue, to_bytes(convert(NEW.ObjectValue, string), 'UTF-8'));
+END;
+</metadata>
+{code}

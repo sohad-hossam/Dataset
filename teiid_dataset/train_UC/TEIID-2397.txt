@@ -1,0 +1,6 @@
+count of group by column return 1 over join
+A query of the form:
+
+select e1, count(e1) from pm1.g1, (select 1 from pm1.g2 limit 1) x group by e1
+
+Will fail to return the proper count for e1 as the decomposition is erroneously considering the decomposed count aggregate as unnecessary.

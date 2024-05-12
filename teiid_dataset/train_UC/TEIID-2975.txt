@@ -1,0 +1,23 @@
+mark the xmloutputfactory as a repairing namespace 
+Avoiding issue similar to [1] in cases of non-steaming xml where using a staxsource. The response is forwarded to the body and effectively loses any namespace declarations that are part of the soap envelope.
+
+
+[1]
+ [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue13) TEIID30020 Processing exception for request a6bkC44ELQu9.3 'TEIID30151 Error building Source for context item.'. Originally TeiidProcessingException 'The prefix "xsi" for attribute "xsi:nil" associated with an element type "<element>" is not bound.' org.apache.xerces.util.ErrorHandlerWrapper.createSAXParseException(Unknown Source).: org.teiid.core.TeiidProcessingException: TEIID30151 Error building Source for context item.
+	at org.teiid.query.xquery.saxon.XQueryEvaluator.evaluateXQuery(XQueryEvaluator.java:140) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	at org.teiid.query.processor.relational.XMLTableNode$1.run(XMLTableNode.java:226) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:269) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895) [rt.jar:1.6.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918) [rt.jar:1.6.0_71]
+	at java.lang.Thread.run(Thread.java:680) [rt.jar:1.6.0_71]
+Caused by: nu.xom.ParsingException: org.xml.sax.SAXParseException: The prefix "xsi" for attribute "xsi:nil" associated with an element type "<element>" is not bound.
+	at nu.xom.Builder.build(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at nu.xom.Builder.build(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at org.teiid.query.xquery.saxon.XQueryEvaluator.evaluateXQuery(XQueryEvaluator.java:134) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	... 7 more
+Caused by: net.sf.saxon.trans.XPathException: org.xml.sax.SAXParseException: The prefix "xsi" for attribute "xsi:nil" associated with an element type "<element>" is not bound.
+	at org.teiid.query.xquery.saxon.SaxonReader.parse(StreamingUtils.java:171) [teiid-engine-8.4.1-redhat-7.jar:8.4.1-redhat-7]
+	... 10 more
+Caused by: net.sf.saxon.trans.XPathException: org.xml.sax.SAXParseException: The prefix "xsi" for attribute "xsi:nil" associated with an element type "<element>" is not bound.

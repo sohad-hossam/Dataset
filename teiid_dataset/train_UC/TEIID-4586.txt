@@ -1,0 +1,2 @@
+Query plan should show if xmltable is streaming
+The regular query plan, not just the plan debug log, should indicate if xmltable is using stream processing.

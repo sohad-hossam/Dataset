@@ -1,0 +1,8 @@
+OData doesn't support mulitiple usage of arithmetic operators 
+Cannot use more than one arithmetic operator in single OData query. Each arithmetic operator has same problem: add,sub,mul,div and mod.
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=intkey%20eq%205%20add%201%20add%201
+*Actual result:* {"error":{"code": null,"message": "TEIID30067 Type was null for (? + ?) in function ((? + ?) + ?)"}}
+*Expected result:* Entity with intkey 7
+
+See: [\[OData-ABNF\]|http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt] _Line:_ 384 and 561

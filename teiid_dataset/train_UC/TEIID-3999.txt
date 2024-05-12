@@ -1,0 +1,3 @@
+more aspects of materialization metadata should be validated
+* During metadata load we should check if the status table and the materialization scripts are valid, so there is at least a log of the issue rather than waiting for the exception to occur once the vdb is active.
+* According to TEIID-4203, add an initial validation that validate the status table definition matches the expectation.

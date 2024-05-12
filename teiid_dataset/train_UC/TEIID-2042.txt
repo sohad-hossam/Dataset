@@ -1,0 +1,2 @@
+Large query plans may cause OOM error
+Since the query plan is held in memory, a large plan can exhaust the heap for reasonable VM sizes.  

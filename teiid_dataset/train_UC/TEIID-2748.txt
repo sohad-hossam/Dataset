@@ -1,0 +1,2 @@
+Ensure pushdown of multisource column expressions
+> The issue is that the criteria is not making it into the proper position for the multisource logic to have an effect.  It is implicit that multisource required a translator that supported equality comparison at least.  In this case adding the xpathValue function, because of weaknesses with the detection of a fully evaluatable, is then inhibiting the proper placement.  That last one is easy to fix and I can ensure that more complex cases are covered as well.

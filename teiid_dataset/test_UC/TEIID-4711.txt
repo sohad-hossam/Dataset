@@ -1,0 +1,8 @@
+Add multiple operator supports to Impala translator (case insensitive ilike, iregex, etc))
+Per https://www.cloudera.com/documentation/enterprise/5-8-x/topics/impala_operators.html Impala post-2.5 supports several operations that should be pushed down.
+
+As a user I would like to be able to use the following SQL operations and have them pushed down in my queries using the Impala translator:
+ILIKE
+IREGEXP
+IS DISTINCT FROM
+RLIKE

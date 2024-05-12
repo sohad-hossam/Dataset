@@ -1,0 +1,10 @@
+Not null not enforced with temp table expression
+A table defined as:
+
+create local temporary table x (e1 string not null, e2 integer, primary key (e2))
+
+such that the pk is not in the first position, will allow an insert such as:
+
+insert into x (e1, e2) values ((select null), 1)
+
+to succeed because the nullability will be checked against the declared positioning, and not the temptable positioning (in which the pk is first).

@@ -1,0 +1,16 @@
+Virtual Procedure queries with input variables failing with "No value was available."
+This does not mean that all virtual procedures with input variables are failing... Just these 3 in particular.  Read on!
+
+There are 3 queries of virtual procedures that are consistently failing for all sources. For example, this one: EXEC VirtProcs.dyno( '04:00:00', -125 ) gets an exception that reads, "Target exception: com.metamatrix.jdbc.MMSQLException: Error Code:ERR.015.006.0033 Message:Unable to evaluate VIRTPROCS.DYNO.TIMEIN: No value was available".
+
+I cranked up the logging to DEBUG and have included the log file (and VDB) in case you want to see more detail.
+
+Running this query against these models in a 6.2 Designer, it's OK. I took that VDB, deployed in a 7.0 Teiid, and the query fails.
+
+The other failing queries are:
+SELECT DNT FROM VirtProcs.vDate_n_Time WHERE intkey_in = 2
+SELECT intkey , timevalue , bytenum FROM bqt1.largea WHERE largea.intkey IN ( SELECT rs_intkey FROM ( EXEC VirtProcs.dyno ( '04:00:00' , -125 )) AS foo )
+
+The third is really just a variation of the first.
+
+Log and VDB are attached.

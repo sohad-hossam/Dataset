@@ -1,0 +1,6 @@
+Support parsing VALUES independently and with multiple row constructors
+For use with INSERT and else where we should support parsing
+
+VALUES (expr list), (expr list) ...
+
+rather than just the limited parsing of a single VALUES row for insert.

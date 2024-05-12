@@ -1,0 +1,2 @@
+Index connector post processing of case insensitive matching is incorrect.
+Literal criteria with a case function should be treated as a case insensitive match.

@@ -1,0 +1,4 @@
+Connecting to server from client fails with SingleInstanceCommunicationException and MMProcess goes into a loop
+I tried to connect to the server from SQuirreL and, while it appeared to be on its way to success, finally failed with the exception noted above. As I have noted a few times now, the jvm running MMProcess is in a loop, consuming 99+% of the CPU.
+
+I did a kill -3 and will attach the host controller log to the Jira. 

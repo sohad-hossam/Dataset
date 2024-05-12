@@ -1,0 +1,15 @@
+Domain mode configuration fails with CNF
+domain script fails to run to the finish with a exception
+
+{code}
+[Server:server-one] 12:15:52,763 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 62) WFLYCTL0013: Operation ("add") failed - address: ([("subsystem" => "teiid")]): java.lang.NoClassDefFoundError: org/wildfly/clustering/jgroups/spi/service/ProtocolStackServiceName
+[Server:server-one] 	at org.teiid.jboss.TeiidAdd.initilaizeTeiidEngine(TeiidAdd.java:314)
+[Server:server-one] 	at org.teiid.jboss.TeiidAdd.performRuntime(TeiidAdd.java:215)
+[Server:server-one] 	at org.jboss.as.controller.AbstractAddStepHandler.performRuntime(AbstractAddStepHandler.java:337)
+[Server:server-one] 	at org.jboss.as.controller.AbstractAddStepHandler$1.execute(AbstractAddStepHandler.java:151)
+[Server:server-one] 	at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:890)
+[Server:server-one] 	at org.jboss.as.controller.AbstractOperationContext.processStages(AbstractOperationContext.java:659)
+[Server:server-one] 	at org.jboss.as.controller.AbstractOperationContext.executeOperation(AbstractOperationContext.java:370)
+[Server:server-one] 	at org.jboss.as.controller.OperationContextImpl.executeOperation(OperationContextImpl.java:1344)
+[Server:server-one] 	at org.jboss.as.controller.ModelControllerImpl.internalExecute(ModelControllerImpl.java:39
+{code}

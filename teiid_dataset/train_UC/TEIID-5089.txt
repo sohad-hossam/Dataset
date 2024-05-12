@@ -1,0 +1,13 @@
+Using Teiid Conn. importer in Designer, the cache name is set to "default"
+When using the Teiid Connection importer in Designer to reversen engineer the source table from an existing JDG cache.  The following is an example of the DDL returned by teiid:
+
+{code}
+SET NAMESPACE 'http://www.teiid.org/translator/infinispan/2017' AS teiid_ispn;
+
+CREATE FOREIGN TABLE Person (
+	id integer OPTIONS (ANNOTATION '@Id', SEARCHABLE 'Searchable', NATIVE_TYPE 'int32', "teiid_ispn:TAG" '1'),
+	name string OPTIONS (SEARCHABLE 'Searchable', NATIVE_TYPE 'string', "teiid_ispn:TAG" '2'),
+	salary double OPTIONS (SEARCHABLE 'Searchable', NATIVE_TYPE 'double', "teiid_ispn:TAG" '3'),
+	CONSTRAINT PK_ID PRIMARY KEY(id)
+) OPTIONS (ANNOTATION '@Indexed', NAMEINSOURCE 'JDGPersonCache.Person', UPDATABLE TRUE, "teiid_ispn:CACHE" 'default');
+{code}

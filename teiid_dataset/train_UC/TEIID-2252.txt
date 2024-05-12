@@ -1,0 +1,2 @@
+Add a jdbc import option to disable all name qualification
+If importing from a single schema, which is the default for the connection, no qualification is needed on teiid names nor name in source.  No combination of import properties currently supports that option.

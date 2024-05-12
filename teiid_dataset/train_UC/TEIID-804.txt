@@ -1,0 +1,2 @@
+Source download is currently not in form which is readily consumable by the developers
+The teiid-source-{version}.zip that is distributed along with runtime kits is not in development consumable form. However it is good for debugging purposes or just reference for the source code. The users looking for the development mean while should get the source code from anonymous svn location.

@@ -1,0 +1,16 @@
+HBase translator - UPDATE statement requires primary key
+The HBase translator requires table to have a primary key defined. Is the PK really needed? If the table has no PK defined, then all columns are PK. E.g. query *UPDATE hbase.SmallA SET StringNum = '555' WHERE hbase.SmallA.StringNum IS NULL* is translated as *UPSERT INTO smalla (stringnum, intkey) SELECT '555', smalla.intkey FROM smalla WHERE smalla.stringnum IS NULL* (intkey is PK). Teiid can simply add all columns (except those defined in 'SET'). 
+
+Yes, I know that HBase requires the PK to be defined, but what happen if a user decide to change PK in VDB [1]? It could be a problem whether PK is in VDB defined or not. 
+
+I suggest to add a hbase-translator-specific execution property which define PK in the source table and remove AssertionError [2].
+
+[1]
+*HBase table:* create table mytable(id integer primary key, nickname varchar(1))
+
+*Teiid table:* create table mytable(id integer, username varchar(1) primary key)
+
+Both, id and username, are valid PK (artificial/natural).
+
+[2]
+https://github.com/teiid/teiid/blob/master/connectors/translator-hbase/src/main/java/org/teiid/translator/hbase/HBaseSQLConversionVisitor.java#L72

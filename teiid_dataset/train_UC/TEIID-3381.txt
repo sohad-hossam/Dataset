@@ -1,0 +1,43 @@
+PSQLException: ERROR: failed to find conversion function from unknown to text
+Running this query (where "test_a" is a table in PostgreSQL):
+
+{code:sql}
+select test2
+from
+ (select 'aaa' as test2 from pg.test_a) b
+group by test2
+{code}
+
+the following exception is thrown:
+{code:sql}
+19:01:01,172 WARN  [org.teiid.CONNECTOR] (Worker5_QueryProcessorQueue26) +AyVUdbE4D5l Connector worker process failed for atomic-request=+AyVUdbE4D5l.12.1.3: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT v_0.c_0 FROM (SELECT 'aaa' AS c_0 FROM "public"."test_a" AS g_0) AS v_0 GROUP BY v_0.c_0]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.10.0.Beta2.jar:8.10.0.Beta2]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:335)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_51]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_51]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_51]
+        at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_51]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:209)
+        at com.sun.proxy.$Proxy47.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_51]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]
+        at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]
+Caused by: org.postgresql.util.PSQLException: ERROR: failed to find conversion function from unknown to text
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.10.0.Beta2.jar:8.10.0.Beta2]
+        ... 18 more
+{code}

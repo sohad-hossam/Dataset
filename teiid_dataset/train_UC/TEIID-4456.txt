@@ -1,0 +1,34 @@
+Enable the abiltiy to support nested and non-nested message descriptors
+Protobuf definition files can have messages defined in a nested and non-nested form. 
+
+Nested:
+
+{code}
+package bigdata;
+message DataEntity {
+..
+   optional MetaData context = 6;
+
+  message MetaData {
+ ... 
+ }
+}
+{code}
+
+Non-nested:
+{code}
+package bigdata;
+
+message DataEntity {
+..
+   optional MetaData context = 6;
+}
+  message MetaData {
+ ... 
+ }
+
+{code}
+
+The ProtobufMetadataProcessor needs to be changed to so that it can create the metadata from either use case.  
+
+Currently it obtains the child descriptor messages from the parent descriptor. 

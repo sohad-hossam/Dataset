@@ -1,0 +1,10 @@
+Deploying google using example  google.xml throws exception
+Trying to deploy google using the example and the BatchSize config property is not recognized, error thrown:
+
+
+Caused by: java.lang.NoSuchMethodException: JBAS010474: Method setBatchSize not found
+	at org.jboss.as.connector.util.Injection.inject(Injection.java:130)
+	at org.jboss.as.connector.util.Injection.inject(Injection.java:83)
+	at org.jboss.as.connector.services.resourceadapters.deployment.AbstractResourceAdapterDeploymentService$AbstractAS7RaDeployer.initAndInject(AbstractResourceAdapterDeploymentService.java:428)
+	... 8 more
+

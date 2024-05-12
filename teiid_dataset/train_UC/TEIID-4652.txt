@@ -1,0 +1,48 @@
+SybaseIQ translator: DAYOFYEAR function not pushed correctly
+DAYOFYEAR function is being pushed into SAP IQ datasource causing an error. The function doesn't seem to be supported directly in SAP IQ according to [SAP IQ docs|http://help.sap.com/saphelp_iq1611_iqrefbb/helpdata/en/a5/2b07be84f21015baa5a63dd21b850b/content.htm?frameset=/en/a5/5fae8484f2101591b6b7d46dca7cc4/frameset.htm&current_toc=/en/a8/911fe984f21015a3e3f2c342c4e05e/plain.htm&node_id=115&show_children=false]
+Query used:
+{code:sql}
+SELECT IntKey, datevalue, DAYOFYEAR(datevalue) AS DayFromDate FROM BQT1.SmallA ORDER BY IntKey
+{code}
+Source query pushed:
+{code:sql}
+[SELECT g_0."intkey" AS c_0, g_0."datevalue" AS c_1, {fn dayofyear(g_0."datevalue")} AS c_2 FROM "bqt-server"."dvqe"."SmallA" AS g_0 ORDER BY c_0]
+{code}
+Causing an error coming from SAP IQ:
+{code}
+09:08:30,130 WARN  [org.teiid.CONNECTOR] (Worker11_QueryProcessorQueue58) Connector worker process failed for atomic-request=PYp5BTTPF3pK.20.0.12: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."intkey" AS c_0, g_0."datevalue" AS c_1, {fn dayofyear(g_0."datevalue")} AS c_2 FROM "bqt-server"."dvqe"."SmallA" AS g_0 ORDER BY c_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_71]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_71]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_71]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy80.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+Caused by: java.sql.SQLException: JZ0SI: A static function escape dayofyear was used which is not supported by this server.
+	at com.sybase.jdbc4.jdbc.ErrorMessage.raiseError(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybStatement.processEscapes(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybStatement.doEscapeProcessing(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybPreparedStatement.<init>(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybConnection.a(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybConnection.prepareStatement(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybConnection.prepareStatement(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybConnection.prepareStatement(Unknown Source)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:744)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:730)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:405)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.getPreparedStatement(JDBCBaseExecution.java:196) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:121) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	... 18 more
+{code}

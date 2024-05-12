@@ -1,0 +1,4 @@
+Support Kerberos handshake for mutual auth
+When using Teiid Embedded with Kerberos, the GSS handshake with the Postgres JDBC client is failing while trying to establish mutual authentication.
+
+The ODBCRemoteServerImpl.login() method should send both an AuthenticationGSSContinue and AuthenticationOk message when the client is requesting mutual authentication.

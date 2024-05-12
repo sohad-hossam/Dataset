@@ -1,0 +1,11 @@
+System Property Changes - Not showing up in Audit Log and System Log has entry but doesn't state what property was changed
+I changed 4 System Properties and found no entries in the Audit log but entries did show up in the System Log.  However the entries in the System log does not specify which property was changed.  Changes to System Properties should show up in Audit Log.  This is one example.  See attachment for other examples:
+
+My action - Encryption - Unchecked Client Side Password.  
+Log:
+Mar 06, 2009 14:07:47.500 [SocketWorkerQueue_Worker_52|0] ERROR <AUDIT_ADMIN|0> Administrator [ssmith@NewLDAP], session [7512] requesting access which requires role [Admin.SystemAdmin] to method [ConfigurationAdminAPIImpl.executeTransaction([Set ConfigurationID Next Startup; new value = false, previous value = true])].
+Mar 06, 2009 14:07:47.500 [SocketWorkerQueue_Worker_52|0] ERROR <AUDIT_ADMIN|0> Administrator [ssmith@NewLDAP], session [7512] granted access to method [ConfigurationAdminAPIImpl.executeTransaction([Set ConfigurationID Next Startup; new value = false, previous value = true])].
+Mar 06, 2009 14:07:47.515 [SocketWorkerQueue_Worker_52|0] INFO <CONFIG|0> Completed execution of actions.
+Mar 06, 2009 14:07:47.546 [SocketWorkerQueue_Worker_52|0] INFO <CONFIG|0> Configuration Next Startup document written successfully to stream.
+
+

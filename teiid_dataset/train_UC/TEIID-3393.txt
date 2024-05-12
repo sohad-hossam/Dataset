@@ -1,0 +1,2 @@
+Add an adminapi interface impl for embedded
+For as many methods as seems reasonable we should implement the adminapi interface for embedded.

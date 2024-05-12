@@ -1,0 +1,4 @@
+Tuples lost in a with clause item.
+Related to TEIID-2442 - the BatchIterator created for the creation of the temp table backing a with clause item cannot be created after blocking without loosing tuples.
+
+On 8.3.x+ a single block is not sufficient to induce this behavior if there are any tuples that have been retrieved since the last block as the access node logic will return the partial batch.  Thus may occur as a somewhat rare timing issue in 8.3.x+.  However in 7.7.7/7.7.8 a single block cause the recreation of the BatchIterator making the affect almost certain once the row count exceeds the computed working batch size (nominally 256 rows, but allowed to vary based upon the row width). 

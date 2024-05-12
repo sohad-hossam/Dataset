@@ -1,0 +1,4 @@
+Separate Connector Binding into Translation Layer and Connection Layer
+Connector Binding = Translation Layer + Connection
+
+this association needs to be broken down into individual concerns as Translation Layer is concern of the Teiid and Connection semantics are more general purpose. By making this change Teiid configuration can be stable across deployment environments. Also, the translation layer then can be free of JCA semantics. The Connection layer then can be JCA Connection or provided by any Connection provider.

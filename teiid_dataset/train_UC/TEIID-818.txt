@@ -1,0 +1,35 @@
+Error returned from SQL Server: Incorrect syntax near: NULLS
+Running the TPCR queries has worked previously, I believe even with Teiid from a short while back. Now it's not. This particular query is detailed below.
+
+Transformation text:
+SELECT 
+		S_NAME, COUNT(*) AS numwait 
+FROM 
+		TPCR.SUPPLIER, TPCR.LINEITEM AS l1, TPCR.ORDERS, TPCR.NATION 
+WHERE 
+		(S_SUPPKEY = L_SUPPKEY) AND (O_ORDERKEY = L_ORDERKEY) AND (O_ORDERSTATUS = 'F') AND (L_RECEIPTDATE > L_COMMITDATE) AND (EXISTS (SELECT 
+						* 
+FROM 
+						TPCR.LINEITEM AS l2 
+WHERE 
+						(l2.L_ORDERKEY = l1.L_ORDERKEY) AND (l2.L_SUPPKEY <> l1.L_SUPPKEY))) AND (NOT (EXISTS (SELECT 
+							* 
+FROM 
+							TPCR.LINEITEM AS l3 
+WHERE 
+							(l3.L_ORDERKEY = l1.L_ORDERKEY) AND (l3.L_SUPPKEY <> l1.L_SUPPKEY) AND (l3.L_RECEIPTDATE > l3.L_COMMITDATE)))) AND (S_NATIONKEY = N_NATIONKEY) AND (N_NAME = 'SAUDI ARABIA') 
+GROUP BY S_NAME
+
+Query I executed:
+select * from vTpcr.Q21 ORDER BY numwait desc, s_name LIMIT 100;
+
+Error I received:
+2009-09-02 10:42:23,491 ERROR [Worker0_QueryProcessorQueue1] org.teiid.DQP - Unexpected exception for request 0.0
+[MetaMatrixComponentException] 170: Error Code:170 Message:Error Code:170 Message:Error occurred on connector TPCR Connector<2> - Error Code:170 Message:Line 1: Incorrect syntax near 'NULLS'.
+
+Executing statement:
+
+  [SQL: SELECT TOP 100 * FROM (SELECT g_0.S_NAME AS c_0, COUNT(*) AS c_1 FROM SUPPLIER g_0, LINEITEM g_1, ORDERS g_2, NATION g_3 WHERE (g_0.S_SUPPKEY = g_1.L_SUPPKEY) AND (g_2.O_ORDERKEY = g_1.L_ORDERKEY) AND (g_0.S_NATIONKEY = g_3.N_NATIONKEY) AND (g_1.L_RECEIPTDATE > g_1.L_COMMITDATE) AND (EXISTS (SELECT g_4.L_ORDERKEY, g_4.L_PARTKEY, g_4.L_SUPPKEY, g_4.L_LINENUMBER, g_4.L_QUANTITY, g_4.L_EXTENDEDPRICE, g_4.L_DISCOUNT, g_4.L_TAX, g_4.L_RETURNFLAG, g_4.L_LINESTATUS, g_4.L_SHIPDATE, g_4.L_COMMITDATE, g_4.L_RECEIPTDATE, g_4.L_SHIPINSTRUCT, g_4.L_SHIPMODE, g_4.L_COMMENT FROM LINEITEM g_4 WHERE (g_4.L_ORDERKEY = g_1.L_ORDERKEY) AND (g_4.L_SUPPKEY <> g_1.L_SUPPKEY))) AND (NOT (EXISTS (SELECT g_5.L_ORDERKEY, g_5.L_PARTKEY, g_5.L_SUPPKEY, g_5.L_LINENUMBER, g_5.L_QUANTITY, g_5.L_EXTENDEDPRICE, g_5.L_DISCOUNT, g_5.L_TAX, g_5.L_RETURNFLAG, g_5.L_LINESTATUS, g_5.L_SHIPDATE, g_5.L_COMMITDATE, g_5.L_RECEIPTDATE, g_5.L_SHIPINSTRUCT, g_5.L_SHIPMODE, g_5.L_COMMENT FROM LINEITEM g_5 WHERE (g_5.L_ORDERKEY = g_1.L_ORDERKEY) AND (g_5.L_SUPPKEY <> g_1.L_SUPPKEY) AND (g_5.L_RECEIPTDATE > g_5.L_COMMITDATE)))) AND (g_2.O_ORDERSTATUS = 'F') AND (g_3.N_NAME = 'SAUDI ARABIA') GROUP BY g_0.S_NAME) AS X ORDER BY c_1 DESC NULLS LAST, c_0]
+1 [ConnectorException]Error Code:170 Message:Error occurred on connector TPCR Connector<2> - Error Code:170 Message:Line 1: Incorrect syntax near 'NULLS'.
+
+This failed both in the Designer (running the version from 8/31) and Teiid (9/1, running as a server). I'll attach the server log and project to this defect.

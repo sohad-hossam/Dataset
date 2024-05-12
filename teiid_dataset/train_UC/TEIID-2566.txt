@@ -1,0 +1,15 @@
+standalone-teiid.xml and the CLI scripts point to different caches in the teiid subsystem
+In the standalone-teiid.xml configuration, teiid subsystem:
+
+<resultset-cache infinispan-container="teiid" name="resultset"/>
+<preparedplan-cache infinispan-container="teiid" name="preparedplan"/>
+
+In the CLI script, it contains the following:
+
+/subsystem=teiid:add(async-thread-pool=teiid-async, resultset-cache-infinispan-container=teiid-cache, preparedplan-cache-infinispan-container=teiid-cache, policy-decider-module=org.jboss.teiid)
+
+and looks like the following when loaded:
+
+           <resultset-cache infinispan-container="teiid-cache"/>
+            <preparedplan-cache infinispan-container="teiid-cache"/>
+ 

@@ -1,0 +1,29 @@
+Like criteria with 'Z' before wildcards throw an exception
+If query contains letter 'Z' before wildcard (for example, query contains following part: MY_COLUMN LIKE 'BAZ_BAR') then exception is thrown:
+
+Caused by: java.lang.IllegalArgumentException: fromKey > toKey
+	at java.util.TreeMap$NavigableSubMap.<init>(TreeMap.java:1240)
+	...
+	at org.teiid.dqp.internal.process.RecordTable.processQuery(RecordTable.java:189)
+	...
+	
+
+The reason of the problem is following.
+BaseIndexInfo.processCriteria() in order to build "less then" conditon from LIKE increments the code of last character in condition prefix:
+
+this.addCondition(i, new Constant(prefix.substring(0, prefix.length() -1) + (char) (prefix.charAt(prefix.length()-1)+1)), CompareCriteria.LE);
+
+If prefix happens to end in uppercase letter 'Z' then after increment it becomes '['. 
+But TempMetadataStore uses String.CaseInsensitiveComparator:
+public TempMetadataStore() {
+	this(new TreeMap<String, TempMetadataID>(String.CASE_INSENSITIVE_ORDER));
+}
+And String API documentation clearly says that comparison is performed against lowercase versions. Therefore 'Z' is converted to 'z'.
+And later when trying to get subtree with lower bound = 'Z' and upper bound = '[' and exception is thrown because in fact 'z' is lesser then '['
+
+Other than this exception it also has another problem. If we do query MY_COLUMN LIKE 'BA@_BAR' then upper condition would be 'A' (next character after '@').
+But due to lowercase comparison it will be converted to 'a', so values like 'BAB_BAR', 'BAC_BAR', ... 'BA^_BAR' all would be returned because 'B', 'C', ..., '^' are between '@' and 'a'.
+
+I suggest either using case sensitive map (with prior conversion of all values to upper case) or converting values in BaseIndexInfo.processCriteria() into lower case.
+
+I also worry about CompareCriteria.LE in BaseIndexInfo.processCriteria(). Shouldn't it be strictly less? with less or equal when querying 'AAA_' you will get 'AAB_' values as well.

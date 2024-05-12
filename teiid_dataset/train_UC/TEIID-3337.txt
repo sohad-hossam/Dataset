@@ -1,0 +1,2 @@
+Netty exception related to close logged at warn level
+An exception with the message "An existing connection was forcibly closed by the remote host" is still being logged at a warning level

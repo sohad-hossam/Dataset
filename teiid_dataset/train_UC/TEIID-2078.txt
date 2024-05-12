@@ -1,0 +1,4 @@
+Minor metadata enhancements
+Requiring the user via DDL to set updatable on each column is cumbersome.  If a view/table is marked as updatable then any column not explicitly marked as updatable false should be updatable.
+
+Also we should add a column name based lookup on a table since we are now in several places iterating over all column names.

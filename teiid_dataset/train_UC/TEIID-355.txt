@@ -1,0 +1,2 @@
+deprecate select into targeting a table
+We should deprecate the usage of select into targeting a table.  We are emulating SQL Server specific behavior, but not exactly (with set operations for example).  It's much better promote usage of the standard insert with a query expression - and add proper pushdown support (TEIID-124).

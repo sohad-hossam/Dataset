@@ -1,0 +1,2 @@
+Remove connector-template, replaced by teiid-tools  connector-archetype
+Remove the connector-template project.   The connector-archetype now provides the ability to generate a connector project.

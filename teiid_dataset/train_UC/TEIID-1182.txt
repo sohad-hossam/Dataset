@@ -1,0 +1,10 @@
+UDF model is not being loaded if the file is not placed in the root location of VDB
+When the "UDF" model is placed in sub-directory other than the root directory, the VDB deployer is unable to the UDF model. The reason is VDB deployment scanner only scans the VDB artifact in known locations of the VDB directory structure. All other locations are ignored.
+
+The possible solutions are 
+
+1) Place the UDF always in root location of VDB
+2) Place the UDF file in a known sub-directory like "UDF"
+3) Make the VDB deployer scan all the directories.
+
+Although (3) seems to be most flexible option, I am not sure that is possible. In that case (2) needs to be pursued, along with tooling support.

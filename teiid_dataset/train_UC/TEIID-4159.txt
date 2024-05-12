@@ -1,0 +1,101 @@
+Hive translator - select distinct count(*) is not supported
+Hive does not support query like SELECT DISTINCT COUNT\(*\) ...
+
+Example query:
+SELECT DISTINCT COUNT\(*\) FROM Source.SmallA AS g_0
+
+Exception:
+{code:plain}
+0:23:47,771 WARN  [org.teiid.PROCESSOR] (Worker13_QueryProcessorQueue106) TEIID30020 Processing exception for request NRTyWX7OfkHZ.19 'TEIID30504 Source: 10128 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT DISTINCT COUNT(*) FROM smalla g_0]'. Originally TeiidProcessingException 'org.apache.hadoop.hive.ql.parse.SemanticException:Line 1:16 Not yet supported place for UDAF 'COUNT'' TypeCheckProcFactory.java:844.: org.teiid.core.TeiidProcessingException: TEIID30504 Source: 10128 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT DISTINCT COUNT(*) FROM smalla g_0]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.exceptionOccurred(DataTierTupleSource.java:401) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:161) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:374) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:470) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: org.teiid.translator.jdbc.JDBCExecutionException: 10128 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT DISTINCT COUNT(*) FROM smalla g_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:359) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at sun.reflect.GeneratedMethodAccessor107.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at com.sun.proxy.$Proxy47.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	... 6 more
+Caused by: org.apache.hive.service.cli.HiveSQLException: Error while compiling statement: FAILED: SemanticException [Error 10128]: Line 1:16 Not yet supported place for UDAF 'COUNT'
+	at org.apache.hive.jdbc.Utils.verifySuccess(Utils.java:258)
+	at org.apache.hive.jdbc.Utils.verifySuccessWithInfo(Utils.java:244)
+	at org.apache.hive.jdbc.HiveStatement.execute(HiveStatement.java:247)
+	at org.apache.hive.jdbc.HiveStatement.executeQuery(HiveStatement.java:378)
+	at org.apache.hive.jdbc.HivePreparedStatement.executeQuery(HivePreparedStatement.java:109)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+	... 17 more
+Caused by: org.apache.hive.service.cli.HiveSQLException: Error while compiling statement: FAILED: SemanticException [Error 10128]: Line 1:16 Not yet supported place for UDAF 'COUNT'
+	at org.apache.hive.service.cli.operation.Operation.toSQLException(Operation.java:315)
+	at org.apache.hive.service.cli.operation.SQLOperation.prepare(SQLOperation.java:112)
+	at org.apache.hive.service.cli.operation.SQLOperation.runInternal(SQLOperation.java:181)
+	at org.apache.hive.service.cli.operation.Operation.run(Operation.java:257)
+	at org.apache.hive.service.cli.session.HiveSessionImpl.executeStatementInternal(HiveSessionImpl.java:419)
+	at org.apache.hive.service.cli.session.HiveSessionImpl.executeStatementAsync(HiveSessionImpl.java:406)
+	at org.apache.hive.service.cli.CLIService.executeStatementAsync(CLIService.java:274)
+	at org.apache.hive.service.cli.thrift.ThriftCLIService.ExecuteStatement(ThriftCLIService.java:486)
+	at org.apache.hive.service.cli.thrift.TCLIService$Processor$ExecuteStatement.getResult(TCLIService.java:1317)
+	at org.apache.hive.service.cli.thrift.TCLIService$Processor$ExecuteStatement.getResult(TCLIService.java:1302)
+	at org.apache.thrift.ProcessFunction.process(ProcessFunction.java:39)
+	at org.apache.thrift.TBaseProcessor.process(TBaseProcessor.java:39)
+	at org.apache.hive.service.auth.TSetIpAddressProcessor.process(TSetIpAddressProcessor.java:56)
+	at org.apache.thrift.server.TThreadPoolServer$WorkerProcess.run(TThreadPoolServer.java:285)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.8.0-internal]
+	... 1 more
+Caused by: java.lang.RuntimeException: org.apache.hadoop.hive.ql.parse.SemanticException:Line 1:16 Not yet supported place for UDAF 'COUNT'
+	at org.apache.hadoop.hive.ql.parse.TypeCheckProcFactory$DefaultExprProcessor.validateUDF(TypeCheckProcFactory.java:844)
+	at org.apache.hadoop.hive.ql.parse.TypeCheckProcFactory$DefaultExprProcessor.getXpathOrFuncExprNodeDesc(TypeCheckProcFactory.java:979)
+	at org.apache.hadoop.hive.ql.parse.TypeCheckProcFactory$DefaultExprProcessor.process(TypeCheckProcFactory.java:1316)
+	at org.apache.hadoop.hive.ql.lib.DefaultRuleDispatcher.dispatch(DefaultRuleDispatcher.java:90)
+	at org.apache.hadoop.hive.ql.lib.DefaultGraphWalker.dispatchAndReturn(DefaultGraphWalker.java:95)
+	at org.apache.hadoop.hive.ql.lib.DefaultGraphWalker.dispatch(DefaultGraphWalker.java:79)
+	at org.apache.hadoop.hive.ql.lib.DefaultGraphWalker.walk(DefaultGraphWalker.java:133)
+	at org.apache.hadoop.hive.ql.lib.DefaultGraphWalker.startWalking(DefaultGraphWalker.java:110)
+	at org.apache.hadoop.hive.ql.parse.TypeCheckProcFactory.genExprNode(TypeCheckProcFactory.java:213)
+	at org.apache.hadoop.hive.ql.parse.TypeCheckProcFactory.genExprNode(TypeCheckProcFactory.java:157)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genAllExprNodeDesc(SemanticAnalyzer.java:10507)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genExprNodeDesc(SemanticAnalyzer.java:10463)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genExprNodeDesc(SemanticAnalyzer.java:10431)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genExprNodeDesc(SemanticAnalyzer.java:10425)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genGroupByPlanMapGroupByOperator(SemanticAnalyzer.java:4628)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genGroupByPlanMapAggrNoSkew(SemanticAnalyzer.java:5723)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genBodyPlan(SemanticAnalyzer.java:8883)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genPlan(SemanticAnalyzer.java:9743)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genPlan(SemanticAnalyzer.java:9636)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.genOPTree(SemanticAnalyzer.java:10109)
+	at org.apache.hadoop.hive.ql.parse.CalcitePlanner.genOPTree(CalcitePlanner.java:329)
+	at org.apache.hadoop.hive.ql.parse.SemanticAnalyzer.analyzeInternal(SemanticAnalyzer.java:10120)
+	at org.apache.hadoop.hive.ql.parse.CalcitePlanner.analyzeInternal(CalcitePlanner.java:211)
+	at org.apache.hadoop.hive.ql.parse.BaseSemanticAnalyzer.analyze(BaseSemanticAnalyzer.java:227)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:456)
+	at org.apache.hadoop.hive.ql.Driver.compile(Driver.java:316)
+	at org.apache.hadoop.hive.ql.Driver.compileInternal(Driver.java:1181)
+	at org.apache.hadoop.hive.ql.Driver.compileAndRespond(Driver.java:1175)
+	at org.apache.hive.service.cli.operation.SQLOperation.prepare(SQLOperation.java:110)
+	... 15 more
+{code}

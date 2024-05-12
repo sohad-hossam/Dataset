@@ -1,0 +1,8 @@
+Add options through alter table in DDL does not work.
+A command like the one below fails
+
+ALTER TABLE "teiidtest" options (add cardinality 1);
+
+This fails with message:
+
+This complains that the "group" teiidtest could not be found.

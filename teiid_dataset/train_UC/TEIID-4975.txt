@@ -1,0 +1,4 @@
+Couchbase - SUBSTRING function is not translated correctly
+Teiid's SQL function SUBSTRING(x,y \[, z\]) is translated to N1QL substring(x,y \[, z\]) function, but correct N1QL function is called SUBSTR.
+
+Documentation: https://developer.couchbase.com/documentation/server/current/n1ql/n1ql-language-reference/stringfun.html#topic_8_12__fn-str-substr

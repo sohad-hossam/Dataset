@@ -1,0 +1,2 @@
+rate limit the creation of scrollable results
+Related to TEIID-2461, we should also limit the rate at which scrollable results are created.

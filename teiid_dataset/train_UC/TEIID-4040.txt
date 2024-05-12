@@ -1,0 +1,17 @@
+Representation of OData error does not contain error code.
+JSON:
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=clobval%20eq%201&$format=json
+*Actual result:* \{"error":\{"code":null,"message":"TEIID30492 Non-comparable expression of type object cannot be used in comparison: g4.clobval = ?."\}\}
+*Expected result:* "code":30492
+
+XML (in this case OData returns HTTP status code instead of error code):
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=clobval%20eq%201&$format=xml
+*Result:*
+{code:xml}
+<error>
+  <code>500</code>
+  <message>TEIID30492 Non-comparable expression of type object cannot be used in comparison: g1.clobval = ?.</message>
+</error>
+{code}
+*Expected result:*
+{code:xml}<code>:30492</code>{code}

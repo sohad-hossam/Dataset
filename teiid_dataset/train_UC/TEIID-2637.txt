@@ -1,0 +1,2 @@
+Catching exceptions in BatchIterator.more masks problems
+Depending upon the exception caught, the use of the iterator will be against nodes in an invalid state and lead to other errors.

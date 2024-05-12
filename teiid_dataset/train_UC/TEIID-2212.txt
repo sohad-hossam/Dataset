@@ -1,0 +1,15 @@
+IllegalStateException occuring during the shutdown of server when there is Dynamic VDB deployed
+{code}
+15:02:36,097 ERROR [org.jboss.as.server.deployment] JBAS015892: Deployment unit processor org.teiid.jboss.VDBDeployer@a63fe8 unexpectedly threw an exception during undeploy phase INSTALL of deployment "portfolio-vdb.xml": java.lang.IllegalStateException
+	at org.jboss.msc.value.InjectedValue.getValue(InjectedValue.java:47) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at org.teiid.jboss.TeiidAdd$VDBStatusCheckerExecutorService.getVDBRepository(TeiidAdd.java:550)
+	at org.teiid.jboss.VDBDeployer.undeploy(VDBDeployer.java:351)
+	at org.jboss.as.server.deployment.DeploymentUnitPhaseService.safeUndeploy(DeploymentUnitPhaseService.java:167) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.as.server.deployment.DeploymentUnitPhaseService.stop(DeploymentUnitPhaseService.java:161) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+	at org.jboss.msc.service.ServiceControllerImpl$StopTask.stopService(ServiceControllerImpl.java:1911) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at org.jboss.msc.service.ServiceControllerImpl$StopTask.run(ServiceControllerImpl.java:1874) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_33]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_33]
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_33]
+
+{code}

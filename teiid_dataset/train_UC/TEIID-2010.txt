@@ -1,0 +1,2 @@
+Remove unused translator supports.
+supportsBetweenCriteria and supportsCaseExpression are not used and should be removed to prevent confusion.

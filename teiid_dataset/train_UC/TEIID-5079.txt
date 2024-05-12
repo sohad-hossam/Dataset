@@ -1,0 +1,7 @@
+Salesforce issues
+In looking into other issue two small salesforce issues cropped up:
+
+1. setting modelAuditFields requires using the translator property - the import property is ignored.  This also doesn't seem to be documented.
+
+2. Creating a join where fields are omitted from the child result in a malformed query:
+SELECT Account.Name FROM Account LEFT OUTER JOIN Contact ON Account.Id = Contact.AccountId

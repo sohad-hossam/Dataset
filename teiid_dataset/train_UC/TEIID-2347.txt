@@ -1,0 +1,2 @@
+Inherently updatable view validation fails with ddl metadata
+Depending upon the vdb structure an inherently updatable view may cause an exception during validation since the foreign keys are not yet resolved.

@@ -1,0 +1,10 @@
+Error executing the Procedural releational query with out a where clause
+I have virtual stored procedure called "p1" which has no input parameters.  When I execute this procedure either via
+
+select * from p1;
+
+in both cases it fails with error
+
+Group has an access pattern which has not been met: group(s) [vm.p1]; access pattern(s) [Access Pattern: Unsatisfied [] History [[]]]
+
+Procedures with no input parameters should not be tested for Access patterns.

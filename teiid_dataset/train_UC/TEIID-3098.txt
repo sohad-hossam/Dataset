@@ -1,0 +1,2 @@
+allow pushdown functions to be used by designer import
+allow pushdown functions to be schema scoped or some other mechanism for the purpose of designer metadata import.  If schema scoped, this will require supporting logic that such functions when imported for multiple sources will not be seen as duplicates.

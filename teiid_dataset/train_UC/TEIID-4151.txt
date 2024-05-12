@@ -1,0 +1,62 @@
+AssertionError: Delete failed
+When using a query like 
+insert into #CaresequencesDaily 
+some large select;
+
+delete
+from #CaresequencesDaily 
+where datum < (select cast(startime as date)  from #period);
+
+delete
+from #CaresequencesDaily 
+where datum > (select cast(endtime as date)  from #period);
+
+We get the following exception on the execution of the second delete query. It seems it does not matter in what order the delete queries are executed.
+
+Unexpected exception for request lMZm1kGe28/C.24: java.lang.AssertionError: Delete failed
+        at org.teiid.query.tempdata.TempTable.deleteTuple(TempTable.java:801) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTable.access$500(TempTable.java:83) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTable$2.tuplePassed(TempTable.java:775) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTable$UpdateProcessor.process(TempTable.java:257) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTable.delete(TempTable.java:783) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTableDataManager$1.createTupleSource(TempTableDataManager.java:242) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.tempdata.TempTableDataManager$ProxyTupleSource.nextTuple(TempTableDataManager.java:109) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:369) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:457) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:339) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:267) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.11.3.jar:8.11.3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.11.3.jar:8.11.3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_60]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_60]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_60]
+
+I've tried to create a reproducable example but this doesn't throw the exception. It might be helpfull to understand what is goiing on.
+
+insert into #tmp_params
+select parsetimestamp('2016-04-01','yyyy-MM-dd') as starttime, parsetimestamp('2016-04-15','yyyy-MM-dd') as endtime;
+
+insert into #tmp_dates
+select cast(parsetimestamp('2016-03-20','yyyy-MM-dd') as date) as datum, 'somevalue' as somevalue
+UNION select cast(parsetimestamp('2016-04-02','yyyy-MM-dd') as date) as datum, 'somevalue' as somevalue
+UNION select cast(parsetimestamp('2016-04-20','yyyy-MM-dd') as date) as datum, 'somevalue' as somevalue;
+
+delete
+from #tmp_dates
+where datum > (select cast(endtime as date) from #tmp_params);
+
+--error is thrown when executing this second statement
+delete
+from #tmp_dates
+where datum < (select cast(starttime as date) from #tmp_params);
+
+select *
+from #tmp_dates

@@ -1,0 +1,6 @@
+couchbase translator should support upsert and batch insert
+* As [1], "Inserting Values Using Prepared Statements" and "Performing Bulk Inserts" hints batch update are support
+* [2] is for upsert
+
+[1] https://developer.couchbase.com/documentation/server/4.5/n1ql/n1ql-language-reference/insert.html
+[2] https://developer.couchbase.com/documentation/server/4.5/n1ql/n1ql-language-reference/upsert.html

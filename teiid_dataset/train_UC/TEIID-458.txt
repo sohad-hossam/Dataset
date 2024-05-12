@@ -1,0 +1,2 @@
+Admin api server discovery should cache cluster information
+See also TEIID-190.  Our prior comm layer cached cluster information, this one should do the same to prevent excessive calls and to perform active discovery. 

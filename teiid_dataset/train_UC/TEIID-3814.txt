@@ -1,0 +1,7 @@
+Rest Web Service URL for VDB
+Exposing a Teiid Procedure as Rest Service the url, as defined in 
+https://docs.jboss.org/author/display/teiid812final/REST+Service+Through+VDB as
+
+http://{host}:8080/sample_1/view/g1/123
+
+"view" must be in lower case in order to be accepted, even if it is been created with capital letters.

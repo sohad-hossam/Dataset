@@ -1,0 +1,4 @@
+Allow any collection type to be source of OBJECTTABLE
+Currently Object table either accepts a single object or iterator/iterable as source to parse into results. This should be expanded to allow all collection types.
+
+Same could be said for SYS.ArrayIterate procedure.

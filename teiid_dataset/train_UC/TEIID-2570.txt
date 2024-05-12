@@ -1,0 +1,2 @@
+blocked code lookup needs to consider key value
+TEIID-2507 allowed lookups to block but introduced an issue.  In rare circumstances, such as accessing a code table for the first time from two branches of a union such that a lookup of one value is performed in the first branch and a lookup of another value is performed in the second branch, the same value could be returned for each.  Subsequent lookups would not exhibit the same behavior.

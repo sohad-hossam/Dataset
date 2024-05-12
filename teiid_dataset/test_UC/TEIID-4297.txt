@@ -1,0 +1,46 @@
+Add UDF functions based on OSDQ for POC
+Please add following UDF functions to Teiid library based on maven module
+ http://search.maven.org/#search%7Cga%7C1%7Carrahtec
+
+The UDF functions needs to from this class below
+{code}
+public class Maskutil {
+    /**
+     * @param a
+     *  The string that need to randomize
+     *   vivek singh' will become 'ihg vkeivh'
+     */
+    public static String toRandomValue(String a) {
+        return ShuffleRTM.shuffleString(a);
+    }
+
+    /**
+     * @param a
+     * This function will retrun MD5 hashcode of the string
+     * @return String
+     */
+    public static String toHashValue(String a) {
+        if (a == null)
+            return "d41d8cd98f00b204e9800998ecf8427e"; // null MD5 value
+        return ResultsetToRTM.getMD5(a).toString();
+    }
+
+    /**
+     * @param a
+     * This function will return digit characters of the string
+     * @return
+     * 
+     */
+    public static String toDigitValue(String a) {
+        return StringCaseFormatUtil.digitString(a);
+    }
+}
+{code}
+
+for example Teiid should have UDF functions like
+
+{code}
+string random(string)
+string hash(string)
+string digit(string)
+{code}

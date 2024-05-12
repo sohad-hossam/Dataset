@@ -1,0 +1,2 @@
+Select node final empty batch not reindexed
+The select node was just returning empty batches, however this does not account for the tuple batch offsets that are based upon the batches pulled from the node.

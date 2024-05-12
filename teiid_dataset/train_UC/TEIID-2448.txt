@@ -1,0 +1,2 @@
+Oracle driver translation error
+Even procedures without resultsets have ?= added to them by the Oracle translator when it assumes the oracle driver is being used (the default).  This will lead to a source error complaining that the function cannot be found.

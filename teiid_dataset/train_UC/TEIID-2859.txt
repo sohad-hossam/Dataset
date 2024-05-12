@@ -1,0 +1,11 @@
+Provide identity generation for TEXTTABLE and OBJECTTABLE
+Extend the functionality FOR ORDINALITY defined on XMLTABLE, to TEXTTABLE and OBJECTTABLE.
+
+This will useful in providing a automatic identity key if the data is being read from sources where there is identity column provided. The faced the issue when loading a text file like
+
+{code}
+VA,F,1910,Mary,848
+VA,F,1911,Mary,747
+{code}
+
+Where name each line is a separate row, but they do not have unique identifier attached with them. Also helpful with interfaces like OData where they require a PK on a table. This provides an easier alternative.

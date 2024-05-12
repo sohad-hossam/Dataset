@@ -1,0 +1,2 @@
+endswith defined with wrong return type
+The ends with function is marked as returning string instead of boolean.  Also there is inconsistent accounting for parameter ordering in the odata logic.

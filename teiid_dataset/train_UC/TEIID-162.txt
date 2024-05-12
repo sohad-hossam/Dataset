@@ -1,0 +1,2 @@
+Delete and update support in temp table
+Defect Tracker #23925: Delete and update are currently not supported in temp table.

@@ -1,0 +1,10 @@
+Vertica and DB2 translators use incorrect push down of WEEK function
+TEIID-3282 changed the semantics of the WEEK function to use the iso behaviour.
+
+The Vertica database has WEEK_ISO function that returns the iso week, but the translator does not have that alias set.
+
+This results in the query (the datevalue in question is 2000-12-31)
+{code:sql}
+select week(datevalue) from source.largea where intkey = 365
+{code} 
+to return 54, when the correct value is 52.

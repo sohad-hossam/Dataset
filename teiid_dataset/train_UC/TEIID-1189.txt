@@ -1,0 +1,2 @@
+JOPR support for multiple versions
+In working the parent issue we needed to update the component names of vdbs to vdb.version so that individual versions could be looked up.  We could see that multiple versions were discovered, but the summary display still just showed a single version.

@@ -1,0 +1,38 @@
+Teiid OData Servlet throws java.lang.NullPointerException on every GET
+A simple GET on any Teiid 8.3 or 8.4 OData ReST resource results in a Null Pointer:
+11:43:20,166 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/odata].[Resteasy]] (http-localhost-127.0.0.1-8080-2)  Servlet.service() for servlet Resteasy threw exception: java.lang.NullPointerException
+	at com.ctc.wstx.sw.BaseStreamWriter.writeCharacters(BaseStreamWriter.java:447)
+	at org.codehaus.stax2.ri.Stax2EventWriterImpl.add(Stax2EventWriterImpl.java:124)
+	at org.odata4j.stax2.staximpl.StaxXMLWriter2.writeText(StaxXMLWriter2.java:108) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at org.odata4j.format.xml.AtomErrorFormatWriter.writeError(AtomErrorFormatWriter.java:31) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at org.odata4j.format.xml.AtomErrorFormatWriter.write(AtomErrorFormatWriter.java:20) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at org.odata4j.format.xml.AtomErrorFormatWriter.write(AtomErrorFormatWriter.java:15) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at org.teiid.odata.ODataExceptionMappingProvider.toResponse(ODataExceptionMappingProvider.java:55) [classes:]
+	at org.teiid.odata.ODataExceptionMappingProvider.toResponse(ODataExceptionMappingProvider.java:42) [classes:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.executeExceptionMapper(SynchronousDispatcher.java:344) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.unwrapException(SynchronousDispatcher.java:373) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.handleApplicationException(SynchronousDispatcher.java:362) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.handleException(SynchronousDispatcher.java:233) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.handleInvokerException(SynchronousDispatcher.java:209) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.getResponse(SynchronousDispatcher.java:557) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:524) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:126) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.teiid.odata.ODataServletContainerDispatcher.service(ODataServletContainerDispatcher.java:97) [classes:]
+	at org.teiid.odata.ODataServlet.service(ODataServlet.java:61) [classes:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:50) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.0.Final.jar:1.0.0.Final]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:489) [jbossweb-7.0.13.Final.jar:]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:153) [jboss-as-web-7.1.1.Final.jar:7.1.1.Final]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:368) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:671) [jbossweb-7.0.13.Final.jar:]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:930) [jbossweb-7.0.13.Final.jar:]
+	at java.lang.Thread.run(Unknown Source) [rt.jar:1.7.0_17]
+

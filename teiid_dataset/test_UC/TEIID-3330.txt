@@ -1,0 +1,2 @@
+Add relational node id to plans to match debug log
+The processing plans would match up better with the debug log if the node id for relational plans were also included in the plan.

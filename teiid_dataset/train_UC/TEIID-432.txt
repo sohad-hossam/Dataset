@@ -1,0 +1,123 @@
+mmadmin assign / deassignBindingFromModel fails with AdminComponentException
+I'm testing for NIAP CCE and ran into this. Seems pretty consistent.
+
+Here's the command I give and the exception I receive.
+
+deassignBindingFromModel("Books_O9i","BooksWebService_VDB","1","Books_SourceA");
+// Error: // Uncaught Exception: Method Invocation deassignBindingFromModel : at Line: 193 : in file: URL: jar:file:/home/pnittel/mmx/553test/tools/lib/mmadmin.jar!/scripts/serveradmin.bsh : .deassignBindingFromModel ( connectorBindingName , vdbName , vdbVersion , modelName ) 
+
+Called from method: deassignBindingFromModel : at Line: 1 : in file: <unknown file> : deassignBindingFromModel ( "Books_O9i" , "BooksWebService_VDB" , "1" , "Books_SourceA" ) 
+Target exception: com.metamatrix.admin.api.exception.AdminComponentException: Unexpected exception while performing Admin operation:
+
+com.metamatrix.admin.api.exception.AdminComponentException: Unexpected exception while performing Admin operation:
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingsFromModel(ServerConfigAdminImpl.java:1725)
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingFromModel(ServerConfigAdminImpl.java:1599)
+	at com.metamatrix.admin.server.ServerAdminImpl.deassignBindingFromModel(ServerAdminImpl.java:758)
+	at sun.reflect.GeneratedMethodAccessor53.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.SecureTerminalServiceInterceptor.invoke(SecureTerminalServiceInterceptor.java:45)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.AdminAuthorizationInterceptor.invoke(AdminAuthorizationInterceptor.java:73)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.core.proxy.ServerSecurityServiceInterceptor.invoke(ServerSecurityServiceInterceptor.java:23)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:109)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:51)
+
+
+If you use the assignBindingToModel, you get:
+assignBindingToModel("Books_O9i","BooksWebService_VDB","1","Books_SourceA");
+// Error: // Uncaught Exception: Method Invocation assignBindingToModel : at Line: 226 : in file: URL: jar:file:/home/pnittel/mmx/553test/tools/lib/mmadmin.jar!/scripts/adminapi.bsh : .assignBindingToModel ( connectorBindingName , vdbName , vdbVersion , modelName ) 
+
+Called from method: assignBindingToModel : at Line: 1 : in file: <unknown file> : assignBindingToModel ( "Books_O9i" , "BooksWebService_VDB" , "1" , "Books_SourceA" ) 
+Target exception: com.metamatrix.admin.api.exception.AdminComponentException: Unexpected exception while performing Admin operation:
+
+com.metamatrix.admin.api.exception.AdminComponentException: Unexpected exception while performing Admin operation:
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.assignBindingsToModel(ServerConfigAdminImpl.java:1652)
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.assignBindingToModel(ServerConfigAdminImpl.java:1586)
+	at com.metamatrix.admin.server.ServerAdminImpl.assignBindingToModel(ServerAdminImpl.java:747)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.SecureTerminalServiceInterceptor.invoke(SecureTerminalServiceInterceptor.java:45)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.AdminAuthorizationInterceptor.invoke(AdminAuthorizationInterceptor.java:73)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.core.proxy.ServerSecurityServiceInterceptor.invoke(ServerSecurityServiceInterceptor.java:23)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:109)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)
+
+On the server side of things, here's what you get:
+Mar 17, 2009 11:39:08.077 [SocketWorkerQueue_Worker_23|0] INFO <AUDIT_ADMIN|0> Administrator [metamatrixadmin], session [1129] requesting access which requires role [Admin.SystemAdmin] to method [deassignBindingFromModel].
+Mar 17, 2009 11:39:08.077 [SocketWorkerQueue_Worker_23|0] INFO <AUDIT_ADMIN|0> Administrator [metamatrixadmin], session [1129] granted access to method [deassignBindingFromModel].
+Mar 17, 2009 11:39:08.080 [SocketWorkerQueue_Worker_23|0] ERROR <ADMIN|0> Unexpected exception while performing Admin operation:
+java.lang.NullPointerException
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingsFromModel(ServerConfigAdminImpl.java:1725)
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingFromModel(ServerConfigAdminImpl.java:1599)
+	at com.metamatrix.admin.server.ServerAdminImpl.deassignBindingFromModel(ServerAdminImpl.java:758)
+	at sun.reflect.GeneratedMethodAccessor53.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.SecureTerminalServiceInterceptor.invoke(SecureTerminalServiceInterceptor.java:45)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.AdminAuthorizationInterceptor.invoke(AdminAuthorizationInterceptor.java:73)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.core.proxy.ServerSecurityServiceInterceptor.invoke(ServerSecurityServiceInterceptor.java:23)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:109)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)
+Mar 17, 2009 11:39:08.081 [SocketWorkerQueue_Worker_23|0] WARNING <com.metamatrix.common.comm|0> Unexpected exception while performing Admin operation:
+com.metamatrix.admin.api.exception.AdminComponentException: Unexpected exception while performing Admin operation:
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingsFromModel(ServerConfigAdminImpl.java:1725)
+	at com.metamatrix.admin.server.ServerConfigAdminImpl.deassignBindingFromModel(ServerConfigAdminImpl.java:1599)
+	at com.metamatrix.admin.server.ServerAdminImpl.deassignBindingFromModel(ServerAdminImpl.java:758)
+	at sun.reflect.GeneratedMethodAccessor53.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.SecureTerminalServiceInterceptor.invoke(SecureTerminalServiceInterceptor.java:45)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.AdminAuthorizationInterceptor.invoke(AdminAuthorizationInterceptor.java:73)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.core.proxy.ServerSecurityServiceInterceptor.invoke(ServerSecurityServiceInterceptor.java:23)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:109)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)
+
+
+
+Probably not critical for NIAP since it throws the right exception if the user doesn't have SystemAdmin.

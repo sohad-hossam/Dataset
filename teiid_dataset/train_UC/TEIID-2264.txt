@@ -1,0 +1,4 @@
+Parameter replacement for an update statement is not happening for set clause.
+With a prepared updated using an instead of trigger the param value is not passed to the source query resulting in:
+
+Caused by: java.sql.SQLException: Remote org.h2.jdbc.JdbcSQLException: Serialization failed, cause: "java.io.NotSerializableException: org.teiid.query.sql.symbol.Reference" [90026-161]

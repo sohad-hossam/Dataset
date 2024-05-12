@@ -1,0 +1,2 @@
+Add support for primary key handling in temp tables
+We should add support for primary keys in our temp tables.   With indexing, this support will also be used as the basis for our intermediate view level caching.

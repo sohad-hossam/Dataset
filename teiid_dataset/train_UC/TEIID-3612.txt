@@ -1,0 +1,4 @@
+NPE in connectorworkitem after close
+An NPE can occur if the connectorworkitem has pending asynch more work that is cancelled, but still runs.  Then the logic to call close (which is added as a completion listener and effectively executed immediately as the work will report isDone=true) can occur before the pending call to next.
+
+We should have an explicit check in more to prevent seeing the exception.

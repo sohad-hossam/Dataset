@@ -1,0 +1,8 @@
+add cassandra failed message in server start up
+I use the upstream source to test mongo java driver and found a error message in server start up:
+{code}
+18:09:02,436 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 50)  WFLYCTL0013: Operation ("add") failed - address: ([
+    ("subsystem" => "resource-adapters"),
+    ("resource-adapter" => "cassandra")
+]) - failure description: "WFLYJCA0073: Failed to load module for RA [org.jboss.teiid.resource-adapter.cassandra]"
+{code}

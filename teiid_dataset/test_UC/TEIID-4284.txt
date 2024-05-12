@@ -1,0 +1,3 @@
+Implement Salesforce Bulk API for SELECTS to Salesforce Connector
+There is some huge data (many GBs) in the Salesforce which has around 1.5 million rows and doing some simple select * on it fails with QUERY_TIMEOUT.  
+The salesforce guys suggested to try Bulk API for select with PK chunking as stated in https://developer.salesforce.com/docs/atlas.en-us.api_asynch.meta/api_asynch/asynch_api_code_curl_walkthrough_pk_chunking.htm . 

@@ -1,0 +1,6 @@
+Change the default for command logging to write User query (start/end)
+The command logging currently writes the user query and the source queries.  Would like to have multiple levels for command logging, example:
+
+-  default, log the user query start and end entry
+
+-  debug, log the use query and the source queries

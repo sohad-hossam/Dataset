@@ -1,0 +1,14 @@
+MongoDB:  Getting "unrecognized field \"cursor" when connecting to MongoDB 2.4.8 using Teiid 8.9.1
+I am getting the following erroe when connecting to MongoDB using Teiid 8.9.1: 
+
+Caused by: com.mongodb.CommandFailureException: { "serverUsed" : "donetsk:27017" , "ok" : 0.0 , "errmsg" : "unrecognized field \"cursor"}
+
+        at com.mongodb.CommandResult.getException(CommandResult.java:76)
+
+        at com.mongodb.CommandResult.throwOnError(CommandResult.java:131)
+
+        at com.mongodb.DBCollectionImpl.aggregate(DBCollectionImpl.java:100)
+
+        at com.mongodb.DBCollection.aggregate(DBCollection.java:1571)
+
+        at org.teiid.translator.mongodb.MongoDBQueryExecution.execute(MongoDBQueryExecution.java:111)

@@ -1,0 +1,2 @@
+Translator import of google spreadsheet not updatable
+Only the table and not the columns of the spreadsheet were marked as updatable.

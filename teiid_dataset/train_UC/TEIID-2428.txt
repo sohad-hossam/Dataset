@@ -1,0 +1,38 @@
+Sybase15 - jconn4-26502 driver behaviour causes exception in Teiid server
+If the following queries are all submitted several times against a Teiid 8.3 Beta3 server eventually the following exception will be produced and the sybase source becomes unresponsive to additional queries.
+
+SELECT INTKEY FROM BQT1.SmallA ORDER BY INTKEY LIMIT 45, 10;
+SELECT INTKEY FROM BQT1.SmallA ORDER BY INTKEY LIMIT 50, 10;
+SELECT INTKEY FROM BQT1.SmallA ORDER BY INTKEY LIMIT 55, 10;
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY OFFSET 45 ROWS;
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY FETCH FIRST ROW ONLY;
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY FETCH FIRST 5 ROW ONLY;
+SELECT INTKEY FROM bqt1.smalla ORDER BY INTKEY FETCH FIRST 5 ROWS ONLY;
+
+Further analysis by engineering (using the above queries) has revealed that with asynch processing the close of one resultset can cause a null pointer exception for a different resultset close (that's on a different connection!) This behavior was found in jconn3 and jconn4 drivers.
+
+Log Exception:
+17:29:47,203 WARN  [org.teiid.CONNECTOR] (Worker23_QueryProcessorQueue16357) Connector worker process failed for atomic-request=7d35ZSARrCwK.2906.1.3307: org.teiid.translator.TranslatorException: Unexpected exception while translating results: The result set is closed.
+	at org.teiid.translator.jdbc.JDBCQueryExecution.next(JDBCQueryExecution.java:108)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:316) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:141) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:467) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:178) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:175) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0]
+	at org.teiid.dqp.internal.process.DQPCore$FutureWork.run(DQPCore.java:120) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:253) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:123) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:298) [teiid-engine-8.3.0.Beta3-SNAPSHOT.jar:8.3.0.Beta3-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0]
+Caused by: java.sql.SQLException: The result set is closed.
+	at org.jboss.jca.adapters.jdbc.WrappedResultSet.checkState(WrappedResultSet.java:4081)
+	at org.jboss.jca.adapters.jdbc.WrappedResultSet.getInt(WrappedResultSet.java:1044)
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.retrieveValue(JDBCExecutionFactory.java:867)
+	at org.teiid.translator.jdbc.sybase.BaseSybaseExecutionFactory.retrieveValue(BaseSybaseExecutionFactory.java:118)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.next(JDBCQueryExecution.java:101)
+	... 14 more
+

@@ -1,0 +1,2 @@
+Update to work with JBoss AS 7.1-Final
+Update the Teiid trunk build to use the JBoss AS 7.1.0-Final

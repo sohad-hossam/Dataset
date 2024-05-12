@@ -1,0 +1,4 @@
+Error with INSERT using a query expression
+INSERT INTO tbl SELECT * FROM other
+
+Against a source that supports insert with query expression will fail with: org.teiid.query.sql.symbol.AllSymbol cannot be cast to org.teiid.query.sql.symbol.SingleElementSymbol

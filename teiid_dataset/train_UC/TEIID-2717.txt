@@ -1,0 +1,12 @@
+Issues with unrelated sort over a union
+Related to https://community.jboss.org/thread/233978 a query such as:
+
+select e1 || 'a' from (select e1, e2 from pm1.g1 union select e1, e2 from pm1.g2) as x order by e2 || 'b'
+
+will fail to plan and throw TEIID30259.  The issue is that the unrelated sort item should still be an expression symbol, otherwise the assign output logic assumes that it is a must pushdown function.
+
+Also the simpler form without an unrelated expression:
+
+select e1 || 'a' from (select e1, e2 from pm1.g1 union select e1, e2 from pm1.g2) as x order by e2
+
+can have the dup remove and the sort operations combined.

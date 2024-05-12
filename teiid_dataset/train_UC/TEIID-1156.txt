@@ -1,0 +1,4 @@
+Description fields for UDF Model objects are limited to 128 characters
+While setting descriptions for the SalesForce UDF functions, I received validation errors stating that: "Description exceeds maximum length of: 128"
+
+The com.metamatrix.query.function.metadata.FunctionMetadataValidator class has a hard-coded limit of 128.  Noone seems to know why??

@@ -1,0 +1,4 @@
+NPE with proc relational query
+A proc relational query using a table function or other source without an access node will fail with an NPE, for example:
+
+select param1, param2, e1, e2 from pm1.vsp26 as x, texttable('abc' columns a string) as y where param1=1 and param2='a'

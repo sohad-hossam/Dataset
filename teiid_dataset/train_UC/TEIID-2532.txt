@@ -1,0 +1,2 @@
+When the Infinisan connector obtains the cache needs to be corrected
+The Infinispan connector needs to change when its obtaining the cache.  Its currently only trying to get the cache from JNDI one time, but will change it to obtain it each time a connection is obtained.

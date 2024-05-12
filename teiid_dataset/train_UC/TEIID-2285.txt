@@ -1,0 +1,4 @@
+Enhance Loopback Translator to retrieve custom data
+Loopback Translator was identified as suitable way of testing Teiid engine performance. It would be nice if the Translator would mimic database behavior better in some aspects:
+* Possibility to define what data will be retrieved in the columns
+* Possibility of Unique data in column to mimic database generator

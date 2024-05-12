@@ -1,0 +1,2 @@
+Use the term local consistently
+To not have confusion with Teiid embedded, we should use the term local consistently to refer to the in-vm connections.  This means updating the docs/config and renaming the embeddedprofile to localprofile.

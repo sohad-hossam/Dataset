@@ -1,0 +1,2 @@
+STRING_AGG should not be decomposable
+AggregateSymbol.canStage is returning true for string_agg - even though that is not correct, which can lead to an arrayindexoutofbounds exception when evaluating the final value based upon the partial as no separator will be in the tuple.

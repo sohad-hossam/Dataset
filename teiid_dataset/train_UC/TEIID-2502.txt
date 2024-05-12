@@ -1,0 +1,16 @@
+Oracle Struct Serialization Error
+I'm issuing a query (a simple select * from table) on a VDB's table that contains a geometric column from oracle spatial.
+I'm getting the following error in SquirrelSQL
+
+Error: org.teiid.net.socket.SingleInstanceCommunicationException
+SQLState:  08S01
+ErrorCode: 0
+
+Afterwards the connection is broken and I cannot access any other table and have to reconnect since I get:
+Error: Error Code:TEIID20013 Message:Error Code:TEIID20013 Message:java.net.SocketException: Socket closed
+SQLState:  TEIID20013
+ErrorCode: 0
+
+I'm trying to access a SDO table and a geometry type column, but hoped that TEIID could read it as a BLOB without caring about the real type.
+Probably it doesn't like it too much.
+

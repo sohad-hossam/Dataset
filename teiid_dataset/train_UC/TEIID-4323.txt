@@ -1,0 +1,7 @@
+Add support for first/last/absolute/relative "FETCH " syntax
+Add Support for the below FETCH syntax:
+
+FETCH LAST FROM cursor_name
+FETCH ABSOLUTE fetch_when FROM cursor_name
+FETCH RELATIVE fetch_when FROM cursor_name
+FETCH FIRST FROM cursor_name

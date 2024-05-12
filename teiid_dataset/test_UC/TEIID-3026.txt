@@ -1,0 +1,17 @@
+NPE using Excel translator
+{code}
+10:48:26,620 WARN  [org.teiid.RUNTIME] (teiid-async-threads - 3)  TEIID50036 VDB importVDB.1 model "importVDBSrcModel" metadata failed to load. Reason:java.lang.NullPointerException: java.lang.NullPointerException
+	at org.teiid.translator.excel.ExcelMetadataProcessor.addTable(ExcelMetadataProcessor.java:106)
+	at org.teiid.translator.excel.ExcelMetadataProcessor.process(ExcelMetadataP
+rocessor.java:87)
+	at org.teiid.translator.excel.ExcelMetadataProcessor.process(ExcelMetadataProcessor.java:45)
+	at org.teiid.translator.ExecutionFactory.getMetadata(ExecutionFactory.java:915) [teiid-api-8.7.0.Final.jar:8.7.0.Final]
+	at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:73) [teiid-engine-8.7.0.Final.jar:8.7.0.Final]
+	at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55) [teiid-engine-8.7.0.Final.jar:8.7.0.Final]
+	at org.teiid.jboss.VDBService$6.run(VDBService.java:395) [teiid-jboss-integration-8.7.0.Final.jar:8.7.0.Final]
+	at org.teiid.jboss.VDBService$7.run(VDBService.java:442) [teiid-jboss-integration-8.7.0.Final.jar:8.7.0.Final]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895) [rt.jar:1.6.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918) [rt.jar:1.6.0_45]
+	at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_45]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+{code}

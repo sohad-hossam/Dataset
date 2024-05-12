@@ -1,0 +1,2 @@
+FunctionMethods don't set datatypes
+Several methods of adding a FunctionMethod to the metadata do not set the Datatype - which is an issue if DDL is generated, then a NPE is generated.  

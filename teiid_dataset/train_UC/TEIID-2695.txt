@@ -1,0 +1,24 @@
+Unable to use CASE statement in Select
+Trying to add a <mask> of:
+
+<permission>
+      <resource-name>Stocks.StockPrices.Price</resource-name>
+     <mask>CASE WHEN hasRole('prices') THEN Price END</mask>
+ </permission>
+
+even tried using "= true" just to see
+
+but it it always returns null for Prices.
+
+To test it, I logged in as 'user' using CommandLog vdb and issued:
+
+Select VDB, CASE WHEN hasRole('prices') THEN 'Y' Else 'N' END as V from TEIID_COMMANDLOG
+
+and 'N' was always returned for column V.
+
+teiid roles file:
+# A roles.properties file for use with the UsersRolesLoginModule
+# username=role1,role2
+portfolio=superuser
+viewonly=readonly
+user=user,prices

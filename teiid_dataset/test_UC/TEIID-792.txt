@@ -1,0 +1,2 @@
+Index connector does not accept certian criteria forms
+The index connector (and possible others) support equals and like, but only if the right expression is a literal.  If the right expression is a symbol (i.e. select * from tables where name = fullname), then we'll get a npe.

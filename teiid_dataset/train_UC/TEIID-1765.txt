@@ -1,0 +1,2 @@
+Incorrect comparison method in CancellationTimer
+The comparison logic is invalid, which can lead to the queue retaining an entry and thus getting into a busy loop.

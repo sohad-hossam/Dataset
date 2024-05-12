@@ -1,0 +1,11 @@
+Remove the use of Teiid specific JDBC extensions
+The JDBC extensions need to have their functionality provided by alternative means to still work in other scenarios (such as odbc).
+
+At a minimum we should remove:
+DatabaseMetaData - schemas should be available via a system procedure getXMLSchemas that returns the results as SQLXMLs.  This also fixes potential memory issues with retrieving lots of schemas.
+Connection - vdbversion will probably go away and is available via the system tables
+ResultSet - processing times are now local to the client, if they want to track timings then they can use a spy driver, stopwatch code, etc.
+ResultSetMetaData - the vdb name is already accessible through the system tables and through the standard connection method getCatalog.  the number of parameters should be coming from parametermetadata (not yet implemented)
+
+Statement will take some more thought.  We may want to move the xslt processing off to a system function similar to http://publib.boulder.ibm.com/infocenter/db2luw/v9r5/index.jsp?topic=/com.ibm.db2.luw.sql.ref.doc/doc/r0050650.html.  The other functionality will be hard to move as well.
+

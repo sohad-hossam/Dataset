@@ -1,0 +1,2 @@
+Increase audit information
+AuditMessages should include the Session object and the request id, so that custom logging can access additional information.  login events should also capture more detail including IP (and possibly MAC), etc.

@@ -1,0 +1,2 @@
+Insert with multiple values doesn't allow subqueries
+Since multiple values are converted into a union all at parsing time, the validator will not allow subqueries.

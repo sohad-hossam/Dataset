@@ -1,0 +1,2 @@
+Be more selective as to what are created as bind variables
+It is desirable for user entered literals to not be handled as bind variables since the plans generated will be more amenable to optimization.

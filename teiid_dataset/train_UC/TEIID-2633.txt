@@ -1,0 +1,2 @@
+Criteria is assumed needed when no other predicates determined during RuleRaiseAccess
+CanRaiseOverJoin method needs optimization in RuleRaiseAccess.java.  A pushed join is assumed to need criteria based upon lack of predicates.

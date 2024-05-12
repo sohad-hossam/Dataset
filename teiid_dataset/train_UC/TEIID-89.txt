@@ -1,0 +1,2 @@
+Data roles should account for the ability to create temp tables
+Defect Tracker #24698: Data roles should account for creating temp tables.  Right now all temp table creation is allowed.

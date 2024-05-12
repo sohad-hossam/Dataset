@@ -1,0 +1,2 @@
+Sybase/SQL Server translator varchar length incorrect
+The teiid string type is being mapped to varchar(40) - it should be varchar(4000).

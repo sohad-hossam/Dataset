@@ -1,0 +1,16 @@
+ModeShape ExecutionFactory.getMetadata fails with java.sql.SQLFeatureNotSupportedException
+When trying to use the Teiid Designer feature of importing using a Teiid Connection fails when the connection is to ModeShape.  The following exception:
+
+08:33:44,914 ERROR [stderr] (teiid-async-threads - 2) java.sql.SQLFeatureNotSupportedException
+08:33:44,915 ERROR [stderr] (teiid-async-threads - 2) 	at org.modeshape.jdbc.JcrMetaData.getTypeInfo(JcrMetaData.java:1656)
+08:33:44,915 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:107)
+08:33:44,915 INFO  [org.jboss.as.server] (management-handler-thread - 4) JBAS018559: Deployed "importVDB-vdb.xml" (runtime-name : "importVDB-vdb.xml")
+08:33:44,916 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.translator.jdbc.modeshape.ModeShapeExecutionFactory.getMetadata(ModeShapeExecutionFactory.java:280)
+08:33:44,916 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.translator.jdbc.modeshape.ModeShapeExecutionFactory.getMetadata(ModeShapeExecutionFactory.java:62)
+08:33:44,916 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:61)
+08:33:44,917 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55)
+08:33:44,917 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.jboss.VDBService$6.run(VDBService.java:397)
+08:33:44,917 ERROR [stderr] (teiid-async-threads - 2) 	at org.teiid.jboss.VDBService$7.run(VDBService.java:444)
+08:33:44,918 ERROR [stderr] (teiid-async-threads - 2) 	at org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33)
+
+My guess is the local modeshape jdbc driver hasn't been fully vetted in this area, as the remote JDBC version has been the one used when using the Modeshape eclipse plugin for importing the metadata.

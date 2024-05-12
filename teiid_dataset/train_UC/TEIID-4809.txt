@@ -1,0 +1,6 @@
+lob performance issues
+Issues:
+
+We should not be recomputing clob hashes.
+The lob chunk logic is not guaranteed to fill the buffer.
+The CharSequence logic for non-random access lobs is inefficient

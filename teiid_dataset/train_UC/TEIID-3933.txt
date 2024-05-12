@@ -1,0 +1,46 @@
+Accumulo translator: problem comparing number literals
+When accessing Accumulo instance using accumulo translator with table DDL defined in the model's metadata, there are problems filtering the output in from clause.
+For example, when there is a comparison between a column of type long with literal value 3, an exception, whose cause is below, is thrown on accumulo's side:
+{code:sql}
+SELECT * FROM accumulo.SmallA WHERE LongNum>3
+{code}
+{code:plain}
+Caused by: java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Long
+          at java.lang.Long.compareTo(Long.java:50)
+          at org.teiid.query.sql.symbol.Constant$2.compare(Constant.java:99)
+          at org.teiid.query.eval.Evaluator.compare(Evaluator.java:645)
+          at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:373)
+          at org.teiid.query.eval.Evaluator.internalEvaluateTVL(Evaluator.java:237)
+          at org.teiid.query.eval.Evaluator.evaluateTVL(Evaluator.java:226)
+          at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:220)
+          at org.teiid.translator.accumulo.EvaluatorIterator.acceptRow(EvaluatorIterator.java:229)
+          at org.teiid.translator.accumulo.EvaluatorIterator.filter(EvaluatorIterator.java:184)
+          at org.teiid.translator.accumulo.EvaluatorIterator.prepKeys(EvaluatorIterator.java:180)
+          at org.teiid.translator.accumulo.EvaluatorIterator.seek(EvaluatorIterator.java:159)
+          at org.apache.accumulo.core.iterators.WrappingIterator.seek(WrappingIterator.java:101)
+          at org.apache.accumulo.core.iterators.user.VersioningIterator.seek(VersioningIterator.java:81)
+          at org.apache.accumulo.core.iterators.system.SourceSwitchingIterator.readNext(SourceSwitchingIterator.java:116)
+          at org.apache.accumulo.core.iterators.system.SourceSwitchingIterator.seek(SourceSwitchingIterator.java:168)
+          at org.apache.accumulo.server.tabletserver.Tablet.nextBatch(Tablet.java:1737)
+          at org.apache.accumulo.server.tabletserver.Tablet.access$3200(Tablet.java:152)
+          at org.apache.accumulo.server.tabletserver.Tablet$Scanner.read(Tablet.java:1879)
+          at org.apache.accumulo.server.tabletserver.TabletServer$ThriftClientHandler$NextBatchTask.run(TabletServer.java:945)
+          at org.apache.accumulo.trace.instrument.TraceRunnable.run(TraceRunnable.java:47)
+{code}
+but when I provide a value higher, than can be saved in integer, thus the type of the literal is inferred as long, the query runs as expected.
+{code:sql}
+SELECT * FROM accumulo.SmallA WHERE LongNum>30000000000000000000
+{code}
+
+Similar problems I had with
+||Column type||Literal||Inferred type||Rootcause message||
+|long|3|Integer|java.lang.ClassCastException: java.lang.Integer cannot be cast to java.lang.Long|
+|biginteger|3|Integer|java.lang.ClassCastException: java.lang.Integer cannot be cast to java.math.BigInteger|
+|double|3.0|BigDecimal|java.lang.ClassCastException: java.math.BigDecimal cannot be cast to java.lang.Double|
+|float|3.0|BigDecimal|java.lang.ClassCastException: java.math.BigDecimal cannot be cast to java.lang.Float|
+rest of the cause's stacktrace look the same.
+
+In Squirrel I get:
+{code:plain}
+TEIID30504 Remote org.teiid.core.TeiidProcessingException: TEIID30504 node-one: Error on server 127.0.0.1:9997
+{code}

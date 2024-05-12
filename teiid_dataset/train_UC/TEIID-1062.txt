@@ -1,0 +1,2 @@
+Expose the Teiid Runtime Version as a ManagedOperation/ManagedProperty
+It would be helpful to have the version of the Teiid Runtime available so that it good be added as an informational trait in the Teiid Jopr plugin

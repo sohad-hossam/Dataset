@@ -1,0 +1,2 @@
+Add capability to insert/update/delete multi-value attributes in LDAP connector
+Add ability to insert/update/delete multi-value attributes through the LDAP connector.  For example, this would present the opportunity for maintaining group membership through modifying the list of member attribute values in an LDAP groupOfNames object.

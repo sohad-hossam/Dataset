@@ -1,0 +1,2 @@
+Remove misc deprecated code
+With a new major release we can remove older deprecated code.

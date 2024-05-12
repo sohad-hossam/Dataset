@@ -1,0 +1,12 @@
+Using JDG Library Mode, unable to perform insert (
+Trying to run the JDG local cache quickstart, get the following error when trying to perform an insert:
+
+15:09:34,027 WARN  [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue12) TEIID30020 Processing exception for request O25SlCY41bD5.6 'TEIID30492 Element StockCache.Stock.StockObject of StockCache.Stock is neither nullable nor has a default value. A value must be specified in the insert.'. Originally QueryValidatorException Request.java:330. Enable more detailed logging to see the entire stacktrace.
+
+
+The issue is because the StockObject column is set to be NullType.unknown, instead of NullType.Nullable.   This is because the metadata processor in the translator-object is setting it incorrectly.
+
+Workaround:
+
+-  Using Teiid Designer to import the source model and change the null type.
+-  use dynamic vdb and define the DDL metadata to set the null type.

@@ -1,0 +1,2 @@
+3 argument locate function on postgres reports the wrong value
+Any time the locate third argument is greater than 1 the postgres translation is returning the wrong position value.

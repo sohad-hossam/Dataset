@@ -1,0 +1,2 @@
+Salesforce default URL incorrect
+With the feature pack kitting changes the 34 url ended up in the 22 resource adapter.  That needs to be corrected.  Also we need to add a warning on version mismatch as most situations do not work as expected.

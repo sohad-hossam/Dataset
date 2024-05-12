@@ -1,0 +1,2 @@
+Greenplum is not in the translator list
+Greenplum is not in the standalone xml.

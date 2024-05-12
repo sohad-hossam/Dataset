@@ -1,0 +1,12 @@
+HANA translator: incorrect pushdown of week function
+Hana translator pushes down function week to SAP HANA datasource as its WEEK function. But it is not in accordance with the ISO8601 rule.
+
+For this standard, HANA has function ISOWEEK, which returns results in following format:
+{code:plain}
+2000-W01 for date 'Jan 3, 2000'
+{code}
+So it should be possible to push Teiid's WEEK function as:
+{code:sql}
+SUBSTR_REGEXPR('[[:digit:]]{4}\-W([[:digit:]]{2})' IN ISOWEEK(datevalue) GROUP 1)
+{code}
+where 'datevalue' is column of DATE datatype.

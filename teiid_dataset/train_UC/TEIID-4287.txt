@@ -1,0 +1,123 @@
+An exception is thrown by PostgreSQL when nested CTEs are pushed down
+I defined the following views in my VDB, based on a table in PostgreSQL:
+{code:sql}
+create view tv0 as
+WITH 
+	cte1 as (SELECT 1 as a),
+	alias2 as (select a from cte1),
+	cte3 as (select a from alias2)
+SELECT cte3.a FROM alias2 join cte3 on cte3.a=alias2.a;
+
+create view tv1 as
+WITH 
+	cte1 as (SELECT a from pg.test_a),
+	alias2 as (select a from cte1),
+	cte3 as (select a from alias2)
+SELECT cte3.a FROM alias2 join cte3 on cte3.a=alias2.a;
+
+create view tv2 as 
+WITH 
+	alias2 as (select b, a from pg.test_a),
+	cte4 as (select a from alias2)
+SELECT cte4.a FROM cte4 join alias2 on cte4.a=alias2.a ;
+{code}
+
+The following query, based on views tv0 and tv1:
+{code:sql}
+with
+CTE1 as (
+	select a from ( 
+		with CTE11 as (select a from views.tv0) 
+			select a from CTE11
+	) as  SUBQ1),
+CTE2 as (
+	select a from ( 
+		with CTE21 as (select a from views.tv1) 
+			select a from CTE21
+	) as  SUBQ2)  
+select * from CTE1 as T1 join CTE2 as T2 on T1.a=T2.a
+{code}
+
+throws this exception:
+{code:sql}
+18:55:23,260 WARN  [org.teiid.PROCESSOR] (Worker24_QueryProcessorQueue773) qPWXuJPW78go TEIID30020 Processing exception for request qPWXuJPW78go.3 'TEIID30504 test_tables_pg: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH alias2__1 (a) AS (SELECT g_0."a" FROM "public"."test_a" AS g_0) SELECT g_1.a AS c_0 FROM alias2__1 AS g_0, alias2 AS g_1 WHERE g_1.a = g_0.a AND g_1.a = 1 ORDER BY c_0]'. Originally TeiidProcessingException 'ERROR: Relation "alias2" does not exist
+  Position: 113' QueryExecutorImpl.java:2157. Enable more detailed logging to see the entire stacktrace.
+19:00:13,379 WARN  [org.teiid.CONNECTOR] (Worker28_QueryProcessorQueue775) qPWXuJPW78go Connector worker process failed for atomic-request=qPWXuJPW78go.4.7.144: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH alias2__1 (a) AS (SELECT g_0."a" FROM "public"."test_a" AS g_0) SELECT g_1.a AS c_0 FROM alias2__1 AS g_0, alias2 AS g_1 WHERE g_1.a = g_0.a AND g_1.a = 1 ORDER BY c_0]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:365)
+        at sun.reflect.GeneratedMethodAccessor86.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy56.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ERROR: Relation "alias2" does not exist
+  Position: 113
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 17 more
+{code}
+
+A similar query based on view tv2, throws a different exception:
+{code:sql}
+with
+CTE1 as (
+	select a from ( 
+		with CTE11 as (select a from views.tv2) 
+			select a from CTE11
+	) as  SUBQ1),
+CTE2 as (
+	select a from ( 
+		with CTE21 as (select a from views.tv2) 
+			select a from CTE21
+	) as  SUBQ2)  
+select * from CTE1 as T1 join CTE2 as T2 on T1.a=T2.a
+{code}
+
+{code:sql}
+19:05:02,784 WARN  [org.teiid.CONNECTOR] (Worker30_QueryProcessorQueue778) qPWXuJPW78go Connector worker process failed for atomic-request=qPWXuJPW78go.5.2.145: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH alias2 (b, a) AS (SELECT NULL, g_0."a" FROM "public"."test_a" AS g_0), alias2__1 (a, b) AS (SELECT NULL, g_0."a" FROM "public"."test_a" AS g_0) SELECT g_2.a, g_0.a FROM alias2 AS g_0, alias2 AS g_1, alias2 AS g_2, alias2__1 AS g_3 WHERE g_2.a = g_3.a AND g_0.a = g_1.a AND g_0.a = g_2.a]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:365)
+        at sun.reflect.GeneratedMethodAccessor86.invoke(Unknown Source)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy56.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: org.postgresql.util.PSQLException: ERROR: failed to find conversion function from unknown to integer
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:504)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 17 more
+{code}

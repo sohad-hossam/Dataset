@@ -1,0 +1,6 @@
+wrong result with distinct independent values in a depedent join
+This should be a fairly uncommon scenario, but if given a query such as:
+
+SELECT ... FROM pm1.g1, pm3.g2, /*+ makeind */ (select distinct e1, e2 from pm2.g1) x WHERE x.e1=pm1.g1.e1 AND pm3.g2.e2=x.e2
+
+such that the independent side of the join is seen as having distinct values and the dependent sets are targeted at different sources, we will not correctly detect that the values need pre-processed with dup removal.

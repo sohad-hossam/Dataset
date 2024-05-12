@@ -1,0 +1,75 @@
+Better handling for large bulk inserts
+I'm running a JDBC batch insert statement with Teiid.  Here's the error I'm getting when trying to insert 45000 records.
+
+{code}
+Exception in thread "main" org.teiid.jdbc.TeiidSQLException: Adjusted frame length exceeds 2097152: 6242128 - discarded
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:532)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:393)
+    at org.teiid.jdbc.PreparedStatementImpl.executeBatch(PreparedStatementImpl.java:252)
+    at com.imshealth.common.Tuning.JdbcDriver.writeData(JdbcDriver.java:166)
+    at com.imshealth.common.Tuning.JdbcDriver.main(JdbcDriver.java:78)
+Caused by: org.jboss.netty.handler.codec.frame.TooLongFrameException: Adjusted frame length exceeds 2097152: 6242128 - discarded
+    at org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.fail(LengthFieldBasedFrameDecoder.java:417)
+    at org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.failIfNecessary(LengthFieldBasedFrameDecoder.java:405)
+    at org.jboss.netty.handler.codec.frame.LengthFieldBasedFrameDecoder.decode(LengthFieldBasedFrameDecoder.java:320)
+    at org.teiid.transport.ObjectDecoder.decode(ObjectDecoder.java:108)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.callDecode(FrameDecoder.java:425)
+    at org.jboss.netty.handler.codec.frame.FrameDecoder.messageReceived(FrameDecoder.java:303)
+    at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268)
+    at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255)
+    at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88)
+    at org.jboss.netty.channel.socket.nio.AbstractNioWorker.process(AbstractNioWorker.java:109)
+    at org.jboss.netty.channel.socket.nio.AbstractNioSelector.run(AbstractNioSelector.java:328)
+    at org.jboss.netty.channel.socket.nio.AbstractNioWorker.run(AbstractNioWorker.java:90)
+    at org.jboss.netty.channel.socket.nio.NioWorker.run(NioWorker.java:178)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+    at java.lang.Thread.run(Thread.java:745)
+{code}
+
+Here's the Java method that creates the batch.  Please ignore the lack of Java best practices.  This is just test harness code to reproduce the error.
+{code}
+
+    private static final String INSERT_TEIID = "insert into ...<tableA> values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+    private static final String INSERT_ORACLE = "insert into ...<tableA> values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+ private static void writeData(List<List<Object>> records) throws SQLException {
+   	 PreparedStatement ps = connection.prepareStatement(USE_TEIID? INSERT_TEIID : INSERT_ORACLE)
+   	 
+   	 long start = System.currentTimeMillis();
+   	 System.out.println("Building batch PreparedStatement");
+   	 for(List<Object> o : records) {
+   		 ps.setObject(1, o.get(0));
+   		 ps.setObject(2, o.get(1));
+   		 ps.setObject(3, o.get(2));
+   		 ps.setObject(4, o.get(3));
+   		 ps.setObject(5, o.get(4));
+   		 ps.setObject(6, o.get(5));
+   		 ps.setObject(7, o.get(6));
+   		 ps.setObject(8, o.get(7));
+   		 ps.setObject(9, o.get(8));
+   		 ps.setObject(10, o.get(9));
+   		 ps.setObject(11, o.get(10));
+   		 ps.setObject(12, o.get(11));
+   		 ps.setObject(13, o.get(12));
+   		 ps.setObject(14, o.get(13));
+   		 ps.setObject(15, o.get(14));
+   		 ps.setObject(16, o.get(15));
+   		 ps.setObject(17, o.get(16));
+   		 ps.setString(18, o.get(17).toString().replace("]", ""));
+   		 ps.addBatch();
+   	 }
+   	 System.out.println(String.format("Finished building batch PreparedStatement in %d milliseconds", System.currentTimeMillis() - start));
+
+   	 start = System.currentTimeMillis();
+   	 System.out.println("Executing batch");
+   	 ps.executeBatch();
+   	 System.out.println(String.format("Batch executed in %d milliseconds", System.currentTimeMillis() - start));
+
+   	 ps.close();
+    }
+{code}
+
+The protocol or the driver should be enhanced to prevent this exception.

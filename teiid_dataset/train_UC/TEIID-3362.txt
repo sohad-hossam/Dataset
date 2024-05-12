@@ -1,0 +1,2 @@
+Additional language constructs for arrays
+Additional handling for arrays, such as an unnest function (columns to rows), a 2 dimensional form or arraytable, array concat etc. would be beneficial.

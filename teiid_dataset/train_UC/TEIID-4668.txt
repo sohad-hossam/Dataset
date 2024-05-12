@@ -1,0 +1,8 @@
+Google translator skips NULL value in INSERT
+I have google spreadsheet table smalla with defined header columns intkey, intnum and other (see attached screenshot).
+Following query doesn't insert NULL value to column intnum:
+INSERT INTO smalla(intnum, intkey) values (null, 562)
+Instead, it inserts 562 to intnum and NULL to intkey.
+(Server log shows no exception)
+
+INSERT works correctly if none of the inserted values is NULL.

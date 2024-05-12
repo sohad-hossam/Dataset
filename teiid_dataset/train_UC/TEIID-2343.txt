@@ -1,0 +1,2 @@
+is_autoincrement not set for SQL Server identity columns
+The MS JDBC 4 driver still does not correctly report the is_autoincrement column in the JDBC metadata, thus dynamic vdbs will not have that value set.

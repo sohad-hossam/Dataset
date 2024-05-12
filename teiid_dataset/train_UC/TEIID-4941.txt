@@ -1,0 +1,14 @@
+[RFE] Display a more informative error message when a query takes too long and times out
+This issue is from our user of RedHat internal pnt-devops Teiid.
+Reality
+
+{code:java}$ echo "SOME COMPLICATED QUERY" | psql -h virtualdb.engineering.redhat.com -p 5433 -d public
+ERROR:  57014 TEIID30160 The request AXhWh34gdzbY.0 has been cancelled.
+DETAIL:  org.teiid.jdbc.TeiidSQLException: 57014 TEIID30160 The request AXhWh34gdzbY.0 has been cancelled.
+{code}
+Expected
+
+{code:java}$ echo "SOME COMPLICATED QUERY" | psql -h virtualdb.engineering.redhat.com -p 5433 -d public
+The request AXhWh34gdzbY.0 has been cancelled. The query takes too long/timed out/whatever/resources exhausted
+{code}
+ 

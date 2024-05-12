@@ -1,0 +1,2 @@
+Accumulo RowID VARBINARY conversion
+Converting ROWID from byte to VARBINARY causes a metadata error.  Switch to String to accomodate for handling other characters in the RowID.

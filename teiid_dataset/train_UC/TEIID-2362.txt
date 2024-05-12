@@ -1,0 +1,7 @@
+Add UDF support for procedure in view model with function=true
+Request adding udf support for procedures in view models since Function Models will be deprecated.  Per TEIIDDES-1556 discussion from 11 Jan, we will make the following changes in designer:
+
+For procedure in a ViewModel with FUNCTION=TRUE
+- relax validation so a transformation is not required
+- perform same parameter validation checks currently done with ScalarFunctions
+- add Java Class("java-class") and Java Method("java-method") extension properties same as ScalarFunction is handled currently

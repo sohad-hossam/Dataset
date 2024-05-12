@@ -1,0 +1,5 @@
+MongoDB resource adapter doesn't support all authentication mechanisms
+It appears like mongodb resource adapter only supports Database, Username, Password, and RemoteServerList properties. It does not support:
+
+  - SSL connections
+  - a way to specify authenticationDatabase for MONGODB-CR mechanism

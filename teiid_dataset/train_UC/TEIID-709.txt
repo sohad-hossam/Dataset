@@ -1,0 +1,2 @@
+Non-blocking dup removal may loose partial batches
+Queries utilizing non-blocking dup removal (where no actual sorting is required) may loose partial batch values if the results need to be delivered from multiple passes - which is typically the case with union processing.

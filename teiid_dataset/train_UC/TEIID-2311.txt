@@ -1,0 +1,28 @@
+Add simple row based security to data roles
+A common request is to implement row based security.  The common workaround of modifying transformations is generally not a good solution.
+
+We should look at adding support for simple table filters and column masks.
+
+To be effective, filtering permissions however would have to act differently than normal data roles.  They would need to be applied all the time - and not just against the end user queries.
+
+For example, for tables:
+
+ <permission>
+   <resource-name>SCHEMA.TABLE</resource-name>
+   <filter>COLUMNA=2</filter>
+ </permission> 
+
+Meaning allow the CRUD of the given row only if COLUMNA has the value of 2.  Any valid predicate against just the referenced table would be allowed as a filter.  Each such permission would be applied as an additional predicate any time the table is referenced (in views, inserts, updates, deletes, etc.).  
+
+Allows would not be specified here as we want the filter to always specify inclusion.  Any applicable permissions in additional roles would be applied disjunctively - filter OR filter.  
+
+We could possibly support column masks via case expressions, such as:
+
+ <permission>
+   <resource-name>SCHEMA.TABLE.COLUMN</resource-name>
+   <mask>CASE WHEN ...</mask>
+ </permission> 
+
+However this is slightly more complicated.  Presumably the mask would only apply to projection and makes more sense to be applied at the final output/user query (more like a data role).  
+
+If we work the issue to specify the object type of a permission, then the name could alternatively refer to datatype or even an extension property to make the masking a little easier.

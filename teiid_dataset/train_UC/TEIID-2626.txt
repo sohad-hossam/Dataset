@@ -1,0 +1,4 @@
+If a column type is not set, null values will be written into persisted batches
+The buffer manager will choose the null serializer if a column type is not set.  This is not expected to happen, but test code can be sloppy which isn't evident if the weak reference cache is working effectively.
+
+However there is one place in the code that is effected, which is the internally generated partitionId column on any window function expression with a non-empty over clause.  This means that on systems with limited memory and or poor performing weak references no results for the window function may be returned.

@@ -1,0 +1,6 @@
+Increase pg odbc client compatibility
+Using a 9.0 level odbc client we see errors with the following:
+
+set x TO y - since we don't expect TO
+'foo'::regclass - which is shorthand for an oid lookup
+pg_index.indpred - is used by some metadata queries

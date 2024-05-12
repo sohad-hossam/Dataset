@@ -1,0 +1,2 @@
+postgresql extract used for date functions returns double, not integer
+Postgresql extract returns a double precision (which is documented as the expectation), but we expect integer values from the respective Teiid functions.  This typically won't lead to an issue in a simple projection scenario, but is problematic for combined expressions, such as using mod which will result in an exception.

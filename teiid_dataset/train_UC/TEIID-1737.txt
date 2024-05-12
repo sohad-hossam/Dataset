@@ -1,0 +1,77 @@
+Error: Temporary table does not exist when using WITH clause and SQL Server
+It appears that the WITH clause is not compatible with SQL Server.  The following simple query errors out:
+
+with T1 as (
+	select id from DEMO.dbo.ACCESS_GROUP
+)
+select id from T1
+
+The error message is: Remote org.teiid.api.exception.query.QueryProcessingException: Temporary table "T1" does not exist.
+
+With Log4J debugging turned on I was able to do a little digging and it looks like to me that TEIID is sending the correct SQL down into SQL Server, but then gets confused when processing the result.  Here is the relevant portion of the log:
+
+12:56:29,910 DEBUG [COMMAND_LOG]        START USER COMMAND:     startTime=2011-08-31 12:56:29.91    requestID=QsxTHCTkSXXC.0    txID=null       sessionID=QsxTHCTkSXXC  applicationName=JDBC    principal=user@teiid-security   vdbName=Qiagram vdbVersion=1    sql=with T1 as (
+        select id from DEMO.dbo.ACCESS_GROUP
+)
+select id from T1
+12:56:29,912 DEBUG [PROCESSOR] Request Thread QsxTHCTkSXXC.0 with state NEW
+12:56:29,913 DEBUG [PROCESSOR] QsxTHCTkSXXC.0 No cache directive
+12:56:29,913 DEBUG [PROCESSOR] QsxTHCTkSXXC.0 executing  with T1 as (
+        select id from DEMO.dbo.ACCESS_GROUP
+)
+select id from T1
+12:56:29,916 DEBUG [PROCESSOR] ProcessTree for QsxTHCTkSXXC.0 AccessNode(1) output=[id] WITH T1 (T1.id) AS (SELECT g_0.id FROM SCRAP.DEMO.dbo.ACCESS_GROUP AS g_0) SELECT g_0.id AS c_0 FROM T1 AS g_0
+
+12:56:29,917 DEBUG [TXN_LOG] before getOrCreateTransactionContext:org.teiid.dqp.internal.process.TransactionServerImpl@1a53c407(QsxTHCTkSXXC)
+12:56:29,917 DEBUG [TXN_LOG] after getOrCreateTransactionContext : QsxTHCTkSXXC NONE ID:NONE
+12:56:29,917 DEBUG [BUFFER_MGR] Creating FileStore: 53
+12:56:29,917 DEBUG [BUFFER_MGR] Creating TupleBuffer: 53 [id] [integer] of type PROCESSOR
+12:56:29,918 DEBUG [PROCESSOR] QueryProcessor: closing processor
+12:56:29,918 DEBUG [PROCESSOR] Request Thread QsxTHCTkSXXC.0 - error occurred
+[QueryProcessingException]Temporary table "T1" does not exist.
+        at org.teiid.query.tempdata.TempTableStore.getOrCreateTempTable(TempTableStore.java:240)
+        at org.teiid.query.tempdata.TempTableDataManager.registerQuery(TempTableDataManager.java:487)
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:188)
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:176)
+        at org.teiid.query.processor.relational.AccessNode.registerRequest(AccessNode.java:358)
+        at org.teiid.query.processor.relational.AccessNode.open(AccessNode.java:156)
+        at org.teiid.query.processor.relational.RelationalPlan.open(RelationalPlan.java:153)
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:182)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:126)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:105)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:352)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:278)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:207)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:194)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:118)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:288)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:662)
+12:56:29,923 DEBUG [COMMAND_LOG]        ERROR USER COMMAND:     endTime=2011-08-31 12:56:29.923 requestID=QsxTHCTkSXXC.0        txID=null       sessionID=QsxTHCTkSXXC  principal=user@teiid-security   vdbName=Qiagram vdbVersion=1    finalRowCount=null
+12:56:29,924 WARN  [PROCESSOR] Processing exception 'Temporary table "T1" does not exist.' for request QsxTHCTkSXXC.0.  Exception type org.teiid.api.exception.query.QueryProcessingException thrown from org.teiid.query.tempdata.TempTableStore.getOrCreateTempTable(TempTableStore.java:240). Enable more detailed logging to see the entire stacktrace.
+12:56:29,924 DEBUG [PROCESSOR] Removing tuplesource for the request QsxTHCTkSXXC.0
+12:56:29,924 DEBUG [BUFFER_MGR] Removing TupleBuffer: 53
+12:56:29,924 DEBUG [PROCESSOR] Sending error to client QsxTHCTkSXXC.0
+[QueryProcessingException]Temporary table "T1" does not exist.
+        at org.teiid.query.tempdata.TempTableStore.getOrCreateTempTable(TempTableStore.java:240)
+        at org.teiid.query.tempdata.TempTableDataManager.registerQuery(TempTableDataManager.java:487)
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:188)
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:176)
+        at org.teiid.query.processor.relational.AccessNode.registerRequest(AccessNode.java:358)
+        at org.teiid.query.processor.relational.AccessNode.open(AccessNode.java:156)
+        at org.teiid.query.processor.relational.RelationalPlan.open(RelationalPlan.java:153)
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:182)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:126)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:105)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:352)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:278)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:207)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:194)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:118)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:288)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)

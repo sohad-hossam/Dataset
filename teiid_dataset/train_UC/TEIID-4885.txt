@@ -1,0 +1,6 @@
+Costing issues
+There were several deficiencies introduced with TEIID-4332 -
+
+In some circumstances very low ndv values on the large side of a join would cause a dependent join in an unexpected direction.
+
+The row estimate derived for a join without ndv information would tend to be too low, which would have a cumulative effect through further joins.  

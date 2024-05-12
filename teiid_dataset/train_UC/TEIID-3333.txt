@@ -1,0 +1,9 @@
+Dynamic VDB deployment - JDBCMetadataProcessor NPE
+I am getting NPE in JDBCMetadataProcessor for the attached dynamic VDB deployment in teiid 8.7 (DV61).  This VDB uses the DashboardDS H2 source that comes installed with DV61.
+
+The NPE happens with this specific import property
+<property name="importer.TableNamePattern" value="DASHB_A%"/>
+
+The table name pattern is valid - there is a table named DASHB_ALLOWED_PANEL.
+
+If you change the pattern to DASHB_D%, the deployment is successful. 

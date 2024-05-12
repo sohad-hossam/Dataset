@@ -1,0 +1,4 @@
+Embedded deployment is creating "log" directory in wrong location
+When Teiid used in the "embedded" with "file-path" profile, like deployed JBoss AS, it is creating the log directory where the parent process is started from instead of placing it under "{teiid-home}/log" directory.
+
+It is expected that when using "classpath-profile" it will create under the {user.dir}

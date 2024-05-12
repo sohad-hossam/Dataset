@@ -1,0 +1,2 @@
+remove unauthorized columns from select *
+For ease of use with entitlement checking enabled, user queries with select * and *.tbl, should simply not treat unauthorized columns as selectable.

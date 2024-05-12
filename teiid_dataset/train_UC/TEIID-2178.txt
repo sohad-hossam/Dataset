@@ -1,0 +1,2 @@
+aggregate functions fails with subquery argument
+If a subquery is used as an argument to a aggregate function - max((select...)) - the subquery is not planned and will fail to execute.

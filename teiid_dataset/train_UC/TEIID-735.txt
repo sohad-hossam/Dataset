@@ -1,0 +1,2 @@
+Equals method for subqueryfromclause is incorrect
+The equals method for subqueryfromclause does not check for equality based upon contained command.

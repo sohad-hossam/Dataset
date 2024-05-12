@@ -1,0 +1,39 @@
+MetadataFactory datatype issue on boot up
+Occurs on server startup. Deployed a vdb and was able to connect, etc.  Bounced the server and now get a bunch of these errors:
+
+21:03:39,432 ERROR [org.jboss.threads.executor] (teiid-async-threads - 
+1) Task execution failed for task org.teiid.jboss.VDBService$6@54241d18: 
+java.lang.NullPointerException
+     at 
+org.teiid.metadata.MetadataFactory.addDatatype(MetadataFactory.java:589) 
+[teiid-api-8.4.0.CR2-SNAPSHOT.jar:8.4.0.CR2-SNAPSHOT]
+     at 
+org.teiid.metadata.MetadataFactory.correctDataTypes(MetadataFactory.java:583) 
+[teiid-api-8.4.0.CR2-SNAPSHOT.jar:8.4.0.CR2-SNAPSHOT]
+     at 
+org.teiid.metadata.MetadataFactory.correctDatatypes(MetadataFactory.java:559) 
+[teiid-api-8.4.0.CR2-SNAPSHOT.jar:8.4.0.CR2-SNAPSHOT]
+     at org.teiid.jboss.VDBService$6.run(VDBService.java:367) 
+[teiid-jboss-integration-8.4.0.CR2-SNAPSHOT.jar:8.4.0.CR2-SNAPSHOT]
+     at 
+org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33)
+     at org.jboss.threads.QueueExecutor.runTask(QueueExecutor.java:806)
+     at org.jboss.threads.QueueExecutor.access$100(QueueExecutor.java:45)
+     at org.jboss.threads.QueueExecutor$Worker.run(QueueExecutor.java:847)
+     at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_09-icedtea]
+     at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+------------
+
+Looking at MetadataFactory I noticed the following:
+                     Datatype dt = this.builtinDataTypes.get(c.getDatatype().getName());
+                        if (dt != null) {
+                                c.setDatatype(dt);
+                        } else {
+                                //must be an enterprise type
+                                //if it's used in a single schema, we're ok, but when used in multiple there's an issue
+-->                                addDatatype(dt);
+                        }
+                }
+
+---------
+that addDatatype(dt) was passing dt when null, and therefore, in addDatatype, the NPE was caused when datatype.getName() is called.  But I think what was intended was to pass in c.getDatatype() when it wasn't found in the builtinDataTypes.

@@ -1,0 +1,2 @@
+Teiid engine needs to be exposed as a JCA Connector
+DQPCore, which is the main interface for the Teiid engine must be available as a JCA source that is capable of engaging multiple other JCA sources in a data integration solution. This should leverage the "Work Manager" for carrying out any tasks.

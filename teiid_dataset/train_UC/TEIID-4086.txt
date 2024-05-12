@@ -1,0 +1,18 @@
+OData - Math functions floor and ceiling doesn't accept number as parameter
+Basic functionality of math functions floor and ceiling works properly as \[1\] describes, but these functions doesn't accept number as parameter.
+
+Reference service which supports OData V4:
+*ULR:* http://services.odata.org/V4/Northwind/Northwind.svc/Employees/?$filter=EmployeeID%20eq%20floor(4.2)
+*Result:* Employee with ID 4
+
+*ULR:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=intkey%20eq%20floor(4.2)
+*Actual result:* {"error":{"code": null, "message": "TEIID30069 The function 'FLOOR(\?)' has more than one possible signature."}}
+*Expected result:* Entity with intkey 4
+
+*ULR:*  http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=intkey%20eq%20ceiling(4.2)
+*Actual result:* {"error": {"code": null, "message": "TEIID30069 The function 'CEILING(\?)' has more than one possible signature."}}
+*Expected result:* Entity with intkey 5
+
+See [\[OData-ABNF\]|http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/abnf/odata-abnf-construction-rules.txt] _Line:_ 539 - Math functions accepts _commonExpr_
+
+\[1\] http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part2-url-conventions/odata-v4.0-errata02-os-part2-url-conventions-complete.html#_Toc406398142

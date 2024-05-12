@@ -1,0 +1,25 @@
+Infinispan-dsl-cache translator: can't insert null into column of type boolean
+Inserting null into boolean column causes exception.
+
+Sample queries:
+{code}
+insert into smalla(intKey, stringKey,booleanValue) values(128,'ss',null);
+insert into smalla(intKey, stringKey) values(128,'ss');
+{code}
+This query works:
+{code}
+insert into smalla(intKey, stringKey,booleanValue) values(128,'ss',false);
+{code}
+Exception:
+{code}
+ Connector worker process failed for atomic-request=NuZ8Nt3h1bKx.52.0.44: org.infinispan.client.hotrod.exceptions.HotRodClientException:Request for message id[239] returned server error (status=0x85): org.hibernate.search.bridge.BridgeException: Exception while calling bridge#set
+	class: org.infinispan.query.remote.indexing.ProtobufValueWrapper
+	path: 
+	at org.infinispan.client.hotrod.impl.protocol.Codec20.checkForErrorsInResponseStatus(Codec20.java:298)
+	at org.infinispan.client.hotrod.impl.protocol.Codec20.readPartialHeader(Codec20.java:88)
+	at org.infinispan.client.hotrod.impl.protocol.Codec20.readHeader(Codec20.java:74)
+	at org.infinispan.client.hotrod.impl.operations.HotRodOperation.readHeaderAndValidate(HotRodOperation.java:56)
+{code}
+This bug breaks data integrity. If this exception is thrown, data will be inserted but it won't be indexed.
+
+The whole exception is in the attachment.

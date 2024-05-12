@@ -1,0 +1,2 @@
+Add a extension point to manipulate incoming sql
+We should look at adding a client or server extension point for manipulating sql - just the sql string, pre resolving.  This will allow more flexibility in dealing with clients that don't send queries directly understood by Teiid.  For example a select for update.

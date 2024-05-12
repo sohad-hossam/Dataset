@@ -1,0 +1,8 @@
+Failed to add Connector Bindings and Types using Admin API
+This occurs due the remove of the "dqp.config" property from the "deploy.properties".  This bug is introduced in 6.2
+
+In absence of this property this resource is searched from the  classpath and used. Since "embedded" works through url based loading, the "file://" protocol it gets loaded will no longer support the updates of underlying resources. So, user who is adding a binding or type using the admin API may see 
+
+"protocol doesn't support output"
+
+Teiid very much like to avoid updating the "configuration.xml" file, since we can not still support the updating of properties through admin API,  until other options are provided this need to be supported. By resurrecting above property, the configuration file will load with "mmfile" protocol, which will then support the updates.

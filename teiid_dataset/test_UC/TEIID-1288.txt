@@ -1,0 +1,2 @@
+Add support for explicit table syntax
+TABLE x should be a shortcut for SELECT * FROM x

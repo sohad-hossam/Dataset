@@ -1,0 +1,2 @@
+Support .INDEX file VDB loading with Embedded environments
+Currently embedded Teiid supports .vdb files, but it does not include the necessary JAR files in the kit to load the .INDEX files. 

@@ -1,0 +1,2 @@
+Add SQL/XML support
+We should add basic SQL./XML support to both create documents and extract rows from documents

@@ -1,0 +1,2 @@
+tuplesource leak in update procedures
+Tuplesources are being leaked by update procedures that have execsqlstatement followed by another command execution, such as a loop.

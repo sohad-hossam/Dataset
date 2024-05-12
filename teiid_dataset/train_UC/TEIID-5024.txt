@@ -1,0 +1,2 @@
+Embedded soapservice fails with cxf jaxb class not found
+The cxf-rt-databinding-jaxb dependency is needed for embedded soap connections.

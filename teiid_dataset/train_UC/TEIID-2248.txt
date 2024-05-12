@@ -1,0 +1,2 @@
+Implement Salesforce Bulk API for inserts/updates to Salesforce Connector
+Wish to utilize the Salesforce Bulk API for large inserts/updates.  The specific use case was for writing/updating a million record table back up to their Salesforce instance.  This will improve performance for large writes to the Salesforce instance.

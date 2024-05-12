@@ -1,0 +1,2 @@
+Handling of binary odbc parameters needs improved
+parameters sent in binary format are just treated as byte arrays.  We should us the oids sent with prepare to convert into the expected values.  Clients such as postgresql JDBC 9.2+ expect this handling unless configured to not use binary values.

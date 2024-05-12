@@ -1,0 +1,4 @@
+document and possibly provide a workaround for 32-bit dates
+To have a more compact format Teiid is using a 32-bit serialized date.  This is consistent with the jdbc spec as it allows for dates between 1900 and the end of 9999.  Years prior to and after that range are allowed in java, so we make it explicit that these values may get truncated.
+
+The workaround would be similar to the allow NAN property.

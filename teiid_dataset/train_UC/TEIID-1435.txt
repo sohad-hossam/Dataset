@@ -1,0 +1,2 @@
+SQL type boolean imported as object for dynamic vdbs
+The type mapping logic is currently only mapping bit to the runtime boolean type.  The SQL type boolean (used by H2 and possibly other sources) should map to boolean as well.

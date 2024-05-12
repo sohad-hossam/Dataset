@@ -1,0 +1,2 @@
+Support for Blob Input in Teiid REST services
+We are trying to upload large files as Blobs using Teiid REST service through VDB. Though we are writing the Blob objects to HttpUrlConnection object, it is not received on REST method. As per the conversation in the thread "https://community.jboss.org/thread/232840"  Current parameter handling is done through strings and needs be enhanced to support Blob objects.

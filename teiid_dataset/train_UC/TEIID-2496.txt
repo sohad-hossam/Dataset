@@ -1,0 +1,6 @@
+"Object is already closed" error when reading CLOB from H2 in Teiid
+I am getting "The object is already closed [90007-168]" exception when attempt to read table with CLOB column in Teiid.
+
+For more details see attached sample unit test case (Embedded Teiid) and a complete exception dump.
+
+See discussion at https://community.jboss.org/thread/227854?tstart=0

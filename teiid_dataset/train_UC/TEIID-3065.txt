@@ -1,0 +1,21 @@
+SOLR: NPE When issued query with SORT
+A query like 
+
+select id as c_0 from index order by c_0
+
+ends in exception
+
+{code}
+14:39:41,152 ERROR [org.teiid.CONNECTOR] (Worker5_QueryProcessorQueue306) Connector worker process failed for atomic-request=1IQ9x3qmpUQr.13.4.9: java.lang.NullPointerException
+	at org.teiid.translator.solr.SolrSQLHierarchyVistor.visit(SolrSQLHierarchyVistor.java:70)
+	at org.teiid.language.ColumnReference.acceptVisitor(ColumnReference.java:72) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.translator.solr.SolrSQLHierarchyVistor.visit(SolrSQLHierarchyVistor.java:248)
+	at org.teiid.language.SortSpecification.acceptVisitor(SortSpecification.java:53) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNodes(AbstractLanguageVisitor.java:63) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.translator.solr.SolrSQLHierarchyVistor.visit(SolrSQLHierarchyVistor.java:243)
+	at org.teiid.language.OrderBy.acceptVisitor(OrderBy.java:45) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.1.redhat-1.jar:8.7.1.redhat-1]
+{code}
+

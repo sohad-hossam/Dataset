@@ -1,0 +1,11 @@
+Temp table ordering not honored with index
+If an IN predicate against an index is not entered in ascending order and an order by is specified against the same index, then the result will not be ordered properly.
+
+For example:
+
+create local temporary table x (e1 string, e2 integer, primary key (e2))
+...
+select * from x as y where e2 in (3, 2) order by e2
+
+
+

@@ -1,0 +1,11 @@
+NPE in the Embedded when UDF is being loaded
+Caused by: java.lang.NullPointerException
+        at com.metamatrix.dqp.embedded.services.EmbeddedConfigurationService.loadUDF(EmbeddedConfigurationService.java:930)
+        at com.metamatrix.dqp.embedded.services.EmbeddedConfigurationService.initializeService(EmbeddedConfigurationService.java:996)
+        at com.metamatrix.dqp.embedded.services.EmbeddedBaseDQPService.initialize(EmbeddedBaseDQPService.java:59)
+        at com.metamatrix.common.application.Application.start(Application.java:62)
+        at org.teiid.dqp.internal.process.DQPCore.start(DQPCore.java:563)
+        at com.metamatrix.jdbc.EmbeddedConnectionFactoryImpl.initialize(EmbeddedConnectionFactoryImpl.java:113)
+        at com.metamatrix.jdbc.EmbeddedConnectionFactoryImpl.createConnection(EmbeddedConnectionFactoryImpl.java:79)
+        at com.metamatrix.jdbc.EmbeddedDriver$EmbeddedTransport.createConnection(EmbeddedDriver.java:502)
+        at com.metamatrix.jdbc.EmbeddedDriver.createConnection(EmbeddedDriver.java:134)

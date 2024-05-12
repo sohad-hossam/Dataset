@@ -1,0 +1,4 @@
+RF: Add the ability to use DISTINCT in windowed aggregates in EDS
+According to the following page: http://docs.jboss.org/teiid/7.5.0.Final/reference/en-US/html_single/#window_functions
+
+This states that "windowed aggregates may not use DISTINCT". I would like to request that use of DISTINCT in aggregate functions be  supported in a future release.

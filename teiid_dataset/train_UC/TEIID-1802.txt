@@ -1,0 +1,2 @@
+Async Event Processing:  Translator callback indicating data is available
+In order to support more efficient streams of asynchronous events, the Execution Context should provide a callback from the translator to the engine to indicate that data is available.  This semantics of this callback are analogous to the DataNotAvailableException.

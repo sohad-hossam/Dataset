@@ -1,0 +1,14 @@
+NullPointer Exception genetated while querying table built from WSDL query
+Using designer 8, I deploy the state service example models (found [here|https://github.com/phantomjinx/teiid-soap-example]) to an 8.2 beta1 teiid server. The models deploy successfully and the teiid connection in designer displays the catalog and stateService/stateServiceView schemas.
+
+However, running the following query
+
+{{exec stateServiceView.getAllStateInfo();}}
+
+results in a generic TeiidException in designer's status view.
+
+This exception comes from a NullPointerException that is displayed in the jboss server log.
+
+The log of the jboss server is attached, detailing the following events:
+# start of the server with the stateService data source and USStates vdb already deployed
+# connection and execution of the query from designer

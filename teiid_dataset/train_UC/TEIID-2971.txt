@@ -1,0 +1,2 @@
+wrong property name in max sessions message
+the error message references session-max-limit rather than max-session-allowed

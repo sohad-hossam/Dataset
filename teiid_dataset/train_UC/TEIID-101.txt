@@ -1,0 +1,2 @@
+ClusterName by default needs to be set unique
+It is possible with current configuration that cluster name on the two different hosts can be set to same name, allowing to crosstalk. This needs to be avoided.

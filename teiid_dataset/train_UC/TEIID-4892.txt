@@ -1,0 +1,12 @@
+oData v4 error using $expand
+Hello,
+ 
+we are querying Teiid 9.1.4 using the following oData v4 syntax:
+ 
+     {{http://host:port/odata4/<vdbname>/<model-name>/<table-name>?$expand=<navigation>}}
+ 
+It doesn't matter what navigation property we choose; we always get following error message:
+ 
+     {{{"error":{"code":null,"message":"String index out of range: -1"}}}}
+ 
+Please find the attached logfile.

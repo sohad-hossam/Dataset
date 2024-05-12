@@ -1,0 +1,2 @@
+Upgrade JGroups to 2.6.10
+Upgrade the JGroups version to 2.6.10 to be in sync with what is been used in AS 5.1.0. Need to make sure this is version is being used in EAP release before upgrade.

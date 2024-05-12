@@ -1,0 +1,2 @@
+Odata - if table name is ambiguous, teiid returns result from first table
+If table name is ambiguous, teiid returns data from first matching table. I expect, that it should return error message similar to exception which is thrown via JDBC.

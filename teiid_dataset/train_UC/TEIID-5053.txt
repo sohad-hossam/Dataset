@@ -1,0 +1,2 @@
+Env function usage should be restricted by default
+Unlike the server there is no configuration for allowing the env function with embedded.  To match the server it should be disabled by default.

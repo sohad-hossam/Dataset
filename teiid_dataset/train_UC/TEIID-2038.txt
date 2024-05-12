@@ -1,0 +1,14 @@
+Admin module is missing dependency on "org.jboss.as.controller-client"
+Admin module's module.xml must directly depend upon "org.jboss.as.controller-client" module. Otherwise the usage of the "admin" api will result in 
+
+{code}
+threw exception: java.lang.ClassNotFoundException: org.jboss.as.controller.client.ModelControllerClient$Factory from [Module "org.jboss.teiid.admin:main" from local module loader @4b0ab323 (roots: C:\jboss-as-7.1.1.Final\modules)]
+at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:190)
+at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:468)
+at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:456)
+at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:423)
+at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:398)
+at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:120)
+at org.teiid.adminapi.AdminFactory.createAdmin(AdminFactory.java:95) [teiid-admin-8.0.0.Final.jar:8.0.0.Final]
+at com.lgc.dsl.services.producer.teiid.TeiidAdminManager.getAdmin(TeiidAdminManager.java:44) [com_lgc_dsdataserver.jar:]
+{code}

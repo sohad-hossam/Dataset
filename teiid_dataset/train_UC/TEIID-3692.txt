@@ -1,0 +1,2 @@
+Impala/Hive string literals
+The Hive/Impala logic does not account for the source using c-style strings and will currently for string literals in the source sql use ansi style instead.  Bind values are unaffected.

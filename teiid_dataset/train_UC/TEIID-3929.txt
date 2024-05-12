@@ -1,0 +1,13 @@
+Accumulo does not return null values
+Accumulo doesn't return null values when a whole 'column' is being selected.
+For a command in accumulo shell like:
+{code:plain}
+scan -c name:BYTENUM
+{code}
+Accumulo returns only non-empty values, this is expected behaviour.
+
+Equivalent query in Teiid would be:
+{code:sql}
+SELECT ByteNum FROM SmallA
+{code}
+Which returns the same results as Accumulo does. That means, no NULL values, if there are rowids without specified column families/qualifiers missing. But when a user has his schema defined in a vdb, he probably expects, that he will get as many rows as there are in the table.

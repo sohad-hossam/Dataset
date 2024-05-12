@@ -1,0 +1,10 @@
+Ordered limit against preserved view fails
+With a view that has a column name that does not match the output name such as:
+
+create foreign table x (a string, b string, c integer, primary key (a, b)) options (updatable true); create view SvcView (RowId integer PRIMARY KEY, code string, name string) as select c as rowid, a, b from x limit 2;
+
+A query that orders over the rowid:
+
+select rowid, code, name from svcview order by rowid limit 1
+
+Will fail with an assertion error initializing the top level sort node.

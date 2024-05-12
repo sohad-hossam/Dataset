@@ -1,0 +1,2 @@
+Log Manager is not checking if the context is enabled before it logs message
+Log Manager code is not calling "isMessageToBeRecorded" on all the log calls, so log configuration is not correctly being honoured.

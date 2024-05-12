@@ -1,0 +1,2 @@
+In Admin Console, when a Connector is in "Not Started" state, the start button is grayed out
+In Console in the system state panel, if some reason the Connector is started due to errors, it shows "Show Error" button. However, after fixing the error, you have option to start the connector again, except for stop and start PSC. The start button should not be grayed out.

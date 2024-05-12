@@ -1,0 +1,17 @@
+Build issue in security
+Support building Teiid with JDK 1.8.
+
+One issue found is related to building "security", which throws the following error:
+
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/jim/src/teiid/jboss-security/src/main/java/org/teiid/jboss/oauth/OAuth20CredentialImpl.java:[62,37] cannot access org.apache.cxf.endpoint.Retryable
+  class file for org.apache.cxf.endpoint.Retryable not found
+
+A community user determined the following was needed to resolve it:
+
++        <dependency>
++            <groupId>org.apache.cxf</groupId>
++            <artifactId>cxf-api</artifactId>
++            <scope>provided</scope>
++        </dependency>

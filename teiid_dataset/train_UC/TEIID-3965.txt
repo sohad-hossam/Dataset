@@ -1,0 +1,2 @@
+Remove unnecessary severe logs from the client
+The client in several places is logging at a severe level exceptions that are rethrown.  Some of these, like with an exception making a connection can occur with embedded driver usage and results in duplicate logging of the exception.  These logs should at least be reduced in severity.

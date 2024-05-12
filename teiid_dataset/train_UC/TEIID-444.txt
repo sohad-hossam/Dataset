@@ -1,0 +1,2 @@
+Expose the cache to connectors.
+The XML-Relational connectors have historically had their own cache.  I'm modifying the connectors to use JBoss cache and it would benefit users if this connector and other connectors with need of a cache could use the teiid cache to ease cache configuration and monitoring.

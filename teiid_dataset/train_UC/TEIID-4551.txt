@@ -1,0 +1,2 @@
+Improve exception handling in Admin methods
+There are many client methods that are ignoring unsuccessful results.  At least for get-vdb an exception is being thrown if the vdb does not exist, but the server should just send no results instead.  

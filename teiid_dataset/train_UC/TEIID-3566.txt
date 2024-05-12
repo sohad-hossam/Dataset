@@ -1,0 +1,6 @@
+insert value pushed inappropriately
+An insert with a subquery or other non-pushable construct:
+
+Insert into pm1.g1 (e1) values ((select current_database()))
+
+Will have the subquery pushed to the source query - even if the source does not support it.

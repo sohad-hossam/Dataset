@@ -1,0 +1,2 @@
+issues with data roles and foreign temp tables
+With data roles enabled we require create on the target schema, but will output a message saying that create temp tables is required.  We will also not appropriately check the columns as there name is not reported as relative to the target schema.

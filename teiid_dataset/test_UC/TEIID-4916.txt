@@ -1,0 +1,4 @@
+Ensure modules have only a single or compatible licenses
+Code that is EPL, MPL, and LGPL should be isolated from code that is ASL.
+
+For the index metadata logic it probably makes sense to dual or re-license the ASL code under EPL.  The remaining MPL (saxon / xom related) logic and LGPL (odata wkt) should be separated as their own modules.

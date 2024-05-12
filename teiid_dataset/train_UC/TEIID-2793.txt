@@ -1,0 +1,2 @@
+Searchablity check is too broad
+The check against searchabilty metadata gathers all column references in an expression, rather than checking just the expression itself.  This was done probably to prevent comparisons such as convert(clob_col, string) = 'foo' - but this is inconsistent as we will happily push the same convert function in the select clause.

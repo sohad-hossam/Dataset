@@ -1,0 +1,2 @@
+RAND function gives same results in view
+When using patched PostgreSQLExecutionFactory class to push down RAND function it starts to give the same values in a view. I wanted to push down RAND function in PostgreSQL for a while and noticed the bug related to identical values when using RAND function through a select in a view.

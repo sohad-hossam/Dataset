@@ -1,0 +1,2 @@
+Misleading error message
+Newer vms validate Date/Time values as part of the parsing routine, however our logic only expects the parse to fail if there is an invalid format.  Thus the error message may be misleading on newer vms.

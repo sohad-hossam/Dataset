@@ -1,0 +1,11 @@
+Google Spreadsheet Data Sources with custom client_id and client_secret
+When getting an OAuth Refresh Token, it needs to use a fixed client_id and client_secret such as
+"217138521084.apps.googleusercontent.com" and "gXQ6-lOkEjE1lVcz7giB4Poy".
+
+Currently, no way to change another client_id/client_secret.
+It had better to be able to use the client_id/client_secret from each google account.
+
+- Teiid 8.13 : Getting an OAuth Refresh Token
+https://docs.jboss.org/author/display/teiid813final/Google+Spreadsheet+Data+Sources
+- Teiid 9.3 : Getting an OAuth Refresh Token
+https://teiid.gitbooks.io/documents/content/v/9.3.x/admin/Google_Spreadsheet_Data_Sources.html

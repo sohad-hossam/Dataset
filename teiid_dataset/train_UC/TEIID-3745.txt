@@ -1,0 +1,4 @@
+Procedure input parsing enhancements
+Based on Olingo 4.0.0 release, the procedure parameter parsing needs to be re-visited as some of it is written out side the framework in Teiid.
+
+Also handling of the Stream object (XML Document) input may be still outside the specification compliance for time being, as specification only allows procedure with Edm.Stream objects as Bound operations, and Teiid procedures are all UnBound operations.

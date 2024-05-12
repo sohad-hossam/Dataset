@@ -1,0 +1,2 @@
+like_regex only matches full string patterns
+like_regex currently asks the compiled pattern matcher if the pattern matches in full, not for the first occurrence.  This means that a pattern such as 'a' will not match 'cat'.

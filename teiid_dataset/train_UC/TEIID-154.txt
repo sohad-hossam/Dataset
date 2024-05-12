@@ -1,0 +1,2 @@
+Add new connector property to allow bypass of logic that puts PROCs in transactions.
+Refer to internal case 192763.

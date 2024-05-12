@@ -1,0 +1,2 @@
+Change infinispan-cache translator to support JDG 6 and no longer support pre 6.0 infinispan
+Change the infinispan-cache translator to support JDG 6 using library mode.  Also, remove support for infinispan v.5.

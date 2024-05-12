@@ -1,0 +1,4 @@
+function invocation failure message refinement
+TEIID-2584 modified the function invocation exception message, but the invocationtargetexception was used, which does not produce a message. 
+
+The server side already attempts to display the root exception with when an exception is logged, so this kind of logic is only needed for the client exception - which we could treat in a similar way to produce a more verbose exception.

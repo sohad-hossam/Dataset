@@ -1,0 +1,7 @@
+Validate that result sets returned from a procedure match the expected metadata
+Very little validation is performed to ensure that the proper resultset is returned from a procedure.
+
+for example:
+{code}create virtual procedure vproc (x integer) returns table (y integer) as begin if (x = 1) select 1; else select 1, 2; end;{code}
+
+will return an incorrect result if anything but 1 is passed in, which will cause downstream errors, such as exceptions during serialization (if mismatched types) or npes if too few columns.

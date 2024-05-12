@@ -1,0 +1,8 @@
+Rename the teiid-embedded project to teiid-runtime
+Now, that Teiid have single kit for both Embedded and Server, it is
+confusing to call it "embedded" kit. So, we need to re-name this kit to
+something else. 
+
+Rename the "teiid-embedded" project to "teiid-runtime"
+
+also, rename kit "teiid-embedded" to just "teiid"

@@ -1,0 +1,2 @@
+XMLTable passing scalar subquery fails to evaluate
+Using a scalar subquery as a passing argument (for example - "select * from xmltable('/a/b' passing (SELECT xmlelement(name a, xmlAgg(xmlelement(name b, e1))) from pm1.g1) columns val string path '/.') as x" fails because the planner is not looking for suqueries in source nodes.

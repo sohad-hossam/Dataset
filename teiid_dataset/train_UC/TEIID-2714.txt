@@ -1,0 +1,4 @@
+Buffer defrag not working
+The defrag task is not working as expected because the header values are written by an object output stream - and not as standalone values into the block data.
+
+For most data usage patterns this isn't an issue as the storage files are self compacting over time due to low block assignments. 

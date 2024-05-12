@@ -1,0 +1,3 @@
+Minor connector config changes
+Resultset cache max size should be an expert property - all others are marked as such.
+Connector classpath only needs to exist on the parent connector type, and does not need to be required on jdbc connectors (embedded deployments may not need to include an explicit jar)

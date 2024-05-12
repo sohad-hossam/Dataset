@@ -1,0 +1,4 @@
+Google translator evaluates 0 as not NULL for operator <> 
+Query ""SELECT stringNum FROM bqt1.SmallA <> 0" returns also values NULL (empty cell in spreadsheet).
+I.e., NULL is treated as different from 0.
+If this is expected behavior, shouldn't it be in the documentation?

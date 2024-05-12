@@ -1,0 +1,6 @@
+Google translator unexpected behavior for comparison with time
+Comparison operators <, <=, >, >=, =, <> work unexpectedly for 'time' datatype, foreign table has column 'timevalue time OPTIONS (NATIVE_TYPE 'TIMEOFDAY')'.
+I created view with column 'TimeValue time', inserted data in format '10:57:23'.
+I run queries like 'DELETE FROM smalla WHERE TimeValue < {t '10:57:23'}'
+* <, <>, <= deletes all rows, including rows that should be left
+* >, >=, = deletes no rows

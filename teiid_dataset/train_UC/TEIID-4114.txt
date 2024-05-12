@@ -1,0 +1,6 @@
+Expanding logic in the format conversion for parsing and formatting of dates
+Java documentation isn't explicit https://docs.oracle.com/javase/7/docs/api/java/text/SimpleDateFormat.html regarding date/time formats.
+
+The format string is not enforced on the parsing side, so any hour format will accept any value.  However oracle's behavior is different - if you specify HH vs HH24, then 13-23 is disallowed.  
+
+Need to address this by expanding the logic in the format conversion to account for the difference between parsing and formatting. 

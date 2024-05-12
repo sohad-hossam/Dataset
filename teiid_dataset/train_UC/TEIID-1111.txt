@@ -1,0 +1,2 @@
+Add Teiid Version to Summary Page of Engine Resource in Teiid Jopr Plugin
+Need to add Teiid version to summary page as a trait of the Teiid engine

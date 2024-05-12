@@ -1,0 +1,10 @@
+MySql queries pushed down to the source producing error:  Invalid conversion from type class com.metamatrix.common.types.BlobType with value 'javax.sql.rowset.serial.SerialBlob@1b1395dc' to type class java.lang.Character
+Approximately 20 queries are producing unexpected results when being pushed down to  MySql.   One example query and resulting error is below.    Per Steve H this is  a defect for MySql 5.0.15 and later.  We need to add compensation logic to deal with non-ASCII range values.
+
+
+SELECT intkey, CHR(CONVERT(bigintegervalue, integer)) FROM BQT1.MediumA WHERE (IntKey > 32) AND (IntKey < 127) ORDER BY intkey
+
+
+Error occurred on connector MySQL_Push<5> - Invalid conversion from type class com.metamatrix.common.types.BlobType with value 'javax.sql.rowset.serial.SerialBlob@1b1395dc' to type class java.lang.Character
+
+

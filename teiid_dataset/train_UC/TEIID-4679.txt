@@ -1,0 +1,8 @@
+PrestoDB translator - locate function - source specific function has different order of arguments
+For PrestoDB translator, *locate(x,y)* is translated as *strpos(x,y)* - i.e. *strpos(substring, string)*, but function has different order of arguments - from [PrestoDB documentation|https://prestodb.io/docs/current/functions/string.html] - *strpos(string, substring)*
+{code:sql|title=Query}
+SELECT StringNum, LOCATE('1', StringNum) FROM BQT1.SmallA
+{code}
+{code:sql|title=Source-specific command}
+SELECT g_0.stringnum, strpos('1', g_0.stringnum) FROM smalla AS g_0
+{code}

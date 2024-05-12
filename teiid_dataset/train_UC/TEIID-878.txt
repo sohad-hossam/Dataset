@@ -1,0 +1,2 @@
+Fix capabilities caching
+The caching of connector capabilities should be closer to the data layer to ensure that capabilities changes are picked up with connector restarts irregardless of vdb state.

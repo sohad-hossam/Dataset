@@ -1,0 +1,4 @@
+Provide a admin method to "export" a Data Source.
+As of 7.0 M3, there is no admin method to export a data source that is defined inside the AS. This needs to be supported for the tooling purposes.
+
+Also, the "addDataSource" only supports to create XA data sources. It should also allow to create "local" data sources.

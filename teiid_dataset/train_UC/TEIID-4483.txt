@@ -1,0 +1,6 @@
+Not null constraint is not checked on temp table update
+An update such as:
+
+update x set e1 = (select null)
+
+will still be allowed to happen even if e1 is not null, since the not null validation is only being checked at for literal values.

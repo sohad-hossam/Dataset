@@ -1,0 +1,5 @@
+lpad and rpad implementation issues
+lpad/rpad should 
+-return a substring when the pad length is less than the string length
+-not return anything longer than max string length
+-accept a pad string of any length

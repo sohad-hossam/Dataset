@@ -1,0 +1,2 @@
+Ability to disable keepAlive
+offer an option to disable the ping/keep alive as the connections will always be associated with a given socket. 

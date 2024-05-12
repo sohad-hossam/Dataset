@@ -1,0 +1,122 @@
+NullPointer Exception when doing count aggregations on two individual columns from separate databases
+I have issues doing Count aggregations in 2 different databases.  2 out of 3 following cases fail...  (But distinct count seems ok)
+
+ 
+
+<----------- CASE 1 ---------->   SUM first, then COUNT => OK
+
+ 
+
+SUM(DB_2.field_1), COUNT(DB_1.field_1)
+
+ 
+
+select sum("FoodmartDataSourceJNDI_public_expense_fact"."amount") as "FoodmartDataSourceJNDI_public_expense_fact_amount_Sum",
+
+count("FoodmartDataSource_public_employee"."full_name") as "FoodmartDataSource_public_employee_full_name_Count"
+
+from "FoodmartDataSource_public"."employee" "FoodmartDataSource_public_employee"
+
+inner join "FoodmartDataSourceJNDI_public"."expense_fact" "FoodmartDataSourceJNDI_public_expense_fact" on ("FoodmartDataSource_public_employee"."store_id" = "FoodmartDataSourceJNDI_public_expense_fact"."store_id")
+
+ 
+
+ 
+
+SELECT g_0."store_id" AS c_0, g_0."full_name" AS c_1 FROM "public"."employee" AS g_0 ORDER BY c_0
+
+ 
+
+ 
+
+SELECT g_0."store_id" AS c_0, SUM(g_0."amount") AS c_1 FROM "public"."expense_fact" AS g_0 GROUP BY g_0."store_id" ORDER BY c_0
+
+ 
+
+<-----------CASE 2 --------------->  COUNT first, then SUM  =>  ERROR
+
+ 
+
+COUNT(DB_1.field_1), SUM(DB_2.field_1)
+
+ 
+
+ 
+
+select count("FoodmartDataSourceJNDI_public_expense_fact"."category_id") as "FoodmartDataSourceJNDI_public_expense_fact_category_id_Count",
+
+sum("FoodmartDataSource_public_employee"."salary") as "FoodmartDataSource_public_employee_salary_Sum"
+
+from "FoodmartDataSource_public"."employee" "FoodmartDataSource_public_employee"
+
+inner join "FoodmartDataSourceJNDI_public"."expense_fact" "FoodmartDataSourceJNDI_public_expense_fact" on ("FoodmartDataSource_public_employee"."store_id" = "FoodmartDataSourceJNDI_public_expense_fact"."store_id")
+
+ 
+
+Caused by: java.lang.NullPointerException
+
+          at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:184)
+
+          at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+
+          at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:113)
+
+          at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:103)
+
+          at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:194)
+
+          at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:130)
+
+          at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:109)
+
+          at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:153)
+
+          at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:382)
+
+          at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:291)
+
+          ... 123 more
+
+ 
+
+<-----------CASE 3 --------------->  COUNT on DB1.COL1 and COUNT on DB2.COL2 =>  ERROR
+
+ 
+
+COUNT(DB_1.field_1), COUNT(DB_2.field_1)
+
+ 
+
+select count("FoodmartDataSourceJNDI_public_expense_fact"."category_id") as "FoodmartDataSourceJNDI_public_expense_fact_category_id_Count",
+
+count("FoodmartDataSource_public_employee"."first_name") as "FoodmartDataSource_public_employee_first_name_Count"
+
+from "FoodmartDataSource_public"."employee" "FoodmartDataSource_public_employee"
+
+inner join "FoodmartDataSourceJNDI_public"."expense_fact" "FoodmartDataSourceJNDI_public_expense_fact" on ("FoodmartDataSource_public_employee"."store_id" = "FoodmartDataSourceJNDI_public_expense_fact"."store_id")
+
+ 
+
+Caused by: java.lang.NullPointerException
+
+          at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:184)
+
+          at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+
+          at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:113)
+
+          at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:103)
+
+          at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:194)
+
+          at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:130)
+
+          at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:109)
+
+          at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:153)
+
+          at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:382)
+
+          at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:291)
+
+          ... 123 more

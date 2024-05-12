@@ -1,0 +1,39 @@
+Impala translator - SELECT and HAVING statements are translating differently for Case statements
+Error from Impala-
+all DISTINCT aggregate functions need to have the same set of parameters as count(DISTINCT (CASE WHEN (secondcol >= 0) THEN 1 ELSE CAST(NULL AS STRING) END))
+deviating function: count(DISTINCT (CASE WHEN (secondcol >= 0) THEN 1 ELSE NULL END))
+
+Query:
+SELECT user_key, sum(firstcol),count(distinct case when secondcol >= 0 then 1 end) 
+FROM sometable 
+WHERE customer_key=6
+GROUP BY user_key 
+HAVING sum(firstcol)>100 
+	AND count(distinct case when secondcol >= 0 then 1 end)=0
+	
+Query explanation:
+For all users
+Add up values in the firstcol column (integer column)
+count distinct values in secondcol where secondcol value zero or more
+	otherwise return null (output is string)
+
+
+Translated Teiid query:
+SELECT user_key, SUM(firstcol) as `EXPR_0`, COUNT(DISTINCT (CASE WHEN (secondcol >= 0) THEN '1' ELSE CAST(NULL AS STRING) END)) as `EXPR_1`
+FROM sometable 
+WHERE customer_key` = 6
+HAVING (EXPR_0 > 100) AND (COUNT(DISTINCT (CASE WHEN (secondcol >= 0) THEN '1' ELSE NULL END)) = 0))
+
+Note the difference between the select and having for EXPR_1:
+Select - THEN '1' ELSE CAST(NULL AS STRING) END
+Having - THEN '1' ELSE NULL END
+
+Impala doesn't accept that these are the same aggregate function.  Aliases aren't accepted in the HAVING.
+
+One further observation- if we swap the translation and write the statement in the select as 
+COUNT(DISTINCT (CASE WHEN (secondcol >= 0) THEN '1' *ELSE NULL END*))
+
+Teiid translates the SELECT to
+COUNT(DISTINCT (CASE WHEN (secondcol >= 0) THEN '1' *ELSE CAST(NULL AS STRING) END*))
+
+So it always makes these mismatched.

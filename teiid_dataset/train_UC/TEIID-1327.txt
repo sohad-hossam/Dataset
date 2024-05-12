@@ -1,0 +1,2 @@
+API request:  Fine grained security
+I'd like an API to implement fine grained security checks.  The use case is to create a permission from each table+column requested, each stored procedure and other database objects and validate the user id and permission against an external security manager.

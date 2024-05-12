@@ -1,0 +1,2 @@
+Remove xml document models
+XML document models have been deprecated for a full release and are not expected to have tooling support in any future UI.  Support should be removed from the server side.

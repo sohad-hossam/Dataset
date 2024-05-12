@@ -1,0 +1,2 @@
+Clob.getSubstring(int,int) returns empty or whole string
+Method java.sql.Clob.getSubstring(int,int) returns either empty string (if second argument, length, is 0) or whole string (if length >= 1).

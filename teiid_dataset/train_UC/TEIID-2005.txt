@@ -1,0 +1,8 @@
+Source query for Oracle sequence adds an alias, which will return "sequence doesn't exist" errors
+Per Documentation, setup an oracle sequence or use the EV.vdb on slnttech04.mmx.gss.redhat.com:31100
+run the below query:
+
+select cpe_seq from Evolvecontrol.seq_gen
+
+It will error with 
+[SELECT g_0.tid_cl_seq.nextval FROM dual g_0] [SQLException]ORA-02289: sequence does not exist

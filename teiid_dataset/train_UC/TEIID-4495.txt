@@ -1,0 +1,62 @@
+Salesforce - unable to use CXF configuration with version 34
+I am trying to use simple CXF logging feature to log in/outbound messages for Salesforce resource adapter. However, Teiid throws ClassNotFoundException if using translator/connection factory of version 34.
+
+There is no problem with version 22 except one warning:
+{code:plain}
+08:16:44WARNING [org.apache.cxf.bus.spring.SpringBusFactory] (Worker1_QueryProcessorQueue11) Initial attempt to create application context was unsuccessful.: org.springframework.beans.factory.BeanDefinitionStoreException: IOException parsing XML document from class path resource [META-INF/cxf/cxf.xml]; nested exception is java.io.FileNotFoundException: class path resource [META-INF/cxf/cxf.xml] cannot be opened because it does not exist
+     at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:342)
+     at org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader.internalLoadBeanDefinitions(ControlledValidationXmlBeanDefinitionReader.java:154)
+     at org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader.access$000(ControlledValidationXmlBeanDefinitionReader.java:66)
+     at org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader$1.run(ControlledValidationXmlBeanDefinitionReader.java:141)
+     at org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader$1.run(ControlledValidationXmlBeanDefinitionReader.java:139)
+     at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.8.0-internal]
+     at org.apache.cxf.bus.spring.ControlledValidationXmlBeanDefinitionReader.loadBeanDefinitions(ControlledValidationXmlBeanDefinitionReader.java:139)
+     at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:303)
+     at org.springframework.beans.factory.support.AbstractBeanDefinitionReader.loadBeanDefinitions(AbstractBeanDefinitionReader.java:174)
+     at org.springframework.context.support.AbstractXmlApplicationContext.loadBeanDefinitions(AbstractXmlApplicationContext.java:123)
+     at org.apache.cxf.bus.spring.BusApplicationContext.loadBeanDefinitions(BusApplicationContext.java:322)
+     at org.springframework.context.support.AbstractRefreshableApplicationContext.refreshBeanFactory(AbstractRefreshableApplicationContext.java:130)
+     at org.springframework.context.support.AbstractApplicationContext.obtainFreshBeanFactory(AbstractApplicationContext.java:539)
+     at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:451)
+     at org.apache.cxf.bus.spring.BusApplicationContext$1.run(BusApplicationContext.java:107)
+     at org.apache.cxf.bus.spring.BusApplicationContext$1.run(BusApplicationContext.java:105)
+     at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.8.0-internal]
+     at org.apache.cxf.bus.spring.BusApplicationContext.<init>(BusApplicationContext.java:105)
+     at org.apache.cxf.bus.spring.SpringBusFactory.createApplicationContext(SpringBusFactory.java:157)
+     at org.apache.cxf.bus.spring.SpringBusFactory.createBus(SpringBusFactory.java:148)
+     at org.apache.cxf.bus.spring.SpringBusFactory.createBus(SpringBusFactory.java:124)
+     at org.apache.cxf.bus.spring.SpringBusFactory.createBus(SpringBusFactory.java:94)
+     at org.apache.cxf.jaxrs.client.WebClient.getBean(WebClient.java:1221)
+     at org.apache.cxf.jaxrs.client.WebClient.create(WebClient.java:202)
+     at org.teiid.resource.adapter.salesforce.transport.SalesforceCXFTransport.connectRaw(SalesforceCXFTransport.java:123)
+     at org.teiid.resource.adapter.salesforce.transport.SalesforceCXFTransport.connectLocal(SalesforceCXFTransport.java:87)
+     at org.teiid.resource.adapter.salesforce.transport.SalesforceCXFTransport.connectLocal(SalesforceCXFTransport.java:82)
+     at org.teiid.resource.adapter.salesforce.transport.SalesforceCXFTransport.connect(SalesforceCXFTransport.java:78)
+     at com.sforce.ws.transport.SoapConnection.send(SoapConnection.java:94) [force-wsc-22.0.0.jar:]
+     at com.sforce.soap.partner.PartnerConnection.delete(PartnerConnection.java:905) [force-partner-api-22.0.0.jar:]
+     at org.teiid.resource.adapter.salesforce.SalesforceConnectionImpl.delete(SalesforceConnectionImpl.java:315)
+     at org.teiid.translator.salesforce.execution.DeleteExecutionImpl.execute(DeleteExecutionImpl.java:52) [translator-salesforce-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+     at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402)
+     at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+     at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0-internal]
+     at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0-internal]
+     at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+     at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+     at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+     at com.sun.proxy.$Proxy47.execute(Unknown Source)
+     at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+     at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+     at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+     at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+     at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+     at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+     at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+     at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+     at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+     at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+     at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+ Caused by: java.io.FileNotFoundException: class path resource [META-INF/cxf/cxf.xml] cannot be opened because it does not exist
+     at org.springframework.core.io.ClassPathResource.getInputStream(ClassPathResource.java:171)
+     at org.springframework.beans.factory.xml.XmlBeanDefinitionReader.loadBeanDefinitions(XmlBeanDefinitionReader.java:329)
+     ... 50 more
+ {code}

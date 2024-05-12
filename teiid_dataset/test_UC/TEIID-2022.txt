@@ -1,0 +1,2 @@
+Refine error codes and messages
+With TEIID-1889 we have nearly 1000 error codes.  There are numerous codes that don't have associated messages and some duplicated messages.  In both of those instances we should see if a unique code is needed or if it can actually be removed.  For comparison Postgresql use only about 250 error codes.  As we work TEIID-1386 it will be important to minimize the number of error codes.

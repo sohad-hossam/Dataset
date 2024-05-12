@@ -1,0 +1,2 @@
+Rationalize precision/scale
+Our handling of precision/scale is inconsistent.  There are assumptions being made in the JDBC client, types.dat, the parser, and other paths that need to be explicit and consistent.

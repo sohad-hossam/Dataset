@@ -1,0 +1,6 @@
+Local connection waits for active VDB 1,000,000 times longer than specified in waitForLoad property
+If user specifies waitForLoad connection property in URL, Teiid waits for longer time than specified in the property.
+
+I believe it is because you call Object.wait(long) method with wrong parameter \[1\]. In combination with TEIID-4388, from users point of view, local connection waits for active VDB for ever.
+
+\[1\] See this [commit|https://github.com/teiid/teiid/commit/d7e161ff04c77f8f2da85b2debb1b1d81916d551#diff-6b75c0b6472a3a96e8722226ca97b376R218]. You call method like _vdb.wait(timeOutNanos);_, but from javadoc: *timeout - the maximum time to wait in milliseconds.* It means that Teiid waits 1,000,000 times longer than specified in parameter.

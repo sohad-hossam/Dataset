@@ -1,0 +1,40 @@
+SAP HANA materialization:function loadMatView with argument invalidate set to true problem
+There appears to be an issue with loadMatView function.
+Specifically when the function is invoked with invalidate=>'true' argument, when it is expected, that invocation of this function invalidates the current contents of the materialized view until the initiated load is completed and new data are populated.
+But when calling this function as described, an error occurs:
+{code:plain}
+TEIID20001 The modeled datatype integer for column 0 doesn't match the runtime type "org.teiid.core.types.ArrayImpl". Please ensure that the column's modeled datatype matches the expected data.
+{code}
+Please note, that there is no column of type array in my schema.
+There is declaration of the view:
+{code:sql}
+CREATE VIEW external_long_ttl (
+       customer_id integer NOT NULL,
+       total_amount integer
+ )
+{code}
+and the query used to load the view:
+{code:sql}
+"teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO dv_matviews_mat_view_stage(customer_id,total_amount) SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;',
+{code}
+
+Complete definition of the view is:
+{code:sql}
+CREATE VIEW external_long_ttl (
+           customer_id integer NOT NULL,
+           total_amount integer
+        ) OPTIONS (
+          MATERIALIZED 'TRUE',
+          UPDATABLE 'FALSE',
+          MATERIALIZED_TABLE 'Source.JSTASTNY.dv_matviews_mat_view',
+          "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+          "teiid_rel:MATVIEW_STATUS_TABLE" 'Source.JSTASTNY.dv_matviews_statustable',
+          "teiid_rel:ON_VDB_START_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_create) SELECT id, vdb_create+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+          "teiid_rel:ON_VDB_DROP_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_drop) SELECT id, vdb_drop+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+          "teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO dv_matviews_mat_view_stage(customer_id,total_amount) SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;',
+          "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'exec Source.native(''truncate table dv_matviews_mat_view_stage'');MERGE INTO dv_matviews_check_table(id,before_load) SELECT id, before_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+          "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'exec Source.native(''RENAME TABLE dv_matviews_mat_view_stage TO dv_matviews_mat_view_temp'');exec Source.native(''RENAME TABLE dv_matviews_mat_view TO dv_matviews_mat_view_stage'');exec Source.native(''RENAME TABLE dv_matviews_mat_view_temp TO dv_matviews_mat_view'');MERGE INTO dv_matviews_check_table(id,after_load) SELECT id, after_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+          "teiid_rel:MATVIEW_ONERROR_ACTION" 'WAIT',
+          "teiid_rel:MATVIEW_TTL" 20000
+        ) AS SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;
+{code}

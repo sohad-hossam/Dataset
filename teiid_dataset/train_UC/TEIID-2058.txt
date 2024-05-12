@@ -1,0 +1,40 @@
+Optimization places correlated subquery in the on clause, which is not supported by DB2
+Reproducible behavior with the following simplified query [1] 
+Avoiding the error by including non-restricting criteria on tables not represented in the WHERE EXISTS clause [2].
+
+ie:  there seems to be a problem in the Optimization that writing the query similar to [2] will avoid.
+
+[1]
+SELECT                                            
+    'X' as CMR_BPR_ID2            
+FROM                                               
+    Y93                       
+INNER JOIN                                         
+    AG5                         
+ ON                                                
+    1 = 1       
+LEFT OUTER JOIN                                     
+    MFSMFL.I58 as I58                          
+ ON                                                 
+    1 = 1  
+WHERE EXISTS                                               
+  (SELECT 'Y' FROM BH0 WHERE AG5.CONSENT_CLIENT_ID  = 1 AND
+			     Y93.CMR_BPR_ID2        = 1 )
+
+[2]
+SELECT                                            
+    'X' as CMR_BPR_ID2            
+FROM                                               
+    Y93                       
+INNER JOIN                                         
+    AG5                         
+ ON                                                
+    1 = 1       
+LEFT OUTER JOIN                                     
+    MFSMFL.I58 as I58                          
+ ON                                                 
+    1 = 1  
+WHERE EXISTS                                               
+  (SELECT 'Y' FROM BH0 WHERE AG5.CONSENT_CLIENT_ID  = 1 AND
+				Y93.CMR_BPR_ID2    = 1  AND
+				I58.FUND_CODE like '%')

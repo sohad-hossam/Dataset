@@ -1,0 +1,33 @@
+OData - metadata returns primary key with attribute "Nullable=true"
+If column's name in source (PHYSICAL) model has different name than one in the source (case sensitive) then attribute "Nullable" is set to true.
+
+{code:xml}
+<vdb name="test" version="1">
+    <model name="Source" type="PHYSICAL">
+        <source name="rs" connection-jndi-name="java:/Redshift" translator-name="postgresql"/>
+        <metadata type="DDL">
+            <![CDATA[create foreign table SmallB (
+                IntKey integer PRIMARY KEY OPTIONS(NAMEINSOURCE 'intkey', NATIVE_TYPE 'int4')) OPTIONS(NAMEINSOURCE 'smalla');
+            ]]>
+        </metadata>
+    </model>
+</vdb>
+{code}
+
+result:
+{code:xml}
+<edmx:Edmx xmlns:edmx="http://schemas.microsoft.com/ado/2007/06/edmx" Version="1.0">
+  <edmx:DataServices xmlns:m="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata" m:DataServiceVersion="2.0">
+    <Schema xmlns="http://schemas.microsoft.com/ado/2008/09/edm" Namespace="Source">
+      <EntityType Name="SmallB">
+        <Key>
+          <PropertyRef Name="IntKey"/>
+        </Key>
+        <Property Name="IntKey" Type="Edm.Int32" Nullable="true"/>
+      </EntityType>
+      <EntityContainer Name="Source" m:IsDefaultEntityContainer="false">
+        <EntitySet Name="SmallB" EntityType="Source.SmallB"/>
+      </EntityContainer>
+    </Schema>
+...
+{code}

@@ -1,0 +1,4 @@
+VMController has verbose interface
+1) There are several verbose calls that are on the VMController interface, that are not being used or duplicate.
+
+2) VMContollerID is also super plus and confusing as it does does go with VM/process Name construct we have

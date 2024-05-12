@@ -1,0 +1,5 @@
+Pushdown query ORDER BY  is not always ordering results properly on Sql2000 
+Pushdown queries with ORDER BY are not always ordering results correctly.  The below query is returning query results in the proper order for Simple Capabilities but in the wrong order for Pushdown on sql2000 source.   This may also be happening on other sources.
+
+SELECT BQT1.SmallA.IntNum, BQT2.SmallB.StringNum FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.IntNum = BQT2.SmallB.StringNum AND BQT1.SmallA.IntKey >= 5 AND BQT2.SmallB.IntKey >= 5 ORDER BY BQT1.SmallA.StringKey 
+

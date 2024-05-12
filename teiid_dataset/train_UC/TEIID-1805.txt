@@ -1,0 +1,2 @@
+Allow no_unnest to apply to views/subquery from clauses
+The no_unnest hint should also control view flattening behavior to prevent the optimizer from removing a view.

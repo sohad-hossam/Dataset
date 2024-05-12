@@ -1,0 +1,2 @@
+getIndexInfo is not correct
+DatabaseMetaData.getIndexInfo returns 0 (statistical index) for all indexes.  Also the unique flag is not properly honored.

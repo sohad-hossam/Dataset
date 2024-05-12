@@ -1,0 +1,4 @@
+Issues with array type metadata
+If cached metadata (typically from Designer) is used, then on cached usage our logic to use the canonical datatype reference will reset the array dimension to 0 on array type columns.
+
+There is also an issue with Designer vdbs in that an array type cannot be conveyed as we are only looking at the datatype uuid and not at the runtime type name, which would contain the array dimensions.

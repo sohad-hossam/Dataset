@@ -1,0 +1,2 @@
+Deploy time cached VDB metadata is being deleted during shutdown.
+Due to https://issues.jboss.org/browse/AS7-3431 the metadata is always being deleted during the shutdown. This will be bigger issue with dynamic VDBs.

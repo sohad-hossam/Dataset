@@ -1,0 +1,2 @@
+Round should be marked as supported for Oracle
+The round function is not marked as supported, but should be as there has been support in oracle back to version 8.

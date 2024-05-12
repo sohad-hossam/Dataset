@@ -1,0 +1,2 @@
+Adding an INFO validation to a model can invalidate the vdb
+See the forum link for a full detail of a vdb that is being reloaded while an info validation is left on a model.  The xml we are generating is not valid for parsing again because no info enum is listed in the xsd.

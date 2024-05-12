@@ -1,0 +1,12 @@
+Add units into the cli description of transport property "authentication-sessions-expiration-timelimit"
+Currently if you run a cli command on the transports, ie /subsystem=teiid/transport=JDBC:read-resource-description no unit value shows for the "authentication-sessions-expiration-timelimit" description, can (in milliseconds) be added to the description?
+
+"authentication-sessions-expiration-timelimit" => {
+                "type" => INT,
+                "description" => "Max allowed time before the session is terminated by the system, 0 indicates unlimited (default 0)",
+                "expressions-allowed" => false,
+                "nillable" => true,
+                "default" => 0,
+                "access-type" => "read-write",
+                "storage" => "configuration",
+                "restart-required" => "no-services"

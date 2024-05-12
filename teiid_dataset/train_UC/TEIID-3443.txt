@@ -1,0 +1,30 @@
+wrong estimation of BufferFrontedFileStoreCache.maxMemoryBlocks
+BufferFrontedFileStoreCache.maxMemoryBlocks is under-estimated. For example, when max-storage-object-size=8000000, maxMemoryBlocks
+is 488 at the line #575 in org.teiid.common.buffer.impl.BufferFrontedFileStoreCache.initialize() (after that, it is decrimented some times, but it does not matter).
+
+{code}
+main[1] run
+> 
+Breakpoint hit: "thread=MSC service thread 1-3", org.teiid.common.buffer.impl.BufferFrontedFileStoreCache.initialize(), line=573 bci=163
+573    		maxMemoryBlocks = Math.min(maxMemoryBlocks, maxStorageObjectSize>>LOG_BLOCK_SIZE + ((maxStorageObjectSize&BufferFrontedFileStoreCache.BLOCK_MASK)>0?1:0));
+
+MSC service thread 1-3[1] next
+> 
+Step completed: "thread=MSC service thread 1-3", org.teiid.common.buffer.impl.BufferFrontedFileStoreCache.initialize(), line=575 bci=198
+575    		cleaningThreshold = Math.min(maxMemoryBlocks<<4, blocks>>1);
+
+MSC service thread 1-3[1] dump this
+ this = {
+    ...snip...
+    maxStorageObjectSize: 8000000
+    ...snip...
+    maxMemoryBlocks: 488
+{code}
+
+An actual cache object size for maxMemoryBlocks: 488 is roughly:-
+
+{code}
+8192 * 488 = 3997696
+{code}
+
+It is less than half of maxStorageObjectSize. It sometimes causes TEIID30001.

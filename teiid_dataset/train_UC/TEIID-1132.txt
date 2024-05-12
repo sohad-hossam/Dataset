@@ -1,0 +1,69 @@
+Teiid Kit missing SalesForce JAR
+After deploying a SalesForce VDB, I tried to query it via SQuirreL with this exception as the result. I have attached the JAR file Ramesh believes to be the missing one.
+
+2010-06-24 11:11:25,655 ERROR [org.teiid.CONNECTOR] (WorkManager(2)-32_QueryProcessorQueue30) Connector worker process failed for atomic-request=iLd3DdGdqacV.5.1.6
+java.lang.NoClassDefFoundError: com/sforce/soap/partner/UnexpectedErrorFault
+        at org.teiid.resource.adapter.salesforce.SalesForceManagedConnectionFactory$1.getConnection(SalesForceManagedConnectionFactory.java:102)
+        at org.teiid.resource.adapter.salesforce.SalesForceManagedConnectionFactory$1.getConnection(SalesForceManagedConnectionFactory.java:99)
+        at org.teiid.translator.ExecutionFactory.getConnection(ExecutionFactory.java:134)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.execute(ConnectorWorkItem.java:229)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.open(DataTierTupleSource.java:118)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:82)
+        at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:260)
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:106)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:157)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:107)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:67)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:250)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:177)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:190)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:176)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+        at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+        at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.ClassNotFoundException: com.sforce.soap.partner.UnexpectedErrorFault from BaseClassLoader@1fb302d{VFSClassLoaderPolicy@17fe3f{name=vfszip:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/ domain=ClassLoaderDomain@d75c47{name=DefaultDomain parentPolicy=BEFORE parent=org.jboss.bootstrap.NoAnnotationURLClassLoader@1d99a4d} roots=[MemoryContextHandler@20255376[path= context=vfsmemory://3j001-hgf8vb-gasaozmp-1-gasapo9m-23 real=vfsmemory://3j001-hgf8vb-gasaozmp-1-gasapo9m-23], DelegatingHandler@22405606[path=teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar context=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/ real=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar], DelegatingHandler@23187727[path=teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/connector-salesforce-7.0.0-SNAPSHOT.jar context=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/ real=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/connector-salesforce-7.0.0-SNAPSHOT.jar]]  delegates=null exported=[META-INF.maven.org.jboss.teiid.connectors.connector-salesforce, org.teiid.resource.adapter.salesforce, META-INF] <IMPORT-ALL>NON_EMPTY}}
+        at org.jboss.classloader.spi.base.BaseClassLoader.loadClass(BaseClassLoader.java:448)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:248)
+        at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:316)
+        ... 25 more
+2010-06-24 11:11:25,657 WARN  [org.teiid.PROCESSOR] (WorkManager(2)-32_QueryProcessorQueue30) Processing exception 'com/sforce/soap/partner/UnexpectedErrorFault' for request iLd3DdGdqacV.5.  Exception type org.teiid.core.TeiidProcessingException thrown from org.jboss.classloader.spi.base.BaseClassLoader.loadClass(BaseClassLoader.java:448). Enable more detailed logging to see the entire stacktrace.
+2010-06-24 11:11:27,069 ERROR [org.teiid.CONNECTOR] (WorkManager(2)-33_QueryProcessorQueue31) Connector worker process failed for atomic-request=iLd3DdGdqacV.6.1.7
+java.lang.NoClassDefFoundError: com/sforce/soap/partner/UnexpectedErrorFault
+        at org.teiid.resource.adapter.salesforce.SalesForceManagedConnectionFactory$1.getConnection(SalesForceManagedConnectionFactory.java:102)
+        at org.teiid.resource.adapter.salesforce.SalesForceManagedConnectionFactory$1.getConnection(SalesForceManagedConnectionFactory.java:99)
+        at org.teiid.translator.ExecutionFactory.getConnection(ExecutionFactory.java:134)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.execute(ConnectorWorkItem.java:229)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.open(DataTierTupleSource.java:118)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:82)
+        at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:260)
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:106)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:157)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:107)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:67)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:250)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:177)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:190)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:176)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+        at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+        at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.ClassNotFoundException: com.sforce.soap.partner.UnexpectedErrorFault from BaseClassLoader@1fb302d{VFSClassLoaderPolicy@17fe3f{name=vfszip:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/ domain=ClassLoaderDomain@d75c47{name=DefaultDomain parentPolicy=BEFORE parent=org.jboss.bootstrap.NoAnnotationURLClassLoader@1d99a4d} roots=[MemoryContextHandler@20255376[path= context=vfsmemory://3j001-hgf8vb-gasaozmp-1-gasapo9m-23 real=vfsmemory://3j001-hgf8vb-gasaozmp-1-gasapo9m-23], DelegatingHandler@22405606[path=teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar context=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/ real=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar], DelegatingHandler@23187727[path=teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/connector-salesforce-7.0.0-SNAPSHOT.jar context=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/ real=file:/home/pnittel/Teiid7CR2/jboss-5.1.0.GA/server/default/deploy/teiid/connectors/connector-salesforce-7.0.0-SNAPSHOT.rar/connector-salesforce-7.0.0-SNAPSHOT.jar]]  delegates=null exported=[META-INF.maven.org.jboss.teiid.connectors.connector-salesforce, org.teiid.resource.adapter.salesforce, META-INF] <IMPORT-ALL>NON_EMPTY}}
+        at org.jboss.classloader.spi.base.BaseClassLoader.loadClass(BaseClassLoader.java:448)
+        at java.lang.ClassLoader.loadClass(ClassLoader.java:248)
+        at java.lang.ClassLoader.loadClassInternal(ClassLoader.java:316)
+        ... 25 more
+2010-06-24 11:11:27,070 WARN  [org.teiid.PROCESSOR] (WorkManager(2)-33_QueryProcessorQueue31) Processing exception 'com/sforce/soap/partner/UnexpectedErrorFault' for request iLd3DdGdqacV.6.  Exception type org.teiid.core.TeiidProcessingException thrown from org.jboss.classloader.spi.base.BaseClassLoader.loadClass(BaseClassLoader.java:448). Enable more detailed logging to see the entire stacktrace.

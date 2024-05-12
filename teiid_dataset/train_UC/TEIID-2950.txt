@@ -1,0 +1,6 @@
+Do not schema-qualify the DDL constraint references if they are within the current schema
+The DDL constraint statements now contain the model name in order to qualify the schema.  For example : 
+
+CONSTRAINT FK_Account_ParentId FOREIGN KEY(ParentId) REFERENCES importVDBSrcModel.Account (Id)
+
+Request that the schema be dropped if the reference is within the current schema.

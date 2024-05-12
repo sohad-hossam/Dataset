@@ -1,0 +1,2 @@
+Wrong OData results with multiple self relationships
+If an entity has multiple self relationships, only the first foreign key will be used no matter which navigation is queried.

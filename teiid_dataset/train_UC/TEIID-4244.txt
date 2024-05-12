@@ -1,0 +1,37 @@
+Assertion failed error when joining duplicate rows to a table from other source
+I get the following error when joining duplicate rows to a table from other source:
+{code}
+17:20:52,718 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue21) irzl30n7Sda0 TEIID30019 Unexpected exception for request irzl30n7Sda0.8: java.lang.AssertionError: ASSERTION
+FAILED: expected reference to be not null
+        at org.teiid.core.util.Assertion.failed(Assertion.java:73) [teiid-common-core-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100) [teiid-common-core-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92) [teiid-common-core-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:286) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.common.buffer.TupleBuffer$TupleBufferTupleSource.getBatch(TupleBuffer.java:74) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:62) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.common.buffer.AbstractTupleSource.hasNext(AbstractTupleSource.java:92) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.MergeJoinStrategy.compareToPrevious(MergeJoinStrategy.java:279) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.MergeJoinStrategy.process(MergeJoinStrategy.java:237) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.EnhancedSortMergeJoinStrategy.process(EnhancedSortMergeJoinStrategy.java:416) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:227) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:148) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:344) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.Beta1.jar:8.12.0.Beta1]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+{code}

@@ -1,0 +1,17 @@
+ BigInteger and BigDecimal datatypes are converted into string in MongoDB translator 
+Description of problem:
+
+BigInteger and BigDecimal datatypes are converted into string in MongoDB translator (MongoDBExecutionFactory.java). User can't use these datatypes in the WHERE clause.
+
+For example
+The query:
+ 
+SELECT IntKey FROM SmallA where BIGINTEGERVALUE > 1 
+
+returns no results because BIGINTEGERVALUE > 1 is converted into
+
+ { "BIGINTEGERVALUE" : { "$gt" : "1"}}
+
+but is should be 
+
+ { "BIGINTEGERVALUE" : { "$gt" : 1}}

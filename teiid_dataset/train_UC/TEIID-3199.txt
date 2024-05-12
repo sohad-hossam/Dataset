@@ -1,0 +1,4 @@
+node next batch processing time is computed incorrectly
+The node next batch processing time stat is computed incorrectly.  It is currently relative to the total processing time (which includes waits due to blocking) and should instead be just the time spent for that node in the next batch call.
+
+See also TEIID-2475

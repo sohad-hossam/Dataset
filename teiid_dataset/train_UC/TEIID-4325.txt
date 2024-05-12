@@ -1,0 +1,53 @@
+ASSERTION FAILED: expected reference to be not null
+I'm using teiid 9.0.0 over h2 :
+ 
+I'm getting ASSERTION_FAILED over the following query and can not find what is causing this exception:
+ 
+select "Sheet1"."AvgAmoutRange" as "Sheet1_EBt_211215_AvgAmoutRa1",COUNT( distinct IFNULL("CEGlobalView"."Customer_CustomerID",-2147483648)) as "CEGlobalView_Customer_Custom2","CEGlobalView"."Customer_GenderID" as "CEGlobalView_Customer_Gender1","Gender"."Gender" as "Gender_Gender","Sheet1"."Sheet1_EBt_211215ID" as "Sheet1_EBt_211215_Sheet1_EBt11" from  "CEBanksBusinessModel"."CEGlobalView" "CEGlobalView" LEFT JOIN "h2dbimplify_data_cebankModel_ST"."implify_data_cebank"."Sheet1_EBt_211215" "Sheet1" ON   ( ("CEGlobalView"."StreamCardsvt3r_StreamCards_1" BETWEEN  "Sheet1"."Min" and "Sheet1"."Max") )
+LEFT JOIN "h2dbimplify_data_cebankModel_fR"."implify_data_cebank"."Gender" "Gender" ON "CEGlobalView"."Customer_GenderID" = "Gender"."GenderID"
+LEFT JOIN "h2dbimplify_data_cebankModel_fR"."implify_data_cebank"."CustomerTag" "CustomerTag" ON "CEGlobalView"."Customer_CustomerID" = "CustomerTag"."Customer_CustomerID" AND ( ( ("CustomerTag"."EndDateTime" >  CURDATE()) OR ( ("CustomerTag"."EndDateTime" IS  null ) ) ) )
+LEFT JOIN "h2dbimplify_data_cebankModel_fR"."implify_data_cebank"."TagValue" "TagValue" ON "CustomerTag"."TagValue_TagValueID" = "TagValue"."TagValueID"
+LEFT JOIN "h2dbimplify_data_cebankModel_fR"."implify_data_cebank"."TagName" "TagName" ON "TagValue"."TagName_TagNameID" = "TagName"."TagNameID" AND ( ( ("TagName"."TagType_TagTypeID" IN  (1.0) ) ) AND ( ("TagName"."TagScope_TagScopeID" IN  (1.0) ) ) )
+where  ( ( ( ("TagName"."TagName" IN  ('Behavior') ) ) ) AND ( ("Sheet1"."AvgAmoutRange" IS NOT  null ) ) AND ( ("CEGlobalView"."Customer_GenderID" IS NOT  null ) ) AND ( ("Gender"."Gender" IS NOT  null ) ) )  group by "Sheet1"."AvgAmoutRange","CEGlobalView"."Customer_GenderID","Gender"."Gender","Sheet1"."Sheet1_EBt_211215ID" order by "Sheet1"."Sheet1_EBt_211215ID" ASC,"Sheet1"."AvgAmoutRange" ASC,"Gender"."Gender" DESC,"CEGlobalView"."Customer_GenderID" DESC
+ 
+
+The exception stack:
+ 
+ERROR TEIID_DQP_LOGGER:90 (http-bio-8080-exec-14) -  - [TEIID30019 Unexpected exception for request rBDBCRYcUyyM.0]
+java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+  at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+  at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+  at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+  at org.teiid.query.processor.relational.RelationalNode.getProjectionIndexes(RelationalNode.java:367)
+  at org.teiid.query.processor.relational.JoinNode.initialize(JoinNode.java:133)
+  at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96)
+  at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+  at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+  at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+  at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91)
+  at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226)
+  at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138)
+  at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+  at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+  at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+  at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472)
+  at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348)
+  at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+  at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274)
+  at org.teiid.dqp.internal.process.DQPCore.executeRequest(DQPCore.java:313)
+  at org.teiid.dqp.internal.process.DQPCore.executeRequest(DQPCore.java:245)
+  at sun.reflect.GeneratedMethodAccessor423.invoke(Unknown Source)
+  at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+  at java.lang.reflect.Method.invoke(Method.java:606)
+  at org.teiid.transport.LocalServerConnection$1$1.call(LocalServerConnection.java:177)
+  at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+  at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+  at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:260)
+  at org.teiid.transport.LocalServerConnection$1.invoke(LocalServerConnection.java:175)
+  at com.sun.proxy.$Proxy34.executeRequest(Unknown Source)
+  at org.teiid.jdbc.StatementImpl.execute(StatementImpl.java:673)
+  at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:539)
+  at org.teiid.jdbc.StatementImpl.execute(StatementImpl.java:1060)
+  at org.teiid.jdbc.StatementImpl.execute(StatementImpl.java:323)
+
+you find attached the show plan debug

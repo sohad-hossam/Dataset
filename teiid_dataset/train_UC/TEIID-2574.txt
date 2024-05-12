@@ -1,0 +1,4 @@
+HiveMetadata procesor typo in importer property name
+HiveMetadatProcessor's method setTrimColumNames should be named setTrimColumnNames
+
+Unfortunately, when the documentation is without typo so when user sets the importer property according to docs, the property is silently not set.

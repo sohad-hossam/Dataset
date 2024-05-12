@@ -1,0 +1,22 @@
+Teiid maven build needs to work off of Jboss parent pom
+Version 7 of the JBoss parent POM was released today.  Please consider
+using this as the parent POM for your Maven builds, because it helps
+keep our builds consistent.
+
+Also, be aware that this POM is now in the Public Domain (i.e. no
+copyright), and the license setting will be inherited to your POMs
+unless overridden.  So make sure your POM contains the correct <license>
+settings after updating.
+
+Some other notable changes in this version are that the release profile
+is now called "jboss-release".  If you use the maven release plugin this
+profile will be called automatically, but if you release manually, then
+you should add "-Pjboss-release" to the build command, and the
+jboss-parent configuration will generate javadoc jars, and update the
+release info in the repository.
+
+The full list of changes in this version is available in jira [1], and
+more information about using the POM is available on the github site [2]
+
+[1]https://issues.jboss.org/secure/ReleaseNote.jspa?projectId=12310081&version=12317304
+[2]https://github.com/jboss/jboss-parent-pom

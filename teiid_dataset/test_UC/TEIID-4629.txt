@@ -1,0 +1,2 @@
+Offer a ddl solution to replace the vdb.xml
+Based upon the work on TEIID-2578 we should first offer the ability to replace the vdb.xml with ddl.  We can additionally include some of the work to represent additional pieces of the vdb as api level metadata objects (instead of in the admin layer) where possible.  Ideally this should support as much alter functionality as possible.

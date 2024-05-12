@@ -1,0 +1,53 @@
+Prefetch exception with small fetch size
+Doesn't work both in the newest Teiid and the 7.x version.
+
+Not sure how critical this is. When setting the prefetch via JDBC and using FORWARD_ONLY result set [1] I am getting exceptions [2]. I run the query on oracle (select * from XYZ limit 11).
+
+{code:java} 
+		TeiidDataSource ds = new TeiidDataSource();
+		ds.setDatabaseName(vdb);
+		ds.setUser("user");
+		ds.setPassword("user");
+		ds.setServerName(host);
+		ds.setPortNumber(Integer.valueOf(port));
+		ds.setFetchSize(10);
+ ....
+Statement statement = connection.createStatement(ResultSet.TYPE_FORWARD_ONLY, ResultSet.CONCUR_READ_ONLY);
+{code} 
+
+[2] 
+{code:java} 
+Eorg.teiid.jdbc.TeiidSQLException: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:113)
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:70)
+	at org.teiid.jdbc.ResultSetImpl.processBatch(ResultSetImpl.java:402)
+	at org.teiid.jdbc.ResultSetImpl.requestBatch(ResultSetImpl.java:375)
+	at org.teiid.jdbc.BatchResults.requestBatchAndWait(BatchResults.java:226)
+	at org.teiid.jdbc.BatchResults.requestNextBatch(BatchResults.java:141)
+	at org.teiid.jdbc.BatchResults.hasNext(BatchResults.java:252)
+	at org.teiid.jdbc.ResultSetImpl.hasNext(ResultSetImpl.java:439)
+	at org.teiid.jdbc.ResultSetImpl.next(ResultSetImpl.java:251)
+	at JDBCClient.execute(JDBCClient.java:90)
+	at JDBCClient.main(JDBCClient.java:45)
+Caused by: org.teiid.core.TeiidException: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.client.ResultsMessage.setException(ResultsMessage.java:202)
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:955)
+	at org.teiid.dqp.internal.process.RequestWorkItem.close(RequestWorkItem.java:543)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:346)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:248)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:269)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+	at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:305)
+	at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:782)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:320)
+{code}

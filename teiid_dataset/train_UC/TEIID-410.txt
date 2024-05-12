@@ -1,0 +1,2 @@
+Simplify command collector visitor
+Command collector visitor modes are confusing and error prone.

@@ -1,0 +1,6 @@
+Better handling for streamed lobs
+When the ws translator returns a streamed result internal operations, such as adding to a tuple buffer may attempt to obtain the length, etc. that render the lob unusable and result in opaque errors, such as
+
+"TEIID30035 Wrong type of data found or no data found; expecting streamable object from the buffer manager"
+
+We should make streaming best effort (such as resorting to the copy on read logic), more fool-proof with internal operations, or at least improve the error message.

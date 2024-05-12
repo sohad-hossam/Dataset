@@ -1,0 +1,2 @@
+Setting SupportsLucenceSearch to false doesn't disable
+The negative action wasn't added to the execution factory to not enable the supports option, only true option was considered.  Simple fix to add check for false and not enable option.

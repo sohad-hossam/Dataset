@@ -1,0 +1,2 @@
+Null pointer exception with trace log
+A null pointer results in PlanNode recordDebugAnnotation from some of the calls that pass a model id, but not the metadata.

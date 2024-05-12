@@ -1,0 +1,2 @@
+expose dependency information in system tables
+We should expose additional view/procedure and even column information in terms of their dependencies.

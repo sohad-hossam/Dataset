@@ -1,0 +1,2 @@
+The parser should use common conversion routines
+The parser is using it's own logic for parsing escaped literals, it should instead use the common logic through DataTypeManager.

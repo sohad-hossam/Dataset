@@ -1,0 +1,2 @@
+DependentCriteriaProcessor issues
+The DependentCriteriaProcessor needs to check if setcriteria is negated and needs to preevaluate the values in the set criteria.

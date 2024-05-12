@@ -1,0 +1,2 @@
+Internal doc version numbers still indicate 6.0.0
+The internal doc version numbers are not updated as part of the maven build, so they still reference 6.0.0

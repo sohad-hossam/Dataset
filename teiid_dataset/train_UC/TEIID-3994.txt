@@ -1,0 +1,28 @@
+AliasSymbol wrapping AliasSymbol error
+I've defined a view and overrode the default triggers for Select, Insert, Update, and Delete.  I overrode the triggers because the select is returning "hardcoded" values for a few fields (calling them virtual columns).  The Update and Insert triggers will ignore these hardcoded values just in case the caller tries to update a virtual column.
+
+I'm trying to run a insert into <tableA> select * from <tableB> query.  When I run this, I get an error  org.teiid.jdbc.TeiidSQLException: Cannot create AliasSymbol wrapping AliasSymbol.  
+
+Facts:
+--  I can insert a record if I only select one column from tableB.  
+--  If I select two or more columns, it throws the error every time.
+--  If I remove the overridden triggers, the insert into <tableA> select * from <tableB> works fine.
+--  I can insert one or more columns into <tableA> when *not* using a insert into <tableA> select * from <tableB> query
+-- Table A is Oracle
+-- Table B is SQL Server
+
+My hunch is the generated query (hibernate, or whatever SQL generator) is choking with the overridden trigger.  Perhaps this use-case slipped through testing, or even more probable, I made a mistake in the trigger creation.
+
+Here's a snip of the insert trigger, with a lot of fields removed for simplicity.
+{code}
+FOR EACH ROW
+BEGIN ATOMIC
+	INSERT INTO <schema>.<tableA> (SourceSystemID, RecordTypeID, BatchID ...) 
+	VALUES (
+            convert("NEW".SourceSystemID, short), 
+            convert("NEW".RecordTypeID, short),
+            convert("NEW".BatchID, integer)
+            ...
+        )
+END
+{code}

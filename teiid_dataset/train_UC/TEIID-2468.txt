@@ -1,0 +1,2 @@
+teiid script should return null if an intermediate object is null
+A script such as foo.bar.z will throw an npe if bar is null, but return null if foo is null.  for consistency null should always be returned when any reference in the script chain is null.

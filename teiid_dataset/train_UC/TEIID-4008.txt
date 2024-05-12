@@ -1,0 +1,10 @@
+Sending teiid varbinary value (x'') to Microsoft SQL Server errors
+When sending a query to Microsoft SQL Server with a varbinary in criteria:
+
+select * from debBinary where ipv6= x'FFFF6BBE85D8'
+
+It pushes the criteria to Microsoft SQL Server, but as X'FFFF6BBE85D8'[1] so Microsoft gives the syntax error[2] and needs to just be select * from debBinary where ipv6= 'FFFF6BBE85D8':
+
+[1]14:26:08,951 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue8) Source-specific command: SELECT g_0."id", g_0."ipv6" FROM "bqt2"."dbo"."debbinary" g_0 WHERE g_0."ipv6" = X'FFFF6BBE85D8'
+
+[2] com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near 'FFFF6BBE85D8'.

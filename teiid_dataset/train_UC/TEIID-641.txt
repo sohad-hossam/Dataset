@@ -1,0 +1,2 @@
+Reference in subcommand needs evaluated
+The call to the EvaluatableVisitor.needsEvaluation needs to be deep to check subcommands.

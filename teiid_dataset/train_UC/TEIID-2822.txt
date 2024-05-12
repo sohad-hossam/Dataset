@@ -1,0 +1,90 @@
+Not a Group By expression witn non-equi join
+I'm facing a problem with  the following statement on Teiid 8.1 and 8.6  and Oracle
+{code:sql}
+SELECT  
+    A.a  
+   FROM     
+    oracle_db.TEST_A A, (select B from mysql.TEST_B) B  
+   WHERE   
+     A.b = '1' OR B.b IS NULL  
+   GROUP  BY a  
+{code}
+
+The exception is  "ora-00979 not a group by expression" like following:
+{code:sql}
+23:21:47,810 WARN  [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue28) ffPh7k6iRVl7 Connector worker process failed for atomic-request=ffPh7k6iRVl7.9.6.2: org.teiid.tra  
+nslator.jdbc.JDBCExecutionException: 979 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."B", g_0."A" FROM "ORACLE"."TEST_A" g_0  
+ GROUP BY g_0."A"]  
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)  
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:317) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:135) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:369) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchIterator.finalRow(BatchIterator.java:69) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:70) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchIterator.getCurrentTuple(BatchIterator.java:84) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.common.buffer.AbstractTupleSource.hasNext(AbstractTupleSource.java:92) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.MergeJoinStrategy.process(MergeJoinStrategy.java:149) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:211) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchCollector$BatchProducerTupleSource.nextTuple(BatchCollector.java:89) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.SortUtility.initialSort(SortUtility.java:269) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.SortUtility.sort(SortUtility.java:202) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.GroupingNode.sortPhase(GroupingNode.java:392) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.GroupingNode.nextBatchDirect(GroupingNode.java:331) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:136) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:159) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:141) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:435) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:320) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:248) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:273) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]  
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]  
+        at java.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25]  
+Caused by: java.sql.SQLSyntaxErrorException: ORA-00979: Not a GROUP BY expression  
+  
+  
+        at oracle.jdbc.driver.SQLStateMapping.newSQLException(SQLStateMapping.java:91)  
+        at oracle.jdbc.driver.DatabaseError.newSQLException(DatabaseError.java:133)  
+        at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:206)  
+        at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:455)  
+        at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:413)  
+        at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:1034)  
+        at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:194)  
+        at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:791)  
+        at oracle.jdbc.driver.T4CPreparedStatement.executeMaybeDescribe(T4CPreparedStatement.java:866)  
+        at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1186)  
+        at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3387)  
+        at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3431)  
+        at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1491)  
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)  
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)  
+        ... 37 more {code}
+
+It looks like the group by clause is wrongly pushed down to Oracle (should be processed directly by Teiid, as Oracle cannot handle g_0.B as it is not in the group by clause):
+
+{code}
+============================================================================
+CONVERTING PLAN TREE TO PROCESS TREE
+ 
+ 
+PROCESS PLAN =
+ProjectNode(2) output=[anon_grp0.gcol0 AS A] [anon_grp0.gcol0 AS A]
+  LimitNode(3) output=[anon_grp0.gcol0] limit 100
+    GroupingNode(4) output=[anon_grp0.gcol0] [anon_grp1.gcol0]{anon_grp0.gcol0=anon_grp1.gcol0}
+      JoinNode(5) [NESTED LOOP JOIN] [INNER JOIN] criteria=[(A.B = 1) OR (mysql.test_b.b IS NULL)] output=[anon_grp1.gcol0]
+        AccessNode(6) output=[A.B, anon_grp1.gcol0] SELECT g_0.B, g_0.A FROM oracle_DB.TEST_A AS g_0 GROUP BY g_0.A
+        AccessNode(7) output=[mysql.test_b.b] SELECT g_0.b FROM mysql.test_b AS g_0
+{code}

@@ -1,0 +1,2 @@
+Combine the memorystoragemanager and the buffermanager
+The memorystoragemanager is always assumed to be available by the buffermanager and would be simpler to implement as TupleBatch references on ManagedBatches. 

@@ -1,0 +1,6 @@
+Couchbase - TRANSLATE function is transalted as REPLACE
+Teiid's SQL function TRANSLATE is translated to N1QL REPLACE function, but those functions are not equivalent.
+
+See the difference:
+https://developer.couchbase.com/documentation/server/current/n1ql/n1ql-language-reference/stringfun.html#topic_8_12__fn-str-replace
+https://teiid.gitbooks.io/documents/content/reference/String_Functions.html

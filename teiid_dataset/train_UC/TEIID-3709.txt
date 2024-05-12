@@ -1,0 +1,2 @@
+PreparedStatement parameters should not be cleared after addBatch
+After addBatch is called on a PreparedStatement we are clearing the parameter values.  The parameters however should remain present until clearParameters is explicitly called.

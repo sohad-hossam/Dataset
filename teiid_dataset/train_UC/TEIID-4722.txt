@@ -1,0 +1,15 @@
+TEIID30019: java.lang.AssertionError: Assertion failed assertion due to guard against a corner condition.  
+Assertion failure:
+
+{code:java}
+ERROR [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue19151) TEIID30019 Unexpected exception for request WrzxYIqVWQ8G.11: java.lang.AssertionError: Assertion failed.
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73) [teiid-common-core-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:68) [teiid-common-core-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:60) [teiid-common-core-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.query.processor.relational.MergeJoinStrategy.setProcessingSortRight(MergeJoinStrategy.java:367) [teiid-engine-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.query.processor.relational.DependentAccessNode.prepareNextCommand(DependentAccessNode.java:162) [teiid-engine-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.query.processor.relational.AccessNode.openInternal(AccessNode.java:259) [teiid-engine-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:371) [teiid-engine-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.7.10.6_2-redhat-2.jar:8.7.10.6_2-redhat-2]
+{code}
+

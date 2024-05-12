@@ -1,0 +1,6 @@
+Allow date formatted string literals to be parsed as timestamps
+For consistency with most major vendors we should support allowing date literals to be parsed as timestamps.  For example:
+
+timestamp_col > '2001-01-01'
+
+which would prevent the predicate from being resolved as a string comparison.

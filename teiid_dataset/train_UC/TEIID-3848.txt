@@ -1,0 +1,7 @@
+Issue with hive literal timestamps
+With testing TEIID-3847 Hive 1.2.1 failed to compare appropriately with a timestamp string literal in the source sql containing .0 fractional seconds:
+
+t = '2000-01-01 12:00:00.0' -- did not work
+But the following does
+t = '2000-01-01 12:00:00' 
+t = cast('2000-01-01 12:00:00.0' as timestamp)

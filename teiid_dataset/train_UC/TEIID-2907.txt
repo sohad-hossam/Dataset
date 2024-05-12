@@ -1,0 +1,2 @@
+Uncaught exception during rollback
+TransactionManager.rollback can throw an illegalstateexception, which if uncaught can mask other issues.

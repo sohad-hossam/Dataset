@@ -1,0 +1,35 @@
+numeric calculated fields not displayed with odata4
+I've created a virtual table with a new field defined in this way:
+
+select ROUND((BA.PREIS / BA.PEINH), 3) AS UnitPrice from xxxxxx
+
+for the source field are bigdecimal I define UnitPrice as
+
+BigDecimal (13,3)
+
+If I run the qery from JDBC
+
+select * from PurchaseRequisitionEntity where PurchaseRequisitionKey = '300-8000001452-00010' ;
+
+PREIS = 539,568
+PEINH = 106
+UnitPrice = 5,090.264
+
+And the result is correct. If I run from odata2
+
+/odata/CASALE.1/Entities.PurchaseRequisitionEntity('300-8000001452-00010')?$format=json
+
+"UnitPrice" : "5090.2640000000000000"
+
+As you can see the field is rounded to the 3rd digit but 13 more digits are returned with 0 value.
+Anyway odata2 succeeds in returning the result without errors.
+
+With odata4 I get an error:
+
+/odata4/CASALE.1/Entities/PurchaseRequisitionEntity('300-8000001452-00010')?$format=json
+
+{"error":{"code":null,"message":"The value '5090.2640000000000000' is not valid for property 'UnitPrice'."}}
+
+I think that's because the length of the field is greater then the matedata definition.
+
+At the moment the only solution I can imagine is to convert the number to a string in the proper format and the parse it into a number

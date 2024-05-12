@@ -1,0 +1,3 @@
+Fix defect in ExtractFunctionModifier that prevents it from handling column refs correctly.
+Refers to internal case 280004.
+Fix defect in ExtractFunctionModifier that prevents it from handling column refs correctly.

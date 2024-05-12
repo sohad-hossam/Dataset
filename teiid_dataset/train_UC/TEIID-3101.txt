@@ -1,0 +1,158 @@
+Assertion failed with UNION then EXCEPT
+Ran into this when playing with set operations. Teiid 8.9.0.Alpha2 from Git.
+
+Query:
+{code:sql}
+(select 'a' union select 'b') except select 'c';
+{code}
+
+Trace:
+{code}
+03:18:45,467 DEBUG [org.teiid.COMMAND_LOG] (New I/O worker #12) WEI32e8Ynv+s 	START USER COMMAND:	startTime=2014-08-27 03:18:45.467	requestID=WEI32e8Ynv+s.70	txID=null	sessionID=WEI32e8Ynv+s	applicationName=JDBCprincipal=user@teiid-security	vdbName=Foo	vdbVersion=1	sql=(select 'a' union select 'b') except select 'c'
+03:18:45,470 INFO  [org.teiid.PLANNER] (Worker13_QueryProcessorQueue748) WEI32e8Ynv+s 
+============================================================================
+USER COMMAND:
+SELECT 'a' UNION SELECT 'b' EXCEPT SELECT 'c'
+
+----------------------------------------------------------------------------
+OPTIMIZE: 
+SELECT 'a' UNION SELECT 'b' EXCEPT SELECT 'c'
+
+----------------------------------------------------------------------------
+GENERATE CANONICAL: 
+SELECT 'a' UNION SELECT 'b' EXCEPT SELECT 'c'
+
+CANONICAL PLAN: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=false})
+    Project(groups=[], props={PROJECT_COLS=['a']})
+    Project(groups=[], props={PROJECT_COLS=['b']})
+  Project(groups=[], props={PROJECT_COLS=['c']})
+
+
+============================================================================
+EXECUTING PlaceAccess
+
+AFTER: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=false})
+    Project(groups=[], props={PROJECT_COLS=['a']})
+    Project(groups=[], props={PROJECT_COLS=['b']})
+  Project(groups=[], props={PROJECT_COLS=['c']})
+
+
+============================================================================
+EXECUTING PlanUnions
+
+AFTER: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=true})
+    Project(groups=[])
+    Project(groups=[])
+  Project(groups=[])
+
+
+============================================================================
+EXECUTING RaiseAccess
+
+AFTER: 
+SetOperation(groups=[])
+  SetOperation(groups=[])
+    Project(groups=[])
+    Project(groups=[])
+  Project(groups=[])
+
+
+============================================================================
+EXECUTING AssignOutputElements
+
+AFTER: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false, OUTPUT_COLS=['a']})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=true, OUTPUT_COLS=['a']})
+    Project(groups=[], props={PROJECT_COLS=['a'], OUTPUT_COLS=['a']})
+    Project(groups=[], props={PROJECT_COLS=['b'], OUTPUT_COLS=['b']})
+  Project(groups=[], props={PROJECT_COLS=['c'], OUTPUT_COLS=['c']})
+
+
+============================================================================
+EXECUTING CalculateCost
+
+AFTER: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false, OUTPUT_COLS=['a'], EST_CARDINALITY=1.0, EST_COL_STATS={'a'=[1.0, 1.0]}})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=true, OUTPUT_COLS=['a'], EST_CARDINALITY=2.0, EST_COL_STATS={'a'=[1.5, 0.0]}})
+    Project(groups=[], props={PROJECT_COLS=['a'], OUTPUT_COLS=['a'], EST_CARDINALITY=1.0, EST_COL_STATS={'a'=[1.0, 0.0]}})
+    Project(groups=[], props={PROJECT_COLS=['b'], OUTPUT_COLS=['b'], EST_CARDINALITY=1.0, EST_COL_STATS={'b'=[1.0, 0.0]}})
+  Project(groups=[], props={PROJECT_COLS=['c'], OUTPUT_COLS=['c'], EST_CARDINALITY=1.0, EST_COL_STATS={'c'=[1.0, 0.0]}})
+
+
+============================================================================
+EXECUTING PlanSorts
+
+AFTER: 
+SetOperation(groups=[], props={SET_OPERATION=EXCEPT, USE_ALL=false, OUTPUT_COLS=['a'], EST_CARDINALITY=1.0, EST_COL_STATS={'a'=[1.0, 1.0]}})
+  SetOperation(groups=[], props={SET_OPERATION=UNION, USE_ALL=true, OUTPUT_COLS=['a'], EST_CARDINALITY=2.0, EST_COL_STATS={'a'=[1.5, 0.0]}})
+    Project(groups=[])
+    Project(groups=[])
+  Project(groups=[])
+
+
+============================================================================
+EXECUTING CollapseSource
+
+AFTER: 
+SetOperation(groups=[])
+  SetOperation(groups=[])
+    Project(groups=[])
+    Project(groups=[])
+  Project(groups=[])
+
+
+============================================================================
+CONVERTING PLAN TREE TO PROCESS TREE
+
+PROCESS PLAN = 
+JoinNode(0) [MERGE JOIN (SORT_DISTINCT/SORT_DISTINCT)] [ANTI SEMI JOIN] criteria=['a'='c'] output=['a']
+  ProjectNode(2) output=['a'] ['a']
+  ProjectNode(3) output=['b'] ['b']
+  ProjectNode(4) output=['c'] ['c']
+
+============================================================================
+
+----------------------------------------------------------------------------
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+JoinNode(0) [MERGE JOIN (SORT_DISTINCT/SORT_DISTINCT)] [ANTI SEMI JOIN] criteria=['a'='c'] output=['a']
+  ProjectNode(2) output=['a'] ['a']
+  ProjectNode(3) output=['b'] ['b']
+  ProjectNode(4) output=['c'] ['c']
+
+============================================================================
+
+03:18:45,473 DEBUG [org.teiid.COMMAND_LOG] (Worker13_QueryProcessorQueue748) WEI32e8Ynv+s 	ERROR USER COMMAND:	endTime=2014-08-27 03:18:45.472	requestID=WEI32e8Ynv+s.70	txID=null	sessionID=WEI32e8Ynv+s	principal=user@teiid-security	vdbName=Foo	vdbVersion=1	finalRowCount=null
+03:18:45,473 ERROR [org.teiid.PROCESSOR] (Worker13_QueryProcessorQueue748) WEI32e8Ynv+s TEIID30019 Unexpected exception for request WEI32e8Ynv+s.70: java.lang.AssertionError: Assertion failed.
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73) [teiid-common-core-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:68) [teiid-common-core-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.core.util.Assertion.assertTrue(Assertion.java:60) [teiid-common-core-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortUtility.<init>(SortUtility.java:158) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SortUtility.<init>(SortUtility.java:194) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.SourceState.sort(SourceState.java:287) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.MergeJoinStrategy.loadRight(MergeJoinStrategy.java:359) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:208) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:136) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:444) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:326) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:254) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+
+{code}

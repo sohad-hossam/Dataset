@@ -1,0 +1,6 @@
+misc subquery enhancements
+Federated exists and scalar subqueries should be implicitly limited to not pull back extra results.
+
+The subquery aware evaluator should have a small cache to reuse correlated results.
+
+uncorrelated subqueryin and some forms of quantified comparison should be processed as dependent set criteria or use an indexed structure for teiid evaluation.

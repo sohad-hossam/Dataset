@@ -1,0 +1,2 @@
+Oracle pushdown time formatting incorrect
+Oracle formatting cannot control the number of digits displayed in the same way as Java formatting, needs to AM instead of PM, and needs better handling for ERA.

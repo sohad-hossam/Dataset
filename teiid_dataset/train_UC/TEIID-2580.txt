@@ -1,0 +1,10 @@
+xsi:nil is not honored by xmltable
+If an element is returnable by xmltable, but marked as nil more than likely an exception will be produced when attempting to convert the empty string value to a result.
+
+For example:
+
+{code}
+select * from xmltable('/a/b' passing convert('<a xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><b xsi:nil="true"/><b>1</b></a>', xml) columns val integer path '.') as x
+{code}
+
+will error converting the first b element to an integer.

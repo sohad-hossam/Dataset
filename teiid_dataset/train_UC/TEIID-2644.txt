@@ -1,0 +1,2 @@
+Support retrieving result sets from any out parameter
+Currently Teiid expects the driver (for example DataDirect) or in case of oracle the return parameter to be result set.  In scenarios were a wrapping stored function cannot be created we should also offer support for retrieving any out parameter as the result set.

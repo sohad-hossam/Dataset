@@ -1,0 +1,2 @@
+Add "membership" service
+Add the "membership" service. Should support implementations for LDAP and File based. Also, user should have an option to turn this OFF through configuration, which resembles with current embedded's functionality.

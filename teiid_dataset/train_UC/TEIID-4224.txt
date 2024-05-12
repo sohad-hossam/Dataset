@@ -1,0 +1,15 @@
+HANA translator : incorrect pushdown of DAYOFWEEK function
+Teiid's DAYOFWEEK function:
+{code:plain}
+DAYOFWEEK(x) 	Return day of week (Sunday=1, Saturday=7) 
+{code}
+is pushed down as:
+{code:plain}
+dayname(g_0."DATEVALUE")
+{code}
+but this function returns string representation of the day.
+
+More appropriate would be to push DAYOFWEEK as WEEKDAY function, but the returned value has to be adapted to Teiid's representation (Sunday=1 and Saturday=7, vs. HANA's Monday=0,Sunday=6). So the solution would be to push:
+{code:sql}
+MOD((WEEKDAY(datevalue)+1),7)+1
+{code}

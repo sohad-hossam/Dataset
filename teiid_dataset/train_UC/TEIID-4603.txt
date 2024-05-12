@@ -1,0 +1,2 @@
+Insert issue when cache contains multiple pojo's with the same key value
+There is an INSERT issue when there are multiple pojo's stored in the same cache and the keys' overlap (meaning the different types of pojo's have the same key).  

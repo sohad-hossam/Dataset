@@ -1,0 +1,7 @@
+AdminShell (Groovy) shows connectionName even after that connection has been disconnected
+1 - Create a named connection
+2 - getVDBs()
+3 - Create an new connection
+4 - Use the first
+5 - disconnect
+6 - getAllConnections() - still shows the one you disconnected. Try the attached groovy script.

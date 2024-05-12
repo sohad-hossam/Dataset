@@ -1,0 +1,11 @@
+Couchbase incorrect update count returned
+# For a bulk insert query:
+{code:sql}
+INSERT INTO SmallA (IntKey, StringKey) VALUES (100, '100'),(101, '101'),(102, '102'),(103, '103')
+{code}
+update row count is 1 even though all 4 rows are inserted correctly into database.
+# For a delete query:
+{code:sql}
+DELETE FROM SmallA WHERE StringKey=101;
+{code}
+returned 'deleted number of rows' is 0, though the row was deleted from database.

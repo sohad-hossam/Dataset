@@ -1,0 +1,2 @@
+Max open statements property limits statements count to n+1
+When user wants to limit max number of open statements for a single connection, he/she can use system property *org.teiid.maxOpenStatements*. However, if this property is set to _n_ it actually limits number of connections to _n+1_.

@@ -1,0 +1,29 @@
+ST_GeomFromGeoJson fails for certain geometry types
+ST_GeomFromGeoJson fails to decode GeoJSON with certain geometry types. The following queries work:
+{code:sql|title=Working Queries}
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('POINT (30 10)')))
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('POLYGON ((30 10, 40 40, 20 40, 10 20, 30 10))')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('POLYGON ((35 10, 45 45, 15 40, 10 20, 35 10),(20 30, 35 35, 30 20, 20 30))')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('MULTIPOLYGON (((30 20, 45 40, 10 40, 30 20)),((15 5, 40 10, 10 20, 5 10, 15 5)))')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('MULTIPOLYGON (((40 40, 20 45, 45 30, 40 40)),((20 35, 10 30, 10 10, 30 5, 45 20, 20 35),(30 20, 20 15, 20 25, 30 20)))')));
+{code}
+
+but these fail:
+{code:sql|title=Failing Queries}
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('MULTIPOINT ((10 40), (40 30), (20 20), (30 10))')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('MULTIPOINT (10 40, 40 30, 20 20, 30 10)')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('MULTILINESTRING ((10 10, 20 20, 10 40),(40 40, 30 30, 40 20, 30 10))')));
+select ST_GeomFromGeoJson(ST_AsGeoJSON(ST_GeomFromText('LINESTRING (30 10, 10 30, 40 40)')));
+{code}
+
+The server log when running with master says
+{noformat}
+TEIID30328 Unable to evaluate ST_GeomFromGeoJson(?): TEIID30384 Error while evaluating function st_geomfromgeojson'. Originally ExpressionEvaluationException 'Conflicting property-based creators: already had explicitly marked [constructor for org.wololo.geojson.MultiPoint, annotations: {interface com.fasterxml.jackson.annotation.JsonCreator=@com.fasterxml.jackson.annotation.JsonCreator(mode=DEFAULT)}], encountered [constructor for org.wololo.geojson.MultiPoint, annotations: {interface com.fasterxml.jackson.annotation.JsonCreator=@com.fasterxml.jackson.annotation.JsonCreator(mode=DEFAULT)}]' CreatorCollector.java:304. 
+{noformat}
+
+When running with latest 6.3 patch, the server log says
+{noformat}
+TEIID30328 Unable to evaluate ST_GeomFromGeoJson(?): TEIID30384 Error while evaluating function st_geomfromgeojson'. Originally ExpressionEvaluationException '1' BasicDeserializerFactory.java:394. 
+{noformat}
+
+The difference seems to be due to different versions of jackson-databind (which also seems to be the source of the problem).

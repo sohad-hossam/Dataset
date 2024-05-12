@@ -1,0 +1,2 @@
+Add example AdminShell scripts
+Add example adminshell scripts which demonstrate performing common task for deployment, configuration and monitoring.

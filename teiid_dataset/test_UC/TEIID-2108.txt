@@ -1,0 +1,2 @@
+JDBC socket is not encrypting client messages by default
+The default configuration for the server should encrypt client login traffic.  However the SSLConfiguration class is checking for a value of logIn, not login as specified in the 8.x and 7.x configs.

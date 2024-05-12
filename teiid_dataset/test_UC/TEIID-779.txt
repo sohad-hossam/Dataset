@@ -1,0 +1,2 @@
+Move the tests from the jbedsp-test-embedded project to the teiid communitiy
+Move the tests from the jbedsp-test-embedded project to the teiid communitiy

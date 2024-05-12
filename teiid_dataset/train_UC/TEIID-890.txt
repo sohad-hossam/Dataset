@@ -1,0 +1,6 @@
+AdminShell issues
+I installed and started Teiid with a query testing VDB deployed. When I entered "SELECT * FROM Smalla;", it went back to the interactive prompt without displaying any data. Executing "bsh.interactive=true;" before the SELECT corrected the problem (otherwise I had to "printResults();")
+
+In previous versions this has worked as intended.
+
+Also only 500 rows were returned for a large query.  Either max rows needs to be documented or removed.

@@ -1,0 +1,22 @@
+Couchbase - Teiid returns empty result if source query fails
+Teiid does not provide any information to the user that query actually failed. Only empty result is returned.
+
+Currently, issuing query like \[1\] produces source-specific query with syntax error \[2\] (result directly from Couchbase \[3\]). But Teiid returns empty result just like query succeeded with no rows. 
+
+{code:sql|title=\[1\] Query}
+SELECT BQT1.SmallA.FloatNum FROM BQT1.SmallA WHERE BQT1.SmallA.FloatNum = 7
+{code}
+
+{code:plain|title=\[2\] Source-specific query}
+10:16:09,749 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue86) TEIID29001 Source-specific Query: SELECT TONUMBER(`$cb_c1_FloatNum`) FROM `dvqe_small` `$cb_t1` LET `$cb_c1_FloatNum` = `$cb_t1`.`FloatNum`TONUMBER() WHERE TONUMBER(`$cb_c1_FloatNum`) = 7.0 AND `$cb_t1`.`type` = 'SmallA'
+{code}
+
+{code:plain|title=\[3\] Couchbase result}
+[
+  {
+    "code": 3000,
+    "msg": "syntax error - at TONUMBER",
+    "query_from_user": "SELECT TONUMBER(`$cb_c1_FloatNum`) FROM `dvqe_small` `$cb_t1` LET `$cb_c1_FloatNum` = `$cb_t1`.`FloatNum`TONUMBER() WHERE TONUMBER(`$cb_c1_FloatNum`) = 7.0 AND `$cb_t1`.`type` = 'SmallA'"
+  }
+]
+{code}

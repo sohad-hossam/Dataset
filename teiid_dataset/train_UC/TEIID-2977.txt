@@ -1,0 +1,4 @@
+class cast exception with odata json format function results
+If the json format is requested for function/stored procedure results, the json formatting logic will through a class cast:
+
+14:56:38,642 ERROR [org.teiid.ODATA] (http-localhost/127.0.0.1:8080-1) TEIID16013 Error occured producing OData result.: java.lang.ClassCastException: org.odata4j.core.OComplexObjects$OComplexObjectImpl cannot be cast to org.odata4j.core.OCollection  at org.odata4j.format.json.JsonFormatWriter.writeValue(JsonFormatWriter.java:145) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]  at org.odata4j.format.json.JsonCollectionFormatWriter.writeContent(JsonCollectionFormatWriter.java:38) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]  at org.odata4j.format.json.JsonCollectionFormatWriter.writeContent(JsonCollectionFormatWriter.java:14) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]  at 

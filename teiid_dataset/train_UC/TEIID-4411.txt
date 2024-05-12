@@ -1,0 +1,2 @@
+With clauses in subqueries that appear in inline views should be pulled up
+With clauses in subqueries that appear in inline views should be pulled up to the top level to avoid duplication and source issues with nested with clauses.

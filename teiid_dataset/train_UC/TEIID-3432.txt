@@ -1,0 +1,4 @@
+support:  MongoDB 3.0
+According latest documentation for MongoDB 3.0 (Driver Compatibility Changes[1]) the minimum driver version required is 2.13. Currently Teiid 8.10 is using 2.12
+
+http://docs.mongodb.org/manual/release-notes/3.0-compatibility/

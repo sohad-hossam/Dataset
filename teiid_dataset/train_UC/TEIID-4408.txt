@@ -1,0 +1,2 @@
+Salesforce delete/update doesn't affect more than a single batch
+The getIds logic will only fetch a single batch - queryMore is needed to fetch all ids.

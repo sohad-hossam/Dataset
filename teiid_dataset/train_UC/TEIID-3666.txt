@@ -1,0 +1,2 @@
+VDB can deploy before datasource is bound
+A VDB can be deployed before the datasources it depends on are fully deployed and bound, resulting in the VDB never being marked as ACTIVE.  This appears to be exclusive to environments where the JDBC driver for the datasource is deployed through use of the standalone deployments/ directory.  If the driver is deployed as a module, then the risk of the issue is lowered or eliminated.

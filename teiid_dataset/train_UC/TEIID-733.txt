@@ -1,0 +1,24 @@
+ConcurrentModificationException in SessionMonitor
+While running a Seam CRUD Web App against Teiid, I am seeing the following intermittent error:
+
+14:00:51,806 ERROR [STDERR] Exception in thread "SessionMonitor" 
+14:00:51,814 ERROR [STDERR] java.util.ConcurrentModificationException
+14:00:51,815 ERROR [STDERR] 	at java.util.HashMap$HashIterator.nextEntry(HashMap.java:793)
+14:00:51,815 ERROR [STDERR] 	at java.util.HashMap$ValueIterator.next(HashMap.java:822)
+14:00:51,815 ERROR [STDERR] 	at com.metamatrix.platform.security.session.service.SessionServiceImpl.monitorSessions(SessionServiceImpl.java:97)
+14:00:51,815 ERROR [STDERR] 	at com.metamatrix.platform.security.session.service.SessionServiceImpl.access$000(SessionServiceImpl.java:71)
+14:00:51,815 ERROR [STDERR] 	at com.metamatrix.platform.security.session.service.SessionServiceImpl$1.run(SessionServiceImpl.java:340)
+14:00:51,815 ERROR [STDERR] 	at java.util.TimerThread.mainLoop(Timer.java:512)
+14:00:51,815 ERROR [STDERR] 	at java.util.TimerThread.run(Timer.java:462)
+14:02:55,126 ERROR [STDERR] Exception in thread "Worker10" 
+14:02:55,135 ERROR [STDERR] java.lang.NullPointerException
+14:02:55,135 ERROR [STDERR] 	at com.metamatrix.cache.jboss.JBossCache.getChild(JBossCache.java:145)
+14:02:55,135 ERROR [STDERR] 	at org.teiid.dqp.internal.cache.DQPContextCache.removeRequestScopedCache(DQPContextCache.java:60)
+14:02:55,135 ERROR [STDERR] 	at org.teiid.dqp.internal.process.DQPCore.removeRequest(DQPCore.java:304)
+14:02:55,135 ERROR [STDERR] 	at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java:357)
+14:02:55,135 ERROR [STDERR] 	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:247)
+14:02:55,135 ERROR [STDERR] 	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+14:02:55,135 ERROR [STDERR] 	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+14:02:55,135 ERROR [STDERR] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+14:02:55,135 ERROR [STDERR] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+14:02:55,135 ERROR [STDERR] 	at java.lang.Thread.run(Thread.java:619)

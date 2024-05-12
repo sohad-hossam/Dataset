@@ -1,0 +1,6 @@
+Cassandra translator: enable pushdown of aggregate functions
+Cassandra supports basic aggregate functions:
+MIN(),MAX(),SUM() and AVG()
+Currently Teiid doesn't push such queries.
+
+NOTE:In case of AVG() there is difference between the values returned from Teiid vs. Cassandra for an integer column. Cassandra returns only whole part of the number as integer, Teiid returns bigdecimal.

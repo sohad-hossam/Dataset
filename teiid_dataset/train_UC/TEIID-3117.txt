@@ -1,0 +1,4 @@
+NullPointerException while creating source model from Excel table
+I am trying to create source model from Excel file (.xlsx). When I set property "Header Row Number" to 1 (using Teiid Designer), creating ends with NullPointerException. Setting "Header Row Number" to 0 executes with no problems. 
+
+Same problem (and same exception) with dynamic VDB (only with <property name="importer.headerRowNumber" value="1"/>).

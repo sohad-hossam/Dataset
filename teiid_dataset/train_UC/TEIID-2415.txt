@@ -1,0 +1,2 @@
+Ensure thread-safety of mutable metadata
+Some metadata values can be changed at runtime, such as transformations, stats, and properties.  In the case of transformations and stats an exception won't occur, but the most up-to-date value may not be read by other threads.  Changing the properties could cause an exception as the map changes are not concurrency safe - similar to TEIID-2342

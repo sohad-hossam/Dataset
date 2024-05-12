@@ -1,0 +1,23 @@
+Oversights in parser test unit tests
+While integrating the unit tests from TestParser into Designer's teiid runtime client codebase, I found several small issues with the tests. All the tests pass in TestParser under Teiid hence these items have not necessarily been noticed and its a question of whether they should be.
+
+* testArrayTable
+ ** The Constant node class' equals method does not test the 'type' field if the 'value' field is null. This allows the test to pass when the constants in the expected and actual Commands trees have different types. Discussion with [~rareddy] concluded the equals method does this by design.
+** Suggestion is change the expected Constant to have NullType as its 'type' rather than Object.
+
+* testBlockExceptionHandling
+** The Block node class has no equals method hence this test passes even though the 'groupExpression' field is different between expected and actual.
+
+* testDynamicCommand1
+** The ElementSymbol node class never considers its 'type' field in its equals method hence the test passes despite an expected type of Integer against an actual type of null.
+** test has a typo when the expected var 'a1' has its type set twice to String then Integer.
+
+* testStoredQuery2SanityCheck
+** Has an extraneous query created and never used
+
+* testStoredQuerySubqueryMultipleParens
+** Never executes due to a lack of @Test annotation. Judging by the comment it might be an experiment that has been commented out by removing the annotation. Reinforced by test failing with parsing exception.
+
+* testStoredQueryWithNoParameter2
+** The test passes but has different expected and actual GroupSymbols in the From clause since the 'shortname' field is actually "x" rather than the expected "X". The reason is that GroupSymbol equals method does not test the 'shortname' field if the schema is null. This maybe by design?
+** Suggestion is to at least change the expected value to "X".

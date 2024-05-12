@@ -1,0 +1,9 @@
+Osisoft Translator - Wrong pushdown of LENGTH function
+The LENGTH function is pushed down to Osisoft PI as-is, but fails on the datasource with 
+{noformat}
+com.osisoft.rdsa.RdsaException: [PIOLEDBENT] [SQL Analyzer] [Line 0:4294967295] Function name 'length' is invalid.
+{noformat}
+
+This seems to be a mistake in PI OLEDB Enterprise 2016 User Guide, as this document mentions on page 32 that LENGTH is an alias for LEN. 
+
+However, since LEN actually works, I suggest changing the pushdown in teiid as a workaround.

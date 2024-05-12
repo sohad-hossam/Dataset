@@ -1,0 +1,4 @@
+Add a custom error page for rest war
+As attached pictures:
+* Technical details are displayed when Exception occurs, which is not valuable to End User.
+* JBoss Web version be displayed as error page title and in foot, some users think this have security risk.

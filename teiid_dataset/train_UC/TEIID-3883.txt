@@ -1,0 +1,2 @@
+Properly project generated keys
+Even with the generated keys refinements from TEIID-3872 we still are not fully projecting back the generated key values through virtual layers (possibly including masking affects, type, or column name changes).

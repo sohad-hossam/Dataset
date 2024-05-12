@@ -1,0 +1,16 @@
+Connectors with invalid connection properties should show Source Unavailable at startup
+If invalid connection properties are used in a connector binding the connector status shows "Running" at startup of the connector.  When the first query is executed against the MMSystem that needs this connector an exception is thrown indicating that the connector wasn't found.  This is due to the connector state changing to "Data Source Unavailable".
+
+Although this is the expected behavior it is very mis-leading to the administrator after creating/adding a new connector or bouncing the system.  The MMConsole gives the appearance that everything is okay until users actually start running queries.
+
+What should be occurring is the current behavior and if Data Source Monitoring is enabled on the connector we should then check the data source available during connector startup.  In other words, start the monitor thread with a timer of 0 instead a timer of monitoring interval.  The idea is to show the connector as "Data Source Unavailable" at connector startup if the source isn't can't be reached due to invalid connection properties.  
+
+TEST:
+
+To test this issue you simply need to have a connector deployed to a running MMSystem and verify that it is actually starting correctly with correct properties (ie verify you can run queries using this connector).  
+
+Now, change the password on the connector to something that is invalid.  Stop and then start the connector.  The connector will show a "Running" state yet as soon as you execute the query the query will fail and the status of the connector will change to "Source Unavailable".  
+
+EXPECTED RESULT:
+
+When you start a connector using an invalid password (or other connection type property like SID, DatabaseName, etc) the connector state should immediately reflect "Data Source Unavailable".

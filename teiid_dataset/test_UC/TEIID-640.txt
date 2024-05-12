@@ -1,0 +1,8 @@
+DriverManager usage introduces classloading issues
+When using Teiid through the DriverManager - but without the jar in the app classloader (such as is the case with DTP/Hibernate tools) we run into classloading issues.
+
+There are two fixes needed.
+
+1. The EmbeddedDriver creation of the post delegating class loader should use it's classloader rather than context class loader as the parent.  Then there is a consistent classloader for the classes coming from the client jar.
+
+2. The LocalConnectionFactory needs to set the context classloader so that we don't inadvertently use the apps context classloader in our services (such as the transaction service).

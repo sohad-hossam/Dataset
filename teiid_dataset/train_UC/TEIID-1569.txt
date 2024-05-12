@@ -1,0 +1,7 @@
+Documentation on creating UDF, extending ExecutionFactory and defining @Translator name should indicate what to do with the translator name
+A user was trying to follow the documentation (http://docs.jboss.org/teiid/7.3.0.Final/developer-guide/en-US/html_single/#d0e2512)  on creating a UDF and have it pushed down to the source.   But they didn't make the correlation between the process of extending the ExecutionFactory and then having to use the defined @Translator name.   It wasn't obvious to them.   Therefore, I think it would be good to indicated in the "Required" segment of the example of extending the Oracle Connector:
+
+Required - extend the OracleExecutionFactory and add SCORE and CONTAINS as supported functions. For this example, we'll call the class MyOracleExecutionFactory. Add the org.teiid.translator.Translator annotation to the class, e.g. @Translator(name="myoracle") 
+
+------
+Add a follow on sentence to indicate that the @Translator name (i.e., "myoracle") is the name to assign to the translator for the physical model for which the custom translator will be used (or something like that).

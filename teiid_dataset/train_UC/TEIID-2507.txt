@@ -1,0 +1,2 @@
+Better handling of user scoped lookups/matviews
+With the inclusion of column and row security logic, it's more likely that lookups can produce user specific results.  The current logic however treats lookups as always globally scoped.

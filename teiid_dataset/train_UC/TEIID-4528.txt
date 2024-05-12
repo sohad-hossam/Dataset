@@ -1,0 +1,2 @@
+ddl generation / parsing semicolon handling
+The DDL to string logic omits the trailing semicolon with global temp tables and create procedure statements.  The parser is also lax in that it will accept multiple ddl statements without a delimiter.  With the addition of new keywords / statements in TEIID-2578 this introduces ambiguities into the grammar.

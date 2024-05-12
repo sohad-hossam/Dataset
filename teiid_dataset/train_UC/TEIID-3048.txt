@@ -1,0 +1,2 @@
+Conflicting CXF versions being used in Embedded kit
+There are conflicting 2.6.8 and 2.6.6 versions of CXF in kit, this needs to be fixed to use same versions

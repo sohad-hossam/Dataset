@@ -1,0 +1,14 @@
+VDB Validation is showing warnings, but failing deployment
+The deployment of a vdb is failing due to 2 warnings:
+
+13:29:01,076 WARN  [org.teiid.PLANNER.RESOLVER] (Worker2_async-teiid-threads4)  TEIID31193 Table Persons columns size not same as Materialized View {1}s columns size 
+13:29:01,077 WARN  [org.teiid.PLANNER.RESOLVER] (Worker2_async-teiid-threads4)  TEIID31194 Column PersonObject in Table Person and Column name in Materialized View PersonMatView should have same type
+13:29:01,080 INFO  [org.teiid.RUNTIME] (Worker2_async-teiid-threads4)  TEIID40073 The metadata for the VDB PeopleMat.1 is loaded, however it is not valid. Check models for errors. Correct the metadata and re-deploy.
+13:29:01,080 INFO  [org.teiid.RUNTIME.VDBLifeCycleListener] (Worker2_async-teiid-threads4)  TEIID40003 VDB PeopleMat.1 is set to FAILED
+
+
+I changed the MetadataValidator class to remove the warnings and the VDB deployed ok.   If an issue is going to fail deployment, shouldn't it be on an ERROR?
+
+Regarding the warnings:
+1.  regarding column size, is it required that all columns in the materialized table to be writable?  
+2.  the 2nd warning was due to the 1st warning. 

@@ -1,0 +1,11 @@
+Oracle Spatial SQL translator drops the LIMIT clause.
+The LIMIT SQL clause is not having an effect on our SQL queries.  In our case, we are using the Oracle Spatial connector which interfaces with an Oracle 10g database.  What configuration or connector changes are needed so we can leverage the LIMIT clause for controlling the fetch size of our result sets which are derived from Oracle?
+
+I am running the following query:
+
+SELECT SEQ_NUM
+FROM IBSBINO_Physical.IBSBINO
+LIMIT 5
+
+I expect to get back 5 rows of data, but get back the entire table
+instead.

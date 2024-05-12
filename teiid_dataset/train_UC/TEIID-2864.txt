@@ -1,0 +1,47 @@
+With select fails on Teiid 8.7-beta1 on MS SQL Server
+following query fails for me on Teiid 8.7-beta1 on MS SQL Server in queries containing WITH, UNION ALL and LIMIT clauses (The exception is being thrown only when having LIMIT clause, without the LIMIT it seems working)
+
+{code:sql}
+WITH qry_0 as
+    (SELECT t1.f a FROM test_tables_ms.test_e AS t1 GROUP BY t1.f)
+SELECT a as a1 from qry_0
+union all
+SELECT a from qry_0
+LIMIT 10
+{code}
+
+
+Exception:
+{code:java}
+WARN  [org.teiid.CONNECTOR] (Worker5_QueryProcessorQueue30) beKbgt/pu4f4 Connector worker process failed for atomic-request=beKbgt/pu4f4.11.2.6: org.teiid.translator.jdbc.JDBCExecutionException: 156 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT TOP 10 * FROM (WITH qry_0 (a) AS (SELECT g_0."f" FROM "test_tables"."dbo"."test_e" g_0 GROUP BY g_0."f") SELECT g_1.a AS c_0 FROM qry_0 g_1 UNION ALL SELECT g_0.a AS c_0 FROM qry_0 g_0) AS X]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:317) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0_25]
+        at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0_25]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:273) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.7.0.Beta1.jar:8.7.0.Beta1]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]
+        at java.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25]
+Caused by: com.microsoft.sqlserver.jdbc.SQLServerException: Incorrect syntax near the keyword 'WITH'.
+        at com.microsoft.sqlserver.jdbc.SQLServerException.makeFromDatabaseError(SQLServerException.java:216)
+        at com.microsoft.sqlserver.jdbc.SQLServerStatement.getNextResult(SQLServerStatement.java:1515)
+        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.doExecutePreparedStatement(SQLServerPreparedStatement.java:404)
+        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement$PrepStmtExecCmd.doExecute(SQLServerPreparedStatement.java:350)
+        at com.microsoft.sqlserver.jdbc.TDSCommand.execute(IOBuffer.java:5696)
+        at com.microsoft.sqlserver.jdbc.SQLServerConnection.executeCommand(SQLServerConnection.java:1715)
+        at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeCommand(SQLServerStatement.java:180)
+        at com.microsoft.sqlserver.jdbc.SQLServerStatement.executeStatement(SQLServerStatement.java:155)
+        at com.microsoft.sqlserver.jdbc.SQLServerPreparedStatement.executeQuery(SQLServerPreparedStatement.java:285)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+        ... 13 more
+
+
+19:23:44,606 WARN  [org.teiid.PROCESSOR] (Worker4_QueryProcessorQueue31) beKbgt/pu4f4 TEIID30020 Processing exception for request beKbgt/pu4f4.11 'TEIID30504 test_tables_ms: 156 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT TOP 10 * FROM (WITH qry_0 (a) AS (SELECT g_0."f" FROM "test_tables"."dbo"."test_e" g_0 GROUP BY g_0."f") SELECT g_1.a AS c_0 FROM qry_0 g_1 UNION ALL SELECT g_0.a AS c_0 FROM qry_0 g_0) AS X]'. Originally TeiidProcessingException 'Incorrect syntax near the keyword 'WITH'.' SQLServerException.java:216. Enable more detailed logging to see the entire stacktrace.
+{code}

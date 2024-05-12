@@ -1,0 +1,4 @@
+Document/refine behavior of treating result parameter as the first parameter
+DDL and metadata import make the assumption that the return parameter is the first in the underlying metadata (in part to ensure support of varargs), but we still allowed the result parameter to appear anywhere in the parameter list as to maintain backwards compatibility with legacy/Designer ddl.  However in index metadata there is slightly different behavior in that the result parameter remains in it's original position.
+
+We need to clarify this behavior - more documentation, enforce/validate that the result parameter is first in ddl, or perform the same reordering for index metadata.

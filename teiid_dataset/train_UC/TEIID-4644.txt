@@ -1,0 +1,6 @@
+anonymous block dynamic issues
+Using execute immediate 'begin ... end'
+
+Has several issues.  First any variable references such as rowcount will be rewritten in the outer scope and not evaluated as part of the procedure.  Also the anonymous block cannot be used with targeting an into as the statement we create is insert into select ... from (begin ... end) .. - which is not valid, however the exception message does not make this clear.
+
+So we either need to improve these issues or disallow using anonymous blocks as dynamic sql.

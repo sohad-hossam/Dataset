@@ -1,0 +1,6 @@
+Expand allowed order by expressions
+with a non-simple query we won't allow derived expressions in the order by such as:
+
+select max\(x), y from t group by y order by case when y is null then 0 else y end
+
+We treat this ordering as unrelated - however it is expressed in terms of expressions from the select clause.  Mondrian will generate queries of this form, which requires a workaround of modifying the dialect to use ansi null ordering.

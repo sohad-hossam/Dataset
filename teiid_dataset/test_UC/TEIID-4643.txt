@@ -1,0 +1,2 @@
+Add encrypt/decrypt functions
+We should add encrypt/decrypt functions similar to the approach of the hash functions added with TEIID-4532 (explicitly named functions for algorithm and probably key length) that are nominally compatible with pgcrypto and other databases.

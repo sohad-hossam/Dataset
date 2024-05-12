@@ -1,0 +1,2 @@
+add join expression distinct detection
+for better join performance it would be good to know when the join expressions are unique.  For pushdowns this can be obtained from the metadata otherwise the sortutility can be modified to detect uniqueness.

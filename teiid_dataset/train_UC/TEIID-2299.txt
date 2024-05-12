@@ -1,0 +1,2 @@
+Remove examples from jboss kit, they have been converted to quicks starts
+The 3 examples in the jboss kit; dynamicvdb-portfolio, dynamicvdb-twitter and simple client, have been converted to quicks starts.  Remove these examples from the jboss kit.

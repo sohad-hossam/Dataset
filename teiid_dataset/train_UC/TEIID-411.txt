@@ -1,0 +1,2 @@
+Add join columns to process plan string for join nodes
+None

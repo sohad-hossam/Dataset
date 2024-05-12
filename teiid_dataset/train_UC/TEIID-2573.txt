@@ -1,0 +1,2 @@
+Default source sql for varbinary in JDBC is incorrect
+The SQLConversionVisitor does not properly handle varbinary literals and instead treats them as string literals.

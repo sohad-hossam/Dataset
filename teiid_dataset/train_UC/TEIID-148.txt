@@ -1,0 +1,2 @@
+Enhancement to allow runtime checking of null values
+Refer to internal case 6395.  

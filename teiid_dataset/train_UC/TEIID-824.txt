@@ -1,0 +1,2 @@
+Encountered error message:  <Missing message for key "AdminStatus.CODE_DECRYPTION_FAILED" in: com.metamatrix.dqp.embedded.i18n>
+Didn't initially use the AdminOptions.BINDINGS_IGNORE_DECRYPT_ERROR option when creating the connector binding via the adminapi and the error message was thrown.    Once I used the option, didn't see the issue.

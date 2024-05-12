@@ -1,0 +1,8 @@
+Error when factory overrides initCapabilities due WrappedConnection is what Teiid is passing
+The infinispan hotrod translator factory class is trying to override initCapabililties(Connection) but is seeing the following error on the server:
+
+20:34:22,861 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue5) zLiKTbTSLJkH TEIID30019 Unexpected exception for request zLiKTbTSLJkH.0: java.lang.ClassCastException: org.teiid.resource.spi.WrappedConnection cannot be cast to org.teiid.translator.object.ObjectConnection
+	at org.teiid.translator.infinispan.hotrod.InfinispanHotRodExecutionFactory.initCapabilities(InfinispanHotRodExecutionFactory.java:53)
+	at org.teiid.dqp.internal.datamgr.ConnectorManager.buildCapabilities(ConnectorManager.java:186)
+	at org.teiid.dqp.internal.datamgr.ConnectorManager.getCapabilities(ConnectorManager.java:163)
+	at org.teiid.dqp.internal.process.CachedFinder.findCapabilities(CachedFinder.java:108)

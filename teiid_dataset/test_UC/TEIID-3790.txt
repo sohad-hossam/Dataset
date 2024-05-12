@@ -1,0 +1,2 @@
+Restrict any authenticated roles
+A local connection with the pass-through flag set will allow any connection if no security domain is set (the 8.x default).  Beyond that the role assignment logic will any authenticated roles to those users.  We need to restrict any-authenticated roles to only properly authenticated users.

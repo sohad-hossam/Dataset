@@ -1,0 +1,10 @@
+When using CONCAT2(x, y), can the source query be changed to not include the CASE statements and let Oracle do the NULL compare
+When CONCAT2(x, y) is used, the rewritten query is very verbose in adding a CASE statement to check for nulls.  Can the rewritten query not include the CASE statements and just let Oracle do the compare, because it can do it more efficiently within the CONCAT call?
+
+Example:
+
+select concat2(f1,f2) from table1
+
+results in
+
+SELECT c_0 FROM (SELECT CASE WHEN to_char(g_0.f1) IS NULL AND g_0.f2 IS NULL THEN NULL ELSE concat(nvl(to_char(g_0.f1), ''), nvl(g_0.f2, '')) END AS c_0 FROM table1 g_0)

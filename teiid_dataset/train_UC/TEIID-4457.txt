@@ -1,0 +1,2 @@
+Impala/Hive pushdown function definitions
+The impala/hive pushdown functions are defined accepting biginteger, but it should be a long (which maps to the source type of bigint).

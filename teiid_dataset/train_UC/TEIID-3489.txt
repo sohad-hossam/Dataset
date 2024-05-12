@@ -1,0 +1,6 @@
+Can a function be added to filter certain ASCII chars below 31 and above 127 out of an XML Document
+Add a function in Teiid to filter off all ASCII chars below 31 and above 127.
+
+web service data source that contains control characters due to data entered by copy and paste the text from another system.
+
+The characters in this instance were the print control chars ASCII 28 and 29, File Separator and Group Separator respectively. These are used for formatting in older systems. Unfortunately, the XML standard prohibits the processing of all ASCII characters below 31 apart from Tab, Line Feed and Carriage Return which are permissible. Also, ASCII chars above 127 to 255 will also cause XML parsers to crash.

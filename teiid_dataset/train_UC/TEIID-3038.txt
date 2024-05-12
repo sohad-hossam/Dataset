@@ -1,0 +1,2 @@
+Add spatial query support to the Teiid MongoDB translator
+We'd like to be able to issue geoIntersects and geoWithin queries through the MongoDB translator.  See comment below on a proposed approach.

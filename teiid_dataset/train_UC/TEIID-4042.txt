@@ -1,0 +1,6 @@
+OData returns status code 200 instead of 204 if there are no expanded entities 
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers(4)/Orders_FK0
+*Returned status code:* 200
+*Expected:* 204 and empty body
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398311

@@ -1,0 +1,10 @@
+Couchbase - GROUP BY returns empty result
+Issuing query like \[1\] returns empty result. Query seems to not be properly translated to source-specific query \[2\]
+
+{code:sql|title=\[1\] Query}
+SELECT IntKey, SUM(IntKey) AS Total FROM BQT1.SmallA GROUP BY IntKey
+{code}
+
+{code:plain|title=\[2\] Source-specific query - GROUP BY clause refers to cb_c2 instead of cb_c1}
+09:53:09,066 DEBUG [org.teiid.CONNECTOR] (Worker5_QueryProcessorQueue64) TEIID29001 Source-specific Query: SELECT `$cb_c1_IntKey`, SUM(`$cb_c2_IntKey`) FROM `dvqe_small` `$cb_t1` LET `$cb_c1_IntKey` = `$cb_t1`.`IntKey`, `$cb_c2_IntKey` = `$cb_t1`.`IntKey` WHERE `$cb_t1`.`type` = 'SmallA' GROUP BY `$cb_c2_IntKey`
+{code}

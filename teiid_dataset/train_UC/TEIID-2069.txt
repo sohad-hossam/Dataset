@@ -1,0 +1,19 @@
+Optimze add LIMIT clause to SELECT within a Virtual Procedure using Oracle
+LIMIT clause is added to Statement being optimized which fails the operation on Oracle
+
+OPTIMIZE: 
+CREATE VIRTUAL PROCEDURE
+BEGIN
+DECLARE biginteger VARIABLES.t_pk;
+VARIABLES.t_pk = (SELECT <table>.seq_gen.cpe_seq FROM <table>.seq_gen);
+SELECT VARIABLES.t_pk AS result;
+END
+
+####################################################
+PROCEDURE COMMAND: CREATE VIRTUAL PROCEDURE
+BEGIN
+DECLARE biginteger VARIABLES.t_pk;
+VARIABLES.t_pk = (SELECT <table>.seq_gen.cpe_seq FROM <table>.seq_gen LIMIT 2);
+SELECT VARIABLES.t_pk AS result;
+END
+ 

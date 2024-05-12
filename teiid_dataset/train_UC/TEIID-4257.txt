@@ -1,0 +1,2 @@
+Nesting join parens cause H2 performance issue
+The fix for TEIID-3549 introduced nesting parens on both the left and right side - but having the left nesting causes different optimization behavior for H2.

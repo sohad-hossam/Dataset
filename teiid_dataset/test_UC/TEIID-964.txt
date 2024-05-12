@@ -1,0 +1,5 @@
+Must pushdown functions in select clause
+(F_ATM_REPORT_TYPE is a DB function) 
+SELECT F_ATM_REPORT_TYPE (BUS_LINE_CODE) FROM ...
+
+Will not have the function pushed down if it only appears in the select clause.  The planner must check if a function is pushdown only when it appears in the select clause and determine a source to push it to.

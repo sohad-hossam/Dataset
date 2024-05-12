@@ -1,0 +1,8 @@
+Various metadata issues
+1. The default for a proc/function should be virtual and the keyword foreign should be used to indicate a source function.
+2. The parser should validate a source procedure has no procedure body defined
+3. The parser should validate a function has no function body defined.
+4. FunctionMethod.getFullName should not use category qualification.
+5. A DDL defined function should be schema scoped when referenced in the getSupportedFunctions list
+6. MetadataFactory should not extend Schema to avoid the merge operation and to not serialize MetadataFactory information with the objects created.
+7. Schema should not have visibility metadata - that is held on the ModelMetaData.

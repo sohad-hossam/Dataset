@@ -1,0 +1,2 @@
+createRequestMessage in MMStatement is incorrect
+The check for submitting an invalid request will always fail for a batched update.

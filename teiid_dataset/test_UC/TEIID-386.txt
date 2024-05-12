@@ -1,0 +1,6 @@
+Improve error reporting to NOT include stack traces when appropriate and logging level < Detail
+The server presently adds stack traces with reckless abandon. It seems like anything that upsets the software yields at least one stack trace.
+
+I'd like to propose that "human errors", like parsing SQL statements, return just an error (in the logs, too). If the server is set to log at Detail or Trace, then crank out the stack traces if that's necessary. Logs that show only important stuff are more valuable.
+
+(I looked in Teiid and didn't see an entry like this. If it's a dup, that's fine, as long as the stack trace deluge is remedied.)

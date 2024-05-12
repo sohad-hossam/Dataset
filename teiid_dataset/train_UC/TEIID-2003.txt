@@ -1,0 +1,2 @@
+NPE processing order by in rule collapse source
+If the logic to perform the project optimization is hit then the repositioning of the access node is not accounted for.  Further sort optimizations are attempted below that point, which can cause follow-on exceptions, such as the NPE shown by the forum posting.

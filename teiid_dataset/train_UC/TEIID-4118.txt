@@ -1,0 +1,2 @@
+Temp capabilities for null ordering not correct if default is changed
+TEIID-2243 allowed the default sort order to be determined by a system property, but the temp capabilities always report low as the default ordering - this results in unexpected results if the default order is set to something other than low and an order by is issued with nulls low.

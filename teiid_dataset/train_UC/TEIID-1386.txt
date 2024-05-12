@@ -1,0 +1,2 @@
+Support exception handling in the procedures
+Currently the in Teiid procedure language there is no exception handling logic. For example if a INSERT fails due to unique key constraint, there is no way to catch that and do some other operation. Currently the procedure will exit the procedure will error. 

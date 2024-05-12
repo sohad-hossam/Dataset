@@ -1,0 +1,12 @@
+OData does not handle exceptions correctly
+When a unexpected exception occurs, OData implementation masks correct error occurred and throws following
+{code}
+org.jboss.resteasy.core.ContextParameterInjector$GenericDelegatingProxy.invoke(ContextParameterInjector.java:53)
+	$Proxy33.getBaseUri(Unknown Source)
+org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:54)	org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:37)	org.odata4j.producer.resources.ExceptionMappingProvider.getODataProducer(ExceptionMappingProvider.java:85)	org.odata4j.producer.resources.ExceptionMappingProvider.toResponse(ExceptionMappingProvider.java:53)
+org.odata4j.producer.resources.ExceptionMappingProvider.toResponse(ExceptionMappingProvider.java:35)	org.jboss.resteasy.core.SynchronousDispatcher.executeExceptionMapper(SynchronousDispatcher.java:324)
+org.jboss.resteasy.core.SynchronousDispatcher.handleException(SynchronousDispatcher.java:229)	org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:123)
+org.teiid.odata.ODataServletContainerDispatcher.service(ODataServletContainerDispatcher.java:97)
+	org.teiid.odata.ODataServlet.service(ODataServlet.java:61)	org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:50)
+	javax.servlet.http.HttpServlet.service(HttpServlet.java:847)
+{code}

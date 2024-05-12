@@ -1,0 +1,14 @@
+If where clause contains both equal and greater then conditions then query may return no results
+If WHERE clause contains '>' and '=' conditions for the same field then query may produce no result - depending on conditions order.
+
+The problem seems to be in org.teiid.query.rewriter.QueryRewriter class, method rewriteAndConjunct(). Pay attention to following piece of code:
+
+... if (cc1.getOperator() == CompareCriteria.EQ) {
+   if (!Evaluator.compare(cc1, ((Constant)cc1.getRightExpression()).getValue(), ((Constant)cc.getRightExpression()).getValue())) {
+  return FALSE_CRITERIA;
+  }
+
+Note that cc1 (which is guaranteed to have EQ criterion) is passed to Evaluator.compare. Thus right expressions of cc and cc1 are required to be equal. But if we have one contition EQ and another GT then it should instead check if right side of EQ is bigger then right side of GT.
+
+
+Bug TEIID-1704 describes a bit similar situation but it is still a different case.

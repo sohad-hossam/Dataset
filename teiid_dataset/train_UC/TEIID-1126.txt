@@ -1,0 +1,38 @@
+Web Service VDB Execution Error
+Executing a stored procedure for a web service model (exec Books_MySql_WS.Books_MySql_BOOKS.getBOOKS()), I receive the following exception: 
+ 
+14:56:53,033 ERROR [PROCESSOR] Unexpected exception for request IvKjO3sOrdrZ.0
+[TeiidComponentException]Error trying to read schemas for the document/table : Books_MySql_Output_View.BOOKS_OutputView
+	at org.teiid.metadata.TransformationMetadata.getXMLSchemas(TransformationMetadata.java:771)
+	at org.teiid.query.metadata.TempMetadataAdapter.getXMLSchemas(TempMetadataAdapter.java:489)
+	at org.teiid.query.metadata.TempMetadataAdapter.getXMLSchemas(TempMetadataAdapter.java:489)
+	at org.teiid.query.metadata.TempMetadataAdapter.getXMLSchemas(TempMetadataAdapter.java:489)
+	at org.teiid.query.optimizer.xml.XMLPlanner.preparePlan(XMLPlanner.java:137)
+	at org.teiid.query.optimizer.xml.XMLPlanner.optimize(XMLPlanner.java:85)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:104)
+	at org.teiid.query.optimizer.proc.ProcedurePlanner.optimize(ProcedurePlanner.java:106)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:98)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.addNestedCommand(RelationalPlanner.java:749)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.addNestedProcedure(RelationalPlanner.java:486)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.createStoredProcedurePlan(RelationalPlanner.java:501)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.generatePlan(RelationalPlanner.java:406)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:146)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:106)
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:427)
+	at org.teiid.dqp.internal.process.PreparedStatementRequest.generatePlan(PreparedStatementRequest.java:143)
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:450)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:349)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:167)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+	at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:190)
+	at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:187)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:176)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:187)
+	at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+	at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+	at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+

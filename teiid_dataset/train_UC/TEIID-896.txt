@@ -1,0 +1,13 @@
+INSERT failing with SF connector on types other than a string
+I am attempting to do an INSERT into salesforce Account table, using the following 
+
+INSERT INTO SFDC.salesforce.Account(IsDeleted, Name, Type, ParentId, BillingStreet, BillingCity, BillingState, BillingPostalCode, BillingCountry) VALUES ({b'false'},"MyTest","Customer","","123 Street","City","MO","66688","USA")
+
+The boolean type IsDeleted is causing failure with ClassCastException as follows:
+Caused by: java.lang.ClassCastException: java.lang.Boolean
+	at com.metamatrix.connector.salesforce.execution.visitors.InsertVisitor.visit(InsertVisitor.java:44)
+	at com.metamatrix.connector.salesforce.execution.InsertExecutionImpl.execute(InsertExecutionImpl.java:15)
+	at com.metamatrix.connector.salesforce.execution.UpdateExecutionParent.execute(UpdateExecutionParent.java:67)
+	at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processNewRequest(ConnectorWorker.java:255)
+
+I have tried other types as well with the same result

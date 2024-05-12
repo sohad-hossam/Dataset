@@ -1,0 +1,6 @@
+Exact numeric issues
+Teiid diverges from the SQL spec by parsing numerical expressions of the form <integral value>.<integral value> as doubles rather than as an exact numeric type (which for us would be BigDecimal).  I believe this was originally done to match Java parsing semantics and potentially to avoid performance overhead of using BigBecimal.  However this can lead to a loss of precision that is not expected by ANSI SQL.
+
+inexact numeric values entered in scientific notation would not be affected by this change.  They would still be parsed as doubles.
+
+The SQL spec also requires that the result of AVG on an exact type be returned as an exact type (although precision and scale are implementation dependent).

@@ -1,0 +1,2 @@
+implement Statement.closeOnCompletion 
+We should implement the 1.7 method closeOnCompletion.

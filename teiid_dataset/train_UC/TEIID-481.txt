@@ -1,0 +1,15 @@
+NPE with pooled XA connector
+The environment is never being set during initialize, leading to:
+
+java.lang.NullPointerException
+        at org.teiid.dqp.internal.pooling.connector.PooledConnector.getXAConnectionDirect(PooledConnector.java:148)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWrapper.getXAConnection(ConnectorWrapper.java:70)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.createConnection(ConnectorWorkItem.java:130)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.createExecution(ConnectorWorkItem.java:287)
+        at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.createExecution(SynchConnectorWorkItem.java:100)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.process(ConnectorWorkItem.java:151)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+        at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.run(SynchConnectorWorkItem.java:69)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)

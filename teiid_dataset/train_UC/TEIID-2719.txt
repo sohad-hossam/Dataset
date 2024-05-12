@@ -1,0 +1,23 @@
+IllegalAccessError When OData URL is invoked
+Any OData access invoked throws exception 
+
+{code}
+Caused by: java.lang.IllegalAccessError: tried to access class org.teiid.jdbc.SocketProfile from class org.teiid.jdbc.TeiidDriver
+	at org.teiid.jdbc.TeiidDriver.<init>(TeiidDriver.java:72) [teiid-admin-8.6.0.Alpha3-SNAPSHOT.jar:8.6.0.Alpha3-SNAPSHOT]
+	at org.teiid.jdbc.TeiidDriver.<clinit>(TeiidDriver.java:60) [teiid-admin-8.6.0.Alpha3-SNAPSHOT.jar:8.6.0.Alpha3-SNAPSHOT]
+	at org.teiid.odata.LocalClient.<init>(LocalClient.java:89) [classes:]
+	at org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:78) [classes:]
+	at org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:37) [classes:]
+	at org.odata4j.producer.resources.BaseResource.getODataProducer(BaseResource.java:119) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at org.odata4j.producer.resources.EntitiesRequestResource.getEntities(EntitiesRequestResource.java:264) [odata4j-core-0.8.0-SNAPSHOT-redhat.jar:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.6.0_35]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39) [rt.jar:1.6.0_35]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25) [rt.jar:1.6.0_35]
+	at java.lang.reflect.Method.invoke(Method.java:597) [rt.jar:1.6.0_35]
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:167) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethod.invokeOnTarget(ResourceMethod.java:269) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethod.invoke(ResourceMethod.java:227) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethod.invoke(ResourceMethod.java:216) [resteasy-jaxrs-2.3.7.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.getResponse(SynchronousDispatcher.java:542) [resteasy-jaxrs-2.3.7.Final.jar:]
+	... 20 more
+{code}

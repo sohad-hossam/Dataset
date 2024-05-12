@@ -1,0 +1,14 @@
+Expose Translator override property definitions through Admin API
+Currently in the admin api 
+
+{code}
+public Collection<PropertyDefinition> getTemplatePropertyDefinitions(String templateName) throws AdminException;
+{code}
+
+only works with resource-adapters and data sources in terms of returning the properties that can be configured on them. 
+
+This request is to extend the functionality to return the "overridable" properties for "translators", such as  
+
+{code}
+public Collection<PropertyDefinition> getTemplatePropertyDefinitions(String templateName, boolean isTranslator) throws AdminException;
+{code}

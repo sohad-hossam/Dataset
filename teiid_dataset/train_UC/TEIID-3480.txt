@@ -1,0 +1,2 @@
+External Materialization status
+When external materialization is configured with "STATUS" table, then Teiid should expose those stats over CLI and in the web-console. Currently the internal materialization does show status, need to expand to the external matviews.

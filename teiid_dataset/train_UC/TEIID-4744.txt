@@ -1,0 +1,5 @@
+Prior execution is not being closed in transactional secenario
+When working in transactional scenario, where all the queries in plan are executed serially in a given thread, however, JDBC drivers like Netezza do not allow to keep more than single statement open on a given connection.
+
+To work with this issue, Teiid provides a translator override called "ThreadBound" where it forces the previous statement to finish executing (it caches the results if needs to be) before it can execute the next source command on the same connection.  It looks like Teiid is not closing the prior statement before it moves on to execute the next statement.
+

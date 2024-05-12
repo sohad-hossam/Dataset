@@ -1,0 +1,2 @@
+RestWebservice war Generation failed due to split out rest related logic to rest-service 
+The logic related with  RestWebservice war Generation be removed from VDBService, we need roll back it now

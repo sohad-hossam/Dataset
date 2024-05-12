@@ -1,0 +1,2 @@
+Support AuotFailOver on Embedded based connections
+Currently, AutoFailOver only works over the socket based connection. Support this flag for embedded.

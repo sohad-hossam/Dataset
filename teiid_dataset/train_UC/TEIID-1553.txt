@@ -1,0 +1,2 @@
+UDF Function model fails to load when it located inside a folder in the VDB
+When UDF is modelled under folder the VDB deployer fails to load the function model. 

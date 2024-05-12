@@ -1,0 +1,8 @@
+Jopr VDB loading error when Data Source is not available
+While loading a dynamic VDB, that does not have a DS file configured correctly or while the database is down, the following exception shows up when the "admin-console" is loaded.
+
+java.lang.IllegalStateException: Deployment file ':/home/rareddy/testing/jboss-5.1.0.GA/server/default/deploy/teiid-artifacts/portfolio-vdb.xml' for Teiid Virtual Database does not exist.
+	at org.teiid.rhq.plugin.Facet.discoverDeployedPackages(Facet.java:429)
+	at sun.reflect.GeneratedMethodAccessor375.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)

@@ -1,0 +1,6 @@
+Allow chaining of Metadata Repositories with multiple <metadata> elements in vdb.xml
+Currently when chaining the multiple Metadata Repositories in VDB.xml they are defined using a comma separated list on <metadata> element. Any "context" specific value is submitted via "TEXT" element under <metadata>.
+
+However with above only one TEXT value can be defined, and if multiple repositories need to use the TEXT value there is no way to distinguish who is the owner of the data.
+
+A Enhancement is required to be able to define multiple <metadata> elements in the vdb.xml to chain the repositories instead using the comma separated list.

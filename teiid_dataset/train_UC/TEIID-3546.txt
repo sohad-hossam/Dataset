@@ -1,0 +1,5 @@
+Add distinct from syntax in for each row procedures
+Similar to postgresql, it would be good to allow for a quick comparison of new/old values to determine if row processing is needed.  Something like:
+
+IF new IS DISTINCT FROM old THEN
+...

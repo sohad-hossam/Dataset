@@ -1,0 +1,4 @@
+inline view support implies column/table alias support
+If inline view support is enabled, then both table and column aliasing must be allowed otherwise it is possible to use a view or column name that results in an invalid top level query.
+
+This is somewhat of a corner case as sources that support inline view typically will already support table aliasing and select expressions (which implies column aliasing).

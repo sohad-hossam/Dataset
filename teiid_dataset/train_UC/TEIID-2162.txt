@@ -1,0 +1,2 @@
+VDB attachements may get lost when using vdb imports
+The CompositeVDB logic does not copy all attachments.  It looks like the only affect now is that the classloader is not propagated, which may only be an issue for the JPA translator.

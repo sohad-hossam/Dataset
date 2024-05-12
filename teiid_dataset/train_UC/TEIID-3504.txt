@@ -1,0 +1,2 @@
+Null pointer exception executing dynamic sql
+When a procedure with dynamic sql is rerun the cloning of the group context allows for the same linked list to be modified by multiple threads leading to errors, which typically resemble a null pointer exception (for example at QueryResolver line 259 due to a null group).  The cloning also allows for the group context groups to grow in number as the locally scoped groups are re-added.

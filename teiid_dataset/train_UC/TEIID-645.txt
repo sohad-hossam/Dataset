@@ -1,0 +1,2 @@
+Update the quick start
+The quick start is not in synch with changes to the example and the details it provides about classpath deployment are incomplete.

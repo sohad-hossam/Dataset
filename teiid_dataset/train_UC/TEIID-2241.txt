@@ -1,0 +1,2 @@
+Provide a CLI script to add Teiid into any configuration in AS7 standalone mode
+In order to install Teiid in a existing configuration, the standalone-teiid.xml script needs to be provided in CLI form, just like what it offers for the domain mode.

@@ -1,0 +1,2 @@
+HSQL translator should advertise that a connection is needed for capabilities
+getVersion is used for the dependent join pushdown logic.

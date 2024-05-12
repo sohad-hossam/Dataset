@@ -1,0 +1,4 @@
+CacheEntry memory leak due to issues with touch method
+CacheEntry instances that are in the memory entries end up not in the eviction queue in specific circumstances with when the touch method is called - the batch needs to be already persisted resident and be accessed within the min tick interval after being removed from the eviction queue.  Typically that usage pattern only occurs with temporary tables.
+
+Defensive code will be added to the buffermanager cleaner to check if memory entries are being accumulated as well.

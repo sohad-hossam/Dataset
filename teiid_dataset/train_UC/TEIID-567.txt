@@ -1,0 +1,2 @@
+Set transactionisolationlevel should not throw an exception
+Not all clients handle sqlfeaturenotsupportedexceptions, so  we should should just ignore sets of transaction isolation level.

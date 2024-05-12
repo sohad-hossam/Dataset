@@ -1,0 +1,2 @@
+External materialization management with Embedded Server
+External materialization management is currently only enabled for the AS server environment.

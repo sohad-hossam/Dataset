@@ -1,0 +1,2 @@
+Dynamic sql failure with null procedure parameters
+Dynamic sql will fail to execute when used in a procedure that has a null input parameter, since it is forming a typeless constant.

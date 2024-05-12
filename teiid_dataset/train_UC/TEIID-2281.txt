@@ -1,0 +1,11 @@
+Exception when updating Oracle NVARCHAR2 columns (Teiid embedded)
+The TEIID jdbc driver returns SQLType of “JAVA_OBJECT” for NVARCHAR, so it throws and exception in Oracle JDBC call “setObject(i,param,TYPE.JAVA_OBJECT)”.
+
+We can reproduce the same exception using the Oracle jdbc driver by making the same setObject call.
+
+This is happening using Teiid embedded but also happens with a dynamic vdb in XML. We have not tried a designer-created vdb.
+
+Discussion:
+https://community.jboss.org/message/772860#772860
+Possibly related:
+https://issues.jboss.org/browse/TEIIDDES-179

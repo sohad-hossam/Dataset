@@ -1,0 +1,2 @@
+Allow to change visibility to a model from imported vdb
+When a new vdb uses import-vdb, changing(override) visibility to a model from imported vdb would need to hide non-related model to the new vdb.

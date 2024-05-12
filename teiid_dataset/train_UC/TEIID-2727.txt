@@ -1,0 +1,19 @@
+Like operator does not work in MongoDB translator
+The issue is similar to http://stackoverflow.com/questions/5608584/how-to-query-mongodb-with-like-using-the-java-api
+
+for query like
+{code}
+select * from city where city like 'ACM%'
+{code}
+Current query expression generated which is correct for javascript environment is 
+{code}
+$match:{ "city" : "/^ACM/"}
+$project:{ "_m0" : "$_id" , "_m1" : "$city" , "_m2" : "$state" , "_m3" : "$pop"}
+{code}
+
+but when executing from java, java driver wants like
+
+{code}
+$match:{ "city" : { "$regex" : "^ACM"}}
+$project:{ "_m0" : "$_id" , "_m1" : "$city" , "_m2" : "$state" , "_m3" : "$pop"}
+{code}

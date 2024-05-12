@@ -1,0 +1,8 @@
+Dynamic SQL exception should include evaluated sql
+When dynamic sql fails to plan correctly the exception message is simply re-displaying the expression form of the sql, rather than the evaluated form:
+
+TEIID30168 Couldn't execute the dynamic SQL command "EXECUTE IMMEDIATE x" with the SQL statement "x" due to: ...
+
+Should be the evaluated value of x, such as:
+
+statement "select something that doesn't work"

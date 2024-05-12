@@ -1,0 +1,2 @@
+missing message keys for functions
+Several of the encryption/decryption functions and the user function have missing i18n messages.

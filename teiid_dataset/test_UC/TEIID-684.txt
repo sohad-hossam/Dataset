@@ -1,0 +1,21 @@
+Dynamic data integration feature (Integrate data with out a VDB)
+This is feature request for dynamically integrating the data with out any modelling exercise, so that any tooling is not required before you can start integrating data. 
+
+Using this feature, the user would create/define a Connectors (data sources) in the Teiid runtime engine, and then user connects to runtime engine using the JDBC driver provided, then he/she can start writing SQL queries that spans multiple data sources in a single statement as if they are single source. 
+
+For example:
+
+Data Source: A has
+       TableA1
+        TableA2
+
+DataSource: B has
+       TableB1
+        TableB2
+
+user can write SQL queries such as
+
+SELECT A.TableA1.e1, A.TableA1.e2, B.TableB1.e1, B.TableB1.e2 FROM A.TableA1, B.TableB1 WHERE A.TableA1.e1 = B.TableB1.e1
+
+They can much more complex join queries than above too.
+        

@@ -1,0 +1,2 @@
+Add ability to sent ApplicationName thru ODBC connection
+add an ApplicationName property which can be set at connection for ODBC. This works for JDBC but for the Teiid ODBC driver does not seem to work. The ApplicationName is always set to 'ODBC'. Dutch police would like to distinct the entries from the Teiid Audit/Command Logging.

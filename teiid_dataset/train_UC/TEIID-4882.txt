@@ -1,0 +1,2 @@
+Nested dependent join planning issue
+Regular dependent joins nested under a fully pushed dependent join will not be fully planned as rule push select criteria will not be run on the sub plan.

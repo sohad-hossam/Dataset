@@ -1,0 +1,22 @@
+Getting NullPointer Exception from VDBMetadataParser.marshell() with Teiid 8.0
+I am using VDBMetadataParser.marshell and i am getting Null pointer exeption.
+
+ 
+
+java.lang.NullPointerException: java.lang.NullPointerException
+
+    at com.ctc.wstx.sw.BaseNsStreamWriter.doWriteAttr(BaseNsStreamWriter.java:493)
+
+    at com.ctc.wstx.sw.BaseNsStreamWriter.writeAttribute(BaseNsStreamWriter.java:228)
+
+    at org.teiid.adminapi.impl.VDBMetadataParser.writeTranslator(VDBMetadataParser.java:433) [teiid-admin-8.0.0.Final.jar:8.0.0.Final]
+
+    at org.teiid.adminapi.impl.VDBMetadataParser.marshell(VDBMetadataParser.java:369) [teiid-admin-8.0.0.Final.jar:8.0.0.Final]
+
+    at com.aca.xyz.server.teiid.bootstrap.TeiidBootstrap.run(TeiidBootstrap.java:263) [teiid-bootstrap-3.0.0-SNAPSHOT.jar:]
+
+.........................................
+
+.........................................
+
+ 

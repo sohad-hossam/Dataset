@@ -1,0 +1,15 @@
+Impala - Select * fails with reserved words in query
+Impala translator can handle reserved words in queries by quoting but doing select * the query fails in an unhelpful way.  Example:
+--succeeds
+select calendar_type,
+       start_date,
+       calendar_year,
+       quarter_structure, 
+       date_key, 
+       'month', 
+       week, 
+       day_of_month 
+  from warehouse.dim_advertiser_calendar;
+
+fails due to reserved word "month" as a column in the virtual table:
+select *  from warehouse.dim_advertiser_calendar;

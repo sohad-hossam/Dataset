@@ -1,0 +1,4 @@
+ infinispan dsl cache translator has disabled capabilities for NE,GT, LT
+Documentation states that Infinispan DSL cache translator has this capabilities: Compare Criteria - EQ, NE, LT, GT, LE, GE. 
+
+However capabilities for LT, GT and NE are disabled.

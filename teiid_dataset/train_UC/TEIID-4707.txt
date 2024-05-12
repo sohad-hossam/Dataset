@@ -1,0 +1,2 @@
+upgrade pre-intalled PrestoDB driver
+Upstream code pre-installed presto-jdbc-0.89.jar as prestoDB driver, there are almost 80 later version after 0.89, we may need upgrade to a later version.

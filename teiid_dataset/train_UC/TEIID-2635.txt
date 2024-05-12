@@ -1,0 +1,2 @@
+Block exit does not reset the temptablestore
+Once a block has completed the proper temp table context is not established until another block is pushed.  This can result in odd behavior such as not finding a temporary table that should obviously exist.

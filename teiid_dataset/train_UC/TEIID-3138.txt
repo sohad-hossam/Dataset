@@ -1,0 +1,2 @@
+EmbeddedServer does not shutdown the session monitor
+The session service has a timer thread which should be shutdown when the embedded server is shutdown.

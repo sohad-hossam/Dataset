@@ -1,0 +1,2 @@
+Teiid Examples run.sh should be executable when extracted from archive
+The Teiid is extracted, the file permissions of the teiid-examples/simpleclient/run.sh are set so it is not executable. Rather than force the user to change this, let's just set it appropriately.

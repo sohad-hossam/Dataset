@@ -1,0 +1,10 @@
+Adjust defaults and use of 1 to 10 data sources to recommend the SMALL size
+Based on recommendations:
+
+small :  16 cores, with at least 32 GB RAM. 2 DV instances.  (small means may be 5 ~10 sources, rows into millions, YMMV)
+
+medium : 32 cores with 64 GB RAM, 4 DV instances. (medium means may be 10 ~ 20 sources, rows into multi-millions, YMMV)
+
+Large: custom
+
+The defaults in the sizing applications, along with selecting 1 to 10 data sources, should result in the SMALL recommendation.  It should be clear to indicate the number of instances and the size recommendation per instance.

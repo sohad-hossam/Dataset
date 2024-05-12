@@ -1,0 +1,63 @@
+"No value was available" error message when evaluating an expression
+1. When running the following query:
+{code:sql}
+SELECT *
+	FROM (SELECT 'League' AS type, 1 AS arg0) xxx, "test_pg.test_nva" dl, table(CALL "views.pr0"(arg0)) x
+	JOIN "test_pg.test_nva" d ON d.type = 'str_val' ;;
+{code}
+teiid throws out the following error:
+{code:noformat}
+2017-11-16 17:23:24,159 ERROR [org.teiid.PROCESSOR] (Worker4_QueryProcessorQueue8) DopCSsLeK9Oy TEIID30019 Unexpected exception for request DopCSsLeK9Oy.2: org.teiid.core.TeiidCompon
+entException: TEIID30328 Unable to evaluate xxx.arg0: No value was available
+        at org.teiid.query.util.CommandContext.getFromContext(CommandContext.java:514)
+        at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:771)
+        at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1387)
+        at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:761)
+        at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:727)
+        at org.teiid.query.processor.proc.ProcedurePlan.evaluateExpression(ProcedurePlan.java:857)
+        at org.teiid.query.processor.proc.ProcedurePlan.open(ProcedurePlan.java:225)
+        at org.teiid.query.processor.relational.PlanExecutionNode.open(PlanExecutionNode.java:82)
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254)
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254)
+        at org.teiid.query.processor.relational.LimitNode.open(LimitNode.java:146)
+        at org.teiid.query.processor.relational.JoinStrategy.openLeft(JoinStrategy.java:95)
+        at org.teiid.query.processor.relational.NestedTableJoinStrategy.openLeft(NestedTableJoinStrategy.java:74)
+        at org.teiid.query.processor.relational.JoinNode.open(JoinNode.java:145)
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254)
+        at org.teiid.query.processor.relational.LimitNode.open(LimitNode.java:146)
+        at org.teiid.query.processor.relational.JoinStrategy.openRight(JoinStrategy.java:105)
+        at org.teiid.query.processor.relational.JoinNode.open(JoinNode.java:149)
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254)
+        at org.teiid.query.processor.relational.LimitNode.open(LimitNode.java:146)
+        at org.teiid.query.processor.relational.RelationalNode.open(RelationalNode.java:254)
+        at org.teiid.query.processor.relational.RelationalPlan.open(RelationalPlan.java:136)
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:232)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:139)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:115)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:479)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:284)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)
+{code}
+
+2. When running the following query:
+{code:sql}
+SELECT *
+	FROM (SELECT 'League' AS type, 1 AS arg0) xxx, "test_pg.test_nva" dl, table(CALL "views.pr0"(arg0)) x
+	JOIN "test_pg.test_nva" d ON x.col1 = d.start_date AND d.type = 'str_val' ;;
+{code}
+teiid complains showing the following error message:
+{code:noformat}
+2017-11-16 17:37:59,372 WARN  [org.teiid.PROCESSOR] (Worker8_QueryProcessorQueue23) DopCSsLeK9Oy TEIID30020 Processing exception for request DopCSsLeK9Oy.9 'TEIID31172 Could not reso
+lve expressions being compared to a common type excluding character conversions: x.col1 = d.start_date'. Originally QueryResolverException ResolverVisitor.java:1045. Enable more deta
+iled logging to see the entire stacktrace.
+{code}
+It seems that in the x.col1 = d.start_date comparison the d.start_date must be converted to string explicitly but I don't know if it's a bug or not, if we indeed must use the conversion here explicitly.

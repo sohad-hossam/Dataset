@@ -1,0 +1,2 @@
+non pushable uncorrelated exists subquery will still be pushed
+The evaluation flag on the the exists predicate is not getting cloned properly, which means that an exists predicate that should be pre-evaluated (due to not being pushed-down) will instead be pushed down.

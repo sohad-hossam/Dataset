@@ -1,0 +1,165 @@
+formats in timestampformat functions on sybase are ignored.
+Hi,
+
+For this query
+
+{code:sql}
+select formattimestamp(gd.AdmissionTime, 'yyyy') as admtime
+from prod_P_GeneralData gd
+where gd.status = 1
+{code}
+
+The dates returned look like this: Mar  8 2017  5:55PM
+
+So the format parameter is completely ignored (also for other formats).
+
+Here is the debug log:
+
+
+============================================================================
+USER COMMAND:
+SELECT formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime FROM izisprod.prod_P_GeneralData AS gd WHERE gd.Status = 1 LIMIT 100
+
+----------------------------------------------------------------------------
+OPTIMIZE: 
+SELECT formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime FROM izisprod.prod_P_GeneralData AS gd WHERE gd.Status = 1 LIMIT 100
+
+----------------------------------------------------------------------------
+GENERATE CANONICAL: 
+SELECT formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime FROM izisprod.prod_P_GeneralData AS gd WHERE gd.Status = 1 LIMIT 100
+
+CANONICAL PLAN: 
+TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100})
+  Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+    Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1})
+      Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING PlaceAccess
+
+AFTER: 
+TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100})
+  Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+    Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1})
+      Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING PushSelectCriteria
+
+AFTER: 
+TupleLimit(groups=[])
+  Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+    Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04})
+      Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING CleanCriteria
+
+AFTER: 
+TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=null})
+  Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], OUTPUT_COLS=null})
+    Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04, OUTPUT_COLS=null})
+      Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1, OUTPUT_COLS=null})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd], props={OUTPUT_COLS=null})
+
+
+============================================================================
+EXECUTING RaiseAccess
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04, OUTPUT_COLS=null})
+  TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=null})
+    Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], OUTPUT_COLS=null})
+      Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1, OUTPUT_COLS=null})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING AssignOutputElements
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04, OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+  TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+    Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime]})
+      Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1, OUTPUT_COLS=[gd.AdmissionTime]})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd], props={OUTPUT_COLS=[gd.Status, gd.AdmissionTime]})
+
+
+============================================================================
+EXECUTING PushLimit
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd])
+  TupleLimit(groups=[])
+    Project(groups=[izisprod.prod_P_GeneralData AS gd])
+      Select(groups=[izisprod.prod_P_GeneralData AS gd])
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING CalculateCost
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04, OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], EST_CARDINALITY=20.0, EST_COL_STATS={formattimestamp(gd.AdmissionTime, 'yyyy')=[1.0, 10.0, -1.0]}})
+  TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], EST_CARDINALITY=20.0, EST_COL_STATS={formattimestamp(gd.AdmissionTime, 'yyyy')=[1.0, 10.0, -1.0]}})
+    Project(groups=[izisprod.prod_P_GeneralData AS gd], props={PROJECT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], EST_CARDINALITY=20.0, EST_COL_STATS={formattimestamp(gd.AdmissionTime, 'yyyy')=[1.0, 10.0, -1.0]}})
+      Select(groups=[izisprod.prod_P_GeneralData AS gd], props={SELECT_CRITERIA=gd.Status = 1, OUTPUT_COLS=[gd.AdmissionTime], EST_CARDINALITY=20.0, EST_COL_STATS={gd.AdmissionTime=[1.0, 10.0, -1.0]}})
+        Source(groups=[izisprod.prod_P_GeneralData AS gd], props={OUTPUT_COLS=[gd.Status, gd.AdmissionTime], EST_COL_STATS={gd.Status=[20.0, 200.0, -1.0], gd.AdmissionTime=[20.0, 200.0, -1.0]}, EST_CARDINALITY=400.0})
+
+
+============================================================================
+EXECUTING MergeCriteria
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd])
+  TupleLimit(groups=[])
+    Project(groups=[izisprod.prod_P_GeneralData AS gd])
+      Select(groups=[izisprod.prod_P_GeneralData AS gd])
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING PlanSorts
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd])
+  TupleLimit(groups=[])
+    Project(groups=[izisprod.prod_P_GeneralData AS gd])
+      Select(groups=[izisprod.prod_P_GeneralData AS gd])
+        Source(groups=[izisprod.prod_P_GeneralData AS gd])
+
+
+============================================================================
+EXECUTING CollapseSource
+
+AFTER: 
+Access(groups=[izisprod.prod_P_GeneralData AS gd], props={SOURCE_HINT=null, MODEL_ID=Schema name=izisprod, nameInSource=null, uuid=mmuuid:095c2821-e16b-4f9d-9c78-0d2d20018d04, OUTPUT_COLS=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime], EST_CARDINALITY=20.0, EST_COL_STATS={formattimestamp(gd.AdmissionTime, 'yyyy')=[1.0, 10.0, -1.0]}, ATOMIC_REQUEST=SELECT formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime FROM izisprod.prod_P_GeneralData AS gd WHERE gd.Status = 1 LIMIT 100})
+
+
+============================================================================
+CONVERTING PLAN TREE TO PROCESS TREE
+
+PROCESS PLAN = 
+AccessNode(0) output=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime] SELECT formattimestamp(g_0.AdmissionTime, 'yyyy') AS c_0 FROM izisprod.prod_P_GeneralData AS g_0 WHERE g_0.Status = 1 LIMIT 100
+
+============================================================================
+
+----------------------------------------------------------------------------
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+AccessNode(0) output=[formattimestamp(gd.AdmissionTime, 'yyyy') AS admtime] SELECT formattimestamp(g_0.AdmissionTime, 'yyyy') AS c_0 FROM izisprod.prod_P_GeneralData AS g_0 WHERE g_0.Status = 1 LIMIT 100
+
+============================================================================
+
+
+In the server logs I can see these statements:
+
+2017-04-19 15:16:27,305 DEBUG [org.teiid.COMMAND_LOG] (Worker31_QueryProcessorQueue461) jcAY0lvWhF3d    START DATA SRC COMMAND: startTime=2017-04-19 15:16:27.305       requestID=jcAY0lvWhF3d.55       sourceCommandID=0      executionID=83  txID=null       modelName=izisprod      translatorName=sybase-override  sessionID=jcAY0lvWhF3d  principal=bram  sql=SELECT formattimestamp(g_0.AdmissionTime, 'yyyy') AS c_0 FROM izisprod.prod_P_GeneralData AS g_0 WHERE g_0.Status = 1 LIMIT 100
+2017-04-19 15:16:27,305 DEBUG [org.teiid.COMMAND_LOG] (Worker31_QueryProcessorQueue461) jcAY0lvWhF3d    SOURCE SRC COMMAND:     endTime=2017-04-19 15:16:27.305 requestID=jcAY0lvWhF3d.55       sourceCommandID=0      executionID=83  txID=null       modelName=izisprod      translatorName=sybase-override  sessionID=jcAY0lvWhF3d  principal=bram  sourceCommand=[SELECT TOP 100 CONVERT(VARCHAR, g_0."AdmissionTime", null) AS c_0 FROM "Patient"."dbo"."P_GeneralData" g_0 WHERE g_0."Status" = 1]
+2017-04-19 15:16:27,308 DEBUG [org.teiid.COMMAND_LOG] (Worker32_QueryProcessorQueue462) jcAY0lvWhF3d    END SRC COMMAND:        endTime=2017-04-19 15:16:27.308 requestID=jcAY0lvWhF3d.55       sourceCommandID=0      executionID=83  txID=null       modelName=izisprod      translatorName=sybase-override  sessionID=jcAY0lvWhF3d  principal=bram  finalRowCount=48        cpuTime(ns)=845787
+2017-04-19 15:16:27,313 INFO  [org.teiid.COMMAND_LOG] (Worker32_QueryProcessorQueue463) jcAY0lvWhF3d    END USER COMMAND:       endTime=2017-04-19 15:16:27.313 requestID=jcAY0lvWhF3d.55       txID=null     sessionID=jcAY0lvWhF3d   principal=bram  vdbName=vdb3    vdbVersion=25   finalRowCount=48

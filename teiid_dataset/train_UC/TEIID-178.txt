@@ -1,0 +1,2 @@
+Implement sort minimization in process plans
+Sorting for order bys, dub removal, merge joins, and grouping should be minimized after the process plan has been determined.

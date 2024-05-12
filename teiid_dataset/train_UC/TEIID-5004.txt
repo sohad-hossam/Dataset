@@ -1,0 +1,83 @@
+INNER JOINs of two CTEs fail with ASSERTION FAILED error message
+when running the following query several times in a row:
+{code:sql}
+with
+CTE1 as (
+	select a1 from ( 
+-->>
+		with CTE11 as (select a1 from (
+								WITH 
+									alias as (SELECT 1 as a),
+									alias1 as (select alias.a as alias, AAA.a as alias1, AAA.b as a from alias join test.test_a AAA on alias.a!=AAA.a or alias.a!=AAA.a),
+									alias2 as (with alias as (select alias.a as alias, AAA.a as alias1, AAA.b as a from alias join test.test_a AAA on alias.a!=AAA.a or alias.a!=AAA.a) select * from alias),
+									alias3 as (with alias as (select alias.a as alias, AAA.a as alias1, AAA.a from alias join alias2 AAA on alias.a!=AAA.a or alias.a!=AAA.a) select * from alias)
+								SELECT AAA.alias1 as a1 FROM alias join alias1 as AAA on alias.a=AAA.a or alias.a!=AAA.a join alias2 on AAA.a=alias2.a or AAA.a!=alias.a left join alias3 on alias3.a=alias2.a or alias3.a!=alias2.a
+								) tv2) 
+--<<
+			select a1 from CTE11
+	) as  SUBQ1),
+CTE2 as (
+	select a1 from ( 
+-->>
+		with CTE21 as (select a1 from (
+								WITH 
+									alias as (SELECT 1 as a),
+									alias1 as (select alias.a as alias, AAA.a as alias1, AAA.b as a from alias join test.test_a AAA on alias.a!=AAA.a or alias.a!=AAA.a),
+									alias2 as (with alias as (select alias.a as alias, AAA.a as alias1, AAA.b as a from alias join test.test_a AAA on alias.a!=AAA.a or alias.a!=AAA.a) select * from alias),
+									alias3 as (with alias as (select alias.a as alias, AAA.a as alias1, AAA.a from alias join alias2 AAA on alias.a!=AAA.a or alias.a!=AAA.a) select * from alias)
+								SELECT AAA.alias1 as a1 FROM alias join alias1 as AAA on alias.a=AAA.a or alias.a!=AAA.a join alias2 on AAA.a=alias2.a or AAA.a!=alias.a left join alias3 on alias3.a=alias2.a or alias3.a!=alias2.a
+								) tv2) 
+--<<
+			select a1 from CTE21
+	) as  SUBQ2)  
+select * from CTE1 as T1 join CTE2 as T2 on T1.a1=T2.a1
+{code}
+
+teiid returns the following stacktrace (from teiid 9.3.1):
+{code}
+2017-07-21 16:52:32,440 ERROR [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue73) oiBQAQPtTMe+ TEIID30019 Unexpected exception for request oiBQAQPtTMe+.15: java.lang.AssertionError
+: ASSERTION FAILED: expected reference to be not null
+        at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+        at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:287)
+        at org.teiid.dqp.internal.process.TupleSourceCache$CopyOnReadTupleSource.nextTuple(TupleSourceCache.java:103)
+        at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:394)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.BatchIterator.finalRow(BatchIterator.java:69)
+        at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:70)
+        at org.teiid.query.processor.BatchIterator.getCurrentTuple(BatchIterator.java:84)
+        at org.teiid.common.buffer.AbstractTupleSource.hasNext(AbstractTupleSource.java:92)
+        at org.teiid.query.processor.relational.MergeJoinStrategy.process(MergeJoinStrategy.java:165)
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:235)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+        at org.teiid.query.processor.relational.SourceState.prefetch(SourceState.java:211)
+        at org.teiid.query.processor.relational.SourceState.rowCountLE(SourceState.java:158)
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:227)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+        at org.teiid.query.processor.relational.SourceState.prefetch(SourceState.java:211)
+        at org.teiid.query.processor.relational.JoinNode.prefetch(JoinNode.java:255)
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:247)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:150)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:281)
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:477)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:284)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)
+{code}

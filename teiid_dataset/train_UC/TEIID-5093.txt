@@ -1,0 +1,27 @@
+Amazon s3 csv/xml lookup querry exception
+Querry : 
+{code:java}
+SELECT IntKey, StringKey, lookup('BQT1.SmallB', 'DoubleNum', 'IntKey', IntKey) AS DoubleNum  FROM BQT1.SmallA UNION SELECT IntKey, lookup('BQT1.SmallA', 'StringKey', 'IntKey', IntKey) AS StringKey, DoubleNum FROM BQT1.SmallA
+{code}
+returns TeiidSQLException for csv and xml files from amazon s3.
+
+Stacktrace:
+
+{code:java}
+ WARN  [org.teiid.PROCESSOR] (Worker2_QueryProcessorQueue41) TEIID30020 Processing exception for request 8O9K6VJIjd9y.7 'TEIID30180 java.sql.SQLException: java.sql.SQLException: TEIID60019 Streaming result has already been read once.  Ensure that only one read operation needs to be performed, for example XMLPARSE without the WELLFORMED operation must read the entire stream to validate its contents.  Or you may choose to use a non-streaming result.   '. Originally TeiidProcessingException BinaryWSProcedureExecution.java:78. Enable more detailed logging to see the entire stacktrace.
+{code}
+
+
+Teiid command log for querry:
+
+{code:java}
+15:11:34,160 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #2) 8O9K6VJIjd9y 	START USER COMMAND:	startTime=2017-10-09 15:11:34.16	requestID=8O9K6VJIjd9y.7	txID=null	sessionID=8O9K6VJIjd9y	applicationName=JDBC	principal=user@teiid-security	vdbName=csv	vdbVersion=1	sql=SELECT IntKey, StringKey, lookup('BQT1.SmallB', 'DoubleNum', 'IntKey', IntKey) AS DoubleNum  FROM BQT1.SmallA UNION SELECT IntKey, lookup('BQT1.SmallA', 'StringKey', 'IntKey', IntKey) AS StringKey, DoubleNum FROM BQT1.SmallA
+15:11:34,192 DEBUG [org.teiid.COMMAND_LOG] (Worker0_QueryProcessorQueue40) 8O9K6VJIjd9y 	START DATA SRC COMMAND:	startTime=2017-10-09 15:11:34.192	requestID=8O9K6VJIjd9y.7	sourceCommandID=6	executionID=2	txID=null	modelName=sourceModel	translatorName=user-s3	sessionID=8O9K6VJIjd9y	principal=user@teiid-security	sql=EXEC sourceModel.getTextFile('csv/smallaCsv.csv')
+15:11:34,856 DEBUG [org.teiid.COMMAND_LOG] (Worker2_QueryProcessorQueue41) 8O9K6VJIjd9y 	END SRC COMMAND:	endTime=2017-10-09 15:11:34.856	requestID=8O9K6VJIjd9y.7	sourceCommandID=6	executionID=2	txID=null	modelName=sourceModel	translatorName=user-s3	sessionID=8O9K6VJIjd9y	principal=user@teiid-security	finalRowCount=1	cpuTime(ns)=34673443
+15:11:34,862 INFO  [org.teiid.COMMAND_LOG] (Worker2_QueryProcessorQueue41) 8O9K6VJIjd9y 	ERROR USER COMMAND:	endTime=2017-10-09 15:11:34.862	requestID=8O9K6VJIjd9y.7	txID=null	sessionID=8O9K6VJIjd9y	principal=user@teiid-security	vdbName=csv	vdbVersion=1	finalRowCount=null
+15:11:34,876 INFO  [org.teiid.COMMAND_LOG] (Worker2_QueryProcessorQueue41) 8O9K6VJIjd9y 	END USER COMMAND:	endTime=2017-10-09 15:11:34.876	requestID=8O9K6VJIjd9y.7	txID=null	sessionID=8O9K6VJIjd9y	principal=user@teiid-security	vdbName=csv	vdbVersion=1	finalRowCount=0
+{code}
+
+
+
+

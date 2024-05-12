@@ -1,0 +1,8 @@
+Polish the teiid  rest generated war
+I have 2 aspect thoughts to beautify the rest war login/doc page:
+* Change the login type from default BASIC to Client-Login, which like Dashbuilder, once request 
+{note}
+http://{HOST}:{PORT}/{VDB_BANE}_{VDB_VERSION}/api 
+{note}
+first will redirect to client login page, rather than pop up a small rough login window.
+* Add a top green bar and log(as discussed in TEIIDDES-3006) to api doc page 

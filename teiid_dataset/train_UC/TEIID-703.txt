@@ -1,0 +1,2 @@
+Configuration service is assuming the Session Service roles in some instances
+EmbeddedConfiguration service acts as the session service and keeps track of the connections for the admin api purposes. Now that engine has direct access to the session service this needs to handled by the SessionService.

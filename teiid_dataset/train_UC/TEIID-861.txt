@@ -1,0 +1,4 @@
+All Teiid Connectors  must be modified and packaged as JCA Connectors.
+All the supported connectors in the Teiid project must implement the JCA API according to TEIID-859 and packaged into RAR file format. This also fixes concerns in TEIID-143. Once the Connectors are packaged into RAR file format, when they are deploy in a container, they will hold all the needed dependencies inside the single artifact, which containers know how to deploy and re-load when there is a change.
+
+The concern is how this will affect the Designer Integration, and connector type information is exposed to external tools.

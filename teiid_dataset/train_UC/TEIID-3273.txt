@@ -1,0 +1,30 @@
+Exception while using biginteger column with SUM function
+I have column which is of "BigInteger" type and when I am trying to execute an SQL which contains the SUM function I am getting the following exception.
+The following is the SQL:
+ 
+SELECT SUM(age) FROM test
+ 
+My understanding is that the sum of all the BigInteger's is not fitting in the size of the BigInteger and Teiid is trying to convert it into a BigDecimal and end up in an exception.
+How to fix this problem? Do we have a woraround for this?
+ 
+Caused by: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype biginteger for column 0 doesn't match the runtime type "java.math.BigDecimal". Please ensure that the column's modeled datatype matches the expected data.
+  at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:851) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:317) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1443) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1414) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1174) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:346) [rt.jar:1.7.0_03]
+  at org.teiid.net.socket.Message.writeExternal(Message.java:61) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1443) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1414) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1174) [rt.jar:1.7.0_03]
+  at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:346) [rt.jar:1.7.0_03]
+  at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:131) [teiid-runtime-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  ... 25 more
+Caused by: java.lang.ClassCastException: java.math.BigDecimal cannot be cast to java.math.BigInteger
+  at org.teiid.client.BatchSerializer$BigIntegerColumnSerializer.writeObject(BatchSerializer.java:681) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  at org.teiid.client.BatchSerializer$ColumnSerializer.writeColumn(BatchSerializer.java:506) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:840) [teiid-client-8.7.0.FinalCAFix-SNAPSHOT.jar:8.7.0.FinalCAFix-SNAPSHOT]
+  ... 36 more
+
+See the discussion in Teiid Forums for more information: https://developer.jboss.org/thread/251244

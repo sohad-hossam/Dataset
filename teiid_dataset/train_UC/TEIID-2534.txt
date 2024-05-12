@@ -1,0 +1,2 @@
+Object protocol errors provide no client information
+Issues when writing an object value to output result in a terminated connection and no meaningful client exception.  It would be better to have a meaningful exception and to not terminate the connection - as it actually hasn't been corrupted.

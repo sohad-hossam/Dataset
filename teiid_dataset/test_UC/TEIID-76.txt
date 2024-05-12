@@ -1,0 +1,15 @@
+Attempting to execute a procedure from MM to MM returns error "<procedure>() does not exist"
+Defect Tracker #24378: I have a VDB which executes a virtual procedure that resides on another MMServer in another VDB. I have verified that I am able to execute the procedure when connected from a client app to the 2nd VDB but when I attempt to execute the same procedure from the 1st VDB I receive the following error: 
+
+Error: com.metamatrix.jdbc.MMSQLException: Error trying to execute a query statement { call "ApplicationMetaData.Mapping.Template.Insert"(?,?,?,?,?,?,?,?,?,?)}: "ApplicationMetaData.Mapping.Template.Insert" does not exist., SQL State: 38000, Error Code: 0 
+
+Here is the exception that appears in the MM_Mappings MMXServer: 
+
+com.metamatrix.data.exception.ConnectorException[0]: java.sql.SQLException: Error trying to execute a query statement { call "ApplicationMetaData.Mapping.Template.Insert"(?,?,?,?,?,?,?,?,?,?)}: "ApplicationMetaData.Mapping.Template.Insert" does not exist. 
+at com.metamatrix.common.util.exception.SQLExceptionUnroller.unRollException(SQLExceptionUnroller.java:43) 
+at com.metamatrix.connector.jdbc.JDBCProcedureExecution.execute(JDBCProcedureExecution.java:77) 
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processNewRequest(ConnectorWorker.java:241) 
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processBatchRequest(ConnectorWorker.java:166) 
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processRequest(ConnectorWorker.java:150) 
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.process(ConnectorWorker.java:135) 
+at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:51)

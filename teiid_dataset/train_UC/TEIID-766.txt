@@ -1,0 +1,4 @@
+Oracle Spatial Connector is not utilizing function modifiers from Oracle Connector
+When attempting to execute any functions that are supported by our Oracle connector implementation against the Oracle Spatial connector, invalid SQL is generated.
+
+This is due to com.metamatrix.connector.jdbc.oracle.spatial.OracleSpatialSQLTranslator.initialize(ConnectorEnvironment env) : void not calling its super.initialize(ConnectorEnvironment env) : void method.  This call is required so that the parent (OracleSQLTranslator) can register its function modifiers. 

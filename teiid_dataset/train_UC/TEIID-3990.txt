@@ -1,0 +1,7 @@
+Issues with nested correlated references
+There are several issues with nested correlated reference handling generally around having the same table name/alias in several levels of the query.  For example with a having c1, c2 columns, b having c3, c4, and c having c5, c6:
+
+SELECT (select c2 from b where c3 = (select c5 from c as x where c6 = c1)) FROM a as x group by c1, c2
+
+Results in an exception since the inner most reference to c1 is seen as actually resolving to c as x - rather than the outer a as x.
+

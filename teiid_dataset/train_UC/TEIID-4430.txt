@@ -1,0 +1,2 @@
+Update the Olingo library to 4.3
+Upgrade the Olingo to 4.3 version. This is currently in beta but will be in final by the time 9.1 releases. Also this is required for $expand and future data aggregation capabilities.

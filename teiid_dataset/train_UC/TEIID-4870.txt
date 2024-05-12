@@ -1,0 +1,4 @@
+Google translator unexpected behavior for view update without trigger
+If there is a view (CRUD.SmallA_Direct) which defines only a subset of foreign table (Source.SmallA) columns, there needs to be defined a trigger for update to work correctly. Otherwise unexpected results are returned after executing update:
+* for updated rows, it converts String columns of SmallA_Direct to decimal numbers, 
+* for not updated rows it returns null for String columns

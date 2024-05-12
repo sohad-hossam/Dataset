@@ -1,0 +1,4 @@
+mongoDB: Update Metadata processor to handle nested documents
+Teiid 8.10 version provided a detailed support for the nested documents in MongoDB based on the schema and extension properties provided. 
+
+However when reading the existing JSON documents from MongoDB to figure out the compatible schema, it is not updated to recognize all the possible nesting in JSON document to produce a correct schema. 

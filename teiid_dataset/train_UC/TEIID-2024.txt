@@ -1,0 +1,8 @@
+DataTierManager.could_not_obtain_connector_binding error says it can't find Connection Factory
+Got this error: 
+
+[TeiidComponentException]Could not obtain connection factory for model EDG in VDB name= hotrod, version 1
+	at org.teiid.dqp.internal.process.DataTierManagerImpl.createRequest(DataTierManagerImpl.java:569)
+	at org.teiid.dqp.internal.process.DataTierManagerImpl.registerRequest(DataTierManagerImpl.java:183
+
+and looking at the code, it appears the source names defined for the model are null or empty.  I think the message is alluding to the wrong thing it can't find.

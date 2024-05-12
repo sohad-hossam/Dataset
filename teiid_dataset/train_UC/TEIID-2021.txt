@@ -1,0 +1,2 @@
+Fail the VDB deployment when translator is not available
+VDBDeployer checks for the override translator types, however it does not check for the base translators that are configured in the VDB. So, when a VDB with unknown translator is deployed, it gets deployed but never exposes any error information as to why the VDB is not "active".

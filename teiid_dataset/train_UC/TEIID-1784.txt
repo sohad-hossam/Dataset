@@ -1,0 +1,2 @@
+reserve batch accounting error
+Under low memory conditions sortutility initial sort can claim and then not free buffer space.

@@ -1,0 +1,8 @@
+Copy criteria within a left outer join removes predicates
+With a query such as:
+
+select bqt1.smalla.intkey from bqt1.smalla inner join (select bqt3.smalla.intkey from bqt2.smalla left outer join bqt3.smalla on bqt2.smalla.intkey = bqt3.smalla.intkey and bqt3.smalla.intkey = 1) foo on bqt1.smalla.intkey = foo.intkey
+
+where the left outer join is not pushed to the source, we will process it as if  bqt2.smalla.intkey = bqt3.smalla.intkey doesn't exist.
+
+This is somewhat unlikely to occur for user queries as the join predicates are not likely to occur and could easily be simplified.

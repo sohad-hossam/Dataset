@@ -1,0 +1,6 @@
+Query Testing returned 0 rows on 16 queries when results were expected - Involves FoatNum, LongNum, DoubleNum, BigDecimalValue, and BigIntegerValue
+Teiid Query Testing
+
+1.  Ran CTC query testing against Teiid and "no results" were returned on 16 queries which was expecting results.
+2.  The queries contained FloatNum, LongNum, DoubleNum, and BigDecimalValue and BigIntegerValue.
+3.  Attached is a spreadsheet with the results and the queries.

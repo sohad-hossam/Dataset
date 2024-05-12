@@ -1,0 +1,4 @@
+Teiid not removing/setting the correct TCCL before calling getMetadata on translator
+Ramesh helped me debug a class loading issue that I'm experiencing with a custom translator and asked me to open this ticket based on his findings.  The forum link is specified below and contains all of the necessary information.  
+
+Ramesh's words: "OK, I believe the geoTools is using the TCCL to load the schema, thus the error. However, the error is on the Teiid side not correctly removing/setting the correct TCCL before we call "getMetadata" call on the translator. You can add JIRA for this we will fix it."

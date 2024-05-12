@@ -1,0 +1,7 @@
+Nullpointer exception when running an update statement for the second time
+NPE when an update statement is run against a multisource vdb view which has a trigger executing dynamic sql
+
+Caused by: java.lang.NullPointerException
+    at org.teiid.query.optimizer.relational.PlanToProcessConverter.convert(PlanToProcessConverter.java:101)
+    at org.teiid.dqp.internal.process.multisource.MultiSourcePlanToProcessConverter.convert(MultiSourcePlanToProcessConverter.java:94)
+    at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:201)

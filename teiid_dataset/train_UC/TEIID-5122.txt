@@ -1,0 +1,16 @@
+Osisoft Translator - Teiid pushes cast from Boolean to Single/Double
+Osisoft PI does not support conversion from Boolean to Single or Double, however, query such as 
+{code:sql}
+select cast(booleanvalue as float) from Source.smalla
+{code}
+
+is pushed as 
+{code:sql}
+SELECT cast(g_0.BooleanValue AS Single) AS c_0 FROM dvqe..SmallA AS g_0
+{code}
+
+
+which results in
+{noformat}
+com.osisoft.rdsa.RdsaException: [PIOLEDBENT] [SQL Analyzer] [Line 1:14] Cannot cast 'Boolean' to 'Single'.
+{noformat}

@@ -1,0 +1,2 @@
+Determining the Teiid runtime instace identity could be error prone
+The current way instance id generated for the uniquely identifying the runtime engine could be wrong. Now that "processname" is available in the property, that name should be used as the identifier instead of int identifier now.

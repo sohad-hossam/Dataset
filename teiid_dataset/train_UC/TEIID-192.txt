@@ -1,0 +1,2 @@
+Add the ability to switch the identity on connections
+Based upon oracle and sql server abilities, we should offer methods to assert and newly authenticate an identity on an existing connection.

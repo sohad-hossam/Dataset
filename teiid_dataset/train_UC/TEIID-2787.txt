@@ -1,0 +1,10 @@
+Correlated grouping expression not properly replaced in pushdown subquery
+A correlated grouping expression appears in the pushdown query with the internal group name anon_grpX rather than the proper reference from the outer query.
+
+For example the user query:
+
+select x, (select avg\(y) from tbl1 where x = tbl2.x) from tbl2 group by x
+
+would have
+
+where x = anon_grp0.x

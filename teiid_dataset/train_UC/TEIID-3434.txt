@@ -1,0 +1,2 @@
+Ability to enable/disable caching by table and/or source
+We need to be able to enable/disable caching by table and/or source. Some of our tables have real-time data, and we do not want to cache those, and some other tables can use cached data. It is not sufficient to use SQL options to turn caching on or off, because we're using 3rd party tools, and we don't have control over the SQL they generate.

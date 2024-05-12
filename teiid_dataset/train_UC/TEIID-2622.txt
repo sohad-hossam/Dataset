@@ -1,0 +1,2 @@
+Data/plan modification check is not granular enough
+The use of milliseconds will cause some situations (such as in the TestAsynch alter test) where modifications do not seem to be honored.

@@ -1,0 +1,4 @@
+Recursive call in PreparedStatement
+public void setObject (int parameterIndex, Object value, int targetJdbcType, int scale) throws SQLException
+
+mistakenly calls itself with the TEIID-174 change.

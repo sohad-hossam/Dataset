@@ -1,0 +1,2 @@
+Allow limits to apply to the final sort pass
+A left over todo was to support allowing the affect of limiting to short circuit the last sort phase.

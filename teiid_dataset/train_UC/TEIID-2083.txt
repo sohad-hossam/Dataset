@@ -1,0 +1,10 @@
+Provide a Admin method to read the metadata of a VDB
+Define a method on Admin API to expose the metadata of VDB. With the increased usage of the Dynamic VDB and dynamic metadata exposed from the sources and creation of views using DDL, currently there is no way to read the metadata of the VDB. Using JDBC, DatabaseMetata can be used to read schema, however this would be limited in functionality as it will not expose the extension metadata or transformation information in the cases of views. 
+
+There two possible ways we can expose
+
+1) Expose the Metadata API, through Admin API. This seems good, however using CLI based tools it is hard to expose binary contents.
+
+2) Expose as DDL.
+
+This method can be used with tooling, to design a importer that uses a runtime server to read the metadata instead of building a custom importer for every source.

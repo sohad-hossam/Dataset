@@ -1,0 +1,8 @@
+Couchbase strange behaviour for long numbers
+There is a strange limitation for storing large numbers (e.g. modelled as long) in Couchbase.
+https://forums.couchbase.com/t/strange-behavior-when-saving-big-long-numbers-3-0-1-ce/4793
+
+The same behaviour with value: 28341791043587382
+which is being stored and retreived as: 28341791043587384
+
+I feel we need to document this behaviour and provide hints how to overcome it. (Modelling of the column as string on Couchbase's side and defining a view).

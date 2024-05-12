@@ -1,0 +1,2 @@
+Remove QueryAdminApi
+Remove the subsystem interface in favor of adminapi.

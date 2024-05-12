@@ -1,0 +1,2 @@
+Float/Double to BigInteger conversion bug
+Float/Double values with toString forms in engineering notation will fail to convert correctly because of the truncation logic.

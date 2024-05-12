@@ -1,0 +1,4 @@
+Implement Access Controls on management operations in Teiid
+EAP 6.2 and above provides facilities to implement access controls on the management operations. Teiid should implement them on the management operations so that they can be controlled by access level of the user.
+
+Unfortunately this is not in EAP 6.1.Alpha, so it becomes hard to pull the changes upstream into 8.8

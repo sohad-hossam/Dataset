@@ -1,0 +1,6 @@
+hive translator is extremely slow
+When querying a table through the hive translator the results take close to 30 seconds to return.
+
+When querying a table through jdbc default results take under 1 second to return.
+
+Both use the same underlying jboss server datasource.

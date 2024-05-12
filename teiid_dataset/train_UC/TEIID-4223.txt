@@ -1,0 +1,10 @@
+Hana translator: incorrect pushdown of QUARTER function
+Teiid's QUARTER function returns integer.
+SAP HANA's QUARTER function returns string in form:
+{code:plain}
+2000-Q1
+{code}
+So the function either shouldn't be pushed down, or it has to be pushed down together with some substring method wrapping it:
+{code:sql}
+SUBSTR_REGEXPR('[[:digit:]]{4}\-Q([[:digit:]]{1})' IN quarter(datevalue) GROUP 1)
+{code}

@@ -1,0 +1,16 @@
+Oracle Spatial Connector is not properly adding ORDERED hint to SDO_RELATE function
+Oracle Spatial connector is rewriting a query that contains an SDO_RELATE() function using the ORDERED hint.  The format/syntax of the hint does not conform to Oracle documentation.  It does not appear this results in an error but I also have not verified that the ORDERED hint is actually getting used either.  The following query:
+
+SELECT a.INTKEY FROM BQT1.SMALLA A, BQT1.SMALLB B WHERE sdo_relate(A.OBJECTVALUE, b.OBJECTVALUE, 'mask=ANYINTERACT') = true
+
+Is rewritten as:
+
+SELECT  /* + ORDERED */A.IntKey FROM SmallA A, SmallB B WHERE SDO_RELATE(A.ObjectValue, B.ObjectValue, 'mask=ANYINTERACT') = 'true'
+
+Where as Oracle documentation seems to indicate that the query should actually be:
+
+SELECT /*+ ORDERED */ A.IntKey FROM SmallA A, SmallB B WHERE SDO_RELATE(A.ObjectValue, B.ObjectValue, 'mask=ANYINTERACT') = 'true'
+
+
+Notice the spacing in the hint as "SELECT_/*+_ORDERED_*/_A.IntKey..." instead of "SELECT_/*_+_ORDERED_*/A.IntKey..."
+

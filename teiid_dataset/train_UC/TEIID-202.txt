@@ -1,0 +1,16 @@
+Salesforce connector should support SOQL Relationship Queries
+[from loleary mail on 05-23-2008]
+Looking at version 8.0 of the sforce API, it seems that SOQL supports
+relationship queries.  Although these are not JOIN queries, they
+function in the same manner as long as the objects in question have a
+relationship to the object being queried (i.e. primary/foreign keys).  
+
+The document explaining the syntax can be found at:
+
+http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_soql_relationships.htm
+
+[ghaber] If the salesforce connector had the ability to do relationship queries, it would be a big impact on performance accessing SFDC, given the high per-query cost of accessing SFDC, which makes doing the joins in MM (planned as dependent joins) fairly slow in Genentech's beta testing of the connector.
+
+Since relationship joins require that the join be a LOJ or ROJ only, and further require that the join criteria be PK-FK relationships only, it would be best if these limitations could be reflected in capabilities - see JBEDSP-58 (and my comment on it specifically about Salesforce) for discussion of the desired capabilities API enhancements.
+
+I believe that it is worthwhile to implement relationship joins even without resolution of JBEDSP-58, with joins that cannot be pushed down throwing an exception.  You'd also want to have a connector binding property that enabled/disabled this relationship query support (with the join methods in the Capabilities interface returning true if this property is set to enabled and false if set to disabled), so that the SFDC connector could still be used in other join scenarios if necessary.

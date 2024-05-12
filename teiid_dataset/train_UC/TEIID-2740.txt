@@ -1,0 +1,2 @@
+Support Direct Query Execution with MongoDB
+Direct query execution in the MongoDB was not implemented completely. This needs to be fixed as this would be a very helpful enhancement.

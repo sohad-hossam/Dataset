@@ -1,0 +1,2 @@
+Remove the legacy "server" project from the SCM
+The "server" is now defunct with the features introduced in the 6.2 release and road map for 6.3 and beyond. This project does not have any resources that could be used in the core Teiid project, so this should be removed.

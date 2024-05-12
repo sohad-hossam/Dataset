@@ -1,0 +1,8 @@
+AdminShell deployVDB method prepends the path to server's deploy directory to VDB location 
+Calling deployVDB thusly:
+deployVDB( "/home/pnittel/temp/TestInstallerArtifacts/install_options/performance_overlay/profile/deploy/TPCRperf_70.vdb" )
+
+causes this error:
+java.io.FileNotFoundException: /home/pnittel/temp/TestInstallerArtifacts/test_server/jboss-5.1.0.GA/server/default/deploy/home/pnittel/temp/TestInstallerArtifacts/install_options/performance_overlay/profile/deploy/TPCRperf_70.vdb (No such file or directory)
+
+What happens is AdminSHell prepends to my file path string, the path to the deploy folder where the VDB will be deployed. It should not do that.

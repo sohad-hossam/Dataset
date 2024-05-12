@@ -1,0 +1,2 @@
+Provide alternative webservices calling ability
+With the xml/relational and combined source connector logic removed.  There needs to be a replacement for web service access.

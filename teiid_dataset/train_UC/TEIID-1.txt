@@ -1,0 +1,5 @@
+Need logging for out-of-memory condition on server startup
+Defect Tracker #24839: I installed a server and started it.  In console, I increased the mmprocess Max and Min Heap size to 1496.  
+Then I bounced server but it didnt come back up.  Went to server box and tried startserver script, but server still didnt come up.  Looked at server logs, but there was no error.... 
+After awhile, I figured out my server box couldnt allocate enough memory.  Decreased heap and it restarted ok.  
+There really needs to be some kind of log message that indicates the out-of-memory exception.

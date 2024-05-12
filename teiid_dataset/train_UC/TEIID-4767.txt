@@ -1,0 +1,2 @@
+Driver is reporting driver version for database version
+Both the driver and database version methods on DatabaseMetaData are returning the driver version.

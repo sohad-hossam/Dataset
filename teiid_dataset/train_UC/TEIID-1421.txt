@@ -1,0 +1,4 @@
+Support better scrolling of cached results
+Cached result sets already have their final row known.  The client should be able to use this for more effective scrolling of the results, rather than relying on a linear scan.
+
+Once fixed users should be able to take advantage of this by creating a resultset that is scroll insensitive and then using the absolute method to position the cursor at the desired offset in the results.  Only the first batch and the actual batch(es) needed will be fetched and the intermediate batches will be skipped.

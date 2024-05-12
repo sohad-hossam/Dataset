@@ -1,0 +1,4 @@
+A materializated view with function based indexes fails
+TEIID-2365 effectively causes internal post resolve symbols to be fully qualified, which will not work with the current internal sql that is generated for a view with function based indexes.
+
+This also affects 8.2-8.4, but in a more limited way - in that basically require the function based expressions to use unqualified column references.

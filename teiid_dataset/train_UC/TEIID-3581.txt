@@ -1,0 +1,2 @@
+Add a system function to return Teiid Server Name
+A user has a 4 node Cluster and would like to get not only the sessionid, vdb and user but the node of the cluster that the user is connected to 

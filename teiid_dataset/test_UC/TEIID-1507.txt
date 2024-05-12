@@ -1,0 +1,2 @@
+Cache invalidation
+We should provide an interface and internally react to events of updates to vdbname/version/table/row and purge resultset cache and possibly materialization.

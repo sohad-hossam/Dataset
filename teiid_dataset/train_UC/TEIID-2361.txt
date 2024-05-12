@@ -1,0 +1,2 @@
+The current MAX String size is 4000, add the ability to configure when larger sizes are used
+The MAX String size is currently 4000.  After a discussion with Steve, he indicated a more common default might be 16k, and also add the ability to configure the size when a data source is being used that contains large sizes.

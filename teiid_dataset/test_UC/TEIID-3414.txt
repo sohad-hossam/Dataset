@@ -1,0 +1,2 @@
+Oracle should use hextoraw
+Oracle does not support the standard varbinary literal syntax and generally needs to use the hextoraw conversion function.

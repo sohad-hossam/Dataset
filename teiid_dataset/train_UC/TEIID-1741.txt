@@ -1,0 +1,2 @@
+Record level audit trail in teiid log files
+In order to track the audit trail for patient identified information access, we would like to track the executed queries, results as well as the timestamps for each user's query and its result.  Essentially we need a report providing the list of Medical Record Numbers accessed by each user id and I think we can use the Logs to track that (unless you suggest a better way).

@@ -1,0 +1,4 @@
+Problem with dynamic VDB re-deploy when it contains a Virtual Model
+I am using the AdminAPI to add a View Model to a dynamic VDB.  The initial deployment succeeds - the VDB deploys and i can query the View.
+
+However, then I retrieve the VDB via the Admin API.  In debug, I can see on the view model - that the schemaText field is now null.  If I attempt to make other changes and re-deploy, the re-deploy fails - the parser chokes on the null schemaText

@@ -1,0 +1,25 @@
+Generate a Rest based service automatically based on deployed VDB
+Currently to enable REST based services on top of the VDB, Designer provides a mechanism for user to define metadata on the procedure and gives hooks to generate Rest service based WAR file to deploy into a application server.
+
+To support OpenShift efforts it would be good to provide this functionality out of box, when Teiid is deployed into the JBoss AS (never in embedded). 
+
+To define a scenario, 
+- user creates a VDB and defines one or more models 
+- then user creates a virtual procedure with following metadata in the options clause
+    REST:METHOD =  GET|PUT|POST|DELETE (mandatory)
+    REST:URI    =  uri (mandatory)
+    REST:PRODUCES = xml|json|text (optional, if omitted will be calculated from procedures return parameter)
+    REST:CHARSET = character set (optional) (ex:US-ASCII, UTF-8 etc. In cases where the binary data is returned this character set will be used to convert) 
+
+where REST namesspace is defined as 
+    SET NAMESPACE 'http://teiid.org/rest' AS REST;
+
+ - user deploys a VDB
+ - a jax-rs based war is created and deployed automatically at the end of vdb deployment
+ - if vdb is un-deployed, this jax-rs war will also be undeployed
+
+Questions?
+
+1) Should this enforce HTTPBasic Auth by default? since Teiid does not have a way define the DDL based metadata this is difficult.
+
+2) Apart from above procedures, does a generic procedure that executes a add-hoc query helpful? The restriction here is the results will be in a pre-defined format not user defined.

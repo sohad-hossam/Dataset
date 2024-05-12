@@ -1,0 +1,21 @@
+Netty worker threads cause system high cpu
+I have hit this issue many times in deploying a VDB to JDV, All CPU  be used by netty worker threads:
+~~~
+"New I/O worker #3" daemon prio=10 tid=0x00007fc71c0d2000 nid=0x320b runnable [0x00007fc7074f3000]
+   java.lang.Thread.State: RUNNABLE
+        at sun.nio.ch.EPollArrayWrapper.epollWait(Native Method)
+        at sun.nio.ch.EPollArrayWrapper.poll(EPollArrayWrapper.java:269)
+        at sun.nio.ch.EPollSelectorImpl.doSelect(EPollSelectorImpl.java:79)
+        at sun.nio.ch.SelectorImpl.lockAndDoSelect(SelectorImpl.java:87)
+        - locked <0x00000000c42b4318> (a sun.nio.ch.Util$2)
+        - locked <0x00000000c42b4328> (a java.util.Collections$UnmodifiableSet)
+        - locked <0x00000000c42b42d0> (a sun.nio.ch.EPollSelectorImpl)
+        at sun.nio.ch.SelectorImpl.select(SelectorImpl.java:98)
+        at org.jboss.netty.channel.socket.nio.SelectorUtil.select(SelectorUtil.java:64)
+~~~
+
+Seems this is a exist netty issue, search "jboss netty high cpu" via google we can get lots of result.
+
+Below link have detailed depiction about this issue;
+
+https://github.com/kylinsoong/teiid-samples/tree/master/highcpu

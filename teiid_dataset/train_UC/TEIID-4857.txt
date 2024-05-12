@@ -1,0 +1,2 @@
+Add file metadata such as creation and last modified date to file translator functions
+Add file metadata such as creation date and last modified date to the data returned by the file translator functions (getFiles/getTextFiles).  

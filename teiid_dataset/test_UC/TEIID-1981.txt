@@ -1,0 +1,2 @@
+Admin API does not correctly in Domain mode
+Lot of Admin API methods does not seem work with Domain mode of operation. This is true for CLI based operations on Teiid too.

@@ -1,0 +1,23 @@
+Informix translator - <> ALL is translated as NOT IN - this statement seem to not work in Infromix
+Query:
+{code:sql}
+SELECT INTKEY, BOOLEANVALUE FROM BQT1.SMALLA WHERE BOOLEANVALUE <> ALL (SELECT BOOLEANVALUE FROM BQT1.SMALLA WHERE INTKEY = 40)
+{code}
+Source-specific command:
+{code:sql}
+SELECT g_0.IntKey, g_0.BooleanValue FROM Source.SmallA AS g_0 WHERE g_0.BooleanValue NOT IN (SELECT g_1.BooleanValue FROM Source.SmallA AS g_1 WHERE g_1.IntKey = 40)
+{code}
+
+*Note: boolean value for row where Intkey = 40 is false.*
+
+Expected result:
+|intkey|booleanvalue|
+|1|true|
+|...|...|
+
+Actual result:
+|intkey|booleanvalue|
+|0|false|
+|...|...|
+
+This seems to be an Informix issue as neither '<> ALL' nor 'NOT IN' works. 

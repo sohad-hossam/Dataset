@@ -1,0 +1,6 @@
+Add support for fetch syntax "FETCH cursorname"
+Executing syntax "FETCH cursorname" results in parsing error like [1].    Instead, syntax like "FETCH 1 IN cursorname" has been used as a workaround.
+
+[1]
+org.teiid.api.exception.query.QueryParserException: TEIID31100 Parsing error: Encountered "[*]FETCH[*] mycursor" at line 1, column 1.
+Was expecting: "alter" | "begin" | "call" | "create" | "delete" | "drop" | "exec" | "execute" | "insert" | "merge" ...

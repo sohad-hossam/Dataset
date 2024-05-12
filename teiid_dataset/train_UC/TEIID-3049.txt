@@ -1,0 +1,2 @@
+odbc still commits with disableLocalTxn
+With TEIID-2945 disableLocalTxn is now valid against odbc, but it is using an asynch invocation to commit which is not aware of disableLocalTxn which results in an exception that a transaction for the given session cannot be found.

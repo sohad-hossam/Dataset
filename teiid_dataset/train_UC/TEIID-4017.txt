@@ -1,0 +1,2 @@
+EXECUTE IMMEDIATE in anonymous procedure ignores permissions
+I've found a bug when executing a query in the EXECUTE IMMEDIATE clause. It ignores permissions.

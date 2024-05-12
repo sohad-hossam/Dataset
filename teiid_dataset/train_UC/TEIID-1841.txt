@@ -1,0 +1,42 @@
+week function in teiid not returning expected value
+One of our users of our teiid instance as reported that the week function (to determine which week of the year it is) operates in teiid a little different to how they expect.
+
+Teiid resets the week count to 1 on every 1st of January even though
+the day is not the 1st day of the week (Sunday in here).
+But Postgres will only resets the week count to 1 only on the 1st Monday
+of the year.
+
+The examples below compare the results return by teiid and Postgres:
+
+{noformat}
+# Teiid result:
+
+EngVDBR=> select week(parsedate('2011-01-01', 'yyyy-MM-dd')) AS Week;
+week
+------
+1
+(1 row)
+
+EngVDBR=> select week(parsedate('2011-01-02', 'yyyy-MM-dd')) AS Week;
+week
+------
+2
+(1 row)
+{noformat}
+
+{noformat}
+# Postgres result:
+
+postgres=> SELECT EXTRACT(WEEK FROM DATE '2011-01-01') AS Week;
+week
+------
+52
+(1 row)
+
+
+postgres=> SELECT EXTRACT(WEEK FROM DATE '2011-01-03') AS Week;
+week
+------
+1
+(1 row)
+{noformat}

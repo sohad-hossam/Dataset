@@ -1,0 +1,6 @@
+issues with permission element in vdb-deployer.xsd contains problematic choice node
+Having a lot of trouble trying to tweak our JaxB VDB element classes to accommodate the permission's choice node which contains a <sequence> and an <element>.
+
+This structure is basically impossible to unmarshall using JAXB annotations (i.e. @XmlElements(value= {}) )
+
+Would clean things up to convert the <allow-language> element to an attribute:  <xs:attribute name="allow-language" type="xs:boolean"/> and place it on the <permission> element AND remove the <choice> node entirely

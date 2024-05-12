@@ -1,0 +1,18 @@
+Certain nested dependent join structure will cause fewer results than expected
+With a query such as:
+
+{code}
+SELECT pm1.g1.e1, pm1.g2.e2 from /*+ makeind */ pm1.g1 inner join /*+ preserve */ (/*+ makeind */ pm1.g2 inner join pm1.g3 on pm1.g2.e2 = pm1.g3.e2) on pm1.g1.e1 = pm1.g2.e1
+{code}
+
+There will be a join structure like:
+
+{code}
+  JoinNode(1) [Dependent] 
+    AccessNode(2) 
+    JoinNode(3) [Dependent] [MERGE JOIN (ALREADY_SORTED/ALREADY_SORTED)]
+      DependentAccessNode(4) 
+      DependentAccessNode(5) 
+{code}
+
+Such that there is a dependent join as a left child of a merge join that is marked as having that child already sorted.  When there is more than 1 query needed for DependentAccessNode(4), the DependentAccessNode will mistakenly mark the right child as needing to be sorted.

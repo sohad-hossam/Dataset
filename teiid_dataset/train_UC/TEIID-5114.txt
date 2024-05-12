@@ -1,0 +1,2 @@
+Correct JDBCMetdataProcessor name
+JDBCMetdataProcessor should be JDBCMetadataProcessor instead.  To resolve this as a non-breaking change the old class name will still exist and extend JDBCMetadataProcessor, but be deprecated.

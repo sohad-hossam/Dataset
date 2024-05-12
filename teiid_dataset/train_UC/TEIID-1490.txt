@@ -1,0 +1,2 @@
+In the process of loading the schema metadata and duplicate table is found, add a suggestion to the error message to use FQN option 
+When the dynamic vdb was triggering loading the metadata, a duplicate table was encountered and an exception was thrown indicating as such.   It would be good to suggest in the message that the user should change the FQN option to true.  This would help lead the user to resolving this issue.

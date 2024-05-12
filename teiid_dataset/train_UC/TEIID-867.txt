@@ -1,0 +1,34 @@
+Possibly Teiid embedded clients (Designer) not pinging query engine, causing session timeouts
+I started the Teiid 6.2 Designer, executed a VDB and ran a simple query. Then I waited about 35 minutes and finally clicked the Running Dude(tm) button. Instead of nicely arranged rows of data, I got:
+
+Error 2009-09-30 14:41:48.107 Error processing query
+com.metamatrix.jdbc.MMSQLException: Error trying to execute a statement select IntKey, StringKey, IntNum, StringNum, FloatNum, LongNum, DoubleNum, ByteNum, DateValue, TimeValue, TimestampValue, BooleanValue, CharValue, ShortValue, BigIntegerValue, BigDecimalValue, ObjectValue from "SP"."BQT2.SmallA"
+.
+        at com.metamatrix.jdbc.MMSQLException.create(MMSQLException.java:116)
+        at com.metamatrix.jdbc.MMStatement.executeSql(MMStatement.java:414)
+        at com.metamatrix.jdbc.MMStatement.execute(MMStatement.java:318)
+        at net.sourceforge.sqlexplorer.sqlpanel.SqlExecProgress.processQuery(SqlExecProgress.java:192)
+        at net.sourceforge.sqlexplorer.sqlpanel.SqlExecProgress.run(SqlExecProgress.java:121)
+        at org.eclipse.jface.operation.ModalContext$ModalContextThread.run(ModalContext.java:121)
+Caused by: com.metamatrix.jdbc.MMSQLException: The specified session ID "2" is invalid. It cannot be found in the userbase.
+        at com.metamatrix.jdbc.MMSQLException.create(MMSQLException.java:123)
+        at com.metamatrix.jdbc.MMSQLException.create(MMSQLException.java:71)
+        at com.metamatrix.jdbc.MMStatement.sendRequestMessageAndWait(MMStatement.java:855)
+        at com.metamatrix.jdbc.MMStatement.executeSql(MMStatement.java:410)
+        ... 4 more
+Caused by: [MetaMatrixComponentException]The specified session ID "2" is invalid. It cannot be found in the userbase.
+1 [InvalidSessionException]The specified session ID "2" is invalid. It cannot be found in the userbase.
+        at com.metamatrix.client.ExceptionUtil.convertException(ExceptionUtil.java:59)
+        at org.teiid.transport.LocalServerConnection$1.invoke(LocalServerConnection.java:119)
+        at $Proxy24.executeRequest(Unknown Source)
+        at com.metamatrix.jdbc.MMStatement.sendRequestMessageAndWait(MMStatement.java:853)
+        ... 5 more
+Caused by: [InvalidSessionException]The specified session ID "2" is invalid. It cannot be found in the userbase.
+        at com.metamatrix.platform.security.session.service.SessionServiceImpl.getSessionInfo(SessionServiceImpl.java:295)
+        at com.metamatrix.platform.security.session.service.SessionServiceImpl.validateSession(SessionServiceImpl.java:287)
+        at org.teiid.transport.LocalServerConnection$1.invoke(LocalServerConnection.java:109)
+        ... 7 more
+
+The session timeout property is commented out in the workspace.properties file.
+
+Steve Hawkins opined the embedded clients ae not pinging the server.

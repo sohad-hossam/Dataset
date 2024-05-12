@@ -1,0 +1,6 @@
+issues with embedded
+The dependency set for the ws translator is incomplete the cxf bundle jar and several other dependencies are needed.  
+
+We are not including the JBoss modules jar, but have an implied dependency through EmbeddedProfile, which should be refactored so that the modules jar is not needed in the embedded kit.
+
+Also the classpaths in the example scripts are incorrect with the 8.7 refactoring to put optional dependencies in subfolders. 

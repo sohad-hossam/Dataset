@@ -1,0 +1,12 @@
+System Host setup issues
+1) izpack does not make the startserver, stopserver, scripts as executable in the linux
+
+2) There  is no option for *not* starting the server (either way it   does not look like starting the server). This option should be extended to "setupmm" driven process too, with additional property.
+
+3) multicast port is not available in the IZpack + it is hard coded;  Any two machines are seeing each other on the same multicast address. This needs to be fixed as soon as possible.(FEDERATE-340)
+
+4) System name is always defaulting to $hostname, even when it is  blank.  I fixed this in install.
+
+5) With "systenhostsetup.sh" I can not pass in the properties file, it is looking for the file in a fixed location.
+
+6) systemhostsetup.sh creates the "metamatrix.properties" file, but  does not write to the configuration about what it's config name is, thus never can be started.

@@ -1,0 +1,2 @@
+Embedded missing dependencies
+With TEIID-2444 the embedded kit no longer contained all of the dependencies needed by infinispan.

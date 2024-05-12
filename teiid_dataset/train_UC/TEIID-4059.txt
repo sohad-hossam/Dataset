@@ -1,0 +1,23 @@
+OData - $ref after $expand does not work
+If user declares $ref after $expand, OData service should return inline references to entities instead of whole entities.
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0/$ref
+*Result:* 
+{code:xml}
+...
+<a:link rel="http://docs.oasis-open.org/odata/ns/related/Orders_FK0" title="Orders_FK0" href="http://localhost:8080/odata4/olingo_basic/Source/Customers(1)/Orders_FK0">
+  <m:inline>
+    <a:feed>
+      <a:entry>
+...
+{code}
+*Expected result:* 
+{code:xml}
+<a:link rel="http://docs.oasis-open.org/odata/ns/related/Orders_FK0" title="Orders_FK0" href="http://localhost:8080/odata4/olingo_basic/Source/Customers(1)/Orders_FK0">
+  <m:inline>
+    <a:feed>
+      <m:ref id="http://localhost:8080/odata4/olingo_basic/Source/Orders(1)"/>
+...
+{code}
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398298

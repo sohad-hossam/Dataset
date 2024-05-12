@@ -1,0 +1,4 @@
+AdminConsole fails getting mat view info with data roles
+Once data roles are enable the web console fails to get the mat view info - unless the user allows access to systemadmin for the admin user.
+
+I'm logging this initially against the Teiid side as depending on the resolution we may want to change the admin code (for example using a SYS.table).

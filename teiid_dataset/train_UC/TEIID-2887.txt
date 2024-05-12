@@ -1,0 +1,59 @@
+MongoDB:  mongodb DBCollection aggregate error
+Here is my simple JSON object:
+
+"addresst" { "_id": 0,
+
+"name": "Duke Grant",
+
+"age": 38,
+
+"gender": "male",
+
+ 
+
+"address": { "_id": 0,
+
+"street": "345 Burnett Street",
+
+"city": "Nash",
+
+"state": "Rhode Island",
+
+"zip": 7384 }
+
+}
+
+And I define a schema like following:
+
+REATE FOREIGN TABLE addresst (custid integer PRIMARY KEY, name varchar(25), age integer, gender varchar(25)) OPTIONS(UPDATABLE 'TRUE'); 
+CREATE FOREIGN TABLE address  (custid integer PRIMARY KEY, street varchar(50), city varchar(25), state varchar(25), zipcode varchar(6), FOREIGN KEY (custId) REFERENCES addresst (custid)) OPTIONS(UPDATABLE 'TRUE' , "teiid_mongo:MERGE" 'addresst');
+
+Got exception when trying to execute a query like following:
+
+select "MongoDB_addresst"."gender" as "MongoDB_addresst_gender",
+"MongoDB_address"."state" as "MongoDB_address_state"
+from "MongoDB"."addresst" "MongoDB_addresst"
+inner join "MongoDB"."address" "MongoDB_address" on ("MongoDB_addresst"."custid" = "MongoDB_address"."custid")
+group by "MongoDB_addresst"."gender", "MongoDB_address"."state"
+order by "MongoDB_addresst_gender", "MongoDB_address_state"
+ limit 1000
+
+Exception:
+
+Caused by: com.mongodb.CommandFailureException: { "serverUsed" : "qa-mongodb.jaspersoft.com/172.17.1.48:27017" , "errmsg" : "exception: dotted field names are only allowed at the top level" , "code" :
+ 16405 , "ok" : 0.0}
+        at com.mongodb.CommandResult.getException(CommandResult.java:71)
+        at com.mongodb.CommandResult.throwOnError(CommandResult.java:110)
+        at com.mongodb.DBCollection.aggregate(DBCollection.java:1308)
+        at org.teiid.translator.mongodb.MongoDBQueryExecution.execute(MongoDBQueryExecution.java:99)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:317)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107)
+        at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:273)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214)
+        ... 3 more

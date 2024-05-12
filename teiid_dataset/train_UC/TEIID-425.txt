@@ -1,0 +1,2 @@
+Add back instance pooling
+Instance pooling was initially removed in favor of holding all connected instances on the same connection.  For large cluster sizes this could lead to a large number of idle connections.  As a simple alternative, idle socketserverinstances should be kept in a simple pool of a configurable size.  

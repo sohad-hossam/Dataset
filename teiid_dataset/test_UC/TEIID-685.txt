@@ -1,0 +1,11 @@
+Define Metadata aware Connector API
+Connector API needs to be extended, such that a connector can selectively implement an interface with which it can expose the metadata of the connector. This is similar to the concept of JDBC drivers exposing the metadata of the sources they are connected to.
+
+At a minimum, this API must expose all the available 
+
+- Tables, with corresponding elements
+- Procedures with corresponding parameters
+
+in the data source. There should also be a way to define user defined properties on all the objects, that can used by tools as they fit.
+
+Please comment, if there are any specific features you would like this to extend, as PK, FK, Unique keys, indexes etc. Overtime, it is expectation that this will be grown to full blown metadata store API as the teiid-metadata project.

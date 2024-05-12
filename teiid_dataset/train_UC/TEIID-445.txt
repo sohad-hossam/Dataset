@@ -1,0 +1,4 @@
+Threading cleanup
+WorkerPools should expose the ability to schedule tasks (repeated and delayed).  This can then be used at the connector layer to replace per connector timers with calls to the connector workerpool via the connectorenvironment.  Next the nio and socket server worker threads should be combined.  There is very little gain from having them be separate pools - (continuing i/o work while all the socket server workers are busy probably means that the workers should be increased, rather than queuing the server work).
+
+Finally it would nice to have a workerpool implementation that provides a shared thread pool so that connector specific pool sizings are less of consideration.

@@ -1,0 +1,76 @@
+NPE in GroupingNode on running a query with CTEs and GROUP BY clause
+Running the following query:
+{code:sql}
+WITH x as (
+	SELECT a FROM my.test_a
+) 
+SELECT 
+	p.a, 
+	SUM(p.b) OVER (partition by p.a) as y 
+FROM 
+	my.test_a p JOIN x ON x.a = p.a 
+GROUP BY p.a
+{code}
+
+I get two different exceptions, depending if the query is fully pushed down (like in PostgreSQL) or not (like in MySQL).
+
+In the first case (not fully pushed down - MySQL), this NPE is thrown:
+{code:sql}
+16:23:22,638 ERROR [org.teiid.PROCESSOR] (Worker3_QueryProcessorQueue5) NOliW/x7idDC TEIID30019 Unexpected exception for request NOliW/x7idDC.3: java.lang.NullPointerException
+        at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:218) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:344) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.CR1.jar:8.12.0.CR1]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+{code}
+
+If the query is pushed down (PostgreSQL), the following error comes directly from the underlying DBMS:
+{code:sql}
+16:25:26,306 WARN  [org.teiid.CONNECTOR] (Worker5_QueryProcessorQueue7) NOliW/x7idDC Connector worker process failed for atomic-request=NOliW/x7idDC.4.2.1: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH x (a) AS (SELECT g_0."a" FROM "public"."test_a" AS g_0) SELECT g_0."a" AS c_0, SUM(g_0."b") OVER (PARTITION BY g_0."a") AS c_1 FROM "public"."test_a" AS g_0, x AS g_1 WHERE g_1.a = g_0."a" GROUP BY g_0."a" LIMIT 100]
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.0.CR1.jar:8.12.0.CR1]
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:349)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_67]
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_67]
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_67]
+        at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+        at com.sun.proxy.$Proxy47.execute(Unknown Source)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110)
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107)
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_67]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+Caused by: org.postgresql.util.PSQLException: ERROR: column "g_0.b" must appear in the GROUP BY clause or be used in an aggregate function
+  Position: 89
+        at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+        at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+        at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+        at org.postgresql.jdbc2.AbstractJdbc2Statement.executeQuery(AbstractJdbc2Statement.java:302)
+        at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+        at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.0.CR1.jar:8.12.0.CR1]
+        ... 18 more
+{code}

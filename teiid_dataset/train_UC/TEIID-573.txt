@@ -1,0 +1,2 @@
+Embedded missing "Admin.vdb" file
+The embedded is missing the Admin.vdb file, which will be used to make connections to Embedded to make any configuration changes.

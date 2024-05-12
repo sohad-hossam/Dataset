@@ -1,0 +1,2 @@
+adding salesforce-34 resource adapter does not work through the cli
+The console reports that slot is not a recognized property for resource-adapter add.

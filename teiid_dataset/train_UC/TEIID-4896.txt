@@ -1,0 +1,13 @@
+Two VDB's referencing same teiid_ispn:cache is not using the same cache
+I have 2 VDB's where they both reference the same cache using OPTIONS property:
+"teiid_ispn:cache" 'datasourceCache'
+
+However, when I insert into one VDB, its not seen by the other VDB.
+
+This was testing out the translators ability to use an already registered protobuf in Infinispan.
+
+The first VDB (jdg-remote-cache-vdb.xml) was deployed and then inserted and selected the results.   This registered the protobuf.
+
+The second VDB (jdg-remote-cache-registered-pb-vdb.xml) was then deployed and was expecting to be able to read the same cache.   The metadata was derived correctly, but it appears that one of the two are using the default cache, not the specified cache.
+
+I'll attach the vdb's.

@@ -1,0 +1,2 @@
+Misplaced classes during the refactoring
+some classes are misplaced during the refactoring of the modules. Found out during the making console work again.

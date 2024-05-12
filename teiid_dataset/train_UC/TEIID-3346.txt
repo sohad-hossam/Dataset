@@ -1,0 +1,20 @@
+File Source | Dot in file column names causes VDB deployment errors
+In case a Delimited Flat file , contains a "Dot" character in any of the column names, we get an issue during Virtual Data Base deployment -
+
+Root cause -
+
+org.teiid.api.exception.query.QueryParserException: TEIID31100 Parsing error: Encountered "'UTF-8') COLUMNS [*]\"name.full\"[*] STRING," at line 1, column 126.
+
+Invalid simple identifier format: [name.full]
+
+ 
+
+The query is : SELECT A."name.full",A."surname" FROM (EXEC tabwithdot.getFiles('tab.csv')) AS F, TEXTTABLE(TO_CHARS(F.file,'UTF-8') COLUMNS "name.full" STRING,"surname" STRING delimiter '    ' quote ' ' HEADER) AS A
+
+ 
+
+Please note, that although the column name [name.full], is enclosed in Double Quotes, still this issue is observed.
+
+If there was instead any other special character, that works successfully.
+
+ 

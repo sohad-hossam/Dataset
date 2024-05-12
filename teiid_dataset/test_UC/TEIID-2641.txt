@@ -1,0 +1,4 @@
+improve transaction handling in procedures
+Atomic blocks do not have well-defined handling w.r.t. variable assignments and the implicit return cursor.  In both cases the affects are currently non-atomic - the last assignment/cursor is effective even.
+
+Also exception handling in an atomic block must result in an exception being thrown to guarantee the entire block atomicity.

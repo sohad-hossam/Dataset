@@ -1,0 +1,4 @@
+Move threading concerns to the engine
+With the JCA changes we need to more threading concerns primarily to the engine.  This move is motivated by transactional connector work needing to execute serially - where the transaction lock is held by the calling thread (a request workitem thread from DQPCore).
+
+We should also forgo the creation of random xids for request and local scoped transactions, rather we can just use the TransactionManager directly like with Teiid 6.2.

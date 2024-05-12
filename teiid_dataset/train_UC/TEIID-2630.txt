@@ -1,0 +1,6 @@
+SAP reponds with a 401 html page with bad or missing credentials
+With bad or missing credentials, SAP will respond back with an html page:
+
+<html><head><title>Logon Error Message</title>...
+
+which if passed into xmltable or other xml processing logic will give a parsing error, rather than an indication of what happened.

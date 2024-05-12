@@ -1,0 +1,30 @@
+MongoDB translator fails to deploy
+I am building Teiid from GIT master. I noticed that the MongoDB translator failed to deploy. Upon further investigation I found that the module.xml was looking for a different version of the MongoDB Java driver than what was packaged.
+
+{code:xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<module xmlns="urn:jboss:module:1.0" name="org.jboss.teiid.translator.mongodb.api">
+    <resources>
+        <resource-root path="mongodb-api-8.7.0.Beta2-SNAPSHOT.jar" />
+        <resource-root path="mongo-java-driver-2.11.1.jar" />
+    </resources>
+    <dependencies>
+        <module name="javax.api"/>
+        <module name="javax.resource.api"/>
+        <module name="org.jboss.teiid.common-core" />
+        <module name="org.jboss.teiid.api" />
+    </dependencies>
+</module>
+{code}
+ 
+{code}
+mongo-java-driver-2.7.3.jar
+{code}
+
+{code}
+git clean -fdx
+git reset --hard
+mvn clean install -P release -s settings.xml -DskipTests
+{code}
+
+Building just the translator, I see that 2.11.1 and 2.7.3 get pulled down. I've been doing greps and cannot find what is pulling in the older version.

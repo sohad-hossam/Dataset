@@ -1,0 +1,2 @@
+Designer needs a way to utilize pushdown functions
+Pushdown functions, such as the ones exposed by the ModeShapeExecutionFactory, should be available at design time.

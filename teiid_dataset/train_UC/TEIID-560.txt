@@ -1,0 +1,2 @@
+Designer configuration.xml contains wrong port number for SQL Server XA Connector
+Port number is currently 50000, should be 1433.

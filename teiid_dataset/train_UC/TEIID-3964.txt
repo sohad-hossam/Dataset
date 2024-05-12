@@ -1,0 +1,39 @@
+Cassandra does not account for null values
+primitive wrapper types (integer, long, float, double, etc.) do not account for null values from Cassandra, but instead return their default 0 value.  Teiid also throws NPE when Blob column contains null.
+
+Query (should return [14,null]): 
+{code}select intkey, objectvalue from smalla where intkey = 14 {code}
+Stack Trace:
+{code}
+12:14:58,599 ERROR [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue7) Connector worker process failed for atomic-request=afOb+DA5w6pF.5.0.5: java.lang.NullPointerException
+	at org.teiid.translator.cassandra.CassandraQueryExecution.getRow(CassandraQueryExecution.java:160) [translator-cassandra-8.12.3.redhat-1.jar:8.12.3.redhat-1]
+	at org.teiid.translator.cassandra.CassandraQueryExecution.next(CassandraQueryExecution.java:86) [translator-cassandra-8.12.3.redhat-1.jar:8.12.3.redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:419)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:220)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0_45]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0_45]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_45]
+	at java.lang.reflect.Method.invoke(Method.java:497) [rt.jar:1.8.0_45]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy94.more(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:309)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:142)
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:374)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:470)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_45]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_45]
+
+{code}

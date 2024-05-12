@@ -1,0 +1,2 @@
+Rewrite parse/format of standard formats to cast instead
+Since parse/format functions have limited pushdown support, it would be better to treat the standard formats as casts instead.

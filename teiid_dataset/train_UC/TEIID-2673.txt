@@ -1,0 +1,5 @@
+CNF exception when getting data through infinispan-cache translator
+When getting data through infinispan-cache translator using remote hot rod access, DV will throw "...ClassNotFoundException: org.infinispan.client.hotrod.impl.transport.tcp.TcpTransportFactory". 
+
+Workaround:
+Add "<module name="org.infinispan.client.hotrod"/>" as a dependency into module "org.jboss.teiid".

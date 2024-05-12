@@ -1,0 +1,8 @@
+various jdbc import issues
+We should not through an exception if the primary key for a foreign key cannot be found - which is most likely due to being filtered from import, instead the key should just be dropped.
+
+We should automatically remap the invalid column name char '.' to '_' - since this is the current behavior of designer.
+
+We also do not have good handling for the mysql bit type, which can be larger than a single bit.
+
+Default values should be captured and should be normalized for BIT types.

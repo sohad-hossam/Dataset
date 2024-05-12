@@ -1,0 +1,4 @@
+Convert project semi-joins to (dependent) join queries
+In many situations subqueries in the where clause can be planned as semi-joins.  The same logic should be updated to handle the select clause.  
+
+This will also help ensure better performance with odata generated array_agg queries.

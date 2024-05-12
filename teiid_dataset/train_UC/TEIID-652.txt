@@ -1,0 +1,6 @@
+Custom Connectors: Teiid looks in configuration.xml--not ConfigurationInfo.def--for connector information
+I created the Yahoo UDF project and tested it in the Designer. All OK.
+
+I exported the VDB to Teiid/deploy and copied the connector jars to Teiid/extensions. I was able to query the two relational sources, but not Yahoo. Ramesh and I found we could add the ConnectorClass and ConnectorClassPath properties to the yahoo binding section of ConfigurationInfo.def and it would work. Deleting those and copying the entire Yahoo ConnectorType sectioninto configuration.xml also worked.
+
+Teiid is looking in the wrong place for the connector type information. (Artifacts are attached.)

@@ -1,0 +1,2 @@
+Teiid configuration varibles are not writable
+Currently all the attribute variables under Teiid subsystem are read-only, they can not be modified using the CLI.

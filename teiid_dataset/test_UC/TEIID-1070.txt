@@ -1,0 +1,4 @@
+Create Amazon SimpleDB Connector 
+We need connectivity to Amazon SimpleDB.  This should be accomplished through a dedicated connector.
+
+Simple DB presents a few challenges as a Teiid source as it is more like a spreadsheet than a database.  Simple DB "Domains' are like individual worksheets and contain any number of items.  Items however can have any number of attributes, and the attributes do not have to be the same for ever item.  So in a single Domain you can have an item with the attributes Size and Color, and another item with the attributes Color and ExpirationDate.  This presents both modeling issues and SQL execution issues.  None of them are insurmountable, but users will have to understand the issues and design their integration around them. 

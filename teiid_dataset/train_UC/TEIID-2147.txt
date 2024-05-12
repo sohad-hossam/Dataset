@@ -1,0 +1,2 @@
+FileInputStreamFactory lobs may be inappropriately inlined
+The check for storage mode does not take into account if the outputstream is backed by the filestore, which means that it will report memory storage even for large lobs.

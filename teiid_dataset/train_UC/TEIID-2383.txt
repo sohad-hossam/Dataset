@@ -1,0 +1,2 @@
+InputStreamReader throws MalformedInputException when handling multi-byte characters
+My VDB uses File translator to handle a csv file which contains multi-byte characters. Reading some csv file via the VDB, MalformedInputException always occurs.

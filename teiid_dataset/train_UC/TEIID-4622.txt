@@ -1,0 +1,37 @@
+Adding new data quality functions from osDQ
+Following functions have been added into osdq-core for integration with teiid.
+
+String functions :
+
+// Encrypting  a string using key and AES encryption
+String encrypt ( String val, String key)
+String decrypt ( String val, String key)
+
+// Fuzzy distance - similarity between two strings
+float levestheindistance ( String a, String b)
+float jarowinklerdistance( String a , String b)
+float cosinedistance (String a, String b)
+
+
+// Format check for PII ( personal information)
+boolean isCreditCardFormat(String a)
+boolean isSSNFormat(String a)
+boolean isPhoneFormat(String a)
+boolean isEmailFormat(String a)
+boolean hasWhiteSpace(String a )
+
+Date Functions
+
+// converting date into universal recognized format
+long dateToEpoch(java.util.Date date)
+Date epochToDate(long epoch)
+Date epochToDate(long epoch, String TimeZone)
+long diffInSec(date a, date b)
+String convertToFormat ( Date a, String Format)
+
+Numerical Functions
+
+// Statistical functions
+double stdDev(Number[] numSeries)
+double range(Number[] numSeries)
+double median(Number[] numSeries)

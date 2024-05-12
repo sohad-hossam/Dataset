@@ -1,0 +1,120 @@
+Problems when using External Materialized Views
+The following problem occurs when, apparently, we have two views where one depend on another, and also we use External Materialization.
+
+The dependent view is never updated due to a "Transaction already associated with request." exception.
+
+Logs attached.
+
+The error:
+
+
+
+{panel:title=The exception in logs}
+
+
+2017-06-14 13:51:51,753 WARN  [org.teiid.MATVIEWS] (Worker14_QueryProcessorQueue365) Hlbq3jmDWXNl org.teiid.jdbc.TeiidSQLException: TEIID30328 Unable to evaluate mvstatus('NumberingPlan', 'numbering_plan'): TEIID30384 Error while evaluating function mvstatus
+2017-06-14 13:52:51,803 INFO  [org.teiid.MATVIEWS] (Worker14_QueryProcessorQueue368) XAtcLA8RBrLm Materialization of view NumberingPlanRaw.numbering_plan_raw started.
+2017-06-14 13:52:51,867 ERROR [org.teiid.PROCESSOR] (Worker14_QueryProcessorQueue372) XAtcLA8RBrLm TEIID30019 Unexpected exception for request XAtcLA8RBrLm.-2514910280603581440: java.lang.AssertionError: Transaction already associated with request.
+
+
+{panel}
+
+
+The VDB:
+
+{code:xml}
+	<model name="MnomMaterialized" type="PHYSICAL">
+		<property name="importer.useFullSchemaName" value="false"/>
+		<property name="query-timeout" value="600000"/>
+
+		<source name="MnomMaterializedView" translator-name="mysql-override" connection-jndi-name="java:/mnomDs"/>
+	</model>
+	
+	<model name="NumberingPlanCsvData">
+		<source name="numberingPlanCsv-connector" translator-name="file" connection-jndi-name="java:/numberingPlanCsvDs"/>
+	</model>	
+
+	<model name="NumberingPlan" type="VIRTUAL">
+		<metadata type="DDL"><![CDATA[
+
+				CREATE VIEW numbering_plan (
+					id integer PRIMARY KEY,
+					global_title varchar(20)
+				)
+				OPTIONS(
+					MATERIALIZED 'TRUE',
+					UPDATABLE 'TRUE',
+					MATERIALIZED_TABLE 'MnomMaterialized.numbering_plan_cache',
+					"teiid_rel:MATVIEW_TTL" 86400000,
+					"teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+					"teiid_rel:MATVIEW_LOADNUMBER_COLUMN" 'LoadNumber',
+					"teiid_rel:MATVIEW_STATUS_TABLE" 'MnomMaterialized.status'
+				)
+				AS
+				SELECT	ROW_NUMBER() OVER (ORDER BY cns) as id,
+						cns
+					FROM (EXEC NumberingPlanCsvData.getTextFiles('NumberingPlan.csv')) AS f,
+					TEXTTABLE(f.file COLUMNS cns string DELIMITER ';' SKIP 1) AS A;
+						  
+			]]>
+		</metadata>
+	</model>
+			
+	<model name="NumberingPlanRaw" type="VIRTUAL">
+		<metadata type="DDL">
+			<![CDATA[
+
+				CREATE VIEW numbering_plan_raw (
+					id integer PRIMARY KEY,
+					global_title varchar(20)
+				)
+				OPTIONS(
+					MATERIALIZED 'TRUE',
+					UPDATABLE 'FALSE',
+					MATERIALIZED_TABLE 'MnomMaterialized.numbering_plan_raw_cache',
+					"teiid_rel:MATVIEW_TTL" 86400000,
+					"teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+					"teiid_rel:MATVIEW_LOADNUMBER_COLUMN" 'LoadNumber',
+					"teiid_rel:MATVIEW_STATUS_TABLE" 'MnomMaterialized.status'
+				)
+				AS
+				SELECT 	ROW_NUMBER() OVER (ORDER BY network) as id,
+						global_title
+				FROM numbering_plan np;			
+				
+			]]>
+		</metadata>
+	</model>
+</model>	
+
+{code}
+
+
+The Materialized table:
+
+{code:sql}
+
+CREATE TABLE status (
+    VDBName VARCHAR(50) NOT NULL,
+    VDBVersion VARCHAR(50) NOT NULL,
+    SchemaName VARCHAR(50) NOT NULL,
+    Name VARCHAR(256) NOT NULL,
+    TargetSchemaName VARCHAR(50),
+    TargetName VARCHAR(256) NOT NULL,
+    Valid BOOLEAN NOT NULL,
+    LoadState VARCHAR(25) NOT NULL,
+    Cardinality BIGINT,
+    Updated TIMESTAMP NOT NULL,
+    LoadNumber BIGINT NOT NULL,
+    NodeName varchar(25) not null,
+    StaleCount BIGINT,
+    PRIMARY KEY (VDBName , VDBVersion , SchemaName , Name)
+);
+
+CREATE TABLE numbering_plan_cache (
+	id integer,
+	global_title varchar(20),
+    LoadNumber BIGINT,
+	PRIMARY KEY(id)
+);
+{code}

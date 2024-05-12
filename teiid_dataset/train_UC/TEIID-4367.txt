@@ -1,0 +1,10 @@
+Fail to deploy VDB with TextTable SELECTOR
+Server fails to deploy dynamic vdb with models which contain following TextTable parameter: SELECTOR.
+
+Server log:
+14:50:56,219 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 2) TEIID50030 VDB texttab.1 model "model5" metadata loaded. End Time: 8/1/16 2:50 PM
+14:50:56,220 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 1) TEIID50030 VDB texttab.1 model "model3" metadata loaded. End Time: 8/1/16 2:50 PM
+14:50:56,227 WARN  [org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 2) TEIID31080 model5.v3 validation error: TEIID31100 Parsing error: Encountered "('a' SELECTOR [*]a[*] COLUMNS y" at line 1, column 40.
+Was expecting: <STRINGVAL>
+14:50:56,228 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 2) TEIID40073 The metadata for the VDB texttab.1 is loaded, however it is not valid. Check models for errors. Correct the metadata and re-deploy.
+14:50:56,228 INFO  [org.teiid.RUNTIME.VDBLifeCycleListener] (teiid-async-threads - 2) TEIID40003 VDB texttab.1 is set to FAILED

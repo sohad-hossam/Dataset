@@ -1,0 +1,2 @@
+Salesforce importer needs to mark createable fields as updateable
+Using the 34 api some fields are reported as createable, but not updateable.   These should still be marked as updateable in the Teiid metadata as at that level we don't differentiate between create/update/delete.

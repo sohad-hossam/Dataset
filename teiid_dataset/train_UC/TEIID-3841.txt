@@ -1,0 +1,5 @@
+sap-nw-gateway translator wrongly encodes when a parameter includes a space
+Submitting a function through the sap-nw-gateway translator results in overzealous encoding of the URL when one of the parameters includes a space like "AA AB".  The '?' character (along with the spaces in any parameters) in the expected URL [1] is encoded to '%3F' resulting in an error like [2] below. 
+
+[1] https://sapes1.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/GetFlightDetails?airlineid='AA AB'&connectionid='0017'
+[2] org.teiid.runtime.client.TeiidClientException: java.lang.RuntimeException: Remote org.teiid.core.TeiidProcessingException: TEIID30504 flightdemo: TEIID17013 Wrong response from source with HTTP Response Code 404: Vendor Code "005056A509B11EE1B9A8FEC11C21D78E": With message "Resource not found for the segment 'GetFlightDetails%3Fairlineid='AA%20AB'&connectionid='0017''.": Detail Error null

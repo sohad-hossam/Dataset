@@ -1,0 +1,2 @@
+StackOverflow setting a Blob
+A regression in TEIID-174 left a recursive call in the PreparedStatement inputstream blob setter.

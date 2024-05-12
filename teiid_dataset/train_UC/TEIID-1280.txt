@@ -1,0 +1,2 @@
+Allow views/procedures to be defined without designer
+Our procedure syntax needs to add parameter definition to be independent of Designer.  We also need a create view statement.  These would need to be part of a vdb.xml for use outside of Designer.

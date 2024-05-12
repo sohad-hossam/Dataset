@@ -1,0 +1,2 @@
+aggregate unrelated order by error
+When using an aggregate with an unrelated order by clause, e.g. TEXTAGG(FOR c1 ORDER BY c2), the result is an error at processing time.

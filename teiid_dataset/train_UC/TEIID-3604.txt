@@ -1,0 +1,15 @@
+jsontoxml produces wrong result with nested multi-dimensional arrays
+A json doc with a multi-dimensional array below the root level will have its elements flattened rather than nested in the xml.  For example:
+
+{foo : [[1,2],[3,4]]}
+
+is producing 1,2,3,4 as siblings rather than nested as:
+
+<foo>
+   <foo>1</foo>
+   <foo>2</foo>
+</foo>
+<foo>
+   <foo>3</foo>
+   <foo>4</foo>
+</foo>

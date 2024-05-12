@@ -1,0 +1,128 @@
+Couchbase retrieval causes ClassCastException
+There seems to be issue with casting to biginteger datatype.
+It applies to both cases:
+# Model column as integer in Source model, CAST to biginteger in a View
+# Model column as biginteger in Source model
+
+In both cases a ClassCastException is thrown.
+
+Here I provide the artifacts first case:
+{code:xml|title=vdb}
+<vdb name="couchbase" version="1">
+  <model name="Couchbase_small" type="PHYSICAL" visible="true">
+    <source name="couchbase_small" connection-jndi-name="java:/couchbase_small" translator-name="couchbase"/>
+    <metadata type="DDL">
+      SET NAMESPACE 'http://www.teiid.org/translator/couchbase/2017' AS teiid_couchbase;
+    CREATE FOREIGN TABLE SmallA (
+      documentID string,
+      FloatNum integer OPTIONS (NAMEINSOURCE '`FloatNum`'),
+      IntKey integer PRIMARY KEY OPTIONS (NAMEINSOURCE '`IntKey`'),
+      BigIntegerValue integer OPTIONS (NAMEINSOURCE '`BigIntegerValue`'),
+      StringKey string OPTIONS (NAMEINSOURCE '`StringKey`'),
+      CharValue string OPTIONS (NAMEINSOURCE '`CharValue`'),
+      LongNum integer OPTIONS (NAMEINSOURCE '`LongNum`'),
+      type string OPTIONS (NAMEINSOURCE '`type`'),
+      DoubleNum integer OPTIONS (NAMEINSOURCE '`DoubleNum`'),
+      ObjectValue string OPTIONS (NAMEINSOURCE '`ObjectValue`'),
+      ShortValue integer OPTIONS (NAMEINSOURCE '`ShortValue`'),
+      BigDecimalValue integer OPTIONS (NAMEINSOURCE '`BigDecimalValue`'),
+      DateValue string OPTIONS (NAMEINSOURCE '`DateValue`'),
+      BooleanValue boolean OPTIONS (NAMEINSOURCE '`BooleanValue`'),
+      TimestampValue string OPTIONS (NAMEINSOURCE '`TimestampValue`'),
+      ByteNum integer OPTIONS (NAMEINSOURCE '`ByteNum`'),
+      StringNum string OPTIONS (NAMEINSOURCE '`StringNum`'),
+      TimeValue string OPTIONS (NAMEINSOURCE '`TimeValue`'),
+      IntNum integer OPTIONS (NAMEINSOURCE '`IntNum`')
+    ) OPTIONS (NAMEINSOURCE '`dvqe_small`', UPDATABLE FALSE, "teiid_couchbase:ISARRAYTABLE" 'false', "teiid_couchbase:NAMEDTYPEPAIR" '`type`:''SmallA''');
+    </metadata>
+  </model>
+  <model name="BQT1" type="VIRTUAL">
+    <metadata type="DDL">
+CREATE VIEW SmallA (
+      IntKey integer PRIMARY KEY,
+      StringKey string,
+      IntNum integer,
+      StringNum string,
+      FloatNum float,
+      LongNum long,
+      DoubleNum double,
+      ByteNum byte,
+      DateValue date,
+      TimeValue time,
+      TimestampValue timestamp,
+      BooleanValue boolean,
+      CharValue char(1),
+      ShortValue short,
+      BigIntegerValue biginteger,
+      BigDecimalValue bigdecimal,
+      ObjectValue object)
+    AS
+      SELECT
+        IntKey, StringKey, IntNum, StringNum, convert(FloatNum, float) AS FloatNum, convert(LongNum, long) AS LongNum,
+        convert(DoubleNum, double) AS DoubleNum, convert(ByteNum, byte) AS ByteNum, PARSEDATE(DateValue,'yyyy-MM-dd') AS DateValue,
+        PARSETIME(TimeValue,'HH:mm:ss') AS TimeValue, PARSETIMESTAMP(TimestampValue,'yyyy-MM-dd HH:mm:ss.S') AS TimstampValue, BooleanValue,
+        convert(CharValue, char) AS CharValue, convert(ShortValue, short) AS ShortValue, convert(BigIntegerValue, biginteger) AS BigIntegerValue,
+        convert(BigDecimalValue, bigdecimal) AS BigDecimalValue, convert(ObjectValue, object) AS ObjectValue
+      FROM
+        Couchbase_small.SmallA;
+    </metadata>
+  </model>
+</vdb>
+{code}
+
+Query against Source model works fine as expected:
+{code:sql|title=Query against source}
+SELECT BigIntegerValue FROM Couchbase_small.SMallA
+{code}
+returns correct results.
+
+But query against the view:
+{code:sql|title=Query against view}
+SELECT BigIntegerValue FROM BQT1.SMallA
+{code}
+throws:
+{code:title=server.log}
+12:41:23,221 ERROR [org.teiid.CONNECTOR] (Worker9_QueryProcessorQueue75) Connector worker process failed for atomic-request=17PK+37nW05t.1.0.18: java.lang.ClassCastException: java.lang.Integer cannot be cast to java.math.BigInteger
+	at com.couchbase.client.java.document.json.JsonObject.getBigInteger(JsonObject.java:435) [java-client-2.4.2.jar:]
+	at org.teiid.translator.couchbase.CouchbaseQueryExecution.next(CouchbaseQueryExecution.java:108) [translator-couchbase-8.12.11.6_4.jar:8.12.11.6_4]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:433)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:236)
+	at sun.reflect.GeneratedMethodAccessor173.invoke(Unknown Source) [:1.8.0_121]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0_121]
+	at java.lang.reflect.Method.invoke(Method.java:498) [rt.jar:1.8.0_121]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy79.more(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:309)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_121]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_121]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_121]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_121]
+
+12:41:23,228 WARN  [org.teiid.PROCESSOR] (Worker8_QueryProcessorQueue76) TEIID30020 Processing exception for request 17PK+37nW05t.1 'TEIID30504 couchbase_small: java.lang.Integer cannot be cast to java.math.BigInteger'. Originally TeiidProcessingException JsonObject.java:435. Enable more detailed logging to see the entire stacktrace.
+{code}
+
+Source command for query against Source model:
+{code:title=teiid-command.log}
+12:41:12,260 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #3) 17PK+37nW05t     START USER COMMAND: startTime=2017-09-18 12:41:12.259       requestID=17PK+37nW05t.0      txID=null sessionID=17PK+37nW05t        applicationName=JDBC          principal=user@teiid-security vdbName=couchbase   vdbVersion=1        sql=SELECT bigintegerValue FROM Couchbase_small.SMallA
+12:41:13,490 DEBUG [org.teiid.COMMAND_LOG] (Worker9_QueryProcessorQueue71) 17PK+37nW05t   START DATA SRC COMMAND:       startTime=2017-09-18 12:41:13.49        requestID=17PK+37nW05t.0      sourceCommandID=0   executionID=17      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security sql=SELECT Couchbase_small.SmallA.BigIntegerValue AS c_0 FROM Couchbase_small.SmallA LIMIT 100
+12:41:13,490 DEBUG [org.teiid.COMMAND_LOG] (Worker9_QueryProcessorQueue71) 17PK+37nW05t   SOURCE SRC COMMAND: endTime=2017-09-18 12:41:13.49          requestID=17PK+37nW05t.0      sourceCommandID=0   executionID=17      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security sourceCommand=[SELECT `$cb_c1_BigIntegerValue` c_0 FROM `dvqe_small` `$cb_t1` LET `$cb_c1_BigIntegerValue` = `$cb_t1`.`BigIntegerValue` WHERE `$cb_t1`.`type` = 'SmallA' LIMIT 100]
+12:41:14,190 DEBUG [org.teiid.COMMAND_LOG] (Worker8_QueryProcessorQueue72) 17PK+37nW05t   END SRC COMMAND:    endTime=2017-09-18 12:41:14.19          requestID=17PK+37nW05t.0      sourceCommandID=0   executionID=17      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security finalRowCount=50    cpuTime(ns)=9733973
+12:41:14,196 INFO  [org.teiid.COMMAND_LOG] (Worker8_QueryProcessorQueue73) 17PK+37nW05t   END USER COMMAND:   endTime=2017-09-18 12:41:14.195         requestID=17PK+37nW05t.0      txID=null sessionID=17PK+37nW05t        principal=user@teiid-security vdbName=couchbase   vdbVersion=1        finalRowCount=50
+{code}
+
+Source command for query against View:
+{code:title=teiid-command.log - error}
+2:41:22,950 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #3) 17PK+37nW05t     START USER COMMAND: startTime=2017-09-18 12:41:22.949       requestID=17PK+37nW05t.1      txID=null sessionID=17PK+37nW05t        applicationName=JDBC          principal=user@teiid-security vdbName=couchbase   vdbVersion=1        sql=SELECT bigintegerValue FROM BQT1.SMallA
+12:41:22,957 DEBUG [org.teiid.COMMAND_LOG] (Worker9_QueryProcessorQueue75) 17PK+37nW05t   START DATA SRC COMMAND:       startTime=2017-09-18 12:41:22.957       requestID=17PK+37nW05t.1      sourceCommandID=0   executionID=18      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security sql=SELECT convert(Couchbase_small.SmallA.BigIntegerValue, biginteger) AS c_0 FROM Couchbase_small.SmallA LIMIT 100
+12:41:22,958 DEBUG [org.teiid.COMMAND_LOG] (Worker9_QueryProcessorQueue75) 17PK+37nW05t   SOURCE SRC COMMAND: endTime=2017-09-18 12:41:22.958         requestID=17PK+37nW05t.1      sourceCommandID=0   executionID=18      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security sourceCommand=[SELECT TONUMBER(`$cb_c1_BigIntegerValue`) c_0 FROM `dvqe_small` `$cb_t1` LET `$cb_c1_BigIntegerValue` = `$cb_t1`.`BigIntegerValue` WHERE `$cb_t1`.`type` = 'SmallA' LIMIT 100]
+12:41:23,221 DEBUG [org.teiid.COMMAND_LOG] (Worker9_QueryProcessorQueue75) 17PK+37nW05t   ERROR SRC COMMAND:  endTime=2017-09-18 12:41:23.22          requestID=17PK+37nW05t.1      sourceCommandID=0   executionID=18      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security
+12:41:23,226 DEBUG [org.teiid.COMMAND_LOG] (Worker8_QueryProcessorQueue76) 17PK+37nW05t   END SRC COMMAND:    endTime=2017-09-18 12:41:23.226         requestID=17PK+37nW05t.1      sourceCommandID=0   executionID=18      txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=17PK+37nW05t        principal=user@teiid-security finalRowCount=0     cpuTime(ns)=5965611
+12:41:23,227 INFO  [org.teiid.COMMAND_LOG] (Worker8_QueryProcessorQueue76) 17PK+37nW05t   ERROR USER COMMAND: endTime=2017-09-18 12:41:23.227         requestID=17PK+37nW05t.1      txID=null sessionID=17PK+37nW05t        principal=user@teiid-security vdbName=couchbase   vdbVersion=1        finalRowCount=null
+12:41:23,237 INFO  [org.teiid.COMMAND_LOG] (Worker8_QueryProcessorQueue76) 17PK+37nW05t   END USER COMMAND:   endTime=2017-09-18 12:41:23.237         requestID=17PK+37nW05t.1      txID=null sessionID=17PK+37nW05t        principal=user@teiid-security vdbName=couchbase   vdbVersion=1        finalRowCount=0
+{code}

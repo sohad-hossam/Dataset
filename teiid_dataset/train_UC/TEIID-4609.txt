@@ -1,0 +1,187 @@
+Sap-hana translator - unsupported cast to data type bintext
+In some cases, Teiid uses for pushing queries to Sap-Hanadata type bintext. More precisely, uses cast(... as bintext). However, this type is supported only in column tables not in row tables. Moreover, cast to bintext seems to be unsupported by Sap-Hana - see \[1\] and [doc|https://help.sap.com/saphelp_hanaplatform/helpdata/en/20/db6dd475191014aa7b978452f92bbd/content.htm]
+
+{code:plain|title=\[1\] Server log}
+16:02:36,318 DEBUG [org.teiid.TRANSPORT] (New I/O worker #1) processing message:MessageHolder: key=819 contents=Invoke interface org.teiid.client.security.ILogon.ping
+16:02:36,318 DEBUG [org.teiid.TRANSPORT] (New I/O worker #1) send message: MessageHolder: key=819 contents=null
+16:02:36,319 DEBUG [org.teiid.TRANSPORT] (New I/O worker #1) processing message:MessageHolder: key=820 contents=Invoke interface org.teiid.client.security.ILogon.ping
+16:02:36,319 DEBUG [org.teiid.SECURITY] (New I/O worker #1) Keep-alive ping received for session: wmQvWWaxavzo
+16:02:36,319 DEBUG [org.teiid.TRANSPORT] (New I/O worker #1) send message: MessageHolder: key=820 contents=null
+16:02:36,435 DEBUG [org.teiid.TRANSPORT] (New I/O worker #3) processing message:MessageHolder: key=821 contents=Invoke interface org.teiid.client.DQP.executeRequest
+16:02:36,436 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue103) Request Thread wmQvWWaxavzo.18 with state NEW
+16:02:36,437 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue103) wmQvWWaxavzo.18 Command has no cache hint and result set cache mode is not on.
+16:02:36,437 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue103) wmQvWWaxavzo.18 executing  select * from crud.smalla
+16:02:36,439 DEBUG [org.teiid.PLANNER] (Worker12_QueryProcessorQueue103) [LOW [Relational Planner] limit not supported by source Source - limit node not pushed TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=null}, LOW [Relational Planner] limit not supported by source Source - limit node not pushed TupleLimit(groups=[], props={MAX_TUPLE_LIMIT=100, OUTPUT_COLS=[IntKey, StringKey, IntNum, StringNum, FloatNum, LongNum, DoubleNum, convert(ByteNum, byte), DateValue, TimeValue, TimestampValue, BooleanValue, CharValue, ShortValue, convert(BigIntegerValue, biginteger), BigDecimalValue, convert(ObjectValue, object)]}]
+16:02:36,439 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue103) ProcessTree for wmQvWWaxavzo.18 LimitNode(0) output=[IntKey, StringKey, IntNum, StringNum, FloatNum, LongNum, DoubleNum, convert(ByteNum, byte), DateValue, TimeValue, TimestampValue, BooleanValue, CharValue, ShortValue, convert(BigIntegerValue, biginteger), BigDecimalValue, convert(ObjectValue, object)] limit 100
+  AccessNode(1) output=[IntKey, StringKey, IntNum, StringNum, FloatNum, LongNum, DoubleNum, convert(ByteNum, byte), DateValue, TimeValue, TimestampValue, BooleanValue, CharValue, ShortValue, convert(BigIntegerValue, biginteger), BigDecimalValue, convert(ObjectValue, object)] SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, convert(g_0.ByteNum, byte), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, convert(g_0.BigIntegerValue, biginteger), g_0.BigDecimalValue, convert(g_0.ObjectValue, object) FROM Source.smalla AS g_0
+
+16:02:36,439 DEBUG [org.teiid.TXN_LOG] (Worker12_QueryProcessorQueue103) before getOrCreateTransactionContext:org.teiid.dqp.internal.process.TransactionServerImpl@1cc9d855(wmQvWWaxavzo)
+16:02:36,440 DEBUG [org.teiid.TXN_LOG] (Worker12_QueryProcessorQueue103) after getOrCreateTransactionContext : wmQvWWaxavzo NONE ID:NONE
+16:02:36,440 DEBUG [org.teiid.BUFFER_MGR] (Worker12_QueryProcessorQueue103) Creating TupleBuffer: 39 [CRUD.SmallA.IntKey, CRUD.SmallA.StringKey, CRUD.SmallA.IntNum, CRUD.SmallA.StringNum, CRUD.SmallA.FloatNum, CRUD.SmallA.LongNum, CRUD.SmallA.DoubleNum, CRUD.SmallA.ByteNum, CRUD.SmallA.DateValue, CRUD.SmallA.TimeValue, CRUD.SmallA.TimestampValue, CRUD.SmallA.BooleanValue, CRUD.SmallA.CharValue, CRUD.SmallA.ShortValue, CRUD.SmallA.BigIntegerValue, CRUD.SmallA.BigDecimalValue, CRUD.SmallA.ObjectValue] [class java.lang.Integer, class java.lang.String, class java.lang.Integer, class java.lang.String, class java.lang.Float, class java.lang.Long, class java.lang.Double, class java.lang.Byte, class java.sql.Date, class java.sql.Time, class java.sql.Timestamp, class java.lang.Boolean, class java.lang.Character, class java.lang.Short, class java.math.BigInteger, class java.math.BigDecimal, class java.lang.Object] batch size 256 of type PROCESSOR
+16:02:36,440 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue103) wmQvWWaxavzo.18.1.24 Create State
+16:02:36,440 DEBUG [org.teiid.BUFFER_MGR] (Worker12_QueryProcessorQueue103) wmQvWWaxavzo.18.1.24 Blocking on source query wmQvWWaxavzo.18.1.24
+16:02:36,441 DEBUG [org.teiid.BUFFER_MGR] (Worker12_QueryProcessorQueue103) wmQvWWaxavzo.18 Blocking on source request(s).
+16:02:36,441 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue103) Request Thread wmQvWWaxavzo.18 - processor blocked
+16:02:36,441 DEBUG [org.teiid.PROCESSOR] (Worker13_QueryProcessorQueue104) Running task for parent thread Worker12_QueryProcessorQueue103
+16:02:36,441 DEBUG [org.teiid.CONNECTOR] (Worker13_QueryProcessorQueue104) wmQvWWaxavzo.18.1.24 Processing NEW request: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, convert(g_0.ByteNum, byte), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, convert(g_0.BigIntegerValue, biginteger), g_0.BigDecimalValue, convert(g_0.ObjectValue, object) FROM Source.smalla AS g_0
+16:02:36,444 DEBUG [org.teiid.CONNECTOR] (Worker13_QueryProcessorQueue104) wmQvWWaxavzo.18.1.24 Obtained execution
+16:02:36,444 DEBUG [org.teiid.CONNECTOR] (Worker13_QueryProcessorQueue104) Source-specific command: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0
+16:02:36,922 WARN  [org.teiid.CONNECTOR] (Worker13_QueryProcessorQueue104) Connector worker process failed for atomic-request=wmQvWWaxavzo.18.1.24: org.teiid.translator.jdbc.JDBCExecutionException: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: com.sap.db.jdbc.exceptions.JDBCDriverException: SAP DBTech JDBC: [257]: sql syntax error: incorrect syntax near "bintext": line 1 col 315 (at pos 315)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.createException(SQLExceptionSapDB.java:345)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.generateDatabaseException(SQLExceptionSapDB.java:185)
+	at com.sap.db.jdbc.packet.ReplyPacket.buildExceptionChain(ReplyPacket.java:100)
+	at com.sap.db.jdbc.ConnectionSapDB.execute(ConnectionSapDB.java:1130)
+	at com.sap.db.jdbc.CallableStatementSapDB.sendCommand(CallableStatementSapDB.java:1810)
+	at com.sap.db.jdbc.StatementSapDB.sendSQL(StatementSapDB.java:981)
+	at com.sap.db.jdbc.CallableStatementSapDB.doParse(CallableStatementSapDB.java:183)
+	at com.sap.db.jdbc.CallableStatementSapDB.constructor(CallableStatementSapDB.java:142)
+	at com.sap.db.jdbc.CallableStatementSapDB.<init>(CallableStatementSapDB.java:87)
+	at com.sap.db.jdbc.CallableStatementSapDBFinalize.<init>(CallableStatementSapDBFinalize.java:31)
+	at com.sap.db.jdbc.ConnectionSapDB.prepareStatement(ConnectionSapDB.java:1379)
+	at com.sap.db.jdbc.trace.Connection.prepareStatement(Connection.java:347)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:744)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:730)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:405)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.getPreparedStatement(JDBCBaseExecution.java:196) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:121) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 17 more
+
+16:02:36,926 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) Request Thread wmQvWWaxavzo.18 with state PROCESSING
+16:02:36,926 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue105) wmQvWWaxavzo.18.1.24 Remove State
+16:02:36,926 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue105) wmQvWWaxavzo.18.1.24 Processing Close : SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, convert(g_0.ByteNum, byte), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, convert(g_0.BigIntegerValue, biginteger), g_0.BigDecimalValue, convert(g_0.ObjectValue, object) FROM Source.smalla AS g_0
+16:02:36,926 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue105) wmQvWWaxavzo.18.1.24 Closed execution
+16:02:36,926 DEBUG [org.teiid.CONNECTOR] (Worker12_QueryProcessorQueue105) wmQvWWaxavzo.18.1.24 Closed connection
+16:02:36,927 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) QueryProcessor: closing processor
+16:02:36,927 WARN  [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) TEIID30020 Processing exception for request wmQvWWaxavzo.18 'TEIID30504 Source: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0]'. Originally TeiidProcessingException 'SAP DBTech JDBC: [257]: sql syntax error: incorrect syntax near "bintext": line 1 col 315 (at pos 315)' SQLExceptionSapDB.java:345.: org.teiid.core.TeiidProcessingException: TEIID30504 Source: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.exceptionOccurred(DataTierTupleSource.java:401) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:161) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:391) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:102) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: org.teiid.translator.jdbc.JDBCExecutionException: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at sun.reflect.GeneratedMethodAccessor95.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at com.sun.proxy.$Proxy48.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	... 6 more
+Caused by: com.sap.db.jdbc.exceptions.JDBCDriverException: SAP DBTech JDBC: [257]: sql syntax error: incorrect syntax near "bintext": line 1 col 315 (at pos 315)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.createException(SQLExceptionSapDB.java:345)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.generateDatabaseException(SQLExceptionSapDB.java:185)
+	at com.sap.db.jdbc.packet.ReplyPacket.buildExceptionChain(ReplyPacket.java:100)
+	at com.sap.db.jdbc.ConnectionSapDB.execute(ConnectionSapDB.java:1130)
+	at com.sap.db.jdbc.CallableStatementSapDB.sendCommand(CallableStatementSapDB.java:1810)
+	at com.sap.db.jdbc.StatementSapDB.sendSQL(StatementSapDB.java:981)
+	at com.sap.db.jdbc.CallableStatementSapDB.doParse(CallableStatementSapDB.java:183)
+	at com.sap.db.jdbc.CallableStatementSapDB.constructor(CallableStatementSapDB.java:142)
+	at com.sap.db.jdbc.CallableStatementSapDB.<init>(CallableStatementSapDB.java:87)
+	at com.sap.db.jdbc.CallableStatementSapDBFinalize.<init>(CallableStatementSapDBFinalize.java:31)
+	at com.sap.db.jdbc.ConnectionSapDB.prepareStatement(ConnectionSapDB.java:1379)
+	at com.sap.db.jdbc.trace.Connection.prepareStatement(Connection.java:347)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.doPrepareStatement(BaseWrapperManagedConnection.java:744)
+	at org.jboss.jca.adapters.jdbc.BaseWrapperManagedConnection.prepareStatement(BaseWrapperManagedConnection.java:730)
+	at org.jboss.jca.adapters.jdbc.WrappedConnection.prepareStatement(WrappedConnection.java:405)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.getPreparedStatement(JDBCBaseExecution.java:196)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:121)
+	... 17 more
+
+16:02:36,930 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) Removing tuplesource for the request wmQvWWaxavzo.18
+16:02:36,930 DEBUG [org.teiid.BUFFER_MGR] (Worker12_QueryProcessorQueue105) Removing TupleBuffer: 39
+16:02:36,930 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) wmQvWWaxavzo.18 Finished Processing
+16:02:36,930 DEBUG [org.teiid.PROCESSOR] (Worker12_QueryProcessorQueue105) org.teiid.core.TeiidProcessingException: TEIID30504 Source: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.IntKey, g_0.StringKey, g_0.IntNum, g_0.StringNum, g_0.FloatNum, g_0.LongNum, g_0.DoubleNum, cast(g_0.ByteNum AS tinyint), g_0.DateValue, g_0.TimeValue, g_0.TimestampValue, g_0.BooleanValue, g_0.CharValue, g_0.ShortValue, cast(g_0.BigIntegerValue AS bigint), g_0.BigDecimalValue, cast(g_0.ObjectValue AS bintext) FROM NULL_NULL_CRUDsmalla AS g_0] Sending error to client wmQvWWaxavzo.18
+16:02:36,930 DEBUG [org.teiid.TRANSPORT] (Worker12_QueryProcessorQueue105) send message: MessageHolder: key=821 contents=ResultsMessage rowCount=0 finalRow=-1
+{code}
+
+{code:sql|title=sap-hana create table command - column or row}
+create (column) table NULL_NULL_CRUDSmallA (IntKey integer not null, StringNum varchar(255), CharValue varchar(1), ObjectValue blob, DoubleNum double, BigIntegerValue numeric(19,2), ShortValue smallint, FloatNum float(19), IntNum integer, BigDecimalValue numeric(19,2), LongNum bigint, BooleanValue boolean, TimestampValue timestamp, ByteNum smallint, StringKey varchar(255), TimeValue time, DateValue date, primary key (IntKey))
+{code}
+
+{code:sql|title=DDL metadata}
+CREATE FOREIGN TABLE smalla (IntKey integer PRIMARY KEY,
+    StringKey string,
+    IntNum integer,
+    StringNum string,
+    FloatNum float,
+    LongNum bigint,
+    DoubleNum double,
+    ByteNum smallint,
+    DateValue date,
+    TimeValue time,
+    TimestampValue timestamp,
+    BooleanValue boolean,
+    CharValue char(1),
+    ShortValue smallint,
+    BigIntegerValue decimal,
+    BigDecimalValue decimal,
+    ObjectValue varbinary)
+OPTIONS (UPDATABLE 'TRUE', ...);
+
+CREATE VIEW SmallA (IntKey integer PRIMARY KEY,
+    StringKey string,
+    IntNum integer,
+    StringNum string,
+    FloatNum float,
+    LongNum long,
+    DoubleNum double,
+    ByteNum byte,
+    DateValue date,
+    TimeValue time,
+    TimestampValue timestamp,
+    BooleanValue boolean,
+    CharValue char,
+    ShortValue short,
+    BigIntegerValue biginteger,
+    BigDecimalValue bigdecimal,
+    ObjectValue object)
+OPTIONS (UPDATABLE 'TRUE')
+AS
+SELECT IntKey, StringKey, IntNum, 
+    StringNum, FloatNum, LongNum, DoubleNum,
+    convert(ByteNum, byte) AS ByteNum, DateValue, TimeValue, TimestampValue,
+    BooleanValue, CharValue, ShortValue,
+    convert(BigIntegerValue, biginteger) AS BigIntegerValue, BigDecimalValue,
+    convert(ObjectValue, object) AS ObjectValue
+FROM Source.smalla;
+{code}

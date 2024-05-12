@@ -1,0 +1,2 @@
+Provide a facility to create "empty" VDBs for preview purpose
+For supporting the preview functionality, Designer team requests to be able to deploy a VDB with no models in them, so that required models can be merged into it later on. However currently this fails because, Teiid VDB deployer check to make sure there is a model and it has metadata. This restriction needs to be relaxed for preview VDBs.

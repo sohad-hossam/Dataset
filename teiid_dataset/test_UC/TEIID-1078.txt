@@ -1,0 +1,2 @@
+Build annotation based configuration for the Connector Translation layer 
+Since the Translation layer in no longer a JCA, the properties that are specific to Translation layer need to be modified into annotation based properties backed JAXB based beans. These properties need to exposed through "templates" for the Translation layer.

@@ -1,0 +1,4 @@
+issues with output buffer blocking
+when a local connection (regardless of using the calling thread) blocks on the output buffer (which cannot happen with forward only and using the calling thread, but due to another issue can occur with a scroll insensitive result) no corresponding process thread is awakened to process pending work.
+
+Output blocking should also be disabled for non-forward only results.  This was disabled at some point by a refactoring to reuse the output buffer from the plan.

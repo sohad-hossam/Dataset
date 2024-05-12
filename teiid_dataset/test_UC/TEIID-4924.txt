@@ -1,0 +1,2 @@
+Push Teiid artifacts to maven central
+Prepare to push teiis-spring-boot to maven central.

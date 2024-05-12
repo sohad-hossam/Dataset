@@ -1,0 +1,10 @@
+Issue while querying Salesforce. 
+(I am using Teiid Embedded 8.8.0.Final)
+Please refer to this forum thread for exact analysis/details: https://developer.jboss.org/thread/248796
+
+Steps to reproduce at my end:
+1) Use tables Account and Contact where AccountId in Contact is the child field for Id in Account.
+2) Execute the queries as shown in the steps below
+3)Execute the query: SELECT Account.Phone, Account.Name, Account.Type, Contact.LastName FROM Account, Contact WHERE Account.Id = Contact.AccountId (GIVES ERROR)
+
+-Changing the order of the From part makes it run fine

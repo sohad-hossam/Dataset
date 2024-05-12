@@ -1,0 +1,6 @@
+Enhance reusable execution semantics to support throwing DataNotAvailable from reset method
+reset() can throw DataNotAvailable.  Execution will resume at reset() method
+
+reset() should only be called once.  
+
+Details, see https://community.jboss.org/message/773483#773483

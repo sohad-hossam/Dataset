@@ -1,0 +1,4 @@
+AdminShell needs to be able to produce and display a Query Plan
+AdminShell needs to be able to produce and display query plans for the user.
+
+Since QueryBuilder is no more, the Designer is the only mechanism we have to produce query plans. That may not always be possible or convenient for the user, so I'd like to see this ability added to the adminAPI / AdminShell.

@@ -1,0 +1,2 @@
+OData - Allow reading/writing messages in GZIP format
+Allow writing and reading messages in GZIP format for OData interfaces.

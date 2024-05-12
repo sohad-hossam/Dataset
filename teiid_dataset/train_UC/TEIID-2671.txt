@@ -1,0 +1,6 @@
+Hive Metadata load incorrectly resolves data types
+The metadata load uses DESCRIBE keyword which tires to retrieve type name in String runtimeType = getRuntimeType(type);
+
+However, with Hive 0.11 the type name is returned with padding spaces. Hence all the data types are resolved to default java.lang.String for Hive Translator.
+
+This relates to 

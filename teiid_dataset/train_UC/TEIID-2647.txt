@@ -1,0 +1,4 @@
+Add an impala translator
+Impala offers an alternative to Hive SQL access: 
+
+http://blog.cloudera.com/blog/2012/10/cloudera-impala-real-time-queries-in-apache-hadoop-for-real/

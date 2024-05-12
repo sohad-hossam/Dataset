@@ -1,0 +1,2 @@
+ArrayImpl toString not correct
+The arrayimpl tostring is not correct for multi-dimensional arrays and does not follow the convention of appending a trailing comma for arrays of less than 2 elements.  Typically this tostring is not seen as there is the Array expression class, but source sql can contain ArrayImpl values.

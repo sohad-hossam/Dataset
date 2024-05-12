@@ -1,0 +1,2 @@
+In Version 8, can the Teiid-<version>-client.jar (JDBC driver) be renamed because it causes confusion with the Teiid-client-<version>.jar used in the server
+The close naming between the teiid jdbc driver (teiid-<version>-client.jar) and the server jar (teiid-client-<version>.jar) is causing confusion as which one goes where.   It is requested that one of the 2 jar's names be changed, maybe the jdbc driver to something like teiid-jdbc-<version>.jar.

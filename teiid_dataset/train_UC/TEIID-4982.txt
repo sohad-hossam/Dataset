@@ -1,0 +1,8 @@
+Wrong exception thrown getDataSource()
+getDataSource(string) throws:
+
+org.teiid.adminapi.AdminProcessingException: TEIID70008 Data Source with name NotExistingOne still exists in the system.
+
+instead of something like "datasource not exists / not found"
+
+Method: AdminFactory.AdminImpl#getDataSource

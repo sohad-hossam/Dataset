@@ -1,0 +1,8 @@
+OData function parameters should not implicitly convert
+OData function param literal strings can be parsed as the expected type with the current code, however this is not the general expectation of odata.  It's explicitly mentioned that there is no implicit conversion between string and numeric types:
+
+http://docs.oasis-open.org/odata/odata/v4.0/csprd01/part2-url-conventions/odata-v4.0-csprd01-part2-url-conventions.html
+
+And the sample service behaves the same way for DateTimeOffset:
+
+http://services.odata.org/V4/Northwind/Northwind.svc/Orders?$filter=OrderDate+eq+%271997-01-07T00:00:00Z%27

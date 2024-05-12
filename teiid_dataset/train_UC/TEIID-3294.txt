@@ -1,0 +1,2 @@
+dynamic vdb imports nvarchar2 as object
+A regression with TEIID-2644 causes nvarchar/nvarchar2 to import as object.

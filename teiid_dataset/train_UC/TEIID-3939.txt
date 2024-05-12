@@ -1,0 +1,2 @@
+Refined Behavior of Connection.setReadOnly
+The readOnly flag on the connection is not used by the server.  Since it is only a hint we should not imply that it is set or we should actually use the value.

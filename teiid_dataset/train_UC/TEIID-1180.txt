@@ -1,0 +1,2 @@
+the deprecated input group qualifier should be replaced with inputs
+INPUT is only deprecated so the code was allowing both input and inputs - but it should just change the group at resolving time to inputs.

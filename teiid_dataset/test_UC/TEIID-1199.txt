@@ -1,0 +1,2 @@
+Use consistent names for security concepts
+The documentation and config should not use entitlements.  Also the vdb.xsd should use data-role instead of data-policy.

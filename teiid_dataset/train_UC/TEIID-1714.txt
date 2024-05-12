@@ -1,0 +1,4 @@
+Allow WS calls to set a timeout value
+With the upgrade beyond CXF 2.3, there is a straightforward way to set timeouts: https://issues.apache.org/jira/browse/CXF-2991
+
+The translator (via a new invoke method) and/or the connection factory should have the ability to specify a request timeout.  It is quite cumbersome to use CXF configuration for this and is a common need.

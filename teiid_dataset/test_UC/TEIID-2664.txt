@@ -1,0 +1,2 @@
+Misc OData issues
+Make TeiidProviderProducer's client connection a bounded concurrent map where entries can be expired on given cached time.

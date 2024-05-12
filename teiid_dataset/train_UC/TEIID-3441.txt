@@ -1,0 +1,2 @@
+XMLParse should allow varbinary as well
+XMLParse accepts blob and character types.  It should also accept varbinary.

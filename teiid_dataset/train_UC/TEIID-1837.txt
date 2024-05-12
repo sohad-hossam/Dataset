@@ -1,0 +1,2 @@
+Replication should distribute load off of the coordinator
+Initial and partial state pull transfers (the latter is only in 8.0+) both just utilize the coordinator.  It would be better to add issue a polling query across the cluster "hasState(blah)" and then select the member to pull from which gives the first positive response.

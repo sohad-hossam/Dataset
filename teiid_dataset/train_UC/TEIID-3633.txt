@@ -1,0 +1,2 @@
+Metadata exceptions don't provide the table name
+Exceptions for an invalid name or assigning columns to a key don't provide the table name.

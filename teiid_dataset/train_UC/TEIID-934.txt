@@ -1,0 +1,25 @@
+MySql Queries - SQL syntax error on pushdown queries when using functions like LPAD, REPLACE, etc
+Several CTC queries are failing in MySql when they are pushed down to the source.   See query example and resulting SQL error below:
+
+SELECT INTKEY, LPAD(TIMESTAMPVALUE, 18) FROM BQT1.SmallA ORDER BY INTKEY
+
+Error Code:1064 Message:Error Code:1064 Message:Error occurred on connector MySQL_Push<5> - Error Code:1064 Message:You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ') AS c_1 FROM smalla AS g_0 ORDER BY c_0' at line 1 Executing statement: [SQL: SELECT cast(g_0.INTKEY AS signed) AS c_0, LPAD(date_format(g_0.TIMESTAMPVALUE, '%Y-%m-%d %H:%i:%S.%f'), 18) AS c_1 FROM smalla AS g_0 ORDER BY c_0]
+
+The following fiunctions are producing "error in your SQL Syntax" errors:
+
+LPAD
+RPAD
+ASCII
+UCASE
+LCASE
+LOWER
+UPPER
+LEFT
+RIGHT
+LENGTH
+LOCATE
+LTRIM
+RTRIM
+REPEAT
+REPLACE
+

@@ -1,0 +1,4 @@
+Add enhancements to more efficiently handle large documents/files
+The default strategy of Teiid is to copy the inputstream sent back from CXF (or anything returning a Source/DataSource).  To reduce latency this copy should be performed during read, rather than all at once.
+
+Ideally we should investigate the CXF internals to see if we can get a handle to a temp file, which would completely eliminate the need for a copy.  Alternatively or in addition to this approach, the ws translator should offer an option to return a single use SQL/XML value to the engine.

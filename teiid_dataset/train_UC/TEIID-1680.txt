@@ -1,0 +1,4 @@
+issues with correlation and aggregation
+subqueries used in the having/select clause of a query with grouping only understand correlated element symbols - not correlated grouping expressions or correlated aggregate values.
+
+If a nested aggregate contains only outer references, then it should be treated as a correlated value.

@@ -1,0 +1,2 @@
+xmltype derserialization fails with jdk1.5 jar
+The jdk 1.5 jdbc jar is actually a 1.4 compatible jar.  Our version 1 serialization expected by 8.0+ clients writes XMLType values directly to the output which leads to the deserialization getting out of place since it cannot read a retrotranslated value that is no longer an enum as an enum.

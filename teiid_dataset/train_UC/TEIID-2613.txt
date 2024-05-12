@@ -1,0 +1,2 @@
+implicit rowcount handling
+We need to be more explicit about the internals of rowcount variable handling.  Also the resolver doesn't make the rowcount variable visible to for each row plans.

@@ -1,0 +1,4 @@
+Rest procedures should support optional parameters
+We need to test our rest logic to ensure it supports optional parameters in the uri pattern.
+
+And then update the procedure call to use named parameters so that defaultable missing parameters will use defaults (similar to the TeiidProducer/LocalClient logic used for OData).

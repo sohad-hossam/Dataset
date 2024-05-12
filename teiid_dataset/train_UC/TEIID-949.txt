@@ -1,0 +1,68 @@
+Criteria on constant column with aggregate function doesn't push criteria down correctly
+When a column value is a constant and used along with an aggregate, criteria on the constant column is being ignored.  Here is an example query:
+
+SELECT * FROM (
+   SELECT b.count, enterprise_id FROM (
+      SELECT COUNT(*), 35 AS enterprise_id FROM (
+			SELECT "A Name" AS Name, 37 AS enterprise_id
+      ) c 
+   ) b 
+) a WHERE enterprise_id = 1 OPTION DEBUG
+
+
+The expected result is an empty result set.  Instead, the result set comes back as:
+
+COUNT, ENTERPRISE_ID
+0, 35
+
+The resulting plan looks like:
+
+OPTIMIZATION COMPLETE:
+PLAN TREE:
+(type=Relational, command=SELECT * FROM (SELECT b."count", enterprise_id FROM (SELECT COUNT(*), 35 AS enterprise_id FROM (SELECT 'A Name' AS Name, 37 AS enterprise_id) AS c) AS b) AS a WHERE enterprise_id = 1 OPTION DEBUG, props={0=PlanHints})
+canonical plan:
+Project(groups=[b], props={90=[b."count", enterprise_id], 30=[b."count", enterprise_id], 114=0.0, 91=[A."COUNT", A.ENTERPRISE_ID]})
+  Source(groups=[b], props={90=[b."count", enterprise_id], 64=SELECT COUNT(*), 35 AS enterprise_id FROM (SELECT 'A Name' AS Name, 37 AS enterprise_id) AS c, 114=0.0, 60={b."count"=COUNT(*), b.enterprise_id=35}})
+    Project(groups=[], props={90=[b."count", enterprise_id], 30=[COUNT(*), 35 AS enterprise_id], 114=0.0, 60={b."count"=COUNT(*), b.enterprise_id=35}, 91=[COUNT(*), 35 AS enterprise_id]})
+      Group(groups=[c], props={90=[COUNT(*)], 114=0.0, 81=[COUNT(*)]})
+        Null(groups=[c], props={90=[], 114=0.0})
+
+
+PROCESSOR PLAN:
+ProjectNode(1) output=[b."count", enterprise_id] [b."count", enterprise_id]
+  ProjectNode(2) output=[b."count", enterprise_id] [COUNT(*), 35 AS enterprise_id]
+    GroupingNode(3) output=[COUNT(*)] null
+      NullNode(4) output=[] 
+
+
+If the query is changed as follows, the expected result is received:
+
+SELECT * FROM (
+	SELECT b.count, enterprise_id FROM (
+		SELECT COUNT(*), 35 AS enterprise_id FROM (
+			SELECT "A Name" AS Name, 37 AS enterprise_id
+		) c GROUP BY enterprise_id
+	) b 
+) a WHERE enterprise_id = 1 OPTION DEBUG
+
+
+Which yields a very similar plan:
+
+PLAN TREE:
+(type=Relational, command=SELECT * FROM (SELECT b."count", enterprise_id FROM (SELECT COUNT(*), 35 AS enterprise_id FROM (SELECT 'A Name' AS Name, 37 AS enterprise_id) AS c GROUP BY enterprise_id) AS b) AS a WHERE enterprise_id = 1 OPTION DEBUG, props={0=PlanHints})
+canonical plan:
+Project(groups=[b], props={90=[b."count", enterprise_id], 30=[b."count", enterprise_id], 114=0.0, 91=[A."COUNT", A.ENTERPRISE_ID]})
+  Source(groups=[b], props={90=[b."count", enterprise_id], 64=SELECT COUNT(*), 35 AS enterprise_id FROM (SELECT 'A Name' AS Name, 37 AS enterprise_id) AS c GROUP BY enterprise_id, 114=0.0, 60={b."count"=COUNT(*), b.enterprise_id=35}})
+    Project(groups=[], props={90=[b."count", enterprise_id], 30=[COUNT(*), 35 AS enterprise_id], 114=0.0, 60={b."count"=COUNT(*), b.enterprise_id=35}, 91=[COUNT(*), 35 AS enterprise_id]})
+      Group(groups=[c], props={90=[COUNT(*)], 114=0.0, 80=[enterprise_id], 81=[COUNT(*)]})
+        Null(groups=[c], props={90=[enterprise_id], 114=0.0})
+
+
+PROCESSOR PLAN:
+ProjectNode(1) output=[b."count", enterprise_id] [b."count", enterprise_id]
+  ProjectNode(2) output=[b."count", enterprise_id] [COUNT(*), 35 AS enterprise_id]
+    GroupingNode(3) output=[COUNT(*)] [enterprise_id]
+      NullNode(4) output=[enterprise_id] 
+
+
+Except the NullNode node contains enterprise_id as its target column vs an empty value.

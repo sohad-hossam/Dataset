@@ -1,0 +1,2 @@
+SQLXML values should be bind variables
+SQLXML should not be pushed to the source as a literal value, instead it should be a bound value.

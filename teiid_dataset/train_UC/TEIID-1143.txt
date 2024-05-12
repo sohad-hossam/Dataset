@@ -1,0 +1,2 @@
+Remove the version number from the RAR files, to promote easy migration between the versions
+Currently when user creates the -ds.xml files, the rar file need to be defined inside the XML file. The rar file has the "version" extension that will change with every version. In order to keep the ds files valid for the next version of the software this postfix of the version needs to be removed.

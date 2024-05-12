@@ -1,0 +1,2 @@
+Sybase concat function handling
+The sybase concat operator (+ or ||) is the same as oracle wrt null handling.  We should reuse the oracle logic so that nulls are preserved.

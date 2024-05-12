@@ -1,0 +1,2 @@
+Use TEIID/hostname as default Kerberos principal name
+Enhancement for the client side of setting up JDBC connections using GSS API. Suggestion is to use TEIID as service name, combined with the hostname used to create the Teiid connection. This is to be used in case kerberosServicePrincipleName is not supplied in the connection properties.

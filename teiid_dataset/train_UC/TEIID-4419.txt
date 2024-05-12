@@ -1,0 +1,2 @@
+Allow pre-evaluation of uncorrelated scalar subqueries in more circumstances
+In some instances it is better to pre-evaluate uncorrelated scalar subqueries rather than pushing down.

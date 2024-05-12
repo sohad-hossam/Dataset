@@ -1,0 +1,21 @@
+Odata - incorrect count with query option $count=true
+HTTP: GET http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView?$count=true&$filter=intkey lt 5
+Header: Prefer: odata.maxpagesize=2
+Actual result: <m:count>3</m:count>
+Expected result: <m:count>4</m:count>
+Additional note: Teiid returns 2 entities.
+----------------------------
+HTTP: GET http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView?$count=true 
+Header: Prefer: odata.maxpagesize=10
+Actual result: <m:count>10</m:count>
+Expected result: <m:count>11</m:count>
+----------------------------
+Moreover, when I invoke another request for next results (including skiptoken), Teiid returns different count.
+HTTP: GET http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView?$count=true&$skiptoken=GBRvEm+OcCFn--10
+Actual result: <m:count>1</m:count>
+Expected result: <m:count>11</m:count>
+----------------------------
+HTTP: GET http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView?$count=true&$top=5
+Actual result: <m:count>10</m:count>
+Expected result: <m:count>11</m:count>
+Additional note: Teiid returns 5 entities.

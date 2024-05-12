@@ -1,0 +1,4 @@
+BufferManager reserved thread local can keep buffermanager references alive
+The most common implementation of ThreadLocal holds does not garbarge collect ThreadLocal values when the ThreadLocal goes out of scope - only when the Thread stops.  Thus the BufferManager reserved threadlocal being a non-static inner class is inadvertently keeping a reference alive. 
+
+Marked as starting with Teiid 8.0 as selective Teiid restarts (which is how multiple instances are introduced) are not performed in the 7.x series.

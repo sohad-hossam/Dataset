@@ -1,0 +1,2 @@
+subqueries are not supported anywhere other than where and select clauses of querycommands
+Defect Tracker #23760: Subqueries in other place, for example, delete, update, and procedure if statements, and join criteria do not support subqueries in criteria.  If this cannot be worked for 5.6, then validations should be added so that invalid subqueries are detected.

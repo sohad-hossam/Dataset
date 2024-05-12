@@ -1,0 +1,11 @@
+Streaming lob exception with shared tuple source
+If a source returns streaming lobs and a shared tuple source is used, then a streaming exception can occur when the tuple source is reused.
+
+For example in TEIID-5093 a union of two identical branches of the same texttable will result in the exception: 
+
+TEIID60019 Streaming result has already been read once.
+
+This issue was separated from the S3 issue as it affects any streaming lob, which would typically be from the ws translator/resource adapter.
+
+
+

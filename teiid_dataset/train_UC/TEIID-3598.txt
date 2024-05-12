@@ -1,0 +1,29 @@
+MongoDB string functions - different handling of NULL values
+Teiid doesn't handle NULL values right in given functions when working with mongodb.
+* SUBSTRING(<column resolving to NULL>,2)
+** query:
+{code:sql}
+SELECT INTKEY, STRINGNUM, SUBSTRING(STRINGNUM, 2) FROM BQT1.SmallA ORDER BY INTKEY
+{code}
+** source query:
+{code:plain}
+{"$project": {{ "c_0" : "$INTKEY" , "c_1" : "$STRINGNUM" , "c_2" : { "$substr" : [ "$STRINGNUM" , { "$subtract" : [ 2 , 1]} , 4000]}}}}
+{code}
+** problem:
+For row with NULL value in given column returns sth like: 
+{code:plain}{ "_id" : ObjectId("534bf17516997a2a41000002"), "c_0" : 1, "c_1" : null, "c_2" : "" }
+{code}which results in "" as result for SUBSTRING(NULL, 2)  which should return NULL instead
+* UCASE, LCASE (UPPER, LOWER)
+** query:
+{code:sql}
+SELECT intkey, stringnum, LOWER(stringnum) AS LOWER FROM BQT1.SmallA ORDER BY intkey
+{code}
+** source query:
+{code:plain}
+{"$project": {{ "c_0" : "$INTKEY" , "c_1" : "$STRINGNUM" , "c_2" : { "$toLower" : [ "$STRINGNUM"]}}}}
+{code}
+** problem:
+For row with NULL value in given column returns sth like:
+{code:plain}
+{ "_id" : ObjectId("534bf17516997a2a41000002"), "c_0" : 1, "c_1" : null, "c_2" : "" }
+{code} which results in "" as result for LCASE(NULL)  which should return NULL instead

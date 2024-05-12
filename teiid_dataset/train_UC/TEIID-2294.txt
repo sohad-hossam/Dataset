@@ -1,0 +1,13 @@
+Allow to use alias name to lookup the certificate from keysore at jdbc ssl transport layer
+From the teiid 8.1 schema (jboss-teiid.xsd) under docs, there is no "alias" attribute defined for jdbc transport layer. Here is the question:  in the case of there are multiple certificates defined at  keysore, what certificate jdbc ssl will use? How to specify correct one to use?
+
+ 
+Here is the sample teiid jdbc configuration used:
+
+   <transport name="jdbc" socket-binding="teiid-jdbc">
+      <authentication security-domain="mysecuritydomain"/>
+      <ssl mode="enabled" keymanagement-algorithm="SunX509">
+          <keystore name="/opt/test.keystore" password="password"/>
+      </ssl>
+   </transport>
+

@@ -1,0 +1,2 @@
+VDB resources are not associated
+The vdb resource entries are not being associated to the runtime vdb state, thus schema lookups will throw hard errors.

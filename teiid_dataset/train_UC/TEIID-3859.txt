@@ -1,0 +1,4 @@
+update WildFly management port from 9999 to 9990
+Start from WildFly, management port 9999 be removed, 9990 be used, the following code/scripts need to be update to consistence with WildFly:
+* adminshell/src/main/java/org/teiid/adminshell/AdminShell.java
+* .build//kits/adminshell/connection.properties

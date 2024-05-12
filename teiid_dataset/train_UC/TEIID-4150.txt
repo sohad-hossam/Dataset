@@ -1,0 +1,29 @@
+Infinispan dsl resource-adapter has not valid module.xml
+There is a problem in mentioned module when server attempts to load it:
+{code:plain}
+[standalone@localhost:9999 /] /subsystem=resource-adapters/resource-adapter=infinispandsl:add(module=org.jboss.teiid.resource-adapter.infinispan.dsl)
+{
+    "outcome" => "failed",
+    "failure-description" => "JBAS010473: Failed to load module for RA [org.jboss.teiid.resource-adapter.infinispan.dsl]",
+    "rolled-back" => true
+}
+{code}
+It is not valid module according to the 'urn:jboss:module:1.1' schema.
+Problematic fragment:
+{code:xml}
+<dependencies>
+...
+<module name="org.infinispan.query" slot="jdg-6.6" optional="true" export="true" services="true" />
+...
+</dependencies>
+{code}
+According to the mentioned schema the attribute 'services' can have only values:
+* none
+* import
+* export
+
+This issue prevents a user from using the adapter.
+
+Furthermore I am not sure that name 'org.infinispan.query' of the dependency module is correct. I haven't found such module in jdg client libs, there are two possible candidates though:
+* org.infinispan.query.dsl
+* org.infinispan.query.remote.client

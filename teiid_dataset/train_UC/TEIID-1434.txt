@@ -1,0 +1,6 @@
+Example dynamicvdb-portfolio  customer-schema.sql   INSERT INTO HOLDINGS has PRODUCT_ID references that don't exist in PRODUCT table causing sql to fail
+The customer-schema.sql contains insert statements into HOLDINGS that contain references to PRODUCT table that don't exist.  Example:
+
+INSERT INTO HOLDINGS (ACCOUNT_ID,PRODUCT_ID,PURCHASE_DATE,SHARES_COUNT) VALUES (20010027,1020,{ts '2001-08-22 00:00:00.000'},70);
+
+Product_ID  references to 1020 and 1022  don't exist.

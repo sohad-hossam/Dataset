@@ -1,0 +1,2 @@
+Enable session context be available in the all log messages
+Inject work context into all the Teiid based messages such that a custom logger can be written to filter based on logged in user, vdb

@@ -1,0 +1,2 @@
+Loopback translator fails to be invoked when a property is set
+When "loopback" translator is used, and if any properties are set, it fails with "no setter" method found exception during deployment. 

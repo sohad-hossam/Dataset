@@ -1,0 +1,22 @@
+In SQL Server INSERT ... VALUES clause UUID is not substituted
+Teiid 8.4, SQL Server 2012 Express
+
+I'm inserting into table with uniqueidentifier field
+
+{code:sql}
+INSERT INTO SOME_TABLE(some_uuid, some_ts)
+VALUES (uuid(), now())
+{code}
+
+and get something like
+
+bq. 195 Remote org.teiid.translator.jdbc.JDBCExecutionException: 195 TEIID11013:TEIID11004 Error executing statement(s): [Prepared Values: [{ts '2015-02-24 21:02:23.803'}] SQL: INSERT INTO "DS"."dbo"."SOME_TABLE" ("SOME_UUID", "SOME_TS") VALUES (uuid(), ?)]
+
+However if i use INSERT ... SELECT clause it's substituted normally:
+
+{code:sql}
+INSERT INTO SOME_TABLE(some_uuid, some_ts)
+SELECT uuid(), now()
+FROM SOME_OTHER_TABLE
+LIMIT 1
+{code}

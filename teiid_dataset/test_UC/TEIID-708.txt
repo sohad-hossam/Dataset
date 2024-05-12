@@ -1,0 +1,2 @@
+Connector metadata should be availble to the metadata connector
+None

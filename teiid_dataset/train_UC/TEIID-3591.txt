@@ -1,0 +1,2 @@
+Report user query CPU time
+Just like TEIID-2813 it would useful to be useful to report CPU time for user query overall. This can help determine load on CPU got given user query vs wait time.

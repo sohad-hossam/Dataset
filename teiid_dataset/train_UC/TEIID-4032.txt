@@ -1,0 +1,259 @@
+Olingo V4
+This is the root JIRA for all bugs in Oingo V4 we have found during testing. We will add separate JIRAs for every issue as a subtask.
+
+All sub-JIRAs have in common:
+
+*DDL for H2 database:*
+{code:sql}
+-- simple table for basic tests
+DROP TABLE IF EXISTS SimpleTable;
+CREATE TABLE SimpleTable(
+    intkey int PRIMARY KEY,
+    intnum int,
+    stringkey varchar(20),
+    stringval varchar(20),
+    booleanval boolean,
+    decimalval decimal(20, 10),
+    timeval time,
+    dateval date,
+    timestampval timestamp,
+    clobval clob);
+INSERT INTO SimpleTable (intkey, intnum, stringkey, stringval, booleanval, decimalval, timeval, dateval, timestampval, clobval) VALUES
+    (1,  null, '1',   'value_1',  'true',  20.1,  '00:00:01', '2000-01-01', '2001-01-01 00:00:01.01', 'clob_value_00001'),
+    (2,  2,    null,  'value_2',  'false', -20.2, '00:00:02', '2000-02-02', '2002-01-01 00:00:02.02', 'clob_value_00002'),
+    (3,  3,    '3',   null,       'true',  20.3,  '00:00:03', '2000-03-03', '2003-01-01 00:00:03.03', 'clob_value_00003'),
+    (4,  4,    '4',   'value_4',  null,    -20.4, '00:00:04', '2000-04-04', '2004-01-01 00:00:04.04', 'clob_value_00004'),
+    (5,  5,    '5',   'value_5',  'true',  null,  '00:00:05', '2000-05-05', '2005-01-01 00:00:05.05', 'clob_value_00005'),
+    (6,  6,    '6',   'value_6',  'false', -20.6, null,       '2000-06-06', '2006-01-01 00:00:06.06', 'clob_value_00006'),
+    (7,  7,    '7',   'value_7',  'true',  20.7,  '00:00:07', null,         '2007-01-01 00:00:07.07', 'clob_value_00007'),
+    (8,  8,    '8',   'value_8',  'false', -20.8, '00:00:08', '2000-08-08', null,                     'clob_value_00008'),
+    (9,  9,    '9',   'value_9',  'true',  20.9,  '00:00:09', '2000-07-09', '2009-01-01 00:00:09.09', null),
+    (10, null, null,  null,       null,    null,  null,       null,          null,                    null),
+    (11, 11,   '11',  'value_0',  'true',  21.1,  '00:00:11', '2000-11-11', '2011-11-11 00:00:11.11', 'clob_value_00011');
+-- end simple table
+-- simple data table for filter functions tests
+DROP TABLE IF EXISTS SimpleDataTable;
+CREATE TABLE SimpleDataTable(
+    intkey int PRIMARY KEY,
+    doubleval double,
+    realval real,
+    decimalval decimal(20, 10),
+    stringval varchar(20),
+    timeval time,
+    dateval date,
+    timestampval timestamp);
+INSERT INTO SimpleDataTable (intkey, doubleval, realval, decimalval, stringval, timeval, dateval, timestampval) VALUES
+    (1,  42.22,  42.22,  42.22,  'value_contains',     '01:01:01', '2001-01-01', '2001-01-01 01:01:01.01'),
+    (2,  -42.22, -42.22, -42.22, 'value_endswith',     '02:02:02', '2002-02-02', '2002-02-02 02:02:02.02'),
+    (3,  42.32,  42.32,  42.32,  'value_startswith',   '03:03:03', '2003-03-03', '2003-03-03 03:03:03.03'),
+    (4,  -42.32, -42.32, -42.32, 'value_length',       '04:04:04', '2004-04-04', '2004-04-04 04:04:04.04'),
+    (5,  42.42,  42.42,  42.42,  'VALUE_LOWER',        '05:05:05', '2015-05-05', '2015-05-05 05:05:05.05'),
+    (6,  -42.42, -42.42, -42.42, '    value_trim    ', '06:06:06', '2016-06-06', '2016-06-06 06:06:06.06'),
+    (7,  42.52,  42.52,  42.52,  '    value_trim_l',   '17:17:17', '2017-07-07', '2017-07-07 17:17:17.07'),
+    (8,  -42.52, -42.52, -42.52, 'value_trim_r     ',  '18:18:18', '2018-08-08', '2017-08-08 18:18:18.08'),
+    (9,  42.62,  42.62,  42.62,  'value_abcd',          '19:19:19', '2019-09-09', '2018-09-09 19:19:19.09'),
+    (10, -42.62, -42.62, -42.62, 'value_asdf',          '20:20:20', '2020-10-20', '2019-10-20 20:20:20.10'),
+    (11, 42.72,  42.72,  42.72,  'value_dabc',          '21:21:21', '2021-11-25', '2021-11-25 21:21:21.11'),
+    (12, -42.72, -42.72, -42.72, 'value_end',           '23:23:23', '2042-12-30', '2042-12-30 23:23:23.12');
+-- end simple data table
+-- CUD tables
+-- delete
+DROP TABLE IF EXISTS DeleteTable;
+CREATE TABLE DeleteTable(id int PRIMARY KEY, name varchar(10));
+INSERT INTO DeleteTable (id, name) VALUES
+    (1, 'name1'),
+    (2, 'name2'),
+    (3, 'name3');
+DROP TABLE IF EXISTS DeletePropTable;
+CREATE TABLE DeletePropTable(id int PRIMARY KEY, name varchar(10));
+INSERT INTO DeletePropTable (id, name) VALUES
+    (1, 'name1');
+-- put
+DROP TABLE IF EXISTS PutTable;
+CREATE TABLE PutTable(
+    intkey int PRIMARY KEY, intnum int, stringkey varchar(20), stringval varchar(20), booleanval boolean,
+    decimalval decimal(20, 10), timeval time, dateval date, timestampval timestamp, clobval clob);
+INSERT INTO PutTable (intkey, intnum, stringkey, stringval, booleanval, decimalval, timeval, dateval, timestampval, clobval) VALUES
+    (1,  null, '1',   'value_1',  'true',  20.1,  '00:00:01', '2000-01-01', '2001-01-01 00:00:01.01', 'clob_value_00001'),
+    (2,  2,    '2',  'value_2',  'false', -20.2, '00:00:02', '2000-02-02', '2002-01-01 00:00:02.02', 'clob_value_00002'),
+    (3, null, null,  null,       null,    null,  null,       null,          null,                    null);
+DROP TABLE IF EXISTS PutPropTable;
+CREATE TABLE PutPropTable(id int PRIMARY KEY, name varchar(10));
+INSERT INTO PutPropTable (id, name) VALUES
+    (1, 'name1');
+-- patch
+DROP TABLE IF EXISTS PatchTable;
+CREATE TABLE PatchTable(
+    intkey int PRIMARY KEY, intnum int, stringkey varchar(20), stringval varchar(20), booleanval boolean,
+    decimalval decimal(20, 10), timeval time, dateval date, timestampval timestamp, clobval clob);
+INSERT INTO PatchTable (intkey, intnum, stringkey, stringval, booleanval, decimalval, timeval, dateval, timestampval, clobval) VALUES
+    (1,  null, '1',   'value_1',  'true',  20.1,  '00:00:01', '2000-01-01', '2001-01-01 00:00:01.01', 'clob_value_00001'),
+    (2,  2,    '2',  'value_2',  'false', -20.2, '00:00:02', '2000-02-02', '2002-01-01 00:00:02.02', 'clob_value_00002'),
+    (3, null, null,  null,       null,    null,  null,       null,          null,                    null);
+-- post
+DROP TABLE IF EXISTS PostTable;
+CREATE TABLE PostTable(
+    intkey int PRIMARY KEY, intnum int, stringkey varchar(20), stringval varchar(20), booleanval boolean,
+    decimalval decimal(20, 10), timeval time, dateval date, timestampval timestamp, clobval clob);
+INSERT INTO PostTable (intkey, intnum, stringkey, stringval, booleanval, decimalval, timeval, dateval, timestampval, clobval) VALUES
+    (1,  null, '1',   'value_1',  'true',  20.1,  '00:00:01', '2000-01-01', '2001-01-01 00:00:01.01', 'clob_value_00001'),
+    (2,  2,    '2',  'value_2',  'false', -20.2, '00:00:02', '2000-02-02', '2002-01-01 00:00:02.02', 'clob_value_00002'),
+    (3, null, null,  null,       null,    null,  null,       null,          null,                    null);
+-- end CUD tables
+-- not updatable
+DROP TABLE IF EXISTS DeleteTableUnmod;
+CREATE TABLE DeleteTableUnmod(id int PRIMARY KEY, name varchar(10));
+INSERT INTO DeleteTableUnmod (id, name) VALUES
+    (1, 'name1');
+DROP TABLE IF EXISTS PutTableUnmod;
+CREATE TABLE PutTableUnmod(id int PRIMARY KEY, name varchar(10));
+INSERT INTO PutTableUnmod (id, name) VALUES
+    (1, 'name1');
+DROP TABLE IF EXISTS PostTableUnmod;
+CREATE TABLE PostTableUnmod(id int PRIMARY KEY, name varchar(10));
+INSERT INTO PostTableUnmod (id, name) VALUES
+    (1, 'name1');
+DROP TABLE IF EXISTS PatchTableUnmod;
+CREATE TABLE PatchTableUnmod(id int PRIMARY KEY, name varchar(10));
+INSERT INTO PatchTableUnmod (id, name) VALUES
+    (1, 'name1');
+-- table Customers and table Orders
+DROP TABLE IF EXISTS Customers;
+DROP TABLE IF EXISTS Orders;
+CREATE TABLE Customers(id int PRIMARY KEY, name varchar(10));
+CREATE TABLE Orders(id int PRIMARY KEY, customerid int, place varchar(10), FOREIGN KEY (customerid) REFERENCES Customers(id));
+INSERT INTO Customers (id, name) VALUES
+    (1, 'customer1'),
+    (2, 'customer2'),
+    (3, 'customer3'),
+    (4, 'customer4');
+INSERT INTO Orders (id, customerid, place) VALUES
+    (1, 1, 'town'),
+    (2, 1, 'state'),
+    (3, 1, 'country'),
+    (4, 1, 'abroad'),
+    (5, 2, 'state'),
+    (6, 2, 'country'),
+    (7, 3, 'town'),
+    (8, 3, 'town');
+-- end table Customers and table Orders
+{code}
+
+*VDB:*
+{code:xml}
+<vdb name="olingo_basic" version="1">
+    <model name="Source" type="PHYSICAL">
+        <source name="local_h2_db" connection-jndi-name="java:/localH2DB" translator-name="h2"/>
+        <metadata type="DDL">
+            CREATE FOREIGN TABLE SimpleTable(
+                intkey integer PRIMARY KEY,
+                intnum integer,
+                stringkey varchar(20),
+                stringval varchar(20),
+                booleanval boolean,
+                decimalval decimal(20, 10),
+                timeval time,
+                dateval date,
+                timestampval timestamp,
+                clobval clob) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.SIMPLETABLE');
+                
+            CREATE FOREIGN TABLE SimpleDataTable(
+                intkey integer PRIMARY KEY,
+                doubleval double,
+                realval real,
+                decimalval decimal(20, 10),
+                stringval varchar(20),
+                timeval time,
+                dateval date,
+                timestampval timestamp) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.SIMPLEDATATABLE');
+
+            CREATE FOREIGN TABLE PutTable(
+                intkey integer PRIMARY KEY,
+                intnum integer,
+                stringkey varchar(20),
+                stringval varchar(20),
+                booleanval boolean,
+                decimalval decimal(20, 10),
+                timeval time,
+                dateval date,
+                timestampval timestamp,
+                clobval object) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.PUTTABLE', UPDATABLE 'TRUE');
+            CREATE FOREIGN TABLE PostTable(
+                intkey integer PRIMARY KEY,
+                intnum integer,
+                stringkey varchar(20),
+                stringval varchar(20),
+                booleanval boolean,
+                decimalval decimal(20, 10),
+                timeval time,
+                dateval date,
+                timestampval timestamp,
+                clobval object) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.POSTTABLE', UPDATABLE 'TRUE');
+            CREATE FOREIGN TABLE PatchTable(
+                intkey integer PRIMARY KEY,
+                intnum integer,
+                stringkey varchar(20),
+                stringval varchar(20),
+                booleanval boolean,
+                decimalval decimal(20, 10),
+                timeval time,
+                dateval date,
+                timestampval timestamp,
+                clobval object) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.PATCHTABLE', UPDATABLE 'TRUE');
+            CREATE FOREIGN TABLE DeleteTable (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.DELETETABLE', UPDATABLE 'TRUE');
+                
+                
+            CREATE FOREIGN TABLE DeletePropTable (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.DELETEPROPTABLE', UPDATABLE 'TRUE');
+            CREATE FOREIGN TABLE PutPropTable (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.PUTPROPTABLE', UPDATABLE 'TRUE');
+                
+                
+            CREATE FOREIGN TABLE DeleteTableUnmod (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.DELETETABLEUNMOD', UPDATABLE 'FALSE');
+            CREATE FOREIGN TABLE PutTableUnmod (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.PUTTABLEUNMOD', UPDATABLE 'FALSE');
+            CREATE FOREIGN TABLE PostTableUnmod (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.POSTTABLEUNMOD', UPDATABLE 'FALSE');
+            CREATE FOREIGN TABLE PatchTableUnmod (
+                id integer PRIMARY KEY,
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.PATCHTABLEUNMOD', UPDATABLE 'FALSE');
+                
+                
+            CREATE FOREIGN TABLE Customers (
+                idcust integer PRIMARY KEY OPTIONS (NAMEINSOURCE 'id'),
+                name varchar(10)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.CUSTOMERS');
+            CREATE FOREIGN TABLE Orders (
+                idords integer PRIMARY KEY OPTIONS (NAMEINSOURCE 'id'),
+                customerid integer,
+                place varchar(10),
+                FOREIGN KEY (customerid) REFERENCES Customers(idcust)) OPTIONS (NAMEINSOURCE 'DB.PUBLIC.ORDERS');
+
+
+            CREATE VIEW SimpleTableView(
+                    intkey integer PRIMARY KEY,
+                    intnum integer,
+                    stringkey string,
+                    stringval string,
+                    booleanval boolean,
+                    decimalval bigdecimal,
+                    timeval time,
+                    dateval date,
+                    timestampval timestamp,
+                    clobval object)
+                AS 
+                    SELECT
+                        intkey, intnum, stringkey, stringval, booleanval, decimalval, timeval, dateval, timestampval, convert(clobval, object)
+                    FROM
+                        SimpleTable;
+        </metadata>
+    </model>
+</vdb>
+{code}

@@ -1,0 +1,17 @@
+Impala Translator - add pushdown support for concat and concat_ws functions
+As a consumer I need the concat and concat_ws function definitions with matching signatures in line with http://www.cloudera.com/documentation/archive/impala/2-x/2-0-x/topics/impala_string_functions.html
+
+concat:
+concat(string a, string b...)
+Purpose: Returns a single string representing all the argument values joined together.
+Return type: string
+
+Usage notes: concat() and concat_ws() are appropriate for concatenating the values of multiple columns within the same row, while group_concat() joins together values from different rows.
+
+
+concat_ws:
+concat_ws(string sep, string a, string b...)
+Purpose: Returns a single string representing the second and following argument values joined together, delimited by a specified separator.
+Return type: string
+
+Usage notes: concat() and concat_ws() are appropriate for concatenating the values of multiple columns within the same row, while group_concat() joins together values from different rows.

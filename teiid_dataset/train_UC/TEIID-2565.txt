@@ -1,0 +1,8 @@
+Problem with DDL returned via admin api - column has erroneous datatype
+Deployed a greenplum datasource, then deployed a dynamic vdb and did a getSchema via the admin api.  One of the tables in the ddl contains a column as shown in the following ddl snippet:
+
+CREATE FOREIGN TABLE "gp_toolkit.gp_log_command_timings" (
+	logduration object(49) OPTIONS (NAMEINSOURCE '"logduration"', NATIVE_TYPE 'interval')
+) OPTIONS (NAMEINSOURCE '"gp_toolkit"."gp_log_command_timings"', UPDATABLE TRUE);
+
+The logduration type of object erroneously has a length.

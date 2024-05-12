@@ -1,0 +1,2 @@
+Imported vdbs have their roles added to the actual instance of the importing vdb
+Imported roles should be stored on a new instance of the role map on the merged vdb instance, not on the original vdb.

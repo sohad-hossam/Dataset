@@ -1,0 +1,2 @@
+OlingoBridge should be concurrent
+The map in olingobridge needs to be safe for concurrent access.

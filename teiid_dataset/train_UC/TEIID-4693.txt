@@ -1,0 +1,2 @@
+mysql "booleans" translation issues 
+Fields defined as tinyint(1) in MySQL are reported as a bit type in JDBC, which is then mappeed in Teiid to boolean.  However tinyint(1) does not behave as you would expect with bit. (see forum reference below for more details) at least, for instance, when it contains 0 as false and -1 as true (typical by vb/msaccess usage)

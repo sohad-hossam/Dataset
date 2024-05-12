@@ -1,0 +1,2 @@
+Message for missing translator needs improvement
+If a vdb references a non-existent translator type our message is not helpful - in embedded the exception message is the translator name and in the server we mention the vdb.

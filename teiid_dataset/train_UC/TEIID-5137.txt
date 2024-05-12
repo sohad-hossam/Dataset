@@ -1,0 +1,18 @@
+SystemAdmin.usage column dependency issue
+For "object_type" == "Column", the field "Name" should be the name of the table.
+Here it is the same value of "ElementName" fields (ie column name).
+{code}
+{
+            "VDBName" => "Financials",
+            "UID" => "tid:252cb13c7440-0c0428eb-0000000d",
+            "object_type" => "Column",
+            "SchemaName" => "ACCOUNTHOLDINGS",
+            "Name" => "PRODUCTID",
+            "ElementName" => "PRODUCTID",
+            "Uses_UID" => "tid:694b1432214b-cbf6d637-0000000d",
+            "Uses_object_type" => "Column",
+            "Uses_SchemaName" => "EU_Customers_EDL",
+            "Uses_Name" => "ACCOUNTHOLDINGS",
+            "Uses_ElementName" => "PRODUCTID"
+        }
+{code}

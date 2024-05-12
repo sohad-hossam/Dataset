@@ -1,0 +1,2 @@
+Honor the visibility flags in generation of in OData EDM Schema
+Currently when EDM Metadata s generated the visibility flags were not taken into account and  generates all the metadata. It should honor the user's configuration about visibility.

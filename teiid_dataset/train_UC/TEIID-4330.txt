@@ -1,0 +1,2 @@
+Better planning with chained makedep scenarios
+Plans with an implied series of make dep may not have the hint honored as intended.

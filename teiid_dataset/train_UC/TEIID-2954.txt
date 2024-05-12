@@ -1,0 +1,4 @@
+support older designer metadata for ws translator invoke
+Desinger modeled the invoke procedure with the result as an out parameter rather than a return, which was not accounted for with TEIID-2268
+
+The workaround is to modify the invoke procedure metadata so that the result is a return parameter.

@@ -1,0 +1,6 @@
+Deprecate XML Document Models
+With TEIID-4100 our OData v4 implementation provides most of the features provided by XML Document models.  Between OData and SQL/XML as replacements, we need to formally deprecate the legacy XML approach.
+
+Additional tasks include:
+A way to perform OData queries from within the vdb
+Optimizations to approximate the usage of staging tables 

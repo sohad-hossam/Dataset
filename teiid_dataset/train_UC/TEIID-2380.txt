@@ -1,0 +1,6 @@
+Planning failure with update subquery compensation with agg comparision
+An update of the form:
+
+delete from pm3.g1 where e1 = (SELECT MAX(e1) FROM pm3.g1 as z where e2 = pm3.g1.e2)
+
+Such that the subquery cannot be pushed will result in the unaliased max being known by two different names which results in an AssertionError in the SortNode initialization.

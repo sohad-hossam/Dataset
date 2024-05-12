@@ -1,0 +1,8 @@
+Inappropriate pushdown of a must pushdown function
+If a must push down function is used over a grouping that is not pushed, then an invalid symbol will be created and cause an invalid source query and or a class cast exception.
+
+For example:
+
+select some_funct(c1) from tbl group by c1
+
+where the translator does not support grouping.

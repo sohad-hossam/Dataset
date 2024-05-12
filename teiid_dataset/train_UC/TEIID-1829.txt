@@ -1,0 +1,4 @@
+Clarify source warnings
+When a warning is added through an ExecutionContext, the client receives the exception wrapped by a SourceException, then wrapped as a SQLException.  The issues with this are that the SourceException class is not expressly public and there is an unnecessary level of wrapping.
+
+We should introduce a TeiddSQLWarning for non-partial results warnings that would contain source/model information and prevent the unnecessary wrapping.

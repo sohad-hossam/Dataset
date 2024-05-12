@@ -1,0 +1,6 @@
+A view field defined as clob, on a google spreadsheeet model, returns data truncated to string type length
+A google spreadsheet model text cell can contain way more data than the string type, and even if it is identified by teiid as string (4000 chars), the returned data is the whole original text, ie: it could be more than 4000 chars.
+
+A view that selects from the "native" method of the model, and defines the field as clob, though, returns only first 4000 chars, so it appears to be truncated.
+
+As you can find in the forum reference, where  you'll find more descriptive infos, examples and pictures, it seems that "It looks like the issue is that the implicit array_get operation is truncating the string - but it should not be"

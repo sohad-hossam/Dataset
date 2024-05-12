@@ -1,0 +1,2 @@
+st_Intersection not implemented
+The st_Intersection function was supposed to be implemented as part of TEIID-4393, but was omitted

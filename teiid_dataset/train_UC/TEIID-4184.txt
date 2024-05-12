@@ -1,0 +1,26 @@
+Timestamps need to be submitted without supporting {ts} for OSI PI translator
+Queries with OSI PI translator insert a {ts} when passing timestamps but the PI SQL engine does not handle this well. 
+
+Example model query:
+select "tag","time","value" from "schema-name"."picomp2" 
+
+Example query against Teiid schema:
+select * from IceDataThree where tag='sinusoid' and timecol>'2016-01-01 00:00:00'  
+
+Translation:
+SELECT TOP 1000 g_0."tag" AS c_0, g_0."time" AS c_1,  g_0."value" AS c_2 FROM "piarchive"."picomp2" AS g_0   
+02.WHERE g_0."tag" = 'sinusoid' AND g_0."time" > {ts '2016-04-20 00:00:00.0'}  
+
+Error:
+20:02:57,250 WARN  [org.teiid.CONNECTOR] (Worker2_QueryProcessorQueue21) sV28Up1  
+02.GiGOM Connector worker process failed for atomic-request=sV28Up1GiGOM.2.0.3: org  
+03..teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11008:TEIID11004 Error exe  
+04.cuting statement(s): [SQL: SELECT TOP 1000 g_0."tag" AS c_0, g_0."time" AS c_1,  
+05.g_0."value" AS c_2 FROM "piarchive"."picomp2" AS g_0 WHERE g_0."tag" = 'sinusoid  
+06.' AND g_0."time" > {ts '2016-04-20 00:00:00.0'}]  
+Caused by: com.osisoft.rdsa.RdsaException: [PIOLEDB] [SQL Parser] [Line 1] Synta  
+48.x error near 'ts'.
+
+If the translation were to simply remove the "ts" part the query would work:
+SELECT TOP 1000 g_0."tag" AS c_0, g_0."time" AS c_1,  g_0."value" AS c_2 FROM "piarchive"."picomp2" AS g_0 
+WHERE g_0."tag" = 'sinusoid' AND g_0."time" > '2016-04-20 00:00:00.0'

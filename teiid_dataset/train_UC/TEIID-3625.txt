@@ -1,0 +1,27 @@
+JDG translator has disabled capabilities for GT and LT
+Operations GT and LT are not pushed down to JDG. Indexes are enabled for all columns. Operations GE and LE are pushed down correctly.
+
+Example:
+The first query is pushed down correctly. The second query doesn't push the "greater than" operator to the source.
+
+Query:
+{code}select  intkey from smalla where intNum >= 5 order by intkey{code}
+
+PROCESSOR PLAN:
+{code}
+AccessNode(0) output=[c.intKey AS IntKey] SELECT g_0.intKey FROM SmallAs.smallARemotecache AS g_0 WHERE g_0.intNum >= 5 ORDER BY g_0.intKey
+{code}
+
+
+Query:
+{code}select  intkey from smalla where intNum > 5 order by intkey{code}
+
+Plan:
+{code}
+SortNode(0) output=[c.intKey AS IntKey] [SORT] [IntKey]
+  ProjectNode(1) output=[c.intKey AS IntKey] [c.intKey AS IntKey]
+    SelectNode(2) output=[c.intKey] c.intNum > 5
+      AccessNode(3) output=[c.intNum, c.intKey] SELECT g_0.intNum, g_0.intKey FROM SmallAs.smallARemotecache AS g_0
+{code}
+
+

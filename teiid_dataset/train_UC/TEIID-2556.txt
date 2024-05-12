@@ -1,0 +1,2 @@
+Dependent join pushdown with array type incorrect
+When pushing a dependent join with source array type support, the resulting comparison uses a single parameter with a value index of -1.  It should instead use an array of parameters with the correct indexes.

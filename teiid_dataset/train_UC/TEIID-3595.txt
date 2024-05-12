@@ -1,0 +1,2 @@
+Add to audit logging the user that logs in and out
+Add the ability to write to the audit log the user that logs in and out.

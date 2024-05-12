@@ -1,0 +1,2 @@
+Changing dynamicportfolio example in the JBoss as kit to use HSQL instead of Derby
+Changing the dynamicportfolio example from using Derby to using HSQL database, that's provide in JBoss AS.

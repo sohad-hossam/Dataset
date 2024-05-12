@@ -1,0 +1,2 @@
+Membership Domain Documentation is Out of Date
+The Server Extensions Guide (membership_domain_guide.pdf) for the 6.2.0 release has not been updated for the new version and uses obsolete code in its description of the features, thus making it uselss as reference for developers.

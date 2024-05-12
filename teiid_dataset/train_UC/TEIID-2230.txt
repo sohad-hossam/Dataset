@@ -1,0 +1,2 @@
+VDB with only VDB Imports Never Loads
+When creating a preview VDB in Designer with two VDB imports, the VDB never becomes active. It remains in "LOADING" status. Adding a model to the VDB in addition to the two VDB imports allows the VDB to deploy in "ACTIVE" status.

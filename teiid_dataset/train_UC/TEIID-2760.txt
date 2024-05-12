@@ -1,0 +1,2 @@
+Add direct query support to SimpleDB
+The direct query procedure and the native-query support for views/procedures should be added to the new SimpleDB translator.

@@ -1,0 +1,5 @@
+Change MS Access to use another client, since ODBC-JDBC bridge is removed in JDK 1.8
+In JDK 1.8, the ODBC-JDBC bridge is removed, so accessing MS Access using this method will not be available.  
+
+This may require a new translator, but won't be know until a deeper look is done.
+

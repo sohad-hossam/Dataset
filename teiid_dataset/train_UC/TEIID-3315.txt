@@ -1,0 +1,16 @@
+problem with function TRIM
+I have a database that contains some columns with multiple values separated with comma . So I'm trying to use a combination of case, substring and trim to split these values into multiple colums.
+
+The following statement part does not work:
+
+case when pos2 = 0 then trim(substring(Description, pos1+1))
+end as bed
+
+TEIID31100 Parsing error: Encountered "+1)[*])[*] end as" at line 3, column 68.
+
+If I add ' ' FROM to the trim statement it does work and returns a correct result.
+
+working statement:
+
+case when pos2 = 0 then trim(' ' FROM substring(Description, pos1+1))
+end as bed

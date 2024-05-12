@@ -1,0 +1,76 @@
+Oracle translator - parseTime throws exception if string has extra trailing characters after standard time format
+TEIID-4656 was meant to prevent ORA-01830 (date format picture ends before converting entire input string). However, this has not been fully fixed for parseTime function. TO_TIMESTAMP is not pushed, but Teiid uses TO_CHAR which has similar behavior for strings with extra trailing characters.
+
+From my test:
+{code:sql|title=Oracle data source}
+CREATE TABLE teiid4656 (id number(1) PRIMARY KEY, col varchar(23))
+INSERT INTO teiid4656 (id, col) VALUES (1, '2016-24-12 20:00:00.111')
+INSERT INTO teiid4656 (id, col) VALUES (2, '20:00:00.111 2016-24-12')
+{code}
+
+*Query 1:*
+{code:sql}
+SELECT CAST(PARSEDATE(col, 'yyyy-dd-MM') AS string) FROM teiid4656 WHERE id = 1
+{code}
+*Result 1 (OK):* 2016-12-24
+
+*Query 2:*
+{code:sql}
+SELECT CAST(PARSETIME(col, 'hh:mm:ss') AS string) FROM teiid4656 WHERE id = 2
+{code}
+*Result 2 (Exception):*
+{code:plain|title=Server log}
+07:27:48,165 DEBUG [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue4) NHKd8fOn5GvJ.0 executing  SELECT CAST(PARSETIME(col, 'hh:mm:ss') AS string) FROM teiid4656 WHERE id = 2
+07:27:48,169 DEBUG [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue4) ProcessTree for NHKd8fOn5GvJ.0 AccessNode(0) output=[convert(convert(Source.teiid4656.col, TIME), string)] SELECT convert(convert(g_0.col, TIME), string) FROM Source.teiid4656 AS g_0 WHERE g_0.id = 2
+
+07:27:48,169 DEBUG [org.teiid.TXN_LOG] (Worker0_QueryProcessorQueue4) before getOrCreateTransactionContext:org.teiid.dqp.internal.process.TransactionServerImpl@cd77a59(NHKd8fOn5GvJ)
+07:27:48,169 DEBUG [org.teiid.TXN_LOG] (Worker0_QueryProcessorQueue4) after getOrCreateTransactionContext : NHKd8fOn5GvJ NONE ID:NONE
+07:27:48,170 DEBUG [org.teiid.BUFFER_MGR] (Worker0_QueryProcessorQueue4) Creating TupleBuffer: 1 [convert(convert(Source.teiid4656.col, TIME), string)] [class java.lang.String] batch size 1024 of type PROCESSOR
+07:27:48,170 DEBUG [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue4) NHKd8fOn5GvJ.0.0.1 Create State
+07:27:48,171 DEBUG [org.teiid.PROCESSOR] (Worker1_QueryProcessorQueue5) Running task for parent thread Worker0_QueryProcessorQueue4
+07:27:48,171 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue5) NHKd8fOn5GvJ.0.0.1 Processing NEW request: SELECT convert(convert(g_0.col, TIME), string) FROM Source.teiid4656 AS g_0 WHERE g_0.id = 2
+07:27:48,172 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue5) NHKd8fOn5GvJ.0.0.1 Obtained execution
+07:27:48,173 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue5) Source-specific command: SELECT to_char(to_date(g_0.col, 'HH24:MI:SS'), 'HH24:MI:SS') FROM teiid4656 g_0 WHERE g_0.id = 2
+07:27:48,174 DEBUG [org.teiid.BUFFER_MGR] (Worker0_QueryProcessorQueue4) NHKd8fOn5GvJ.0.0.1 Blocking on source query NHKd8fOn5GvJ.0.0.1
+07:27:48,174 DEBUG [org.teiid.BUFFER_MGR] (Worker0_QueryProcessorQueue4) NHKd8fOn5GvJ.0 Blocking on source request(s).
+07:27:48,174 DEBUG [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue4) Request Thread NHKd8fOn5GvJ.0 - processor blocked
+07:27:48,486 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue5) Connector worker process failed for atomic-request=NHKd8fOn5GvJ.0.0.1: org.teiid.translator.jdbc.JDBCExecutionException: 1830 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT to_char(to_date(g_0.col, 'HH24:MI:SS'), 'HH24:MI:SS') FROM teiid4656 g_0 WHERE g_0.id = 2]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:337) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.7.11.6_2-redhat-1.jar:8.7.11.6_2-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: java.sql.SQLDataException: ORA-01830: date format picture ends before converting entire input string
+
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:450)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:399)
+	at oracle.jdbc.driver.T4C8Oall.processError(T4C8Oall.java:1017)
+	at oracle.jdbc.driver.T4CTTIfun.receive(T4CTTIfun.java:655)
+	at oracle.jdbc.driver.T4CTTIfun.doRPC(T4CTTIfun.java:249)
+	at oracle.jdbc.driver.T4C8Oall.doOALL(T4C8Oall.java:566)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:215)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:58)
+	at oracle.jdbc.driver.T4CPreparedStatement.executeForDescribe(T4CPreparedStatement.java:776)
+	at oracle.jdbc.driver.OracleStatement.executeMaybeDescribe(OracleStatement.java:897)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1034)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3820)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeQuery(OraclePreparedStatement.java:3867)
+	at oracle.jdbc.driver.OraclePreparedStatementWrapper.executeQuery(OraclePreparedStatementWrapper.java:1502)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123)
+	... 12 more
+{code}
+
+*Query 3:*
+{code:sql}
+SELECT CAST(PARSETIMESTAMP(col, 'yyyy-dd-MM hh:mm') AS string) FROM teiid4656 WHERE id = 1
+{code}
+*Result 3 (OK):* 2016-12-24 20:00:00.0

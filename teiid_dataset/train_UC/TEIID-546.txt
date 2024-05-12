@@ -1,0 +1,2 @@
+Refresh on "deployment" tree item in results in blank screen
+In the Console, if you try to "refresh" while on the "Deployment" tree item, it will result in blank screen in right hand side 

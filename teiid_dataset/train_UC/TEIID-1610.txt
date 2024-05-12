@@ -1,0 +1,2 @@
+Support kerberos authentication forwarding for remote clients
+Teiid clients in addition to supporting the standard encrypted login, should be able to forward an existing ticket.  The server would be expected to have a security domain configured appropriately.

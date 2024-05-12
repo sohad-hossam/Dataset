@@ -1,0 +1,2 @@
+Add "Session" service
+Add "session" service to "embedded" that tracks the users that are logged into the system.

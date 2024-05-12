@@ -1,0 +1,2 @@
+Remove beanshell from common-internal dependencies
+Beanshell is needed by the cdk, mmadmin, and the console, so it should be an explicit dependency there rather than a dependency of common-internal

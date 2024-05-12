@@ -1,0 +1,2 @@
+Make error handling check for content type in OData4
+Unless json is specifically requested errors are typically returned in atom.

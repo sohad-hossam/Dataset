@@ -1,0 +1,4 @@
+Add ability to properly qualify package objects
+Even if the catalog name pattern matches package names, there is no option or recognition that contained procedures should be qualified as <package / catalog>.<name>.
+
+We need this because at least in Oracle, procedures may be encapsulated in Oracle Packages that are used as catalog names in the DatabaseMetaData.  When trying to import these into Teiid, the "Name in Source" field does not allow me to specify the Package name, so I can't call those procedures.

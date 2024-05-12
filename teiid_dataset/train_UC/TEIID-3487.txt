@@ -1,0 +1,2 @@
+preparedstatement leaks in odbc
+There are several places where preparedstatements are being created and never closed by the odbc logic.  And since we don't have garbage collection based cleanup, this can lead to a build up on the statementimpl.

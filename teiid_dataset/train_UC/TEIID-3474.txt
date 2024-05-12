@@ -1,0 +1,76 @@
+Inconsistent results of RIGHT function for different datasources
+The RIGHT function returns different results for different datasources. Some of those results are inconsistent with definition of the RIGHT(x,y) function.
+=======
++*Query: SELECT intkey, RIGHT(intkey, 1) FROM table ORDER BY intkey*+
+*Teradata, SQLServer, Sybase, Ingres, MySQL, Oracle (this result is OK):*
+0	0
+1	1
+2	2
+...
+10	0
+11	1
+...
+100	0
+101	1
+*Postgres:*
+0	0
+1	1
+2	2
+...
+10	10
+11	11
+...
+100	100
+101	101
+*DB2:*
+0	" "
+1	" "
+2	" "
+...
+10	" "
+11	" "
+...
+100	" "
+101	" "
+=====
+
++*Query:SELECT intkey, RIGHT(intkey, 2) FROM table ORDER BY intkey*+ 
+*SQLServer, Sybase, Ingress, MySQL, Teradata (this result is OK):*
+0	0
+1	1
+...
+10	10
+11	11
+...
+100	00
+101	01
+*Oracle:*
+0	<null>
+1	<null>
+2	<null>
+...
+10	10
+11	11
+...
+100	00
+101	01
+*Postgres:*
+0	0
+1	1
+2	2
+...
+10	10
+11	11
+...
+100	100
+101	101
+*DB2:*
+0	"  "
+1	"  "
+2	"  "
+...
+10	"  "
+11	"  "
+...
+100	"  "
+101	"  "

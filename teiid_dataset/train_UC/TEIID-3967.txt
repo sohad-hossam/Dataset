@@ -1,0 +1,2 @@
+Function class not found results in an uncaught exception
+We throw a runtime MetadataException when a UDF fails to validate when the composite vdb is being built.  This exception is not caught and ends up with default handling including sys.err printout.  It would be better to catch this or even better to have the function validation performed by the metadata validator - as having these exceptions happen during VDBRepository.finishDeployment is unexpected.

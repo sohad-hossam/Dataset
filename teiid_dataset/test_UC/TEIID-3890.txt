@@ -1,0 +1,2 @@
+Add a redshift translator
+To account for differences between Redshift and Postgres, a new translator should be added.

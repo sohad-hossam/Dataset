@@ -1,0 +1,2 @@
+sql server / sybase dependent parameter defaults too high
+Our defaults for sybase/sql server are too high.  Sybase is typically limited to 2048 entries (although it looks like the latest adaptive server may be 32k).  While sql server should be 2100.

@@ -1,0 +1,2 @@
+Limit cannot be pushed to the left side of a sideways correlated join
+This is a regression from TEIID-2370.  When pushing a limit below a join we need to check if there is a sideways correlation.  Otherwise pushing to the left side may result in too few results.

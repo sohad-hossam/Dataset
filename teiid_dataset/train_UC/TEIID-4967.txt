@@ -1,0 +1,129 @@
+Couchbase - incorrect data returned from VIEW if one value is NULL
+I have a source model with FOREIGN TABLE and view model with VIEW which extracts subset of columns defined in FOREIGN TABLE.
+
+If one value in document is missing (i.e. from Teiid's point of view it's NULL), Teiid returns incorrect data from VIEW.
+In some cases, it returns NULL values for multiple columns (even if there is only one column with NULL).
+In other cases it shifts values - value from column c contains value of column c+1, column c+1 contains value of c+2 etc.
+
+For Source model, I tried both NATIVE and DDL metadata.
+
+If you need, I can provide you access to testing environment.
+
+*Query:* SELECT * FROM couchbase_small.smalla WHERE intkey = 5;
+*Result*
+||documentID||FloatNum||IntKey||BigIntegerValue||StringKey||CharValue||LongNum||type||DoubleNum||ObjectValue||ShortValue||BigDecimalValue||DateValue||BooleanValue||TimestampValue||ByteNum||StringNum||TimeValue||IntNum||
+|smalla_5|-19|5|-19|5|0|-19|SmallA|-19|-19|-32763|-19|2000-01-06|true|2000-01-01 00:00:05.0|<null>|-19|05:00:00|-19|
+
+*Query:* SELECT * FROM bqt1.smalla WHERE intkey = 5;
+*Result:*
+||IntKey||StringKey||IntNum||StringNum||FloatNum||LongNum||DoubleNum||ByteNum||DateValue||TimeValue||TimestampValue||BooleanValue||CharValue||ShortValue||BigIntegerValue||BigDecimalValue||ObjectValue||
+|5|5|-19|-19|-19|-19|-19|<null>|<null>|<null>|<null>|true|<null>|<null>|<null>|<null>|<null>|
+
+*Query:* SELECT * FROM bqt1.smalla WHERE intkey = 0;
+*Result:* Error: TEIID10074 Invalid Byte format in String: 2000-01-01
+*Stack trace:*
+{code:plain}
+12:55:05,263 WARN  [org.teiid.CONNECTOR] (Worker15_QueryProcessorQueue279) Connector worker process failed for atomic-request=5x16wQN8Jjck.15.0.61: org.teiid.core.types.TransformationException: TEIID10074 Invalid Byte format in String: 2000-01-01
+	at org.teiid.core.types.basic.StringToByteTransform.transformDirect(StringToByteTransform.java:43) [teiid-common-core-8.12.11.6_4-redhat-64-4.jar:8.12.11.6_4-redhat-64-4]
+	at org.teiid.core.types.Transform.transform(Transform.java:47) [teiid-common-core-8.12.11.6_4-redhat-64-4.jar:8.12.11.6_4-redhat-64-4]
+	at org.teiid.core.types.DataTypeManager.transformValue(DataTypeManager.java:942) [teiid-common-core-8.12.11.6_4-redhat-64-4.jar:8.12.11.6_4-redhat-64-4]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.correctTypes(ConnectorWorkItem.java:593)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:446)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:236)
+	at sun.reflect.GeneratedMethodAccessor88.invoke(Unknown Source) [:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy45.more(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:309)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}
+
+*Query:* SELECT IntKey, IntNum, FloatNum FROM Couchbase_small.SmallA
+*Result:*
+||IntKey||IntNum||FloatNum||
+|0|<null>|-24|
+|1|-23|-23|
+|10|-14|-14|
+|...|...|...|
+
+*Query:* SELECT IntKey, IntNum, FloatNum FROM BQT1.SmallA
+*Result:*
+||IntKey||IntNum||FloatNum||
+|0|-24|<null>|
+|1|-23|-23|
+|10|-14|-14|
+|...|...|...|
+
+{code:xml|title=VDB}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="couchbase" version="1">
+  <model name="Couchbase_small" type="PHYSICAL" visible="false">
+    <source name="couchbase_small" connection-jndi-name="java:/couchbase_small" translator-name="couchbase"/>
+    <metadata type="DDL">
+      SET NAMESPACE 'http://www.teiid.org/translator/couchbase/2017' AS teiid_couchbase;
+    CREATE FOREIGN TABLE SmallA (
+      documentID string,
+      FloatNum integer OPTIONS (NAMEINSOURCE '`FloatNum`'),
+      IntKey integer PRIMARY KEY OPTIONS (NAMEINSOURCE '`IntKey`'),
+      BigIntegerValue integer OPTIONS (NAMEINSOURCE '`BigIntegerValue`'),
+      StringKey string OPTIONS (NAMEINSOURCE '`StringKey`'),
+      CharValue string OPTIONS (NAMEINSOURCE '`CharValue`'),
+      LongNum integer OPTIONS (NAMEINSOURCE '`LongNum`'),
+      type string OPTIONS (NAMEINSOURCE '`type`'),
+      DoubleNum integer OPTIONS (NAMEINSOURCE '`DoubleNum`'),
+      ObjectValue string OPTIONS (NAMEINSOURCE '`ObjectValue`'),
+      ShortValue integer OPTIONS (NAMEINSOURCE '`ShortValue`'),
+      BigDecimalValue integer OPTIONS (NAMEINSOURCE '`BigDecimalValue`'),
+      DateValue string OPTIONS (NAMEINSOURCE '`DateValue`'),
+      BooleanValue boolean OPTIONS (NAMEINSOURCE '`BooleanValue`'),
+      TimestampValue string OPTIONS (NAMEINSOURCE '`TimestampValue`'),
+      ByteNum integer OPTIONS (NAMEINSOURCE '`ByteNum`'),
+      StringNum string OPTIONS (NAMEINSOURCE '`StringNum`'),
+      TimeValue string OPTIONS (NAMEINSOURCE '`TimeValue`'),
+      IntNum integer OPTIONS (NAMEINSOURCE '`IntNum`')
+    ) OPTIONS (NAMEINSOURCE '`dvqe_small`', UPDATABLE FALSE, "teiid_couchbase:ISARRAYTABLE" 'false', "teiid_couchbase:NAMEDTYPEPAIR" '`type`:''SmallA''');
+    </metadata>
+  </model>
+  <model name="BQT1" type="VIRTUAL">
+    <metadata type="DDL">
+      CREATE VIEW SmallA (
+      IntKey integer PRIMARY KEY,
+      StringKey string,
+      IntNum integer,
+      StringNum string,
+      FloatNum float,
+      LongNum long,
+      DoubleNum double,
+      ByteNum byte,
+      DateValue date,
+      TimeValue time,
+      TimestampValue timestamp,
+      BooleanValue boolean,
+      CharValue char(1),
+      ShortValue short,
+      BigIntegerValue biginteger,
+      BigDecimalValue bigdecimal,
+      ObjectValue object)
+    AS
+      SELECT
+        IntKey, StringKey, IntNum, StringNum, convert(FloatNum, float) AS FloatNum, convert(LongNum, long) AS LongNum,
+        convert(DoubleNum, double) AS DoubleNum, convert(ByteNum, byte) AS ByteNum, convert(DateValue, date) AS DateValue,
+        convert(TimeValue, time) AS TimeValue, convert(TimestampValue, timestamp) AS TimestampValue, BooleanValue,
+        convert(CharValue, char) AS CharValue, convert(ShortValue, short) AS ShortValue, convert(BigIntegerValue, biginteger) AS BigIntegerValue,
+        convert(BigDecimalValue, bigdecimal) AS BigDecimalValue, convert(ObjectValue, object) AS ObjectValue
+      FROM
+        Couchbase_small.SmallA;
+    </metadata>
+  </model>
+</vdb>
+{code}

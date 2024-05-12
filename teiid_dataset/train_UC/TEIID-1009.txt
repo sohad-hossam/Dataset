@@ -1,0 +1,4 @@
+BQT Pushdown query "ORDER BY" is not always ordering results properly
+Pushdown queries with "ORDER BY" are not always returning results in correct order. The below query is returning query results in the wrong order for Pushdown on DB2, MySql, Ora9-10-11, and SqlServer sources.  If BQT1.SmallA.StringKey is placed in the SELECT clause the results are returned in the correct order.
+
+SELECT BQT1.SmallA.IntNum, BQT2.SmallB.StringNum FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.IntNum = BQT2.SmallB.StringNum AND BQT1.SmallA.IntKey >= 5 AND BQT2.SmallB.IntKey >= 5 ORDER BY BQT1.SmallA.StringKey

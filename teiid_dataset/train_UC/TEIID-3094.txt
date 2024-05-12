@@ -1,0 +1,8 @@
+SOLR: minus sign is not escaped
+Minus sign is not escaped in SOLR translator which causes parse exception, because the "-" is a special character.
+
+Example of query:
+Query: {code}SELECT BQT1.SmallA.IntNum FROM BQT1.SmallA WHERE BQT1.SmallA.IntNum = -1{code}
+Query parameter q is set to: {code}IntNum:-1{code} but it should be: {code}IntNum:\-1{code}
+
+Log is in the attachment.

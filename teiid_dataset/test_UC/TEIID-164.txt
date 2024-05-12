@@ -1,0 +1,17 @@
+Connector api overhaul
+Proposed changes:
+
+Remove getMetadata from connection - if and when it is implemented it will be an optional interface.
+Rename Connection.release to close and PoolAwareConnection.releaseCalled to closeCalled
+Remove ConnectorCapabilities.supportsExecutionMode and replace Asynch/SynchQuery, Asynch/SynchQueryCommand, Batched Executions with ResultSetExecution, also remove BatchedUpdate and BulkInsert Executions, which can be generalized on UpdateExecution.  
+BatchedUpdate and BulkInsert support would be indicated by capabilities on ConnectorCapabilities.  
+Execution mode integer constants would no longer be used, instead the ICommand object would be passed to the Connection.createExecution method.
+Asynch Connectors are created by modifying execution logic to throw a DataNotAvailableException, which contains the next poll interval.  This removes the need for special executions.
+ResultSetExecution would use an iteration approach, which removes the need for Batch and BasicBatch (FEDERATE-311)
+Connector batch size would be available on the ExecutionContext, rather than explicitly being passed to the execute method.
+
+Additionally all deprecated classes would be removed and a 5.5. compatibility layer created.  Current deprecations are:
+
+Deprecated ConnectorCapabilities scope, and added GlobalCapabilitiesProvider
+Deprecated ConnectionPool/DisabledConnectionPool/ConnectionPoolException, since pooling can be provided automatically
+Deprecated Asynch/SynchQueryExecution, and added Asynch/SynchQueryCommandExecution

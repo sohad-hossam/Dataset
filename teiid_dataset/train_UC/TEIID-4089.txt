@@ -1,0 +1,4 @@
+Teiid JDBC driver does not reset the update count when calling getMoreResults(int)
+I have run across a situation with the JDBC driver.  Looking at {{StatementImpl.getMoreResults(int)}}, it does not clear the update counts, whereas {{StatementImpl.getMoreResults()}} does.  Long story short, this is preventing me from integrating the JDBC driver properly into my application, due to the runtime's (3rd party) handling of statements.  It gets stuck in an infinite loop because to close the statement, they call {{StatementImpl.getMoreResults(Statement.CLOSE_CURRENT_RESULT);}}, but then they have a check for a -1 value to be returned from {{getUpdateCount()}} before exiting the loop.  In my case, that value is always 1, and thus the infinite loop.
+
+It seems logical to me that {{getMoreResults(int)}} should behave the same as {{getMoreResults()}} seeing as they both always return false, only the latter is the only one that closes the resultset/clearing the update count.

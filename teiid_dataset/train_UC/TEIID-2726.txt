@@ -1,0 +1,8 @@
+Query Issue with Hive 0.12 Driver
+I set up the latest Hortonworks Sandbox for testing.  The latest version uses Hive 0.12.  
+
+- I was able to get the hive0.12 driver set up and am able to query successfully from SquirrelSQL.
+
+- Next, I set up the driver in Teiid Designer and was able to successfully import using the "Teiid Connection" importer.
+
+But, when I attempt to query the teiid source the query fails.  Query plan and exception are attached.

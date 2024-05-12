@@ -1,0 +1,2 @@
+Add ability to configure (change default) support for nulls first/last
+Add the ability to configure how nulls first/last will be handled.

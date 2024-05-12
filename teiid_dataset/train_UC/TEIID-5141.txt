@@ -1,0 +1,20 @@
+Osisoft translator - ANY and SOME expressions cause syntax errors on datasource
+Running a query such as 
+{code:sql}
+SELECT INTKEY, STRINGKEY, FLOATNUM FROM BQT1.SMALLA WHERE FLOATNUM <> SOME (SELECT FLOATNUM FROM BQT1.SMALLA WHERE STRINGKEY = 10) 
+{code}
+
+gets translated as 
+{code:sql}
+SELECT g_0.IntKey, g_0.StringKey, g_0.FloatNum FROM dvqe..SmallA AS g_0 WHERE g_0.FloatNum <> SOME (SELECT g_1.FloatNum FROM dvqe..SmallA AS g_1 WHERE g_1.StringKey = '10')
+{code}
+
+and fails with 
+{noformat}
+com.osisoft.rdsa.RdsaException: [PIOLEDBENT] [SQL Parser] [Line 1:100] Missing ) at 'SELECT'
+[Line 1:171] Extraneous ')'
+{noformat}
+
+Same thing when the SOME keyword is replaced with ANY (as in, ANY is translated to the exact same query, with 'SOME', which is understandable, since they _should_ be equivalent).
+
+This appears to be a bug in Osisoft PI, since issuing the same query with ANY against the datasource (without teiid involvement) works, so I suggest translating SOME as ANY as a workaround.

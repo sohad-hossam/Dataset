@@ -1,0 +1,2 @@
+Text Connector should be Medata Aware Connector
+Based on TEIID-685, Text Connector must implement this interface(s), so that any Text sources can be used in dynamic data integration.

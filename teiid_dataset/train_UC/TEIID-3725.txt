@@ -1,0 +1,10 @@
+In the JDG translators, enable named cache swapping so that materialization can be supported
+The JDG translators, that in order to support materialization, will need to enable the named cache that's referenced by the connection, to be swapped.   This is due to JDG doesn't currently support renaming a cache (i.e., like table rename in JDBC).   And because of that, it limits how the cache can be refreshed (don't want to clear it before re-loading).
+
+ Ideas are:
+1.  configure translator with the 2 cache names to use (a) initial cache to read from and (b) the staging cache to use
+     perform materialize load
+     call SYSADMIN.setProperty to trigger the swapping of the cache names
+2 ???
+
+Note: because there's no persistence in Teiid so that any cache name changes will outlive a server restart, when a restart occurs, the translator will read from the cache identified as the initial cache to read from.

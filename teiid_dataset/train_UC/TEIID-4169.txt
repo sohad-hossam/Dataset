@@ -1,0 +1,2 @@
+Deployment/start sequence issue
+For embedded the start/deployment sequence can cause a large 5 minute timeout to be hit which can excessively delay vdb deployment.

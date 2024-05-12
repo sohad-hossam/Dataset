@@ -1,0 +1,9 @@
+translator map-cache install failed
+The following error thow once start the teiid-9.3.0.Alpha3-SNAPSHOT
+{code}
+13:54:48,120 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 55)  WFLYCTL0013: Operation ("add") failed - address: ([
+    ("subsystem" => "teiid"),
+    ("translator" => "map-cache")
+]) - failure description: "TEIID50007 Failed to load module org.jboss.teiid.translator.object for translator map-cache"
+{code}
+I think this due to classpath related issue not set up correctly.

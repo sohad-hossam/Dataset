@@ -1,0 +1,4 @@
+Remove the Teiid embedded kit
+There is no reason to keep a separate embedded kit supplied by Teiid. The scripts that are building the kit needs to be removed from build.
+
+All the required jar files for the "embedded" examples will be available from the "teiid-embedded-examples". Here we need to focus on documentation, but that is separate effort

@@ -1,0 +1,60 @@
+MongoDB metadata import fails with NPE
+Deploying the following dynamic vdb fails with a NullPointerException when Teiid Connection importer is used:
+
+{code}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="mongo" version="1">
+	<description>Importer VDB</description>
+	<property name="UseConnectorMetadata" value="true" />
+	<property name="deployment-name" value="mongo-vdb.xml" />
+	<model name="importVDBSrcModel">
+		<source name="importVDBSrcModel" translator-name="mongodb" connection-jndi-name="java:/mongoDS" />
+	</model>
+</vdb>
+{code}
+
+The resource adapter is defined as:
+{code}
+                <resource-adapter id="mongoDS">
+                    <module slot="main" id="org.jboss.teiid.resource-adapter.mongodb"/>
+                    <transaction-support>NoTransaction</transaction-support>
+                    <connection-definitions>
+                        <connection-definition class-name="org.teiid.resource.adapter.mongodb.MongoDBManagedConnectionFactory" jndi-name="java:/mongoDS" enabled="true" use-java-context="true" pool-name="mongoDS">
+                            <config-property name="Database">
+                                bqt
+                            </config-property>
+                            <config-property name="RemoteServerList">
+                                vmgdb01.mw.lab.eng.bos.redhat.com:27017
+                            </config-property>
+                            <config-property name="Username">
+                                dv
+                            </config-property>
+                            <config-property name="Password">
+                                dv
+                            </config-property>
+                        </connection-definition>
+                    </connection-definitions>
+                </resource-adapter>
+{code}
+
+
+Server log:
+{code}
+16:46:49,793 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "mongo-vdb.xml" (runtime-name: "mongo-vdb.xml")
+16:46:49,809 DEBUG [org.teiid.RUNTIME] (MSC service thread 1-5) VDB mongo-vdb.xml has been parsed.
+16:46:49,835 INFO  [org.teiid.RUNTIME] (MSC service thread 1-1) TEIID50029 VDB mongo.1 model "importVDBSrcModel" metadata is currently being loaded. Start Time: 7/23/15 4:46 PM
+16:46:49,869 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015859: Deployed "mongo-vdb.xml" (runtime-name : "mongo-vdb.xml")
+16:46:50,626 WARN  [org.teiid.RUNTIME] (teiid-async-threads - 3) TEIID50036 VDB mongo.1 model "importVDBSrcModel" metadata failed to load. Reason:java.lang.NullPointerException: java.lang.NullPointerException
+        at org.teiid.translator.mongodb.MongoDBMetadataProcessor.addTable(MongoDBMetadataProcessor.java:92)
+        at org.teiid.translator.mongodb.MongoDBMetadataProcessor.process(MongoDBMetadataProcessor.java:57)
+        at org.teiid.translator.mongodb.MongoDBMetadataProcessor.process(MongoDBMetadataProcessor.java:38)
+        at org.teiid.translator.ExecutionFactory.getMetadata(ExecutionFactory.java:935) [teiid-api-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+        at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:73) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+        at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55) [teiid-engine-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+        at org.teiid.jboss.VDBService$6.run(VDBService.java:395) [teiid-jboss-integration-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+        at org.teiid.jboss.VDBService$7.run(VDBService.java:442) [teiid-jboss-integration-8.7.1.6_2-redhat-3.jar:8.7.1.6_2-redhat-3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_79]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_79]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_79]
+        at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+{code}

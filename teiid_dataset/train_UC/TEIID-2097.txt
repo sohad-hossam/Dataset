@@ -1,0 +1,4 @@
+issue with continuous queries and plans with final buffers
+The plan's buffer should not be used as the final buffer for a continuous query, since the continuous handling is in the nextbatch logic.
+
+As a workaround, a dummy limit clause can be added to the query to prevent the final buffer from being used.

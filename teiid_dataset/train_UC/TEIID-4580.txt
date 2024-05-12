@@ -1,0 +1,15 @@
+ST_PointOnSurface returns point on the boundary of the polygon
+Calling ST_PointOnSurface with a polygon argument returns one of the points of the polygon boundary. 
+
+E.g.
+{code:sql}
+SELECT ST_AsText(ST_PointOnSurface(ST_GeomFromText('POLYGON ((67 13, 67 18, 59 18, 59 13, 67 13))')));
+{code}
+returns {{POINT (67 13)}}
+
+The spec says
+bq. PointOnSurface( ):Point—A point guaranteed to be on this Surface.
+
+which might not be completely clear, but [several|http://gis.stackexchange.com/questions/76498/how-is-st-pointonsurface-calculated] [sources|http://workshops.boundlessgeo.com/postgis-intro/geometry_returning.html] indicate that "on this surface" means _inside_ the surface.
+
+When running the same query against a postgis instance (not through teiid), the result is {{POINT(63 15.5)}}, which is actually inside the polygon.

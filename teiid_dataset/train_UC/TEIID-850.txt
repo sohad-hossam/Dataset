@@ -1,0 +1,8 @@
+Misspellings in Teiid Reference Guide
+Section 1.6.2 has a "DEP hints" box containing "optimizer does not chose the most optimal". Please change "chose" to "choose".
+
+Section 5.2.3's title reads, "Examle Virtual Procedures"
+
+Table 6.2 contains the  word "PESSIMITIC"
+
+There are possibly more; I just happened to spot these. I'm sure Docbook XML editors have excellent spelling checkers ;-)

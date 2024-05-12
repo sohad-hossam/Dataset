@@ -1,0 +1,2 @@
+Providing functionality to set source table cardinality when metadata loaded
+Want to have a easy way to set the source table cardinality when source model metadata loaded

@@ -1,0 +1,33 @@
+dynamic VDB, UDF class not found
+I'm attempting to deploy a UDF in a dynamic VDB and getting a ClassNotFound:
+ 
+14:45:41,654 ERROR org.jboss.threads.executor (teiid-async-threads - 4) Task execution failed for task org.teiid.jboss.VDBService$6@3327d4d9: org.teiid.core.TeiidRuntimeException: TEIID30387 Could not load UDF "institute", since its invocation class "edu.uiowa.tagUtil.grantParser.nih" could not be found.
+    at org.teiid.query.function.FunctionTree.createFunctionDescriptor(FunctionTree.java:321) teiid-engine-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.query.function.FunctionTree.addFunction(FunctionTree.java:232) teiid-engine-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.query.function.FunctionTree.(FunctionTree.java:106) teiid-engine-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.deployers.CompositeVDB.buildTransformationMetaData(CompositeVDB.java:84) teiid-runtime-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.deployers.CompositeVDB.metadataLoadFinished(CompositeVDB.java:333) teiid-runtime-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.deployers.VDBRepository.finishDeployment(VDBRepository.java:287) teiid-runtime-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.runtime.AbstractVDBDeployer.metadataLoaded(AbstractVDBDeployer.java:166) teiid-runtime-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.jboss.VDBService.access$800(VDBService.java:89) teiid-jboss-integration-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.jboss.VDBService$6.run(VDBService.java:385) teiid-jboss-integration-8.1.0.Final.jar:8.1.0.Final
+    at org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33)
+    at org.jboss.threads.QueueExecutor.runTask(QueueExecutor.java:801)
+    at org.jboss.threads.QueueExecutor.access$100(QueueExecutor.java:45)
+    at org.jboss.threads.QueueExecutor$Worker.run(QueueExecutor.java:842)
+    at java.lang.Thread.run(Thread.java:680) Teiid 8.1 - dynamic VDB, UDF class not found
+    at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+Caused by: java.lang.ClassNotFoundException: edu.uiowa.tagUtil.grantParser.nih from [Module "org.jboss.teiid:main" from local module loader @671ff436 (roots: /Users/eichmann/downloads/jboss/jboss-as-7.1.1.Final/modules)]
+    at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:190) jboss-modules.jar:1.1.1.GA
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:468) jboss-modules.jar:1.1.1.GA
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:456) jboss-modules.jar:1.1.1.GA
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:423) jboss-modules.jar:1.1.1.GA
+    at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:398) jboss-modules.jar:1.1.1.GA
+    at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:120) jboss-modules.jar:1.1.1.GA
+    at java.lang.Class.forName0(Native Method) Teiid 8.1 - dynamic VDB, UDF class not found
+    at java.lang.Class.forName(Class.java:247) Teiid 8.1 - dynamic VDB, UDF class not found
+    at org.teiid.query.function.UDFSource.getInvocationClass(UDFSource.java:44) teiid-engine-8.1.0.Final.jar:8.1.0.Final
+    at org.teiid.query.function.FunctionTree.createFunctionDescriptor(FunctionTree.java:311) teiid-engine-8.1.0.Final.jar:8.1.0.Final
+    ... 14 more
+ 
+re Ramesh, the class loader for DDL is not getting properly set.

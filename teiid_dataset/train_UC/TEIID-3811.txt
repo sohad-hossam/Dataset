@@ -1,0 +1,4 @@
+Teiid Embedded with remote JDBC susceptible to exploit with common-collections in classpath
+This issue is to add at least a documentation note warning against - http://foxglovesecurity.com/2015/11/06/what-do-weblogic-websphere-jboss-jenkins-opennms-and-your-application-have-in-common-this-vulnerability/
+
+While remote JDBC is not enabled by default and common-collections is not in the classpath it is possible that common-collections could be picked up from the environment. 

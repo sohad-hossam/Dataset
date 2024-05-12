@@ -1,0 +1,17 @@
+Update to updatable internal materialized view should update the materialized view as well as the database
+Updating an updatable internal materized view updates the database but not the materialized view at present. The requested enhancement is that they, both, should be updated.
+
+Setup
+Client - SquirrelSQL to access JDV
+JDV 6.2 - with an updatable nternal materialized view of one table from the data source
+Data Source - just one data source: MySQL
+
+I can see from the console that the target table/view has been materialized
+Then I did the following:
+1) select a row from the materialized table
+2) update a field in a row in the materialized view
+3) select that row (value unchanged ie, same as int 1) - tried multiple times
+4) issue EXEC SYSADMIN.refreshMatViewRow(...) using primary key for the row that has been changed
+5) select that row (value unchanged) - now I can see the changed data
+
+This behaviour is counter-intuitive because I was expecting that since it is an updatable materialized view, my change will write through the materialized view ie, change both the materialized view as well as the database. But in this case, it changed the database and not the materialized view?

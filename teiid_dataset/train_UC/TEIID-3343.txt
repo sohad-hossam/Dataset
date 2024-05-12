@@ -1,0 +1,9 @@
+Add classification to jboss module.xml files
+Add classification to the module.xml files that are private or unsupported.
+
+example for private modules:
+
+    <properties>
+        <property name="jboss.api" value="private"/>
+    </properties>
+

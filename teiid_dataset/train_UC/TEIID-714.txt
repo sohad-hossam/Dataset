@@ -1,0 +1,2 @@
+getProcedures procedureName pattern logic correct
+The DatabaseMetaData getProcedures call is checking the procedureName against the short name, not the full name.

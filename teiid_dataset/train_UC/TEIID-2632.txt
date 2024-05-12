@@ -1,0 +1,2 @@
+Atomic blocks don't reset the transaction context on completion
+Once an atomic block has completed the transaction context remains as if it were a request level transaction.  Further work, such as adding synchronizations, will result in exceptions as the txn has completed.

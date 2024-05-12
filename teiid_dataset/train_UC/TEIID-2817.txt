@@ -1,0 +1,9 @@
+XML Modeling Lab 7 and runtime errors on DV 6.0 Beta
+The XML schema is imported and the modeling is completed per the Lab on XML modeling.  At runtime, during VDB execution, the sql scrap pad has the sql entered - select * from CustomerHoldingsXML.CustomersDocument
+
+At this point the following error is displayed:
+
+TEIID30328 Unable to evaluate "INPUT".AccountID: No value was available
+
+
+The VDB will be attached per Steven Hawkins request.

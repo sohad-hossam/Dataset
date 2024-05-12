@@ -1,0 +1,38 @@
+Exception during Optimization 
+while running the BQT Query
+
+SELECT intkey FROM BQT1.SmallA AS A WHERE convert(shortvalue, integer) = (SELECT MAX(convert(shortvalue, integer)) FROM BQT1.SmallA AS B WHERE b.intnum = a.intnum) ORDER BY intkey
+
+I encountered
+
+java.lang.ArrayIndexOutOfBoundsException: -1
+	at java.util.ArrayList.get(ArrayList.java:324)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.filterVirtualElements(RuleAssignOutputElements.java:358)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.assignOutputElements(RuleAssignOutputElements.java:168)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.assignOutputElements(RuleAssignOutputElements.java:217)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.assignOutputElements(RuleAssignOutputElements.java:217)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.assignOutputElements(RuleAssignOutputElements.java:163)
+	at org.teiid.query.optimizer.relational.rules.RuleAssignOutputElements.execute(RuleAssignOutputElements.java:96)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:462)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:227)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:169)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.planSemiJoin(RuleMergeCriteria.java:283)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.findCriteriaChains(RuleMergeCriteria.java:170)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.findCriteriaChains(RuleMergeCriteria.java:189)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.findCriteriaChains(RuleMergeCriteria.java:189)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.findCriteriaChains(RuleMergeCriteria.java:189)
+	at org.teiid.query.optimizer.relational.rules.RuleMergeCriteria.execute(RuleMergeCriteria.java:146)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:462)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:227)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:169)
+	at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:429)
+	at org.teiid.dqp.internal.process.Request.processRequest(Request.java:452)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:376)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:175)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)

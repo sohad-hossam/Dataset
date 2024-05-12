@@ -1,0 +1,2 @@
+Modify validation errors element in schema for VDB configuration file to include attribute for location of error
+The Designer needs this information to allow the user to navigate to the offending object within a model.  So, we either need a specific attribute for location, or a generic properties element like within the model and entry elements

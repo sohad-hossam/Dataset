@@ -1,0 +1,2 @@
+Array index out of bounds exception with anon procedure and update count
+If an anon procedure block that does not return a result set is executed and getUpdateCount is called, we'll throw an exception because the update count array will be empty.

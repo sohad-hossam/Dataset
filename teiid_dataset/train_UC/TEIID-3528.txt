@@ -1,0 +1,4 @@
+Solr translator - batched update with more than one query gets stack
+PreparedStatement.executeBatch() with more than one query gets stack (but data are stored in Solr). For more details see server.log.
+However batch of size 1 and Statement.executeBatch() run without problems.
+The issue is not present in 6.1.1 version.

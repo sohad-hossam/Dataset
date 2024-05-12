@@ -1,0 +1,2 @@
+jpa type mappings need simplified
+There is type mapping logic in the jpa translator that duplicates data type manager logic.  It also has several incorrect mappings, such as Byte[] to Blob.

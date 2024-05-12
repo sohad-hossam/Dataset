@@ -1,0 +1,2 @@
+Add FTP/SFTP based access to the File Resource Adapter
+This has been requested few times in the community, it would be nice to give provide this functionality.  Using http://commons.apache.org/proper/commons-net/ seems to be right decision.

@@ -1,0 +1,2 @@
+asynch start transaction / rollback throws exception
+If a local transaction is requested, but no statements are issued to start it, then a asynch rollback will go to the server side and throw an exception rather than simply toggling the autocommit flag.

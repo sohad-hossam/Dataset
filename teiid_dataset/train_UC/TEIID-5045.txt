@@ -1,0 +1,2 @@
+Rewriter allows "true" criteria to be modified
+If a query containing the predicate not(true) is issued, the logic in the query rewriter will modify the definition of the "true" predicate, which will corrupt subsequent queries.

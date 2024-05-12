@@ -1,0 +1,2 @@
+Add support for retrieving generated keys
+We should add support for retrieving generated keys to support the JPA identity key generation.

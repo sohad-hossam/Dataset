@@ -1,0 +1,16 @@
+Add support for sub-expression pushing of must pushdown functions
+As a user I'd like to have a possibility to push down sub-expressions of must pushdown functions.
+
+Example:
+
+Input query with not supported group by:
+SELECT AAA, SUM(custom_function(BBB)) AS BBB_ALIAS FROM some_table WHERE some_table.CCC = 'VAL' GROUP BY AAA ORDER BY AAA
+ 
+Output query (processed by teiid):
+SELECT AAA, BBB AS BBB_ALIAS FROM some_table.CCC = 'VAL'
+ 
+What I think it should looks like:
+SELECT AAA, custom_function(BBB) AS BBB_ALIAS FROM some_table.CCC = 'VAL'
+
+
+https://developer.jboss.org/message/910926#910926

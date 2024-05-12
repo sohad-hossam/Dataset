@@ -1,0 +1,2 @@
+Statement.setMaxRows is not always used
+The maxRows setting is not used when returning cached result sets or when getting a result set from a callablestatement procedure that returns parameters.

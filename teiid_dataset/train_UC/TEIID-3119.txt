@@ -1,0 +1,2 @@
+Improve full sort performance for dup removal and grouping
+We perform a full sort for grouping/distinct reusing the existing sorting logic.  This is not as efficient as it could for larger data sets with smaller numbers of groups.  A hash implementation or combining the grouping with the sorting would perform better.

@@ -1,0 +1,5 @@
+Query plan for continuous execution should be refreshed after alter command
+When continuous queries are started on a view and the view is later altered, the change in the view definition is picked up. This is due to the query plan being cached at the time of initial execution. Following discussion contains more information-
+
+https://community.jboss.org/thread/220761
+

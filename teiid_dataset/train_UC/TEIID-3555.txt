@@ -1,0 +1,13 @@
+Like expression in select statement fails against Sybase
+Sometimes I use a like statement within the select statement to evaluate whether or not some text contains a certain sub-string. e.g:
+ 
+select outcome like '%died%' as died
+from patients
+ 
+Some databases support this and return a boolean value but others (like sybase) don't. This results in an exception "Incorrect syntax near keyword 'like'"
+ 
+Would is be possible to rewrite this for Sybase (and maybe others) to something like:
+select case when icuoutcomename like '%overleden%' then cast(1 as bit) else cast(0 as bit) end as mort
+from patients
+ 
+I used cast(1 as bit) and cast(0 as bit) here because it seems like Sybase does not support true and false.

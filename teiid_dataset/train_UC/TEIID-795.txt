@@ -1,0 +1,2 @@
+Embedded connection issues after restart
+After the restart of the embedded using the Admin API, the previous active connection continues to use the old instance of the Embedded and gets into NPE as the old instance taken down.

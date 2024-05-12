@@ -1,0 +1,44 @@
+EDS adminshell fails to connect to server with IBM JDK
+export JAVA_HOME=/opt/ibm-java-i386-60/jre
+export PATH=/opt/ibm-java-i386-60/jre/bin/:$PATH
+
+sh ./adminshell.sh 
+======================================================================
+
+  Teiid AdminShell Bootstrap Environment
+
+  TEIID_HOME  = /qa/hudson_ws/workspace/teiidAdminShell/BITS/PLATFORM/jdk/openjdk-local/label/RHEL5_x86/jbosssoa/eds/teiid/adminshell
+  CLASSPATH   = /qa/hudson_ws/workspace/teiidAdminShell/BITS/PLATFORM/jdk/openjdk-local/label/RHEL5_x86/jbosssoa/eds/teiid/adminshell/lib/patches/*:/qa/hudson_ws/workspace/teiidAdminShell/BITS/PLATFORM/jdk/openjdk-local/label/RHEL5_x86/jbosssoa/eds/teiid/adminshell/lib/teiid-adminshell-7.1.1.jar:/qa/hudson_ws/workspace/teiidAdminShell/BITS/PLATFORM/jdk/openjdk-local/label/RHEL5_x86/jbosssoa/eds/teiid/adminshell/lib/*
+  JAVA        = /opt/ibm-java-i386-60/jre/bin/java
+
+======================================================================
+
+===> [import static org.teiid.adminshell.AdminShell.*; import static org.teiid.adminshell.GroovySqlExtensions.*; import org.teiid.adminapi.*;]
+Groovy Shell (1.7.2, JVM: 1.6.0)
+Type 'help' or '\h' for help.
+------------------------------------------------------------------------------------------------------------------------------------------
+groovy:000> connectAsAdmin("mms://localhost:31443", "admin", "admin", "testing")
+ERROR java.lang.AssertionError:
+Assertion failed.
+        at org.teiid.core.util.Assertion.failed (Assertion.java:73)
+        at org.teiid.core.util.Assertion.assertTrue (Assertion.java:68)
+        at org.teiid.core.util.Assertion.assertTrue (Assertion.java:60)
+        at org.teiid.net.socket.SocketUtil.addCipherSuite (SocketUtil.java:135)
+        at org.teiid.net.socket.SocketUtil$SSLSocketFactory.getSocket (SocketUtil.java:85)
+        at org.teiid.net.socket.OioOjbectChannelFactory.createObjectChannel (OioOjbectChannelFactory.java:165)
+        at org.teiid.net.socket.SocketServerInstanceImpl.connect (SocketServerInstanceImpl.java:91)
+        at org.teiid.net.socket.SocketServerConnectionFactory.getServerInstance (SocketServerConnectionFactory.java:276)
+        at org.teiid.net.socket.SocketServerConnection.connect (SocketServerConnection.java:172)
+        at org.teiid.net.socket.SocketServerConnection.selectServerInstance (SocketServerConnection.java:124)
+        at org.teiid.net.socket.SocketServerConnection.<init> (SocketServerConnection.java:94)
+        at org.teiid.net.socket.SocketServerConnectionFactory.getConnection (SocketServerConnectionFactory.java:312)
+        at org.teiid.net.socket.SocketServerConnectionFactory.getConnection (SocketServerConnectionFactory.java:71)
+        at org.teiid.adminapi.AdminFactory$AdminProxy.<init> (AdminFactory.java:53)
+        at org.teiid.adminapi.AdminFactory.createAdmin (AdminFactory.java:159)
+        at org.teiid.adminapi.AdminFactory.createAdmin (AdminFactory.java:149)
+        at org.teiid.adminapi.AdminFactory.createAdmin (AdminFactory.java:120)
+        at org.teiid.adminshell.AdminShell.connectAsAdmin (AdminShell.java:71)
+        at org.teiid.adminshell.AdminShell$connectAsAdmin.callStatic (Unknown Source)
+        at groovysh_evaluate.run (groovysh_evaluate:3)
+        ...
+groovy:000> 

@@ -1,0 +1,2 @@
+Improvements in default handling
+The current default field is just a string value and captured as a string value at import time - in general it should be allowed to be an expression.  Also our insert syntax should support the default/defaults keywords and be able to propagate that to the source, rather than using the default on the model. 

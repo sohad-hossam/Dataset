@@ -1,0 +1,39 @@
+MongoDB:  Remove the need to have parent id in embedded table
+Currently, it seems like ID needs to be appear in parent and child for nested documents.  But it is unlikely a case for MongoDB customers.  It would be nice if Teiid can flatten out data in one single table.  Therefore, users would not need to insert parent id in the child document in order for Teiid to work.
+
+I am thinking the following case.  For example I have a JSON object like this:
+
+{code} 
+Customer
+{
+  _id: 1374932,
+  FirstName: "John",
+  LastName: "Doe",
+  Address:  {
+       _id: 43839430,
+       customer_id: IDRef("Customer", 1374932)
+        Street: "123 Lane",
+        City: "New York",
+        State: "NY",
+        Zipcode: "12345"
+     }
+}
+{code}
+
+the Teiid should work with document such as
+ 
+{code} 
+Customer
+{
+  _id: 1374932,
+  FirstName: "John",
+  LastName: "Doe",
+  Address:  {
+       _id: 43839430,
+        Street: "123 Lane",
+        City: "New York",
+        State: "NY",
+        Zipcode: "12345"
+     }
+}
+{code}

@@ -1,0 +1,2 @@
+Rollback to savepoint should be a no op
+Save points are not supported and the creation of a save point by an ODBC client is effectively ignored, but the rollback is treated as a full rollback of the transaction.

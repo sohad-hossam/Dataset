@@ -1,0 +1,48 @@
+MongoDB: Remove the IDREF fields for the FK fields
+TEIID-2958 has been working towards removing the IDREF fields from embedded documents. I see no reason to represent FK in the parent table with IDREF either. This will make the document model representation simple and aligns with how a typical developer would design.
+
+If the schema looks like
+{code}
+CREATE FOREIGN TABLE Customer (
+  id integer PRIMARY KEY,
+  firstName string,
+  lastName string,
+  email_addr string,
+ FORIEGN KEY (email_addr) REFERENCES Email(address)
+);
+
+CREATE FOREIGN TABLE Email (
+   address string PRIMARY KEY,
+   provider string
+) OPTIONS ("teiid_mongo:MERGE" 'Customer');
+{code}
+Currently Teiid writes the document as 
+
+{code}
+Customer
+{
+	"_id" : 1,
+	"firstName" : "Ramesh",
+	"lastName" : "Reddy",
+	"email_addr" : DBRef("EMail", "abc@abc.com"),
+	"EMail" : {
+                 "_id": "abc@abc.com",
+		"provider" : "Comcast"
+	}
+}
+{code}
+
+change to:
+
+{code}
+customer
+{
+	"_id" : 1,
+	"firstName" : "Ramesh",
+	"lastName" : "Reddy",
+	"email_addr" :  "abc@abc.com",
+	"EMail" : {
+		"provider" : "Comcast"
+	}
+}
+{code}

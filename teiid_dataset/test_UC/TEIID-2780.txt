@@ -1,0 +1,4 @@
+Provide Translator for Apache SOLR
+Create a translator for querying Apache SOLR 
+
+http://lucene.apache.org/solr/

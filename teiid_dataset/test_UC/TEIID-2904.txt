@@ -1,0 +1,6 @@
+Expose "import" and "extension-metadata" Translator Properties through Admin API
+Currently only "override" translator properties are exposed through Admin API. Teiid should also expose
+* import properties
+* extension metadata proeprties
+
+for tooling purposes. Right now Teiid Connection importer in Designer, a user has to manually enter these values.

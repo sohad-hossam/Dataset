@@ -1,0 +1,2 @@
+Netezza translator to support common table expressions
+netezza translator is not marked as supporting common table expressions,  but Netezza does support.

@@ -1,0 +1,4 @@
+Provide a facility to restrict OData access to defined VDB 
+The current OData interface in the Teiid provides one context for the web-application, thus restricting additional security/per VDB.
+
+The alternative proposed is restrict the current web-app to single VDB, then provide a mechanism to alter the context and any necessary security domain stuff. 

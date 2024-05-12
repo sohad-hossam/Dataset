@@ -1,0 +1,6 @@
+Support for the upsert statement which is provided by Salesforce API
+The Salesforce API provides a "upsert" statement, which combines insert and update functionality.
+It would be great to use these feature either by using
+- the connector directly or
+- the UDF's or
+- per SQL.

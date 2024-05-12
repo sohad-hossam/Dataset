@@ -1,0 +1,8 @@
+Refactor Object and Infinispan translator / connectors
+Now that JDG has reworked its remote-cache and changed (reduced) what dependencies its exposed, there's now more common code between the object/infinispan-cache translator/connector and the infinispan-cache-dsl translator/connector.    I think refactoring can eliminate issues with support and ensure common behavior across all the code.
+
+Where is common code seen:
+-  searching (i.e., DSLSearch)
+-  updates  (InfinispanUpdateExecution)
+-  ClassRegistry
+(for starters)

@@ -1,0 +1,2 @@
+Add a limit to the number of concurrent source queries issued.
+The default of allowing an unlimited number of concurrent source queries is not desirable in extreme situations.  A limit should be added to prevent contention or other problems with issuing a large number of source queries.

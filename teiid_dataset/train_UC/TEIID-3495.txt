@@ -1,0 +1,2 @@
+add ROUND() as supported function for DB2
+DB2 translator can be updated to reflect the ROUND() function available on DB2

@@ -1,0 +1,11 @@
+Google translator inconsistent behavior for DELETE and SELECT for null values
+In teiid  I observed following inconsistent behavior:
+Q1: select intnum,  intkey from smalla where intnum > -10 AND intnum < 20 
+Q2: delete from smalla where intnum > -10 AND intnum < 20 
+
+Q1 returns rows without null values for intnum, but Q2 deletes also rows with null values for intnum.
+
+I observed that if I remove the lower boundary (ie. Q3: select intnum,  intkey from smalla where intnum < 20 and similarly for delete), both selected and deleted rows contain null values, so the result is consistent.
+
+The server.log is empty, so I didn't attach it...
+

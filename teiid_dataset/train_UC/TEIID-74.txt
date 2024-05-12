@@ -1,0 +1,6 @@
+Move WebServices Resource to System Properties
+Defect Tracker #19774: See attachment regarding changes.
+
+The properties are misleading and leads to confusion by everyone.
+
+This has been assigned for 4.4, instead of now, because of the moving of properties and it would be better suited to a major version and a migration was required.  Therefore, no additional work just to handle the properties would be needed.

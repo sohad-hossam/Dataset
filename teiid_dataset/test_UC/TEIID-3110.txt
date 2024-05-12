@@ -1,0 +1,2 @@
+name in source should not be omitted in ddl
+When creating the ddl string we'll omit the name in source if it matches the table name.  While this is valid for several translators (jdbc, object, mongodb, and others), it is not valid for all - salesforce, ldap, odata, and others.

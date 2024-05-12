@@ -1,0 +1,9 @@
+Excel translator fails to deploy
+Excel translator fails to deploy on startup with 8.8 built from GIT master (0c7879a).
+
+{code}
+17:23:47,229 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 44)  JBAS014613: Operation ("add") failed - address: ([
+    ("subsystem" => "teiid"),
+    ("translator" => "excel")
+]) - failure description: "TEIID50007 Failed to load module org.jboss.teiid.translator.excel for translator excel"
+{code}

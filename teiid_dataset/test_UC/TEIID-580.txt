@@ -1,0 +1,22 @@
+Add ability to monitor Connector Connection Pool 
+Here are the discussed changes to enable connection pool monitoring:
+
+-   Create a new stat's class to expose the information: ConnectionPoolStats
+-   Enable the ConnectionPool to monitor the following pieces of information:
+
+
+a.   Total Connections  - Total Number of Connections for the Connection Pool
+b   Available Connections  - Number of available connections in the connection pool.
+c   Active Connections - Number of Connections currently supporting clients.
+d   Connections Created - Number of Connections created since the Connection Pool was created.
+e  Connections Destroyed  -     Number of Connections destroyed since the Connection Pool was created. 
+
+In the config.xml for the base Connector component type
+
+a.  Rename the ConnectorMaxThreads to MaxConnections so that it
+relates better to the user
+
+
+
+
+-  Expose the ConnectionPoolStats out the adminAPI

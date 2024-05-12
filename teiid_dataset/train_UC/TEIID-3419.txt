@@ -1,0 +1,2 @@
+Add ability to set a default role across all VDBs
+There should be an ability to either set a default role across the server, or to restrict access by default.  For example, all VDBs have a default user role that is applied before the VDB specific roles are.  Alternatively, there could be a system wide flag that toggles the behavior of VDBs when no roles are defined between accessible to all or denied to all.

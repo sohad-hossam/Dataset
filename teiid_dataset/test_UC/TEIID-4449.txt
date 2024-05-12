@@ -1,0 +1,6 @@
+Allow limited replanning of subplans that use only common tables 
+If a common table is fully pushed and not marked as materialized, then it could be used in subplans in a trivial way:
+
+with x as ... select col from x
+
+It would be better to have that access reference a materialized common table, rather than pushed separately.

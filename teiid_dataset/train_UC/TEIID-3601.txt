@@ -1,0 +1,10 @@
+support larger row counts
+In some extreme cases intermediate and final result sizes can exceed 2^31 - 1 rows.  To support this we would need to make extensive changes:
+
+In the engine the tuplebuffer and logic related to indexing would need to change to long rather than int - this also touches things like join and insert processing.
+
+A new protocol version would be needed as resultmessages would need to use long rather than int indexing - however JDBC implicitly assumes int indexing such as with ResultSet.getRow.
+
+Temp table handling would need to be updated to support table sizes greater than max int.
+
+From a processing side, although not just related row counts, we would consider increasing the parallelism of the plan.  The most fundamental way to do this is to partition source queries such that more data can be read in parallel from the source.  This would require extension metadata to indicate the partitioning scheme.  To take full advantage of such a change the plan itself would have to be paralellized such that as much processing as possible is performed on each partition (rather than the simple case in multi-source where the data is simply unioned back together in the parent node).

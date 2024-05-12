@@ -1,0 +1,2 @@
+Sybase and other import should tolerate exception retrieving foreign keys
+Sybase throws an exception when asking for foreign key information on a view - this can be prevented by checking the table type.  In general we should tolerate an exception when asking for the foreign keys.

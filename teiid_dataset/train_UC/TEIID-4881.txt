@@ -1,0 +1,4 @@
+Better account for differences between ddl and vdb.xml vdbs
+In several aspects the metadata systems are different, which is touched on in TEIID-4536
+
+This issue will cover making them function as similarly as possible and to also document the ways in which they are different.

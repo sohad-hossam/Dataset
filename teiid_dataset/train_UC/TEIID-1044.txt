@@ -1,0 +1,2 @@
+Export connection factory does not always correct properties
+In 7.0 M3, the admin method "exportConnectionFactory" method is based on the "ManagedDeployment" object. i.e. instead exposing the CF, this method gets to the file that originally defined this CF and simply exposes it. If there are any modifications thru JOPR tool those modifications will not be picked up by this export. Also, if user originally defined more than one CF inside the same "-ds.xml" file, then the export will get contents of the file as is, thus exposing more than it needs to. 

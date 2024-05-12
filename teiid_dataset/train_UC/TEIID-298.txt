@@ -1,0 +1,2 @@
+Add an example to Embedded kit
+Add the example to Embedded kit to show its capabilities. Include the source code, models and any schema involved.

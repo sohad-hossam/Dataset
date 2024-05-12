@@ -1,0 +1,2 @@
+Improve salesforce importing
+In working TEIID-3429 we should improve the saleforce logic to not pull table metadata a single table at a time.  The sf api can describe up to 100 objects at a time.

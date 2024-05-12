@@ -1,0 +1,2 @@
+Excel Translator Wrong Result From Columns With Interleaved Null Values
+When querying a column which has a null value somewhere in it, the result set is missing all the rows under the null value in the xlsx file. When querying more columns, the result set is missing some values only if there is a row, where both columns contains null value.

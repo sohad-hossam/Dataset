@@ -1,0 +1,2 @@
+Make it easier to detect failure during load
+With the open shift work it was requested to make it easier to detect a failed load.  Since we don't transition out of the loading status until we're either loaded or there was hard error, this cannot be done with status alone.

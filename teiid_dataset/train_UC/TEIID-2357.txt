@@ -1,0 +1,2 @@
+max buffer space is not honored
+The introduction of the ensureLength logic in the split file handling effectively by-passes the check for disk utilization.

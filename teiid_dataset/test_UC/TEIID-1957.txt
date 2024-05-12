@@ -1,0 +1,2 @@
+Resource Adapter's not passing deployment the validation checks in 7.1.0-Final
+AS 7.1.0 Final implements the JCA 1.6 and enforces some JCA specification rules, that current Teiid resource adapters are not being able to pass.

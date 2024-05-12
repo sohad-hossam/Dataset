@@ -1,0 +1,2 @@
+Wildfly kit is missing jboss integration docs 
+The releasenotes and licenses are missing from the kit.

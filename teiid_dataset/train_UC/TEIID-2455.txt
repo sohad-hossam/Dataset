@@ -1,0 +1,7 @@
+Cannot execute SQL query using SQL function in SORT clause via view model
+If SQL query is contained using SQL function in SORT clause, the query cannot execute via view model.
+
+ex) SELECT C1 FROM TEST_TABLE_VW order by CAST(C3 AS integer)
+
+Version-Release number of selected component (if applicable):
+EDS 5.3.1

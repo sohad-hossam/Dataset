@@ -1,0 +1,38 @@
+LOOP on UNION leads to java.lang.ClassCastException
+the following  query
+ 
+{code:sql}
+begin  
+    LOOP ON (  
+        select a  
+        FROM schema.table  
+        union  
+        select b       
+        FROM schema.table  
+        ) as cur  
+    begin  
+    end  
+end  
+{code}
+
+results in this exception (Teiid-8.9.0-Beta-1) on my machine
+ 
+{code:java}
+ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue11) H10b/QbWzo4K TEIID30019 Unexpected exception forrequest H10b/QbWzo4K.6: java.lang.ClassCastException: org.teiid.query.sql.lang.SetQuery cannot be casttoorg.teiid.query.sql.lang.Query  
+        at org.teiid.query.sql.proc.LoopStatement.clone(LoopStatement.java:136) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.sql.LanguageObject$Util.deepClone(LanguageObject.java:57) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.sql.proc.Block.clone(Block.java:147) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.sql.proc.CreateProcedureCommand.clone(CreateProcedureCommand.java:116) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:377) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:437) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:609) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:315) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:254) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]  
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]  
+        atjava.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51] 
+{code}

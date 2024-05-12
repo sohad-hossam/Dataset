@@ -1,0 +1,6 @@
+EDS performance tests shows a performance degradation against SOA-P 5.1.0.GA in case of selecting from XML datasource 
+The eds_xmlfile_select scenario shows ~30% performance degradation in select queries from XML datasource.
+
+See the "(EDS) Files select - Charts" sheet of the document at [1] for details.
+
+[1] https://docspace.corp.redhat.com/docs/DOC-56368 

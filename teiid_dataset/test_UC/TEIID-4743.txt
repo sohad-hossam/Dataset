@@ -1,0 +1,37 @@
+Dependent View with External Materialization load problems
+Having defined two views with external materialization, and second view (my_view) uses the first view (numbering_plan).
+
+{panel:title=Second view (my_view)  definition}
+
+CREATE VIEW my_view(
+...
+)
+OPTIONS(
+
+
+	MATERIALIZED 'TRUE',
+       MATERIALIZED_TABLE 'MyMaterialized.my_view_cache',
+....
+)
+				AS
+				SELECT cns,
+					country_code
+				FROM NumberingPlan2.numbering_plan;
+{panel}
+
+When _my_view_ is loaded for the first time the following error appears:
+
+{panel:title=First Warning}
+14:41:13,693 WARN  [org.teiid.MATVIEWS] (Worker1_QueryProcessorQueue27) 7qmYa3eWflIY org.teiid.jdbc.TeiidSQLException: TEIID30328 Unable to evaluate (SELECT mvstatus('NumberingPlan2', 'numbering_plan', Valid, LoadState, 'THROW_EXCEPTION') FROM (SELECT 1) AS x LEFT OUTER JOIN NumberingPlanMaterialized2.status ON SchemaName = 'NumberingPlan2' AND Name = 'numbering_plan' LIMIT 2): TEIID30328 Unable to evaluate mvstatus('NumberingPlan2', 'numbering_plan', Valid, LoadState, 'THROW_EXCEPTION'): TEIID30384 Error while evaluating function mvstatus
+{panel}
+
+
+If _my_view _is queried in the meantime something like this appears in logs (and in the client who tried to perform the query against _my_view_):
+
+{panel:title=Invoking my_view error}
+
+14:49:04,493 WARN  [org.teiid.PROCESSOR] (Worker7_QueryProcessorQueue10979) 57KCZOf/UjCV TEIID30020 Processing exception for request 57KCZOf/UjCV.0 'Group does not exist: my_view'. Originally QueryResolverException ResolverUtil.java:880. Enable more detailed logging to see the entire stacktrace.
+{panel}
+
+We have to wait until _my_view_ *MATVIEW_TTL* 'expires' in order for the view to be loaded and start to have results being returned. Of course we can call *loadMatView *explicitly, but the system could be wise enough to know that has one view that is dependent of another and that the materialization must occur first, so it should have waited in the background for the _numbering_plan _materialization to occur and then trigger the materialization of _my_view_ afterwards (or if the materialization is not available then at least consult the 'original' data instead). 
+

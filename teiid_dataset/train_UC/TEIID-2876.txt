@@ -1,0 +1,21 @@
+Order of DataTypeManager type names affects order of functions in FunctionLibrary
+This may be by design but the source code does not document this to be the case and appears brittle and open to future regressions.
+
+Executing the unit tests in TestFunctionResolving class, 'testResolveCoalesce4', the designer version of the teiid runtime client failed with the following error:
+{code}
+java.lang.AssertionError: expected:<class java.lang.String> but was:<class java.lang.Object>
+{code}
+
+The unit test passes in Teiid so I needed to determine the reason for the difference. Turns out the difference was the use of a LinkedHashSet rather than a HashSet.
+
+Tracing this back showed the following:
+# In FunctionLibrary.determineNecessaryConversions, the functionMethods are iterated through. In the case of teiid, the String version of 'coalesce' appears before the Object version and despite both versions of the function being scored the same, the String version is preferred. In the case of designer's runtime client, the Object version appeared before the String version hence the former was chosen and the unit test failed.
+# The functionMethods originate from the FunctionTree and are added into a TreeMap which is only ordered on the function name, ie. coalesce. The typed versions of this function are added to an ArrayList which is not sorted (halfway down addFunction()).
+# The coalesce functions originate from the SystemSource class and are added by iterating over  dataTypeManager.getAllDataTypeNames(). Since the latter are in a LinkedHashSet (in teiid) then ordering is preserved and the String datatype happens to precede the Object datatype. In the designer runtime client, this was a HashSet hence the difference in ordering and failing of the test.
+
+The consequence of this is that  determineNecessaryConversions in the FunctionLibrary gets the correct answer for the unit test but seems rather brittle in that a small change to the DataTypeManager's order of DataTypeName additions could have an indirect and non-obvious effect on which typed version of a function is returned by the resolver.
+
+Suggestions:
+* Ensure that the ArrayLists of functions in the FunctionTree's functionByName map are sorted based upon a narrow to broad ordering of types, ie. Object as the most broad will always be at the end. This will ensure that the scoring in FunctionLibrary.determineNecessaryConversions() will in the event of a tie always pick the narrowest of typed function.
+* Change the scoring in determineNecessaryConversions() to account for 'equal to' as well as 'less than' since String and Object functions get the same score.
+* Document that the ordering of DataTypeManager data type names should not be changed without consideration of this scenario.

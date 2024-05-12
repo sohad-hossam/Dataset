@@ -1,0 +1,2 @@
+Connector Bindings password property is not shown on Connector Bindings Properties panel until user checks "include optional properties" box
+The Teiid Console connector bindings properties panel does not show the Password property until the user checks the optional properties box.  The password property has always been visable without requiring user to check the optional properties.  It seems more like a primary property than an optional property and from a usability standpoint should not be hidden.

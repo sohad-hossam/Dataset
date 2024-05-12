@@ -1,0 +1,74 @@
+External Materialization MATVIEW_AFTER_LOAD_SCRIPT may not be an atomic operation
+Firstly, this issue appears even after *TEIID-4283* fix, and is db independent.
+
+When during materialized view's loading there is a query on the view performed, timing issues appear. In MATVIEW_AFTER_LOAD_SCRIPT there might be more commands separated by semicolon, but these commands are not performed as a single operation. In specific timing a query on such view might fail when you have a MATVIEW_AFTER_LOAD_SCRIPT like this:
+{code:sql}
+"teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'exec Source.native(''RENAME TABLE dv_matviews_mat_view_stage TO dv_matviews_mat_view_temp'');exec Source.native(''RENAME TABLE dv_matviews_mat_view TO dv_matviews_mat_view_stage'');exec Source.native(''RENAME TABLE dv_matviews_mat_view_temp TO dv_matviews_mat_view'');
+{code}
+user might end up querying the view right in the moment, when 'primary' materialized table (dv_matviews_mat_view) was renamed (dv_matviews_mat_view_stage) and thus there's no such table like defined in the materialized view.
+{code:xml}
+CREATE VIEW external_long_ttl (
+   customer_id integer NOT NULL,
+   total_amount integer
+) OPTIONS (MATERIALIZED 'TRUE', UPDATABLE 'FALSE',
+ MATERIALIZED_TABLE 'Source.JSTASTNY.dv_matviews_mat_view',
+   "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+      "teiid_rel:MATVIEW_STATUS_TABLE" 'Source.JSTASTNY.dv_matviews_statustable',
+      "teiid_rel:ON_VDB_START_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_create) SELECT id, vdb_create+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:ON_VDB_DROP_SCRIPT" 'MERGE INTO dv_matviews_check_table(id,vdb_drop) SELECT id, vdb_drop+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO dv_matviews_mat_view_stage(customer_id,total_amount) SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;',
+      "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'exec Source.native(''truncate table dv_matviews_mat_view_stage'');MERGE INTO dv_matviews_check_table(id,before_load) SELECT id, before_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'exec Source.native(''RENAME TABLE dv_matviews_mat_view_stage TO dv_matviews_mat_view_temp'');exec Source.native(''RENAME TABLE dv_matviews_mat_view TO dv_matviews_mat_view_stage'');exec Source.native(''RENAME TABLE dv_matviews_mat_view_temp TO dv_matviews_mat_view'');MERGE INTO dv_matviews_check_table(id,after_load) SELECT id, after_load+1 FROM dv_matviews_check_table WHERE id=''external_long_ttl'';',
+      "teiid_rel:MATVIEW_ONERROR_ACTION" 'IGNORE',
+   "teiid_rel:MATVIEW_TTL" 20000)
+      AS SELECT CONVERT(c.id,integer) AS customer_id, CONVERT(SUM(o.amount),integer) AS total_amount FROM dv_matviews_customers c INNER JOIN dv_matviews_orders o ON c.id = o.customer_id GROUP BY c.id;
+{code}
+
+Then for some queries I get:
+{code:plain}
+10:40:19,252 WARN  [org.teiid.CONNECTOR] (Worker2_QueryProcessorQueue130) Connector worker process failed for atomic-request=+k/MyS3sUhQX.14.7.113: org.teiid.translator.jdbc.JDBCExecutionException: 259 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."CUSTOMER_ID", g_0."TOTAL_AMOUNT" FROM "JSTASTNY".dvqe_X_XjdkY_YDV_MATVIEWS_MAT_VIEW AS g_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.5.redhat-5.jar:8.12.5.redhat-5]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+	at sun.reflect.GeneratedMethodAccessor158.invoke(Unknown Source) [:1.7.0_79]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_79]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_79]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy80.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_79]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_79]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_79]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_79]
+Caused by: com.sap.db.jdbc.exceptions.JDBCDriverException: SAP DBTech JDBC: [259]: invalid table name:  Could not find table/view DVQE_X_XJDKY_YDV_MATVIEWS_MAT_VIEW in schema JSTASTNY: line 1 col 62 (at pos 61)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.createException(SQLExceptionSapDB.java:345)
+	at com.sap.db.jdbc.exceptions.SQLExceptionSapDB.generateDatabaseException(SQLExceptionSapDB.java:185)
+	at com.sap.db.jdbc.packet.ReplyPacket.buildExceptionChain(ReplyPacket.java:100)
+	at com.sap.db.jdbc.ConnectionSapDB.execute(ConnectionSapDB.java:1130)
+	at com.sap.db.jdbc.ConnectionSapDB.execute(ConnectionSapDB.java:877)
+	at com.sap.db.jdbc.CallableStatementSapDB.execute(CallableStatementSapDB.java:410)
+	at com.sap.db.jdbc.CallableStatementSapDB.execute(CallableStatementSapDB.java:266)
+	at com.sap.db.jdbc.CallableStatementSapDB.executeQuery(CallableStatementSapDB.java:756)
+	at com.sap.db.jdbc.trace.PreparedStatement.executeQuery(PreparedStatement.java:161)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.5.redhat-5.jar:8.12.5.redhat-5]
+	... 17 more
+{code}
+
+From the logs it seems that the after load script has completed, but probably not in the source db. In logs just before the exception I see:
+{code:plain}
+12:34:59,247 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) Source-specific command:  RENAME TABLE dv_matviews_mat_view_temp TO dv_matviews_mat_view
+12:34:59,663 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Executed command
+12:34:59,663 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Processing MORE request
+12:34:59,663 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Getting results from connector
+12:34:59,663 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Obtained last batch, total row count: 1
+12:34:59,663 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Remove State
+12:34:59,664 DEBUG [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue79) ORTEkGreciAL.0.85.84 Processing Close : EXEC Source.native('RENAME TABLE dv_matviews_mat_view_temp TO dv_matviews_mat_view')
+{code}
+
+I attached the logs to this issue.

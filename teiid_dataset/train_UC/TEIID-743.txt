@@ -1,0 +1,15 @@
+Excessive cloning of connector binding properties
+The connector binding properties are excessively being cloned at each level, which leads to lot if memory overhead. In the case of handling the hundreds of connector bindings this will result in OOM. 
+
+1) The connector binding properties does not have access to the configuration level properties (properties in deploy.properties)
+2) Default property mechanism not being used.  When you create a properties object  like "new Properties(defaultProps)", the defaultProps object properties are not copied into the container properties object, nor they can be changed. They can be overridden, but will not affect the defaultProps object.
+3) Properties not being cached
+
+For (2) connector binding properties need to be layered such that the connector binding property tree object will look like
+
+system properties
+       |-------------------------> deploy.properties
+                                                       |------------------> Connector Type Properties 
+                                                                                                    |----------------------------> Connector Binding Properties
+
+For (3) since up to the "Connector Type Properties", are common for a given Connector Binding they should be cached to minimize the memory overhead.

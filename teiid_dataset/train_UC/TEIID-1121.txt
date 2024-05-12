@@ -1,0 +1,2 @@
+Fix the migrate utility for the Translator changes
+The migrate script is not updated for the Translator changes. This needs to be fixed.

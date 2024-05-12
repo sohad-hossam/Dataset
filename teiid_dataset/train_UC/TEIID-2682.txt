@@ -1,0 +1,2 @@
+A cancelled query cachingtuplesource may cause a cancelationexception
+A caching tuplesource even after cancellation may attempt to read all results.  If this happens and the results future has been canceled an uncaught cancelationexception will be thrown.

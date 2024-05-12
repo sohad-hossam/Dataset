@@ -1,0 +1,36 @@
+SDO_WITHIN_DISTANCE function of Oracle Spatial Connector is pushing string literal to data source
+Executing a query which uses the SDO_WITHIN_DISTANCE function in criteria results in an invalid query being sent to Oracle.
+
+Query:
+
+SELECT RECORD_ID FROM OraSpatialSrcTable WHERE sdo_within_distance(MARKER, '(SDO_GEOMETRY(2001, 8307, MDSYS.SDO_POINT_TYPE(90.0, -45.0, NULL), NULL, NULL))', "DISTANCE=25.0 UNIT=NAUT_MILE") = 'TRUE'
+
+Results In Exception:
+
+ERROR <com.metamatrix.core|0> [MetaMatrix][Oracle JDBC Driver][Oracle]ORA-29900: operator binding does not exist
+ORA-06553: PLS-306: wrong number or types of arguments in call to 'SDO_WITHIN_DISTANCE'
+
+
+Executing statement:
+
+  SELECT ORASPATIALSRCTABLE.RECORD_ID FROM ORASPATIALSRCTABLE WHERE SDO_WITHIN_DISTANCE(ORASPATIALSRCTABLE.MARKER, '(SDO_GEOMETRY(2001, 8307, MDSYS.SDO_POINT_TYPE(90.0, -45.0, NULL), NULL, NULL))', 'DISTANCE=25.0 UNIT=NAUT_MILE') = TRUE
+java.sql.SQLException: [MetaMatrix][Oracle JDBC Driver][Oracle]ORA-29900: operator binding does not exist
+ORA-06553: PLS-306: wrong number or types of arguments in call to 'SDO_WITHIN_DISTANCE'
+
+at com.metamatrix.common.util.exception.SQLExceptionUnroller.unRollException(SQLExceptionUnroller.java:43)
+at com.metamatrix.connector.jdbc.JDBCBaseExecution.createError(JDBCBaseExecution.java:147)
+at com.metamatrix.connector.jdbc.JDBCBaseExecution.createAndLogError(JDBCBaseExecution.java:103)
+at com.metamatrix.connector.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:89)
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processNewRequest(ConnectorWorker.java:274)
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.processBatchRequest(ConnectorWorker.java:165)
+at com.metamatrix.dqp.internal.datamgr.impl.ConnectorWorker.process(ConnectorWorker.java:139)
+at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:51)
+
+
+The exception is due to the second parameter of SDO_WITHIN_DISTANCE being escaped as a string.
+The expected query should be:
+
+SELECT ORASPATIALSRCTABLE.RECORD_ID FROM ORASPATIALSRCTABLE WHERE SDO_WITHIN_DISTANCE(ORASPATIALSRCTABLE.MARKER, (SDO_GEOMETRY(2001, 8307, MDSYS.SDO_POINT_TYPE(90.0, -45.0, NULL), NULL, NULL)), 'DISTANCE=25.0 UNIT=NAUT_MILE') = TRUE
+
+
+In the above query the first parameter was an element of type String. If the first parameter was of type Object, the function is rewritten correctly. This appears to be primarily due to the function signatures of sdo_within_distance and the query rewriter performing an implicit convert on the second parameter to make it match the function signature of String, Object, String rather than Object, String, String.

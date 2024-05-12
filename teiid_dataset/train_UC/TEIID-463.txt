@@ -1,0 +1,2 @@
+ServerAdmin bounce wait does not work
+The bounce wait code in the serveradminfactory does not take into account that the initial bounce invocation should cause a communication exception.

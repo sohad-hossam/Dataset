@@ -1,0 +1,39 @@
+multi-source view insert throwing TEIID30492 error
+I'm trying to POC this multi-source INSERT.  I have a MySQL DB and Postgres DB on my local machine.  Added the drivers, datasource, and created a VBL with 1:1 mapping to my test tables.  I created an EBL that is a join of my two tables.  Both VBLs and EBL are set to support updates.  I'm trying to work through this error.  
+{quote}
+insert into "Joined_EBL"."joined2"(idtestm, randomstring, idtestp, randomint) values(0, 'randomstring', 0, 12345)
+org.teiid.runtime.client.TeiidClientException: org.teiid.api.exception.query.QueryValidatorException: Remote TEIID30492 A multi-source table, Joined_EBL.joined2, cannot be used in an INSERT with query expression or SELECT INTO statement.
+{quote}
+
+I updated my INSERT tab on the EBL transformation page with the following.
+{code}FOR EACH ROW
+BEGIN ATOMIC
+INSERT INTO Postgres_VBL.testp (Postgres_VBL.testp.idtestp, Postgres_VBL.testp.randomint) VALUES (0, "NEW".randomint);
+INSERT INTO MySQL_VBL.testm (MySQL_VBL.testm.idtestm, MySQL_VBL.testm.randomstring) VALUES (0, "NEW".randomstring);
+END
+{code}
+
+Postgres table
+{code}
+CREATE TABLE testp
+(
+idtestp integer NOT NULL,
+randomint integer,
+CONSTRAINT pk_id PRIMARY KEY (idtestp)
+)
+WITH (
+OIDS=FALSE
+);
+ALTER TABLE testp
+OWNER TO postgres;
+{code}
+
+MySQL table
+{code}
+CREATE TABLE `testm` (
+`idtestm` int(11) NOT NULL AUTO_INCREMENT,
+`randomstring` varchar(45) DEFAULT NULL,
+PRIMARY KEY (`idtestm`),
+UNIQUE KEY `idtestm_UNIQUE` (`idtestm`)
+) ENGINE=InnoDB DEFAULT CHARSET=tis620;
+{code}

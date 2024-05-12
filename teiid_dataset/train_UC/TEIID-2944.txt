@@ -1,0 +1,2 @@
+getIndexInfo should return statistical information
+DatabaseMetaData.getIndexInfo can return statistical indexes with cardinality information and/or cardinality can be returned on the other index info for the table.

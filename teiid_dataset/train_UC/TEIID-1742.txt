@@ -1,0 +1,4 @@
+Page ids are not sufficiently unique
+The pages used for internal matviews / temporary tables currently use a single shared integer for id generation.  Conflicts are possible then after 2^32 page allocations that access the buffermanager.
+
+In practice this condition should take a minimum of several weeks to trigger, but more likely it would take months if not years (fewer updates, larger page sizes, less chance of an id conflict, etc.)

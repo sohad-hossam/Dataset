@@ -1,0 +1,26 @@
+Problem with dynamic vdb column metadata - for salesforce source w/import property
+There seems to be a problem with the column metadata for dynamic vdb with salesforce source.  Here is my scenario.
+
+1) Deploy dynamic vdb w/SF source (attached sample).  The VDB sets the 'importer.ModelAuditFields' property to 'true'.
+2) expose the vdb as a jdbc source, then connect to it.
+3) get the column metadata for a table using
+connection.getMetaData().getColumns(null, null, fullTableName, null)
+
+When the vdb has 'importer.ModelAuditFields' = true, some of the columns are missing.  Here is a comparison for one of the SF tables
+
+AccountFeed, (importer.modelAuditFields=false)
+--------------
+Id, ParentId, Type, IsDeleted, CommentCount, LikeCount
+
+AccountFeed, (importer.modelAuditFields=true)
+--------------
+Id, ParentId, Type, CreatedById, CreatedDate, IsDeleted
+
+with modelAuditFields=true, the audit fields (CreatedById, CreatedDate) are added, but CommentCount and LikeCount are missing.  It seems to clip to the same number of cols as the modelAuditFields=false case.
+
+Second issue (minor)
+-----------------
+The display name for the property is slightly wrong.  
+line 75 of SalesForceExecutionFactory is 'Audit Model Fields' - it should be 'Model Audit Fields'.
+line 362 of SalesForceMetadataProcessor - same thing.  also suggest changing the description to something like 'Determines if the salesforce audit fields are modeled'
+

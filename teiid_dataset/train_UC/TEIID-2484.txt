@@ -1,0 +1,2 @@
+permission condition caching is incorrect
+The caching of permission conditions is being done across the whole of the roles, which will not be correct for other users with differing subsets of roles.

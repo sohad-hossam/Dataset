@@ -1,0 +1,2 @@
+Add support for JSON data sources (JSON translator, JSON-to-table mapping functions).
+Consider adding support in Teiid to consume services (as data sources) that return JSON payloads rather than XML payloads.  This is an increasingly common integration scenario.  The approach used for XML processing seems to be a compatible pattern for this use case.

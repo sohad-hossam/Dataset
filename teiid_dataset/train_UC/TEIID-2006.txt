@@ -1,0 +1,2 @@
+Add a JDBC/ODBC statement to set the command payload
+We currently lack a statement driven mechanism to set the command payload.  We should also provide an option to secure the payload in transit.

@@ -1,0 +1,5 @@
+Enable JDG resource adapter to support HotRod SSL
+Enable the JDG resource adapter to support the HotRod encryption [1]
+
+
+http://infinispan.org/docs/9.0.x/infinispan_server_guide/infinispan_server_guide.html#_hot_rod_encryption_ssl

@@ -1,0 +1,2 @@
+ProjectIntoNode should report a transaction required even with iterator processing
+With TEIID-3050 iterator inserts can be batched, so a transaction is generally needed.

@@ -1,0 +1,168 @@
+COUNT returns inconsistent results when column statistics are not gathered
+I am experiencing a weird behavior in 9.1.0-Final. Depending if column statistics are gathered or not, a query with COUNT(1) generates different query plans and returns different results.
+
+For example, I defined two simple tables ds1.test_count_1 and ds2.test_count_2 having just a single column and one row with value 1.
+
+The following query:
+{code:sql}
+select count(1) from ds1.test_count_1 t1 join ds2.test_count_2 t2 on t1.a=t2.a group by t1.a
+{code}
+
+returns 4 with statistics and 2 without.
+
+This is the plan generated when statistics are gathered (the correct one):
+{code:sql}
+ProjectNode
+  + Relational Node ID:1
+  + Output Columns:expr1 (integer)
+  + Statistics:
+    0: Node Output Rows: 1
+    1: Node Next Batch Process Time: 0
+    2: Node Cumulative Next Batch Process Time: 1
+    3: Node Cumulative Process Time: 3
+    4: Node Next Batch Calls: 2
+    5: Node Blocks: 1
+  + Cost Estimates:Estimated Node Cardinality: 1.5
+  + Child 0:
+    GroupingNode
+      + Relational Node ID:2
+      + Output Columns:agg0 (integer)
+      + Statistics:
+        0: Node Output Rows: 1
+        1: Node Next Batch Process Time: 0
+        2: Node Cumulative Next Batch Process Time: 1
+        3: Node Cumulative Process Time: 3
+        4: Node Next Batch Calls: 2
+        5: Node Blocks: 1
+      + Cost Estimates:Estimated Node Cardinality: 1.5
+      + Child 0:
+        JoinNode
+          + Relational Node ID:3
+          + Output Columns:a (string)
+          + Statistics:
+            0: Node Output Rows: 4
+            1: Node Next Batch Process Time: 0
+            2: Node Cumulative Next Batch Process Time: 1
+            3: Node Cumulative Process Time: 3
+            4: Node Next Batch Calls: 2
+            5: Node Blocks: 1
+          + Cost Estimates:Estimated Node Cardinality: 2.8284268
+          + Child 0:
+            AccessNode
+              + Relational Node ID:4
+              + Output Columns:a (string)
+              + Statistics:
+                0: Node Output Rows: 2
+                1: Node Next Batch Process Time: 0
+                2: Node Cumulative Next Batch Process Time: 0
+                3: Node Cumulative Process Time: 2
+                4: Node Next Batch Calls: 3
+                5: Node Blocks: 2
+              + Cost Estimates:Estimated Node Cardinality: 2.0
+              + Query:SELECT g_0.a FROM ds1.test_count_1 AS g_0
+              + Model Name:ds1
+          + Child 1:
+            AccessNode
+              + Relational Node ID:5
+              + Output Columns:a (string)
+              + Statistics:
+                0: Node Output Rows: 2
+                1: Node Next Batch Process Time: 1
+                2: Node Cumulative Next Batch Process Time: 1
+                3: Node Cumulative Process Time: 3
+                4: Node Next Batch Calls: 2
+                5: Node Blocks: 1
+              + Cost Estimates:Estimated Node Cardinality: 2.0
+              + Query:SELECT g_0.a FROM ds2.test_count_2 AS g_0
+              + Model Name:ds2
+          + Join Strategy:ENHANCED SORT JOIN (SORT/SORT)
+          + Join Type:INNER JOIN
+          + Join Criteria:t1.a=t2.a
+      + Grouping Columns:t1.a
+      + Grouping Mapping:
+        0: anon_grp0.gcol0=t1.a
+        1: anon_grp0.agg0=COUNT(1)
+      + Sort Mode:false
+  + Select Columns:anon_grp0.agg0 AS expr1
+  + Data Bytes Sent:17
+  + Planning Time:3
+{code}
+
+and this is the one without statistics:
+{code:sql}
+ProjectNode
+  + Relational Node ID:2
+  + Output Columns:expr1 (integer)
+  + Statistics:
+    0: Node Output Rows: 1
+    1: Node Next Batch Process Time: 0
+    2: Node Cumulative Next Batch Process Time: 1
+    3: Node Cumulative Process Time: 3
+    4: Node Next Batch Calls: 2
+    5: Node Blocks: 1
+  + Cost Estimates:Estimated Node Cardinality: -1.0
+  + Child 0:
+    GroupingNode
+      + Relational Node ID:3
+      + Output Columns:agg0 (integer)
+      + Statistics:
+        0: Node Output Rows: 1
+        1: Node Next Batch Process Time: 0
+        2: Node Cumulative Next Batch Process Time: 1
+        3: Node Cumulative Process Time: 3
+        4: Node Next Batch Calls: 2
+        5: Node Blocks: 1
+      + Cost Estimates:Estimated Node Cardinality: -1.0
+      + Child 0:
+        JoinNode
+          + Relational Node ID:4
+          + Output Columns:gcol0 (string)
+          + Statistics:
+            0: Node Output Rows: 2
+            1: Node Next Batch Process Time: 0
+            2: Node Cumulative Next Batch Process Time: 1
+            3: Node Cumulative Process Time: 3
+            4: Node Next Batch Calls: 2
+            5: Node Blocks: 1
+          + Cost Estimates:Estimated Node Cardinality: -1.0
+          + Child 0:
+            AccessNode
+              + Relational Node ID:5
+              + Output Columns:gcol0 (string)
+              + Statistics:
+                0: Node Output Rows: 1
+                1: Node Next Batch Process Time: 1
+                2: Node Cumulative Next Batch Process Time: 1
+                3: Node Cumulative Process Time: 3
+                4: Node Next Batch Calls: 3
+                5: Node Blocks: 2
+              + Cost Estimates:Estimated Node Cardinality: -1.0
+              + Query:SELECT g_0.a FROM ds1.test_count_1 AS g_0 GROUP BY g_0.a
+              + Model Name:ds1
+          + Child 1:
+            AccessNode
+              + Relational Node ID:6
+              + Output Columns:a (string)
+              + Statistics:
+                0: Node Output Rows: 2
+                1: Node Next Batch Process Time: 0
+                2: Node Cumulative Next Batch Process Time: 0
+                3: Node Cumulative Process Time: 3
+                4: Node Next Batch Calls: 2
+                5: Node Blocks: 1
+              + Cost Estimates:Estimated Node Cardinality: -1.0
+              + Query:SELECT g_0.a FROM ds2.test_count_2 AS g_0
+              + Model Name:ds2
+          + Join Strategy:ENHANCED SORT JOIN (SORT/SORT)
+          + Join Type:INNER JOIN
+          + Join Criteria:anon_grp1.gcol0=t2.a
+      + Grouping Columns:anon_grp1.gcol0
+      + Grouping Mapping:
+        0: anon_grp0.gcol0=anon_grp1.gcol0
+        1: anon_grp0.agg0=COUNT(1)
+      + Sort Mode:false
+  + Select Columns:anon_grp0.agg0 AS expr1
+  + Data Bytes Sent:17
+  + Planning Time:4
+{code}
+

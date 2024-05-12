@@ -1,0 +1,2 @@
+JDBC Driver is not setting the default client application name
+The MMDriver is not setting default property for "ApplicationName". Although, this is not a required property, the server makes use of in creation of SessionId. A default one needs to be set, to mimic the old behaviour.

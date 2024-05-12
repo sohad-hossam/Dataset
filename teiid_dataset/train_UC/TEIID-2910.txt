@@ -1,0 +1,9 @@
+HIVE:  method not found exception
+I just upgraded from Teiid 8.7 BETA1 to Teiid 8.7 BETA1.  And I got the following exception when trying to connect to HIVE1/ HIVE2 with HIVE 0.11 driver.
+
+Caused by: java.sql.SQLException: Method not supported
+        at org.apache.hadoop.hive.jdbc.HiveDatabaseMetaData.getIdentifierQuoteString(HiveDatabaseMetaData.java:391)
+        at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:105)
+        at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:309)
+
+And it used to work with Teiid 8.7 BETA1

@@ -1,0 +1,2 @@
+File translator should throw an error when data file not found
+Currently when the File translator does not find the underlying file it considers as data not available, thus returns no results. There is configuration property "isExceptionIfFileNotFound" currently available that can be set to throw an exception if the data file not found. This by default is not turned off, this should be turned on by default.

@@ -1,0 +1,2 @@
+Unhandled charset conversion exception in lobworkitem
+If getTextFiles is used on the File translator, the encoding is not validated so an exception can arise in the lobworkitem (or elsewhere) that is not handled gracefully.

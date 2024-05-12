@@ -1,0 +1,39 @@
+OData - $crossjoin fails due to missing class
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/$crossjoin(PutTable,DeleteTable)
+*Missing dependency:* com.fasterxml.jackson
+*Error:*
+{code:plain}
+11:04:51,047 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/odata4].[odata4]] (http-/127.0.0.1:8080-2) JBWEB000236: Servlet.service() for servlet odata4 threw exception: java.lang.ClassNotFoundException: com.fasterxml.jackson.core.JsonFactory from [Module "org.jboss.teiid.olingo:main" from local module loader @7c53a9eb (finder: local module finder @ed17bee (roots: /home/jdurani/redhat/tests/functional_testing/workdir_olingo/modules,/home/jdurani/redhat/tests/functional_testing/workdir_olingo/modules/system/layers/dv,/home/jdurani/redhat/tests/functional_testing/workdir_olingo/modules/system/layers/base))]
+	at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:213) [jboss-modules.jar:1.3.7.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:459) [jboss-modules.jar:1.3.7.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:408) [jboss-modules.jar:1.3.7.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:389) [jboss-modules.jar:1.3.7.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:134) [jboss-modules.jar:1.3.7.Final-redhat-1]
+	at org.teiid.olingo.TeiidODataJsonSerializer.complexCollection(TeiidODataJsonSerializer.java:53) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.teiid.olingo.EdmComplexResponse.writeComplexType(EdmComplexResponse.java:73) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.teiid.olingo.service.TeiidServiceHandler.sendResults(TeiidServiceHandler.java:317) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.teiid.olingo.service.TeiidServiceHandler.crossJoin(TeiidServiceHandler.java:834) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.apache.olingo.server.core.requests.DataRequest$CrossJoinRequest.execute(DataRequest.java:692)
+	at org.apache.olingo.server.core.requests.DataRequest.execute(DataRequest.java:245)
+	at org.apache.olingo.server.core.ServiceDispatcher.execute(ServiceDispatcher.java:117)
+	at org.apache.olingo.server.core.OData4HttpHandler.process(OData4HttpHandler.java:65)
+	at org.teiid.olingo.web.ODataServlet.service(ODataServlet.java:50) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.2.Final-redhat-2.jar:1.0.2.Final-redhat-2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:295) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:214) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.teiid.olingo.web.ODataFilter.doFilter(ODataFilter.java:194) [teiid-olingo-8.12.5.redhat-2.jar:8.12.5.redhat-2]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:246) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:214) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:231) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:149) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:512) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:169) [jboss-as-web-7.5.4.Final-redhat-4.jar:7.5.4.Final-redhat-4]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:150) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:97) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:102) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:854) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:653) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:926) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}

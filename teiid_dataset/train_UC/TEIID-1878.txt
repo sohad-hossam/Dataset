@@ -1,0 +1,57 @@
+Problem with accessing custom generated materialized views
+We have a problem with custom-generated materialized view. The way we do it works fine 
+with Teiid 7.3 but fails when we try to migrate to 7.6.
+
+Here is the SQL which gives the problem:
+select * from chorus_metadata.property;
+Remote org.teiid.api.exception.query.QueryPlannerException: Group does not exist: chorus_metadata.property_CHORUS_NON_MAT_VIEW
+
+
+Some additional info:
+
+1. System tables:
+select * from SYS.tables where Name like 'property%' and SchemaName = 'chorus_metadata';
+ VDBName SchemaName      Name                         Type NameInSource IsPhysical SupportsUpdates UID                                         Cardinality Description IsSystem IsMaterialized OID
+ ------- --------------- ---------------------------- ---- ------------ ---------- --------------- ------------------------------------------- ----------- ----------- -------- -------------- ---
+ Chorus  chorus_metadata property_union               View NULL         true       false           mmuuid:319d6147-6145-4f56-bc2e-42326b19368c           0 NULL        false    false          393
+ Chorus  chorus_metadata property_CHORUS_NON_MAT_VIEW View NULL         true       false           mmuuid:bb25b63d-bded-4704-8638-e507197af6f1           0 NULL        false    false          398
+ Chorus  chorus_metadata property                     View NULL         false      false           mmuuid:9070f66d-df9c-4f37-bd4f-00020ceef492           0 NULL        false    true           399
+
+select * from SYSADMIN.matviews;
+ VDBName SchemaName      Name           TargetSchemaName TargetName                     Valid LoadState     Updated Cardinality
+ ------- --------------- -------------- ---------------- ------------------------------ ----- ------------- ------- -----------
+ Chorus  chorus_metadata property       NULL             #MAT_CHORUS_METADATA.PROPERTY  false NEEDS_LOADING NULL              0
+ Chorus  pg_catalog      pg_class       NULL             #MAT_PG_CATALOG.PG_CLASS       false NEEDS_LOADING NULL           NULL
+ Chorus  pg_catalog      pg_attribute   NULL             #MAT_PG_CATALOG.PG_ATTRIBUTE   false NEEDS_LOADING NULL           NULL
+ Chorus  pg_catalog      pg_index       NULL             #MAT_PG_CATALOG.PG_INDEX       false NEEDS_LOADING NULL           NULL
+ Chorus  pg_catalog      pg_proc        NULL             #MAT_PG_CATALOG.PG_PROC        false NEEDS_LOADING NULL           NULL
+ Chorus  pg_catalog      matpg_relatt   NULL             #MAT_PG_CATALOG.MATPG_RELATT   false NEEDS_LOADING NULL           NULL
+ Chorus  pg_catalog      matpg_datatype NULL             #MAT_PG_CATALOG.MATPG_DATATYPE false NEEDS_LOADING NULL           NULL
+
+Note: looks like the chorus_metadata.propoerty needs loading, but attempt to load it fails with the same error:
+CALL SYSADMIN.refreshMatView(viewname=>'chorus_metadata.property', invalidate=>'true');
+Remote org.teiid.api.exception.query.QueryResolverException: Group does not exist: chorus_metadata.property_CHORUS_NON_MAT_VIEW
+
+
+
+2. The view chorus_metadata.property_CHORUS_NON_MAT_VIEW is actually exist and available:
+select * from chorus_metadata.property_CHORUS_NON_MAT_VIEW;
+ propertyName      objectName                      subType     propertyValue           objectInstance
+ ----------------- ------------------------------- ----------- ----------------------- -----------------------
+ Sequence          chorusdata.note                 Column      1                       CREATED_ON
+ Sequence          demodata.someSeq                Column      1 
+ ...
+
+
+3. How the chorus_metadata.property gets defined (sample code):
+ org.teiid.metadata.Table table = org.teiid.metadata.MetadataFactory.addTable("property");
+ table.setMaterialized(true);
+ table.setVirtual(true);
+ table.setSelectTransformation(
+	"/*+ cache */ SELECT propertyName, objectName, subType, propertyValue, objectInstance FROM chorus_metadata.property_CHORUS_NON_MAT_VIEW");
+ table.setTableType(Type.View);
+
+Note: we tried today a patch for TEIID-1868, it did not help.
+
+
+Let us know please if we can help with any additional information.

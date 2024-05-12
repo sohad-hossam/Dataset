@@ -1,0 +1,2 @@
+Error results in illegalstateexception
+If results have already been sent and an exception occurs prior to the next batch request the result is an illegalstateexception.  It would be better to just log that we aren't sending the exception to the client.  Note that this only affects multi-batch non-transactional execution.  In general there's no good way to ensure that the client will see the exception, since they aren't required to use the entire result set.

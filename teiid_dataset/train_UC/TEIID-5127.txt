@@ -1,0 +1,13 @@
+Osisoft translator - MOD fails with non-integer arguments
+Query such as 
+{code:sql}
+SELECT FloatNum, 11, MOD(FloatNum, 11) FROM BQT1.SmallA
+{code}
+
+fails on the PI server with 
+
+{noformat}
+com.osisoft.rdsa.RdsaException: [PIOLEDBENT] [SQL Analyzer] [Line 1:34] [%] Overload resolution failed for (Single, Single) argument(s).
+{noformat}
+
+Similarly for Double arguments. It appears that the modulo operator % is only defined when both arguments are integers (contrary to PI OLEDB Enterprise 2016 User Guide, which states that it is defined for all numeric data types)

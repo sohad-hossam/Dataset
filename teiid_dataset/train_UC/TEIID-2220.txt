@@ -1,0 +1,18 @@
+Invalid aggregate pushing
+When a grouping is performed over a 3 way or higher join and aggregation appears to be eligible to be pushed to a leaf join, but a higher level join contains equi-join criteria where the side in the path of push aggregate target uses a join expression that spans a table not in the aggregate target, then an exception will be thrown during processing that the outside expression value cannot be found.
+
+For example:
+
+TEIID30328 Unable to evaluate t2.e3: No value was available
+	at org.teiid.query.util.CommandContext.getFromContext(CommandContext.java:430)
+	at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:617)
+	at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1021)
+	at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:622)
+	at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1021)
+	at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:622)
+	at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:592)
+	at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:270)
+	at org.teiid.query.eval.Evaluator.evaluateTVL(Evaluator.java:210)
+	at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:199)
+	at org.teiid.query.processor.relational.JoinNode.matchesCriteria(JoinNode.java:312)
+

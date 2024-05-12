@@ -1,0 +1,114 @@
+UCASE and LCASE functions do not work with CLOBs. 
+With the fresh Server, without adding any datasource, if I run the query :
+{code:sql}
+select lcase(convert('A', clob))
+{code} , 
+
+It gives the following exception: 
+
+{code:sql}
+org.teiid.jdbc.TeiidSQLException: TEIID30328 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30328 Unable to evaluate lcase(?): TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+    at org.teiid.jdbc.StatementImpl.postReceiveResults(StatementImpl.java:723)
+    at org.teiid.jdbc.StatementImpl.access$100(StatementImpl.java:65)
+    at org.teiid.jdbc.StatementImpl$2.onCompletion(StatementImpl.java:561)
+    at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135)
+    at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40)
+    at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79)
+    at org.teiid.net.socket.SocketServerInstanceImpl.receivedMessage(SocketServerInstanceImpl.java:284)
+    at org.teiid.net.socket.SocketServerInstanceImpl.read(SocketServerInstanceImpl.java:322)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at org.teiid.net.socket.SocketServerConnectionFactory$ShutdownHandler.invoke(SocketServerConnectionFactory.java:98)
+    at com.sun.proxy.$Proxy1.read(Unknown Source)
+    at org.teiid.net.socket.SocketServerInstanceImpl$RemoteInvocationHandler$1.get(SocketServerInstanceImpl.java:421)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:570)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:423)
+    at org.teiid.jdbc.StatementImpl.executeQuery(StatementImpl.java:354)
+    at DVConnection.main(DVConnection.java:110)
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30328 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30328 Unable to evaluate lcase(?): TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:728)
+    at org.teiid.query.processor.relational.ProjectNode.updateTuple(ProjectNode.java:194)
+    at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:169)
+    at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+    at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+    at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+    at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+    at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+    at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+    at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:477)
+    at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+    at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+    at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+    at java.lang.Thread.run(Thread.java:745)
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30341 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1389)
+    at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:756)
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:726)
+    ... 18 more
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30341 Remote org.teiid.api.exception.query.FunctionExecutionException: TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.processor.relational.SubqueryAwareEvaluator.evaluatePushdown(SubqueryAwareEvaluator.java:438)
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1387)
+    ... 20 more
+Exception in thread "main" org.teiid.jdbc.TeiidSQLException: TEIID30328 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30328 Unable to evaluate lcase(?): TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+    at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+    at org.teiid.jdbc.StatementImpl.postReceiveResults(StatementImpl.java:723)
+    at org.teiid.jdbc.StatementImpl.access$100(StatementImpl.java:65)
+    at org.teiid.jdbc.StatementImpl$2.onCompletion(StatementImpl.java:561)
+    at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135)
+    at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40)
+    at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79)
+    at org.teiid.net.socket.SocketServerInstanceImpl.receivedMessage(SocketServerInstanceImpl.java:284)
+    at org.teiid.net.socket.SocketServerInstanceImpl.read(SocketServerInstanceImpl.java:322)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:498)
+    at org.teiid.net.socket.SocketServerConnectionFactory$ShutdownHandler.invoke(SocketServerConnectionFactory.java:98)
+    at com.sun.proxy.$Proxy1.read(Unknown Source)
+    at org.teiid.net.socket.SocketServerInstanceImpl$RemoteInvocationHandler$1.get(SocketServerInstanceImpl.java:421)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:570)
+    at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:423)
+    at org.teiid.jdbc.StatementImpl.executeQuery(StatementImpl.java:354)
+    at DVConnection.main(DVConnection.java:110)
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30328 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30328 Unable to evaluate lcase(?): TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:728)
+    at org.teiid.query.processor.relational.ProjectNode.updateTuple(ProjectNode.java:194)
+    at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:169)
+    at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+    at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+    at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+    at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+    at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+    at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+    at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:477)
+    at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+    at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+    at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+    at java.lang.Thread.run(Thread.java:745)
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30341 Remote org.teiid.api.exception.query.ExpressionEvaluationException: TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1389)
+    at org.teiid.query.eval.Evaluator.internalEvaluate(Evaluator.java:756)
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:726)
+    ... 18 more
+Caused by: org.teiid.core.TeiidProcessingException: TEIID30341 Remote org.teiid.api.exception.query.FunctionExecutionException: TEIID30341 Function lcase is marked in the function metadata as a function that must be evaluated at the source.
+    at org.teiid.query.processor.relational.SubqueryAwareEvaluator.evaluatePushdown(SubqueryAwareEvaluator.java:438)
+    at org.teiid.query.eval.Evaluator.evaluate(Evaluator.java:1387)
+    ... 20 more
+
+{code}
+

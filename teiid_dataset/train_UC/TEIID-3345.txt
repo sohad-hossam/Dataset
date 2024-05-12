@@ -1,0 +1,15 @@
+NPE while accessing VDB via OData access
+If wrong odata URL is provided, an internal error is displayed:
+URL: http://localhost:8080/odata/
+Exception: org.teiid.core.TeiidRuntimeException: TEIID16008 VDB name not defined on the URL. The url format is http://{host}:{port}/odata/{vdb-name}[.{vdb-version}]/...
+org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:88)
+org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:47)
+....
+This behavior is quite expected.
+
+URL: http://localhost:8080/odata
+Exception: java.lang.NullPointerException
+org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:80)
+org.teiid.odata.TeiidProducerProvider.getContext(TeiidProducerProvider.java:47)
+...
+I expect that teiid should return similar exception

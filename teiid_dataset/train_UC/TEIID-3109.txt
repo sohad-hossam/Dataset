@@ -1,0 +1,2 @@
+Duplicate key on matpg_relatt
+When a constraint has the same name as a table, the will be a duplicate entry as a primary key on the matpg_relatt table.

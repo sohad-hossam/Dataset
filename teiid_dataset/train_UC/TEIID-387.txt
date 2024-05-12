@@ -1,0 +1,4 @@
+Improper Grammar in ShutdownServer Message
+In svcmgr after typing ShutdownServer, the following message is displayed: "All the servers in Cluster is being shutdown"
+
+Should read: "All the servers in Cluster are being shutdown"

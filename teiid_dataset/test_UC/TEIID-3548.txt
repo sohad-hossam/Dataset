@@ -1,0 +1,2 @@
+Creation of embedded complex not supported by odata production
+Prior to 8.11 we would always produce the flattened version with or without the complex type extension metadata.  With TEIID-3543 the extension metadata will cause production to throw an exception.  The workaround until this is fixed is to not use the complex type extension metadata.

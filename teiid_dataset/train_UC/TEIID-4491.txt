@@ -1,0 +1,2 @@
+Refine uniqueidentifier support for SQL Server
+SQL Servers later than 2000 can treat uniqueidentifier as a comparable type - there is no need to always cast.

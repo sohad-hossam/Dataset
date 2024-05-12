@@ -1,0 +1,2 @@
+Create AdminShell Kit
+Create the AdminShell kit for the Teiid runtime. This will be used as the external tool to manage the Teiid runtime environment.

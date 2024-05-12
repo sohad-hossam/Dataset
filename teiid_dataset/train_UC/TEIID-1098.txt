@@ -1,0 +1,2 @@
+Add Long Running Query Limit Property to Teiid Engine Managed Component
+We need a way to persist the long running query limit value for use in the Teiid Jopr plugin metrics and operations. If this property were added to the engine with a default value of 600 milliseconds, we'd be in like that there. 

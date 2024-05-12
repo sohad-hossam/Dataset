@@ -1,0 +1,4 @@
+Enhance SQL Alchemy integration to work with Superset
+Superset (previously Caravel) integration allows for an expanded set of sources, which was requested https://github.com/airbnb/superset/issues/241
+
+After some initial testing it looks like we still have some type and other issues to address.

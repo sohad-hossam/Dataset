@@ -1,0 +1,2 @@
+Consolidate ifnull, nvl, and coalesce support
+We should use ifnull to represent the 2 arg function form and coalesce to represent the n arg (not available until var arg support).  The rewriter should rewrite nvl as ifnull and connectors should express support for ifnull and coalesce only.

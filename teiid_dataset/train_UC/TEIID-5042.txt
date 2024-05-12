@@ -1,0 +1,46 @@
+Couchbase supported data types restriction issues
+# Couchbase translator supports only subset of supported datatypes in Teiid:
+??All supported type in a Couchbase JSON item: null, String, Integer, Long, Double, BigInteger, BigDecimal, JsonObject, JsonArray??
+#* this is too restrictive, why not float? time/date/timestamp? And let the translator to handle conversion in both directions.
+# Couchbase leaves out silently the columns with unsupported data types in INSERTs.
+#* See the example in bottom of description.
+# documentID is (in code) considered String. This is too restrictive. In the code there might be String.valueOf() instead of (String) cast (N1QLUpdateVisitor.java:139). It would help users to use their primary keys (from existing datasets) as document ids in couchbase.
+
+Example:
+For a source model DDL:
+{code:sql|title=DDL}
+CREATE FOREIGN TABLE SmallA (
+        documentID string PRIMARY KEY,
+        type string OPTIONS (NAMEINSOURCE '`type`'),
+        FloatNum float OPTIONS (NAMEINSOURCE '`FloatNum`'),
+        BigIntegerValue biginteger OPTIONS (NAMEINSOURCE '`BigIntegerValue`'),
+        StringKey string OPTIONS (NAMEINSOURCE '`StringKey`'),
+        CharValue string OPTIONS (NAMEINSOURCE '`CharValue`'),
+        LongNum long OPTIONS (NAMEINSOURCE '`LongNum`'),
+        DoubleNum double OPTIONS (NAMEINSOURCE '`DoubleNum`'),
+        ObjectValue string OPTIONS (NAMEINSOURCE '`ObjectValue`'),
+        ShortValue integer OPTIONS (NAMEINSOURCE '`ShortValue`'),
+        BigDecimalValue bigdecimal OPTIONS (NAMEINSOURCE '`BigDecimalValue`'),
+        DateValue string OPTIONS (NAMEINSOURCE '`DateValue`'),
+        BooleanValue boolean OPTIONS (NAMEINSOURCE '`BooleanValue`'),
+        TimestampValue string OPTIONS (NAMEINSOURCE '`TimestampValue`'),
+        ByteNum integer OPTIONS (NAMEINSOURCE '`ByteNum`'),
+        StringNum string OPTIONS (NAMEINSOURCE '`StringNum`'),
+        TimeValue string OPTIONS (NAMEINSOURCE '`TimeValue`'),
+        IntNum integer OPTIONS (NAMEINSOURCE '`IntNum`')
+      ) OPTIONS (NAMEINSOURCE '`dvqe_crud`', UPDATABLE TRUE, "teiid_couchbase:ISARRAYTABLE" 'false', "teiid_couchbase:NAMEDTYPEPAIR" '`type`:''nullSmallA''');
+{code}
+
+and query
+{code:sql|title=INSERT query}
+INSERT INTO Source.SmallA (documentID, StringKey, IntNum, StringNum,DoubleNum, FloatNum,LongNum) VALUES (4, '1',  1,  '1',CAST(5.00 AS double),CAST(5.00 AS float), 5);
+{code}
+
+there is incorrect source command being pushed to couchbase. The float column is not being pushed at all, no warning appears.
+{code:title=teiid-command.log}
+14:49:37,061 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #2) ReyS5USI/FcT     START USER COMMAND: startTime=2017-08-29 14:49:37.061       requestID=ReyS5USI/FcT.9      txID=null sessionID=ReyS5USI/FcT        applicationName=JDBC          principal=user@teiid-security vdbName=couchbase_crud        vdbVersion=1        sql=INSERT INTO Source.SmallA (documentID, StringKey, IntNum, StringNum,DoubleNum, FloatNum,LongNum) VALUES (4, '1',  1,  '1',CAST(5.00 AS double),CAST(5.00 AS float), 5)
+14:49:38,375 DEBUG [org.teiid.COMMAND_LOG] (Worker32_QueryProcessorQueue150) ReyS5USI/FcT           START DATA SRC COMMAND:       startTime=2017-08-29 14:49:38.375       requestID=ReyS5USI/FcT.9      sourceCommandID=0   executionID=27      txID=null modelName=Source    translatorName=couchbase      sessionID=ReyS5USI/FcT        principal=user@teiid-security sql=INSERT INTO Source.SmallA (documentID, StringKey, IntNum, StringNum, DoubleNum, FloatNum, LongNum) VALUES ('4', '1', 1, '1', 5.0, 5.0, 5)
+14:49:38,380 DEBUG [org.teiid.COMMAND_LOG] (Worker32_QueryProcessorQueue150) ReyS5USI/FcT           SOURCE SRC COMMAND: endTime=2017-08-29 14:49:38.38          requestID=ReyS5USI/FcT.9      sourceCommandID=0   executionID=27      txID=null modelName=Source    translatorName=couchbase      sessionID=ReyS5USI/FcT        principal=user@teiid-security sourceCommand=[INSERT INTO `dvqe_crud` (KEY, VALUE) VALUES ('4', {"DoubleNum":5.0,"IntNum":1,"LongNum":5,"StringNum":"1","StringKey":"1"}) RETURNING META(`dvqe_crud`).id AS PK]
+14:49:38,962 DEBUG [org.teiid.COMMAND_LOG] (Worker31_QueryProcessorQueue151) ReyS5USI/FcT           END SRC COMMAND:    endTime=2017-08-29 14:49:38.962         requestID=ReyS5USI/FcT.9      sourceCommandID=0   executionID=27      txID=null modelName=Source    translatorName=couchbase      sessionID=ReyS5USI/FcT        principal=user@teiid-security finalRowCount=1     cpuTime(ns)=12306369
+14:49:38,966 INFO  [org.teiid.COMMAND_LOG] (Worker31_QueryProcessorQueue152) ReyS5USI/FcT           END USER COMMAND:   endTime=2017-08-29 14:49:38.966         requestID=ReyS5USI/FcT.9      txID=null sessionID=ReyS5USI/FcT        principal=user@teiid-security vdbName=couchbase_crud        vdbVersion=1        finalRowCount=1
+{code}

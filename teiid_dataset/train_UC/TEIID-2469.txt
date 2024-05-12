@@ -1,0 +1,2 @@
+Pre-Load Materialised Views
+Currently teiid does not load materialised views automatically. The request has to come for the materialised view or it has to be explicitly loaded. As materialised views are made with the purpose of preloading data, teiid should load the materialised views as default. There can be a tag or switch which will determine if the materialise views are to be preloaded or not. 

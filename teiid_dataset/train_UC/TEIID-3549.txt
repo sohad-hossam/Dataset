@@ -1,0 +1,17 @@
+Join conditions with OR generate a wrong JDBC query
+I'm using Teiid 8.10 with h2 translator
+I have the following query containing a join with conditions separated by OR logical operator:
+select  "BilanBanque"."SIGNEDDATA" as "CalculatedField1"
+from  "implify_data"."Evolution_PCy_050615" "Evolution_PCy_050615" 
+LEFT JOIN "implify_data"."Evolution_PCy_050615" "MidCat" ON "Evolution_PCy_050615"."ID" = "MidCat"."PID" AND ( ( ("MidCat"."Level" IN  (1) ) ) ) 
+ LEFT JOIN "implify_data"."Evolution_PCy_050615" "Data" ON   ( ( ("Data"."Level" IN  (2) ) ) AND ( ("Data"."PID" =  "Evolution_PCy_050615"."ID") OR ("Data"."PID" =  "MidCat"."ID") ) ) 
+ LEFT JOIN "implify_data"."Sheet1_haU_010615" "BilanBanque" ON "Data"."ID" = "BilanBanque"."Account"
+ where   ("BilanBanque"."BankName" IN  ('Bank1') ) 
+
+The corresponding JDBC query executed by Teiid contains 2 times ON after the join:
+SELECT g_3."SIGNEDDATA" FROM "implify_data"."Evolution_PCy_050615" AS g_0 LEFT OUTER JOIN "implify_data"."Evolution_PCy_050615" AS g_1 ON g_0."ID" = g_1."PID" AND g_1."Level" = 1 INNER JOIN "implify_data"."Evolution_PCy_050615" AS g_2 INNER JOIN "implify_data"."Sheet1_haU_010615" AS g_3 ON g_2."ID" = g_3."Account" ON g_2."PID" = g_0."ID" OR g_2."PID" = g_1."ID" WHERE g_2."Level" = 2 AND g_3."BankName" = 'Bank1'
+
+if I remove the conditions with OR from the join, the query executes with success.
+
+You find below the execution plan:
+<?xml version='1.0' encoding='UTF-8'?><node name="AccessNode"><property name="Relational Node ID"><value>0</value></property><property name="Output Columns"><value>CalculatedField1 (bigdecimal)</value></property><property name="Statistics"><value>Node Output Rows: 0</value><value>Node Next Batch Process Time: 0</value><value>Node Cumulative Next Batch Process Time: 16</value><value>Node Cumulative Process Time: 0</value><value>Node Next Batch Calls: 1</value><value>Node Blocks: 1</value></property><property name="Cost Estimates"><value>Estimated Node Cardinality: -1.0</value></property><property name="Query"><value>SELECT g_3.SIGNEDDATA FROM (implify_dataModel.implify_data.Evolution_PCy_050615 AS g_0 LEFT OUTER JOIN implify_dataModel.implify_data.Evolution_PCy_050615 AS g_1 ON g_0.ID = g_1.PID AND g_1.Level = 1) INNER JOIN (implify_dataModel.implify_data.Evolution_PCy_050615 AS g_2 INNER JOIN implify_dataModel.implify_data.Sheet1_haU_010615 AS g_3 ON g_2.ID = g_3.Account) ON ((g_2.PID = g_0.ID) OR (g_2.PID = g_1.ID)) WHERE (g_2.Level = 2) AND (g_3.BankName = 'Bank1')</value></property><property name="Model Name"><value>implify_dataModel</value></property><property name="Data Bytes Sent"><value>0</value></property></node>

@@ -1,0 +1,42 @@
+Assertion error with INTERSECT
+A sample query which produced the error is: SELECT IntKey FROM BQT1.SmallA INTERSECT SELECT IntNum FROM BQT1.SmallB ORDER BY INTKEY
+
+How to reproduce:  Run the query using a client such as Squirrel multiple times.  The results varies from returning an Assertion to returning actual results.  In my test I ran the query five times and it returned actual results twice and the Assertion 3 times.  The Assertion can be seen below.  
+
+2013-04-03 16:00:42,190 ERROR [org.teiid.PROCESSOR] (Worker4_QueryProcessorQueue146) Unexpected exception for request JyDs6MZ6d9zG.24
+java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+	at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:217)
+	at org.teiid.common.buffer.TupleBuffer$1.getBatch(TupleBuffer.java:331)
+	at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:61)
+	at org.teiid.common.buffer.AbstractTupleSource.hasNext(AbstractTupleSource.java:91)
+	at org.teiid.query.processor.relational.MergeJoinStrategy.process(MergeJoinStrategy.java:163)
+	at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:212)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:280)
+	at org.teiid.query.processor.BatchIterator.finalRow(BatchIterator.java:70)
+	at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:69)
+	at org.teiid.query.processor.BatchIterator.getCurrentTuple(BatchIterator.java:85)
+	at org.teiid.common.buffer.AbstractTupleSource.nextTuple(AbstractTupleSource.java:48)
+	at org.teiid.query.processor.relational.SortUtility.initialSort(SortUtility.java:248)
+	at org.teiid.query.processor.relational.SortUtility.sort(SortUtility.java:185)
+	at org.teiid.query.processor.relational.SortNode.sortPhase(SortNode.java:99)
+	at org.teiid.query.processor.relational.SortNode.nextBatchDirect(SortNode.java:88)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:280)
+	at org.teiid.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:100)
+	at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:280)
+	at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:176)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:139)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:105)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:147)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:375)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:288)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:216)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:244)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:122)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:292)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)

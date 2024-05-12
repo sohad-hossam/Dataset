@@ -1,0 +1,11 @@
+Push Teiid function LOCATE() to SQL Server
+We have some Teiid views with query similar to:
+SELECT col1
+FROM tableA
+WHERE SUBSTRING(col1, 1, LOCATE(' ', col1)) = 'PREFIX'
+
+SQL Server receives a full scan of col1 table without WHERE:
+SELECT col1
+FROM tableA
+
+Because Teiid LOCATE() function is not translated to CHARINDEX() SQL Server function (SUBSTRING is translated).

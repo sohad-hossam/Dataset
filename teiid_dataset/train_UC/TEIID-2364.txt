@@ -1,0 +1,15 @@
+Binding host interface with 0.0.0.0 fails to start JBOSS AS 7.1.1 successfully with Teiid 8.2 in domain mode
+After installing/extracting JBOSS AS 7.1.1 and overlaying Teiid 8.2 final on top, fix a couple of issues in the JBOSS_HOME/bin/scripts/teiid-domain-mode-install.cli, it looks like Teiid 8.3 Beta 1 has fixed these syntax issues. Anyway, once Teiid is down, start JBOSS AS using domain.sh -b=0.0.0.0 -bmanagement=0.0.0.0, this will start JBOSS like a champ, no problems. Now run the teiid-domain-mode-install.cli file, "./jboss-cli.sh --file=scripts/teiid-domain-mode-install.cli" from the JBOSS_HOME/bin directory, if there are no errors with the cli file you will see all the changes succeed, but if you scroll up you will see stack traces indicating "address already in use". You can stop JBOSS and then restart again binding to 0.0.0.0 to get a better view of all the errors as well. Based on my testing and analysis of ports I think the issue is with:
+
+ 
+tcp        0      0 hostname:54200 *:*                     LISTEN      14115/java
+
+It looks like when JBOSS start successfully by binding to an external address I see these two ports are opened:
+
+ 
+tcp 0 0 hostname:54201 *:* LISTEN 14115/java
+tcp 0 0 hostname:54202 *:*
+
+ 
+but when binding to 0.0.0.0 those do not get opened so my hunch is that the problem lies somewhere in this area. Also JDBC and ODBC teiid ports do not get opened in this case where as they do when binding to an external ip.
+

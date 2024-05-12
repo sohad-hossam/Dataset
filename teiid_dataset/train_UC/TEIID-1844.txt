@@ -1,0 +1,11 @@
+Missing paren invalidates code example in EDS documentation
+From:
+http://docs.redhat.com/docs/en-US/JBoss_Enterprise_Data_Services/5/html/Data_Services_Caching_Guide/results.html#id2656418
+
+Section 2.2.1, example 2.2
+/*+ cache(pref_mem ttl:60000 */ select col from t
+
+is missing a right paren and should read:
+/*+ cache(pref_mem ttl:60000) */ select col from t
+
+Copying this example from the docs will cause the cache hint to be invalidated.

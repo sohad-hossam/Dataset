@@ -1,0 +1,6 @@
+Teiid Example PortfolioDS specifies a username & password for Derby source where none is required
+The instructions for creating the Derby database used by the portfolio example do not specify creation and use of a username/schema. The portfolio-ds.xml file does, however, specify a username and password. When the user attempts to use this data source, it fails since there is no such schema as "sa".
+
+We shold either direct the user to create the schema and user account, or--much simpler--eliminate th use of the username/password from the data source file.
+
+On the other hand, my idea of "simple" might not be the right way to go ;-)

@@ -1,0 +1,2 @@
+grant all should not be transitive to importing vdbs
+If the grant all option is in an imported vdb it will not only grant all permissions in the imported vdb, but the importing vdb as well.  We should ensure that the scope is narrower - however there are some permissions that are currently not schema scoped (such as temp table support) that would still be picked up from the imported vdb.

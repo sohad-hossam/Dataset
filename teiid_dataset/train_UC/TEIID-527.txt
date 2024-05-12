@@ -1,0 +1,2 @@
+Ensure that the original command is not modified by rewrite or planning
+The original command maintained by the request is not a full clone deep language object changes during rewrite or planning will cause it to be modified.  This is undesirable for later checks, such are for metadata.

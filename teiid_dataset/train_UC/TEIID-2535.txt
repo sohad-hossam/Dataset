@@ -1,0 +1,2 @@
+Validation is not preformed on WITH clause items
+With queries are not validated by the ValidationVisitor since they are not collected by the CommandCollectorVisitor.

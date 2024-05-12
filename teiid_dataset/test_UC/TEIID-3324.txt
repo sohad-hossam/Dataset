@@ -1,0 +1,22 @@
+Boolean fields with null are evaluated to false
+I have a source table defined as follows (e.g. in PostgreSQL):
+{code:sql}
+CREATE TABLE public.test  
+(  
+  id integer,  
+  iscustomer boolean  
+)  
+{code}
+
+and the table contains these rows:
+{code:sql}
+insert into public.test values(1, null);  
+insert into public.test values(2, true);  
+insert into public.test values(3, false);  
+{code}
+ 
+When I try to get data from this table in Teiid, the "null" value is evaluated as false:
+||id||iscustomer||
+|1|false|
+|2|true|
+|3|false|

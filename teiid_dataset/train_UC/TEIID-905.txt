@@ -1,0 +1,2 @@
+block clone method is incorrect
+The block clone method does not perform a deep clone.

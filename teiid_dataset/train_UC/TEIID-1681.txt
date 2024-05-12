@@ -1,0 +1,9 @@
+Limit not working as expected
+select CHORUS_B."ID", CHORUS_B."ACCESS_MODE", CHORUS_B."USER_ID", CHORUS_B."CREATED_ON", CHORUS_B."NOTE",'chorusdata.note' as "__objecttype__" from 
+(select * from chorus_notes.RETRIEVE_NOTES where 
+OBJECT_PKEY = 
+xmlserialize(xmlelement("demodata.rule", XMLATTRIBUTES(cast('name 1' as String) as "name",cast('sysid 0' as String) as "system",cast('user 1000' as String) as "user")) as String)) as CHORUS_B     LIMIT 50
+
+This query is not returning correct results unless we remove Limit from this.
+
+If we include Limit over here, it interchanges the columns and returning incorrect data.

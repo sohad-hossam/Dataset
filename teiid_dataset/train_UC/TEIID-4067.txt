@@ -1,0 +1,2 @@
+OData - service returns generic EAP page in case of 404
+In general, if resource is not found service should return 404. But Teiid returns generic EAP error page, which is neither in ATOM nor in JSON format (regardless that status code is correct). Therefore, OData client cannot read and parse the response as OData error.

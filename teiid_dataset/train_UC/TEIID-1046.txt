@@ -1,0 +1,2 @@
+Component Name of the VDB is null through Profile Service
+When the VDB is accessed using the profile service, the component name is null. This makes impossible to search for component by its name. With out this the search must be done using component type.

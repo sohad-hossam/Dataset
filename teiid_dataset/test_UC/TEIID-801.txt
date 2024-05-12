@@ -1,0 +1,2 @@
+PropertyUtils.resolveNestedProperties has side effect of adding all "default" properties to the list while resolving
+While PropertyUtils.resolveNestedProperties resolves the nested properties, if the property object passed in has "default" properties set then it will read though all of them adds to the main property object, thus "default" properties lose their status as default.

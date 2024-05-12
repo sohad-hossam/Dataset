@@ -1,0 +1,4 @@
+Better handling for outer join restriction pushdown
+For some sources (such as salesforce) they are restricted to outer joins.  Queries entered as inner joins or are effectively the same using an outer join should still be pushed to the source.
+
+It would also be good to have a hint to simply preserve the join structure as entered by the user to give them more control over the processing.

@@ -1,0 +1,2 @@
+TRACE level logging to request conflicting NAMESPACE and PATH references in WS request/response sets
+Requesting detailed logging the can highlight when there are conflicting namespace and path references which would prevent response data from being displayed.

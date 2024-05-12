@@ -1,0 +1,2 @@
+Allow the mat view cache hint to be specified via a property
+Setting the mat cache hint via a property is useful so that it can be changed independently of the view definition.

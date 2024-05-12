@@ -1,0 +1,18 @@
+Wrong detection of recursive plans when same aliases are used in nested CTEs
+I defined the following view:
+{code:sql}
+create view v1 as
+WITH mycte as (SELECT 1 as col1) SELECT col1 FROM mycte;
+{code}
+
+If I run this query:
+{code:sql}
+WITH mycte as (SELECT * FROM views.v1) SELECT * from mycte ;
+{code}
+
+it fails on generate the query plan with this exception:
+{code}
+TEIID31124 Recursive plan detected.  Command type Query was already issued against mycte.  Planning cycle: [Query mycte, Query views.v1]
+{code}
+
+Using /*+ no_inline */ hint to prevent the inlining doesn't fail and returns the correct result.

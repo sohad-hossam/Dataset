@@ -1,0 +1,2 @@
+Minor performance enhancements
+This used as bucket for couple of minor performance enhancements in the Teiid project.

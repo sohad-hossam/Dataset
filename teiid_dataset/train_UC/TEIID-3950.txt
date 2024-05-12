@@ -1,0 +1,6 @@
+UDFs aren't found when using old function definitions model
+When migrating an old VDB that contains the old functiondefinitions model the server sees it as a Function model[1] but the functions are not found [2]when you try to use them.
+
+[1] [org.teiid.RUNTIME] (MSC service thread 1-7) Model  udfTokenFunctions in VDB  oldUDF  skipped being loaded because of its type  FUNCTION
+
+[2] [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue10) org.teiid.api.exception.query.QueryResolverException: TEIID30068 The function 'getToken('125421', '?', 2)' is an unknown form.  Check that the function name and number of arguments is correct. Sending error to client 1trCiU5AkzFn.5

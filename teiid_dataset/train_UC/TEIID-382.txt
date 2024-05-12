@@ -1,0 +1,2 @@
+QUARTER function and the BITAND/NOT/OR/XOR functions not covered in Teiid documentation
+There is no mention of the QUARTER date function, or the BIT comparison functions (BITAND, BITNOT, BITOR, and BITXOR) in the Teiid Reference Guide (http://docs.jboss.org/teiid/6.0/reference/en-US/html).

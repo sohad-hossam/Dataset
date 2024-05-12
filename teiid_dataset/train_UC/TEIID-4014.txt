@@ -1,0 +1,2 @@
+remove oid from system tables
+The oid column on system tables is unused and should be removed.

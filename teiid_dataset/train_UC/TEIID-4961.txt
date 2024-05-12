@@ -1,0 +1,19 @@
+External Materialized View With State Loaded but 0 Cardinality
+*Scenario*: Having several views that depend on others (ex: V1-> V2->V3, where V3 depends on V2 and V2 depends on V1), all with external materialization.
+
+Although all views LoadState is *LOADED *even after failures due to the dependent ones being loaded, in the end some views have zero (0) of cardinality, when there are actually records. Running the queries by hand return records.
+
+Log attached.
+
+Example: 
+
+{panel}
+2017-06-14 17:14:39,521 INFO  [org.teiid.MATVIEWS] (Worker63_QueryProcessorQueue19799) WDpoyHmXlkvS Materialization of view VodafoneNlBaseSource.vodafone_nl_base_source completed. Rows updated = 0 Load Number = 1
+
+{panel}
+
+After forcing the view update:
+
+{panel}
+2017-06-14 17:23:38,042 INFO  [org.teiid.MATVIEWS] (Worker65_QueryProcessorQueue27597) +IbRaNRtrZ1K Materialization of view VodafoneNlBaseSource.vodafone_nl_base_source completed. Rows updated = 1816 Load Number = 2
+{panel}

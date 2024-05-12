@@ -1,0 +1,2 @@
+Add the final processor plan to the command log
+We should add the plan output not just once planning has completed, but when processing has completed as well so that the node statistics have been populated.

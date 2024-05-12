@@ -1,0 +1,16 @@
+Add SPATIAL_REF_SYS table
+Implement SPATIAL_REF_SYS table (from the OGC Simple Features spec). This table stores metadata about different coordinate systems and how to tranform between them. See [here|http://en.wikipedia.org/wiki/SRID] and [here|http://www.carocoops.org/resources/doc/postgis/x321.html] for details.
+
+{code}
+CREATE TABLE SPATIAL_REF_SYS
+(
+    SRID      INTEGER   NOT NULL PRIMARY KEY,
+    AUTH_NAME CHARACTER VARYING(256),
+    AUTH_SRID INTEGER,
+    SRTEXT    CHARACTER VARYING(2048)
+)
+{code}
+
+https://raw.githubusercontent.com/postgis/postgis/svn-trunk/spatial_ref_sys.sql
+
+This would be used in conjunction with the GeoTools referencing module or Proj4J to transform between coordinate systems in Teiid (ST_Transform function).

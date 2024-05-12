@@ -1,0 +1,2 @@
+Stored procedures should work in multisource connector binding scenarios
+Defect Tracker #24614: Stored procedures should work in multisource connector binding scenarios by adding another input parameter named SOURCE_NAME

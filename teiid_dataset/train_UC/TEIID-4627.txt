@@ -1,0 +1,2 @@
+High-level event handling
+We should look into high-level plugability of event handling at a row level. This could even be handled at the language level with new trigger semantics for source tables: create trigger on tbl on cdc (insert|update...) - which could potentially even specify the topic mapping other details. There is complexity for multi-source models here though.

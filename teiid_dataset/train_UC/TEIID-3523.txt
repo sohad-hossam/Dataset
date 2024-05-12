@@ -1,0 +1,2 @@
+Statement -> executeBatch method throws an NPE
+The method executeBatch() of class Statement throws an NPE. Please see the log in the attachment. 

@@ -1,0 +1,2 @@
+add not support to the ldap connector
+I noticed with the capabilities refactoring that not was not supported, but it is trivial to add.

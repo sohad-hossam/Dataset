@@ -1,0 +1,2 @@
+Translate criteria fails on prepared statement update/delete criteria
+Translate criteria pulls values/references from the parent command that cannot be evaluated in the context of the update procedure. 

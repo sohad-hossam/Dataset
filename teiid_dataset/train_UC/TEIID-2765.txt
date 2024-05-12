@@ -1,0 +1,4 @@
+Add odata support for array types
+simple type arrays should be supported through odata with a mapping to a complex type.  
+
+It would be good to also support object type values also but that would seemingly be a large effort possibly involving custom odata4j serializers to define the complex type metadata and perform the serialization to a complex type value.

@@ -1,0 +1,20 @@
+SCROLL keyword for DECLARE CURSOR not being parsed correctly
+The DECLARE cursor is defined as [1]. However, in [2] line #155, the SCROLL keyword is not being matched.  Correction would be to match the pattern fully as defined in [1]
+[1]
+http://www.postgresql.org/docs/8.4/static/sql-declare.html
+
+[2]
+https://github.com/teiid/teiid/blob/master/runtime/src/main/java/org/teiid/odbc/ODBCServerRemoteImpl.java
+
+Example of error:
+TRACE [org.teiid.ODBC] (New I/O server worker #3-1) invoking server method: executeQuery [BEGIN;declare "SQL_CUR0x11ad4120" scroll cursor for <SQL QUERY>;fetch 100 in "SQL_CUR0x11ad4120"]
+DEBUG [org.teiid.ODBC] (New I/O server worker #3-1) Modified Query: START TRANSACTION
+FINER [org.teiid.jdbc] (New I/O server worker #3-1) Executing: requestID -1 commands: [START TRANSACTION] expecting: EITHER
+FINER [org.teiid.jdbc] (New I/O server worker #3-1) Executing as transaction statement
+TRACE [org.teiid.ODBC] (New I/O server worker #3-1) invoking client method: sendUpdateCount [BEGIN, 0]
+FINER [org.teiid.jdbc] (New I/O server worker #3-1) Executing: requestID -1 commands: [show client_encoding] expecting: RESULTSET
+FINER [org.teiid.jdbc] (New I/O server worker #3-1) Executing as show statement
+FINER [org.teiid.jdbc] (New I/O server worker #3-1) Creating ResultSet requestID: -1 beginRow: 1 resultsColumns: 1 parameters: 0
+TRACE [org.teiid.ODBC] (New I/O server worker #3-1) invoking client method: setEncoding [UTF-8]
+FINE  [org.teiid.jdbc] (New I/O server worker #3-1) Statement closed successfully.
+DEBUG [org.teiid.ODBC] (New I/O server worker #3-1) Modified Query: declare "SQL_CUR0x11ad4120" scroll cursor for <SQL QUERY>

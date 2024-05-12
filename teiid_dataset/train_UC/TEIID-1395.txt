@@ -1,0 +1,2 @@
+XMLPARSE error message references XMLSERIALIZE
+The XMLPARSE validation error message references XMLSERIALIZE.

@@ -1,0 +1,4 @@
+SOLR: Make the Id named field as PK
+When using dynamic metadata retrieval, there is no way query the system if a field is unique. By default the schema.xml in SOLR defines "id" as unique key, so SOLR translator needs to use this as PK. 
+
+Having a PK is essential during the delete operation. 

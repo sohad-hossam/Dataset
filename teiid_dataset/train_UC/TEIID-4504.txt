@@ -1,0 +1,2 @@
+Provide an option to ignore the atomic block handling of triggers
+While BEGIN ATOMIC is mandated by the spec, it may not be desirable to force a transaction block in all circumstances and instead rely on the autoCommit transaction.

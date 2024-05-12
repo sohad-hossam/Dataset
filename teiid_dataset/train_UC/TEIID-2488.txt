@@ -1,0 +1,2 @@
+cache JBoss loggers
+In some circumstances not caching loggers will create needless locking and logger creation.

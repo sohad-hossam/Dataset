@@ -1,0 +1,2 @@
+AdminShell row count is not accurate
+AdminShell reports rows produced as the number of lines, so it is off for xml or any string containing new lines.

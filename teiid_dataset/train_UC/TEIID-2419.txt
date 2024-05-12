@@ -1,0 +1,2 @@
+minor message improvements
+The vdbmetadatamapper expects message values to be non-null, so we need to make sure that a values is set.  Also the log for an invalid session on terminate should be at a detail level and not at a warning level as this can naturally occur and there is already a log of the attempt.

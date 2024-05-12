@@ -1,0 +1,8 @@
+odbc script reader does not handle extra statement delimiters
+If sent the block of statements:
+
+BEGIN;declare "SQL_CUR0x1e4ba50" cursor with hold for select * from pg_proc;;fetch 1 in "SQL_CUR0x1e4ba50"
+
+We'll stop processing at the extra ; after the declare.  
+
+In older branches such as 7.7 we'll attempt to process an empty sql statement, which will throw an exception.

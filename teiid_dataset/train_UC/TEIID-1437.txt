@@ -1,0 +1,14 @@
+It's not possible to deploy single file (*.xml) virtual database through web admin console
+There are two ways how create virtual database. You can deploy *.vdb file which is basically zip archive with changed extension, or deploy just vdb.xml file. The second way doesn't work through soa admin console web interface.
+
+Error message:
+Failed to create Resource weather-vdb.xml - cause: Incorrect extension specified on filename
+
+How to reproduce:
+In soa web interface log in to Admin Console, than open "Virtual Database (VDB)s" link, than click "Add a new resource" button, and try to upload weather-vdb.xml which is attached.
+
+Workaround:
+Just copy weather-vdb.xml to the deploy folder.
+
+
+weather-vdb.xml and weather-ds.xml which is required if you want to deploy vdb in active state are attached.

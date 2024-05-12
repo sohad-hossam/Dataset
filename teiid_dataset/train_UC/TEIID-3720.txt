@@ -1,0 +1,2 @@
+DDLString Visitor not writing the OPTIONS value for Procedure parameters
+When METADATA properties are set on the Procedure parameters, those are not correctly externalized by the DDLStringVisitor class.

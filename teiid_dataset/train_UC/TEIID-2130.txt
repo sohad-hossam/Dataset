@@ -1,0 +1,4 @@
+DataNotFoundException inconsistency when used with engine
+When a DataNotException is thrown from translator, the engine should wait until commancContext.dataAvailable() call before it can send the "next" request to translator. However when the dataAvaialble() is called, in the async mode the Reset and Execute are being called instead of "next".
+
+See the attached test case for the behaviour.

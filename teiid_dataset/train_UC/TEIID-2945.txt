@@ -1,0 +1,2 @@
+disableLocalTxn only works at connection time
+disableLocalTxn only works at connection time (as a url property).  It is intended to be an execution property that works post connection time via a set statement.

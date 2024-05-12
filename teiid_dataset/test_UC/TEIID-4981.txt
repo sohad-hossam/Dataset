@@ -1,0 +1,2 @@
+Support Amazon S3 Transaltor
+Support Amazon S3 access from Teiid. Typically this is viewed as file-based access? however handling the security is key here.

@@ -1,0 +1,2 @@
+Global temporary tables
+Currently, temp tables are scoped to the teiid session (eg, jdbc connection) that created them. I would like temp tables visible to all sessions.  It is acceptable and even desirable that temp tables use an external database a la external materialization.

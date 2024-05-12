@@ -1,0 +1,4 @@
+WS-Security payload flow through "ws" resource adapter
+Currently only HTTPBasic security credentials flow through the web services resource adapter from the configured security domain, and authorized Subject.
+
+It is important to device a mechanism to enable security credentials flow through web services resource adapter for purposes ws-security. The idea is based on the Subject making resource adapter calls, the credential payload needs to be converted into CXF configuration.

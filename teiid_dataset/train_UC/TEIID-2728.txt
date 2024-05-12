@@ -1,0 +1,2 @@
+Very large sorts are inefficient
+This is a regression of TEIID-2429.  When the memory space needed for a sort is estimated to be above 2 GB, the expression used (even though it's assigned to a long) will overflow.  This then causes the processing to use the batch size as the intermediate sort buffer size, which for any high row count will lead to many passes (the logic typically should achieve at most a two pass sort).

@@ -1,0 +1,2 @@
+Import error reporting duplicate constraints
+With TEIID-2922 it is now possible for metadata import to throw an exception when multiple constraints are found with the same name even erroneously - see comments on TEIID-2875.

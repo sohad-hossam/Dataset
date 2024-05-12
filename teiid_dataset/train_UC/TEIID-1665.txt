@@ -1,0 +1,2 @@
+Optimize SELECT of all constants
+If a translator supports LIMIT but does not support select expressions, SELECT 'A' as A, 'B' as B FROM xyz GROUP BY A, B should be written as SELECT * FROM xyz LIMIT 1

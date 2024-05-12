@@ -1,0 +1,9 @@
+Issues with multiple returnable statements in a procedure
+A regression was introduced by TEIID-2226 where any subsequent execution of a returnable statement in a procedure is effectively ignored:
+
+begin
+  select ...
+  select ...
+end
+
+would not issue the second select unless all prior statements do not have result sets or are marked as without return.

@@ -1,0 +1,31 @@
+Accumulo translator: rowid column is compared as string in WHERE clause
+When in SOURCE model user specifies the required rowid column as integer:
+{code:xml}
+CREATE FOREIGN TABLE "SmallA" (
+  rowid integer OPTIONS (UPDATABLE FALSE, SEARCHABLE 'All_Except_Like'),
+.
+.
+.
+{code}
+
+and performs similar query:
+{code:sql}
+Select rowid, StringKey From accumulo.SmallA WHERE rowid >= 15 ORDER BY rowid
+{code}
+
+following results are returned:
+|| rowid | StringKey ||
+|| 2 | 2 ||
+|| 3 | 3 ||
+|| 4 | 4 ||
+|| 5 | 5 ||
+|| 6 | 6 ||
+|| 7 | 7 ||
+|| 8 | 8 ||
+|| 9 | 9 ||
+|| 15 | 15 ||
+|| ... | ... ||
+
+and given the fact, that rowid is modelled as integer, values 2,3,4,5,6,7,8,9 shouldn't appear in the result set. Interesting to note is that the resultset is then ordered by rowid, but this time correctly as expected.
+
+Other integer columns, mapped from accumulo's Column Family: Column Qualifier pairs works as expected and are being compared as corresponding types.

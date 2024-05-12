@@ -1,0 +1,2 @@
+Correlated subquery handling for Oracle/MySQL
+Most version of Oracle and MySQL only support one level of nesting for correlated reference appearing in non-inlineview subqueries.  These queries are perfectly legal in Teiid and sources such as PostgreSQL.  To work around we'll need to add a new capability and planner logic to prevent pushdown.

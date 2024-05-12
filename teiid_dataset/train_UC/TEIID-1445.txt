@@ -1,0 +1,17 @@
+ConcurrentModificationException during the startup of the Server
+Seems like this is some timing issue.
+
+java.util.ConcurrentModificationException
+	at java.util.AbstractList$Itr.checkForComodification(AbstractList.java:372)
+	at java.util.AbstractList$Itr.next(AbstractList.java:343)
+	at org.teiid.adminapi.impl.ModelMetaData.getValidationErrors(ModelMetaData.java:222)
+	at org.teiid.adminapi.impl.ModelMetaData.getErrors(ModelMetaData.java:210)
+	at org.teiid.adminapi.impl.VDBMetaData.getValidityErrors(VDBMetaData.java:249)
+	at org.teiid.adminapi.impl.VDBMetaData.isValid(VDBMetaData.java:264)
+	at org.teiid.deployers.VDBDeployer.loadMetadata(VDBDeployer.java:355)
+	at org.teiid.deployers.VDBDeployer.access$2(VDBDeployer.java:315)
+	at org.teiid.deployers.VDBDeployer$1.run(VDBDeployer.java:308)
+	at org.jboss.util.threadpool.RunnableTaskWrapper.run(RunnableTaskWrapper.java:147)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)

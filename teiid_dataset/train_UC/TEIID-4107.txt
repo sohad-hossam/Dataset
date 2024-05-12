@@ -1,0 +1,7 @@
+HSQL Syntax error when Teiid sends it a join query with no parenthesis
+The query
+ SELECT R_NAME FROM region LEFT OUTER JOIN (customer INNER JOIN nation ON C_NATIONKEY = N_NATIONKEY) ON R_REGIONKEY = N_REGIONKEY
+
+When run against an HSQL DB causes a syntax error because the query passed to HSQL contains no parenthesis, and HSQL cannot handle it, as described in https://developer.jboss.org/message/953580?et=watches.email.thread#953580.
+
+As Steve points out there, this was solved for H2 in https://issues.jboss.org/browse/TEIID-3549.  H2 and HSQL come from the same project, they split at some point in time, and I suspect they still share a lot of code.

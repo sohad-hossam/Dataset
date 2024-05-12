@@ -1,0 +1,2 @@
+CLONE - Add implicit conversion of NULL to correct datatype in transformation validator
+When using NULL value as a column (ie, NULL as columnName), it is only implicitly converted to a string.  When trying to use the NULL as a column of type date, integer, float, etc., the validator throws a warning that the transformation is not valid.  If you wrap the NULL in a convert to the correct column datatype (ie, "convert(NULL,date)"), the transformation can be validated successfully.

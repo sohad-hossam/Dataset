@@ -1,0 +1,2 @@
+Grouping node with dup removal has incorrect row count
+Grouping node with dup removal has incorrect row count, since the row count is not updated after the sort.

@@ -1,0 +1,4 @@
+Remove OData V2 implementation of the Server
+We need to remove server implementation of OData V2 specification from Teiid in favor of OData V4.
+
+The OData V2 translator, we should keep, however that may needs to be updated/re-written using the Olingo. However that is separate issue.

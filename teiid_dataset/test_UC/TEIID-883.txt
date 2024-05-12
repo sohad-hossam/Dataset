@@ -1,0 +1,2 @@
+Convert model/group/element to schema/table/column
+The non-standard terms model/group/element should be changed to schema/table/column.   This affects our runtime metadata object names, system tables, documentation, and error messages.  The model to schema change represents a bit of a mismatch between the designer view of the world and Teiid.  Designer models are allowed to contain catalog and schemas, but at runtime they simply become part of the table name.

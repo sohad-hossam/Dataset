@@ -1,0 +1,46 @@
+SybaseIQ translator: different order of arguments in CONVERT function
+Teiid can't push directly CONVERT function via SybaseIQ translator. Sybase/SAP IQ has different order of arguments than Teiid has. See [SAP IQ CONVERT docs|http://help.sap.com/saphelp_iq1611_iqrefbb/helpdata/en/a5/3f6efb84f21015af0e8594ce5cd68e/content.htm]
+Important to mention is the fact, that CONVERT function is apart from a direct call in user's query also incorporated into resulting source queries by the translator. That will cause issues in lots of queries that need for example implicit conversion to be done.
+
+For query:
+{code:sql}
+SELECT BQT1.SmallA.IntKey FROM BQT1.SmallA WHERE BQT1.SmallA.CharValue >= '0' AND BQT1.SmallA.CharValue < '1' ORDER BY IntKey
+{code}
+this gets pushed:
+{code:sql}
+[SELECT g_0."intkey" AS c_0 FROM "bqt-server"."dvqe"."SmallA" AS g_0 WHERE convert(g_0."charvalue", string) >= '0' AND convert(g_0."charvalue", string) < '1' ORDER BY c_0]
+{code}
+
+Error in log:
+{code}
+08:05:32,921 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue13) Connector worker process failed for atomic-request=PYp5BTTPF3pK.6.0.0: org.teiid.translator.jdbc.JDBCExecutionException: 102 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT TOP 100 g_0."intkey" AS c_0 FROM "bqt-server"."dvqe"."SmallA" AS g_0 WHERE convert(g_0."charvalue", string) >= '0' AND convert(g_0."charvalue", string) < '1' ORDER BY c_0]
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:131) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_71]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_71]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_71]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+	at com.sun.proxy.$Proxy80.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_71]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+Caused by: com.sybase.jdbc4.jdbc.SybSQLException: SQL Anywhere Error -131: Syntax error near 'g_0.charvalue' on line 1
+	at com.sybase.jdbc4.tds.Tds.a(Unknown Source)
+	at com.sybase.jdbc4.tds.Tds.nextResult(Unknown Source)
+	at com.sybase.jdbc4.tds.Tds.getResultSetResult(Unknown Source)
+	at com.sybase.jdbc4.tds.TdsCursor.open(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybStatement.executeQuery(Unknown Source)
+	at com.sybase.jdbc4.jdbc.SybPreparedStatement.executeQuery(Unknown Source)
+	at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:123) [translator-jdbc-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+	... 18 more
+{code}

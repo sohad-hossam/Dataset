@@ -1,0 +1,6 @@
+problems with DDL returned for dynamic vdb with google spreadsheet source
+I am seeing inconsistent DDL returned for dynamic VDB with a google spreadsheet source.  In the same google account, I created two spreadsheets.  One was created in firefox browser, one was created in chrome browser (don't know why that matters)
+
+See the attached document showing a comparison of the dynamic VDBs and the DDL that I got back.  The only difference is that the source was pointing to a different spreadsheet. 
+
+Notice that the DDL for the "ChromeSheet" returns the concatenated datavalues for the column name.  But it includes a NIS OPTION for the column name.

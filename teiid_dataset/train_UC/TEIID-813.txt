@@ -1,0 +1,2 @@
+Perform bound checking on narrowing numeric conversions
+In order to be more compatible with source type systems we should range check numeric conversions.  This will also allow for such conversion to not be marked as narrowing for the purposes of rewrite (but they will still not be implicit due to the possible exception). 

@@ -1,0 +1,39 @@
+Web Admin Console: Invalid attribute in SSL configuration
+It seems ssl-enable is invalid attribute (ssl can be enabled through attribute 'mode'). I assume it can be removed from menu. Configuration fails when SSL Enabled is checked.
+
+Error:
+{code}
+Unknown error
+
+Unexpected HTTP response: 500
+
+Request
+{
+    "operation" => "composite",
+    "address" => [],
+    "steps" => [{
+        "address" => [
+            ("subsystem" => "teiid"),
+            ("transport" => "embedded")
+        ],
+        "operation" => "write-attribute",
+        "name" => "ssl-enable",
+        "value" => true
+    }]
+}
+
+Response
+
+Internal Server Error
+{
+    "outcome" => "failed",
+    "result" => {"step-1" => {
+        "outcome" => "failed",
+        "failure-description" => "JBAS014792: Unknown attribute ssl-enable",
+        "rolled-back" => true
+    }},
+    "failure-description" => {"JBAS014653: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-1" => "JBAS014792: Unknown attribute ssl-enable"}},
+    "rolled-back" => true,
+    "response-headers" => {"process-state" => "reload-required"}
+}
+{code}

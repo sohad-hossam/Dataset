@@ -1,0 +1,24 @@
+Join Elimination in Star Schema
+Suppose we have the following star schema :
+* Fact_Sales (Fact table)
+* Dim_Date, Dim_Store and Dim_Product (Dimension tables)
+
+Each table has a PK (id field)
+Fact_Sales has a foreign key for each dimension (date_id, store_id, product_id) in order to link them.
+
+Then, suppose we create an aggregate view of the fact table and its dimensions:
+
+SELECT
+\*
+FROM Fact_Sales F
+INNER JOIN Dim_Date D    ON (F.Date_Id = D.Id)
+INNER JOIN Dim_Store S   ON (F.Store_Id = S.Id)
+INNER JOIN Dim_Product P ON (F.Product_Id = P.Id)
+
+Suppose now we only project fields from the fact table (Fact_Sales) and just one of its dimension (Dim_Product) in a query:
+
+SELECT
+Fact_Sales.<fields>, Dim_Product.<fields>
+FROM aggregate_view
+
+During the Query Optimization, Teiid should be able to use the PK_FK constraints which link the fact table with its dimension in order to deduct that no fields from the other dimensions (Dim_Date, Dim_Store) are projected so the joins with these tables can be removed for the Query Plan.

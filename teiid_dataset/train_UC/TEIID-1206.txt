@@ -1,0 +1,8 @@
+NPE during the JDBC Metadata read when "resultSetCacheMode=true" turned on
+java.lang.NullPointerException
+	at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:359)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:174)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+
+
+This occurred when I created the connection through SQuirreL. Also any queries to "sys" tables did not work.

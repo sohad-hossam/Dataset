@@ -1,0 +1,2 @@
+Blocking during with clause processing has adverse affects
+A blocked exception, such that is typically thrown while waiting for results, that happens during the with clause load will cause the parent command to be rexecuted.  This can lead to erroneous source queries and eventually exhaust connections.

@@ -1,0 +1,120 @@
+Model defined without source information causes NoSuchElementException and further IllegalStateException in teiid-async-threads
+If a dynamic VDB is deployed with error (non-virtual model defined with no source information) then Teiid shows TEIID40093 (this is correct) and further error:
+- if the VDB is new, then "JBAS014612: Operation \("deploy"\) failed" is thrown - this seems to be correct as there is no stacktrace in the log and error description is logical \[1\]
+- if the VDB is redeployed, then NoSuchElementException is thrown with message "No child 'name' exists" \[2\]. Teiid seems to try to replace deployment, which has been previously removed.
+
+If the error is corrected (model type set to VIRTUAL),  VDB is deployed successfully and its state is set to ACTIVE but post-metadata-load action throws IllegalStateException (_getBuffermanager_ method) \[3\]. It does not affect any other VDB, but seems to affect every further redeploying of the affected VDB.
+
+\[1\]
+{code:text}
+07:18:12,883 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "oo3-vdb.xml" (runtime-name: "oo3-vdb.xml")
+07:18:12,894 DEBUG [org.teiid.RUNTIME] (MSC service thread 1-1) VDB oo3-vdb.xml has been parsed.
+07:18:12,901 ERROR [stderr] (MSC service thread 1-2) ScriptEngineManager providers.next(): javax.script.ScriptEngineFactory: Provider com.sun.script.javascript.RhinoScriptEngineFactory not found
+07:18:12,902 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-2) MSC000001: Failed to start service jboss.teiid.vdb.odata3.1: org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata3.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1
+	at org.teiid.jboss.VDBService.start(VDBService.java:185)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1980) [jboss-msc-1.1.5.Final-redhat-1.jar:1.1.5.Final-redhat-1]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1913) [jboss-msc-1.1.5.Final-redhat-1.jar:1.1.5.Final-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_40]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_40]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_40]
+Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1
+	at org.teiid.runtime.AbstractVDBDeployer.assignMetadataRepositories(AbstractVDBDeployer.java:88)
+	at org.teiid.jboss.VDBService.start(VDBService.java:181)
+	... 5 more
+
+07:18:12,906 ERROR [org.jboss.as.controller.management-operation] (DeploymentScanner-threads - 1) JBAS014612: Operation ("deploy") failed - address: ([("deployment" => "oo3-vdb.xml")]) - failure description: {"JBAS014671: Failed services" => {"jboss.teiid.vdb.odata3.1" => "org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata3.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1
+    Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1"}}
+07:18:12,908 ERROR [org.jboss.as.server] (DeploymentScanner-threads - 1) JBAS015870: Deploy of deployment "oo3-vdb.xml" was rolled back with the following failure message: 
+{"JBAS014671: Failed services" => {"jboss.teiid.vdb.odata3.1" => "org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata3.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1
+    Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata3.1"}}
+07:18:12,930 TRACE [org.teiid.RUNTIME] (MSC service thread 1-1) VDB odata3 metadata removed
+07:18:12,937 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment oo3-vdb.xml (runtime-name: oo3-vdb.xml) in 27ms
+07:18:12,938 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 1) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.teiid.vdb.odata3.1
+{code}
+
+\[2\]
+{code:text}
+07:13:17,144 INFO  [org.teiid.RUNTIME] (MSC service thread 1-4) TEIID50026 VDB "odata.1[Source{}]" undeployed.
+07:13:17,145 TRACE [org.teiid.RUNTIME] (MSC service thread 1-3) VDB odata metadata removed
+07:13:17,148 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment oo-vdb.xml (runtime-name: oo-vdb.xml) in 7ms
+07:13:17,149 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015876: Starting deployment of "oo-vdb.xml" (runtime-name: "oo-vdb.xml")
+07:13:17,168 DEBUG [org.teiid.RUNTIME] (MSC service thread 1-4) VDB oo-vdb.xml has been parsed.
+07:13:17,187 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-6) MSC000001: Failed to start service jboss.teiid.vdb.odata.1: org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1
+	at org.teiid.jboss.VDBService.start(VDBService.java:185)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1980) [jboss-msc-1.1.5.Final-redhat-1.jar:1.1.5.Final-redhat-1]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1913) [jboss-msc-1.1.5.Final-redhat-1.jar:1.1.5.Final-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1
+	at org.teiid.runtime.AbstractVDBDeployer.assignMetadataRepositories(AbstractVDBDeployer.java:88)
+	at org.teiid.jboss.VDBService.start(VDBService.java:181)
+	... 5 more
+
+07:13:17,192 ERROR [org.jboss.as.controller.management-operation] (DeploymentScanner-threads - 1) JBAS014612: Operation ("full-replace-deployment") failed - address: ([]) - failure description: {"JBAS014671: Failed services" => {"jboss.teiid.vdb.odata.1" => "org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1
+    Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1"}}
+07:13:17,201 TRACE [org.teiid.RUNTIME] (MSC service thread 1-7) VDB odata metadata removed
+07:13:17,204 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment oo-vdb.xml (runtime-name: oo-vdb.xml) in 10ms
+07:13:17,205 ERROR [org.jboss.as.controller.management-operation] (DeploymentScanner-threads - 1) JBAS014781: Step handler org.jboss.as.server.deployment.DeploymentHandlerUtil$4@64ced7d6 for operation {"operation" => "full-replace-deployment","address" => [],"name" => "oo-vdb.xml","content" => [{"path" => "deployments/oo-vdb.xml","relative-to" => "jboss.server.base.dir","archive" => true}],"persistent" => false,"enabled" => true} at address [] failed handling operation rollback -- java.util.NoSuchElementException: No child 'name' exists: java.util.NoSuchElementException: No child 'name' exists
+	at org.jboss.dmr.ModelValue.requireChild(ModelValue.java:369) [jboss-dmr-1.2.2.Final-redhat-1.jar:1.2.2.Final-redhat-1]
+	at org.jboss.dmr.ObjectModelValue.requireChild(ObjectModelValue.java:299) [jboss-dmr-1.2.2.Final-redhat-1.jar:1.2.2.Final-redhat-1]
+	at org.jboss.dmr.ModelNode.require(ModelNode.java:870) [jboss-dmr-1.2.2.Final-redhat-1.jar:1.2.2.Final-redhat-1]
+	at org.jboss.as.server.deployment.DeploymentHandlerUtil$4$1.handleResult(DeploymentHandlerUtil.java:283) [jboss-as-server-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext$Step.handleResult(AbstractOperationContext.java:1151) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext$Step.finalizeInternal(AbstractOperationContext.java:1108) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext$Step.finalizeStep(AbstractOperationContext.java:1083) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext$Step.access$300(AbstractOperationContext.java:1028) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext.finishStep(AbstractOperationContext.java:822) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:778) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:537) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext.completeStepInternal(AbstractOperationContext.java:338) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.AbstractOperationContext.executeOperation(AbstractOperationContext.java:314) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.OperationContextImpl.executeOperation(OperationContextImpl.java:1144) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.ModelControllerImpl.internalExecute(ModelControllerImpl.java:331) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.ModelControllerImpl.execute(ModelControllerImpl.java:201) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.ModelControllerImpl$3$1$1.run(ModelControllerImpl.java:652) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at org.jboss.as.controller.ModelControllerImpl$3$1$1.run(ModelControllerImpl.java:646) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.7.0_71]
+	at org.jboss.as.controller.ModelControllerImpl$3$1.run(ModelControllerImpl.java:646) [jboss-as-controller-7.5.3.Final-redhat-2.jar:7.5.3.Final-redhat-2]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471) [rt.jar:1.7.0_71]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:178) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:292) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:122) [jboss-threads-2.1.2.Final-redhat-1.jar:2.1.2.Final-redhat-1]
+
+07:13:17,209 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 1) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.teiid.vdb.odata.1
+{code}
+
+\[3\]
+{code:text}
+07:19:05,346 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "oo3-vdb.xml" (runtime-name: "oo3-vdb.xml")
+07:19:05,356 DEBUG [org.teiid.RUNTIME] (MSC service thread 1-6) VDB oo3-vdb.xml has been parsed.
+07:19:05,361 ERROR [stderr] (MSC service thread 1-7) ScriptEngineManager providers.next(): javax.script.ScriptEngineFactory: Provider com.sun.script.javascript.RhinoScriptEngineFactory not found
+07:19:05,362 INFO  [org.teiid.RUNTIME] (MSC service thread 1-7) TEIID50029 VDB odata3.1 model "Source" metadata is currently being loaded. Start Time: 22.9.2015 7:19
+07:19:05,363 TRACE [org.teiid.RUNTIME] (MSC service thread 1-7) Model  Source in VDB  odata3  was being loaded from its repository
+07:19:05,363 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 3) TEIID50030 VDB odata3.1 model "Source" metadata loaded. End Time: 22.9.2015 7:19
+07:19:05,365 TRACE [org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 3) Resolving command SELECT 'b'
+07:19:05,366 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 3) TEIID40003 VDB odata3.1 is set to ACTIVE
+07:19:05,369 ERROR [stderr] (teiid-async-threads - 3) Exception in thread "teiid-async-threads - 3" java.lang.IllegalStateException
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.jboss.msc.value.InjectedValue.getValue(InjectedValue.java:47)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService.getBuffermanager(VDBService.java:502)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService.access$200(VDBService.java:85)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService$1.finishedDeployment(VDBService.java:156)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.deployers.VDBRepository.notifyFinished(VDBRepository.java:352)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.deployers.VDBRepository.finishDeployment(VDBRepository.java:308)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.runtime.AbstractVDBDeployer.metadataLoaded(AbstractVDBDeployer.java:202)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService.access$1100(VDBService.java:85)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService$6.run(VDBService.java:411)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at org.teiid.jboss.VDBService$7.run(VDBService.java:442)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+07:19:05,370 ERROR [stderr] (teiid-async-threads - 3) 	at java.lang.Thread.run(Thread.java:745)
+07:19:05,371 ERROR [stderr] (teiid-async-threads - 3) 	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+07:19:05,407 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015859: Deployed "oo3-vdb.xml" (runtime-name : "oo3-vdb.xml")
+{code}
+

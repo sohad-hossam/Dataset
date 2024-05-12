@@ -1,0 +1,2 @@
+Extra unique constraint in dynamic vdb schema
+I'm getting an extra Unique Constraint in the dynamic VDB schema - for a MySQL table with only a primary key.  See steps to reproduce.

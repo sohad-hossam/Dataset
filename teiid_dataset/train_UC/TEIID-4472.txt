@@ -1,0 +1,2 @@
+Add CLI scripts for standalone "HA" and "FULL-HA" configurations
+Add cli scripts to configure the standalone "ha" and "full-ha" configurations.

@@ -1,0 +1,4 @@
+Impala Translator - Change planning step for from_unixtime() pushdown
+Impala and Teiid both have from_unixtime() functions and per the forum reference the mapping to timestampadd() appears to come before the test for pushdown support of the impala native function.
+
+As a query request we require the impala from_unixtime() function be executed instead of the Teiid-native version.

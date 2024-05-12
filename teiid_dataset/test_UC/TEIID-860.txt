@@ -1,0 +1,2 @@
+Add odbc support
+Support for ODBC should be added to the server.  H2 has an emulation mode for pg odbc that could serve as our template as well.  Just like the OA system tables, we would need to add pg system tables (possibly adding a mechanism to inject additional system vdbs, rather than adding more tables to the system.vdb).  Clients would use http://www.postgresql.org/ftp/odbc/versions/

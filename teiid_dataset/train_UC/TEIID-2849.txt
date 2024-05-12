@@ -1,0 +1,2 @@
+MongoDB: Provide basic metadata support
+Currently there is no native metadata import support in the MongoDB translator. It was avoided int he first run because there is no good way to interpret the complex document records. This position has not changed, but this enhancement request is to see if it can capture simple documents or top level documents as a starting point to capture and then to improve upon manually using tooling.

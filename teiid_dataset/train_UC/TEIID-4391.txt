@@ -1,0 +1,9 @@
+NONDETERMINISTIC functions incorrectly optimized out of ORDER BY
+The default for functions is to be deterministic, so without an argument only a single value is assumed and these functions are optimized out of ORDER BY clauses.
+
+We should be able to change this behavior by marking a function and NON-DETERMINISTIC in the VDB definition like this : 
+CREATE FOREIGN FUNCTION F() RETURNS FLOAT  OPTIONS (NAMEINSOURCE '"app1".F', DETERMINISM 'NONDETERMINISTIC');
+
+But doing this fails to prevent the function call from being optimized out of the ORDER BY.
+
+Work arounds are to use the function in an expression that involves a table column or add a no-op parameter to the function and pass a table column.

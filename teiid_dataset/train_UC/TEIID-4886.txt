@@ -1,0 +1,6 @@
+Allow join grouping to optimize across left outer joins
+In a from clause such as:
+
+(a.t1 inner join b.t1 ... inner join a.t2 ...) left outer join b.t2 ...
+
+It is possible to group the b.t1 and b.t2 together, but generally won't be found by the grouping and then ordering logic.

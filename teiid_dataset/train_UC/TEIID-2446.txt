@@ -1,0 +1,2 @@
+ldap update attributes need to be sent as strings
+The sun ldap context needs attribute values as string or byte arrays and not as their object types.

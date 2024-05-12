@@ -1,0 +1,2 @@
+Consolidate Version class
+We have the Version class replicated in several places, so we should consolidate.

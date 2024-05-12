@@ -1,0 +1,4 @@
+Fix docs Oracle module.xml
+Closing tag in XML is missing.
+
+https://github.com/teiid/teiid/blob/master/build/kits/jboss-as7/docs/teiid/datasources/oracle/modules/com/oracle/main/module.xml#L11

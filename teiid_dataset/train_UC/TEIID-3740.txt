@@ -1,0 +1,17 @@
+ldap post
+I created a virtual table from Ldap source table, and I am able to do a odata GET call. When I try to make POST on the same table. It is giving the below errors :
+ 
+{
+    "error": {
+        "code": "ServerErrorException",
+        "message": {
+            "lang": "en-US",
+            "value": "TEIID30492 TEIID30061 Insert is not allowed on the view LdapView.\"user\".  A procedure may be needed to handle the Insert since: The query defining an updatable view has no valid target for INSERTs."
+        }
+    }
+}
+ 
+My virtual table is a simple (select * from table) statement. and "Suports update" is checked for source and view.  VDB file attached for reference
+how do i make a successful post?
+Thanks in advance,
+Prashanthi

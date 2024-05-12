@@ -1,0 +1,63 @@
+SybaseIQ translator: different order of arguments in LOCATE function
+Teiid's and SAP IQ's LOCATE function differs in order of arguments. Translator is pushing the LOCATE function as is into the source, which results in undesirable results. This is critical issue, as the queries seemingly work, but are not producing correct results.
+See [SAP IQ LOCATE function docs|http://help.sap.com/saphelp_iq1611_iqrefbb/helpdata/en/a5/5fae8484f2101591b6b7d46dca7cc4/content.htm]
+Query:
+{code:sql}
+SELECT INTKEY, STRINGNUM, LOCATE(1,STRINGNUM) FROM BQT1.SmallA ORDER BY intkey
+{code}
+being pushed as:
+{code:sql}
+[SELECT g_0."intkey" AS c_0, g_0."stringnum" AS c_1, locate('1', g_0."stringnum") AS c_2 FROM "bqt-server"."dvqe"."SmallA" AS g_0 ORDER BY c_0]
+{code}
+Results in:
+|| intkey ||	stringnum	|| expr3 ||
+|0 | -24 | 0| 
+|1 | <null> | <null>| 
+|2 | -22 | 0| 
+|3 | -21 | 0| 
+|4 | -20 | 0| 
+|5 | -19 | 0| 
+|6 | -18 | 0| 
+|7 | -17 | 0| 
+|8 | -16 | 0| 
+|9 | -15 | 0| 
+|10 | -14 | 0| 
+|11 | -13 | 0| 
+|12 | -12 | 0| 
+|13 | -11 | 0| 
+|14 | -10 | 0| 
+|15 | -9 | 0| 
+|16 | -8 | 0| 
+|17 | <null> | <null>| 
+|18 | -6 | 0| 
+|19 | -5 | 0| 
+|20 | -4 | 0| 
+|21 | -3 | 0| 
+|22 | -2 | 0| 
+|23 | -1 | 0| 
+|24 | 0 | 0| 
+|25 | 1 | 1| 
+|26 | 2 | 0| 
+|27 | 3 | 0| 
+|28 | 4 | 0| 
+|29 | 5 | 0| 
+|30 | 6 | 0| 
+|31 | 7 | 0| 
+|32 | 8 | 0| 
+|33 | <null> | <null>| 
+|34 | 10 | 0| 
+|35 | 11 | 0| 
+|36 | 12 | 0| 
+|37 | 13 | 0| 
+|38 | 14 | 0| 
+|39 | 15 | 0| 
+|40 | 16 | 0| 
+|41 | 17 | 0| 
+|42 | 18 | 0| 
+|43 | 19 | 0| 
+|44 | 20 | 0| 
+|45 | 21 | 0| 
+|46 | 22 | 0| 
+|47 | 23 | 0| 
+|48 | 24 | 0| 
+|49 | <null> | <null> |

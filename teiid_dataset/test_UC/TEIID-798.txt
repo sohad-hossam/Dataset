@@ -1,0 +1,2 @@
+Add support for unknown keyword parsing
+We already support the TRUE and FALSE keywords, we should add support for UNKNOWN as well.  UNKNOWN is the same as convert(null, boolean).  The stringtoboolean conversion should also support UNKNOWN.

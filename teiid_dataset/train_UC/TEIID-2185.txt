@@ -1,0 +1,2 @@
+Cost estimation for temp table index selection is incorrect
+The index selection for temporary tables incorrectly computes an additional cost factor that biases the selection against secondary indexies.

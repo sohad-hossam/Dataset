@@ -1,0 +1,10 @@
+Support JDBC 4 style DatabaseMetaData getColumns
+The getColumns call should return the additional columns 
+
+SCOPE_CATALOG
+SCOPE_SCHEMA 
+SCOPE_TABLE 
+SOURCE_DATA_TYPE
+IS_AUTOINCREMENT 
+
+This is currently useful so that the autoincrement value can be obtained.

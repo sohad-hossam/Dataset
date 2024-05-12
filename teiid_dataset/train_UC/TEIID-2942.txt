@@ -1,0 +1,8 @@
+Enhanced sort join produces duplicate results
+In a plan where an enhanced sort join chooses to create an index on a child that should be SORT_DISTINCT, the distinct processing does not occur.
+
+For example this would occur with a query such as:
+
+select a.e1, b.e2 from pm1.g1 as a, (select e1, e2 from pm2.g2 union select e1, e2 from pm2.g2) as b where a.e1 = b.e1
+
+where the source does not support union.

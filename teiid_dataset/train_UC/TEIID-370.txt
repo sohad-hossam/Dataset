@@ -1,0 +1,3 @@
+Push subquery criteria under virtual group
+From case 234078.  Push "IN" criteria with subquery down through virtual group.
+

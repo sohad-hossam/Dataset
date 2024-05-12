@@ -1,0 +1,2 @@
+Improve repeated string serialization performance
+In Teiid 7.5 we switched away from object serialization to writing every value to the serialization stream.  This provides better performance for distinct/small values, but adds a significant amount of overhead compared to just object serialization for large and repeated values.

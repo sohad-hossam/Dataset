@@ -1,0 +1,2 @@
+Use generics in api
+The new connector api should use generics where appropriate.

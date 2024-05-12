@@ -1,0 +1,6 @@
+StringToTimestamp in convert fails during DST transition hour
+Issue is due to [https://github.com/teiid/teiid/blob/master/common-core/src/main/java/org/teiid/core/types/basic/StringToTimestampTransform.java#L66 | this line] in StringToTimestampTransform.java.  In particular, if you pass in a string date for a timestamp at the beginning of the DST transition hour, the result will be an hour in the future or past, so this string comparison fails, throwing TEIID10060 exception.
+
+Examples include:
+* America/Edmonton  2016-03-13 02:00:00
+* America/Argentina/Buenos_Aires 1991-10-20 00:00:00

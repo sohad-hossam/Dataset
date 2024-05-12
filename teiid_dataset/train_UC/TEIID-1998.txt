@@ -1,0 +1,8 @@
+Deployed translator JAR fails to be loaded when used in the VDB
+Caused by: org.jboss.modules.ModuleNotFoundException: Module async-translator.jar:main is not found in local module loader @6cd24e3f (roots: /home/rareddy/testing/jboss-as-7.1.1.Final/modules)
+	at org.jboss.modules.LocalModuleLoader.findModule(LocalModuleLoader.java:126)
+	at org.jboss.modules.ModuleLoader.loadModuleLocal(ModuleLoader.java:275)
+	at org.jboss.modules.ModuleLoader.preloadModule(ModuleLoader.java:222)
+	at org.jboss.modules.LocalModuleLoader.preloadModule(LocalModuleLoader.java:94)
+	at org.jboss.modules.ModuleLoader.loadModule(ModuleLoader.java:204)
+	at org.teiid.jboss.VDBService.getExecutionFactory(VDBService.java:260)

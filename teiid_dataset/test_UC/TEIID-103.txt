@@ -1,0 +1,2 @@
+Salesforce Connector: Count(*) did not appear to pushdown to SOQL.
+Count(*) did not appear to pushdown to SOQL.

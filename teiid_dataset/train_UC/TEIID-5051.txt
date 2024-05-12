@@ -1,0 +1,4 @@
+UUID translating
+Postgresql translator replaces source's `uuid` datatype for `Object`. So teiid (by default without custom casting) is unable to sort/condition views on such a field.
+
+String might be better than Object.

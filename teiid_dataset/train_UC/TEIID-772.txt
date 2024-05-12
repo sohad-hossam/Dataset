@@ -1,0 +1,2 @@
+Fix  TestEmbeddedVDBService test in the runtime project
+The TestEmbeddedVDBService test was picking up a different Empty.vdb and was failing locally.   Change to look for the TestEmpty vdb.

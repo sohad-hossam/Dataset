@@ -1,0 +1,2 @@
+Add module packaging to each of the translator
+Add zip module packaging to each of the translators

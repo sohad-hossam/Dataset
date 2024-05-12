@@ -1,0 +1,10 @@
+Must pushdown compensation does not account for translator pushdown functions
+A translator function does not have truly belong to any schema and results in an exception if we attempt to compensate for it:
+
+TEIID30019 Unexpected exception for request 10BpOpvKhXev.15: java.lang.NullPointerException
+
+  at org.teiid.query.metadata.TempMetadataAdapter.isVirtualModel(TempMetadataAdapter.java:403) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]
+
+  at org.teiid.query.optimizer.relational.rules.CapabilitiesUtil.supports(CapabilitiesUtil.java:451) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]
+
+  at org.teiid.query.processor.relational.SubqueryAwareEvaluator.evaluatePushdown(SubqueryAwareEvaluator.java:359) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]

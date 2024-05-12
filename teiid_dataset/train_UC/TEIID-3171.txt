@@ -1,0 +1,15 @@
+NullPointerException in LogonImpl when Credential Delegate is not enabled
+When trying to connect via JDBC using GSS authentication, the follwing exception is thrown if Credential Delegation is not enabled. Via ODBC, same setup works fine.
+
+2014-10-14 11:22:35,199 INFO  [org.teiid.SECURITY] (New I/O worker #4:) TEIID40017 Unexpected exception for session null: java.lang.NullPointerException
+        at java.util.Hashtable.put(Hashtable.java:514)
+        at org.teiid.transport.LogonImpl.neogitiateGssLogin(LogonImpl.java:197)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+        at java.lang.reflect.Method.invoke(Method.java:606)
+        at org.teiid.transport.ServerWorkItem.run(ServerWorkItem.java:87)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274)
+        at org.teiid.transport.SocketClientInstance.processMessagePacket(SocketClientInstance.java:207)
+        at org.teiid.transport.SocketClientInstance.receivedMessage(SocketClientInstance.java:193)
+        at org.teiid.transport.SSLAwareChannelHandler.messageReceived(SSLAwareChannelHandler.java:211)

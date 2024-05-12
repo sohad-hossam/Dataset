@@ -1,0 +1,2 @@
+Remove the prestodb jar
+Starting with version .87 the presto driver has the fix submitted by Ramesh.

@@ -1,0 +1,2 @@
+IS_NULLABLE is reported incorrectly for columns
+IS_NULLABLE is the reverse of what it should be.

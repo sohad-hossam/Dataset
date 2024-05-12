@@ -1,0 +1,11 @@
+directly nested blocks are not resolved
+A simple nesting of blocks:
+
+begin
+  ...
+  begin
+    ...
+  end
+end
+
+will not resolve the inner block

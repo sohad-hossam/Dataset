@@ -1,0 +1,6 @@
+Allow the optional join hint to work with non-ansi joins
+The optional join hint currently works only in ansi joins, and then only if the table(s) are not used in where predicates forcing unnatural on clauses.
+
+e.g. select b.* from /\*+optional\*/ a, b where a.x = b.x
+
+should still allow a to be optional.

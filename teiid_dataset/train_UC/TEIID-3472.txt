@@ -1,0 +1,6 @@
+View removal with lateral join results in error
+Using a lateral join:
+
+SELECT CAST(g1.col AS string), g0.a FROM (select 'a' as a, ('a',) as c) AS g0, TABLE(select array_get(g0.c, 1) as col) AS g1
+
+such that the left side is defined by a constant query, the view removal will not fully replace the correlated references and result in an exception for getting the correlated values (g0.c).

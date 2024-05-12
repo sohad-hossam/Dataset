@@ -1,0 +1,2 @@
+Improve with clause performance
+We should do more to analyze predicates to determine if the rows of the common table can be limited or if an index can be automatically added.

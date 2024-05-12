@@ -1,0 +1,2 @@
+SYS queries should filter by schema/table
+The tables returned by datatiermanagerimpl are returned in full for each request generating a lot of tuple garbage.  It would be better to allow filtering (ideally using schema/table name lookups) as we build the result.

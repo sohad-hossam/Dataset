@@ -1,0 +1,2 @@
+Allow ndv calculation to consider types
+For columns that lack ndv values, we should use the type as hint.

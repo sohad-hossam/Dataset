@@ -1,0 +1,47 @@
+Teiid Server does not honor columns name in external materialization
+When defining a View with external materialization, if the view does not specify the columns in the same order as they are defined in the Materialized Table, Teiid Server inserts data in the wrong columns (in the order that is defined in the view). It appears that Teiid Server does not use the columns names but instead uses the column indexes.
+
+Example:
+
+If the view is defined like this:
+
+
+{code:sql}
+CREATE VIEW my_view (
+   cns varchar(400),
+   country_code varchar(400)
+)
+{code}
+
+And the tables in the database are defined like this:
+
+
+{code:sql}
+CREATE TABLE my_view_cache_staging (
+    country_code VARCHAR(400),
+    cns VARCHAR(400)
+    
+);
+
+CREATE TABLE my_view_cache (
+   country_code VARCHAR(400),
+    cns VARCHAR(400)
+);
+
+{code}
+
+Then when loadMatView runs, it will insert in country_code column in database the values from cns (view) and in cns column in database the values from country_code (view).
+
+But if the view is defined like this:
+
+
+{code:sql}
+CREATE VIEW my_view (
+   country_code varchar(400),
+   cns varchar(400)	
+)
+{code}
+
+Then Teiid will insert the data "correctly".
+
+It appears that loadMatView is using indexes instead of column names to insert the data.

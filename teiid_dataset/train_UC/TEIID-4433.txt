@@ -1,0 +1,2 @@
+Google gdata dependency needs to be in its own module
+Google resource adapter includes the gdata core jar file inside its module, this needs to be pulled into its own module.

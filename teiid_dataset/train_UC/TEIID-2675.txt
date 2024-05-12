@@ -1,0 +1,2 @@
+Ensure that user defined aggregate functions don't require additional syntax
+User defined aggregates require additional syntax if they look like simple functions.  This is not ideal, but was not addressed initially due to the lack of effective rewrite support in the resolver and all of the logic that is built around the differentiation between Function and AggregateSymbol classes.

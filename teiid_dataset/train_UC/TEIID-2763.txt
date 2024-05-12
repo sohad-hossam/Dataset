@@ -1,0 +1,2 @@
+kerberosServicePrincipleName as user when dealing with kerberos security domain
+When both the security-domain and krb5-domain is defined within the transport authentication element. The security-domain module does not take into account of kerberosServicePrincipleName. This means a username (and/or password) is still required in the connection url forthe security-domain's authentication/authorization. 

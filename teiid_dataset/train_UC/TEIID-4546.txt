@@ -1,0 +1,4 @@
+On setting jboss-teiid cluster : throwing java.lang.IllegalArgumentException.
+https://developer.jboss.org/thread/272755
+
+This will be to specifically address the adminclient issues in domain mode.

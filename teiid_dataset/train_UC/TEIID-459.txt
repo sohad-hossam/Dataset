@@ -1,0 +1,5 @@
+Minor shutdown issues
+Configuration service shutdown has a missing message key
+Registry shutdown may still have listeners that act against an invalid cache
+The ProcessConroller is adding a redundant shutdown hook
+...

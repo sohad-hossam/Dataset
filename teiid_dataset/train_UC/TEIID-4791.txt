@@ -1,0 +1,10 @@
+Bypass lookup function's keycolumn reserved word
+When using the Teiid LOOKUP function, the 3rd argument is to specify the keycolumn.  In my table, the column I want to reference is literally named "value", which is a SQL reserved word.  The generated query chokes on this because it's not expecting a reserved word to be here when parsing the grammar.  I've tried quoting and escaping to get around this, but nothing seems to work.
+
+{code}
+21:18:55,860 WARN  [org.teiid.PROCESSOR] (Worker16_QueryProcessorQueue167) TEIID30020 Processing exception for request NLkytVFPLOM6.0 'TEIID30328 Unable to evaluate lookup('tdsa_vbl.t_code_translate', 'descr', 'value', 'NAMS'): TEIID31100 Parsing error: Encountered "SELECT [*]VALUE[*] ,DESCR" at line 1, column 8.
+Was expecting: "char" | "date" | "time" | "timestamp" | "cast" | "convert" | "all" | "any" | "array_agg" | "case" ...'. Originally ExpressionEvaluationException QueryParser.java:214. Enable more detailed logging to see the entire stacktrace.
+21:19:13,077 WARN  [org.teiid.PROCESSOR] (Worker16_QueryProcessorQueue168) TEIID30020 Processing exception for request /qqhN3vx+au1.0 'TEIID31118 Element "tdsa_vbl.t_code_translate."[value]"" is not defined by any relevant group.'. Originally QueryResolverException ResolverVisitor.java:106. Enable more detailed logging to see the entire stacktrace.
+21:19:40,897 WARN  [org.teiid.PROCESSOR] (Worker16_QueryProcessorQueue169) TEIID30020 Processing exception for request 1TAniWpe2wpN.0 'TEIID31119 Symbol "'value'" is specified with an unknown group context'. Originally QueryResolverException ResolverVisitor.java:106. Enable more detailed logging to see the entire stacktrace.
+21:19:52,600 WARN  [org.teiid.PROCESSOR] (Worker16_QueryProcessorQueue170) TEIID30020 Processing exception for request +8tCacHlFS8D.0 'TEIID31119 Symbol "value" is specified with an unknown group context'. Originally QueryResolverException ResolverVisitor.java:106. Enable more detailed logging to see the entire stacktrace.
+{code}

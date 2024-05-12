@@ -1,0 +1,2 @@
+makedep makenotdep hints should allow for more complicated scenarios
+In the option clause makedep and makenotdep take what are typically fully-qualified names and mark all matching tables/views in the query.  This is not generally a good idea.  We should allow for something akin to oracle global table syntax (view.)*table to drill down more specifically.  Ideally we'd also account for subqueries and set operations as well. 

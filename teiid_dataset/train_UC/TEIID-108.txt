@@ -1,0 +1,3 @@
+xsd type conversion should be consistent
+Defect Tracker #23654: [This came from our consultant Jimmy Fernandez' Case 4795, for customer MITRE].
+Jimmy wrote: "When modeling Web Services with our Web Service to relational importer and the column type on the request table out are dateTime objects; the SOAP/XML connectors should be converting the specific column to the xsd:dateTime object specifications.  It would not hurt to ensure that we are following the correct specification for other xsd objects as well."

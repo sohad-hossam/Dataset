@@ -1,0 +1,49 @@
+Some criteria are missing when indexes are used on the source tables
+The following two tables are defined in two different datasources (PostgreSQL and MySQL):
+{code:sql}
+CREATE TABLE "pg"."tx1"  
+(  
+   a varchar(2147483647),  
+   b varchar(2147483647),  
+   c integer,  
+   d integer,  
+   e integer  
+);  
+CREATE INDEX tx1_b ON "pg"."tx1"(b);  
+CREATE INDEX tx1_a ON "pg"."tx1"(a);  
+CREATE INDEX tx1_e ON "pg"."tx1"(e);  
+CREATE INDEX tx1_d ON "pg"."tx1"(d);  
+CREATE INDEX tx1_c ON "pg"."tx1"(c);  
+  
+CREATE TABLE "my"."tx2"  
+(  
+   a integer,  
+   b integer,  
+   c integer,  
+   d integer,  
+   e integer  
+);
+
+insert into tx1 VALUES(1,1,1,1,1) ;  
+insert into tx1 VALUES(1,2,2,2,2) ;  
+insert into tx1 VALUES(1,2,3,3,3) ;  
+insert into tx1 VALUES(1,2,3,4,4) ;  
+insert into tx1 VALUES(1,2,3,4,5) ;  
+
+insert into tx2 VALUES(1,2,3,4,5) ; 
+{code}
+
+Running the following query:
+{code:sql}
+select tx1.* from pg.tx1 as tx1 join my.tx2 as tx2 on tx1.a=tx2.a and tx1.b=tx2.b and tx1.c=tx2.c and tx1.d=tx2.d and tx1.e!=tx2.e;  
+{code}
+
+a wrong result is returned:
+||a||b||c||d||e||
+|1|2|2|2|2|
+|1|2|3|3|3|
+|1|2|3|4|4|
+
+If indexes are removed from the source table, the expected result is correctly returned:
+||a||b||c||d||e||
+|1|2|3|4|4|

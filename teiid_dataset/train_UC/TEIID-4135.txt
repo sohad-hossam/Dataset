@@ -1,0 +1,16 @@
+Invalid query when using recursive CTE with translators that do not suport RCTE pushdown
+When running a recursive common table expression query against a source that does not support recursive cte pushdown, only the recursive part of the query is pushed, which fails, since it references a non-existent table (the cte).
+
+E. g. the query 
+{code:sql}
+WITH tmp_cte(id, fk, lvl) AS (
+    SELECT id, fk, 0 as lvl FROM SourceModel.cte_source WHERE fk IS NULL
+    UNION ALL
+    SELECT e.id, e.fk, lvl + 1 as lvl FROM SourceModel.cte_source AS e INNER JOIN tmp_cte AS ecte ON ecte.id = e.fk
+    )
+SELECT * FROM tmp_cte
+{code}
+
+against a PostreSQL source results in {noformat}Remote org.postgresql.util.PSQLException: ERROR: relation "tmp_cte" does not exist{noformat}
+because this query is pushed down:
+{code:sql}SELECT g_0.id, g_0.fk, g_0.lvl FROM tmp_cte AS g_0{code}

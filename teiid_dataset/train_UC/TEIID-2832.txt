@@ -1,0 +1,2 @@
+Lower level denials still enforced with multiple roles
+If a role grants read all to schema A and another role also grants read all to schema A, but denies access to A.tbl, then the combination of these roles currently still denies access to A.tbl.  It should result in granting access.

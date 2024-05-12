@@ -1,0 +1,2 @@
+Allow partial projection of window functions
+Currently the pushProjection check in RuleAssignOutputElements does not consider projected columns from a node that has window functions.  This should be relaxed so that more can be pushed.

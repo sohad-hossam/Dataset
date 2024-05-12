@@ -1,0 +1,2 @@
+Add faster resource cleanup for failed sortutility runs
+Failure during the run of sort utility (which can occur in the sort utility or outside due to blocked exceptions / streaming dup remove) will just rely on garbage collection clean-up of intermediate buffers.  There should better handling in calling code to clean up proactively.

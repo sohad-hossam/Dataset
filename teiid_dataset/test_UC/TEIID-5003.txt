@@ -1,0 +1,2 @@
+Deprecate BatchedCommand, use BulkCommand instead
+To match the support methods it would be clearer to use BulkCommand instead of BatchedCommand.

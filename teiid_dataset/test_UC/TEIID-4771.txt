@@ -1,0 +1,7 @@
+The convert script generates GRANT TEMPORARY_TABLE ON DATABASE statements but these fail.
+The script generates GRANT TEMPORARY_TABLE ON DATABASE statements but these fail.
+
+Apparently the script does accept TEMPORARY TABLE (without the underscore). I also had to explicitly state the database name otherwise I get a message "TEIID31231 Database null.{1} not found".
+
+So this doesn't work: GRANT TEMPORARY_TABLE ON DATABASE TO rouser;
+But this does work: GRANT TEMPORARY TABLE ON DATABASE vdb TO rouser;

@@ -1,0 +1,12 @@
+Issues with applying row based security
+If a view over a left outer join has a row condition and is used in a simple aggregation:
+
+select count\(*) from vw
+
+Then a null pointer exception will occur when considering optional joins.
+
+If intervening criteria is added:
+
+select count\(*) from vw where ...
+
+we can get past the initial error, but will fail in initializing the join node with an assertion error.  Both of these have the same root issue, which is our attempt to make the logic selective about when assign output elements is run, which leads to the output elements not being in place when later needed.

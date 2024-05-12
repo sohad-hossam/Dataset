@@ -1,0 +1,15 @@
+Change framework to catch RutineException from translator/connector
+Discussion:
+
+Generally the connector/engine logic should be responsible for handling whatever exception is thrown.  For example ConnectorWorkItem and DataTeirTupleSource do intercept RuntimeExceptions, but rethrows them.  We may want to instead convert them into Processing exceptions as the ConnectorWorkItem level.
+
+----- Original Message -----
+> With Resource-adapters, the drivers to connect to some of these data sources
+> are not standard.  And because of that, just like with JDG, its probable
+> that other drivers will be throwing unexpected exceptions when those data
+> sources are scaled up and down.   I know the supporting of other RA data
+> sources is probably not real close, but would it be pro-active to look at
+> possible RA's and that may need to have try/catches added?
+>
+> Van
+> 

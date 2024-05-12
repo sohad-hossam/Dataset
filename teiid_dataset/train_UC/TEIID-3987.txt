@@ -1,0 +1,2 @@
+SYSADMIN.setProperty should resolve property keys
+setProperty currently expects the key to be specified in the fully qualified form \{uri\}key - rather than the simpler namespace:key form.

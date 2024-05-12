@@ -1,0 +1,2 @@
+Add import property to limit salesforce tables
+It would be nice to have an import property for salesforce model in a dynamic vdb, so that the tables imported could be filtered.  currently there is a 'modelAuditFields' property.  I'm suggesting a property to specify the table name pattern, so that I can limit the tables to a subset.

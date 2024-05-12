@@ -1,0 +1,9 @@
+Impala translator - add all date pushdown functions
+As a teiid client I need the ability to perform date-based operations in the impala data store (data functions pushed down to impala) instead of within teiid.
+
+Please add the impala date functions from http://www.cloudera.com/documentation/archive/impala/2-x/2-0-x/topics/impala_datetime_functions.html
+
+
+Version 1.0.1 function support list is at http://www.cloudera.com/documentation/archive/impala/1-x/1-0-1/Installing-and-Using-Impala/ciiu_functions.html?scroll=datetime_functions_unique_1
+
+Version 1.2.4 function support list is at http://www.cloudera.com/documentation/archive/impala/1-x/1-2-4/Installing-and-Using-Impala/ciiu_functions.html

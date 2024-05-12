@@ -1,0 +1,4 @@
+Allow local connections to use thread bound transactions
+To facilitate usage of non-pooled local connections, it would be useful for the engine to automatically use the thread bound transaction for queries.
+
+An approximate workaround in local mode is to set the userSourceQueryConcurrency to 1 and use the disableLocalTxn property if needed to prevent calling code from starting a local transaction.  The downside of this approach is that non-transactional work will be performed serially and Teiid temporary tables will not be transactionally aware.

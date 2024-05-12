@@ -1,0 +1,2 @@
+Allow translator properties to be overridable
+If an ExecutionFactory subclass attempts to override a parent translator property the parent property will be used instead.

@@ -1,0 +1,2 @@
+Support 1.7 JDBC methods
+To build against a 1.7 VM without retarging to a 1.6 runtime for the Java libraries requires that we update our JDBC logic to add missing methods.  Most will likely still not be supported and will throw a SQLFeatureUnsupported exception where appropriate.

@@ -1,0 +1,8 @@
+Do not parse the URL, when creating a Data Source or XA DataSource
+Previously Teiid always dependent upon the Data Direct drivers, which were provided in a unified URL across all the RDBMS, so that Teiid could parse the given URL and extract serverName, databaseName, portNumber etc. 
+
+However, now in order to support with native vendor drivers this assumption is no longer valid. Teiid can not assume the format of these URL, so there should be no attempt made to parse these URLs to extract above properties, rather if the URL specified it should be supplied to the Data Source as like any other property.  This requires code change.
+
+- All the Data Direct XA Connector Types needs to be modified, so that do not depend on the URL property alone
+- All vendor XA data sources need to be checked to make sure they all work.
+

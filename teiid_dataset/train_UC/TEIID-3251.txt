@@ -1,0 +1,4 @@
+Support OAuth 1.0 & OAuth 2.0 Authorization with Web Service resource-adapter
+Support OAuth 1.0a and OAuth 2.0 based authorization with Web Service resource adapters. This will also enable to support sources like Twitter, FaceBook easily in Teiid.
+
+Google Spread Sheet does it own OAuth right now, thus requires a resource adapter.

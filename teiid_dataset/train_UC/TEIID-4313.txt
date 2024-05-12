@@ -1,0 +1,2 @@
+use consistent ordering for group collectors
+In comparing older debug plans we see erroneous differences in the groups of plannodes depending upon the JRE since we're not using linked hashsets to hold the groups.

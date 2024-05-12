@@ -1,0 +1,12 @@
+Correlated subqueries throws TEIID30328
+Non-pushed correlated subqueries that use a correlation variable that is a grouping column where the subquery is turned into a semi join (either through the MJ hint or costing) will fail to find the correlation values.
+
+For example the following against Netezza (which does not support correlated subqueries):
+
+SELECT A.INTKEY, A.STRINGNUM FROM BQT1.SMALLA AS A WHERE CONVERT(LONGNUM,
+STRING) = 8 GROUP BY A.INTKEY, A.STRINGNUM HAVING A.STRINGNUM = (SELECT
+MAX(B.STRINGNUM) FROM BQT1.SMALLA AS B WHERE A.INTKEY = B.INTKEY
+
+throws "TEIID30328 Unable to evaluate A.IntKey: No value was available"
+
+If the subplan is not converted to a join or the correlated column is not a grouping expression, then there is no issue.

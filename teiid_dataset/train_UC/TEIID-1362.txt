@@ -1,0 +1,33 @@
+salesforce push down queries won't get resolved correctly
+GIVEN:
+select a.name, b.sumary
+from Opp a OUTER JOIN OLI b ON a.id = b.foreignId
+
+ 
+JoinQueryVisitor of SFDC translator correctly creates:
+select a.name, (select b.summary from OLI b) from Opp a
+
+
+As of SFDC docs:
+http://www.salesforce.com/us/developer/docs/api/index_Left.htm#StartTopic=Content/sforce_api_calls_soql_relationships.htm
+
+ you get a result set of for example:
+"opp #1", [b] QueryResult for row #1
+"opp #2", [b] QueryResult for row #2
+
+ 
+Which must be transformed into something like this (EXPECTED)
+"opp #1", 100
+"opp #1", 150
+"opp #1", 43000
+"opp #2", 10000
+"opp #2", 100
+etc.
+
+
+Right now, it gets transformed into something like (CURRENT)
+"opp #1", null
+"opp #2", null
+"opp #3", null
+etc.
+

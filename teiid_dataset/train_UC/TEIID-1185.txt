@@ -1,0 +1,9 @@
+Shutting down JBoss AS server causes NPE in ClusterableCacheFactory
+Start the Jboss AS server, open the admin console (not sure if this impacts it, but that was one of my steps), then shutdown the server, get this exception:
+
+15:01:14,024 WARN  [CreateDestroyLifecycleAction] Error during destroy for CacheFactory
+java.lang.NullPointerException
+	at org.teiid.cache.jboss.ClusterableCacheFactory.destroy(ClusterableCacheFactory.java:66)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)

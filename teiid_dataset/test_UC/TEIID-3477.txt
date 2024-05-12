@@ -1,0 +1,24 @@
+NPE when trying to use OData service with void functions
+I have Teiid configured to work with OData sources and tested it successfully with the Northwind v2 endpoint.  However, when trying to use my custom OData service I get an NPE during the metadata import process.  After some debugging I have tracked this down to a null returnType coming back from the following code in the ODataMetadataProcessor which will see a null for void functions.  I looked for a translator property to suppress import of procedures to work around it but have yet to find anything that will help so I think this requires a code change to workaround.
+ 
+// add return type
+EdmType returnType = function.getReturnType();
+if (returnType.isSimple()) {
+  mf.addProcedureParameter(...
+}
+ 
+Appreciate any help you can provide.  Thanks, Jaime
+See stack trace below
+Caused by: java.lang.NullPointerException
+  at org.teiid.translator.odata.ODataMetadataProcessor.addFunctionImportAsProcedure(ODataMetadataProcessor.java:396)
+  at org.teiid.translator.odata.ODataMetadataProcessor.getMetadata(ODataMetadataProcessor.java:119)
+  at org.teiid.translator.odata.ODataMetadataProcessor.process(ODataMetadataProcessor.java:92)
+  at org.teiid.translator.odata.ODataExecutionFactory.getMetadata(ODataExecutionFactory.java:112)
+  at org.teiid.translator.odata.ODataExecutionFactory.getMetadata(ODataExecutionFactory.java:53)
+  at org.teiid.query.metadata.NativeMetadataRepository.getMetadata(NativeMetadataRepository.java:83)
+  at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:60)
+  at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55)
+  at org.teiid.runtime.EmbeddedServer.loadMetadata(EmbeddedServer.java:762)
+  at org.teiid.runtime.AbstractVDBDeployer.loadMetadata(AbstractVDBDeployer.java:168)
+  at org.teiid.runtime.EmbeddedServer.deployVDB(EmbeddedServer.java:712)
+  at org.teiid.runtime.EmbeddedServer.deployVDB(EmbeddedServer.java:653)

@@ -1,0 +1,29 @@
+Appears that join criteria not always propagated to dependent side of join.
+Getting exception in Teiid that suggests join criteria is not being propagated to the dependent side of the join in this case.  This same query and model set/VDB work correctly in MMX 5.5.3 but error in Teiid.  All data sources, drivers are the same, running on the same physical system.
+
+The problematic model is ReportingSchema.xmiin VirtualQueryLayer.  All three views therein have the problem.  The exception below is generated from this query:
+
+select * from AllData_Flattened
+
+Exception:
+May 08, 2009 11:21:09.246 [QueryProcessorQueue0|0] ERROR <DQP|0> ############# PW EXITING on 00000000-0000-0001-0000-000000000001.0 - error occurred ###########
+[MetaMatrixComponentException] ERR.015.006.0033: Unable to evaluate Products_DS.products.productdata.ProductID: No value was available
+	at com.metamatrix.query.eval.Evaluator.internalEvaluate(Evaluator.java:500)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:475)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:195)
+	at com.metamatrix.query.eval.Evaluator.evaluateTVL(Evaluator.java:109)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:98)
+	at com.metamatrix.query.processor.relational.JoinNode.matchesCriteria(JoinNode.java:290)
+	at com.metamatrix.query.processor.relational.MergeJoinStrategy.nextTuple(MergeJoinStrategy.java:245)
+	at com.metamatrix.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:183)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:243)
+	at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:173)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:243)
+	at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:109)
+	at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:151)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:269)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:213)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)

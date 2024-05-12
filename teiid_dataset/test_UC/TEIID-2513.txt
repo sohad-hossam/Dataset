@@ -1,0 +1,2 @@
+Basic Auth with SSL Not Working for WS/OData Translator
+When connecting to an OData web service via SSL using basic auth, the connection fails. Per Ramesh, the keystore need to be configured with the proper cert for SSL. See http://stackoverflow.com/questions/6292799/basic-authentication-with-https

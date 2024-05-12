@@ -1,0 +1,5 @@
+Allow Web Services translator to retrieve metadata without source connection
+The "ws" translator, is set to "isSourceRequiredForMetadata" to true. However, there are two issues
+
+1) There is no way to turn this flag to false
+2) If the "ws" translator is secured through "security-domain", then authentication failure message by passes the "isSourceRequiredForMetadata" flag and returns as error, thus leaving the VDB in "metadata load failed" state.

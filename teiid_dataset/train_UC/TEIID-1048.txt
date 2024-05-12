@@ -1,0 +1,2 @@
+Embedded Connection should support the pass though authentication
+In the JBoss AS container, when a data source is created for the Teiid's VDB, this data source should support the pass through authentication, such that user is not subject to any authentication checks. If the "user" information is needed this needs to be gleaned from the current thread's login context.

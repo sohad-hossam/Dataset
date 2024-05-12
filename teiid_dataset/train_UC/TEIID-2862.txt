@@ -1,0 +1,2 @@
+index out of bounds when a union branch with limit/order by is removed
+When the first union branch is removed and the other branch contains a limit/order by, then the logic that should be updating the parent order by instead uses the child.  This results in an index out of bounds exception.

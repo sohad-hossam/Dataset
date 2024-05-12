@@ -1,0 +1,2 @@
+Null handling in XMLQUERY and XMLTABLE
+Null handling in XMLQUERY and XMLTABLE is not correct - both are currently exceptions.  A null context item in XMLQUERY should result in an UNKNOWN result while XMLTABLE should have no result rows.

@@ -1,0 +1,2 @@
+Add a NOQUOTE option for the TEXTAGG function
+Currently on the TEXTAGG function it defaults to double quotes(") and you can specify something else with QUOTE, but there is not a way to have NO QUOTES at all.  Can this be added?

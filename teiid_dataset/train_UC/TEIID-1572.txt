@@ -1,0 +1,3 @@
+Teiid ODBC does not handle SET and Show operations correctly
+- ODBC protocol expects 'SET' string as command completion when a SET command is issued, this is being ignored
+- PG lets user query the database on configuration using SHOW command. Teiid supports the SHOW command, however since not all properties defined during initialization and some defaults not set explicitly they are not available for the SHOW command. This command being used by Python client. 

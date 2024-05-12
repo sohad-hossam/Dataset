@@ -1,0 +1,2 @@
+message key overrode for TEIID-3811
+TEIID-3811 mistakenly overrode TEIID20036 in the properties file - TEIID20037 should be used instead.

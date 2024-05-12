@@ -1,0 +1,2 @@
+The error should be clearer when making a non-ssl connecting to an ssl server
+When making a non-ssl connection to an ssl server the message is not indicative of what the issue may be.

@@ -1,0 +1,33 @@
+NPE on initializing a GroupingNode when HAVING clause is used in an INSERT INTO query
+Running the following INSERT INTO query:
+
+{code:sql}
+INSERT INTO my.testInsert  
+SELECT key_name, key_type FROM (select 'a' as key_name, 'b' as key_type) k  HAVING count(*)>1  
+{code}
+
+this exception is thrown:
+{code:sql}
+16:50:55,081 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue0) Yh/8IUqIBLy9 TEIID30019 Unexpected exception for request Yh/8IUqIBLy9.0: java.lang.NullPointerException  
+        at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:218) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:455) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:337) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:265) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.10.0.Final.jar:8.10.0.Final]  
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]  
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]  
+        at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]  
+{code}

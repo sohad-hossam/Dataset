@@ -1,0 +1,102 @@
+Salesforce connector not working properly in 9.2.2 release
+The Salesforce connector does not appear to work in the 9.2.2 release (using resource adpater salesforce-34). Here's the relevant entry in the standalone-teiid.xml file:
+
+{{<resource-adapter id="sf34">
+    <module slot="main" id="org.jboss.teiid.resource-adapter.salesforce-34"/>
+    <transaction-support>NoTransaction</transaction-support>
+    <connection-definitions>
+        <connection-definition class-name="org.teiid.resource.adapter.salesforce.SalesForceManagedConnectionFactory" jndi-name="java:/sfDS" enabled="true" use-java-context="true" pool-name="teiid-sf-ds">
+            <config-property name="URL">
+                https://www.salesforce.com/services/Soap/u/34.0
+            </config-property>
+            <config-property name="password">
+                [[not shown]]
+            </config-property>
+            <config-property name="username">
+                lightning@zazarie.com
+            </config-property>
+        </connection-definition>
+    </connection-definitions>
+</resource-adapter>}}
+
+And here is my dynamic VDB xml (SFDCVdb-vdb.xml):
+
+{{<vdb name="SFDCVdb" version="1">
+	<description/>
+	<property name="validationDateTime" value="Fri Apr 21 14:41:27 MDT 2017"/>
+	<property name="validationVersion" value="9.2.2"/>
+	<model name="SFSourceModel">
+		<source connection-jndi-name="java:/sfDS" name="SFSourceModel"
+			translator-name="salesforce-34"/>
+		<metadata type="DDL"><![CDATA[
+CREATE FOREIGN TABLE Account (
+	Id string(18) NOT NULL DEFAULT 'Generated upon creation' OPTIONS(NAMEINSOURCE 'Id', NATIVE_TYPE 'id', "teiid_sf:Defaulted on Create" 'TRUE'),
+	IsDeleted boolean OPTIONS(NAMEINSOURCE 'IsDeleted', NATIVE_TYPE 'boolean', "teiid_sf:Defaulted on Create" 'TRUE'),
+	MasterRecordId string(18) OPTIONS(NAMEINSOURCE 'MasterRecordId', NATIVE_TYPE 'id'),
+	Name string(255) OPTIONS(NAMEINSOURCE 'Name', NATIVE_TYPE 'string'),
+	Type string(40) OPTIONS(NAMEINSOURCE 'Type', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Prospect,Customer - Direct,Customer - Channel,Channel Partner / Reseller,Installation Partner,Technology Partner,Other'),
+	ParentId string(18) OPTIONS(NAMEINSOURCE 'ParentId', NATIVE_TYPE 'id'),
+	BillingStreet string(255) OPTIONS(NAMEINSOURCE 'BillingStreet', NATIVE_TYPE 'textarea', SEARCHABLE 'UNSEARCHABLE'),
+	BillingCity string(40) OPTIONS(NAMEINSOURCE 'BillingCity', NATIVE_TYPE 'string'),
+	BillingState string(80) OPTIONS(NAMEINSOURCE 'BillingState', NATIVE_TYPE 'string'),
+	BillingPostalCode string(20) OPTIONS(NAMEINSOURCE 'BillingPostalCode', NATIVE_TYPE 'string'),
+	BillingCountry string(80) OPTIONS(NAMEINSOURCE 'BillingCountry', NATIVE_TYPE 'string'),
+	ShippingStreet string(255) OPTIONS(NAMEINSOURCE 'ShippingStreet', NATIVE_TYPE 'textarea', SEARCHABLE 'UNSEARCHABLE'),
+	ShippingCity string(40) OPTIONS(NAMEINSOURCE 'ShippingCity', NATIVE_TYPE 'string'),
+	ShippingState string(80) OPTIONS(NAMEINSOURCE 'ShippingState', NATIVE_TYPE 'string'),
+	ShippingPostalCode string(20) OPTIONS(NAMEINSOURCE 'ShippingPostalCode', NATIVE_TYPE 'string'),
+	ShippingCountry string(80) OPTIONS(NAMEINSOURCE 'ShippingCountry', NATIVE_TYPE 'string'),
+	Phone string(40) OPTIONS(NAMEINSOURCE 'Phone', NATIVE_TYPE 'phone'),
+	Fax string(40) OPTIONS(NAMEINSOURCE 'Fax', NATIVE_TYPE 'phone'),
+	AccountNumber string(40) OPTIONS(NAMEINSOURCE 'AccountNumber', NATIVE_TYPE 'string'),
+	Website string(255) OPTIONS(NAMEINSOURCE 'Website', NATIVE_TYPE 'url'),
+	Sic string(20) OPTIONS(NAMEINSOURCE 'Sic', NATIVE_TYPE 'string'),
+	Industry string(40) OPTIONS(NAMEINSOURCE 'Industry', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Agriculture,Apparel,Banking,Biotechnology,Chemicals,Communications,Construction,Consulting,Education,Electronics,Energy,Engineering,Entertainment,Environmental,Finance,Food & Beverage,Government,Healthcare,Hospitality,Insurance,Machinery,Manufacturing,Media,Not For Profit,Recreation,Retail,Shipping,Technology,Telecommunications,Transportation,Utilities,Other'),
+	AnnualRevenue double OPTIONS(NAMEINSOURCE 'AnnualRevenue', NATIVE_TYPE 'currency', CURRENCY 'TRUE'),
+	NumberOfEmployees integer OPTIONS(NAMEINSOURCE 'NumberOfEmployees', NATIVE_TYPE 'int'),
+	Ownership string(40) OPTIONS(NAMEINSOURCE 'Ownership', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Public,Private,Subsidiary,Other'),
+	TickerSymbol string(20) OPTIONS(NAMEINSOURCE 'TickerSymbol', NATIVE_TYPE 'string'),
+	Description string(32000) OPTIONS(NAMEINSOURCE 'Description', NATIVE_TYPE 'textarea', SEARCHABLE 'UNSEARCHABLE'),
+	Rating string(40) OPTIONS(NAMEINSOURCE 'Rating', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Hot,Warm,Cold'),
+	Site string(80) OPTIONS(NAMEINSOURCE 'Site', NATIVE_TYPE 'string'),
+	OwnerId string(18) OPTIONS(NAMEINSOURCE 'OwnerId', NATIVE_TYPE 'id', "teiid_sf:Defaulted on Create" 'TRUE'),
+	LastActivityDate date OPTIONS(NAMEINSOURCE 'LastActivityDate', NATIVE_TYPE 'date'),
+	Jigsaw string(20) OPTIONS(NAMEINSOURCE 'Jigsaw', NATIVE_TYPE 'string'),
+	pnccanvaspck__CustomerPriority__c string(255) OPTIONS(NAMEINSOURCE 'pnccanvaspck__CustomerPriority__c', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'High,Low,Medium', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__SLA__c string(255) OPTIONS(NAMEINSOURCE 'pnccanvaspck__SLA__c', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Gold,Silver,Platinum,Bronze', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__Active__c string(255) OPTIONS(NAMEINSOURCE 'pnccanvaspck__Active__c', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'No,Yes', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__NumberofLocations__c double OPTIONS(NAMEINSOURCE 'pnccanvaspck__NumberofLocations__c', NATIVE_TYPE 'double', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__UpsellOpportunity__c string(255) OPTIONS(NAMEINSOURCE 'pnccanvaspck__UpsellOpportunity__c', NATIVE_TYPE 'picklist', "teiid_sf:Picklist Values" 'Maybe,No,Yes', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__SLASerialNumber__c string(10) OPTIONS(NAMEINSOURCE 'pnccanvaspck__SLASerialNumber__c', NATIVE_TYPE 'string', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__SLAExpirationDate__c date OPTIONS(NAMEINSOURCE 'pnccanvaspck__SLAExpirationDate__c', NATIVE_TYPE 'date', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__Business_Hours__c string(100) OPTIONS(NAMEINSOURCE 'pnccanvaspck__Business_Hours__c', NATIVE_TYPE 'string', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__Location__Latitude__s double OPTIONS(NAMEINSOURCE 'pnccanvaspck__Location__Latitude__s', NATIVE_TYPE 'double', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__Location__Longitude__s double OPTIONS(NAMEINSOURCE 'pnccanvaspck__Location__Longitude__s', NATIVE_TYPE 'double', "teiid_sf:Custom" 'TRUE'),
+	pnccanvaspck__Time_Zone__c string(10) OPTIONS(NAMEINSOURCE 'pnccanvaspck__Time_Zone__c', NATIVE_TYPE 'string', "teiid_sf:Custom" 'TRUE'),
+	CONSTRAINT Id_PK PRIMARY KEY(Id),
+	CONSTRAINT FK_Account_ParentId FOREIGN KEY(ParentId) REFERENCES Account(Id)
+) OPTIONS(NAMEINSOURCE 'Account', UPDATABLE 'TRUE', "teiid_sf:Supports Search" 'TRUE', "teiid_sf:Supports Replicate" 'TRUE', "teiid_sf:Supports Merge" 'TRUE', "teiid_sf:Supports Create" 'TRUE', "teiid_sf:Supports Delete" 'TRUE', "teiid_sf:Supports Query" 'TRUE', "teiid_sf:Supports Retrieve" 'TRUE')
+
+]]></metadata>
+	</model>
+	<model name="SFViewModel" type="VIRTUAL">
+		<property name="imports" value="SFSourceModel"/>
+		<metadata type="DDL"><![CDATA[
+CREATE VIEW Account (
+	Name string(255)
+) OPTIONS(UPDATABLE 'TRUE') 
+AS
+	SELECT
+		SFSourceModel.Account.Name
+	FROM
+		SFSourceModel.Account;
+
+]]></metadata>
+	</model>
+</vdb>}}
+
+I tried this same exact configuration in the 8.13.7 release and it worked.
+
+Steven remarked the following:
+
+"It looks like the change to build using the feature-packs broke the dependencies for the salesforce-34 resource adapter."

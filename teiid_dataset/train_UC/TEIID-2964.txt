@@ -1,0 +1,16 @@
+User can not use '.' for VDB name in order to version the VDB
+ User can not use '.' for VDB name. 
+According to the Official document[1], user should be able to use '.' to specify the version for VDB. 
+
+[1]Administration_and_Configuration_Guide:11.2. Set the VDB Version
+https://access.redhat.com/site/documentation/en-US/Red_Hat_JBoss_Data_Virtualization/6/html/Administration_and_Configuration_Guide/chap-Versioning.html#Set_the_VDB_Version1
+Version-Release number of selected component (if applicable):
+
+Steps to Reproduce:
+1. Create a new VDB named "test1.1"
+
+Actual results:
+The version attribute from the vdb.xml is used instead.
+
+Expected results:
+User can use '.' for VDB name.

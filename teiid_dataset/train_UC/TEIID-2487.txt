@@ -1,0 +1,13 @@
+Wrong aliasing when "supportsSelectExpression" is false in translator capabilities
+When "supportsSelectExpression" is false, in the translator capabilities and user submits a query like 
+
+{code}
+select sum (intnum) as "sum" from smalla group by intkey order by "sum"
+{code}
+
+the pushdown command at the translator is
+{code}
+SELECT SUM(SMALLA.INTNUM) FROM SMALLA GROUP BY SMALLA.INTKEY ORDER BY c_0
+{code}
+
+The alias in the ORDER BY is wrong. Also do not understand why the query engine pushed the aggregate is being pushed, possibly due to "supportsAggregatesSum" is turned on.

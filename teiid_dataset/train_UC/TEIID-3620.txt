@@ -1,0 +1,2 @@
+HBase translator - date, time, timestamp values are not translated correctly
+Using date/time/timestamp value in SQL query causes an exception [1] - {ts '...'}/{d '...'}/{t '...'} is not supported by Phoenix Driver.The issue is present in all types of statements (select, insert, update).

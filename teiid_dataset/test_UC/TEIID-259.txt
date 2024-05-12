@@ -1,0 +1,2 @@
+Create Teiid Server Kit
+Build a server kit and corresponding configuration installer for the server.

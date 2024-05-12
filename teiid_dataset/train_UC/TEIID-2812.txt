@@ -1,0 +1,2 @@
+Move the packaging of translator modules out of build and into each translator
+The idea is that each translator will be responsible for building and the packing of the deployable artifacts.   And with this, custom development would follow the same pattern.   The translator archetype for 8.7.0 has been changed to package the translator jar and module into a zip.

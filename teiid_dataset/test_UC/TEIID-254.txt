@@ -1,0 +1,2 @@
+Metadata query for procedure columns needs work
+Defect Tracker #24885: Even if procedure name criteria is supplied for the QUERY_PROCEDURE_COLUMNS, it is applied to a synthetic column - which can only be processed after all rows are retrieved.  It looks like there may be other procedure name values in the system tables that would be a better place for this criteria (or at least more join criteria could be added under the ProcedureParams query)

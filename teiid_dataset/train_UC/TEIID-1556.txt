@@ -1,0 +1,2 @@
+Improve xmlagg performance
+XMLAGG creates a temporary concat result for each concatenation.  It would be better to concat the values into a single result as they are added - similar to textagg.

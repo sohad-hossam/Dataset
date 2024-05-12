@@ -1,0 +1,4 @@
+Add support for quoted identifier aliases
+The sql spec allows for creating quoted identifier aliases (containing spaces, the period delimiter, etc.).  We should support this style of alias for maximum portability.
+
+The issue with allowing this is that the internals of revolving and metadata do not account for the delimiter character in a table or column name.

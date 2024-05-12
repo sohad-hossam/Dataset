@@ -1,0 +1,8 @@
+Need documentation on possible property settings to use
+In the Administration and Configuration Guide there is some indication on how to perform active heap throttling. 
+"Memory Management Considerations " there is a reference to parameters like: 
+ max-processing-kb and the max-reserve-kb. 
+
+Anyway there is no indication of the indicative values to associate to those parameters to obtain a certain result. 
+
+It would be good to get some examples to understand the cause and effect of the changes ( max-reserve-kb and related settings ). 

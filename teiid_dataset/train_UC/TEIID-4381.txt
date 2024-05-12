@@ -1,0 +1,2 @@
+OData expand with count and top=0 returns all children
+If expand contains both $count=true and $top=0, all of the children be returned.

@@ -1,0 +1,24 @@
+Exception when using dense_rank() in Teiid Development
+SELECT DISTINCT
+       subQueryTable.jiraissue_ASSIGNEE AS jiraissue_ASSIGNEE,
+        dense_rank() over(order by subQueryTable.jiraissue_ID DESC) as CalculatedField1
+  FROM  jiraissue
+       LEFT OUTER JOIN
+          (SELECT jiraissue_sub.ASSIGNEE AS jiraissue_ASSIGNEE,
+                  COUNT(IFNULL(jiraissue_sub.ID, -2147483648))
+                     AS jiraissue_ID
+             FROM jiraissue jiraissue_sub
+            WHERE ((jiraissue_sub.RESOLUTIONDATE BETWEEN NULL
+                                                     AND PARSETIMESTAMP(
+                                                            '2014-09-10 18:46:28',
+                                                            'yyyy-MM-dd HH:mm:ss')))
+           GROUP BY jiraissue_sub.ASSIGNEE) subQueryTable
+       ON jiraissue.ASSIGNEE =
+             subQueryTable.jiraissue_ASSIGNEE
+ 
+The query sent to the JDBC :
+                         SELECT DISTINCT DENSE_RANK() OVER (ORDER BY NULL DESC) FROM "JIRADB"."dbo"."jiraissue" g_0
+ 
+and i got  this error :
+ 
+java.sql.SQLException: Windowed functions do not support constants as ORDER BY clause expressions.

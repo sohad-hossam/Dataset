@@ -1,0 +1,2 @@
+Pushdown common table query invalid
+If a common table expression that can produce a query that contains different column names than either the assumed or explicit names in the with clause, then the pushed query can contain invalid column references.

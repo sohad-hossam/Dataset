@@ -1,0 +1,20 @@
+OData DELETE nonexisting row - wrong response code
+I deployed VDB that can be accessed with OData. When I perform DELETE request to remove row for first time response code is 200 OK (maybe it should be 204) but when I repeat the same DELETE request and tried to delete already deleted entry, response is again 200 OK, but it should be 404 Not Found. Same thing happens even I when tried to delete entry with id that doesn't exist at all.
+
+Only indication of this problem is in the server log:
+{code:plain}INFO  [org.teiid.ODATA] (http-/127.0.0.1:8080-1) no entity to delete in =  BooksMySQL.BOOKS  with key= ('1')
+{code}
+
+I think that response code for deleting row that doesn't exist should be different than 200 OK.
+For example the service at odata.org returns following content with response code 404 Not Found:
+
+{code:xml}
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<error xmlns="http://schemas.microsoft.com/ado/2007/08/dataservices/metadata">
+    <code></code>
+    <message xml:lang="en-US">Resource not found for the segment 'Products'.</message>
+</error>
+{code}
+
+
+

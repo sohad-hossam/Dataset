@@ -1,0 +1,15 @@
+TeiidDataSource ignores jassName
+I am trying to connect to VDB through Kerberos authentication using TeiidDataSource:
+
+TeiidDataSource tds = new TeiidDataSource();
+tds.setServerName("localhost");
+tds.setPortNumber(31000);
+tds.setDatabaseName(<vdb>);
+tds.setJaasName(<jassName>);
+tds.setKerberosServicePrincipleName(<principalName>);
+
+but tds.getConnection(); ends with:
+TEIID20005 Client URL connection property missing "jaasName". Please add the property to connection URL
+
+Connection through TeiidDriver works fine:
+url: jdbc:teiid:<vdb>@mm://<host>:31000;jaasName=<jassName>;kerberosServicePrincipleName=<principalName>

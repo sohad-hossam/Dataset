@@ -1,0 +1,10 @@
+Add Support for 'ALLOW FILTERING' in Teiid Cassandra Translator
+At certain times it is unavoidable to use few columns in the where clause which are not part of the index, in that case Cassandra driver throws error
+
+{color:red}Bad Request: Cannot execute this query as it might involve data filtering and thus may have unpredictable performance. If you want to execute this query despite the performance unpredictability, use ALLOW FILTERING{color}
+
+As a user I should be able to configure the Cassandra translator to append *ALLOW FILTERING* to the generated query (CQL)
+
+References:
+https://www.datastax.com/dev/blog/allow-filtering-explained-2
+https://developer.jboss.org/thread/239011

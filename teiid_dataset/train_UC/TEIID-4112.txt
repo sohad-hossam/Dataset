@@ -1,0 +1,16 @@
+ORA-32039: recursive WITH clause must have column alias list
+If running a WITH table AS(...) query to Oracle and the query schema name is the same as the subquery name i.e. EWI.  you receive the Oracle error:
+
+ORA-32039: recursive WITH clause must have column alias list
+
+If you modify the query to 
+WITH EWI1 AS ....
+then it works.
+
+f.ex:
+breaking:       WITH tbl AS (
+where tbl = a common table name in the current schema and the common table definition as (...) references a view in that schema. Oracle will complain with this erroneous error.  
+
+work-around: WITH tbl_1 AS(
+where tbl_1 does not exist as a current schema/table name.
+

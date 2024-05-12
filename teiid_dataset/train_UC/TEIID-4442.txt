@@ -1,0 +1,2 @@
+Remove option to allow for multiple security domains
+The session service logic for backwards compatibility allow for multiple security domains to be configured by default.  However that is deprecated logic and should not be allowed anymore.  We could also add a system function / option so that the user function returns just the simple name without the at domain suffix.

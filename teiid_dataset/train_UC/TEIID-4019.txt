@@ -1,0 +1,11 @@
+teiid-standalone-mode-install.cli executed failed due to 'authentication-security-domain' be removed
+The following cli executed failed 
+{code}
+subsystem=teiid/transport=odata:add(authentication-security-domain=teiid-security)
+/subsystem=teiid/transport=jdbc:add(protocol=teiid, socket-binding=teiid-jdbc, authentication-security-domain=teiid-security)
+/subsystem=teiid/transport=odbc:add(protocol=pg, socket-binding=teiid-odbc, authentication-security-domain=teiid-security, ssl-mode=disabled)
+{code}
+The error looks
+{code}
+'authentication-security-domain' is not found among the supported properties: [input-buffer-size, keystore-key-alias, keystore-key-password, keystore-name, keystore-password, keystore-type, max-socket-threads, output-buffer-size, pg-max-lob-size-in-bytes, protocol, socket-binding, ssl-authentication-mode, ssl-enabled-cipher-suites, ssl-keymanagement-algorithm, ssl-mode, ssl-ssl-protocol, truststore-name, truststore-password]
+{code}

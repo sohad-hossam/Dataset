@@ -1,0 +1,6 @@
+Add constant cohersion to rewriter for comparison criteria.
+From a recent discussion with Larry, it would be good for the rewriter to handle situations like:
+
+"convert(col, type1) = constant of type2" => "col = constant of type1", where type1 is something other than string.
+
+We already have resolver logic to do this and in many circumstance failing to apply the narroring conversion would indicate a failing comparison.

@@ -1,0 +1,9 @@
+Procedure missing for an OData metadata request to a Swagger VDB
+When a REST PUT path defined in Swagger has a path parameter and a body it does not appear in OData metadata.
+
+See the attached swagger.json for an example. The operation 'executeOperation' does not appear in OData metadata.
+
+The code that determines if a procedure is allowed is in:
+org.teiid.olingo.service.ODataSchemaBuilder.allowedProcedure()
+
+The comment seems to indicate that as long as there is only a single LOB, multiple 'in' parameters are allowed.  But the actual code does not allow any other 'in' parameters if there is a LOB parameter.

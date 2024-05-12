@@ -1,0 +1,3 @@
+Infinispan Hotrod can't access remote instance
+The Infinispan Hotrod connector writes to jdg's internal cache, which can't be accessed from remote hosts if the cache container is not secured and the user accessing the internal cache doesn't have specific privileges.
+User can't authenticate via resource-adapter currently, enhancement TEIID-4904 is needed.

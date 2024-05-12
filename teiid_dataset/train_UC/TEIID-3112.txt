@@ -1,0 +1,2 @@
+Incorrect plural name with parent to child join
+The salesforce logic assumes the plural name can be created with just an 's' at the end, however objects such as Opportunity do not follow that pattern.

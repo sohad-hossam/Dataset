@@ -1,0 +1,10 @@
+Redshift - some comparison conditions are not supported with ANY, SOME and ALL
+Some comparison conditions are not supported in Redshift with ANY, SOME and ALL.
+
+*ALL:*
+_Query:_ SELECT INTKEY FROM Source.SMALLA WHERE INTKEY > ALL (SELECT INTKEY FROM Source.SMALLA WHERE INTKEY < 45)
+_Exception message:_ Caused by: org.postgresql.util.PSQLException: ERROR: ALL with <, >, <=, >=, or = comparison condition is not supported
+
+*ANY:*
+_Query:_ SELECT INTKEY FROM Source.SMALLA WHERE INTKEY > ANY (SELECT INTKEY FROM Source.SMALLA WHERE INTKEY < 45)
+_Exception message:_ Caused by: org.postgresql.util.PSQLException: ERROR: ANY or SOME with <, >, <=, >=, <>, or != comparison condition is not supported

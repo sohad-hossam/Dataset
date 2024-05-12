@@ -1,0 +1,2 @@
+Remove metadata connector handling of in and is null criteria
+Pushdown of in and is null is not allowed, thus the implemenations can be removed.  is null could not have been used since it varies by field whether an empty string is treated as null.

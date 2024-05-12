@@ -1,0 +1,6 @@
+Add the translator to the log entry when the model is loaded
+When the server starts up and there's a log entry for the model when its loaded.  Example:
+
+11:00:29,691 INFO  [org.teiid.RUNTIME] (MSC service thread 1-2) TEIID50029 VDB QT_Hive_Push.1 model "Source" metadata is currently being loaded. Start Time: 9/25/14 11:00 AM
+
+It would be nice to have the associated translator that was assigned at load time.    This can be helpful to tracking down issues.

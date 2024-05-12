@@ -1,0 +1,10 @@
+automatic/autonomous refresh of materialized views does not work
+configuring a materialized view (snapshot) to be automatically refreshed/reloaded does not happen, even with option "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" true.
+
+(see forum reference for full vdb details)
+
+server log reports:
+WARN  [org.teiid.PROCESSOR] (Worker110_QueryProcessorQueue3121) KbqgRXX20t5r TEIID30020 Processing exception for request KbqgRXX20t5r.0 'TEIID31100 Parsing error: Encountered "[*]SYSADMIN.refreshMatView[*](\"views\".\"dati_mat\"" at line 1, column 1. 
+Was expecting: "alter" | "begin" | "call" | "create" | "delete" | "drop" | "exec" | "execute" | "insert" | "merge" ...'. Originally QueryParserException QueryParser.java:214. Enable more detailed logging to see the entire stacktrace.
+
+since the view has a ttl of 120000 the above log appears every two minutes.

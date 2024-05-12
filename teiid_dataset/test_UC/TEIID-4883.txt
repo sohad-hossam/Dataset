@@ -1,0 +1,10 @@
+Teiid Excel Translator should filter blank cells from header row
+The teiid translator for excel will throw a duplicate column name exception when using a spreadsheet that has 2 or more columns where the header row doesn't specify a header name.  In the attached spreadsheet it's difficult to see that rows E-H should be deleted from the dataset.
+
+The proposed enhancement is to allow the translator for excel to exclude any trailing columns where there is no column name defined.
+
+
+I took a shot at making this enhancement and created a PR at https://github.com/teiid/teiid/pull/951
+
+If this PR is not going to be accepted, can the methods in the ExcelMetadataProcessor me changed from private to protected so that the processor can be extended easily?
+

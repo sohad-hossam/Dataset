@@ -1,0 +1,4 @@
+Add column masking
+Support for column masking should be added to data roles.  A typical approach would be to only affect the final projected values from user queries and have only one mask applicable at a time.
+
+A possibly related ability would be to hide columns (much like hidden tables) to our metadata.

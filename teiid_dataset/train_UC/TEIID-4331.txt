@@ -1,0 +1,2 @@
+Use of st_geomfromText wrapped around a UDF fails.
+None

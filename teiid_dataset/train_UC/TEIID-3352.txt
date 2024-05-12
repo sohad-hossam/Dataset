@@ -1,0 +1,2 @@
+Can't cast from decimal to boolean in postgresql
+We can't cast directly to boolean in postgresql from decimal.  The Teiid conversion assume anything that isn't 0 is true (matches h2 and other handling).

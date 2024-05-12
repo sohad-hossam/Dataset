@@ -1,0 +1,275 @@
+Malformed query with SalesForce when Inner join used
+There is "AND" clause missing after implicit "!= NULL" call
+{code}
+USER COMMAND:
+SELECT A.Name, O.Id FROM importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O WHERE (A.Id = O.AccountId) AND (A.OracleAccountNumber__c = '540840')
+
+----------------------------------------------------------------------------
+OPTIMIZE: 
+SELECT A.Name, O.Id FROM importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O WHERE (A.Id = O.AccountId) AND (A.OracleAccountNumber__c = '540840')
+
+----------------------------------------------------------------------------
+GENERATE CANONICAL: 
+SELECT A.Name, O.Id FROM importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O WHERE (A.Id = O.AccountId) AND (A.OracleAccountNumber__c = '540840')
+
+CANONICAL PLAN: 
+Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id]})
+  Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840'})
+    Select(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SELECT_CRITERIA=A.Id = O.AccountId})
+      Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=CROSS JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[]})
+        Source(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING PlaceAccess
+
+AFTER: 
+Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id]})
+  Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840'})
+    Select(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SELECT_CRITERIA=A.Id = O.AccountId})
+      Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=CROSS JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[]})
+        Access(groups=[importVDBSrcModel.Account AS A], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000})
+          Source(groups=[importVDBSrcModel.Account AS A])
+        Access(groups=[importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000})
+          Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING PushSelectCriteria
+
+AFTER: 
+Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id]})
+  Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId]})
+    Access(groups=[importVDBSrcModel.Account AS A], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840'})
+        Source(groups=[importVDBSrcModel.Account AS A])
+    Access(groups=[importVDBSrcModel.Opportunity AS O])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING PushNonJoinCriteria
+
+AFTER: 
+Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId]})
+    Access(groups=[importVDBSrcModel.Account AS A])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+    Access(groups=[importVDBSrcModel.Opportunity AS O])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING CleanCriteria
+
+AFTER: 
+Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id], OUTPUT_COLS=null})
+  Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=null})
+    Access(groups=[importVDBSrcModel.Account AS A], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=null})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=null})
+        Source(groups=[importVDBSrcModel.Account AS A], props={OUTPUT_COLS=null})
+    Access(groups=[importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=null})
+      Source(groups=[importVDBSrcModel.Opportunity AS O], props={OUTPUT_COLS=null})
+
+
+============================================================================
+EXECUTING RaiseAccess
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=null, CONFORMED_SOURCES=null})
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id], OUTPUT_COLS=null})
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=null})
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O], props={OUTPUT_COLS=null})
+
+
+============================================================================
+EXECUTING CopyCriteria
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, IS_COPIED=true})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=null, IS_COPIED=true})
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING CleanCriteria
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=null, CONFORMED_SOURCES=null})
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id], OUTPUT_COLS=null})
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, IS_COPIED=true})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=null, IS_COPIED=true})
+        Source(groups=[importVDBSrcModel.Account AS A], props={OUTPUT_COLS=null})
+      Source(groups=[importVDBSrcModel.Opportunity AS O], props={OUTPUT_COLS=null})
+
+
+============================================================================
+EXECUTING PlanJoins
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING PushSelectCriteria
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=null, IS_COPIED=true})
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING RaiseAccess
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING ChooseJoinStrategy
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING ChooseDependent
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING AssignOutputElements
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=[A.Name, O.Id], CONFORMED_SOURCES=null})
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id], OUTPUT_COLS=[A.Name, O.Id]})
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=[A.Name, O.Id], MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, IS_COPIED=true})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=[A.Id, A.Name], IS_COPIED=true})
+        Source(groups=[importVDBSrcModel.Account AS A], props={OUTPUT_COLS=[A.OracleAccountNumber__c, A.Id, A.Name]})
+      Source(groups=[importVDBSrcModel.Opportunity AS O], props={OUTPUT_COLS=[O.AccountId, O.Id]})
+
+
+============================================================================
+EXECUTING CalculateCost
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=[A.Name, O.Id], CONFORMED_SOURCES=null, EST_CARDINALITY=-1.0})
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={PROJECT_COLS=[A.Name, O.Id], OUTPUT_COLS=[A.Name, O.Id], EST_CARDINALITY=-1.0})
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={JOIN_TYPE=INNER JOIN, JOIN_STRATEGY=NESTED_LOOP, JOIN_CRITERIA=[A.Id = O.AccountId], OUTPUT_COLS=[A.Name, O.Id], MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, IS_COPIED=true, EST_CARDINALITY=-1.0})
+      Select(groups=[importVDBSrcModel.Account AS A], props={SELECT_CRITERIA=A.OracleAccountNumber__c = '540840', OUTPUT_COLS=[A.Id, A.Name], IS_COPIED=true, EST_CARDINALITY=-1.0})
+        Source(groups=[importVDBSrcModel.Account AS A], props={OUTPUT_COLS=[A.OracleAccountNumber__c, A.Id, A.Name], EST_COL_STATS={A.OracleAccountNumber__c=[-1.0, -1.0], A.Id=[-1.0, -1.0], A.Name=[-1.0, -1.0]}, EST_CARDINALITY=-1.0})
+      Source(groups=[importVDBSrcModel.Opportunity AS O], props={OUTPUT_COLS=[O.AccountId, O.Id], EST_COL_STATS={O.AccountId=[-1.0, -1.0], O.Id=[-1.0, -1.0]}, EST_CARDINALITY=-1.0})
+
+
+============================================================================
+EXECUTING ImplementJoinStrategy
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING MergeCriteria
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING PlanSorts
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+  Project(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+    Join(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O])
+      Select(groups=[importVDBSrcModel.Account AS A])
+        Source(groups=[importVDBSrcModel.Account AS A])
+      Source(groups=[importVDBSrcModel.Opportunity AS O])
+
+
+============================================================================
+EXECUTING CollapseSource
+
+AFTER: 
+Access(groups=[importVDBSrcModel.Account AS A, importVDBSrcModel.Opportunity AS O], props={SOURCE_HINT=null, MODEL_ID=Schema name=importVDBSrcModel, nameInSource=null, uuid=tid:171d0fcff042-1eabba54-00000000, OUTPUT_COLS=[A.Name, O.Id], CONFORMED_SOURCES=null, EST_CARDINALITY=-1.0, ATOMIC_REQUEST=SELECT A.Name, O.Id FROM importVDBSrcModel.Account AS A INNER JOIN importVDBSrcModel.Opportunity AS O ON A.Id = O.AccountId WHERE A.OracleAccountNumber__c = '540840'})
+
+
+============================================================================
+CONVERTING PLAN TREE TO PROCESS TREE
+
+PROCESS PLAN = 
+AccessNode(0) output=[A.Name, O.Id] SELECT importVDBSrcModel.Account.Name, importVDBSrcModel.Opportunity.Id FROM importVDBSrcModel.Account INNER JOIN importVDBSrcModel.Opportunity ON importVDBSrcModel.Account.Id = importVDBSrcModel.Opportunity.AccountId WHERE importVDBSrcModel.Account.OracleAccountNumber__c = '540840'
+
+============================================================================
+
+----------------------------------------------------------------------------
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+AccessNode(0) output=[A.Name, O.Id] SELECT importVDBSrcModel.Account.Name, importVDBSrcModel.Opportunity.Id FROM importVDBSrcModel.Account INNER JOIN importVDBSrcModel.Opportunity ON importVDBSrcModel.Account.Id = importVDBSrcModel.Opportunity.AccountId WHERE importVDBSrcModel.Account.OracleAccountNumber__c = '540840'
+
+============================================================================
+
+11:14:08,728 WARN  [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue4) Connector worker process failed for atomic-request=KrZqiapoESB1.0.0.1: org.teiid.translator.TranslatorException: com.sforce.soap.partner.MalformedQueryFault: MALFORMED_QUERY: 
+WHERE Opportunity.AccountId != NULLAccount.OracleAccountNumber__c
+                              ^
+ERROR at Row:1:Column:84
+Bind variables only allowed in Apex code
+        at org.teiid.translator.salesforce.execution.QueryExecutionImpl.execute(QueryExecutionImpl.java:162)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:325) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_65]
+        at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.7.1.redhat-3.jar:8.7.1.redhat-3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_65]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_65]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_65]
+Caused by: javax.resource.ResourceException: com.sforce.soap.partner.MalformedQueryFault: MALFORMED_QUERY: 
+WHERE Opportunity.AccountId != NULLAccount.OracleAccountNumber__c
+{code}

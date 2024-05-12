@@ -1,0 +1,2 @@
+Support consuming SOAP based service that is secured by Kerberos authentication
+CXF supports Kerberos based authentication in issuing a SOAP based web service call. This needs to be verified authentication scenario and further enhance code to support delegation of kerberos token.

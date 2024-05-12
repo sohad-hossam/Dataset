@@ -1,0 +1,62 @@
+ASSERTION FAILED with UNION
+This is reproducible in Teiid 8.7 beta2 from the downloads page, and in 8.7 beta3 built from GIT master.
+
+foo has >1000 rows. bar has 28 rows. Playing with the limit, it's possible to get the query to work.
+
+{code}
+  <model name="foo">
+    <source name="foo" translator-name="custom" connection-jndi-name="java:/FooDS"/>
+  </model>
+
+  <model name="bar">
+    <source name="bar" translator-name="custom" connection-jndi-name="java:/BarDS"/>
+  </model>
+{code}
+
+{code:sql}
+select * from (
+  (select identifier from foo.items)
+  union all
+  (select identifier from bar.items)
+) x
+order by identifier desc 
+limit 1000;
+{code}
+
+{code}
+11:15:32,992 DEBUG [org.teiid.COMMAND_LOG] (New I/O worker #1) Nqu3TY8Cd+7P 	START USER COMMAND:	startTime=2014-03-18 11:15:32.992	requestID=Nqu3TY8Cd+7P.0	txID=null	sessionID=Nqu3TY8Cd+7P	applicationName=JDBCprincipal=user@teiid-security	vdbName=Foo	vdbVersion=1	sql=select * from (
+  (select identifier from foo.items)
+  union all
+  (select identifier from bar.items)
+) x
+order by identifier desc 
+limit 1000
+11:15:33,106 DEBUG [org.teiid.COMMAND_LOG] (Worker1_QueryProcessorQueue1) Nqu3TY8Cd+7P 	START DATA SRC COMMAND:	startTime=2014-03-18 11:15:33.106	requestID=Nqu3TY8Cd+7P.0	sourceCommandID=4	executionID=0	txID=null	modelName=foo	translatorName=foo	sessionID=Nqu3TY8Cd+7P	principal=user@teiid-security	sql=SELECT foo.items.identifier FROM foo.items ORDER BY foo.items.identifier DESC LIMIT 1000
+11:15:33,106 DEBUG [org.teiid.COMMAND_LOG] (Worker2_QueryProcessorQueue2) Nqu3TY8Cd+7P 	START DATA SRC COMMAND:	startTime=2014-03-18 11:15:33.106	requestID=Nqu3TY8Cd+7P.0	sourceCommandID=6	executionID=1	txID=null	modelName=bar	translatorName=foo	sessionID=Nqu3TY8Cd+7P	principal=user@teiid-security	sql=SELECT bar.items.identifier FROM bar.items ORDER BY bar.items.identifier DESC LIMIT 1000
+11:15:33,154 DEBUG [org.teiid.COMMAND_LOG] (Worker0_QueryProcessorQueue3) Nqu3TY8Cd+7P 	END SRC COMMAND:	endTime=2014-03-18 11:15:33.154	requestID=Nqu3TY8Cd+7P.0	sourceCommandID=6	executionID=1	txID=null	modelName=bar	translatorName=foo	sessionID=Nqu3TY8Cd+7P	principal=user@teiid-security	finalRowCount=28
+11:15:33,553 DEBUG [org.teiid.COMMAND_LOG] (Worker0_QueryProcessorQueue4) Nqu3TY8Cd+7P 	END SRC COMMAND:	endTime=2014-03-18 11:15:33.553	requestID=Nqu3TY8Cd+7P.0	sourceCommandID=4	executionID=0	txID=null	modelName=foo	translatorName=foo	sessionID=Nqu3TY8Cd+7P	principal=user@teiid-security	finalRowCount=1000
+11:15:33,567 DEBUG [org.teiid.COMMAND_LOG] (Worker0_QueryProcessorQueue4) Nqu3TY8Cd+7P 	ERROR USER COMMAND:	endTime=2014-03-18 11:15:33.567	requestID=Nqu3TY8Cd+7P.0	txID=null	sessionID=Nqu3TY8Cd+7P	principal=user@teiid-security	vdbName=Foo	vdbVersion=1	finalRowCount=null
+11:15:33,568 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue4) Nqu3TY8Cd+7P TEIID30019 Unexpected exception for request Nqu3TY8Cd+7P.0: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73) [teiid-common-core-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100) [teiid-common-core-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92) [teiid-common-core-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.common.buffer.TupleBuffer.getBatch(TupleBuffer.java:287) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.common.buffer.TupleBuffer.truncateTo(TupleBuffer.java:425) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.relational.SortNode.sortPhase(SortNode.java:117) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.relational.SortNode.getBuffer(SortNode.java:205) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.relational.LimitNode.getBuffer(LimitNode.java:211) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.relational.RelationalPlan.getBuffer(RelationalPlan.java:250) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.QueryProcessor.getBuffer(QueryProcessor.java:289) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:149) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:141) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:435) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:320) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:248) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.7.0.Beta2.jar:8.7.0.Beta2]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+{code}

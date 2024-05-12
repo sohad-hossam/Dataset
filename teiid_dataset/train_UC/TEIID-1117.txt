@@ -1,0 +1,2 @@
+When VDBis deleted the cached medata files are not cleaned up
+When the VDB deployed the metadata files are cached inside the "data/teiid/<vdb-name>" directory. However, when the VDB is deleted these files are not cleaned up automatically. If user deletes the VDB and re-deploys a new VDB, the server will still look at the old metadata files.

@@ -1,0 +1,8 @@
+PSC nomenclature is underused and confusing and complex
+Currently there is possibility in the configuration to bundle multiple services under some thing called PSC which is a grouping of the services. This feature is introduces lot of unnecessary complexity in the code, and using the Console with these confusing.  
+.
+If you ever navigated between "MetaMatrixFullServer" and "QueryServer" and "ODBCServer" and/or configuring the connectors for those you know the pain.
+
+The original intent was to move a bundle of connectors from one server to another. Now a days connectors are always bundled with their VDBs. We can reduce this complexity in code and UI.
+
+Suggestions are welcome how we can reduce this clutter.

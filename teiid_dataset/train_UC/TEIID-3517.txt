@@ -1,0 +1,2 @@
+The oracle importer should offer an option to use integral types
+The oracle importer should have an option to map number fields with null or 0 decimal digits to an integral type wide enough to represent the precision.

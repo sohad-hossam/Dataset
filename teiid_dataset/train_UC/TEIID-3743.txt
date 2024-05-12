@@ -1,0 +1,11 @@
+Multiple Count Distinct Columns Fails for Impala
+Teiid Impala translator incorrectly allows multiple count distinct columns, which fails to execute since it is not supported by Impala.
+
+Per Cloudera documentation:
+{quote}By default, Impala only allows a single COUNT(DISTINCT columns) expression in each query.
+
+To produce the same result as multiple COUNT(DISTINCT) expressions, you can use the following technique for queries involving a single table:
+
+select v1.c1 result1, v2.c1 result2 from (select count(distinct col1) as c1 from t1) v1 cross join (select count(distinct col2) as c1 from t1) v2;{quote}
+
+The Teiid-Impala translator should ideally rewrite the query as necessary so that the query does not fail executing multiple count distincts against Impala.

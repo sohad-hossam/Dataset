@@ -1,0 +1,4 @@
+ODBC (and admin) scalability limited by maxWorker cap
+We are capping the max workers in an attempt to prevent excessive thread use, but this prevents the blocking operations of ODBC/admin to scale well.
+
+The long term fix is to make ODBC/admin operations non-blocking wrt the IO.

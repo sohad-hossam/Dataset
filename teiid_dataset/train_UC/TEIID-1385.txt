@@ -1,0 +1,2 @@
+Add a way to support escaped strings
+We should have either an string literal escape E '..' such as PostgreSQL or an escape function that can handle standard escape sequences.

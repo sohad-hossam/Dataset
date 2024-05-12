@@ -1,0 +1,2 @@
+Temporary table bounded index search may miss values
+Temporary table indexes (which are also used for internal materialized view indexes) may not return results for bounded searches (which would either be partially specified keys - either a query against a non-unique index or against a compound key, but with only leading columns) will fail to find the appropriate value if the values falls on an intermediate higher level page upper edge.

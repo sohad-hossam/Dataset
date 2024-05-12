@@ -1,0 +1,2 @@
+Eclipse Datatools view cannot see tables in a VDB
+The Eclipse Datatools Project provides a "Database Development" perspective that we will be using in Westport to replace our SQL Explorer perspective.  The "Data Source Explorer" view can connect to a VDB in MetaMatrix, but the Tables are not being shown.  Please investigate what JDBC calls are being made to popluate this view and fix our driver so the view may be populated correctly.

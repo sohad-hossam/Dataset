@@ -1,0 +1,18 @@
+Querying JDG local cache using greater than value cause exception
+Issuing query: select nss, valor_inicial, valor_final from CacheView.Resumen where valor_inicial > 950.0
+
+produces the following in the query plan:
+USER COMMAND:
+SELECT nss, valor_inicial, valor_final FROM CacheView.Resumen WHERE nss > '950.0'
+
+request=/1MuNPfoG76j.0.0.5: org.hibernate.search.SearchException: Cannot create numeric range query for field saldo.valorInicial, since values are not numeric (int,long, short or double) 
+	at org.hibernate.search.bridge.util.impl.NumericFieldUtils.createNumericRangeQuery(NumericFieldUtils.java:69)
+	at org.hibernate.search.query.dsl.impl.ConnectedMultiFieldsRangeQueryBuilder.createQuery(ConnectedMultiFieldsRangeQueryBuilder.java:107)
+	at org.hibernate.search.query.dsl.impl.ConnectedMultiFieldsRangeQueryBuilder.createQuery(ConnectedMultiFieldsRangeQueryBuilder.java:83)
+	at org.teiid.translator.object.infinispan.LuceneSearch.createRangeAboveQuery(LuceneSearch.java:349)
+	at org.teiid.translator.object.infinispan.LuceneSearch.visit(LuceneSearch.java:217)
+	at org.teiid.translator.object.infinispan.LuceneSearch.buildQueryFromWhereClause(LuceneSearch.java:145)
+	at org.teiid.translator.object.infinispan.LuceneSearch.performSearch(LuceneSearch.java:66)
+	at org.teiid.translator.object.infinispan.InfinispanExecutionFactory.search(InfinispanExecutionFactory.java:119)
+	at org.teiid.translator.object.ObjectExecution.execute(ObjectExecution.java:102)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:312) [te

@@ -1,0 +1,6 @@
+Allow allowDiskUse setting in MongoDB translator
+When querying a MongoDB, steps of computation are limited to 100MiB. Querying large databases can easily exceed this limit, so usually allowDiskUse:true is passed in the aggregate query:
+
+http://docs.mongodb.org/manual/reference/command/aggregate/
+
+In Teiid, however, there is currently no way to specify this with SQL.

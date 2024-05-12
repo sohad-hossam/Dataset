@@ -1,0 +1,10 @@
+RHQ Plugin gets NPE when getting requests for a VDB
+Using RHQ while a long query was executing, I used the VDB's "View VDB Requests" and received no information in the UI. The server log contained the attached exception and stack trace.
+
+java.lang.reflect.UndeclaredThrowableException: Failed to invoke method 'getRequestsUsingVDB' on component 'RuntimeEngineDeployer' with parameters [SimpleMetaType:java.lang.String:TpcrVdb, SimpleMetaType:int:1].
+	at org.jboss.profileservice.management.KernelBusRuntimeComponentDispatcher.invoke(KernelBusRuntimeComponentDispatcher.java:201)
+	at org.jboss.profileservice.management.DelegatingComponentDispatcherImpl.invoke(DelegatingComponentDispatcherImpl.java:103)
+	at sun.reflect.GeneratedMethodAccessor661.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)
+	at org.jboss.aop.Dispatcher.invoke(Dispatcher.java:121)

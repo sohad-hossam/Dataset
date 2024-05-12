@@ -1,0 +1,2 @@
+Add "org.modeshape.jdbc" dependency to teiid jdbc translator module
+ the "org.jboss.teiid.translator.jdbc" module (where the query originates from) has to list "org.modeshape.jdbc" as a dependency so that ModeShape's CP can be accessible.

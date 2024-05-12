@@ -1,0 +1,8 @@
+Load balancing configuration can result in premature session termination
+When set up in a load balancing configuration with "SET NEW INSTANCE" as the check valid connection SQL in the datasource definition, repeated messages indicating an invalid session are created, similar to:
+
+      2012-08-24 10:39:58,818 WARN  [org.teiid.SECURITY] (New I/O server worker #1-3) Processing exception 'The specified session ID "5Wt/6zzmsLy2" is invalid. It cannot be found in the userbase.' for session R8ZxYqjZzf/S.  Exception type org.teiid.client.security.InvalidSessionException thrown from org.teiid.services.SessionServiceImpl.getSessionInfo(SessionServiceImpl.java:315). Enable more detailed logging to see the entire stacktrace.
+
+
+Not sure if this would be a defect in regards to the conditions that are resulting in the messages to be generated (ie, the old session id shouldn't be being reused), or an enhancement to clarify or adjust the log message or priority to indicate whether this will actually affect the query being submitted.  
+

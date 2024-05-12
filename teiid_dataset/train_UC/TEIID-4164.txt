@@ -1,0 +1,4 @@
+Correct the transitive dependencies in OData4 translator
+Currently "com.fasterxml" transitive dependencies are not in "kits" or pom.xml 
+
+They need to be explicitly defined as dependencies.

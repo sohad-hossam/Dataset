@@ -1,0 +1,18 @@
+Accumulo translator doesn't end query execution when there are no tablet servers
+Teiid accumulo translator doesn't interrupt query execution when the accumulo instance is not running.
+
+There might be a situation that Zookeeper instance is running, but Accumulo is not.
+The translator, even though there is no tablet server entry in zookeeper, for given accumulo instance, executes the query. The query is running until query timeout exceeds. There is no indication of the fact, that accumulo tablet server is not present/responding except for
+{code}
+09:25:46,539 WARN  [org.apache.accumulo.core.client.impl.ServerClient] (Worker3_QueryProcessorQueue21) There are no tablet servers: check that zookeeper and accumulo are running.
+{code}
+
+There might be even situation, that Accumulo stopped in unusual way and didn't alter the tablet server information in Zookeeper, this way, there is a tablet server entry present in Zookeeper, but the tablet server is in fact not running. So Teiid should check the tablet server's address which received from Zookeeper.
+
+Interesting to note is the fact, that the same problem can be examined in accumulo's shell:
+{code}
+$ bin/accumulo shell -u root
+Password: ******
+2016-01-22 10:02:05,604 [impl.ServerClient] WARN : There are no tablet servers: check that zookeeper and accumulo are running.
+{code}
+and then the shell hangs. Teiid needs to overcome this limitation.

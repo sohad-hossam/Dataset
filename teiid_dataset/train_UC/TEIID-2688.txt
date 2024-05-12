@@ -1,0 +1,19 @@
+NPE determining dependent join cost
+Given that the initial node in the cost determination is not a select node if it is "pushed" to a point where the criteria is assumed to exist, then an NPE is thrown:
+
+java.lang.NullPointerException
+	at org.teiid.query.optimizer.relational.rules.JoinUtil.replaceWithNullValues(JoinUtil.java:186)
+	at org.teiid.query.optimizer.relational.rules.JoinUtil.isNullDependent(JoinUtil.java:141)
+	at org.teiid.query.optimizer.relational.rules.JoinUtil.optimizeJoinType(JoinUtil.java:106)
+	at org.teiid.query.optimizer.relational.rules.RulePushSelectCriteria.examinePath(RulePushSelectCriteria.java:356)
+	at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.determineTargets(NewCalculateCostUtil.java:1294)
+	at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.computeCostForDepJoin(NewCalculateCostUtil.java:1155)
+	at org.teiid.query.optimizer.relational.rules.JoinRegion.getDepJoinCost(JoinRegion.java:373)
+	at org.teiid.query.optimizer.relational.rules.JoinRegion.scoreRegion(JoinRegion.java:316)
+	at org.teiid.query.optimizer.relational.rules.RulePlanJoins.findBestJoinOrder(RulePlanJoins.java:571)
+	at org.teiid.query.optimizer.relational.rules.RulePlanJoins.execute(RulePlanJoins.java:173)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:525)
+	at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:212)
+	at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:195)
+
+This will occur if the prospective dependent join for example is above an outer join such that we need to check whether pushing the criteria would alter the meaning of the join.

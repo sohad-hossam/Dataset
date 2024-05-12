@@ -1,0 +1,2 @@
+Procedures in Teiid are not Resolvable if Their Models are Marked as Not Visible
+If a model containing procedures is marked as not visible, the queryplanner cannot resolve them.

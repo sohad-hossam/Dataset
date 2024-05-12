@@ -1,0 +1,95 @@
+Receiving NPE when querying DynamicPortfolio VDB with more complicated query
+I played with the dynamic portfolio VDB and tried to run a query (after deploying a data source based on the VDB). I am able to query the two source within the VDB just fine. In fact, the example's suggested query works:
+select * from product, (call MarketData.getTextFiles('*.txt')) f, TEXTTABLE(f.file COLUMNS symbol string, price bigdecimal HEADER) price where product.symbol=price.symbol
+
+The query is:
+select LASTNAME, COMPANY_NAME, SHARES_COUNT, PRICE, (SHARES_COUNT * PRICE) AS CurrentValue from holdings,customer, account, product, (call MarketData.getTextFiles('*.txt')) f, TEXTTABLE(f.file COLUMNS symbol string, price bigdecimal HEADER) price where (product.symbol=price.symbol) AND (id = product_id) AND (holdings.account_id = account.account_id) AND (account.ssn = customer.ssn)
+
+Eliminating the calculation did not help.
+
+And the exception from server.log is:
+2010-06-03 09:32:37,263 ERROR [org.teiid.PROCESSOR] (WorkManager(2)-7_QueryProcessorQueue5) Unexpected exception for request lkWFkP39zsZY.4
+java.lang.NullPointerException
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.getNDV(NewCalculateCostUtil.java:840)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.getNDV(NewCalculateCostUtil.java:1077)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.computeCostForDepJoin(NewCalculateCostUtil.java:967)
+        at org.teiid.query.optimizer.relational.rules.RuleChooseDependent.execute(RuleChooseDependent.java:92)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:366)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:167)
+        at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:110)
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:432)
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:455)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:349)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:167)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:190)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:176)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+        at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+        at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+        at java.lang.Thread.run(Thread.java:636)
+
+The error displayed by the JDBC query tool is:
+org.teiid.jdbc.TeiidSQLException: org.teiid.core.TeiidException
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:109)
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:69)
+        at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:426)
+        at org.teiid.jdbc.StatementImpl.executeQuery(StatementImpl.java:329)
+        at org.jboss.resource.adapter.jdbc.WrappedStatement.executeQuery(WrappedStatement.java:226)
+        at JDBCQueryServlet.doPost(JDBCQueryServlet.java:67)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:637)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:717)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:290)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.jboss.web.tomcat.filters.ReplyHeaderFilter.doFilter(ReplyHeaderFilter.java:96)
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:235)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:206)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:235)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:191)
+        at org.jboss.web.tomcat.security.SecurityAssociationValve.invoke(SecurityAssociationValve.java:190)
+        at org.jboss.web.tomcat.security.JaccContextValve.invoke(JaccContextValve.java:92)
+        at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.process(SecurityContextEstablishmentValve.java:126)
+        at org.jboss.web.tomcat.security.SecurityContextEstablishmentValve.invoke(SecurityContextEstablishmentValve.java:70)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:127)
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+        at org.jboss.web.tomcat.service.jca.CachedConnectionValve.invoke(CachedConnectionValve.java:158)
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:330)
+        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:829)
+        at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:598)
+        at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:447)
+        at java.lang.Thread.run(Thread.java:636)
+Caused by: [TeiidException]
+1 [NullPointerException]
+        at org.teiid.client.ResultsMessage.setException(ResultsMessage.java:177)
+        at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:522)
+        at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java:329)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:214)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:190)
+        at org.teiid.dqp.internal.process.DQPWorkContext$2.call(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:176)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:187)
+        at org.teiid.dqp.internal.process.StatsCapturingWorkManager$WorkWrapper.run(StatsCapturingWorkManager.java:102)
+        at org.jboss.resource.work.WorkWrapper.execute(WorkWrapper.java:205)
+        at org.jboss.util.threadpool.BasicTaskWrapper.run(BasicTaskWrapper.java:260)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+        ... 1 more
+Caused by: java.lang.NullPointerException
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.getNDV(NewCalculateCostUtil.java:840)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.getNDV(NewCalculateCostUtil.java:1077)
+        at org.teiid.query.optimizer.relational.rules.NewCalculateCostUtil.computeCostForDepJoin(NewCalculateCostUtil.java:967)
+        at org.teiid.query.optimizer.relational.rules.RuleChooseDependent.execute(RuleChooseDependent.java:92)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:366)
+        at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:167)
+        at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:110)
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:432)
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:455)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:349)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:167)
+        ... 11 more

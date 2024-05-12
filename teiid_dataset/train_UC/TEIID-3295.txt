@@ -1,0 +1,2 @@
+Change subqueryUnnestDefault to true
+Since TEIID-2149 the scope of the property has been limited in scope and should be flipped to true to allow for more efficient planning.  In the worst case users can use the NO_UNNEST hint to prevent the optimization.

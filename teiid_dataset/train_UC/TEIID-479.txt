@@ -1,0 +1,2 @@
+Teiid embedded non-delegating classloader issues
+The non-delegating classloader for lib and patches entries will create problems if any of the jars duplicate classes from a higher level classloader - without overriding all of the referenced classes.  See TEIIDDES-141 for a similar situation in a designer install.

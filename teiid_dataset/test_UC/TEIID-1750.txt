@@ -1,0 +1,4 @@
+Memory handling improvements
+The buffermanager will create softreferences for batches that prefer memory, but does not track the memory as held once the value has been passivated.
+
+Also small lobs, such as xml values created via sqlxml, should be inlined into results for greater performance - and so that they can be paged out by the buffermanager rather than being held by a lobmanager.

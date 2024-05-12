@@ -1,0 +1,4 @@
+Permissions should also specify object type
+Teiid permissions only specify a resource name.  However it is possible to have to have conflicting schema/table (since we are using non-sql safe unquoted names) or table/procedure names.
+
+Ideally we would use proper sql names (this is true everywhere, not just in permissions) and specify the object type (TABLE, PROCEDURE, SCHEMA, LANGUAGE, FUNCTION, etc.).  This would also allow us to have a more standard USAGE permission, rather than something like LANGUAGE, which is used to convey the permission and object type.

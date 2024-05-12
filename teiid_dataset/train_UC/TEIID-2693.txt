@@ -1,0 +1,6 @@
+Logging/message tweaks
+The source sql is being redundantly logged in JDBCQueryExecution.
+
+We should continue to refine how odbc/jdbc uncaught exceptions are logged - if it's not clearly a closed connection, then it should be a warning.
+
+If a local connection is tried outside of AS the result is an npe.  A better message should be given.

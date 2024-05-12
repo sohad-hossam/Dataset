@@ -1,0 +1,41 @@
+Virtual Procedure - IllegalArgumentException: Expected argument to be an instance of org.teiid.connector.metadata.runtime.Table; was instance of org.teiid.connector.metadata.runtime.ProcedureRecordImpl
+They following virtual procedure is failing with an IllegalArumentException.  Does "Expected argument to be an instance of org.teiid.connector.metadata.runtime.Table; was instance of org.teiid.connector.metadata.runtime.ProcedureRecordImpl" mean anything to you?  This query does run in Designer.
+
+SELECT DNT FROM VirtProcs.vDate_n_Time WHERE intkey_in = 2"
+
+2010-01-12 12:49:12,387 ERROR [Worker7_QueryProcessorQueue0] org.teiid.DQP - Unexpected exception for request 0.0
+java.lang.IllegalArgumentException: Expected argument to be an instance of org.teiid.connector.metadata.runtime.Table; was instance of org.teiid.connector.metadata.runtime.ProcedureRecordImpl
+        at com.metamatrix.core.util.ArgCheck.isInstanceOf(ArgCheck.java:353)
+        at com.metamatrix.core.util.ArgCheck.isInstanceOf(ArgCheck.java:337)
+        at org.teiid.metadata.TransformationMetadata.isXMLGroup(TransformationMetadata.java:701)
+        at com.metamatrix.query.metadata.TempMetadataAdapter.isXMLGroup(TempMetadataAdapter.java:429)
+        at com.metamatrix.query.metadata.TempMetadataAdapter.isXMLGroup(TempMetadataAdapter.java:429)
+        at com.metamatrix.query.metadata.TempMetadataAdapter.isXMLGroup(TempMetadataAdapter.java:429)
+        at com.metamatrix.query.resolver.command.SimpleQueryResolver$QueryResolverVisitor.visit(SimpleQueryResolver.java:297)
+        at com.metamatrix.query.sql.lang.UnaryFromClause.acceptVisitor(UnaryFromClause.java:82)
+        at com.metamatrix.query.sql.navigator.AbstractNavigator.visitNode(AbstractNavigator.java:61)
+        at com.metamatrix.query.sql.navigator.AbstractNavigator.visitNodes(AbstractNavigator.java:72)
+        at com.metamatrix.query.sql.navigator.PreOrPostOrderNavigator.visit(PreOrPostOrderNavigator.java:246)
+        at com.metamatrix.query.resolver.command.SimpleQueryResolver$QueryResolverVisitor.visit(SimpleQueryResolver.java:431)
+        at com.metamatrix.query.sql.lang.From.acceptVisitor(From.java:143)
+        at com.metamatrix.query.sql.navigator.AbstractNavigator.visitNode(AbstractNavigator.java:61)
+        at com.metamatrix.query.resolver.command.SimpleQueryResolver$QueryResolverVisitor.visit(SimpleQueryResolver.java:177)
+        at com.metamatrix.query.resolver.command.SimpleQueryResolver.resolveCommand(SimpleQueryResolver.java:94)
+        at com.metamatrix.query.resolver.QueryResolver.resolveCommand(QueryResolver.java:176)
+        at com.metamatrix.query.resolver.QueryResolver.resolveCommand(QueryResolver.java:128)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.resolveVirtualGroup(RelationalPlanner.java:905)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.buildTree(RelationalPlanner.java:635)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.createQueryPlan(RelationalPlanner.java:553)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.createQueryPlan(RelationalPlanner.java:516)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.generatePlan(RelationalPlanner.java:393)
+        at com.metamatrix.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:144)
+        at com.metamatrix.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:109)
+        at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:470)
+        at org.teiid.dqp.internal.process.Request.processRequest(Request.java:556)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:336)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:176)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+        at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:619)

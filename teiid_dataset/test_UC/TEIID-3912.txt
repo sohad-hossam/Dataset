@@ -1,0 +1,2 @@
+Centralize type handling for odata4
+There is similar type handling logic in both the server odata4 and translator odata4 modules.  This should be combined to remove duplication.

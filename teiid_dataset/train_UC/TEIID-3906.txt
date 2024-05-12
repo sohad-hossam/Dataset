@@ -1,0 +1,6 @@
+OData v4 - definition of OData-Isolation header is either being ignored or is not implemented correctly
+Teiid does not process header *OData-Isolation: snapshot* defined in request correctly.
+* if service (Teiid) does not support this option it must return error 412
+* if Teiid does supports this option then it is not processed correctly, because modifications made during request are visbile
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398231

@@ -1,0 +1,2 @@
+Add an option to output plan text as yaml
+The plan text is close to yaml format.  We should take a pass at converting it to yaml and making it more compact so that the plans displayed in the logs are more human readable.

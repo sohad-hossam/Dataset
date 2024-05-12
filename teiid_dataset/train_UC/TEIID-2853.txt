@@ -1,0 +1,37 @@
+Aggregation fails with select all
+This query fails for me on Teiid 8.1 and 8.6
+{code:sql}
+WITH qry_0 as  
+    (SELECT  
+               floor(t.f) AS a1, floor(t2.f) as b1   
+         FROM  
+                mysql.test_e AS t, oracle.test_e as t2 WHERE (t.f=t2.f)  
+                    GROUP BY  
+                        t.f, t2.f)  
+SELECT * from qry_0 GROUP BY a1, b1;  
+{code}
+
+This is the exception
+{code}
+01:18:03,883 ERROR [org.teiid.PROCESSOR] (Worker2_QueryProcessorQueue16) qioVIE+5j6a2 TEIID30019 Unexpected exception forrequest qioVIE+5j6a2.9: java.lang.NullPointerException  
+        at org.teiid.query.processor.relational.GroupingNode.initialize(GroupingNode.java:192) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:94) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:100) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:100) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:89) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:159) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:141) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:435) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:320) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:248) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:273) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.6.0.Final.jar:8.6.0.Final]  
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]  
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]  
+        atjava.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25]  
+{code}

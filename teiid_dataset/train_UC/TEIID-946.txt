@@ -1,0 +1,2 @@
+add support for in/out out return params
+In/out, out, return parameters should be supported in Teiid defined procedures - not just result sets.  The logic for handling them would be similar to what exists for managing the update_count variable.  The Designer would also need to remove validation restrictions preventing the usage of these parameters.

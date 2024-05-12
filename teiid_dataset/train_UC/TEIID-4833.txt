@@ -1,0 +1,4 @@
+Oracle JDBC Connector: Support for LISTAGG
+Add support for the Oracle LISTAGG function to the Teiid Oracle connector.
+
+Refer to this discussion for context: [OracleConnector LISTAGG function|https://developer.jboss.org/message/970282]

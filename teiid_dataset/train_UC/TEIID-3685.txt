@@ -1,0 +1,19 @@
+org.teiid.padSpace does not affect to the "IN" operator
+org.teiid.padSpace does affect to "=" operator. But does not affect to "IN" operator.
+
+ [data for a column named "id"]
+
+{noformat}
+  "test1     "
+{noformat}
+
+
+ ["=" operator] I can get a result
+ {noformat}
+  SELECT * FROM ViewModel.originalViewTable WHERE ViewModel.originalViewTable.id ='TEST1';
+{noformat}
+
+ ["IN" operator] I can not get a result
+{noformat}
+  SELECT * FROM ViewModel.originalViewTable WHERE ViewModel.originalViewTable.id IN ('TEST1', 'TEST2');
+{noformat}

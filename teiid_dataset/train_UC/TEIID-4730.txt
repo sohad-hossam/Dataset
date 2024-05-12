@@ -1,0 +1,24 @@
+Problem with Import VDB with Materialized View (external)
+Having defined a VDB which contains a Model that has External Materialization, when importing this VDB into another that also uses External Materialization, Teiid Server is searching in the wrong place for the view status.
+
+Example:
+
+..
+<import-vdb name="CountryServiceListVDB" version="1" import-data-policies="true"/>
+...
+<model name="MyView" type="VIRTUAL">
+...
+				SELECT cns,
+					country_code
+				FROM NumberingPlan.numbering_plan;
+....
+		</metadata>
+	</model>
+
+*NumberingPlan.numbering_plan is defined in the imported VDB, and is also Materialized.*
+
+
+
+*Warning in Logs: *
+
+17:51:45,161 WARN  [org.teiid.MATVIEWS] (Worker8_QueryProcessorQueue10653) n9M6de3y5xHM org.teiid.jdbc.TeiidSQLException: TEIID30328 Unable to evaluate (SELECT mvstatus('NumberingPlan', 'numbering_plan', Valid, LoadState, 'THROW_EXCEPTION') FROM (SELECT 1) AS x LEFT OUTER JOIN NumberingPlanMaterialized.status ON VDBName = 'ExternalMaterializationOrderProblem' AND VDBVersion = '1' AND SchemaName = 'NumberingPlan' AND Name = 'numbering_plan' LIMIT 2): TEIID30328 Unable to evaluate mvstatus('NumberingPlan', 'numbering_plan', Valid, LoadState, 'THROW_EXCEPTION'): TEIID30384 Error while evaluating function mvstatus

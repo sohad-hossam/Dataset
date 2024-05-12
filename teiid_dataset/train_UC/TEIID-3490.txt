@@ -1,0 +1,24 @@
+WITH [TABLENAME] AS clause being sent to source query
+The transformation for that table is:
+
+WITH MONTHEND AS (SELECT CONVERT(SQLBqt.tinya.DateValue, DATE) AS REFERENCE_VALUE FROM SQLBqt.tinya WHERE SQLBqt.tinya.IntKey = 2)
+SELECT
+		RATES.INTKEY, MAX(CASE WHEN RATES.INTKEY = 20 THEN RATES.STRINGKEY END) AS GBP_RATE, MAX(CASE WHEN RATES.INTKEY = 25 THEN RATES.STRINGKEY END) AS EUR_RATE, MAX(CASE WHEN RATES.INTKEY = 30 THEN RATES.STRINGKEY END) AS USD_RATE
+	FROM
+		Oraclebqt.dssmalla2 AS RATES
+	WHERE
+		(RATES.INTKEY IN (20, 25, 30)) AND (RATES.DATEVALUE = (SELECT MONTHEND.REFERENCE_VALUE FROM MONTHEND))
+	GROUP BY RATES.INTKEY
+
+source queries are showing the With clause being pushed down to Oracle and they shouldn't be.
+
+11:11:54,283 DEBUG [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) Vw26e70yOBmw.6.3.2 Processing NEW request: WITH MONTHEND (REFERENCE_VALUE) AS (SELECT CONVERT(g_0.DateValue, DATE) FROM SQLBqt.tinya AS g_0 WHERE g_0.IntKey = 2) SELECT g_0.INTKEY, MAX(CASE WHEN g_0.INTKEY = 20 THEN g_0.STRINGKEY END), MAX(CASE WHEN g_0.INTKEY = 25 THEN g_0.STRINGKEY END), MAX(CASE WHEN g_0.INTKEY = 30 THEN g_0.STRINGKEY END) FROM Oraclebqt.DSSMALLA2 AS g_0 WHERE (g_0.INTKEY IN (20, 25, 30)) AND (g_0.DATEVALUE = {d'2000-01-03'}) GROUP BY g_0.INTKEY
+11:11:54,283 DEBUG [org.jboss.jca.core.connectionmanager.pool.strategy.OnePool] (Worker3_QueryProcessorQueue30) Oraclebqt: getConnection(null, WrappedConnectionRequestInfo@2efc4e0e[userName=bqt2]) [0/20]
+11:11:54,283 INFO  [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) OracleExecutionFactory Commit=true;DatabaseProductName=Oracle;DatabaseProductVersion=Oracle Database 11g Enterprise Edition Release 11.1.0.6.0 - 64bit Production
+With the Partitioning, OLAP, Data Mining and Real Application Testing options;DriverMajorVersion=11;DriverMajorVersion=2;DriverName=Oracle JDBC driver;DriverVersion=11.2.0.1.0;IsolationLevel=2
+11:11:54,283 DEBUG [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) Vw26e70yOBmw.6.3.2 Obtained execution
+11:11:54,283 DEBUG [org.teiid.COMMAND_LOG] (Worker3_QueryProcessorQueue30) 	START DATA SRC COMMAND:	startTime=2015-05-22 11:11:54.283	requestID=Vw26e70yOBmw.6	sourceCommandID=3	executionID=2	txID=null	modelName=Oraclebqt	translatorName=oracle	sessionID=Vw26e70yOBmw	principal=teiiduser@teiid-security	sql=WITH MONTHEND (REFERENCE_VALUE) AS (SELECT CONVERT(g_0.DateValue, DATE) FROM SQLBqt.tinya AS g_0 WHERE g_0.IntKey = 2) SELECT g_0.INTKEY, MAX(CASE WHEN g_0.INTKEY = 20 THEN g_0.STRINGKEY END), MAX(CASE WHEN g_0.INTKEY = 25 THEN g_0.STRINGKEY END), MAX(CASE WHEN g_0.INTKEY = 30 THEN g_0.STRINGKEY END) FROM Oraclebqt.DSSMALLA2 AS g_0 WHERE (g_0.INTKEY IN (20, 25, 30)) AND (g_0.DATEVALUE = {d'2000-01-03'}) GROUP BY g_0.INTKEY
+11:11:54,285 DEBUG [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) Source-specific command: WITH MONTHEND AS (SELECT trunc(cast(g_0."DateValue" AS date)) AS REFERENCE_VALUE FROM "bqt2"."dbo"."tinya" g_0 WHERE g_0."IntKey" = 2) SELECT g_0."INTKEY", MAX(CASE WHEN g_0."INTKEY" = 20 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 25 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 30 THEN g_0."STRINGKEY" END) FROM "BQT2"."DSSMALLA2" g_0 WHERE g_0."INTKEY" IN (20, 25, 30) AND g_0."DATEVALUE" = {d '2000-01-03'} GROUP BY g_0."INTKEY"
+11:11:54,285 TRACE [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) Source sql WITH MONTHEND AS (SELECT trunc(cast(g_0."DateValue" AS date)) AS REFERENCE_VALUE FROM "bqt2"."dbo"."tinya" g_0 WHERE g_0."IntKey" = 2) SELECT g_0."INTKEY", MAX(CASE WHEN g_0."INTKEY" = 20 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 25 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 30 THEN g_0."STRINGKEY" END) FROM "BQT2"."DSSMALLA2" g_0 WHERE g_0."INTKEY" IN (20, 25, 30) AND g_0."DATEVALUE" = {d '2000-01-03'} GROUP BY g_0."INTKEY"
+11:11:55,514 DEBUG [org.teiid.COMMAND_LOG] (Worker3_QueryProcessorQueue30) 	ERROR SRC COMMAND:	endTime=2015-05-22 11:11:55.514	requestID=Vw26e70yOBmw.6	sourceCommandID=3	executionID=2	txID=null	modelName=Oraclebqt	translatorName=oracle	sessionID=Vw26e70yOBmw	principal=teiiduser@teiid-security	finalRowCount=null
+11:11:55,514 WARN  [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue30) Connector worker process failed for atomic-request=Vw26e70yOBmw.6.3.2: org.teiid.translator.jdbc.JDBCExecutionException: 907 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: WITH MONTHEND AS (SELECT trunc(cast(g_0."DateValue" AS date)) AS REFERENCE_VALUE FROM "bqt2"."dbo"."tinya" g_0 WHERE g_0."IntKey" = 2) SELECT g_0."INTKEY", MAX(CASE WHEN g_0."INTKEY" = 20 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 25 THEN g_0."STRINGKEY" END), MAX(CASE WHEN g_0."INTKEY" = 30 THEN g_0."STRINGKEY" END) FROM "BQT2"."DSSMALLA2" g_0 WHERE g_0."INTKEY" IN (20, 25, 30) AND g_0."DATEVALUE" = {d '2000-01-03'} GROUP BY g_0."INTKEY"]

@@ -1,0 +1,4 @@
+SQL Server type hadling issues
+If we pushdown a convert(stringvalue, char) function, it turns into the source expression convert(char, stringvalue), which has the following problems:  it defaults to type char(30) which is right padded, it is not trimmed since the target type was Char and the trim logic looks only for String.  Also it does not account for empty string mapping to null.
+
+The SQL Server tinyint type is unsigned.  Our import needs to be modified to this to short, since our byte type is unsigned.  Pushing down a convert(numericvalue, byte) as convert(tinyint, numericvalue) is problematic if the byte values are stored in a signed manner.

@@ -1,0 +1,2 @@
+Simplify Kerberos configuration with Embedded
+The current code requires overriding the embedded server to install a custom session service.  It may be good to have some base level of functionality built-in and/or just delegated to the security helper.

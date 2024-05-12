@@ -1,0 +1,37 @@
+Exceptions from cache under load
+The following exceptions happen occasional under load.  These exceptions are mostly cosmetic though, since they are happening only during removal.
+
+Exception in thread "Worker5" java.lang.NullPointerException
+	at com.metamatrix.cache.jboss.JBossCache.getChild(JBossCache.java:145)
+	at org.teiid.dqp.internal.cache.DQPContextCache.removeRequestScopedCache(DQPContextCache.java:63)
+	at org.teiid.dqp.internal.process.DQPCore.removeRequest(DQPCore.java:303)
+	at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java:357)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:247)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+Exception in thread "Worker0" org.jboss.cache.NodeNotValidException: Node /Teiid/Scoped-Cache is not valid.  Perhaps it has been moved or removed.
+	at org.jboss.cache.invocation.NodeInvocationDelegate.assertValid(NodeInvocationDelegate.java:527)
+	at org.jboss.cache.invocation.NodeInvocationDelegate.assertValid(NodeInvocationDelegate.java)
+	at org.jboss.cache.invocation.NodeInvocationDelegate.getChild(NodeInvocationDelegate.java:360)
+	at org.jboss.cache.invocation.NodeInvocationDelegate.getChild(NodeInvocationDelegate.java)
+	at com.metamatrix.cache.jboss.JBossCache.getChild(JBossCache.java:145)
+	at com.metamatrix.cache.jboss.JBossCache.getChild(JBossCache.java)
+	at org.teiid.dqp.internal.cache.DQPContextCache.removeRequestScopedCache(DQPContextCache.java:63)
+	at org.teiid.dqp.internal.cache.DQPContextCache.removeRequestScopedCache(DQPContextCache.java)
+	at org.teiid.dqp.internal.process.DQPCore.removeRequest(DQPCore.java:303)
+	at org.teiid.dqp.internal.process.DQPCore.removeRequest(DQPCore.java)
+	at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java:357)
+	at org.teiid.dqp.internal.process.RequestWorkItem.attemptClose(RequestWorkItem.java)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:247)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)

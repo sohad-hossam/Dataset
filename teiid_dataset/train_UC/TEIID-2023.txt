@@ -1,0 +1,2 @@
+prepared metadata fails for JDBC handled statements
+JDBC handled statements (SET/SHOW/transaction) if called via a prepared statement will produce an exception when getting the metadata.

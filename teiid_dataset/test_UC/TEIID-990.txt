@@ -1,0 +1,5 @@
+Remove the Axis library dependency on the XML Connectors
+Currently XML-Source SOAP connector depends upon Axis 1.3, this needs to be removed and re-written to use JAX-WS and JBossWS-Native.
+
+Also, Salesforce connector uses Axis 1.3 to generate the client stub, this needs to be removed and re-generated using JAX-WS specific tools like wsimport.
+

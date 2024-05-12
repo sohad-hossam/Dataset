@@ -1,0 +1,4 @@
+Google translator fails to update timestamp value reformatted after update
+Cell of type timestamp is reformatted after an update. Data inserted from teiid are in format "yyyy-mm-dd hh:mm:ss[.fffffffff]", which is reformatted to "dd/mm/yyyy hh:mm:ss[.fffffffff]". Subsequent update of such row throws exception "Could not convert source column Source.smalla.timestampvalue to the expected runtime type timestamp".
+
+Google spreadsheet locale was UK, timezone was set to Berlin.

@@ -1,0 +1,2 @@
+Change SYSADMIN.refreshMatViewRow to support a list of rows instead of just one
+Currently  SYSADMIN.refreshMatViewRow supports only passing one key value so it will be nice to be able to pass multiple values or array of values for bulk updates. 

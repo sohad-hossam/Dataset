@@ -1,0 +1,15 @@
+Teiid embedded with Solr (exception max boolean clauses)
+I am using Teiid embedded with sorl.
+i have a query like:
+select field1 from solrCore where field2 in (v1,v2,v3 ..... v2000).
+I get an expcetion
+Caused by: org.apache.lucene.search.BooleanQuery$TooManyClauses: maxClauseCount is set to 1024
+at org.apache.lucene.search.BooleanQuery$Builder.add(BooleanQuery.java:127)
+at org.apache.lucene.search.BooleanQuery$Builder.add(BooleanQuery.java:117)
+at org.apache.solr.parser.SolrQueryParserBase.getBooleanQuery(SolrQueryParserBase.java:514)
+at org.apache.solr.parser.SolrQueryParserBase.getBooleanQuery(SolrQueryParserBase.java:490)
+ 
+If i am querying solr directly, i can work around the restriction of 1024 Boolean queries by using
+field2:(v1 v2 v3 ... v1000) OR field2:(v1001 v1002 v1003 ... v2000) but with Teiid i can not do this and i get the exception.
+ 
+if i split the query field2 in (v1,v2,v3 ..... v1000) OR field2 in (v1001,v1002,v1003 ..... v2000) teiid groups this in one statement.

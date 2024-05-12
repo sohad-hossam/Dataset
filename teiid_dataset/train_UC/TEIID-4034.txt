@@ -1,0 +1,17 @@
+Google spreadsheet translator issues
+The GoogleJSONParser has handling for javascript dates, but only of the form new Date(...)
+
+However the data result uses datetime/date values that are actually string literals of the form
+
+"Date(...)"
+
+Also the time format is an array of numbers:
+
+[1,2,3,4]
+
+The translator needs to account for all of these.
+
+Additionally:
+
+- support for ClientLogin should be removed as it is no longer allowed by google. 
+- there is a collision between resource bundles as they are in the same package between the connector and api modules.

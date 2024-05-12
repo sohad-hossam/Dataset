@@ -1,0 +1,2 @@
+Change the default max-staleness for the resultset cache to 0
+We have inherited the property setting for years and have to call it out in several places in the docs.  It would be best to default to 0, and instead call out in the docs that cache can be made more tolerant to stale entries.

@@ -1,0 +1,2 @@
+PostgreSQL: Implement Teiid spatial
+Add support for GEOMETRY and the ST_* functions to the PostgreSQL translator.

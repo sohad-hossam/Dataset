@@ -1,0 +1,2 @@
+Add ODBC support for pg_client_encoding()
+Provide support for pg_client_encoding() when using the ODBC driver.

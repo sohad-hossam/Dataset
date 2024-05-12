@@ -1,0 +1,2 @@
+Refine array_agg support
+There is currently a hard-coded limit of 1000 items in an array - because it is held fully in memory.  This may need to be adjusted depending upon how many children are needed for expand.

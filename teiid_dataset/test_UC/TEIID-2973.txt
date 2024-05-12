@@ -1,0 +1,2 @@
+OData 4 support with Olingo
+Whenever an olingo final is available for odata 3/4 we'll want to utilize that.  The best guess now is that this will happen in the 8.9 timeframe.  Additional support can then be added for later odata features, which will have subtasks as necessary.

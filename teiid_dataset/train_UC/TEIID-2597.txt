@@ -1,0 +1,6 @@
+Allow Salesforce COnnection timeouts to be easily adjusted
+Currently it is possible via an easy configuration option to set the http and other time-outs of ws connections. Can a similar option be made available to salesforce connections, so timeouts can be changed easily without a custom cxf setup
+
+Thanks,
+
+Graeme

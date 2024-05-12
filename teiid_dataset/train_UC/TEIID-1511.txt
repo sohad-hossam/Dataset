@@ -1,0 +1,4 @@
+VDB deployment leaves with too many open files
+After deploying a VDB using Admn API or AdminShell a temporary file handle is open and does not seem to be closed. After deploying the VDB run
+
+lsof

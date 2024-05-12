@@ -1,0 +1,2 @@
+No way to associate enterprise data types in dynamic vdb constructs
+I don't find any doc's on how to define enterprise data types in a dynamic vdb.

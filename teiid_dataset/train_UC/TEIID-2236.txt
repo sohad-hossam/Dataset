@@ -1,0 +1,2 @@
+DDL parsing of Searchable results in an error
+The lookup of an uppercase searchtype results in an illegalargumentexception.

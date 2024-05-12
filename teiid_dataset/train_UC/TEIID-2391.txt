@@ -1,0 +1,2 @@
+Wrong execution returned from CommandContext.getReusuable() in ConnectorWorkItem
+Test case for https://community.jboss.org/thread/221057?tstart=0

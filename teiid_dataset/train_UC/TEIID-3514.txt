@@ -1,0 +1,2 @@
+Cassandra source blob handling is incorrect
+TEIID-3060 didn't fully address blob usability as the blob value is being returned as a bytebuffer.

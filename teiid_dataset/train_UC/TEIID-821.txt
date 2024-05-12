@@ -1,0 +1,4 @@
+Teiid Server goes into a loop when shutdown has been run
+I set up a server with 2 VDBs and ran a short JMeter test (more for configuring JMeter than for testing Teiid at this time). When the test concluded I executed shutdown.sh from a separate terminal. When I do this the server process takes ~ all the CPU and runs like that until it's killed.
+
+I'm attaching a thread dump.

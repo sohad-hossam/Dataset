@@ -1,0 +1,4 @@
+Refine option no cache behavior
+Currently specifying option no cache with a particular group name cascades fully through all materialized views.  It would be better if it only applied to a single level.  Simply specifying option no cache without any specific groups would continue to behave the same way as it does currently, which bypasses cache for all materialized views.
+
+The materialized view scripts should be changed to SELECT ... INTO ... FROM x OPTION NOCACHE x so that the loads can take advantage of intermediate materialized view layers.

@@ -1,0 +1,6 @@
+When a message (i.e., WARN) is logged and its associated with a translator/connector, it would be nice to know to which one it applied
+Seeing the following warning when running a query:
+
+ WARN  [org.teiid.CONNECTOR] (Worker3_QueryProcessorQueue50) Search results exceeded size limit. Results may be incomplete
+
+There are 2 sources (jdbc and ldap) in the vdb, and not sure which one is causing the issue.   Also, seeing this warning, I'm thinking I may not have all my results.   What do I do or change in order to get all the results?  Not sure what to do.

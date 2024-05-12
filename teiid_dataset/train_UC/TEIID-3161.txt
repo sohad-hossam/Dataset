@@ -1,0 +1,2 @@
+Generated sql with trim strings is incorrect for insert variables and with clause
+The trim strings logic does not consider if a column reference is intended to just be the name only or an expression.  

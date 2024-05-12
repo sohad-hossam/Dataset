@@ -1,0 +1,35 @@
+Hive/Impala translator - Translators throw ClassCastException
+Teiid throws following exception when SQL:
+
+*SQL*: SELECT a.IntKey FROM BQT1.smalla a UNION ALL SELECT b.IntKey FROM BQT2.Smallb b UNION ALL SELECT c.intkey FROM bqt1.smalla c
+
+*Result*:
+{code:text}
+09:28:55,285 ERROR [org.teiid.PROCESSOR] (Worker2_QueryProcessorQueue50) TEIID30019 Unexpected exception for request KrpIKq2zWp0r.7: java.lang.ClassCastException: org.teiid.language.SetQuery cannot be cast to org.teiid.language.Select
+	at org.teiid.translator.hive.HiveSQLConversionVisitor.visit(HiveSQLConversionVisitor.java:158)
+	at org.teiid.language.SetQuery.acceptVisitor(SetQuery.java:110) [teiid-api-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.language.visitor.SQLStringVisitor.append(SQLStringVisitor.java:91) [teiid-api-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.translator.jdbc.SQLConversionVisitor.append(SQLConversionVisitor.java:130)
+	at org.teiid.translator.jdbc.TranslatedCommand.translateCommand(TranslatedCommand.java:76)
+	at org.teiid.translator.jdbc.JDBCBaseExecution.translateCommand(JDBCBaseExecution.java:120)
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:114)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:359) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0-internal]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0-internal]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+	at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at com.sun.proxy.$Proxy47.execute(Unknown Source)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.5.redhat-3.jar:8.12.5.redhat-3]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}

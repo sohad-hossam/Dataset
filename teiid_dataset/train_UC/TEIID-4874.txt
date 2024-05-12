@@ -1,0 +1,2 @@
+SQL Server translator should support full outer join by default
+Due to inheriting from the sybase translator, the sqlserver translator by default does not support full outer join.  This should changed to true.

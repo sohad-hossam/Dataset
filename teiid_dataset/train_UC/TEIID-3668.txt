@@ -1,0 +1,2 @@
+Support OAuth with JWT Bearer Access Token
+Support the OAuth JWT token propagation at web-service endpoints. Example flow with Salesforce defined here https://help.salesforce.com/HTViewHelpDoc?id=remoteaccess_oauth_jwt_flow.htm 

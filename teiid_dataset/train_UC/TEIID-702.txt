@@ -1,0 +1,7 @@
+Define/Provide ways to create and use encrypted passwords in Teiid
+Teiid runtime is capable of decrypting the encrypted passwords from the Teiid Designer (when the same key certs are used), however does not provide a mechanism to provide a utility to encrypt passwords itself. Often times the Designer might be using a different certificate or may be the user did not use the Designer at all. So, Teiid needs
+
+1) Script to create a new certificate for password encryption
+2) Script to encrypt a given password
+3) Integration of the this cert with runtime, such that it can decrypt password(s) at runtime.
+4) Documentation as how this can be done.

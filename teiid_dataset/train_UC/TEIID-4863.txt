@@ -1,0 +1,2 @@
+Run teiid embedded via Spring Boot
+ WildFly Swarm can use simple pojo to integrate framework, which compatible with  EmbeddedConfiguration, actually this is encouraged way.

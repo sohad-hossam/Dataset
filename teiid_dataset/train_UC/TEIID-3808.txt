@@ -1,0 +1,57 @@
+Informix translator - date/time/timestamp values are adjusted differently according to timezone
+The Informix translator adjusts only time value according to server's timezone. Timestamp values are adjusted only if 'DatabaseTimeZone' property is set. Date values are not adjusted at all.
+
+I am not sure what is Teiid's logic in this case. Is the difference between server's timezone and database's timezone taken into account? Or only the timezone of the database?
+-------------------
+
+Server's timezone - GMT+1
+DatabaseTimeZone property - not overridden
+Result:
+|time|date|timestamp|
+|01:00:00|2000-01-01|2000-01-01 00:00:00.0|
+
+Server's timezone - GMT+5
+DatabaseTimeZone property - not overridden
+Result:
+|time|date|timestamp|
+|05:00:00|2000-01-01|2000-01-01 00:00:00.0|
+
+Server's timezone - GMT+5
+DatabaseTimeZone property - GMT+1
+Result:
+|time|date|timestamp|
+|01:00:00|2000-01-01|2000-01-01 04:00:00.0|
+
+Server's timezone - GMT+5
+DatabaseTimeZone property - GMT-1
+Result (int this case
+|time|date|timestamp|
+|23:00:00|2000-01-01|2000-01-01 06:00:00.0|
+
+Informix:
+{code:sql}
+...
+datevalue date,
+timevalue datetime hour to fraction(1),
+timestampvalue datetime year to fraction(1),
+...
+{code}
+
+VDB - foreign table:
+{code:sql}
+...
+DateValue date OPTIONS (NATIVE_TYPE 'date', NAMEINSOURCE 'datevalue'),
+TimeValue timestamp OPTIONS (NATIVE_TYPE 'datetime hour to fraction(1)', NAMEINSOURCE 'timevalue'),
+TimestampValue timestamp OPTIONS (NATIVE_TYPE 'datetime year to fraction(1)', NAMEINSOURCE 'timestampvalue'),
+...
+{code}
+
+VDB - view:
+{code:sql}
+...
+DateValue date,
+TimeValue time,
+TimestampValue timestamp,
+...
+AS ... DateValue, convert(TimeValue, time), TimestampValue, ...
+{code}

@@ -1,0 +1,6 @@
+Provide install script for Teiid to be installed in the domain mode
+Currently the teiid domain mode configuration is defined in the domain-teiid.xml and some of the deployments of RAR file in a script file, to complete the install.
+
+Also, JBoss AS defines a many varieties for "profiles" for the domain mode as well as the standalone mode. If use would like to install any other profile, they need to go though manual modifications. 
+
+The solution here is to provide a CLI script that installs Teiid subsystem and configures it.

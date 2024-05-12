@@ -1,0 +1,8 @@
+Add unit test methods from JBEDSP-1137: StackOverflowError when top level query uses the same symbol name and group alias that is in a second level query or sub-query
+Add test coverage from JBEDSP-1137 that covers the following use case:
+
+SELECT CONVERT(A.e2, biginteger) AS e2 FROM (
+   SELECT CONVERT(e2, long) AS e2 FROM (
+      SELECT 5 AS e2
+   ) AS A
+) AS A 

@@ -1,0 +1,2 @@
+Change infinispan translators to determine if annotations are used to configure JDG by using connection
+Change the translator to configure options related to when JDG is being configured using annotations or not (using protobuf .proto file and mashallers) by asking the connection.  Which doing so will make the usage of the override not needed.

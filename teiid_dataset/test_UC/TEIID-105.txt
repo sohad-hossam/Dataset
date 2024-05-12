@@ -1,0 +1,4 @@
+MySQL capabilities should be made specific to version 4/5
+Defect Tracker #24746: The current mysql capabilities seem to have been written for version 5 (it initially included support for timestampdiff).  The support for 4.x should be specifically refined or specifically removed from the docs.  4.x goes completely  eol by the end of 2009, so it's unlikely many customers would care if this were done for 5.5.1.
+
+see also http://www.mysql.com/company/legal/lifecycle/#calendar

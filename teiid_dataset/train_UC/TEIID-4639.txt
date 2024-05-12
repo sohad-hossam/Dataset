@@ -1,0 +1,24 @@
+Mongo translator - embeddable tables - NULL primary key of embedded table in result
+Issuing query like \[1\] on embeddable tables scenario \[2\], in the result, primary key of embedded table is NULL \[3\].
+
+{code:sql|title=\[1\] Sample query}
+SELECT a.id AS a_id, a.company_id AS a_cid, b.id AS b_id FROM Person a INNER JOIN Company b IN a.company_id = b.id
+{code}
+
+{code:sql|title=\[2\] DDL}
+CREATE FOREIGN TABLE Person (
+    id integer PRIMARY KEY,
+    name varchar(25),
+    company_id integer,
+    FOREIGN KEY (company_id) REFERENCES Company (id)
+) OPTIONS(UPDATABLE 'TRUE');
+
+CREATE FOREIGN TABLE Company (
+    id integer PRIMARY KEY,
+    name varchar(25)
+) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:EMBEDDABLE" 'TRUE');
+{code}
+
+*\[3\] Result*
+||a_id||a_cid||b_id||
+|11|11|<null>|

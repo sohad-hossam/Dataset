@@ -1,0 +1,6 @@
+Set Query Timeout on the Server 
+Hi,
+
+We want the configuration of the Query Timeout set on the server side instead of setting it for the Statement Object.
+Please see this discussion for more information http://community.jboss.org/message/600599#600599
+We want the setQueryTimeout to override the default values.

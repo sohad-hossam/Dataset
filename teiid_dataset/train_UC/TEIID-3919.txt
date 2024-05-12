@@ -1,0 +1,4 @@
+Add support for using Security mapping modules in security domain for teiid
+Currently we only use the RoleMapping login module for role mapping in the teiid security domain.  Can we have the code call the mapping module as well - https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-6.4/red-hat-jboss-enterprise-application-platform-64-how-to-configure-identity-management/chapter-7-configuring-a-security-domain-to-use-a-security-mapping
+
+See https://access.redhat.com/documentation/en/red-hat-jboss-enterprise-application-platform/version-6.4/red-hat-jboss-enterprise-application-platform-64-login-module-reference/chapter-9-security-mapping-modules for the full list of available mapping modules.

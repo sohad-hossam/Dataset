@@ -1,0 +1,2 @@
+JDBC connector handling of convert is inconsistent
+If a source lacks the exact representation of a Teiid type we approximate it with the closest source type.  Pushed converts will typically not have the same affect as if they are evaluated in the engine.  For example sources lacking byte or tinyint types are having conversions dropped rather, but the actual effect should be modulo the max byte value.  We also are not ensuring that the truncation or rounding behavior is the same for all conversions - such as from a floating point number to a fixed point.

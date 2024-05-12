@@ -1,0 +1,4 @@
+Embedded Teiid with JPA layer Transaction Management detection
+When Embedded Teiid used with JPA layer, the JPA layer manages the transaction boundaries. Teiid does detect the ongoing transaction and mark it has the GLOBAL transaction, however in this case JPA layer does not enlist embedded as a participating source (this is not required either).  This results, where embedded connection gets closed before any commit is called.
+
+However, when the session close is called, Teiid proactively tries to close the transaction, which is not correct.

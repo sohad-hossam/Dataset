@@ -1,0 +1,2 @@
+Teiid Pushdown queries producing unexpected results (Sybase 12.5)
+The attached sampling of 43 queries submitted against Sybase 12.5 are producing unexpected results in Teiid pushdown query testing but are producing expected results when submitted straight to the source through Squirrel.  Column A of the attached spreadsheet contains the query and my comments.  Columns B & C contains info from the query testing run.  I am attaching the VDB, ds, and driver.  If I can provide any additional information please let me know.

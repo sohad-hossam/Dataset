@@ -1,0 +1,12 @@
+Allow specifying the VDB version as part of the VDB name in the JDBC URL connection string.
+Currently when a user connects to a VDB of particular version they use the format
+
+jdbc:teiid:<vdb>@mm://host:port;version=?;user=..
+
+additionally support
+
+jdbc:teiid:<vdb.version>@mm://host:port;user=..
+
+in which case both the above URL are same. 
+
+This format is required by the ODBC client. As in ODBC the "Connection Settings" are called after the connection is made. The version information is required at the time of the connection.

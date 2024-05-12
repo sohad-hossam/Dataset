@@ -1,0 +1,3 @@
+Many info messages upon startup that start with:  TEIID31173 Inherent
+See that attached server log that shows a page full of the following similar message:
+[org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 1) TEIID31173 Inherent Multiple failures occurred ..

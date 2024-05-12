@@ -1,0 +1,2 @@
+Move odbc cursor logic to engine
+ODBC added support for declared cursors, which would be a good general/procedure language feature.

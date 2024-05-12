@@ -1,0 +1,2 @@
+Broaden aggregate decomposition scenarios
+Aggregate decomposition is currently inhibited by outer joins and for count(\*).  These limitations could be removed with more work.

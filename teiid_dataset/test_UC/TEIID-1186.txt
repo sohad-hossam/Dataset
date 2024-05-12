@@ -1,0 +1,12 @@
+broken internal link in Teiid Reference Documentation
+The following XML in the reference guide (reformatted here for clarity) references an unknown id, "other_commands".  
+
+When building in jDocBook this produces a non-functional link in PDF, and a link the containing page in the html output.
+
+<para>
+Previous versions of Teiid accepted the PLANONLY, DEBUG, and SHOWPLAN option arguments.  
+These are no longer accepted in the OPTION clause.  Please see the 
+<link linkend="other_commands">other commands</link> chapter for using these options.
+</para>
+
+Where should this be pointing to ?

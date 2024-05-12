@@ -1,0 +1,2 @@
+loadMatView getting the row count may not be correct
+For an explicit load the row count is obtained by a query against the materialization table prior to the after load script, but there is no requirement that the materialization table or the metadata declared staging table represents the next state.  We should move the row count call to after the "after load" or even make it optional.

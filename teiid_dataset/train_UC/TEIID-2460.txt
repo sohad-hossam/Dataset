@@ -1,0 +1,17 @@
+Weird behavior when Max buffer space restriction is hit 
+I was trying to restrict the disk space used by buffer manager (see steps to reproduce for my methodology). When the disk limit is hit, it really tries to stop the query, but doesn't succeed immediately. 
+
+There is a big amount of exceptions [1] for relatively long period of time (minutes for big files), until it fails eventually with [2]. The error [2] is also given back to the JDBC client. 
+
+Problem is that after the query fails in this fashion, the whole buffer disk space is still occupied and any new query, that needs even small (acceptable) buffer disk space, fails.
+
+Only way that I have found to make the buffer space usable again is to restart the server.
+
+
+[1]  Error transferring block to storage 149742
+java.io.IOException: Max buffer space of 31,457,280 bytes has been exceed.  The current operation will be aborted.
+
+[2]  org.teiid.jdbc.TeiidSQLException: Batch not found in storage 50937
+
+
+

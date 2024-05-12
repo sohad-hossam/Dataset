@@ -1,0 +1,2 @@
+Issues with sorting by a subquery
+We have issues with processing subqueries in the order by clause (either directly through an unrelated column, or indirectly through the select clause).  The pushdown processing can fail with an AssertionError during with the languagebridgefactory, while the engine processing can fail with a NPE during the evaluation rewrite.

@@ -1,0 +1,3 @@
+Upgrade Teiid with EAP 6.4 Alpha
+Upgrade all the Teiid projects to be built based on EAP 6.4 Alpha.   Currently, this would align with  jboss-integration-platform-bom 6.0.0.CR25 and EAP Alpha version 7.5.0.Final-redhat-17.    Note, 7.5.0.Final-redhat-17 is the version in the EAP kit, but only CR25 bom is available.
+

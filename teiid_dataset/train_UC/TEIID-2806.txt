@@ -1,0 +1,2 @@
+Accumulo Connector: Handling Authorizations with NULL value
+Currently the connector cannot handle null authorizations or roles left blank.  

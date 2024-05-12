@@ -1,0 +1,24 @@
+Add Example of SAP connection
+Add an example of connecting to SAP such as:
+
+               <resource-adapter id="sapDS">
+                    <module slot="main" id="org.jboss.teiid.resource-adapter.webservice"/>
+                    <connection-definitions>
+                        <connection-definition class-name="org.teiid.resource.adapter.ws.WSManagedConnectionFactory" jndi-name="java:/sapDS" enabled="true" use-java-context="true" pool-name="sapDS">
+                            <config-property name="AuthUserName">
+                                xxxxxxxxxxx
+                            </config-property>
+                            <config-property name="SecurityType">
+                                HTTPBasic
+                            </config-property>
+                            <config-property name="RequestTimeout">
+                                240000
+                            </config-property>
+                            <config-property name="EndPoint">                                https://sapes1.sapdevcenter.com/sap/opu/odata/sap/ZCD204_EPM_DEMO_SRV/
+                            </config-property>
+                            <config-property name="AuthPassword">
+                                xxxxxxxxxxx
+                            </config-property>
+                        </connection-definition>
+                    </connection-definitions>
+                </resource-adapter>

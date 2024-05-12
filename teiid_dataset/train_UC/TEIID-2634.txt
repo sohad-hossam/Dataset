@@ -1,0 +1,2 @@
+Dynamic SQL will fail to execute in an exception handling block
+A dynamic variable statement will convert the current variable context into a substitution map for placement in the command during rewrite.  However since there is a value typed as "exception" in the context the correponding constant created will throw what amounts to an assertion error.

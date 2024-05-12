@@ -1,0 +1,4 @@
+Allow LOBs to be accessable after the statement close in the local connection scenarios
+When a LOB returned the resultset, the contents of it are only accessed when resultset/statement and/or connection object is not closed, so that internal resources can be appropriately cleaned up. 
+
+This can be relaxed in the local connection scenarios, as the data access is occurring in the same VM, by taking advantage of single read nature of SQL/XML to cleanup once the resource is read or closed.

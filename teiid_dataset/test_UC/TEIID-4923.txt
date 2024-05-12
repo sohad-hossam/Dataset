@@ -1,0 +1,2 @@
+Support getDataSourceNames() of Embedded Admin Implemnetation  
+Current Embedded Admin Implemnetation  not support sourcess related methods, but some method is useful in Embedded environment.

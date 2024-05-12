@@ -1,0 +1,2 @@
+Serial type failure
+Teiid temp table serial types fail to auto-increment properly (causing an not-null constraint violation) if used on a table without a primary key.

@@ -1,0 +1,2 @@
+Remove the use of MetaMatrixProductNames
+We no longer should have a concept of separate products.  A session will either be logged into a vdb or not (which will be considered a platform connection). 

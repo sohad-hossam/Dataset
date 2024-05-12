@@ -1,0 +1,42 @@
+Hive Connector not working in Teiid 8
+Hive Connector is not working. It throws exception [2] when the query is submitted. Bug was introduced in commit 98456d89aa6c04028dbf971bddc322b3e3a3978b in patch for [1].
+Problem is metadata loading. The HiveMetadataProcessor adds strings "null" around table names because the patch [1] calls common JDBCConnector's addTable. That method then uses "quote" field (which is null) to quote the table name and sets this to nameInSource property.
+
+[1] https://issues.jboss.org/browse/TEIID-2281
+
+[2]
+{code:title=Exception|borderStyle=solid}
+
+
+14:17:16,870 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue1) Connector worker process failed for atomic-request=s9z3Rn3JAr7e.0.0.0: org.teiid.translator.jdbc.JDBCExecutionException: 10 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.col FROM nullmyfilesnull g_0]
+          at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:88)
+          at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:257) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:457) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:177) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:174) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0_07]
+          at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0_07]
+          at org.teiid.dqp.internal.process.DQPCore$FutureWork.run(DQPCore.java:118) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:250) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:123) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:298) [teiid-engine-8.2.0.Final.jar:8.2.0.Final]
+          at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_07]
+          at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_07]
+          at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_07]
+Caused by: java.sql.SQLException: Query returned non-zero code: 10, cause: FAILED: Error in semantic analysis: Line 1:20 Table not found 'nullmyfilesnull'
+          at org.apache.hadoop.hive.jdbc.HivePreparedStatement.executeImmediate(HivePreparedStatement.java:177)
+          at org.apache.hadoop.hive.jdbc.HivePreparedStatement.executeQuery(HivePreparedStatement.java:140)
+          at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeQuery(WrappedPreparedStatement.java:462)
+          at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:84)
+          ... 13 more
+Caused by: HiveServerException(message:Query returned non-zero code: 10, cause: FAILED: Error in semantic analysis: Line 1:20 Table not found 'nullmyfilesnull', errorCode:10, SQLState:42000)
+          at org.apache.hadoop.hive.service.ThriftHive$execute_result$execute_resultStandardScheme.read(ThriftHive.java:1494)
+          at org.apache.hadoop.hive.service.ThriftHive$execute_result$execute_resultStandardScheme.read(ThriftHive.java:1480)
+          at org.apache.hadoop.hive.service.ThriftHive$execute_result.read(ThriftHive.java:1430)
+          at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:78)
+          at org.apache.hadoop.hive.service.ThriftHive$Client.recv_execute(ThriftHive.java:116)
+          at org.apache.hadoop.hive.service.ThriftHive$Client.execute(ThriftHive.java:103)
+          at org.apache.hadoop.hive.jdbc.HivePreparedStatement.executeImmediate(HivePreparedStatement.java:175)
+          ... 16 more
+
+{code} 

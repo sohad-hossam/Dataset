@@ -1,0 +1,2 @@
+Use of OPTIONS during the DDL metadata import, overwrites default behavior on the record
+When metadata is being loaded using the DDL, if the OPTIONS is used to define the metadata, this operation will overwrite any default settings for all the known properties that are defined on the metadata objects. This operation should only set the properties that are defined using this construct and leave the defaults that are defined the metadata record as is.

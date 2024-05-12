@@ -1,0 +1,52 @@
+Infinispan DSL Translator: Can't execute update when foreign table name differs from POJO's simple name
+When using Infinispan DSL translator to query data in a jdg instance using POJO, proto file and marshaller, then there's an issue when the foreign table name in a vdb doesn't match simple name of the POJO class.
+Resource adapter:
+{code:xml}
+<resource-adapter id="jdg-mat2">
+    <module slot="main" id="org.jboss.teiid.resource-adapter.infinispan.dsl"/>
+    <connection-definitions>
+        <connection-definition class-name="org.teiid.resource.adapter.infinispan.dsl.InfinispanManagedConnectionFactory" jndi-name="java:/jdg-mat2-ds" enabled="true" pool-name="jdg-mat2">
+            <config-property name="CacheTypeMap">
+                rhel7openjdk1_8_localjdg-mat:org.jboss.qe.jdg.pojo.another.CustomerReport2;customerId
+            </config-property>
+            <config-property name="ProtobufDefinitionFile">
+                /org/jboss/qe/jdg/remote/protobuf/another/CustomerReport2.proto
+            </config-property>
+            <config-property name="Module">
+                org.jboss.qe.jdg.pojos
+            </config-property>
+            <config-property name="MessageDescriptor">
+                org.jboss.qe.jdg.remote.protobuf.another.CustomerReport2
+            </config-property>
+            <config-property name="RemoteServerList">
+                dvqe01.mw.lab.eng.bos.redhat.com:11322
+            </config-property>
+            <config-property name="MessageMarshallers">
+                org.jboss.qe.jdg.pojo.another.CustomerReport2:org.jboss.qe.jdg.remote.marshaller.AnotherCustomerReportMarshaller
+            </config-property>
+        </connection-definition>
+    </connection-definitions>
+</resource-adapter>
+{code}
+Source model:
+{code:xml}
+<source name="jdgSource2" translator-name="infinispan-cache-dsl"
+      connection-jndi-name="java:/jdg-mat2-ds" />
+      <metadata type="DDL"><![CDATA[
+        CREATE FOREIGN TABLE Customer_Report2(
+        customerId integer not null OPTIONS (SEARCHABLE 'Searchable', NATIVE_TYPE 'int'),
+        CONSTRAINT PK_ID PRIMARY KEY(customerId)
+        ) OPTIONS (NAMEINSOURCE 'rhel7openjdk1_8_localjdg-mat', UPDATABLE TRUE);]]>
+      </metadata>
+  </model>
+{code}
+Then performing update query (INSERT, UPDATE, DELETE) causes problem.
+Example query:
+{code:sql}
+INSERT INTO jdgSource2.Customer_Report2 VALUES (18);
+{code}
+results in:
+{code:plain}
+10:00:04,657 WARN  [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue4) Connector worker process failed for atomic-request=2v5rhJOyKrpA.2.0.2: org.teiid.translator.TranslatorException: TEIID21005 Registered Class not found for table Customer_Report2, check table name matches a registered class
+{code}
+If there's a requirement for equality between POJO class simple name and modelled table name, it should be clearly stated in documentation as this is very important limitation. Moreover Java classes and SQL tables tend to have different naming conventions.

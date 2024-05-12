@@ -1,0 +1,4 @@
+translator scoped result set caching
+Something Steven mentioned in Teiid-1589 got me thinking:  It would be helpful for individual translators to request that Teiid cache results sets that match the query as presented to the execution factory (after the planner is done rewriting the query based on the translator's capabilities).
+
+I envision a new method on an Execution getCacheTtlMs() where zero or negative indicates that Teiid shouldn't cache the results.

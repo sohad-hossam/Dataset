@@ -1,0 +1,4 @@
+OData throws unknown error if $select is applied to expanded entity
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0($select=place)
+*Result:* OData Library: An exception without message text was thrown.
+*Status code:* 500

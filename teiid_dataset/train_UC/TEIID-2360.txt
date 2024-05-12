@@ -1,0 +1,2 @@
+Memory buffer sizes over 1GB are not correctly handled
+The sizing of full buffer segments (1 GB) is using the partial segment size.

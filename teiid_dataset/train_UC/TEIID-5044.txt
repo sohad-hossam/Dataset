@@ -1,0 +1,2 @@
+Using "SHOW PLAN" statement only shows initial plan
+There is no way to retrieve the incremental or last version of plan that includes updated node stats when using the "SHOW PLAN" statement.

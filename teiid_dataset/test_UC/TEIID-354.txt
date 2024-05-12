@@ -1,0 +1,2 @@
+Always create column aliases when there is a limit present.
+Currently connectors using inline views for limit must account for non-uniquely named output columns.  This is a needless corner case that can be addressed by the query engine adding column aliases.

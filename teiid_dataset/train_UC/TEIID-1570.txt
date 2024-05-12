@@ -1,0 +1,2 @@
+pg catalog transformation issues
+pg_class and pg_index view definitions have type mismatches.  

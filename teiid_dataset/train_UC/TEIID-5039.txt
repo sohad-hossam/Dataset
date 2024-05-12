@@ -1,0 +1,43 @@
+Couchbase document type definition for a table
+If a table is tight to a single document type, there shouldn't be need for explicit type column assignment when inserting into that table.
+
+With a vdb:
+{code:sql|title=DDL}
+CREATE FOREIGN TABLE SmallA (
+        documentID string PRIMARY KEY,
+        type string OPTIONS (NAMEINSOURCE '`type`'),
+        FloatNum float OPTIONS (NAMEINSOURCE '`FloatNum`'),
+        BigIntegerValue biginteger OPTIONS (NAMEINSOURCE '`BigIntegerValue`'),
+        StringKey string OPTIONS (NAMEINSOURCE '`StringKey`'),
+        CharValue string OPTIONS (NAMEINSOURCE '`CharValue`'),
+        LongNum long OPTIONS (NAMEINSOURCE '`LongNum`'),
+        DoubleNum double OPTIONS (NAMEINSOURCE '`DoubleNum`'),
+        ObjectValue string OPTIONS (NAMEINSOURCE '`ObjectValue`'),
+        ShortValue integer OPTIONS (NAMEINSOURCE '`ShortValue`'),
+        BigDecimalValue bigdecimal OPTIONS (NAMEINSOURCE '`BigDecimalValue`'),
+        DateValue string OPTIONS (NAMEINSOURCE '`DateValue`'),
+        BooleanValue boolean OPTIONS (NAMEINSOURCE '`BooleanValue`'),
+        TimestampValue string OPTIONS (NAMEINSOURCE '`TimestampValue`'),
+        ByteNum integer OPTIONS (NAMEINSOURCE '`ByteNum`'),
+        StringNum string OPTIONS (NAMEINSOURCE '`StringNum`'),
+        TimeValue string OPTIONS (NAMEINSOURCE '`TimeValue`'),
+        IntNum integer OPTIONS (NAMEINSOURCE '`IntNum`')
+      ) OPTIONS (NAMEINSOURCE '`dvqe_crud`', UPDATABLE TRUE, "teiid_couchbase:ISARRAYTABLE" 'false', "teiid_couchbase:NAMEDTYPEPAIR" '`type`:''SmallA''');
+{code}
+
+I'd like to insert using such query:
+{code:sql|title=query}
+INSERT INTO Source.SmallA (documentID, StringKey, IntNum, StringNum) VALUES (1,  '1',  1,  '1');
+{code}
+
+And then getting the value back using
+{code:sql|title=query_select}
+SELECT * FROM Source.SmallA
+{code}
+to see the row I inserted.
+
+Everything without the need to explicitly set 'type' column for the insert query. 
+
+There is missing 1-to-1 relation between a defined FOREIGN table and a document type in couchbase. (When I INSERT into a table in Teiid, there should be clear distiction about what type of document I am inserting and to what keyspace). Possibly the OPTION "teiid_couchbase:NAMEDTYPEPAIR" can serve this purpose, if it works that way for selects, why not for inserts.
+
+I see this as an usability blocker, when user has to set 'type' explicitly in every single insert.

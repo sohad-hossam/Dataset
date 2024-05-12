@@ -1,0 +1,2 @@
+foreign temp additional extension properties not accessible in QMI
+The original metadata id is not consulted when checking extension metadata properties, so anything that isn't transferred to a proper metadata property is lost to the engine (but is accessible to the translator as it will have access to the actual metadata object).

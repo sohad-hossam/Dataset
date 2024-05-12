@@ -1,0 +1,2 @@
+Allow both gssapi and username/password authentication on the same transport
+With GSSAPI support enabled, username/password support on the same transport is effectively disabled.  JDBC/ODBC should ideally support both on the same transport.

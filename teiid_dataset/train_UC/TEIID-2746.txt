@@ -1,0 +1,2 @@
+Add additional metadata validation rules
+In situations where metadata is constructed manually in a custom translator (not through the MetadataFactory, vdb, nor DDL), we do not validate all aspects for correctness.  We should validate some additional scenarios that could lead to issues - for example one possible scenario is https://community.jboss.org/message/846138

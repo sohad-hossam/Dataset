@@ -1,0 +1,10 @@
+Cannot use deployed WAR with HTTPBasic authentication
+I created a WAR which specifies HTTPBasic security. My WAR definition specifies a role and the default realm (teiid-security).
+
+On the server, my datasource specifies PassthroughAuthentication=true. I have tried Security Deployment Types of None and Domain (where I specified the domain as "teiid-security").
+
+When I try to access the WSDL from the Web Services console, I am not being prompted for a username and password; I am just being denied (403).
+
+I've tried clearing the browser cache and bouncing the server. 
+
+I'm attaching the datasource and WAR files.

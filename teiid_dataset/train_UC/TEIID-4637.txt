@@ -1,0 +1,2 @@
+join of aliased views with partitioned unions not handled correctly.
+The partitioning logic uses the same partition info key regardless of what the alias name and then can't find the partition sets with the alias name, the the plan is not converted to a union of joins.

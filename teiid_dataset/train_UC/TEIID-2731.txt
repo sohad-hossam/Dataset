@@ -1,0 +1,2 @@
+Add an option to perform stable sorts
+Related to TEIID-2429, we allow for sorts to reverse the initial working buffer.  Although stable sorts are not required by the spec., it may be desired.

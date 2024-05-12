@@ -1,0 +1,27 @@
+PG DSN for for ODBC metadata query LIKE issues
+Various clients (Cognos, Excel, DBVisualizer) exhibit different results when querying metadata.
+
+For instance:
+Querying ModeShape on a fresh 5.3 deploy.
+{code}
+select relname from pg_catalog.pg_class c, pg_catalog.pg_namespace n where relname like E'ddl\\_alterable' and n.oid = relnamespace
+{code}
+  0 Records
+
+{code}
+select relname from pg_catalog.pg_class c, pg_catalog.pg_namespace n where relname like E'ddl_alterable' and n.oid = relnamespace
+{code}
+  1 Record:  ddl_alterable
+
+{code}
+select relname from pg_catalog.pg_class c, pg_catalog.pg_namespace n where relname like E'ddl\_alterab__' and n.oid = relnamespace
+{code}
+  1 Record:  ddl_alterable
+
+Looking at [1] per [2].  It seems proper escaping of the E'literal' syntax is not always being performed.  The Third example above shows that a wildcard is being escaped and happens to match to a literal value it expects.
+
+
+[1]
+PostgreSQL also accepts "escape" string constants, which are an extension to the SQL standard. An escape string constant is specified by writing the letter E (upper or lower case) just before the opening single quote, e.g. E'foo'. (When continuing an escape string constant across lines, write E only before the first opening quote.) Within an escape string, a backslash character (\) begins a C-like backslash escape sequence, in which the combination of backslash and following character(s) represents a special byte value. \b is a backspace, \f is a form feed, \n is a newline, \r is a carriage return, \t is a tab. Also supported are \digits, where digits represents an octal byte value, and \xhexdigits, where hexdigits represents a hexadecimal byte value. (It is your responsibility that the byte sequences you create are valid characters in the server character set encoding.) Any other character following a backslash is taken literally. Thus, to include a backslash character, write two backslashes (\\). Also, a single quote can be included in an escape string by writing \', in addition to the normal way of ''.
+
+[2]  http://www.postgresql.org/docs/8.3/interactive/sql-syntax-lexical.html#SQL-SYNTAX-STRINGS

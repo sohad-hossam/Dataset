@@ -1,0 +1,7 @@
+WS: PATCH Method is not supported
+PATCH based HTTP method is currently not supported by the Web Services translator. The support in CXF is also NOT readily available. 
+
+In order to support PATCH method, CXF needs to use Apache HttpAsync client libraries.
+
+http://cxf.apache.org/docs/asynchronous-client-http-transport.html
+http://stackoverflow.com/questions/32067687/how-to-use-patch-method-in-cxf

@@ -1,0 +1,4 @@
+client url cleanups
+Designer is now leveraging the TeiidURL class for validation of server urls.  The messages need internationalized and it would be better to through a checked exception (such as MalformedUrlException) rather than IllegalArgumentException.
+
+In addition there is a lot of redundancy with url handling in the Socket/EmbeddedProfile, JDBCURL, and TeiidDataSource.  This should be consolidated as much as possible.

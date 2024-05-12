@@ -1,0 +1,6 @@
+Ability to support Connector Level UDF functions in the System
+Currently we have UDF and Connector capabilities to define some custom functions in supported by a connector, however this is not seem less to deploy along with the connector, as connector functions do not support any parameters or design tools to define/declare them in CDK. We need a way to define and develop functions supported by a connector. 
+
+Suggestions.
+1) Use designer to define capabilities in a XMI file and attach with the connector, and let the server or MMQuery load these XMI files dynamically into the engine.
+2) 

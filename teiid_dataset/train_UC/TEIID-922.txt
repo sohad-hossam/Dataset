@@ -1,0 +1,27 @@
+Teiid Quick Start Example documentation errors
+Over the holiday slowdown, I was able to partially run through the Teiid Quick Start Example [1] to get up to speed on Teiid.  Good stuff!
+
+[1] http://docs.jboss.org/teiid/6.2/quick-start-guide/en-US/html/index.html
+
+I did notice however that the doc has some possibly outdated links and I got stuck part way due to lack of detail when combined with my relative newness to Eclipse.
+
+This is what I saw so far...
+
+- References to the downloads.
+*** Artifact names in Chapter 1 [2] don't match the names on the download page [3].
+[2] http://docs.jboss.org/teiid/6.2/quick-start-guide/en-US/html/download.html
+[3] http://www.jboss.org/teiid/downloads.html
+*** The download links in the doc for Teiid and later for Designer point to broken links [4] which reroute back to the main Teiid page.  This leaves the reader to drill down on the Download link as opposed to going directly there [5].  No biggie, but I figure I'd mention it.
+[4] http://teiid.org/Download.html
+[5] http://www.jboss.org/teiid/downloads.html
+
+- The Teiid family only comes as a zip files, but the doc references tar archives too.  Again, no biggie, but I figure I'd mention it.
+
+- Section 4.2 [6] says "There is a video at the end of the list that will take you though all the steps involved."  I don't see a video there.
+[6] http://docs.jboss.org/teiid/6.2/quick-start-guide/en-US/html/designer.html#step-3
+
+- At this point, I get to step 3 and I'm stuck due to lack of detail when combined with my relative newness to Eclipse.  Any pointers?  Possibly the missing video mentioned above would add the needed detail.  The "File->New..." guidance was very helpful in steps 1 and 2.  Replicating that on the other steps would be a huge help.
+
+I did post this to http://lists.jboss.org/pipermail/teiid-users/2010-January/thread.html#66, and Ramesh asked me to submit this JIRA.
+
+THANK YOU for putting this together!

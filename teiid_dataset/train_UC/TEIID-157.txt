@@ -1,0 +1,8 @@
+mmadmin - Add a short start-up help text for users
+After watching John Verhaeg struggle with his initial use of mmadmin, it seems a short paragraph shouuld be displayed when mmadmin is executed. This could explain how to get help, basic usage, etc.
+
+Also, if JAVA_HOME and/or SERVER_CLIENT aren't defined, is it possible for the startup to request this info, rather than asking the user to edit mmadmin?
+
+We'd like this tool to live on, but it needs to be more user friendly.
+
+PS: At no time did we actually enjoy laughing at John while he struggled, but it was kinda humorous. Seriously. Honest.

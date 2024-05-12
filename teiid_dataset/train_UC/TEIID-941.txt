@@ -1,0 +1,8 @@
+MOD function in Postgres push down is producing connector error
+MOD function in Postgres push down is producing error on connector.
+
+Example:
+
+SELECT DoubleNum, 11, MOD(DoubleNum, 11) FROM BQT1.SmallA ORDER BY DoubleNum
+
+Error Code:0 Message:Error Code:0 Message:Error occurred on connector PostgreSQL_Push<14> - Error Code:0 Message:ERROR: function mod(double precision, numeric) does not exist Executing statement: [SQL: SELECT g_0."doublenum" AS c_0, 11 AS c_1, MOD(g_0."doublenum", 11.0) AS c_2 FROM "smalla" AS g_0 ORDER BY c_0]

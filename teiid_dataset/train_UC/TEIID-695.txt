@@ -1,0 +1,15 @@
+Equality comparison of JoinPredicate returns true even when JoinPredicate criteria is different
+When comparing the following command objects the commands evaluate as equal when performing c1.equals(c2) even though the criteria is different in the two commands:
+
+c1 = SELECT bqt1.smalla.intkey, bqt1.smallb.intkey, bqt1.smalla.intnum, bqt1.smallb.intnum FROM bqt1.smalla LEFT OUTER JOIN bqt1.smallb ON bqt1.smalla.intkey = bqt1.smallb.intkey AND bqt1.smallb.intnum = 1
+
+c2 = SELECT bqt1.smalla.intkey, bqt1.smallb.intkey, bqt1.smalla.intnum, bqt1.smallb.intnum FROM bqt1.smalla LEFT OUTER JOIN bqt1.smallb ON bqt1.smalla.intkey = bqt1.smallb.intkey
+
+
+This is due to the method com.metamatrix.query.sql.lang.JoinPredicate.equals(Object obj) referencing itself when getting the criteria from itself and the obj being passed in:
+
+...
+List thisCrit = this.getJoinCriteria();
+...
+List otherCrit = this.getJoinCriteria();
+...

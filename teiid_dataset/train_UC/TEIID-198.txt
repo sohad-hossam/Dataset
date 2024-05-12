@@ -1,0 +1,2 @@
+lookup should work with virtual groups
+lookup is currently restricted to non-virtual groups, but it should be allowed to use any group.  Due to scoping issues though it's more practical to limit to only non-temporary groups.

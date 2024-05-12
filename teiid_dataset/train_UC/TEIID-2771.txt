@@ -1,0 +1,2 @@
+Data role checking should be enabled by default for embedded
+Data role checking currently has to be manually enabled for embedded by setting an authorizationvalidator on the embeddedconfiguration.  This should instead default to the built-in data roles authorization.

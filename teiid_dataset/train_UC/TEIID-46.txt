@@ -1,0 +1,8 @@
+Fully-qualified names should not be required when referencing virtual procedures that have unique unqualified names
+This problem occurs in our transformation editor, and also occurs with real-time queries (e.g. from QueryBuilder/SQLExplorer, or any client).
+
+If you reference a non-qualified table name, e.g. "myTable", in a query, we'll attempt to resolve it if it is a unique name.
+
+Strangely, we don't do the same thing for virtual procedures, even if they are unique. Instead, you must use the fully-qualified name. There should be no disparity. This is a usability defect.
+
+This also happens to greatly extend the size of virtual procedure code, making it harder to read and debug.

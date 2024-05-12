@@ -1,0 +1,16 @@
+Provide a single JDBC driver for "embedded" and "server" configurations
+Currently there are separate JDBC drivers for
+
+Embedded --> com.metamatrix.jdbc.EmbeddedDriver
+Server --> org.teiid.jdbc.TeiidDriver
+
+Combine the EmbeddedDriver functionality into TeiidDriver. Based on its URL format differentiate which runtime user wants to use. The URLs for runtimes are as follows
+
+Embedded ---> jdbc:metamatrix:<vdb-name>@<path-to>/deploy.properties;<additional-properties>
+Server         ---> jdbc:teiid:<vdb-name>@mm://<host-name>:<port>;<additional-properties>
+
+1) Deprecate EmbeddedDriver
+2) Make  embedded URL format to work with " jdbc:teiid:<vdb-name>@<path-to>/deploy.properties;<additional-properties>" (note s/mematrix/teiid/)
+3) Make the TeiidDriver the only driver.
+
+Investigate if EmbeddedDataSource and TeiidDataSource can be combined, if true follow the same path.

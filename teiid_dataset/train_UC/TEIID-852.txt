@@ -1,0 +1,2 @@
+Oracle timestamp to time conversion null handling
+Null values are converted to the default time of 00:00:00, this is due to oracle's concat function that returns an empty string with a null input.

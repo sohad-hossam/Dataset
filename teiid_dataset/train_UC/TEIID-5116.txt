@@ -1,0 +1,27 @@
+Osisoft Translator - NULL values in numeric columns returned as zeroes
+NULL values in columns with a numeric type (all of int8, int16 etc, single, double) are returned as 0.
+This is due to a bug/quirk of the Osisoft PI JDBC driver, which is hard-coded to return false from the wasNull method.
+
+On the Teiid side, the code in JDBCExecutionFactory.retrieveValue() assumes (completely reasonably) that the wasNull method is implemented correctly:
+{code:java}
+case DataTypeManager.DefaultTypeCodes.INTEGER:  {
+    int value = results.getInt(columnIndex);                    
+    if(results.wasNull()) {
+        return null;
+    }
+    return Integer.valueOf(value);
+}
+{code}
+
+I managed to workaround the bug in the PI JDBC driver by overriding the retrieveValue() in PIExecutionFactory and replacing the calls to wasNull like this:
+{code:java}
+case DataTypeManager.DefaultTypeCodes.INTEGER: {
+    int value = results.getInt(columnIndex);
+    if (results.getObject(columnIndex) == null) {
+        return null;
+    }
+    return Integer.valueOf(value);
+}
+{code}
+
+but that probably isn't the best solution.

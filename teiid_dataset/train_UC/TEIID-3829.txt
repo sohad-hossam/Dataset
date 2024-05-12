@@ -1,0 +1,12 @@
+olingo module junit test failed
+olingo module junit test failed:
+{code}
+Results :
+
+Failed tests: 
+  TestODataSQLBuilder.testEq:431->te:400->helpTest:227 expected:<...g0 WHERE g0.e1 = {t'[04]:20:02'} ORDER BY g0...> but was:<...g0 WHERE g0.e1 = {t'[16]:20:02'} ORDER BY g0...>
+  TestODataSQLBuilder.testTimeMethods:552->te:400->helpTest:227 expected:<...YEAR({ts'2008-10-13 [04]:20:02.0'}) = 2008 O...> but was:<...YEAR({ts'2008-10-13 [16]:20:02.0'}) = 2008 O...>
+
+Tests run: 109, Failures: 2, Errors: 0, Skipped: 0
+
+{code}

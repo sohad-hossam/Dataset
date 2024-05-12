@@ -1,0 +1,15 @@
+OData - NPE when accessing inactive vdb
+Teiid throws NPE when user tries to access inactive vdb via OData4.
+
+Exception:
+{code}
+209 ERROR [org.apache.catalina.core.ContainerBase.[jboss.web].[default-host].[/odata4].[odata4]] (http-localhost/127.0.0.1:8080-1) JBWEB000236: Servlet.service() for servlet odata4 threw exception: java.lang.NullPointerException
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.teiid.olingo.service.LocalClient.getMetadataStore(LocalClient.java:176) [teiid-olingo-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.teiid.olingo.service.OlingoBridge.getHandler(OlingoBridge.java:46) [teiid-olingo-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.teiid.olingo.web.ODataFilter.internalDoFilter(ODataFilter.java:223) [teiid-olingo-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.teiid.olingo.web.ODataFilter.doFilter(ODataFilter.java:100) [teiid-olingo-8.12.5.redhat-4.jar:8.12.5.redhat-4]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:246) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:214) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:231) [jbossweb-7.5.11.Final-redhat-1.jar:7.5.11.Final-redhat-1]
+13:23:41,210 INFO  [MultiPlatformProcessRunner] 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:149) [jbossweb-7.5.11.Final-redhat-1.
+{code}

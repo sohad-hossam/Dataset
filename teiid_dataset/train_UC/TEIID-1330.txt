@@ -1,0 +1,2 @@
+API request:  Delegating Translator
+As a convienience, it would be nice to have a delegating translator.

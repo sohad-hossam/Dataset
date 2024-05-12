@@ -1,0 +1,2 @@
+Enable better support for mixed database encoding
+I was working with a Japanese PostGreSQL database - database encoding is SQL_ASCII, but some of the columns have EUC_JP encoded data.  I attempted to create a UDF to utilize the PostGreSQL convert(string, sourceEncoding, targetEncoding) function, but had difficulty with that (in the production version 554).  Eventually we were able to workaround with other code changes, but handling of this situation may have been easier with a byte data type - logging this JIRA for consideration in teiid. 

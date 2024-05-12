@@ -1,0 +1,24 @@
+OData - wrong string indexing in string functions indexof and substring 
+By documentation \[1\] function indexof returns the zero-based character position of the first occurrence of the second parameter value in the first parameter value. 
+Function substring doens't have explicitly specified indexing, but based on _Example 60_  \[2\] is function substring _zero-based_ too.
+
+*indexof*
+Reference service which supports OData V4:
+*ULR:* http://services.odata.org/V4/Northwind/Northwind.svc/Customers/?$filter=indexof(CompanyName,'lfreds') eq 1
+*Result:* Customer with CompanyName equals "Alfreds Futterkiste"
+
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleDataTable/?$filter=indexof(stringval,'alue') eq 1
+*Result:* No entities
+*Expected result:* Entity with intkey 1,2,3,4,8,9,10,11,12
+
+*substring*
+Reference service which supports OData V4:
+*URL:* http://services.odata.org/V4/Northwind/Northwind.svc/Customers/?$filter=indexof(CompanyName,'lfreds') eq 1
+*Result:* Customer with CompanyName equals "Alfreds Futterkiste"
+
+*ULR:* http://localhost:8080/odata4/olingo_basic/Source/SimpleDataTable/?$filter=substring(stringval, 1) eq 'alue_asdf'
+*Result:* No entities
+*Expected result:* Entity with intkey 10
+
+\[1\] https://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part2-url-conventions/odata-v4.0-errata02-os-part2-url-conventions-complete.html#_Toc406398121
+\[2\] https://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part2-url-conventions/odata-v4.0-errata02-os-part2-url-conventions-complete.html#_Toc406398122

@@ -1,0 +1,65 @@
+Postgresql translator - unable to insert NULL value to column of type Object
+I have source table (in PostgreSQL) with column of type *bytea*. That table/column is in source model (in Teiid) defined as *blob*. Further, I have one view which casts this column to type *object* (column name is _val_). In order to be able to insert in such view, I have defined INSTEAD OF TRIGGER (see \[2\]).
+
+Now I try to insert values into view \[1\]. If val is defined in insert statement, everything is OK. However, if val is not defined, insert ends with exception \[3\].
+
+{code:sql|title=Insert}
+insert into a (id) values (1)
+{code}
+
+{code:xml|title=\[2\] VDB}
+<metadata type="DDL"><![CDATA[
+    CREATE FOREIGN TABLE a (id integer PRIMARY KEY, val blob) OPTIONS (UPDATABLE 'TRUE');
+    ]]>
+</metadata>
+
+<metadata type="DDL"><![CDATA[
+    CREATE VIEW a (id integer PRIMARY KEY, val object) OPTIONS (UPDATABLE 'TRUE') AS SELECT id, convert(val, object) as val FROM Source.a;
+    CREATE TRIGGER ON a INSTEAD OF INSERT AS FOR EACH ROW
+    BEGIN ATOMIC
+        INSERT INTO Source.a (id, val) VALUES
+            (NEW.id, to_bytes(convert(NEW.val, string), 'UTF-8'));
+    END;]]>
+
+</metadata>
+{code}
+
+{code:plain|title=\[3\] Exception}
+13:53:53,359 WARN  [org.teiid.CONNECTOR] (Worker7_QueryProcessorQueue51) Connector worker process failed for atomic-request=b1oXc1KKl6IJ.5.0.17: org.teiid.translator.jdbc.JDBCExecutionException: 0 TEIID11013:TEIID11004 Error executing statement(s): [Prepared Values: [NULL] SQL: INSERT INTO a (id, val) VALUES (1, ?)]
+    at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:293) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.translator.jdbc.JDBCUpdateExecution.execute(JDBCUpdateExecution.java:84) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:402)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:364)
+    at sun.reflect.GeneratedMethodAccessor137.invoke(Unknown Source) [:1.8.0-internal]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+    at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211)
+    at com.sun.proxy.$Proxy48.execute(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306)
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112)
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108)
+    at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65)
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+    at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: org.postgresql.util.PSQLException: ERROR: column "val" is of type bytea but expression is of type oid
+  Hint: You will need to rewrite or cast the expression.
+  Position: 36
+    at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2157)
+    at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1886)
+    at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+    at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:555)
+    at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:417)
+    at org.postgresql.jdbc2.AbstractJdbc2Statement.executeUpdate(AbstractJdbc2Statement.java:363)
+    at org.jboss.jca.adapters.jdbc.WrappedPreparedStatement.executeUpdate(WrappedPreparedStatement.java:493)
+    at org.teiid.translator.jdbc.JDBCUpdateExecution.executeTranslatedCommand(JDBCUpdateExecution.java:263) [translator-jdbc-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+    ... 19 more
+
+13:53:53,363 WARN  [org.teiid.PROCESSOR] (Worker6_QueryProcessorQueue52) TEIID30020 Processing exception for request b1oXc1KKl6IJ.5 'TEIID30504 Source: 0 TEIID11013:TEIID11004 Error executing statement(s): [Prepared Values: [NULL] SQL: INSERT INTO a (id, val) VALUES (1, ?)]'. Originally TeiidProcessingException 'ERROR: column "val" is of type bytea but expression is of type oid
+  Hint: You will need to rewrite or cast the expression.
+  Position: 36' QueryExecutorImpl.java:2157. Enable more detailed logging to see the entire stacktrace.
+{code}

@@ -1,0 +1,6 @@
+Enable flexibiliy in use of colon delimiter when defining cacheTypeMap property
+The cacheTypeMap property syntax is the following:
+
+cacheName:className;pkFieldName 
+
+where the colon and semi-colon are used.   Change to be flexibile to also support colon for the second delimiter.  

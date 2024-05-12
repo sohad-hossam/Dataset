@@ -1,0 +1,20 @@
+Unable to update database table with composite keys using OData
+Using Postgres db, and created a table with composite keys.
+
+CREATE TABLE composite_key
+(
+ou_id character varying(3) NOT NULL,
+product_name character varying(15) NOT NULL,
+product_price numeric(10,2),
+
+CONSTRAINT composite_key_pkey PRIMARY KEY (ou_id, product_name)
+)
+WITH (
+OIDS=FALSE
+);
+ALTER TABLE composite_key OWNER TO postgres;
+INSERT INTO composite_key VALUES ('1','1',1);
+INSERT INTO composite_key VALUES ('1','2',1.20);
+INSERT INTO composite_key VALUES ('2','1',2.10);
+
+Deploy the VDB and use SOAP UI to do PUT (aka SQL UPDATE) generates attached odataerror.txt

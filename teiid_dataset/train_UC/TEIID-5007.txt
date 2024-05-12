@@ -1,0 +1,6 @@
+Changes to reduce Teiid in the cloud footprint
+A Teiid instance even as swarm or springboot needs additional considerations to minimize the runtime footprint.   This includes:
+
+* container aware auto-sizing.  Detection of the number of cpus and available memory need refined - there are experimental settings being considered for containerized vms to better report these values and there is logic in WildFly and other projects that attempts better auto-detection.  We also need to utilize the memory buffer space more and probably as off-heap space (and ideally direct operations on the serialized data)
+* Subsystems required include JTA, webserver, security, which could be satisfied by slimmer alternative versions - especially if we make new assumptions, such as not utilizing xa transactions.
+* Engine dependencies could be application specific - removing xml/xsl support, geometry support, etc.

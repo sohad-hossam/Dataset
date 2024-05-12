@@ -1,0 +1,13 @@
+Don't batch more rows than is needed when query contains limit but translator does not support limit
+Teiid shouldn't try to batch more rows than is needed when query contains limit and translator does not support limit.
+
+
+For example, say there is a translator that exposes a table "A", but does not support limit.
+
+select * from A limit 2
+
+will currently select an entire batch of rows (1024?) from A, instead of just stopping after 2 rows.
+
+Likewise, if the translator supports neither offset nor limit, and the query contains both, Teiid should not try to batch more that (offset + limit) rows.
+
+This is marked as "Minor" because the workaround of naively supporting limit and offset within a translator is not too hard.

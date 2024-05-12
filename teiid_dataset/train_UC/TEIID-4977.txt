@@ -1,0 +1,2 @@
+Support materialization as the 8.12.x version did
+Need to enable the materialization process to load the cache "offline" and not impact access to current cache and data.   This would be similar to how the 8.12.x version was implemented and similar to how RDBMS materialization is done.

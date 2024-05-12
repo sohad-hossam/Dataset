@@ -1,0 +1,2 @@
+Additional row based security issues
+On updates, constraints with values outside of the changelist will throw an exception.  Also, non-compensated updates should always have the condition applied as a row filter - which currently it is not.

@@ -1,0 +1,4 @@
+jdbc socket transport support in teiid embedded mode
+As a  teiid embedded user there must be JDBC socket transport in embedded mode so that external java application (outside the application server in which teiid embedded has been hosted) can connect to the vdb's using the teiid jdbc driver and can perform operation on it. 
+
+This feature  will really help the teiid embedded users to start using this feature in enterprises level applications .

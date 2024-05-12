@@ -1,0 +1,2 @@
+Configure Log4j to use the ASYNC appender
+Current Log4J configuration does not use asynchronous appender, thus may reduce the performance by doing the logging chores in the main execution thread. This needs to be handled by a separate thread.

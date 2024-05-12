@@ -1,0 +1,8 @@
+A translator override that is not used by a physical model will cause an exception on the server when the vdb is deployed
+A previously created translator override was not associated with any physical model during the vdb development process.  However, the following error occurred on the server when the vdb was deployed:
+
+org.jboss.deployers.spi.DeploymentException: The parent translator defined not found in configuration "vfszip:/Users/vhalbert/RedHat/platforms/soa/5.3/jboss-soa-p-5-object/jboss-as/server/default/deploy/Trade.vdb/"
+	at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:102)
+	at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:60)
+
+From a usability standpoint, the user shouldn't need to remove translator overrides that are not currently used because they represent a what-if scenario the user is trying and may contain override info they are not done with.   The server should just ignore those that are not used.  Also, it would be good if the error message indicated the name of the translator/override it was having issues with.

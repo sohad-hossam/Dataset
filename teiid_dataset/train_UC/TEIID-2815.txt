@@ -1,0 +1,2 @@
+Need to add the aggregate functions to list of supported functions, for Designer to expose for the user
+Need to add to the list, of known supported functions, what are all the aggregate functions that are supported.  This list is what Teiid Designer would expose to the user for modeling purposes.

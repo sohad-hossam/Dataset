@@ -1,0 +1,8 @@
+google spreadsheet translator using Collections.singletonList instance returned by the runtime  doesn't support the set method. 
+This arised as a follow-up of a forum thread, I tried to create a google spreadsheet dynamic VDB, exposing both the source as is, and also a model with a restricted view using only some fileds in the source model. from the sql client (squirrel) connnected to the vdb, but only the raw source model works, while any query to the view shows error
+
+org.teiid.core.TeiidException
+SQLState:  38000
+ErrorCode: 0
+
+In the thread, Steven Hawkins spotted the bug:<<The issue is that the translator is using Collections.singletonList to return the row and the engine is expecting it to be modifiable to avoid the additional copy one the value types are corrected.  The SingletonList instance returned by the runtime unfortunately doesn't support the set method.  >>

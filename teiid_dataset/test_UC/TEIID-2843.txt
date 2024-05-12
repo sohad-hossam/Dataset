@@ -1,0 +1,41 @@
+MongoDB: ClassCastException while doing JOIN based query
+With Schema like
+{code}
+            CREATE FOREIGN TABLE Company (
+                name varchar(50) PRIMARY KEY,
+                description varchar(256)
+            ) OPTIONS(UPDATABLE 'TRUE',"teiid_mongo:EMBEDDABLE" 'true');
+
+            CREATE FOREIGN TABLE Job (
+                jobId integer PRIMARY KEY,
+                description varchar(256),                
+                companyname varchar(50),
+                FOREIGN KEY (companyname) REFERENCES Company (name)
+            ) OPTIONS(UPDATABLE 'TRUE', "teiid_mongo:EMBEDDABLE" 'true');
+        
+            CREATE FOREIGN TABLE Employee (
+                ename varchar(50) PRIMARY KEY,
+                jobId integer,
+                FOREIGN KEY (jobId) REFERENCES Job (jobId)
+            ) OPTIONS(UPDATABLE 'TRUE');
+{code}
+
+then doing a single JOIN Query
+
+{code}
+select e.ename, c.name, j.description from Employee as e JOIN Job j ON e.jobId = j.jobId JOIN Company c ON j.companyname = c.name
+{code}
+
+fails with 
+
+{code}
+14:22:05,271 ERROR [org.teiid.PROCESSOR] (Worker23_QueryProcessorQueue432) 258Se2CWMytI TEIID30019 Unexpected exception for request 258Se2CWMytI.28: java.lang.ClassCastException: org.teiid.language.Join cannot be cast to org.teiid.language.NamedTable
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.visit(MongoDBSelectVisitor.java:419)
+	at org.teiid.language.Join.acceptVisitor(Join.java:66) [teiid-api-8.7.0.Alpha3-SNAPSHOT.jar:8.7.0.Alpha3-SNAPSHOT]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.0.Alpha3-SNAPSHOT.jar:8.7.0.Alpha3-SNAPSHOT]
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.append(MongoDBSelectVisitor.java:95)
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.append(MongoDBSelectVisitor.java:106)
+	at org.teiid.translator.mongodb.MongoDBSelectVisitor.visit(MongoDBSelectVisitor.java:482)
+	at org.teiid.language.Select.acceptVisitor(Select.java:103) [teiid-api-8.7.0.Alpha3-SNAPSHOT.jar:8.7.0.Alpha3-SNAPSHOT]
+	at org.teiid.language.visitor.AbstractLanguageVisitor.visitNode(AbstractLanguageVisitor.java:51) [teiid-api-8.7.0.Alpha3-SNAPSHOT.jar:8.7.0.Alpha3-SNAPSHOT]
+{code}

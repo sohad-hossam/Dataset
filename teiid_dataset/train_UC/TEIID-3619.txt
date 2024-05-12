@@ -1,0 +1,14 @@
+HBase translator - INSERT and UPDATE statements have no effect
+Teiid's INSERT and UPDATE statement have no effect [1]. Both statements are translated as UPSERT which needs Connection.commit() to take effect [2].
+
+[1]
+*select intkey, stringkey from hbase.smalla where intkey = 5*
+|intkey|stringkey|
+|5|5|
+*update hbase.smalla set stringkey = '1000' where intkey = 5*
+no exception here
+*select intkey, stringkey from hbase.smalla where intkey = 5*
+|intkey|stringkey|
+|5|5|
+[2]
+http://phoenix.apache.org/faq.html#I_want_to_get_started_Is_there_a_Phoenix_Hello_World section "2. Using java"

@@ -1,0 +1,110 @@
+NPE thrown when dynamic sql is used in foreach clause
+NPE occurred when using dynamic sql in foreach clause of trigger. Stacktrace is pasted below.
+
+				FOR EACH ROW
+				BEGIN
+					DECLARE string setclause = null;
+					IF (CHANGING.NAME)
+						BEGIN
+							setclause = 'security_ldap.baseuser.NAME';
+						END
+					EXECUTE IMMEDIATE 'UPDATE security_ldap.baseuser SET ' || setclause || '= ''NEW.NAME'' WHERE security_ldap.baseuser.DN = ''NEW.USERID''';
+				END
+
+ 
+OR
+
+Even using "USING" Yielded the same
+FOR EACH ROW
+
+                BEGIN
+
+                    DECLARE string setclause = null;
+
+                    DECLAR string whereclause = ' WHERE security_ldap.baseuser.DN = USING.USERID'
+
+                    IF (CHANGING.NAME)
+
+                        BEGIN
+
+                            setclause = 'security_ldap.baseuser.NAME=USING.NAME';
+
+                        END
+
+                    EXECUTE IMMEDIATE 'UPDATE security_ldap.baseuser SET ' || setclause || whereclause || USING NAME=NEW.NAME,USERID=NEW.USERID;
+
+                END
+
+I see my command got resolved well. But i seeing an NPE during validatioin - context.pushCall(parentProcCommand.getVirtualGroup().getCanonicalName());   - parentProcCommand.getVirtualGroup() is null.
+
+ 
+
+20 Sep 2012 16:15:54,670 PDT TRACE [org.teiid.PROCESSOR] (Worker15_QueryProcessorQueue296) ASSIGNMENT INSTRUCTION: setclause The variable setclause in the variablecontext is updated with the value : security_ldap.baseuser.NAME
+
+20 Sep 2012 16:15:54,671 PDT TRACE [org.teiid.PROCESSOR] (Worker15_QueryProcessorQueue296) Executing instruction ExecDynamicSqlInstruction
+
+20 Sep 2012 16:15:54,671 PDT TRACE [org.teiid.PROCESSOR] (Worker15_QueryProcessorQueue296) Executing dynamic sql  UPDATE security_ldap.baseuser SET security_ldap.baseuser.NAME= 'NEW.NAME' WHERE security_ldap.baseuser.DN = 'NEW.USERID'
+
+20 Sep 2012 16:15:54,678 PDT TRACE [org.teiid.PLANNER.RESOLVER] (Worker15_QueryProcessorQueue296) Resolving command UPDATE security_ldap.baseuser SET NAME = 'NEW.NAME' WHERE security_ldap.baseuser.DN = 'NEW.USERID'
+
+20 Sep 2012 16:15:54,681 PDT DEBUG [org.teiid.PROCESSOR] (Worker15_QueryProcessorQueue296) Request Thread U0W5vGKiU+f+.0 - error occurred
+
+java.lang.NullPointerException
+
+    at org.teiid.query.processor.proc.ExecDynamicSqlInstruction.validateDynamicCommand(ExecDynamicSqlInstruction.java:328)
+
+    at org.teiid.query.processor.proc.ExecDynamicSqlInstruction.process(ExecDynamicSqlInstruction.java:171)
+
+    at org.teiid.query.processor.proc.ProcedurePlan.processProcedure(ProcedurePlan.java:384)
+
+    at org.teiid.query.processor.proc.ProcedurePlan.nextBatchDirect(ProcedurePlan.java:312)
+
+    at org.teiid.query.processor.proc.ProcedurePlan.nextBatch(ProcedurePlan.java:285)
+
+    at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:139)
+
+    at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:105)
+
+    at org.teiid.query.processor.proc.ForEachRowPlan.nextBatch(ForEachRowPlan.java:119)
+
+    at org.teiid.query.processor.relational.PlanExecutionNode.nextBatchDirect(PlanExecutionNode.java:118)
+
+    at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:280)
+
+    at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:155)
+
+    at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:280)
+
+    at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:176)
+
+    at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:139)
+
+    at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:105)
+
+    at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:147)
+
+    at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:374)
+
+    at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:287)
+
+    at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49)
+
+    at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:215)
+
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:232)
+
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:118)
+
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:288)
+
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+
+    at java.lang.Thread.run(Thread.java:722)
+
+20 Sep 2012 16:15:54,682 PDT DEBUG [org.teiid.COMMAND_LOG] (Worker15_QueryProcessorQueue296)     ERROR USER COMMAND:    endTime=2012-09-20 16:15:54.682    requestID=U0W5vGKiU+f+.0    txID=TransactionImple < ac, BasicAction: a8458a5:e104:505ba20c:17 status: ActionStatus.RUNNING >    sessionID=U0W5vGKiU+f+    principal=gamvi01@chorus-teiid-security    vdbName=Chorus    vdbVersion=1    finalRowCount=null
+
+20 Sep 2012 16:15:54,682 PDT ERROR [org.teiid.PROCESSOR] (Worker15_QueryProcessorQueue296) Unexpected exception for request U0W5vGKiU+f+.0
+
+java.lang.NullPointerException

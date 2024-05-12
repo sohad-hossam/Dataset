@@ -1,0 +1,4 @@
+MetadataRepository scope confusion
+MetadataRepository instances are ill-defined as to their scope.  In the worst case this means that present logic inappropriately chains off of shared instances.
+
+We should clarify the scope of constructed instances and have an appropriate chaining implementation.

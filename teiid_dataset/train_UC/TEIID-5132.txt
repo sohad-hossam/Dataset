@@ -1,0 +1,2 @@
+max-active-plans property limit one higher than set.
+Setting the max-active-plans property limits the number of queries that are processed concurrently, however, in our testing, the actual number of concurrent queries is consistently one higher than the max-active-plans setting, i.e. setting max-active-plans to 1 allows two concurrent queries etc.

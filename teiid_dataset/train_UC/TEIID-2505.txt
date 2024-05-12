@@ -1,0 +1,5 @@
+MultiArrayOutputStream computes count incorrectly
+The count computed may not be correct when the bytes written exceeds the primary array size.  This impacts teiid in client to server messaging when the client message exceeds 1 < 15 bytes - which is uncommon, but can happen with extremely large sql, large directly bound (not stream) values, etc.
+
+The exception produced will be shown as "Connection reset".  The server will log the exception as an EOFException - but at a detail level since we assume that IOExceptions can be logged at a lower level.
+

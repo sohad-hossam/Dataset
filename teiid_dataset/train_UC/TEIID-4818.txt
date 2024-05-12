@@ -1,0 +1,2 @@
+Report a more informational message than TooLongFrameException
+We should provide more context when the max message size is exceeded.

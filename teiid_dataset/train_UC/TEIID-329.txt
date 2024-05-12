@@ -1,0 +1,2 @@
+Change sessionid to something non-guessable
+Currently the sessionid is based upon a long sequence.  It is extremely easy to exploit and then hijack a session.  Sessionids should instead be based upon something that is hard to guess (such as a UUID) and should also be encrypted when being returned to the server or resent from the client.

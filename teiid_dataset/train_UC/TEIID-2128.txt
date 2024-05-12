@@ -1,0 +1,4 @@
+MySQL 5.5 dropped support for SQL_TSI_FRAC_SECOND; now using non-standard MICROSECOND
+MySQL used to support SQL_TSI_FRAC_SECOND, but (for whatever reason) dropped that in favor of MICROSECOND. Our translator now needs to be able to recognize this new value.
+
+Unless changed, users cannot add fractions of seconds to a timestamp using the timestampadd function. (A small-probability usecase.)

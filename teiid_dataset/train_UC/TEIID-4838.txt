@@ -1,0 +1,8 @@
+View with a union that projects nulls fails to resolve properly
+Accessing a view defined as:
+
+create view v (col string[]) as select null union all select null
+
+Results in an exception:
+
+org.teiid.core.TeiidRuntimeException: TEIID30447 org.teiid.api.exception.query.QueryResolverException: TEIID30082 Expected value of type 'null' but 'null' is of type 'string[]' and no implicit conversion is available.

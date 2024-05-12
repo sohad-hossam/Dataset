@@ -1,0 +1,2 @@
+Cassandra:  need authorization support in CassandraManagedConnectionFactory
+need authorization support in CassandraManagedConnectionFactory.  please provide a way to enter username and password.

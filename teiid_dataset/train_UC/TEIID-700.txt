@@ -1,0 +1,64 @@
+Adding ORDER BY to a specific query (see details) gets ORA-00904: "C_0": invalid identifier
+I created a query which worked fine until I added the ORDER BY clause:
+
+(SELECT INTKEY, 'A' AS WHEREFROM FROM BQT1.SMALLA LIMIT 6) UNION ALL (SELECT INTKEY, 'B' AS WHEREFROM FROM BQT2.SMALLB LIMIT 5) ORDER BY INTKEY, WHEREFROM LIMIT 10
+
+Now, when executed, it generates this:
+
+Jul 01, 2009 10:37:09.727 [Worker5_QueryProcessorQueue47|0] ERROR <DQP|0> Unexpected exception for request 0.16
+[MetaMatrixComponentException] 904: Error Code:904 Message:Error Code:904 Message:Error occurred on connector BQT1 Connector<8> - Error Code:904 Message:ORA-00904: "C_0": invalid identifier
+
+
+Executing statement:
+
+  [SQL: SELECT * FROM (SELECT g_1.IntKey AS c_0, 'A' AS c_1 FROM SmallA g_1) WHERE ROWNUM <= 6 UNION ALL SELECT * FROM (SELECT g_0.IntKey AS c_0, 'B' AS c_1 FROM SmallB g_0) WHERE ROWNUM <= 5 ORDER BY c_0, c_1]
+1 [ConnectorException]Error Code:904 Message:Error occurred on connector BQT1 Connector<8> - Error Code:904 Message:ORA-00904: "C_0": invalid identifier
+
+
+Executing statement:
+
+  [SQL: SELECT * FROM (SELECT g_1.IntKey AS c_0, 'A' AS c_1 FROM SmallA g_1) WHERE ROWNUM <= 6 UNION ALL SELECT * FROM (SELECT g_0.IntKey AS c_0, 'B' AS c_1 FROM SmallB g_0) WHERE ROWNUM <= 5 ORDER BY c_0, c_1]
+2 [JDBCExecutionException]Error Code:904 Message:ORA-00904: "C_0": invalid identifier
+
+
+Executing statement:
+
+  [SQL: SELECT * FROM (SELECT g_1.IntKey AS c_0, 'A' AS c_1 FROM SmallA g_1) WHERE ROWNUM <= 6 UNION ALL SELECT * FROM (SELECT g_0.IntKey AS c_0, 'B' AS c_1 FROM SmallB g_0) WHERE ROWNUM <= 5 ORDER BY c_0, c_1]
+        at org.teiid.dqp.internal.process.DataTierTupleSource.switchBatch(DataTierTupleSource.java:128)
+        at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:89)
+        at com.metamatrix.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+        at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+        at com.metamatrix.query.processor.relational.LimitNode.nextBatchDirect(LimitNode.java:81)
+        at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+        at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:110)
+        at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:160)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:264)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:210)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+        at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+        at java.lang.Thread.run(Thread.java:636)
+Caused by: org.teiid.connector.api.ConnectorException: Error Code:904 Message:Error occurred on connector BQT1 Connector<8> - Error Code:904 Message:ORA-00904: "C_0": invalid identifier
+
+
+Executing statement:
+
+  [SQL: SELECT * FROM (SELECT g_1.IntKey AS c_0, 'A' AS c_1 FROM SmallA g_1) WHERE ROWNUM <= 6 UNION ALL SELECT * FROM (SELECT g_0.IntKey AS c_0, 'B' AS c_1 FROM SmallB g_0) WHERE ROWNUM <= 5 ORDER BY c_0, c_1]
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.handleError(ConnectorWorkItem.java:235)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.process(ConnectorWorkItem.java:174)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+        at org.teiid.dqp.internal.datamgr.impl.SynchConnectorWorkItem.run(SynchConnectorWorkItem.java:69)
+        ... 4 more
+Caused by: org.teiid.connector.jdbc.JDBCExecutionException: Error Code:904 Message:ORA-00904: "C_0": invalid identifier
+
+
+Executing statement:
+
+  [SQL: SELECT * FROM (SELECT g_1.IntKey AS c_0, 'A' AS c_1 FROM SmallA g_1) WHERE ROWNUM <= 6 UNION ALL SELECT * FROM (SELECT g_0.IntKey AS c_0, 'B' AS c_1 FROM SmallB g_0) WHERE ROWNUM <= 5 ORDER BY c_0, c_1]
+        at org.teiid.connector.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:103)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.processNewRequest(ConnectorWorkItem.java:277)
+        at org.teiid.dqp.internal.datamgr.impl.ConnectorWorkItem.process(ConnectorWorkItem.java:157)
+        ... 6 more
+
+Steve Hawkins suspects the OracleTranslator code.

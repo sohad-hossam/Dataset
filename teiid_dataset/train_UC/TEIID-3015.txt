@@ -1,0 +1,22 @@
+ODATA: Duplicate NavigationProperty name
+Entity 1: TransferRule
+Entity 2: FinancialAccount
+
+TransferRule
+  - sourceAccount : FinancialAccount
+  - destination : FinancialAccount
+  - other attributes
+
+the mapping to this for odata resolves to 
+
+<NavigationProperty Name="financialaccount" Relationship="LivingODS.transferrule_destinationfinancial_account_id_fk" FromRole="transferrule" ToRole="financialaccount" />
+
+<NavigationProperty Name="financialaccount" Relationship="LivingODS.transferrule_sourcefinancial_account_id_fk" FromRole="transferrule" 
+ToRole="financialaccount" />
+
+The navigation property name is duplicated with in transfer rule entity. 
+Hence some of the Odata client see it as ambiguous element
+
+Is there a way to customise the Name to 
+Name="src_financialaccount" and
+Name="dest_financialaccount"

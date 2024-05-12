@@ -1,0 +1,7 @@
+OptimisticWrapTransactionTests tests are failing
+2 Tests are failing:
+
+- testSingleSourceBatchCommand -   com.metamatrix.jdbc.MMSQLException: Unexpectedly reached the end of the batched update counts.
+- testMultipleSourceVirtualProceduralSelect - MMSQLException: Group has an access pattern which has not been met: group(s) [vm.p1]; access pattern(s) [Access Pattern: Unsatisfied [] History
+
+(see attachment for full stacktrace)

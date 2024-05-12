@@ -1,0 +1,2 @@
+AccessNode is not passing connectorbindingid in multisource scenario
+The connectorbindingid is set by the multisourceplantoprocessconverter and needs to be sent to the datamanager by the accessnode.

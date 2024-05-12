@@ -1,0 +1,2 @@
+Additional avenues for plan information
+Processor plans should be available for in-flight queries via the admin api.  Also processing plans should be logged in the command log probably at a finer level of detail.

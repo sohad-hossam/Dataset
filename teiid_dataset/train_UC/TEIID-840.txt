@@ -1,0 +1,19 @@
+admin-roles appears to be ignored and allegedly privileged users cannot execute methods appropriately
+Connecting as admin, I am able to execute this command string to see the group(s) to which pnittel belongs:
+
+c=getGroupsForUser( "pnittel"); for (cb:c) {   print( cb.getName() ); }
+
+Connecting as pnittel, I cannot execute that same command. pnittel is a member of the itgroup and that group is assigned all three roles. I'm attaching deploy.properties and admin-roles.properties.
+
+Here's the dialog:
+admin $ connectAsAdmin("pnittel","mm","mm://localhost:31000");
+conn-1[mm://localhost:31000] $ c=getGroupsForUser( "pnittel"); for (cb:c) {   print( cb.getName() ); }
+
+Remote exception: Administrator [pnittel@TheDap], session [3] does not have any required role [Admin.SystemAdmin] so is not authorized to perform the action [getGroupsForUser]. ... Original type hierarchy [org.teiid.adminapi.AdminProcessingException, org.teiid.adminapi.AdminException, com.metamatrix.core.MetaMatrixCoreException].
+conn-1[mm://localhost:31000] $ // Error: EvalError: The collection, array, map, iterator, or enumeration portion of a for statement cannot be null. : at Line: 3 : in file: <unknown file> : for ( cb : c ) { 
+
+conn-1[mm://localhost:31000] $ conn-1[mm://localhost:31000] $ disconnect();
+admin $ connectAsAdmin("admin","teiid","mm://localhost:31000");
+conn-2[mm://localhost:31000] $ c=getGroupsForUser( "pnittel"); for (cb:c) {   print( cb.getName() ); }
+
+conn-2[mm://localhost:31000] $ itgroup@TheDap

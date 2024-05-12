@@ -1,0 +1,4 @@
+Combining multiple 'in' criteria can prevent pushing criteria to database
+When two 'in' criteria containing constant values on the same field are combined with an 'or', Teiid will combine the two into a single 'in' operation.
+
+Since Oracle (for example)  has a 1000 item limit on the 'in' values, if the resulting combined list contains more than 1000 values, it can no longer be pushed down into Oracle for execution.

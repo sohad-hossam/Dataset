@@ -1,0 +1,15 @@
+JDBC Translator | Incorrect Update count reported on Batched Update Execution
+Issue is related to Batched updates scenario.
+
+Typically, the executeBatch() returns an array of integers, and each element of the array represents the update count for the respective update statement.
+
+However in case of Teiid JDBC Translator, over and above this, we are processing the array to return a sum of all the elements as in seen in JDBCUpdateExecution -> executeTranslatedCommand method
+
+ int[] results = pstatement.executeBatch();
+ for (int i=0; i<results.length; i++) {
+updateCount += results[i];
+}
+
+The bug is logged to fix this to meet the standard behaviour
+
+Refer thread https://developer.jboss.org/message/914596?et=watches.email.thread#914596 for details

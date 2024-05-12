@@ -1,0 +1,2 @@
+Nested query with a with clause projection issue
+A view or inline view with a with clause is not projected properly, which can lead to serialization and other issues.

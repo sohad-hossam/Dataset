@@ -1,0 +1,2 @@
+create temp table with not null column toString not correct
+There is no space between the column type and the not null constraint.

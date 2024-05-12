@@ -1,0 +1,17 @@
+Hive/Impala translator - select distinct and gorup by is not supported in one query
+Hive and Impala do not support combination of SELECT DISTINCT and GROUP BY in one SQL query.
+
+Messages of exceptions:
+Impala - cannot combine SELECT DISTINCT with aggregate functions or GROUP BY
+Hive - SELECT DISTINCT and GROUP BY can not be in the same query. 
+
+DDL:
+{code:sql}
+CREATE VIEW Agg2 (StringNum string)
+  AS SELECT BQT1.SmallA.StringNum FROM BQT1.SmallA GROUP BY BQT1.SmallA.StringNum HAVING BQT1.SmallA.StringNum = '1';
+{code}
+Query:
+{code:sql}
+SELECT DISTINCT StringNum FROM VQT.Agg2
+{code}
+

@@ -1,0 +1,2 @@
+Add hsql translator
+We should add default translators for hsql (and probably h2 as well).

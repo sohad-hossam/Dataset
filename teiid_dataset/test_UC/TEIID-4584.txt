@@ -1,0 +1,17 @@
+SimpleDB doesn' work
+I was trying to set up the simpledb example:
+https://developer.jboss.org/wiki/IntegrateAmazonSimpleDBWithTeiid
+
+When I create the DataSource to AWS I get the following error:
+Inline image 1
+
+and the stack trace:
+07:19:29,048 WARN  [org.jboss.jca.core.connectionmanager.pool.strategy.OnePool] (teiid-async-threads - 1) IJ000604: Throwable while attempting to get a new connection: null: java.lang.NoClassDefFoundError: com/amazonaws/AmazonServiceException
+	at org.teiid.resource.adapter.simpledb.SimpleDBManagedConnectionFactory$1.getConnection(SimpleDBManagedConnectionFactory.java:46)
+	at org.teiid.resource.adapter.simpledb.SimpleDBManagedConnectionFactory$1.getConnection(SimpleDBManagedConnectionFactory.java:41)
+	at org.teiid.resource.spi.BasicManagedConnectionFactory.createManagedConnection(BasicManagedConnectionFactory.java:71) [teiid-api-8.12.5.redhat-8.jar:8.12.5.redhat-8]
+	at org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreArrayListManagedConnectionPool.createConnectionEventListener(SemaphoreArrayListManagedConnectionPool.java:834)
+	at org.jboss.jca.core.connectionmanager.pool.mcp.SemaphoreArrayListManagedConnectionPool.getConnection(SemaphoreArrayListManagedConnectionPool.java:379)
+	at org.jboss.jca.core.connectionmanager.pool.AbstractPool.getSimpleConnection(AbstractPool.java:453)
+	at org.jboss.jca.core.connectionmanager.pool.AbstractPool.getConnection(AbstractPool.java:425)
+	at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.getManagedConnection(AbstractConnectionManager.java:354)

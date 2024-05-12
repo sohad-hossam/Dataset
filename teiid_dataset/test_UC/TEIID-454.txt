@@ -1,0 +1,4 @@
+VM and Queue statistics should represent the new pool stats
+The workerpool changes were never fully propagated to the console/adminapi.  We need to remove the notion of ephemeral stats (enqueued/dequeued/highwatermark), and instead expose more of the over all stats current/highest thread/queue and total submitted/completed.
+
+This also affects the queueworkerpool adminapi object.

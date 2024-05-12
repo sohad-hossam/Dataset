@@ -1,0 +1,2 @@
+Aggregate pushdown recursion error
+we are not careful about ensuring that that every symbol is unique in a plan, there's a chance mapping the expression in an aggregate (i.e. sum(x) -> sum(sum(x))) in a project node will cause the same symbol to be updated in a sort node.  Then mapping the sort node would create a recursive aggregate symbol.

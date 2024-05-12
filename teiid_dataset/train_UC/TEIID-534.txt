@@ -1,0 +1,2 @@
+Capabilites are not checked appropriately for join criteria
+Only function support is currently checked for criteria push down.  Unsupported predicates, etc. will pass through.

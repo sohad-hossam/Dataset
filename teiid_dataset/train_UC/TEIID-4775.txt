@@ -1,0 +1,30 @@
+External materialization, after transaction timeout, LoadState continues to be LOADING
+For some unknown reason, sometimes a materialized view takes more time to finish the load/update than the one defined in transaction timeout (300 seconds is the default value, and we have configured 600 seconds to try to solve the problem).
+
+The transaction reaper will kill the update transaction. The _LoadState_ in _status_ table will be *LOADING*.
+
+Any subsequent try to update the view will fail, since the system reads the state as being *LOADING* even if the system is not currently updating it.
+
+Example log next.
+
+The update took too long (more than 10 minutes [defined transaction timeout]):
+
+{code:batch}
+2017-02-17 16:10:44,487 INFO  [org.teiid.COMMAND_LOG] (NIO6) gZueFR0aNjgi       START USER COMMAND:     startTime=2017-02-17 16:10:44.487     requestID=gZueFR0aNjgi.11       txID=null       sessionID=gZueFR0aNjgi  applicationName=JDBC    principal=manel vdbName=CountryServiceListVDB vdbVersion=1    sql={call SYSADMIN.loadMatView(?, ?)}
+2017-02-17 16:20:44,528 WARN  [com.arjuna.ats.arjuna] (Transaction Reaper)  ARJUNA012117: TransactionReaper::check timeout for TX 0:ffff0a080174:21ddbdf0:58a71a32:cb in state  RUN
+2017-02-17 16:20:44,564 WARN  [com.arjuna.ats.arjuna] (Transaction Reaper Worker 0)  ARJUNA012121: TransactionReaper::doCancellations worker Thread[Transaction Reaper Worker 0,5,main] successfully canceled TX 0:ffff0a080174:21ddbdf0:58a71a32:cb
+{code}
+
+
+Next I tried to update the view:
+
+
+{code:batch}
+2017-02-17 16:29:21,272 INFO  [org.teiid.COMMAND_LOG] (NIO2) E1xyKpChGKvC       START USER COMMAND:     startTime=2017-02-17 16:29:21.272     requestID=E1xyKpChGKvC.7        txID=null       sessionID=E1xyKpChGKvC  applicationName=JDBC    principal=manel vdbName=CountryServiceListVDB vdbVersion=1    sql=EXECUTE SYSADMIN.loadMatView('CountryServiceListCalculatedRaw','country_service_list_calculated_raw')
+2017-02-17 16:29:21,391 INFO  [org.teiid.COMMAND_LOG] (Worker25_QueryProcessorQueue18136) E1xyKpChGKvC  END USER COMMAND:       endTime=2017-02-17 16:29:21.391       requestID=E1xyKpChGKvC.7        txID=null       sessionID=E1xyKpChGKvC  principal=manel vdbName=CountryServiceListVDB vdbVersion=1    finalRowCount=1
+
+{code}
+
+And nothing happened.
+
+

@@ -1,0 +1,2 @@
+Audit messages in the system log file
+by default when server started, the audit log messages are being shown in server log file. These need to be correctly re-directed to audit log files.

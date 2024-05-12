@@ -1,0 +1,2 @@
+XML-Relational relational request-respons joins fail and produce no result.
+The ResponseIn and Responseout columns have special Role properties that identify them to the connector.  Designer validation changes disallow the old role values of Response In and Response Out because of the space.  The connector has to change to recognize the new values without the space.

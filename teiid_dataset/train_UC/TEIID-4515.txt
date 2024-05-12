@@ -1,0 +1,2 @@
+Phoenix/Hbase should support offset
+http://phoenix.apache.org/language/index.html indicates that offset is supported, but wasn't added in the initial implementation of the translator.  Need to see if that is version dependent behavior.

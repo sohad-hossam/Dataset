@@ -1,0 +1,10 @@
+Timing issue with ping
+The following depiction exist in README.md
+{code}
+install JDK 1.7 or higher
+{code}
+But the build commands
+{code}
+$ mvn clean install -P release -s settings.xml
+{code}
+will execute failed if use JDK 1.8

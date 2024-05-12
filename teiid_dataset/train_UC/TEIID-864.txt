@@ -1,0 +1,6 @@
+Need new deployment packing that works with JBoss AS or JBoss Embedded
+Once all Connectors are in RAR format, and engine in RAR format the old deployment needs to be removed and new deployment needs to be defined, where a user can use in combination with JBoss based containers.
+
+Basically, this process needs to combine all the resources in similar directory structure with JBoss Tools, where a user can download JBoss AS or JBoss Embeeded and overlay the Teiid deployment on top of it and start using it.
+
+To begin with Teiid will only support  JBoss Container, however it should be easy enough to support any JCA container, as all the components are written to JCA API. If community is interested they can use either Jenks or Glassfish containers, however the configuration needs to be developed for those containers.

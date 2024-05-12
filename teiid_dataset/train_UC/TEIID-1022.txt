@@ -1,0 +1,2 @@
+Index metadata should not treat cardinality 0 as unknown
+The default cardinality is currently 0, which is treated as unknown, however it would be better if the default were something like -1 instead.  This will require introducing a new index file version (so that older vdbs with a value of 0 can be understood as meaning unknown) and updating the teiid/designer metadata defaults for cardinality as -1.

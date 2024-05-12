@@ -1,0 +1,4 @@
+Request for INSERT INTO...SELECT..FROM capability for virtual tables
+Per Issue Tracker ticket https://enterprise.redhat.com/issue-tracker/?module=issues&action=view&tid=283996&gid=1406 .  requesting the capability to use the INSERT INTO.. SELECT ..FROM syntax on virtual tables.  
+
+If this cannot be done, can a change be made to the SQL Validation to throw an exception.

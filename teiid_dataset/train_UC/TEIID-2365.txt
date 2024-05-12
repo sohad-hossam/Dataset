@@ -1,0 +1,2 @@
+Reduce the usage of output names on the server side
+Parsed objects retain much of the original parse string, which is generally unnecessary on the server side.  The use of output names should reduced to unnecessary memory consumption.

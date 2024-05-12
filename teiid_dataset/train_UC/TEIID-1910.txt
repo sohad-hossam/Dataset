@@ -1,0 +1,5 @@
+Teiid support for EclipseLink persistance provider
+We need a dialect support for Eclipselink similar to the one done for HIbernate.
+See thread:https://community.jboss.org/thread/176306
+
+op

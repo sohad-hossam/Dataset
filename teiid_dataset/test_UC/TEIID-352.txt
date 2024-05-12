@@ -1,0 +1,2 @@
+JDBC SQLTranslator issues
+SQLTranslators are extremely cumbersome and not well documented.  We need something much more like Hibernate's dialect.  We should have a single Translator class that replace ResultsTranslator, SQLTranslator, and SQLConversion visitor.

@@ -1,0 +1,13 @@
+SalesForce Connector should support semi-join and anti-join pushdown upon release of 14.0 API
+SalesForce API 14.0 is adding support for semi-joins and anti-joins, e.g.:
+
+ SELECT Id, Name 
+ FROM Account 
+ WHERE Id IN 
+(SELECT AccountId FROM Opportunity WHERE StageName = 'Closed Lost')
+
+Supporting pushdown in these situations could improve query performance dramatically in some cases. 
+
+It appears that the API puts a number of odd restrictions on the use of these "joins", which may make the implementation difficult.
+
+See http://www.salesforce.com/us/developer/docs/api/index.htm for details (search the index for SOQL select).

@@ -1,0 +1,14 @@
+Can we add allowDuplicateDomains in Infinispan global configuration
+I have run Teiid Embedded on top of Infinispan local cache meet the the following exception:
+
+org.infinispan.jmx.JmxDomainConflictException: Domain already registered org.infinispan when trying to register: type=CacheManager,name="DefaultCacheManager"
+
+The "DefaultCacheManager" be register to MBeanServer 2 times cause the issue:
+1. EmbeddedServer load infinispan cache via [1], this cause  "DefaultCacheManager" register to MBean Server
+2. Infinispan Translator connection load VDB refrred cache, this also cause  "DefaultCacheManager" register again
+
+If we add allowDuplicateDomains in Infinispan configuration [1], this will avoid the issue.
+
+[1] https://github.com/teiid/teiid/blob/master/runtime/src/main/resources/infinispan-config.xml
+
+

@@ -1,0 +1,18 @@
+Accumulo translator: select rowid returns empty resultset
+Accumulo translator, according to its [documentation|https://docs.jboss.org/author/display/teiid812final/Apache+Accumulo+Translator], enables querying accumulo through teiid's vdb with table like:
+{code:xml}
+CREATE FOREIGN TABLE "User" (
+    rowid string OPTIONS (UPDATABLE FALSE, SEARCHABLE 'All_Except_Like'),
+    name_age string OPTIONS (SEARCHABLE 'All_Except_Like', "teiid_accumulo:CF" 'name', "teiid_accumulo:CQ" 'age', "teiid_accumulo:VALUE-IN" '{VALUE}'),
+    name_firstname string OPTIONS (SEARCHABLE 'All_Except_Like', "teiid_accumulo:CF" 'name', "teiid_accumulo:CQ" 'firstname', "teiid_accumulo:VALUE-IN" '{VALUE}'),
+    name_lastname string OPTIONS (SEARCHABLE 'All_Except_Like', "teiid_accumulo:CF" 'name', "teiid_accumulo:CQ" 'lastname', "teiid_accumulo:VALUE-IN" '{VALUE}'),
+    CONSTRAINT PK0 PRIMARY KEY(rowid)
+) OPTIONS (UPDATABLE TRUE);
+{code}
+
+The problem is, that querying for rowid column won't return any results:
+Query
+{code:sql}
+SELECT rowid FROM User;
+{code}
+does return empty resultset.

@@ -1,0 +1,4 @@
+Temp table and procedure block transactions issue
+The Request class is not correctly setting the transactioncontext on the commandcontext, so downstream transaction logic in temp tables and procedure blocks will not work properly.
+
+Block/temp table work will fail to isolate correctly and not rollback.

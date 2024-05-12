@@ -1,0 +1,12 @@
+Teiid selects incorrect source when conformed table is included in SQL JOIN
+I have two models.  postgres for PostgreSQL and mysql for MySQL. I have table test.conformedTable in the both models
+and I have configured conformedTable to be conformed. Table tablepostgre is in the PostgreSQL database. Table tablemysql in the MySQL.
+
+I want to join conformedTable with tablepostgre and tablemysql.
+
+The query
+select a.*,b.* from mysql.test.conformedTable as a, tablemysql b where a.id=b.id
+is processed OK, but query
+select a.*,b.* from mysql.test.conformedTable as a, tablepostgre b where a.id=b.id throws an exception (in the attachment)
+
+It seems that teiid searches tablepostgre in the mysql database, but the table is in the postgresql

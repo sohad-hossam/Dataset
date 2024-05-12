@@ -1,0 +1,2 @@
+Order by may be applied incorrectly with pushed aggregate
+If a decomposed grouping is not pushed below the accessnode, then the merge join ordering may be pushed below it - which will destroy the ordering.  The order by should be above the grouping and then should be combined with the grouping during plan sorts.

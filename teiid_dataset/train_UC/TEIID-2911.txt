@@ -1,0 +1,13 @@
+Guard against external entity resolving
+if applications that expose RESTEasy XML endpoints, add the following snippet to their web.xml file to disable entity expansion in RESTEasy:
+
+<context-param>
+        <param-name>resteasy.document.expand.entity.references</param-name>
+        <param-value>false</param-value>
+</context-param>
+
+Note that this <context-param> setting has precedence over <init-param>, and will override a contrary setting in an <init-param> element.
+
+However this is not sufficient for OData as OData4j is responsible for parsing the Atom feed.  StaxXMLFactoryProvider2 simply creates XMLInputFactories without any options, thus they will perform external entity resolving by default.  An issue will need to be opened against OData4j.
+
+For SQL/XML, the XMLType input factory needs to disable external entity resolving (via experimentation just setting the relevant property doesn't always work, so like other projects we'll set an XMLResolver, which does work).

@@ -1,0 +1,29 @@
+Allow to write stream data with large size (>10G)
+We have quite large size of data file (>10G) that needs to be sent back to server from client. Following is JDBC client code: 
+
+void writeData(int id) {
+     String sql = "UPDATE DataSet set data =  ? WHERE id = ?";
+     try {
+          InputStream is = new FileInputStream("c:\\temp\\data");
+          this.ps = connection.prepareStatement(sql);
+          this.ps.setBlob(1, is);
+          this.ps.setInt(2, id);
+          ps.executeUpdate();
+     } catch (Exception e) {
+          ..
+     }
+}
+
+Teiid throws  "lob too big" error when executing above code:
+
+10:01:18,801 WARN  [org.teiid.TRANSPORT] (New I/O worker #1) TEIID40113 Unhandled exception, aborting operation: java.io.StreamCorruptedException: lob too big:
+429496456065534 (max: 4294967296)
+        at org.teiid.transport.ObjectDecoder.decode(ObjectDecoder.java:142) [teiid-runtime-8.7.0.Final.jar:8.7.0.Final]
+        at org.jboss.netty.handler.codec.frame.FrameDecoder.callDecode(FrameDecoder.java:425) [netty-3.6.2.Final.jar:]
+        at org.jboss.netty.handler.codec.frame.FrameDecoder.messageReceived(FrameDecoder.java:310) [netty-3.6.2.Final.jar:]
+        at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:268) [netty-3.6.2.Final.jar:]
+        at org.jboss.netty.channel.Channels.fireMessageReceived(Channels.java:255) [netty-3.6.2.Final.jar:]
+        at org.jboss.netty.channel.socket.nio.NioWorker.read(NioWorker.java:88) [netty-3.6.2.Final.jar:]
+
+ 
+It seemed teiid has stream data size limit (4G?).  With this limitation, it is not possible to send more than 4G of stream data in Teiid. 

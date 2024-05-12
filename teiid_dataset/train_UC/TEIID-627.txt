@@ -1,0 +1,2 @@
+ExtensionModules for connectors should be detected from connector type classpath
+ExtensionModules for connectors are currently being picked up by the classpath entry.  Also the ConnectorPropertyNames class should be moved out of the internal package, since it's usage doesn't need to be restricted.

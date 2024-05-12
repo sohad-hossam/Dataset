@@ -1,0 +1,3 @@
+Support for netezza pushdown functions
+More information is available on link
+https://developer.jboss.org/thread/275445

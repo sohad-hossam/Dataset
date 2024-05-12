@@ -1,0 +1,14 @@
+dynamic sql recursion check not valid after caught exception
+With a procedure like:
+
+begin
+  execute immediate
+exception e
+  ...
+execute immediate ...
+
+An exception on the second execute immediate will be seen like:
+
+org.teiid.api.exception.query.QueryProcessingException: TEIID30168 Couldn't execute the dynamic SQL command "EXECUTE IMMEDIATE ..." due to: TEIID30347 There is a recursive invocation of group 'proc'. Please correct the SQL.
+
+Even when the dynamic sql does not re-invoke the proc.  The issue is that when catching the initial exception thrown doesn't clear the entry from the recursion stack.

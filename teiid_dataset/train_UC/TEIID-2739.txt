@@ -1,0 +1,2 @@
+google spreadsheet translator does not support parameterized native queries
+The docs assume that the google spreadsheet translator supports parameterizable native-query procedures and direct query procedure.  The source however does not yet implement this.

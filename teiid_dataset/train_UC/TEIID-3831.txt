@@ -1,0 +1,2 @@
+For results set caching there should scope metadata for source tables/procedures
+Functions have optional metadata to convey their determinism, which affects the caching scope.  However we don't have extension metadata or per execution metadata around source queries (there is a scope field on a cache directive, but that only applies to source level caching).  We should provide a general mechanism so that users aren't required to manually override the result set cache scope.

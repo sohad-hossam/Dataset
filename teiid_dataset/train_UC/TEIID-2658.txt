@@ -1,0 +1,2 @@
+Teiid domain CLI script does execute to completion on EAP 6.1-Alpha
+There seems to be some in-compatible modification done between 7.1.1 and EAP 6.1 Alpha. 8.4.1 branch script works fine for EAP 6.1 GA

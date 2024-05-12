@@ -1,0 +1,2 @@
+Additional must pushdown support
+TEIID-3227 effectively addressed subexpressions within aggregate functions.  This should be more generally expanded..

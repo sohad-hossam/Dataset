@@ -1,0 +1,2 @@
+Issue with ordered offset
+There is a regression with TEIID-4210 such that when an order by is not pushed and there is a parent offset (no limit), the wrong rows are returned.

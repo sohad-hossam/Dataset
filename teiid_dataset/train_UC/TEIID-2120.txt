@@ -1,0 +1,4 @@
+BatchIterator can prematurely terminate
+If a save on mark batchiterator reads through a batch in a mark state it will not be saved to the buffer and then not be available for re-reading.
+
+This specifically affects the right side of already sorted non-full outer merge joins with match regions that are sufficiently large to span batches and the full mark batches are not read on the first pass.

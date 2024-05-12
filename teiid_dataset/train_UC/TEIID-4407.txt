@@ -1,0 +1,2 @@
+Salesforce delete/update without a predicate does nothing
+An update or a delete without a where clause will not do anything as the logic to fetch ids will only happen when there are predicates.

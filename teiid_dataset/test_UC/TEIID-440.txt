@@ -1,0 +1,2 @@
+Capture the vendor SQLSTATE code, if the connector connection fails
+Currently when the JDBC connector fails to make the connection, we correctly unroll the SQLException, but do not provide the SQLSTATE code on to the wrapping exception's description, so that it is visible in the Teiid's logs.

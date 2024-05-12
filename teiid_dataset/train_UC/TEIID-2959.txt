@@ -1,0 +1,14 @@
+Revert Salesforce DDL Option keys
+The OPTION keys for Salesforce DDL changed going from 8.6 to 8.7.   Example below.
+
+=================
+8.6 version
+CONSTRAINT Id_PK PRIMARY KEY(Id),
+CONSTRAINT FK_ApexPage_ScontrolId FOREIGN KEY(ScontrolId) REFERENCES ApexPage
+) OPTIONS (UPDATABLE TRUE, Custom 'false', "Supports Create" 'true', "Supports Delete" 'true', "Supports Merge" 'false', "Supports Query" 'true', "Supports Replicate" 'true', "Supports Retrieve" 'true', "Supports Search" 'false');
+=================
+8.7 version
+CONSTRAINT Id_PK PRIMARY KEY(Id),
+CONSTRAINT FK_ApexPage_ScontrolId FOREIGN KEY(ScontrolId) REFERENCES importVDBSrcModel.ApexPage (Id)
+) OPTIONS (UPDATABLE TRUE, custom 'false', supportsCreate 'true', supportsDelete 'true', supportsMerge 'false', supportsQuery 'true', supportsReplicate 'true', supportsRetrieve 'true', supportsSearch 'false');
+=================

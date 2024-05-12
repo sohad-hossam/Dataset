@@ -1,0 +1,3 @@
+Fix tab/spaces in codebase
+Tabs/spaces are mixed, causing readability issues in the code and some of the build scripts. This is visible on GitHub. For example:
+https://github.com/teiid/teiid/blob/master/pom.xml

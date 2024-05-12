@@ -1,0 +1,8 @@
+Cassandra: Access to Cassandra fails with CNF "sun/misc/Unsafe"
+new connection: null: java.lang.NoClassDefFoundError: sun/misc/Unsafe
+	at com.codahale.metrics.Striped64.getUnsafe(Striped64.java:330) [metrics-core-3.0.2.jar:3.0.2]
+	at com.codahale.metrics.Striped64.<clinit>(Striped64.java:311) [metrics-core-3.0.2.jar:3.0.2]
+	at com.codahale.metrics.Counter.<init>(Counter.java:10) [metrics-core-3.0.2.jar:3.0.2]
+	at com.codahale.metrics.MetricRegistry$MetricBuilder$1.newMetric(MetricRegistry.java:402) [metrics-core-3.0.2.jar:3.0.2]
+	at com.codahale.metrics.MetricRegistry$MetricBuilder$1.newMetric(MetricRegistry.java:399) [metrics-core-3.0.2.jar:3.0.2]
+	at com.codahale.metrics.MetricRegistry.getOrAdd(MetricRegistry.java:313) [metrics-core-3.0.2.jar:3.0.2]

@@ -1,0 +1,2 @@
+Provide support for Wildfly 10
+Upgrade the host runtime environment for Teiid Server to be WildFly 10.

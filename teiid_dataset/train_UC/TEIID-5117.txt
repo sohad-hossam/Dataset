@@ -1,0 +1,13 @@
+Osisoft Translator - Casting to bigdecimal results in NULL value
+Casting any value obtained from an Osisoft PI datasource results in NULL, regardless of the original value.
+E.g. a query such as 
+{code:sql}
+select cast(stringnum as bigdecimal), cast(intnum as bigdecimal), cast(shortvalue as bigdecimal) from Source.smalla
+{code}
+returns result set full of NULLs.
+
+The SOURCE SRC COMMAND in teiid-command.log for this query is however
+{code:sql}
+SELECT g_0.StringNum, g_0.IntNum, g_0.ShortValue FROM dvqe..SmallA AS g_0
+{code}
+i.e. the cast is not pushed down (as Osisoft doesn't support bigdecimal datatype).

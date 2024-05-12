@@ -1,0 +1,14 @@
+AdminApi (thru AdminShell) allows deletion of an active VDB from under a connected user
+I used two AdminShell sessions to demonstrate this: one connected as an administrator and the other connected as a user to a VDB.
+
+Admin: addVDB("VDB name", "VDB file")
+User: SELECT ...
+Admin: deleteVDB("VDB name","version")
+User: SELECT ...
+
+At this point the user receives:
+// Error: // Uncaught Exception: TargetError : at Line: 165 : in file: URL: jar:file:/home/pnittel/teiid62RC1/adminshell/lib/teiid-adminshell-6.2.0-SNAPSHOT.jar!/scripts/jdbc.bsh : throw e ; 
+
+Target exception: com.metamatrix.jdbc.MMSQLException: VDB "qt_db2v81ds" version "1" does not exist or not in valid state.
+
+The MetaMatrix (Console) way of doing things is to defer deletion of the VDB until there are no active connections. Also, it was required that the VDB status be INACTIVE before the request to delete would be honored.

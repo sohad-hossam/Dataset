@@ -1,0 +1,16 @@
+Infinispan Hotrod Translator UPDATE on primary key column
+UPDATE query where the PRIMARY KEY of the table is being changed succeeds, returns update count of corresponding rows, but the changes don't get promoted to actual cache.
+
+Consider
+{code:sql|title=UPDATE query}
+UPDATE SmallA SET StringKey = 100 WHERE IntKey > 25
+{code}
+where StringKey is set as PRIMARY KEY and 6 rows fulfill the filter on IntKey>25.
+
+When this UPDATE is performed, returned number of rows update is 6, but the contents of the cache don't change.
+
+There are several applicable resolutions:
+# There should be error thrown by Teiid, that this is not allowed operation
+# There should be update count 0 returned
+# There should be change in JDG cache, effectively squashing the 6 rows into single one
+# There should be error thrown by Teiid, that there is duplicate PK value (this is not something Teiid usually enforces)

@@ -1,0 +1,2 @@
+Do not throw exception when ending transaction with TMFAIL
+From customer case 289126. When Metamatrix participates in global transaction, if XAResource.end is called with TMFAIL, the transaction is set to be roll-back only and an XAException is thrown to indicate the changes. However, weblogic transaction manager does not expect the exception.

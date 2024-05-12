@@ -1,0 +1,2 @@
+HBase - Phoenix driver does not support UNION
+Phoenix JDBC driver does not support UNION statement, only UNION ALL.

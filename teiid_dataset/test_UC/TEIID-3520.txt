@@ -1,0 +1,4 @@
+Add support for Swagger Translator
+http://swagger.io is popular REST service description framework, it defines a specification http://swagger.io/specification/ for REST service definition. 
+
+Teiid WS translator should add the ability to read this file (like WSDL) and provide the REST methods as endpoints that can be consumed from Teiid.

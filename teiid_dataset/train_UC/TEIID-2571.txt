@@ -1,0 +1,4 @@
+Generally allow must pushdown function evaluation
+A must pushdown function not associated with an access node will fail to evaluate.  We can initially improve upon this with translator that support "select without from" to issue a scalar select of the value.
+
+We can also enhance planning to group all such accesses to prevent multiple calls and to determine a possible source target if the function is not associated with a source schema.

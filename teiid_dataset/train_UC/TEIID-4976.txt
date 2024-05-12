@@ -1,0 +1,11 @@
+criteria duplicated when criteria includes the same columns as dependent join criteria
+Submitting a query that uses the same column for the join condition and criteria results in the criteria being duplicated on the dependent side of the join.  
+
+For example:
+SELECT * FROM A, B
+WHERE B.id = A.id  AND A.id IN ('1','2','3') OPTION MAKEDEP B;
+
+Results in the dependent side query looking like:
+SELECT ... FROM B WHERE B.id IN ('1','2','3') AND B.id IN ('1','2','3');
+
+This looks to have already been resolved in later versions, but I was not able to find the original JIRA that would have addressed this issue.

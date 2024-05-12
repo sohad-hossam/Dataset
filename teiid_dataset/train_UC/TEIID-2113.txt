@@ -1,0 +1,2 @@
+Improve BNF documentation
+The BNF documentation is not well formatted and makes use of the nonReserved non-Terminal in place of keywords.  The doc should be made clearer.

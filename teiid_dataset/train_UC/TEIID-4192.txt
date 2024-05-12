@@ -1,0 +1,18 @@
+If a column is blank the TEXTAGG function excludes it from the output 
+If a column value is blank,  it is excluding it in the result, causing incorrect output. 
+
+TEXTAGG(FOR Last_Name, 
+		           First_Name, 
+                           Middle_initial,
+			  Currency_Code  
+                          DELIMITER '|' QUOTE '"' 
+                  )
+
+ In the above example,   if middle name is blank,  then it should still show one empty column with "|" delimiter as shown below.
+
+Steigner|Debbie||USD
+
+But it returns output as excluding middle name since it is blank.
+
+Steigner|Debbie|USD
+

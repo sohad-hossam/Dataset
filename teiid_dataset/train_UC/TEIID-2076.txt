@@ -1,0 +1,89 @@
+TEIID30376 The specified change set [...] against an inherently updatable view does not map to a key preserving group
+Every table and their columns are updatable.
+And primary keys are properly defined. 
+Customer table has primary key of type string, and most of other tables have primary keys autoincreament.
+
+Problem: Unable to create, Update and delete.
+
+Error:
+Internal Exception: org.teiid.jdbc.TeiidSQLException: TEIID30492 Remote org.teiid.api.exception.query.QueryValidatorException: TEIID30492 TEIID30376 The specified change set [CustomerID, Address, City, CompanyName, ContactName, ContactTitle, Country, Fax, Phone, PostalCode, Region] against an inherently updatable view does not map to a key preserving group.
+
+Error Code: 0
+
+Call: INSERT INTO "Customers" ("CustomerID", "Address", "City", "CompanyName", "ContactName", "ContactTitle", "Country", "Fax", "Phone", "PostalCode", "Region") VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+
+        bind => [ID1339585889015, null, null, Company1339585889015, null, null, null, null, null, null, null]
+
+Query: InsertObjectQuery({Customers ID1339585889015})
+
+        at org.eclipse.persistence.exceptions.DatabaseException.sqlException(DatabaseException.java:333) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.processExceptionForCommError(DatabaseAccessor.java:1494) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeDirectNoSelect(DatabaseAccessor.java:838) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeNoSelect(DatabaseAccessor.java:906) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.basicExecuteCall(DatabaseAccessor.java:592) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.databaseaccess.DatabaseAccessor.executeCall(DatabaseAccessor.java:535) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.AbstractSession.basicExecuteCall(AbstractSession.java:1717) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.sessions.server.ClientSession.executeCall(ClientSession.java:253) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:207) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.executeCall(DatasourceCallQueryMechanism.java:193) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.DatasourceCallQueryMechanism.insertObject(DatasourceCallQueryMechanism.java:342) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:162) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.StatementQueryMechanism.insertObject(StatementQueryMechanism.java:177) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.insertObjectForWrite(DatabaseQueryMechanism.java:472) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.InsertObjectQuery.executeCommit(InsertObjectQuery.java:80) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.InsertObjectQuery.executeCommitWithChangeSet(InsertObjectQuery.java:90) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.queries.DatabaseQueryMechanism.executeWriteWithChangeSet(DatabaseQueryMechanism.java:287) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.WriteObjectQuery.executeDatabaseQuery(WriteObjectQuery.java:58) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.DatabaseQuery.execute(DatabaseQuery.java:844) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.DatabaseQuery.executeInUnitOfWork(DatabaseQuery.java:743) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWorkObjectLevelModifyQuery(ObjectLevelModifyQuery.java:108) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.queries.ObjectLevelModifyQuery.executeInUnitOfWork(ObjectLevelModifyQuery.java:85) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.internalExecuteQuery(UnitOfWorkImpl.java:2871) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1516) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1498) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.AbstractSession.executeQuery(AbstractSession.java:1449) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.CommitManager.commitNewObjectsForClassWithChangeSet(CommitManager.java:224) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.CommitManager.commitAllObjectsWithChangeSet(CommitManager.java:123) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.AbstractSession.writeAllObjectsWithChangeSet(AbstractSession.java:3799) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabase(UnitOfWorkImpl.java:1415) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitToDatabase(RepeatableWriteUnitOfWork.java:636) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitToDatabaseWithChangeSet(UnitOfWorkImpl.java:1505) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.RepeatableWriteUnitOfWork.commitRootUnitOfWork(RepeatableWriteUnitOfWork.java:267) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.sessions.UnitOfWorkImpl.commitAndResume(UnitOfWorkImpl.java:1143) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        at org.eclipse.persistence.internal.jpa.transaction.EntityTransactionImpl.commitInternal(EntityTransactionImpl.java:84) [eclipselink-2.3.2.jar:2.3.2.v20111125-r10461]
+
+        ... 42 more

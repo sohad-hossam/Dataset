@@ -1,0 +1,9 @@
+Add support for REGEXP_REPLACE
+Add support for REGEXP_REPLACE function like in Postgres.
+
+http://www.postgresql.org/docs/9.3/static/functions-string.html
+
+Pushdown version might be tricky.
+ * MySQL - No support.
+ * Postgres - Good.
+ * Oracle - Good, but "g" flag to replace all matches is set by positional params instead.

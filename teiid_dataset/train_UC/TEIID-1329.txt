@@ -1,0 +1,2 @@
+API to force metadata read
+We have a dynamic set of datasources that are accessed through Teiid.  Each data source is represented as a different model within the VDB.  Some data sources may not be available at the time Teiid executes the translator's getMetadata() method.  When our code detects the data source is available, I'd like to poke Teiid to re-read the appropriate translator's metadata.

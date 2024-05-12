@@ -1,0 +1,4 @@
+Dynamic vdb metadata load enhancements
+Dynamic vdb metadata loading should have an admin or system function / call to reimport a particular source's metadata.
+
+The initial metadata loads should also be done in separate threads to prevent the caller from blocking (which is especially important if it's the deployer).

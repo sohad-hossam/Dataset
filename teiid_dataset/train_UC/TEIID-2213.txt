@@ -1,0 +1,2 @@
+Get the object-translator into the kit(s) for deployment
+Get the object-translator added to the necessary kits (i.e., jboss-dist.zip) so that it can be deployed for use.

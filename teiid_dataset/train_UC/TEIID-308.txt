@@ -1,0 +1,2 @@
+Merge the query rewriter and expression evaluator visitor
+The query rewriter, expression evaluator visitor, and visitors (CorrelatedVariableSubstitutionVisitor, VariableSubstituionVisitor) used only during rewrite should be merged to run together.  The query rewriter needs to be made stateful to do this.  

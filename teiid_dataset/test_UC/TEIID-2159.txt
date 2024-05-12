@@ -1,0 +1,11 @@
+Provide language objects to produce a JSON document
+SQLXML is standard that lets users define XML constructs to define a XML documents using SQL. However there is such standard exists for producing the JSON based documents. 
+
+It would be nice if Teiid provides such SQL language extensions produce and deal with JSON documents. The constructs equivalent from SQLXML are
+
+JsonParse
+JsonObject
+JsonArray
+JsonForrest
+JsonAgg
+

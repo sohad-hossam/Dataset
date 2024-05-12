@@ -1,0 +1,24 @@
+NPE in Console In Runtime Panel, when secondary host is down
+java.lang.NullPointerException
+
+	at com.metamatrix.platform.admin.api.runtime.ServiceData.equals(ServiceData.java:159)
+
+	at java.util.HashMap.put(HashMap.java:376)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.createNode(RuntimeMgmtModel.java:171)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.addService(RuntimeMgmtModel.java:158)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.addProcess(RuntimeMgmtModel.java:123)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.addHost(RuntimeMgmtModel.java:107)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.refreshImpl(RuntimeMgmtModel.java:214)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel.access$3(RuntimeMgmtModel.java:192)
+
+	at com.metamatrix.console.ui.views.runtime.model.RuntimeMgmtModel$RefreshRunner.run(RuntimeMgmtModel.java:240)
+
+	at java.util.TimerThread.mainLoop(Timer.java:512)
+
+	at java.util.TimerThread.run(Timer.java:462)

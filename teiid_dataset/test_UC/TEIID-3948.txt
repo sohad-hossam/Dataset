@@ -1,0 +1,2 @@
+Provide a different mechanism to update odata wars
+Directly modifying the wars under the base modules is a bad practice.  We need to have users modify non-kit artifact files in a different location.

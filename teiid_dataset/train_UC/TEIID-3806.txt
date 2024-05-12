@@ -1,0 +1,2 @@
+Improve null resolving in array literals
+An array literal like "(null, 'a')" will resolve to object[] rather than string[].

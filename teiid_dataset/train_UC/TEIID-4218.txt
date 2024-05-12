@@ -1,0 +1,24 @@
+MongoDB metadata import fails when user has insufficient permissions
+The vdb deployment now fails with the following errror:
+
+14:26:08,810 WARN  [org.teiid.RUNTIME] (teiid-async-threads - 3) TEIID50036 VDB mongo.1 model "importVDBSrcModel" metadata failed to load. Reason:not authorized for query on bqt.system.users: com.mongodb.MongoEx
+ception: not authorized for query on bqt.system.users
+        at com.mongodb.MongoException.parse(MongoException.java:82)
+        at com.mongodb.DBApiLayer$MyCollection.__find(DBApiLayer.java:292)
+        at com.mongodb.DBApiLayer$MyCollection.__find(DBApiLayer.java:273)
+        at com.mongodb.DBCursor._check(DBCursor.java:368)
+        at com.mongodb.DBCursor._hasNext(DBCursor.java:459)
+        at com.mongodb.DBCursor.hasNext(DBCursor.java:484)
+        at org.teiid.translator.mongodb.MongoDBMetadataProcessor.process(MongoDBMetadataProcessor.java:58)
+        at org.teiid.translator.mongodb.MongoDBMetadataProcessor.process(MongoDBMetadataProcessor.java:39)
+        at org.teiid.translator.ExecutionFactory.getMetadata(ExecutionFactory.java:935) [teiid-api-8.7.1.6_2-redhat-5.jar:8.7.1.6_2-redhat-5]
+        at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:73) [teiid-engine-8.7.1.6_2-redhat-5.jar:8.7.1.6_2-redhat-5]
+        at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55) [teiid-engine-8.7.1.6_2-redhat-5.jar:8.7.1.6_2-redhat-5]
+        at org.teiid.jboss.VDBService$6.run(VDBService.java:395) [teiid-jboss-integration-8.7.1.6_2-redhat-5.jar:8.7.1.6_2-redhat-5]
+        at org.teiid.jboss.VDBService$7.run(VDBService.java:442) [teiid-jboss-integration-8.7.1.6_2-redhat-5.jar:8.7.1.6_2-redhat-5]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_79]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_79]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_79]
+        at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+
+The user does not have access to the system tables, but there is no way to exclude those tables from the import (like with the JDBC importer).

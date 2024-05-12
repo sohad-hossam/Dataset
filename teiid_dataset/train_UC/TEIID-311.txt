@@ -1,0 +1,2 @@
+Cache usage of ServerAdmin in Console ConnectionInfo
+Each newly created ServerAdmin object can create additional sockets, sessions, etc.

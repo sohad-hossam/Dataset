@@ -1,0 +1,8 @@
+MongoDB: Function "count()" returns sum instead of number of rows
+Function "count()" returns sum of rows instead of number of rows
+
+Query [1] returns sum of values of all rows of IntKey column.
+Query [2] correctly returns number of rows
+ 
+[1] SELECT COUNT(IntKey) FROM BQT1.SmallA 
+[2] SELECT COUNT(*) FROM BQT1.SmallA

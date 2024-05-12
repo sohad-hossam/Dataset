@@ -1,0 +1,24 @@
+Remove AddressWrapper
+AddressWrapper was introduced to handle an earlier jgroups version where address objects were not directly serializable.  However the deserialization code is using the thread context class loader which is not guaranteed to have the JGroups classes in the classpath.  The resulting exception (where the original exception is simply swallowed) looks like:
+
+{code}
+2016-02-16 08:45:30,140 ERROR [Incoming-1,shared=tcp-teiid-1] org.teiid.replication.jgroups.JGroupsObjectReplicator$ReplicatorRpcDispatcher - exception marshalling object
+java.lang.IllegalStateException: unread block data
+	at java.io.ObjectInputStream$BlockDataInputStream.setBlockDataMode(ObjectInputStream.java:2421)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1382)
+	at java.io.ObjectInputStream.readArray(ObjectInputStream.java:1706)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1344)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:370)
+	at org.jgroups.blocks.MethodCall.readExternal(MethodCall.java:430)
+	at java.io.ObjectInputStream.readExternalData(ObjectInputStream.java:1837)
+	at java.io.ObjectInputStream.readOrdinaryObject(ObjectInputStream.java:1796)
+	at java.io.ObjectInputStream.readObject0(ObjectInputStream.java:1350)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:370)
+	at org.teiid.replication.jgroups.JGroupsObjectReplicator$ContextAwareMarshaller.objectFromBuffer(JGroupsObjectReplicator.java:611)
+	at org.teiid.replication.jgroups.JGroupsObjectReplicator$ReplicatorRpcDispatcher.handle(JGroupsObjectReplicator.java:106)
+	at org.jgroups.blocks.RequestCorrelator.handleRequest(RequestCorrelator.java:484)
+	at org.jgroups.blocks.RequestCorrelator.receiveMessage(RequestCorrelator.java:391)
+	at org.jgroups.blocks.RequestCorrelator.receive(RequestCorrelator.java:249)
+	at org.jgroups.blocks.MessageDispatcher$ProtocolAdapter.up(MessageDispatcher.java:600)
+	at org.jgroups.JChannel.up(JChannel.java:707)
+{code}

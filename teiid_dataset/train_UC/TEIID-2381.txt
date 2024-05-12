@@ -1,0 +1,2 @@
+Expanded source hint support
+We currently look at the source hint in only the root user query (not in subqueries nor the with clause) and only consider it in a very narrow set of circumstances when it's used in a view.

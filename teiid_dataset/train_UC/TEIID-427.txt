@@ -1,0 +1,28 @@
+Access file error exception when RuntimeIndexSelector trying to load indexes from zip file
+loadIndexesFromZipFile() method extract folders as file, during the unzip process, this cause an access file error, because the directories will included into the array indexes.
+
+[code]
+	File entryFile = new File(getIndexDirectoryPath(), entry.getName());
+	FileUtils.write(zipInputStream, entryFile, length);
+
+	if (SimpleIndexUtil.indexFileExists(entryFile)) {
+		tmp.add(new Index(entryFile.getAbsolutePath(), true));
+	}
+[/code]
+
+I tried this solution, it seems to work:
+
+[code]
+	File entryFile = new File(getIndexDirectoryPath(), entry.getName());
+	if (entry.isDirectory()) {
+		entryFile.mkdir();
+	} else {
+		FileUtils.write(zipInputStream, entryFile, length);
+	}
+
+	if (SimpleIndexUtil.indexFileExists(entryFile)) {
+		tmp.add(new Index(entryFile.getAbsolutePath(), true));
+	}
+[/code]
+
+In this case the indexFileExist() excludes all the directories, form the array indexes.

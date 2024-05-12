@@ -1,0 +1,2 @@
+Replace BlobImpl and ClobImpl with SerialBlob and SerialClob
+We should switch our impls to the jsr 114 versions.

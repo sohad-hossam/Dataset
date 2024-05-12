@@ -1,0 +1,2 @@
+Source string format for float/double/bigdecimal/timestamp can vary
+Teiid uses JDBC/Java for it's standard conversions.  However the push down conversion to string of float/double/bigdecimal/timestamp can vary depending upon the actual source type and source system (db2 vs. sql server, etc.).

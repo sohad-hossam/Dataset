@@ -1,0 +1,2 @@
+Add support for array types
+Add language support for array types.  Push down and client support should also be added.

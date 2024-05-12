@@ -1,0 +1,2 @@
+Remove excel-odbc translator
+Now that we are on 1.8 there is no more odbc bridge, thus the excel-odbc translator should be removed.

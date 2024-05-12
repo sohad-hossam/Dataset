@@ -1,0 +1,10 @@
+HBase translator - NPE if date value is 'null'
+If the source table in HBase contains a 'NULL' date value, Teiid throws an NPE. I did not encounter any NPE using org.apache.phoenix.jdbc.PhoenixDriver [1]. Other data types seem to be OK too.
+I have tried integer, char, varchar, float, double, tinyint, smallint, bigint, decimal, varbinary, boolean, time, date, timestamp.
+
+[1]
+Connection con = new org.apache.phoenix.jdbc.PhoenixDriver().connect("jdbc:phoenix:localhost", new Properties())
+ResultSet rs = con.createStatement().executeQuery("select datevalue from smalla");
+while(rs.next()){
+  System.out.println(rs.getDate(1));
+}

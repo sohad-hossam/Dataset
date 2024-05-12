@@ -1,0 +1,2 @@
+Asynch connector work item close
+Related to TEIID-3612 we need to improve how close is called on the connector work item.  Since the work item will always be done it's likely that the processing thread will call close while the workitem lock is held and hold up the processing thread unnecessarily.

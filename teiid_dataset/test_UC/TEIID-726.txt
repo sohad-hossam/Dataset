@@ -1,0 +1,2 @@
+Distinct aggregate type mismatch bug
+A query such as "SELECT AVG(DISTINCT ByteNum) FROM BQT1.HugeA" that has different input (byte) and output (double) types will fail due to bad initialization logic on the aggregate function.

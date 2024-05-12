@@ -1,0 +1,2 @@
+GetUpdated and GetDeleted SF procedures should be supported in dynamic vdbs
+The SalesforceExecutionFactory.getMetadata method does not populate the getDeleted and getUpdated procedures.

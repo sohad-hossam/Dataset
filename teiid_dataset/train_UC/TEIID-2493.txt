@@ -1,0 +1,4 @@
+SQLServer prepared clob fails
+The use of the setObject(pos, object, type) method against the MS 4.0 SQLServer driver causes a check that prevents the usage of our ClobType that since TEIID-2100 has also been an NClob.
+
+The setClob and even setObject without the type methods all work without an issue.

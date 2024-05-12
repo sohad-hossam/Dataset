@@ -1,0 +1,14 @@
+Split all Connector projects to define their "Translator" modules and "Connection" modules
+Split all the connector projects as follows
+
+connector-jdbc --> translator-jdbc
+
+connector-ldap --> translator-ldap/connector-ldap
+
+connector-loopback -> translator-loopback
+
+connector-salesforce -> translator-sf/connector-sf (more investigation on this)
+
+connector-text -> translator-text/connector-text
+
+connector-xml (file, http, soap) --> TBD ( these will not be jca connectors, alternative methods needs to be investigated)

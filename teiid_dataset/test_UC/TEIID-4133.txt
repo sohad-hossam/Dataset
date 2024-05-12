@@ -1,0 +1,37 @@
+SQL Server requires CAST when using NULL in anchor part of recursive CTE
+Running the following query in teiid:
+{code:sql}
+with a (intkey, stringcolumn, lvl) as
+    (
+    select intkey, NULL as stringcolumn, 0 as lvl from bqt1.smallb where intkey = 1
+    union all 
+    select n.intkey, n.stringkey as stringcolumn, rcte.lvl + 1 as lvl from bqt1.smallb n inner join a rcte on n.intkey = rcte.intkey + 1
+    )
+ select * from a
+{code}
+
+results in the following source query:
+{code:sql}
+WITH a (intkey, stringcolumn, lvl) AS
+    (
+    SELECT SmallB.IntKey, NULL AS stringcolumn, 0 AS lvl FROM SmallB WHERE SmallB.IntKey = 1
+    UNION ALL
+    SELECT n.IntKey, n.StringKey AS stringcolumn, (rcte.lvl + 1) AS lvl FROM SmallB n INNER JOIN a rcte ON n.IntKey = (rcte.intkey + 1)
+    )
+SELECT a.intkey, a.stringcolumn, a.lvl FROM a
+{code}
+
+which fails on SQL Server with {noformat}Types don't match between the anchor and the recursive part in column "stringcolumn" of recursive query "a".{noformat}.
+
+The source query should be 
+{code:sql}
+WITH a (intkey, stringcolumn, lvl) AS
+    (
+    SELECT SmallB.IntKey, CAST(NULL AS VARCHAR(10)) AS stringcolumn, 0 AS lvl FROM SmallB WHERE SmallB.IntKey = 1
+    UNION ALL
+    SELECT n.IntKey, n.StringKey AS stringcolumn, (rcte.lvl + 1) AS lvl FROM SmallB n INNER JOIN a rcte ON n.IntKey = (rcte.intkey + 1)
+    )
+SELECT a.intkey, a.stringcolumn, a.lvl FROM a
+{code}
+
+i.e. the NULL has to be cast to the precise type of the column in the recursive part of the query.

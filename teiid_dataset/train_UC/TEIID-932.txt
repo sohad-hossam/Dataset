@@ -1,0 +1,7 @@
+Misleading error message when using quotation marks: Parse error... encountered (
+Using AdminShell, I entered a query: select "foo" as expected;. The result I received was:
+// Error: Parser Error: Parse error at line 2, column 8.  Encountered: (
+
+There was no ( in the query.  The error message is misleading, especially in the case where there is a left parenthesis.
+
+Correcting the quotation marks to apostrophes produces correct results.

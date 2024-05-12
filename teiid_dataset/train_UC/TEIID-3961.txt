@@ -1,0 +1,14 @@
+Can't use TEIID with Websphere 8.5.5
+If I deploy Teiid on websphere 8.5.5, Teiid embedded server cannot start.  It throws the following exception.
+
+     Caused by: java.lang.VerifyError: JVMVRFY013 class loading constraint violated; class=org/jboss/staxmapper/XMLExtendedStreamReaderImpl, method=getAttributeName(I)Ljavax/xml/namespace/QName;, pc=0 
+     at java.lang.J9VMInternals.verifyImpl(Native Method) 
+     at java.lang.J9VMInternals.verify(J9VMInternals.java:93) 
+     at java.lang.J9VMInternals.initialize(J9VMInternals.java:170) 
+     at org.jboss.staxmapper.XMLMapperImpl.parseDocument(XMLMapperImpl.java:69) 
+     at org.infinispan.configuration.parsing.ParserRegistry.parse(ParserRegistry.java:77) 
+     at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:353) 
+     at org.infinispan.manager.DefaultCacheManager.<init>(DefaultCacheManager.java:326) 
+     at org.teiid.runtime.EmbeddedConfiguration.getCacheFactory(EmbeddedConfiguration.java:180) 
+     at org.teiid.runtime.EmbeddedServer.start(EmbeddedServer.java:386) 
+     at com.jaspersoft.jasperserver.api.engine.common.virtualdatasourcequery.teiid.TeiidEmbeddedServer.<init>(TeiidEmbeddedServer.java:113) 

@@ -1,0 +1,73 @@
+CLONE - wrong type on model in VDB definition
+In a VDB created for transforming relational data to XML from exixting XSD the VDB insert "TYPE" in the model description in the manifest file as shown below:
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+
+<vdb version="1" name="libri">
+
+    <property value="false" name="preview"/>
+
+    <model visible="true" type="PHYSICAL" name="local_book" path="/books/local_book.xmi">
+
+        <property value="1841187605" name="checksum"/>
+
+        <property value="false" name="builtIn"/>
+
+        <property value="440299790.INDEX" name="indexName"/>
+
+        <source translator-name="mysql5" connection-jndi-name="java:/local_book" name="local_book"/>
+
+    </model>
+
+    <model visible="true" type="TYPE" name="Books" path="/books/Books.xsd">
+
+        <property value="2392354248" name="checksum"/>
+
+        <property value="false" name="builtIn"/>
+
+        <property value="4008441630.INDEX" name="indexName"/>
+
+        <property value="/books/BookDatatypes.xsd" name="imports"/>
+
+    </model>
+
+    <model visible="true" type="TYPE" name="BookDatatypes" path="/books/BookDatatypes.xsd">
+
+        <property value="3412846293" name="checksum"/>
+
+        <property value="false" name="builtIn"/>
+
+        <property value="3680615365.INDEX" name="indexName"/>
+
+    </model>
+
+    <model visible="true" type="VIRTUAL" name="libro" path="/books/libro.xmi">
+
+        <property value="1493944231" name="checksum"/>
+
+        <property value="false" name="builtIn"/>
+
+        <property value="2863148665.INDEX" name="indexName"/>
+
+        <property value="/books/Books.xsd" name="imports"/>
+
+        <property value="/books/BookDatatypes.xsd" name="imports"/>
+
+        <property value="/books/local_book.xmi" name="imports"/>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/type" severity="WARNING">The XML Schema component type for &quot;type&quot; must be marked as an enterprise datatype to be used in this model.</validation-error>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/isbn" severity="WARNING">The XML Schema component type for &quot;isbn&quot; must be marked as an enterprise datatype to be used in this model.</validation-error>
+
+        <validation-error path="bookListingDocument/Mapping Class Set Container/Mapping Classes/book" severity="WARNING">Possible cross-join: Group/s '[local_book.aria.books, local_book.aria.publishers]' are not joined either directly or transitively to other groups through a join criteria. Check all queries in the transformation.</validation-error>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/sequence/edition" severity="WARNING">&quot;edition&quot; has a fixed or default value and should not be mapped. (See validation Preferences)</validation-error>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/sequence/title" severity="WARNING">The XML Schema component type for &quot;title&quot; must be marked as an enterprise datatype to be used in this model.</validation-error>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/sequence/edition" severity="WARNING">The XML Schema component type for &quot;edition&quot; must be marked as an enterprise datatype to be used in this model.</validation-error>
+
+        <validation-error path="bookListingDocument/bookListing/sequence/book/sequence/publishDate" severity="WARNING">The XML Schema component type for &quot;publishDate&quot; must be marked as an enterprise datatype to be used in this model.</validation-error>
+
+    </model>
+
+</vdb>

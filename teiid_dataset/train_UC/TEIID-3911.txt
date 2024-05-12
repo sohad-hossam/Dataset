@@ -1,0 +1,2 @@
+Nearly all odata4 errors reported as internal server errors
+From the TeiidServiceHandler we generally rethrow our exceptions as ODataApplicationExceptions that have a status code of 500 - however even using a different status code still results in a 500 error as the Olingo framework expects exception subclasses to be used (see ErrorHandler.handleException - a general application exception is always a 500 error).

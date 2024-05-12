@@ -1,0 +1,52 @@
+Getting DuplicateServiceException while creating Dynamic VDB with Teiid 8.1.0 Beta2
+I am creating dynamic VDB and in this process i am doing addSourceMapping like this-
+
+ 
+modelMetaData.addSourceMapping(modelName, translatorName, "java:/XYZ-DS");
+
+ 
+The VDB XML is getting created as per my code but while deploying this i get below exception
+
+ 
+15:19:56,566 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-3) MSC00001: Failed to start service jboss.deployment.unit."xyz.1-vdb.xml".INSTALL: org.jboss.msc.service.StartException in service jboss.deployment.unit."xyz.1-vdb.xml".INSTALL: Failed to process phase INSTALL of deployment "xyz.1-vdb.xml"
+
+    at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:119) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+
+    at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1811) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1746) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+
+    at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+
+Caused by: org.jboss.msc.service.DuplicateServiceException: Service jboss.teiid.ds-listener.Chorus.1.java:/XYZ-DS is already registered
+
+    at org.jboss.msc.service.ServiceRegistrationImpl.setInstance(ServiceRegistrationImpl.java:154) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceControllerImpl.startInstallation(ServiceControllerImpl.java:227) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceContainerImpl.install(ServiceContainerImpl.java:560) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceTargetImpl.install(ServiceTargetImpl.java:201) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceControllerImpl$ChildServiceTarget.install(ServiceControllerImpl.java:2228) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceTargetImpl.install(ServiceTargetImpl.java:201) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceControllerImpl$ChildServiceTarget.install(ServiceControllerImpl.java:2228) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.jboss.msc.service.ServiceBuilderImpl.install(ServiceBuilderImpl.java:307) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+
+    at org.teiid.jboss.VDBDeployer$1.dependentService(VDBDeployer.java:163)
+
+    at org.teiid.jboss.VDBDeployer.dataSourceDependencies(VDBDeployer.java:265)
+
+    at org.teiid.jboss.VDBDeployer.deploy(VDBDeployer.java:157)
+
+    at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:113) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+
+    
+

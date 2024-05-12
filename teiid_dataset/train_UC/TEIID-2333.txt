@@ -1,0 +1,2 @@
+PG/H2 default escape handling
+Both H2 and pg use \ as the default escape character, but Teiid (inline with the spec) assumes no such default.  So the pushdown of LIKE without an escape may be incorrect if the pattern contains \.

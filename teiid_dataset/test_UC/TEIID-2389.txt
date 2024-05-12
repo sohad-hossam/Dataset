@@ -1,0 +1,2 @@
+jsonToXml may loose numerical precision
+The json simple parser will parse all numeric values as doubles, which may loose precision.

@@ -1,0 +1,6 @@
+Add options to support sql server variant type
+Due to a SQL Server driver issue, a variant column cannot be directly retrieved (it needs to be confirmed if this works with JTDS).  A valid workaround is a native-query extension with an appropriate cast.
+
+Beyond that we could:
+- add an option for the translator to automatically convert to a string value
+- allow for converts from object to be pushed down.

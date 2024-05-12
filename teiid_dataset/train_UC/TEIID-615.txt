@@ -1,0 +1,2 @@
+Embedded example scripts contain references to 6.0.0
+The launch scripts in the kit need updated to include appropriate version information.

@@ -1,0 +1,37 @@
+Errors importing VDBs more than 2 layers deep
+Get exceptions when trying to import VDBs more than 2 layers deep
+
+I have 3 VDBs: Base, Staging, and Final.
+ 
+The "Final" VDB imports "Staging" and Staging imports "Base". Each VDB uses views defined in the VDB it imports.
+All VDBs get deployed successfully, but when I try to access a view from the Final VDB, I get the following exception:
+ 
+17:33:08,134 ERROR [org.teiid.PROCESSOR] (Worker11_QueryProcessorQueue229) TEIID30019 Unexpected exception for request U/T6mBDX25Mp.5: org.teiid.core.TeiidComponentException: TEIID30497 org.teiid.translator.TranslatorException: TEIID30497 No connector with jndi-name BaseDataSource found for Model BaseDataSource with source name BaseDataSource
+  at org.teiid.dqp.internal.process.CachedFinder.findCapabilities(CachedFinder.java:106) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.metadata.TempCapabilitiesFinder.findCapabilities(TempCapabilitiesFinder.java:66) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.rules.CapabilitiesUtil.getCapabilities(CapabilitiesUtil.java:426) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.rules.CapabilitiesUtil.supports(CapabilitiesUtil.java:446) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.rules.CapabilitiesUtil.requiresCriteria(CapabilitiesUtil.java:431) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.rules.RulePlaceAccess.addAccessNode(RulePlaceAccess.java:147) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.rules.RulePlaceAccess.execute(RulePlaceAccess.java:76) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.RelationalPlanner.executeRules(RelationalPlanner.java:490) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.relational.RelationalPlanner.optimize(RelationalPlanner.java:229) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.query.optimizer.QueryOptimizer.optimizePlan(QueryOptimizer.java:156) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.Request.generatePlan(Request.java:446) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.Request.processRequest(Request.java:466) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.RequestWorkItem.processNew(RequestWorkItem.java:542) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:277) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:49) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:216) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:250) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:123) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:298) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_23]
+  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_23]
+  at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_23]
+Caused by: org.teiid.translator.TranslatorException: TEIID30497 No connector with jndi-name BaseDataSource found for Model BaseDataSource with source name BaseDataSource
+  at org.teiid.dqp.internal.process.CachedFinder.findCapabilities(CachedFinder.java:94) [teiid-engine-8.2.0.Beta1-SNAPSHOT.jar:8.2.0.Beta1-SNAPSHOT]
+  ... 21 more
+ 
+ 
+Running queries against the specific VDB works fine. It also works when I move the BaseViewModel and source to the "Staging" VDB then access it from "Final".

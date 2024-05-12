@@ -1,0 +1,2 @@
+Impala translator - ORDER BY clause using incorrect columns when not in SELECT list
+We have a scenario in which users want to see month and day names but the data should be sorted by month and day NUMBER.  The translated query comes back sorted the wrong column.  Oddly in the ORDER clause the translator uses the month name column alias when we specify the month number, day name when we specify day number.

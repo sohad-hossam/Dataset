@@ -1,0 +1,5 @@
+HBase - table's alias (... AS ...) is not "visible" in SELECT caluse in IN predicate
+Query:
+SELECT INTKEY, BIGDECIMALVALUE FROM BQT1.SMALLA AS A WHERE BIGDECIMALVALUE *IN (SELECT MAX(BIGDECIMALVALUE) FROM BQT1.SMALLA AS B WHERE _A_.INTKEY = B.INTKEY)* ORDER BY INTKEY
+
+It seems like bug in Phoenix driver.

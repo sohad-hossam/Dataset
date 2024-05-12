@@ -1,0 +1,8 @@
+Add UnitTest coverage for BetweenCriteria to be rewritten as CompoundCriteria
+Test cases need to be added to cover testing of BETWEEN expressions being rewritten as compound criteria.  For example:
+
+SELECT SUM(CASE WHEN e2 BETWEEN 3 AND 5 THEN e2 ELSE -1 END) FROM pm1.g1
+
+should become:
+
+SELECT SUM(CASE WHEN (e2 >= 3) AND (e2 <= 5) THEN e2 ELSE -1 END) FROM pm1.g1

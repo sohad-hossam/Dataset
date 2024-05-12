@@ -1,0 +1,3 @@
+Failed to load UDF in Embedded when running with MMROFILE protocol.
+When the UDF is added through the Teiid Designer, UDF is added as extension module. However, since Designer uses MMROFILE protocol, it never deletes the UDF extension file, thus trying to add a new one, finds a old one in the configuration and fails to add and aborts the operation.
+

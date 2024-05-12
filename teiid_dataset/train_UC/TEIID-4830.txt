@@ -1,0 +1,28 @@
+Parsing Error when deploying VDB with "geometry" as column name
+The following query works correctly if run against a deployed VDB:
+{code:sql}
+SELECT 'a' as "geometry";
+{code}
+
+However, the following VDB fails to deploy:
+{code:xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<vdb name="test-vdb" version="1">
+
+    <model name="Test" type="VIRTUAL">
+        <metadata type="DDL"><![CDATA[
+            CREATE VIEW test(c1 string) AS
+            SELECT 'a' as "geometry";
+            
+        ]]></metadata>
+    </model>
+</vdb>
+{code}
+
+with the error
+{noformat}
+TEIID31080 Test.test validation error: TEIID31100 Parsing error: Encountered "SELECT 'a' AS [*]geometry[*]" at line 1, column 15.
+Was expecting: id
+{noformat}
+
+This seems to only happen when the name is "geometry", I could not find any other reserved word that would cause the same error.

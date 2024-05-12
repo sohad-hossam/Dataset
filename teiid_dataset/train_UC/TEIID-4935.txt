@@ -1,0 +1,2 @@
+Change couchbase ISARRAYTABLE OPTION optional
+Change couchbase ISARRAYTABLE OPTION optional, this is more convenient for design schema in souce Model.

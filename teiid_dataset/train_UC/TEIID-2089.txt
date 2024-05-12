@@ -1,0 +1,2 @@
+Issue with enhanced merge join
+If an enhanced sort join elects to do a single pass sort usage of the resulting tuple buffers may cause erroneous blocked exceptions, since they are not closed.  This can cause the query to hang from a user perspective.

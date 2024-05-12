@@ -1,0 +1,7 @@
+"connector-ws" is not visible as one of the avaialble connectors
+When queries through admin api for available data source templates
+
+getDataSourceTemplateNames();
+===> [connector-file, connector-jdbc-xa, connector-ldap, connector-salesforce, connector-jdbc]
+
+no "connector-ws"

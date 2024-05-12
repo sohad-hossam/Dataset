@@ -1,0 +1,33 @@
+SalesForce.com aggregate function query issues
+When executing a query against salesforce.com with an aggregate function (select max(), min(), sum() ) With a 'group by' clause with a 'SalesForce ID' returns with the following error:
+
+TEIID30504 Remote org.teiid.core.TeiidProcessingException: TEIID30504 SalesForce_Sales: com.sforce.soap.partner.UnexpectedErrorFault: EXCEEDED_ID_LIMIT: Aggregate query does not support queryMore(), use LIMIT to restrict the results to a single batch [SQL State=50000, DB Errorcode=30504] 
+
+Example Queries That FAIL:
+
+----------
+SELECT accountid, sum(amount) 
+FROM salesforce_sales.salesforce.opportunity where closedate > '2016-02-01' 
+group by accountid;
+
+----------
+SELECT aid, sum(amt) from (
+SELECT accountid aid, amount amt FROM salesforce_sales.salesforce.opportunity where closedate > '2016-02-01' 
+) as tmp group by aid;
+
+
+Queries that DO Work:
+
+
+SELECT closedate, sum(amount) 
+FROM salesforce_sales.salesforce.opportunity where closedate > '2016-02-01' group by closedate
+;
+
+
+SELECT isdeleted, sum(amount) 
+FROM salesforce_sales.salesforce.opportunity where closedate > '2016-02-01' group by isdeleted
+;
+
+SELECT campaignid, sum(amount) 
+FROM salesforce_sales.salesforce.opportunity where closedate > '2016-02-01' group by campaignid
+;

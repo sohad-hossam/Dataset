@@ -1,0 +1,2 @@
+Add support for single line -- comments
+As seen in TEIID-3073, we should have support for -- comments.

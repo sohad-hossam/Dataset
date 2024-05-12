@@ -1,0 +1,7 @@
+Transformation exception when parsing time in SAP NW Gateway
+When querying the SAP Sample Flight demo web service using the sap-nw-gateway, the following error is logged when the response contains time value in the form "PT11H00M00S" 
+{noformat}
+org.teiid.jdbc.TeiidSQLException: TEIID10068 Failed to transform String to Time.  Expected format = hh:mm:ss for PT11H00M00S         at org.jboss.qe.dvqe.reproducers.Teiid3841Test.runTest(Teiid3841Test.java:61) Caused by: org.teiid.core.types.TransformationException: TEIID10068 Failed to transform String to Time.  Expected format = hh:mm:ss for PT11H00M00S
+{noformat}
+
+This is likely a regression as that query works in DV 6.2 with latest patch.

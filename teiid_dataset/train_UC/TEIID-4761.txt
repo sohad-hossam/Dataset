@@ -1,0 +1,2 @@
+Support lpad/rpad pushdown to sql server
+lpad/rpad is not pushded down to sql server since it lacked a direct equivalent - but it can be supported with an expression.

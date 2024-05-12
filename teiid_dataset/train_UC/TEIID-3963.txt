@@ -1,0 +1,2 @@
+Arrays returned by actions/functions from odata4 result in errors
+Actions/functions returning arrays result in exceptions as only primitive results are currently expected.

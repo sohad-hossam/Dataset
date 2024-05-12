@@ -1,0 +1,2 @@
+Create Hibernate Dialect for Teiid
+Create Hibernate dialect for Teiid.

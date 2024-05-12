@@ -1,0 +1,5 @@
+QueryTimeout not working for synchronous local queries against Teiid
+If i run a query with synchronous query with a timeout set using PreparedStatementImpl.setQueryTimeout() method, that timeout is not honored. But if i run the same query with all the same setup and execute the query asynchronously then a timeout happens and warning message like below is printed:
+ 
+Jul 02, 2014 10:19:21 AM org.teiid.jdbc.StatementImpl timeoutOccurred
+WARNING: Timeout occurred in Statement.

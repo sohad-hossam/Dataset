@@ -1,0 +1,2 @@
+Fix logger for JBoss cache, JBossTM integration to use the same log file as the rest of the system
+Teiid was using its own logging framework before and JBoss Cache and JBoss Transactions integration code was never were written to use the Teiid's native logger. They were written such that they were redirected to apache commons logging --> log4j. Now that Teiid uses the Log4J, all these subsystems need to redirect their logs to main teiid logger which will redirect to the log4j.

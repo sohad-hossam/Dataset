@@ -1,0 +1,54 @@
+ASSERTION FAILED: expected reference to be not null
+I have a vdb containing a multi-source schema (channel) and a single source schema (ops). The following query which uses an aggregate function and groups by both a mulit-source column and a single source column causes the error "TEIID30019 Unexpected exception for request l1HvA1r84nyA.0: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null" and a stack trace which looks quite similar to that in TEIID-4325:
+
+
+{code}
+select s.channel, m.user_name, count(*)
+from channel.dbo.service_request s
+	join ops.dbo.manager m
+		on s.staff_id = m.manager_id
+group by s.channel, m.user_name;
+{code}
+
+
+Apr 15 20:09:52 localhost docker[27044]: 2017-04-16 01:09:52,237 ERROR [org.teiid.PROCESSOR] (Worker2_QueryProcessorQueue7) l1HvA1r84nyA TEIID30019 Unexpected exception for request l1HvA1r84nyA.0: java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalNode.getProjectionIndexes(RelationalNode.java:367)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.JoinNode.initialize(JoinNode.java:133)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:477)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:349)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:275)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:282)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+Apr 15 20:09:52 localhost docker[27044]: at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+Apr 15 20:09:52 localhost docker[27044]: at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+Apr 15 20:09:52 localhost docker[27044]: at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+Apr 15 20:09:52 localhost docker[27044]: at java.lang.Thread.run(Thread.java:745)
+
+Interestingly, if I narrow the query down to specific channels the error goes away:
+
+
+{code}
+select s.channel, m.user_name, count(*)
+from channel.dbo.service_request s
+	join ops.dbo.manager m
+		on s.staff_id = m.manager_id
+where channel in ('oak', 'cypress')
+group by s.channel, m.user_name;
+{code}
+
+
+I will attach both query plans.

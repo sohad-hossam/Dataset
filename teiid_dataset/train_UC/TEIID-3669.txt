@@ -1,0 +1,2 @@
+Look at consolidating to a single session service
+We should consider moving back to a single session service in Teiid 9 as most of the constraints will be specified on a vdb basis (such as security domain, auth type, etc.) and the separation in the session service causes issues with sessions originating in different transports - TEIID-3663 

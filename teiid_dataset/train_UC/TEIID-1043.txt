@@ -1,0 +1,2 @@
+Invalid serialized attachments should be ingored.
+Changing from one ms to another in the same server instance will through exceptions loading attachment information if the classes have changed.  Instead errors should just be logged and the information recreated.

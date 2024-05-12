@@ -1,0 +1,4 @@
+thread waits for matview loads
+While a matview is loading other threads attempting to query the same matview are held as waiters on the table info lock.
+
+Also the mat table loading thread is marked is not allowed to throw a blocked exception and is tied to the current loading work.

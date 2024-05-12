@@ -1,0 +1,4 @@
+Missing ODBC port number in the log during shutdown
+There is missing ODBC port number in the log during shutdown:
+INFO  [org.teiid.RUNTIME] (MSC service thread 1-1) TEIID50039 Teiid JDBC - Name = jdbc, Host = localhost,  Port = 31000 has been shutdown.
+INFO  [org.teiid.RUNTIME] (MSC service thread 1-3) TEIID50040 Teiid ODBC - Name = localhost, Host = 35432,  Port = {2} has been shutdown.

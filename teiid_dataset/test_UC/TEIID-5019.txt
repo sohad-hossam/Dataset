@@ -1,0 +1,15 @@
+Makedep hint using @ syntax sometimes ignored
+I’m using Teiid version 9.2.2.  In some cases, using the makedep @<table> feature results in the makedep hint being ignored.
+I use this feature to apply a makedep to only one branch of a set operation, since makedep hints are not applied when placed on the individual queries in the set operation .
+My query looks like this:
+ 
+(Select bbb from ccc
+Intersect
+select abc.yyy from (select yyy from zzz) abc
+) option makedep @abc.zzz
+ 
+In the debug plan in the “GENERATE CANONICAL” section, I see:
+ 
+MEDIUM [Hints] Unknown group specified in OPTION MAKEDEP/MAKENOTDEP: @abc.zzz - ignoring hint
+ 
+This only occurs if the query has no limit applied to it.  If I add a limit option, it does find the table and apply the hint correctly.

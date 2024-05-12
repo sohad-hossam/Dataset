@@ -1,0 +1,2 @@
+create an objecttable table function
+Analogous to xmltable, we should offer an objecttable function to get values off of an object.  The choice of scripting/path language could even be configurable.  This would help eliminate some of the common complexity of relational-object translations and can be used to perform denoralization without a join - and could be first implemented to in databasemetadata views to speed up databasemetadata query processing.

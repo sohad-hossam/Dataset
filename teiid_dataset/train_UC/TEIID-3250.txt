@@ -1,0 +1,10 @@
+Rewritten unknown expression in select becomes false
+select 1 = null
+
+will be rewritten as
+
+select false
+
+it should instead be
+
+select null

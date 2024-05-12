@@ -1,0 +1,2 @@
+Processing exception with function/procedure column and non-short scale
+The DatabaseMetadata.getProcedureColumns method expects scale to be reported as a short, but our scale metadata is an integer - and by default a bigdecimal column will have a max integer scale.  This results in a processing when getting the metadata.

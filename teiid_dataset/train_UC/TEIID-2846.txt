@@ -1,0 +1,2 @@
+Add procedure parameter native type extension property handling
+TEIID-2644 adds out parameter cursor handling for oracle, and adds a native type property to procedure parameters (just like regular columns).  TEIIDDES-1863 adds support as an extension property, which needs handling on the teiid side.

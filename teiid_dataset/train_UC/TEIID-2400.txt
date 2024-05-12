@@ -1,0 +1,2 @@
+Expose all JDBC Datasource creation properties through Admin API
+Currently only certain predefined properties for the JDBC data source are exposed through Admin API. Thus if user is creating a datasource through Designer they do not have access to all the properties.

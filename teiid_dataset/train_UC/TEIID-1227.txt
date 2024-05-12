@@ -1,0 +1,2 @@
+Lob values should be cachable
+Lob values from any source, not just XML document models should be cachable.  Typically this would need to be "by value" so a copy of the lob will need to be created in the buffermanager.

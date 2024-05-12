@@ -1,0 +1,2 @@
+MySQL 5 should support distinct aggregates
+Older versions of mysql only supported distinct count, but later versions supported distinct with all relevant aggregates.

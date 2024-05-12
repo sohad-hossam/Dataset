@@ -1,0 +1,13 @@
+OData V2: The property based response and Function based responses are incorrect per specification
+The property request like
+{code}
+http://localhost:8080/odata/vdb/table/property
+http://localhost:8080/odata/vdb/table/property/$value
+{code}
+needs to return a property based response, instead they are returning the "entity" based response.
+
+The function with simple scalar return, should return just simple data 
+{code}
+http://localhost:8080/odata/vdb/func?param=value
+{code}
+instead it returning the collection based data

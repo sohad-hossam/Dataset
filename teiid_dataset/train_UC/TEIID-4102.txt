@@ -1,0 +1,12 @@
+Infinispan 6 resource-adapter has not valid module.xml
+There is problem with invalid module.xml file in infinispan 6 resource-adapter.
+
+In its dependencies there is:
+{code:xml}
+<module name="org.jboss.teiid.translator.infinispan.cache" export=true/>
+{code}
+
+There should be
+{code:xml}
+<module name="org.jboss.teiid.translator.infinispan.cache" export="true"/>
+{code}

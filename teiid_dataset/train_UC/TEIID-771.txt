@@ -1,0 +1,2 @@
+Simplify lob handling in the buffermanager
+Lob handling in the buffermanager relies upon overloading the notion of tuple source group and on reassigning the streamable obejcts to the latest tuple source / group.  However it's possible for the same streamable object to be associated with multiple tuple sources.   Callers should not be forced to handle invalidreferenceexceptions, since implementors of udf, or even internal code, will fail without explicit handling.

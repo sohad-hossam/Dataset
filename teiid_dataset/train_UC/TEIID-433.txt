@@ -1,0 +1,4 @@
+Round issues
+The round documentation should indicate negative places are to the left of the decimal place and the bigdecimal is an allowed input type.
+
+The round implementation for integer, float, and double need to correctly handle rounding of negative numbers (half down goes to the next lowest number) and not cause loss of precision for large positive place arguments.

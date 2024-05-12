@@ -1,0 +1,2 @@
+Statement batch does not enforce autoCommitTxn
+Using Statement.executeBatch will not start a wrapping transaction for the entire batch - which is expected, but it also will not start transactions at the statement level - which is not expected.

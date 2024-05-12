@@ -1,0 +1,5 @@
+odata webapp missing joda time dependency
+Usage of a datetime literal (datetime'2000-01-01T00:00:00) in a query, results in a no class def error:
+
+Caused by: java.lang.NoClassDefFoundError: org/joda/time/LocalDateTime
+        at org.teiid.odata.ODataSQLBuilder.visit(ODataSQLBuilder.java:454) [classes:]

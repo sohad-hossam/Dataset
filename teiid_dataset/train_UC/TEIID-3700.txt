@@ -1,0 +1,4 @@
+Add a type mapping for impala decimal
+The Impala logic will allow the importer to import decimal types mapped to big decimal, but will not allow the pushdown of a conversion to big decimal.
+
+Support for decimal was added for Imapla 2.1. So we would need to conditionally add support for decimal or update the docs to say change our Impala support which currently starts at 1.2.1.

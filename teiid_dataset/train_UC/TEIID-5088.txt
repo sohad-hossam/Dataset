@@ -1,0 +1,90 @@
+Infinispan Hotrod bigdecimal/biginteger compared as strings
+Biginteger and bigdecimal data types are being compared as strings, instead of numbers.
+
+For a vdb with following source DDL metadata:
+{code:sql|title="Source"}
+             CREATE FOREIGN TABLE SmallA (
+               IntKey integer,
+               IntNum integer,
+               DoubleNum double,
+               ObjectValue object,
+               BigDecimalValue bigdecimal,
+               BigIntegerValue biginteger,
+               CharValue char,
+               StringNum string,
+               StringKey string PRIMARY KEY,
+               FloatNum float,
+               LongNum long,
+               TimeValue time,
+               ShortValue short,
+               ByteNum byte,
+               TimeStampValue timestamp,
+               BooleanValue boolean,
+               DateValue date
+             ) OPTIONS(UPDATABLE true, "teiid_ispn:cache" '${jdg.cache.name}');
+{code}
+and a view:
+{code:sql|title="CRUD"}
+CREATE VIEW SmallA(
+               IntKey integer,
+               IntNum integer,
+               DoubleNum double,
+               ObjectValue object,
+               BigDecimalValue bigdecimal,
+               BigIntegerValue biginteger,
+               CharValue char,
+               StringNum string,
+               StringKey string PRIMARY KEY,
+               FloatNum float,
+               LongNum long,
+               TimeValue time,
+               ShortValue short,
+               ByteNum byte,
+               TimestampValue timestamp,
+               BooleanValue boolean,
+               DateValue date
+            ) OPTIONS (UPDATABLE true) AS
+            SELECT
+               source.IntKey AS IntKey,
+               source.IntNum as IntNum,
+               source.DoubleNum AS DoubleNum,
+               source.ObjectValue AS ObjectValue,
+               source.BigDecimalValue AS BigDecimalValue,
+               source.BigIntegerValue AS BigIntegerValue,
+               source.CharValue AS CharValue,
+               source.StringNum AS StringNum,
+               source.StringKey AS StringKey,
+               source.FloatNum AS FloatNum,
+               source.LongNum AS LongNum,
+               source.TimeValue AS TimeValue,
+               source.ShortValue AS ShortValue,
+               source.ByteNum AS ByteNum,
+               source.TimeStampValue AS TimestampValue,
+               source.BooleanValue AS BooleanValue,
+               source.DateValue AS DateValue
+            FROM Source.SmallA as source;
+{code}
+
+Following query:
+{code}
+SELECT BigIntegerValue FROM SmallA WHERE BigIntegerValue<4
+{code}
+
+returns 
+|| BigIntegerValue ||
+| 1,418,509 |
+| 2,993,990 |
+| 39,127 |
+| 132,878,502 |
+| 18,235,051 |
+| 27,147,783 |
+| 250,391,377 |
+| 278,593 |
+| 1,110,985,332 |
+| 262,593,097 |
+| 19 |
+| 26,203,918 |
+| 21,559,352 |
+| 18,812 |
+
+same issue applies to bigdecimal.

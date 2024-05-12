@@ -1,0 +1,6 @@
+Create upsert/delete refresh support
+There must be an alternative to the implied default of the table rename strategy - which is problematic when a source is not transactional or even when it is - as a multi-part swap can leave the table non-existent for a brief window or the source may have issues with ddl under an xa transaction - TEIID-4579
+
+This is true for the non-transactional source incremental refresh as well, which is a delete then insert - it leaves the live table briefly in an inconsistent state.
+
+A upsert/delete approach addresses both of these concerns at the expense of performance - especially when the source does not directly support upsert as the engine must implement a compensating procedure.  However now that we have pushdown support for upsert, we'll continue to add source support.

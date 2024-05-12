@@ -1,0 +1,6 @@
+Add support for user defined / pushdown aggregate functions
+Add support for user defined aggregate functions.  This would also affect the function model metadata.  Our aggregate handling logic will need to be generalized to make this possible.  Starting with the parser we've got special handling for built-in aggregates.
+
+for user defined aggregate handling just a static method will not work as the function needs to retain state across each group.  Could require that the implementing class extends AggregateFunction. 
+
+Could also allow user defined aggregates to take an order by clause.

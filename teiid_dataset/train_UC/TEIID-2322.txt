@@ -1,0 +1,2 @@
+ReusableExecution issue with large dependent joins
+Large dependent joins can be split among multiple queries that can be issued in parallel with the same node id (but different execution ids).  The reusable execution is reusing based upon node id, so the logic either needs to create multiple executions for the parallel case or we need to be explicit about this possibility and have the translator developer check the execution id in the translator and respond appropriately.

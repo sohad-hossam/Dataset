@@ -1,0 +1,7 @@
+NullPointerException using webservice translator against a webservice that's missing 'Content-Type' in the response header
+If you deploy a vdb that uses the webservices translator in teiid 8.7, and that webservice doesn't have 'Content-Type' set in the response headers then the web service connector code throws a NullPointerException as it tries to retrieve the Content-Type and use it. This happens in the WSConnectionImpl.java class on these 2 lines specifically:
+
+ArrayList contentTypes = (ArrayList)this.responseContext.get("content-type"); //$NON-NLS-1$
+return new HttpDataSource(url, (InputStream)response.getEntity(), (String)contentTypes.get(0));
+
+so basically the contentTypes array is null if the response header doesn't containt any 'Content-Type' specified and then 2nd line gets the NullPointerException.

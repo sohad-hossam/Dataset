@@ -1,0 +1,5 @@
+bounded-queue-thread-pool silently drops tasks after the queue length is exceeded
+The bounded-queue-thread-pool apparently needs a handoff executor configured otherwise it silently drops tasks after the queue length is exceeded.
+
+See the discussion for more information.
+https://community.jboss.org/thread/236744

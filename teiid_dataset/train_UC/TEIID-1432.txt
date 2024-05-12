@@ -1,0 +1,183 @@
+Getting SocketTimeout Exceptions on long running queries with CXF 
+After following the recommendation of using CXF for salesforce connector, I am getting SocketTimeOutExceptions when executing long running queries. 
+
+According to this page, CXF has a default socket timeout of 60seconds. However, in some circumstances, 60seconds is too less to let Teiid running against Salesforce:
+
+https://cwiki.apache.org/CXF20DOC/client-http-transport-including-ssl-support.html
+
+This page also describes how to set a longer timeout period. I have not found a way of specifying a better timeout neither in teiid docs nor in the teiid source. 
+
+Would it be possible to have a timeout of 5minutes or - even better - have a configurable timeout (evtl. configured within the -ds.xml of the teiid datasource)?
+
+
+Exception log:
+
+
+2011-01-12 20:27:24,249 WARN  [org.apache.cxf.phase.PhaseInterceptorChain] (Worker140_QueryProcessorQueue3974) Interceptor for {urn:partner.soap.sforce.com}SforceService#{urn:partner.soap.sforce.com}query has thrown exception, unwinding now
+org.apache.cxf.interceptor.Fault: Could not send Message.
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:64)
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:243)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:484)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:310)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:262)
+	at org.apache.cxf.frontend.ClientProxy.invokeSync(ClientProxy.java:73)
+	at org.apache.cxf.jaxws.JaxWsClientProxy.invoke(JaxWsClientProxy.java:124)
+	at $Proxy167.query(Unknown Source)
+	at org.teiid.resource.adapter.salesforce.SalesforceConnectionImpl.query(SalesforceConnectionImpl.java:171)
+	at org.teiid.translator.salesforce.execution.QueryExecutionImpl.execute(QueryExecutionImpl.java:137)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:263)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:281)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.access$0(DataTierTupleSource.java:274)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:123)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:1)
+	at org.teiid.dqp.internal.process.DQPCore$FutureWork.run(DQPCore.java:108)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking https://na4-api.salesforce.com/services/Soap/u/17.0/00D300000000bn6: Read timed out
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.mapException(HTTPConduit.java:2011)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1992)
+	at org.apache.cxf.transport.AbstractConduit.close(AbstractConduit.java:66)
+	at org.apache.cxf.transport.http.HTTPConduit.close(HTTPConduit.java:640)
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:62)
+	... 21 more
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.sun.net.ssl.internal.ssl.InputRecord.readFully(InputRecord.java:293)
+	at com.sun.net.ssl.internal.ssl.InputRecord.read(InputRecord.java:331)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:798)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:755)
+	at com.sun.net.ssl.internal.ssl.AppInputStream.read(AppInputStream.java:75)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:687)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:632)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1200)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:379)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:318)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponseInternal(HTTPConduit.java:2110)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponse(HTTPConduit.java:2087)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1985)
+	... 24 more
+2011-01-12 20:27:24,249 WARNING [org.apache.cxf.phase.PhaseInterceptorChain] (Worker140_QueryProcessorQueue3974) Interceptor for {urn:partner.soap.sforce.com}SforceService#{urn:partner.soap.sforce.com}query has thrown exception, unwinding now
+org.apache.cxf.interceptor.Fault: Could not send Message.
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:64)
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:243)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:484)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:310)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:262)
+	at org.apache.cxf.frontend.ClientProxy.invokeSync(ClientProxy.java:73)
+	at org.apache.cxf.jaxws.JaxWsClientProxy.invoke(JaxWsClientProxy.java:124)
+	at $Proxy167.query(Unknown Source)
+	at org.teiid.resource.adapter.salesforce.SalesforceConnectionImpl.query(SalesforceConnectionImpl.java:171)
+	at org.teiid.translator.salesforce.execution.QueryExecutionImpl.execute(QueryExecutionImpl.java:137)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:263)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:281)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.access$0(DataTierTupleSource.java:274)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:123)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:1)
+	at org.teiid.dqp.internal.process.DQPCore$FutureWork.run(DQPCore.java:108)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: java.net.SocketTimeoutException: SocketTimeoutException invoking https://na4-api.salesforce.com/services/Soap/u/17.0/00D300000000bn6: Read timed out
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.mapException(HTTPConduit.java:2011)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1992)
+	at org.apache.cxf.transport.AbstractConduit.close(AbstractConduit.java:66)
+	at org.apache.cxf.transport.http.HTTPConduit.close(HTTPConduit.java:640)
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:62)
+	... 21 more
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.sun.net.ssl.internal.ssl.InputRecord.readFully(InputRecord.java:293)
+	at com.sun.net.ssl.internal.ssl.InputRecord.read(InputRecord.java:331)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:798)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:755)
+	at com.sun.net.ssl.internal.ssl.AppInputStream.read(AppInputStream.java:75)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:687)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:632)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1200)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:379)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:318)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponseInternal(HTTPConduit.java:2110)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponse(HTTPConduit.java:2087)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1985)
+	... 24 more
+2011-01-12 20:27:24,250 ERROR [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3974) Connector worker process failed for atomic-request=P/L4fRECvxvB.0.7.440
+java.net.SocketTimeoutException: SocketTimeoutException invoking https://na4-api.salesforce.com/services/Soap/u/17.0/00D300000000bn6: Read timed out
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:39)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:27)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:513)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.mapException(HTTPConduit.java:2011)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1992)
+	at org.apache.cxf.transport.AbstractConduit.close(AbstractConduit.java:66)
+	at org.apache.cxf.transport.http.HTTPConduit.close(HTTPConduit.java:640)
+	at org.apache.cxf.interceptor.MessageSenderInterceptor$MessageSenderEndingInterceptor.handleMessage(MessageSenderInterceptor.java:62)
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:243)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:484)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:310)
+	at org.apache.cxf.endpoint.ClientImpl.invoke(ClientImpl.java:262)
+	at org.apache.cxf.frontend.ClientProxy.invokeSync(ClientProxy.java:73)
+	at org.apache.cxf.jaxws.JaxWsClientProxy.invoke(JaxWsClientProxy.java:124)
+	at $Proxy167.query(Unknown Source)
+	at org.teiid.resource.adapter.salesforce.SalesforceConnectionImpl.query(SalesforceConnectionImpl.java:171)
+	at org.teiid.translator.salesforce.execution.QueryExecutionImpl.execute(QueryExecutionImpl.java:137)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:263)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:281)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.access$0(DataTierTupleSource.java:274)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:123)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:1)
+	at org.teiid.dqp.internal.process.DQPCore$FutureWork.run(DQPCore.java:108)
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+Caused by: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:129)
+	at com.sun.net.ssl.internal.ssl.InputRecord.readFully(InputRecord.java:293)
+	at com.sun.net.ssl.internal.ssl.InputRecord.read(InputRecord.java:331)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readRecord(SSLSocketImpl.java:798)
+	at com.sun.net.ssl.internal.ssl.SSLSocketImpl.readDataRecord(SSLSocketImpl.java:755)
+	at com.sun.net.ssl.internal.ssl.AppInputStream.read(AppInputStream.java:75)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:687)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:632)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1200)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:379)
+	at sun.net.www.protocol.https.HttpsURLConnectionImpl.getResponseCode(HttpsURLConnectionImpl.java:318)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponseInternal(HTTPConduit.java:2110)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.handleResponse(HTTPConduit.java:2087)
+	at org.apache.cxf.transport.http.HTTPConduit$WrappedOutputStream.close(HTTPConduit.java:1985)
+	... 24 more
+2011-01-12 20:27:24,252 DEBUG [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3976) P/L4fRECvxvB.0.7.440 Processing Close : SELECT sfdc.salesforce.OpportunityLineItem.PricebookEntryId, sfdc.salesforce.Opportunity.Id, sfdc.salesforce.OpportunityLineItem.Id, sfdc.salesforce.Opportunity.AccountId, sfdc.salesforce.Opportunity.Age_of_Opportunity__c, sfdc.salesforce.Opportunity.FulfillmentChannel__c, sfdc.salesforce.Opportunity.CloseDate, sfdc.salesforce.Opportunity.Country_of_Order__c, sfdc.salesforce.OpportunityLineItem.CurrencyIsoCode, sfdc.salesforce.Opportunity.Fiscal, sfdc.salesforce.Opportunity.ForecastCategory, sfdc.salesforce.Opportunity.IsClosed, sfdc.salesforce.Opportunity.CreditChecked__c, sfdc.salesforce.Opportunity.IsWon, sfdc.salesforce.Opportunity.LastActivityDate, sfdc.salesforce.OpportunityLineItem.ListPrice, sfdc.salesforce.Opportunity.Amount, sfdc.salesforce.Opportunity.Name, sfdc.salesforce.Opportunity.OpportunityNumber__c, sfdc.salesforce.OpportunityLineItem.Year2Amount__c, sfdc.salesforce.OpportunityLineItem.Year3Amount__c, sfdc.salesforce.OpportunityLineItem.Year4Amount__c, sfdc.salesforce.OpportunityLineItem.Year5Amount__c, sfdc.salesforce.OpportunityLineItem.Year6Amount__c, sfdc.salesforce.Opportunity.Probability, sfdc.salesforce.OpportunityLineItem.Quantity, sfdc.salesforce.Opportunity.Region_of_Order__c, sfdc.salesforce.Opportunity.StageName, sfdc.salesforce.Opportunity.SubRegion__c, sfdc.salesforce.OpportunityLineItem.Year1Amount__c, sfdc.salesforce.OpportunityLineItem.TotalPrice, sfdc.salesforce.Opportunity.OpportunityType__c, sfdc.salesforce.OpportunityLineItem.UnitPrice, sfdc.salesforce.Opportunity.OwnerId FROM sfdc.salesforce.Opportunity LEFT OUTER JOIN sfdc.salesforce.OpportunityLineItem ON sfdc.salesforce.Opportunity.Id = sfdc.salesforce.OpportunityLineItem.OpportunityId WHERE (sfdc.salesforce.Opportunity.StageName <> 'Closed Lost') AND (sfdc.salesforce.Opportunity.ForecastCategory <> 'Omitted') AND (sfdc.salesforce.Opportunity.OpportunityType__c <> 'REBOOK') AND (sfdc.salesforce.Opportunity.Region_of_Order__c = 'CE') AND (sfdc.salesforce.Opportunity.Fiscal = '2011 4')
+2011-01-12 20:27:24,252 DEBUG [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3976) SynchQueryExecution.close() called
+2011-01-12 20:27:24,252 DEBUG [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3976) P/L4fRECvxvB.0.7.440 Closed execution
+2011-01-12 20:27:24,253 DEBUG [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3976) P/L4fRECvxvB.0.7.440 Remove State
+2011-01-12 20:27:24,253 DEBUG [org.teiid.CONNECTOR] (Worker140_QueryProcessorQueue3976) P/L4fRECvxvB.0.7.440 Closed connection
+2011-01-12 20:27:24,253 WARN  [org.teiid.PROCESSOR] (Worker139_QueryProcessorQueue3975) Processing exception 'SocketTimeoutException invoking https://na4-api.salesforce.com/services/Soap/u/17.0/00D300000000bn6: Read timed out' for request P/L4fRECvxvB.0.  Exception type org.teiid.core.TeiidProcessingException thrown from java.net.SocketInputStream.socketRead0(Native Method). Enable more detailed logging to see the entire stacktrace.

@@ -1,0 +1,44 @@
+Add support for "conformed" tables in Teiid
+Teiid would support tables from different data sources being marked as "conformed", meaning they are the same (or perhaps a different name).  When optimising a query, it would take the conformity into account and choose the appropriate copy of the table (presumably one in the same database as other tables in the query, if available).  I would not regard it as a problem if Teiid *required* the dimensions to be strictly the same as opposed to permitting subsets, though as with so many areas, it would be up to the user to ensure this was really true: I would not expect the engine to do anything to verify that the tables really were conformed.
+
+
+Usecase:
+In Data Warehousing, it is relatively common to have multiple copies of the same dimensions spread over multiple Data Warehouses or Marts, or in the same Data Warehouse when associated with different Fact Tables.  If these copies are either identical or strict subsets of an idealised dimension (and, by extension, share *exactly* the same naming and structure), then they may be said to be "conformed".  It is expected that the dimension includes at least the values required to support the facts in the database in which it occurs or the Fact Table to which it is paired.
+
+Example:
+ 
+Source S1:
+ 
+BIGBIGBIG  (millions of rows)
+bigkey
+ccy
+other_stuff
+ 
+CURRENCY   (100s of rows)  let's call it S1_CCY if we need to distinguish
+ccy
+ccy_name
+ 
+ 
+Source S2:
+ 
+BIGGER     (millions of rows)
+biggerkey
+bigkey
+ccy
+more_stuff
+ 
+CURRENCY   (100s of rows)  similarly, S2_CCY
+ccy
+ccy_name
+ 
+ 
+When executing:
+ 
+SELECT  B.*
+FROM    BIGBIGBIG    B,
+        CURRENCY     CCY
+WHERE   B.ccy        = CCY.ccy
+AND     CCY.ccy_name LIKE "%DOLLAR%"
+ 
+Then it is clearly advantageous to use the copy of CURRENCY in S1 and re-write the query using S1_CCY.  In this situation, federation is eliminated completely.
+ 

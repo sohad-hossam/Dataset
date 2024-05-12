@@ -1,0 +1,2 @@
+Add documentation for the delegating translator
+The delegating translator framework is not well documented.

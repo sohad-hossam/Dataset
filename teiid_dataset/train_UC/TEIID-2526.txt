@@ -1,0 +1,6 @@
+When VDB re-deployed with same version the the OData metadata does not reflect the new VDB metadata
+When the same named VDB is re-deployed with same version as before, the call to 
+
+http://host:port/odata/vdb/$metadata
+
+does not reflect the new metadata of the re-deployed VDB

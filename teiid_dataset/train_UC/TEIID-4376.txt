@@ -1,0 +1,2 @@
+EXECUTE IMMEDIATE should accept clob
+Restricting execute immediate to string prevents longer queries from executing.  This should be relaxed to clob, since we don't have an intermediate character type.

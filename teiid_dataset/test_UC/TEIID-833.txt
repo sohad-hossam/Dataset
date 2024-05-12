@@ -1,0 +1,8 @@
+Support tighter integration with container deployments
+We should be able to leverage the container:
+TransactionManager/XATerminator
+Work Management
+Security
+Connection Handling (See also TEIID-805)
+
+and have a standard deployment model for JON discovery.  The initial plans are to deploy Teiid as a JCA rar and to allow for the creation of local (embedded) datasources from that instance, as well as allow for socket connections.  

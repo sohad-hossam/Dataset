@@ -1,0 +1,4 @@
+Move defining the Data Roles to VDB deployer XML file. Map the roles to container roles
+Previously in Teiid, in order to define data roles for a VDB, the were defined in a file called "data-roles.xml" and that file used to be included with the VDB artifact. Move the definition and contents of this file in vdb.xml (see TEIID-998)
+
+Given a "data role" at design time,  the user should be able to map this role to a "container" role. Give ability in the Admin API to update this role mapping.

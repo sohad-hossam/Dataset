@@ -1,0 +1,2 @@
+Support calling oracle stored functions returning result sets as stored procedures
+This is only an issue with oracle native drivers, which need to have the returned result set explicitly called as a return parameter.

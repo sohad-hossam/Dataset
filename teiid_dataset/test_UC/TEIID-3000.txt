@@ -1,0 +1,2 @@
+Add Common Options when constraints are written
+Changed to add Common Options when constraints are written

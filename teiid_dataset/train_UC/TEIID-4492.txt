@@ -1,0 +1,2 @@
+When using annotations, add option that specifies all child classes to register as part of the JDG schema
+When using protobuf annotations, need to specify all the child related (e.g, 1-to-1 relationship or 1-to-many relationship) pojo's that also need to be registered with the JDG schema.  When these are registered, JDG will auto generate the .proto file and marshallers used by the schema.  Which is the information used by the hot rod translator to create the source models.

@@ -1,0 +1,4 @@
+Issues with insert and query expression with a common table expression
+SQL Server will not support a source query of the form:
+
+insert into tbl with ...

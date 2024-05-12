@@ -1,0 +1,2 @@
+Teiid script does not correctly cache method references
+The script engine logic indirectly holds hard references to Method objects, which in turn keeps their classloader alive.

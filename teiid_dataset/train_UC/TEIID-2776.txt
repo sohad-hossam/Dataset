@@ -1,0 +1,42 @@
+ArrayIndexOutOfBoundsException
+When executing the following query:
+
+insert into #tmp_labres
+select f.patientid as admissionid, f.variableid, f.sampledate, f.value, f.stringvalue, f.status
+from (
+	select v.*, rank() over(partition by v.patientid,v.VariableID, v.sampledate order by v.SampleTime,v.resultno desc) as resultrank
+	from #tmp_labrestimecast v
+) f
+where f.resultrank = 1;
+
+I get and ArrayIndexOutOfBoundsException. In the logs it only says "11:31:44,537 ERROR [org.teiid.PROCESSOR] (Worker15031_QueryProcessorQueue278439) yfgMWpMOgQdg TEIID30019 Unexpected exception for request yfgMWpMOgQdg.43: java.lang.ArrayIndexOutOfBoundsException
+" 
+
+A few log entries before this I find a stack trace for an ArrayIndexOutOfBoundsException. Since I have executed this query multiple times I think it's a stack trace for the same query. I suppose this has something to do with the rank function. A normal select on #tmp_labrestimecast works without a problem.
+
+16:25:39,765 ERROR [org.teiid.PROCESSOR] (Worker13352_QueryProcessorQueue214542) 90UM8pskkEDH TEIID30019 Unexpected exception for request 90UM8pskkEDH.255: java.lang.ArrayIndexOutOfBoundsException: 1
+        at java.util.Arrays$ArrayList.get(Arrays.java:2866) [rt.jar:1.7.0_25]
+        at org.teiid.query.processor.relational.WindowFunctionProjectNode.nextBatchDirect(WindowFunctionProjectNode.java:270) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.SelectNode.nextBatchDirect(SelectNode.java:104) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:146) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.ProjectIntoNode.nextBatchDirect(ProjectIntoNode.java:138) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:278) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:136) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:155) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:435) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:320) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:248) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:269) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.5.0.Final.jar:8.5.0.Final]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]
+        at java.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25]

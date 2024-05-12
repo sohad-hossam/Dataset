@@ -1,0 +1,2 @@
+ENHANCEMENT: Costing beyond cardinality sould be propogated
+Defect Tracker #24037: Currently values for ndv and nnv are recalculated at each plan node based upon the value at the physical layer.  This is not a good estimate.  Instead, these values should be propagated through the plan just like the cardinality and adjusted appropriately for join, unions, etc.  It may also be good to allow the use of costing metadata on virtual layers.

@@ -1,0 +1,4 @@
+AdminConsole for DataServices indicates, by default, that SSL Enabled is true, but the teiid-jboss-beans.xml indicates sslEnabled is false
+The teiid-jboss-beans.xml says  the property:  sslEnabled = false.    However, viewing via adminconsole, say's  SSL Enabled = true.
+
+I looked at the plugin.xml and it appears the property name is called "enabled".   My guess is it's mapping to the wrong property in the beans.xml file.    It should be mapping to the "sslEnabled" property.

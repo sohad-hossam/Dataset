@@ -1,0 +1,2 @@
+Window function capabilities incorrect
+The CapabilitiesConverter is using the advanced olap instead of the elementary olap supports property to determine if window functions can be pushed down.

@@ -1,0 +1,2 @@
+SOLR: Connector ignores CoreName property
+SOLR connector ignores CoreName property. It uses first or active core (by default "collection1"). CoreName should be appended to the Solr Server's baseUrl.

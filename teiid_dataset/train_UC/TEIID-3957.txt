@@ -1,0 +1,15 @@
+Impala translator - Add pushdown of offset in LIMIT clause to overcome difference in LIMIT clause
+With the impala translator we issue this LIMIT to Teiid:
+ORDER BY somecolumn DESC LIMIT 75, 25
+this means give me 25 rows starting from *ROW* 76.
+
+In Impala's SQL this should be translated to:
+ORDER BY somecolumn DESC LIMIT 25 OFFSET 75
+BUT this means give me 25 rows starting from *PAGE * 76 (with page size of 25 rows)
+
+ref: http://www.cloudera.com/documentation/archive/impala/2-x/2-1-x/topics/impala_offset.html
+
+The Teiid Impala translator doesn't push the offset but sums the limit and offset:
+ORDER BY somecolumn DESC LIMIT 100
+
+Request we add pushdown, which will be more efficient and overcome the difference in how offsets are handled between Impala and Teiid.

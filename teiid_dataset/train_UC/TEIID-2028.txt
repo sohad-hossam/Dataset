@@ -1,0 +1,12 @@
+Previewing data from Designer getting mergeVDB NPE on server
+Running Deisnger I attempted to preview a table imported from JDBC. It failed and the attached was found in the server.log. Here's a sample:
+
+2 [UndeclaredThrowableException]Failed to invoke method 'mergeVDBs' on component 'RuntimeEngineDeployer' with parameters [SimpleMetaType:java.lang.String:PREVIEW_fb30e436-f182-45c5-b65c-934d9547b389_ModelingJdbc_Books_DB2_for_Linux_UNIX_and_Windows, SimpleMetaType:int:1, SimpleMetaType:java.lang.String:PREVIEW_fb30e436-f182-45c5-b65c-934d9547b389_ModelingJdbc_project, SimpleMetaType:int:1].
+3 [NullPointerException]
+	at org.teiid.client.util.ExceptionUtil.convertException(ExceptionUtil.java:72)
+	at org.teiid.jboss.deployers.RuntimeEngineDeployer$3.invoke(RuntimeEngineDeployer.java:400)
+	at $Proxy473.mergeVDBs(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:616)

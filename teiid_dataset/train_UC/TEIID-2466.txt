@@ -1,0 +1,2 @@
+String column length is not reported correctly by DatabasMetadata
+String COLUMN_SIZE is always reported as the max (4000) rather than as the length metadata from sys.columns

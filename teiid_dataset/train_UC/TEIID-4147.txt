@@ -1,0 +1,2 @@
+matpg_datatype should include more type mappings
+matpg_datatype is missing mappings for varbinary and the single dimension array types in pg_type.  We may need to consider using the original pg type names rather than the Teiid types names - at least for array handling and so clients there may be built-in expectations around basic types.

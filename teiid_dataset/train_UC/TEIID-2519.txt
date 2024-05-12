@@ -1,0 +1,18 @@
+Odata Table Query Not Workng
+When trying to query a table through Odata, a error is diplayed: EdmEntitySet refinedSalariesModel.refinedSalaries is not found
+
+When issuing the query:
+http://localhost:8080/odata/Portfolio.1/refinedSalariesModel.refinedSalaries
+
+We have also tried using:
+http://localhost:8080/odata/Portfolio.1/refinedSalariesModel/refinedSalaries
+
+When issuing the second query, this error is thrown:
+
+<error><code/><message lang="en-US">Could not find resource for relative : /refinedSalariesModel/refinedSalaries of full path: http://localhost:8080/odata/Portfolio.1/refinedSalariesModel/refinedSalaries</message></error>
+
+
+We can successfully display the metadata and see the details of the VDB by using:
+http://localhost:8080/odata/Portfolio.1/$metadata
+
+Please let me know if you need any more information

@@ -1,0 +1,2 @@
+ObjectTranslator SearchByKey limit handling issue
+Less than the desired number or rows will be returned if an in clause and limit are used together as the row limit counter is incremented for each value tested, rather than for each value that passes.

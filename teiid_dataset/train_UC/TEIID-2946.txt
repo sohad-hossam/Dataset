@@ -1,0 +1,21 @@
+NPE with a join and a dup_remove child
+A plan structure such as:
+
+{code}
+JoinNode ... [CROSS JOIN]
+   ...
+   SortNode ... [DUP_REMOVE] 
+{code}
+Will cause an NPE during prefetch:
+
+{code}
+28 Apr 2014 05:35:28,574 ERROR [org.teiid.PROCESSOR] (http-CA31/141.202.65.31:30804-2) eA83y/9ZGnji TEIID30019 Unexpected exception for request eA83y/9ZGnji.6: java.lang.NullPointerException
+
+  at org.teiid.query.processor.relational.SourceState.prefetch(SourceState.java:203)
+
+  at org.teiid.query.processor.relational.JoinNode.prefetch(JoinNode.java:231)
+
+  at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:223)
+{code}
+
+This is an oversight in that we generally are expecting an equi-join (which would incorporate the dup removal processing) or marking the dup remove as dup remove sort (the fully blocking variant).

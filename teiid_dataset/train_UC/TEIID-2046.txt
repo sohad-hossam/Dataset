@@ -1,0 +1,12 @@
+StaxSource is not supported for validation, VDB deployment fails
+"apache.xerces" is used by default in the AS7 as the chosen jaxp library, and it does not support StaxSource as the Validator input. Consider using some other type of source like StreamSource.
+
+Caused by: java.lang.IllegalArgumentException: Source parameter of type 'javax.xml.transform.stax.StAXSource' is not accepted by this validator.
+	at org.apache.xerces.jaxp.validation.ValidatorImpl.validate(ValidatorImpl.java:119)
+	at javax.xml.validation.Validator.validate(Validator.java:127) [rt.jar:1.6.0_26]
+	at org.teiid.adminapi.impl.VDBMetadataParser.validate(VDBMetadataParser.java:94)
+	at org.teiid.jboss.VDBParserDeployer.parseVDBXML(VDBParserDeployer.java:111)
+	at org.teiid.jboss.VDBParserDeployer.scanVDB(VDBParserDeployer.java:88)
+	at org.teiid.jboss.VDBParserDeployer.scanVDB(VDBParserDeployer.java:83)
+	at org.teiid.jboss.VDBParserDeployer.deploy(VDBParserDeployer.java:72)
+	at org.jboss.as.server.deployment.DeploymentUnitPhaseService.start(DeploymentUnitPhaseService.java:113) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]

@@ -1,0 +1,2 @@
+NPE if using multi-value prepared INSERT
+If user issues multi-value insert, Teiid throws NPE.

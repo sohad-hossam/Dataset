@@ -1,0 +1,45 @@
+ava.lang.NoClassDefFoundError: org/jaxen/NamespaceContext
+When attempting to query an XML text file in ER1 I am getting A java.lang.NoClassDefFoundError: org/jaxen/NamespaceContext error:
+
+14:03:13,829 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue2) TEIID30019 Unexpected exception for request Nob5JdZX4Frm.0: org.teiid.core.TeiidRuntimeException: org/jaxen/NamespaceContext
+	at org.teiid.query.processor.relational.XMLTableNode$1.run(XMLTableNode.java:232) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:269) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:214) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0]
+Caused by: java.lang.NoClassDefFoundError: org/jaxen/NamespaceContext
+	at nu.xom.NodeFactory.startMakingDocument(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at nux.xom.xquery.StreamingPathFilter$StreamingPathFilterNodeFactory.startMakingDocument(StreamingPathFilter.java:389) [nux-1.6.jar:1.6]
+	at nu.xom.XOMHandler.startDocument(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at net.sf.saxon.event.ContentHandlerProxy.open(ContentHandlerProxy.java:261) [saxonhe-9.2.1.5.jar:]
+	at org.teiid.query.xquery.saxon.ContentHandlerProxyReceiver.open(StreamingUtils.java:265) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at net.sf.saxon.event.ProxyReceiver.open(ProxyReceiver.java:80) [saxonhe-9.2.1.5.jar:]
+	at net.sf.saxon.event.ReceivingContentHandler.startDocument(ReceivingContentHandler.java:204) [saxonhe-9.2.1.5.jar:]
+	at org.apache.xerces.parsers.AbstractSAXParser.startDocument(Unknown Source)
+	at org.apache.xerces.impl.dtd.XMLDTDValidator.startDocument(Unknown Source)
+	at org.apache.xerces.impl.XMLDocumentScannerImpl.startEntity(Unknown Source)
+	at org.apache.xerces.impl.XMLVersionDetector.startDocumentParsing(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XML11Configuration.parse(Unknown Source)
+	at org.apache.xerces.parsers.XMLParser.parse(Unknown Source)
+	at org.apache.xerces.parsers.AbstractSAXParser.parse(Unknown Source)
+	at org.apache.xerces.jaxp.SAXParserImpl$JAXPSAXParser.parse(Unknown Source)
+	at net.sf.saxon.event.Sender.sendSAXSource(Sender.java:397) [saxonhe-9.2.1.5.jar:]
+	at net.sf.saxon.event.Sender.send(Sender.java:182) [saxonhe-9.2.1.5.jar:]
+	at net.sf.saxon.Configuration.buildDocument(Configuration.java:3317) [saxonhe-9.2.1.5.jar:]
+	at net.sf.saxon.Configuration.buildDocument(Configuration.java:3262) [saxonhe-9.2.1.5.jar:]
+	at org.teiid.query.xquery.saxon.SaxonReader.parse(StreamingUtils.java:169) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at nu.xom.Builder.build(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at nu.xom.Builder.build(Unknown Source) [xom-1.2.7-redhat-3.jar:1.2.7-redhat-3]
+	at org.teiid.query.xquery.saxon.XQueryEvaluator.evaluateXQuery(XQueryEvaluator.java:134) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	at org.teiid.query.processor.relational.XMLTableNode$1.run(XMLTableNode.java:226) [teiid-engine-8.4.1-redhat-1.jar:8.4.1-redhat-1]
+	... 6 more
+Caused by: java.lang.ClassNotFoundException: org.jaxen.NamespaceContext from [Module "org.jboss.teiid:main" from local module loader @4bce79b8 (finder: local module finder @609945e9 (roots: /home/wgibson/apps/DV6-ER1/PASS-FOUR/jboss-eap-6.1/modules,/home/wgibson/apps/DV6-ER1/PASS-FOUR/jboss-eap-6.1/modules/system/layers/ds,/home/wgibson/apps/DV6-ER1/PASS-FOUR/jboss-eap-6.1/modules/system/layers/base))]
+	at org.jboss.modules.ModuleClassLoader.findClass(ModuleClassLoader.java:196) [jboss-modules.jar:1.2.0.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassUnchecked(ConcurrentClassLoader.java:444) [jboss-modules.jar:1.2.0.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClassChecked(ConcurrentClassLoader.java:432) [jboss-modules.jar:1.2.0.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.performLoadClass(ConcurrentClassLoader.java:374) [jboss-modules.jar:1.2.0.Final-redhat-1]
+	at org.jboss.modules.ConcurrentClassLoader.loadClass(ConcurrentClassLoader.java:119) [jboss-modules.jar:1.2.0.Final-redhat-1]
+	... 31 more

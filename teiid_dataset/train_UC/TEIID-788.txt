@@ -1,0 +1,2 @@
+Change internal handling of insert with query expression
+An insert with a query expression should be our dominant internal model.  Select into should be rewritten as it instead of the other way around.

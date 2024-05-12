@@ -1,0 +1,2 @@
+Dependencies set on OLAP translator's module.xml are incomplete
+The OLAP translator is missing dependency on OLAP4J library

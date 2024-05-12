@@ -1,0 +1,2 @@
+filter clause does not work with windowed aggregate
+A filtered window function, such as "row_number() FILTER (WHERE e1 IS NOT NULL) over (order by e1)" will fail in parsing with a class cast exception

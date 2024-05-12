@@ -1,0 +1,2 @@
+Metadata search with * or ? may return the wrong results
+Defect Tracker #24869: Searches through the metadata connector are supposed to support like criteria, however this is no way in the index pattern logic to escape * or ?, so any query that is searching explicitly for those values will instead get the values as if they were wildcards.

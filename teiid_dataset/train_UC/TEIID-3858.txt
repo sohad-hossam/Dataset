@@ -1,0 +1,4 @@
+Planning error with unrelated sort columns and view removal
+There is an array index out of bounds in rule merge virtual correct order by when there is an unrelated sort over a query with a grouping:
+
+select a from (SELECT intkey as a, stringkey as b FROM BQT1.SmallA group by intkey, stringkey union all SELECT intkey as a, stringkey as b FROM BQT1.Smallb group by intkey, stringkey) as v order by b

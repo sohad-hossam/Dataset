@@ -1,0 +1,2 @@
+Convert community docs to confluence
+Our confluence instance https://docs.jboss.org/author/dashboard.action and associated docbook import https://issues.jboss.org/browse/ORG-965 should be used to produce an online version of the docs.  Export actions will need to be used in maven the produce distributable forms with our artifacts.

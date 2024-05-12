@@ -1,0 +1,2 @@
+Add the model properties as extension metadata on the schema
+To provide an ability to set extension metadata on the schema we would either need to introduce a new ddl construct or let the existing model property functionality be used.  To promote a single mechanism it seems good to let the model properties be injected onto the schema object as extension metadata.

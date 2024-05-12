@@ -1,0 +1,2 @@
+propagate all projected constants from non-merged view layers
+For non-merged view layers there are planning and costing benefits to propagating any projected constants upward in the plan.

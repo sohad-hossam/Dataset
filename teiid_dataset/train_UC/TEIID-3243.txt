@@ -1,0 +1,23 @@
+MongoDB:  doens't support more than 1 aggregation in SQL
+Got exception if I have more than 1 aggregation in SQL for MongoDB:
+
+Original SQL 
+
+SELECT COUNT(MongoNestedDocDS.addresst.age) AS c_0, SUM(MongoNestedDocDS.addres
+st.age) AS c_1 FROM MongoNestedDocDS.addresst LIMIT 1000
+
+Got exception:
+
+Caused by: org.teiid.jdbc.TeiidSQLException: TEIID30504 -1880007235: TEIID18024 multiple aggregate symbols are not sup
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+        at org.teiid.jdbc.StatementImpl.postReceiveResults(StatementImpl.java:667)
+        at org.teiid.jdbc.StatementImpl.access$100(StatementImpl.java:63)
+        at org.teiid.jdbc.StatementImpl$2.onCompletion(StatementImpl.java:515)
+        at org.teiid.client.util.ResultsFuture.addCompletionListener(ResultsFuture.java:148)
+        at org.teiid.jdbc.StatementImpl.executeSql(StatementImpl.java:511)
+        at org.teiid.jdbc.PreparedStatementImpl.executeQuery(PreparedStatementImpl.java:261)
+        at net.sf.jasperreports.engine.query.JRJdbcQueryExecuter.createDatasource(JRJdbcQueryExecuter.java:233)
+
+Can we consider to use in memory engine instead if more than 1 aggregation?
+

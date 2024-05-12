@@ -1,0 +1,9 @@
+Google translator comparison with boolean value matches all rows
+Both following queries match and remove all rows (ie. with both true/false/null values):
+DELETE WHERE BooleanValue
+DELETE WHERE NOT BooleanValue
+
+Where column in foreign table is:
+booleanvalue boolean OPTIONS (NATIVE_TYPE 'BOOLEAN')
+and view:
+BooleanValue boolean

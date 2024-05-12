@@ -1,0 +1,2 @@
+Convert VDB utility does not work when translator overrides are present
+Currently there is limitation to support translator overrides in .vdb to convert to .ddl utility. This needs to be supported. See TEIID-4398 

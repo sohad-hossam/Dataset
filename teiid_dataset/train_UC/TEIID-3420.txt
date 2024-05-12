@@ -1,0 +1,2 @@
+Support insert/update with ldap multi-value concat 
+The translator currently only supports multi-value concat in the context of reads.  Insert/update should be supported as well.

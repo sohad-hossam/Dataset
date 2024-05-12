@@ -1,0 +1,2 @@
+Increase default number of socket workers
+With recent performance testing it was noticed under load that having a constrained number of socket workers slows down the creation of new connections when the server is heavily loaded (meaning that the socket workers are largely dedicated to queued data i/o work).

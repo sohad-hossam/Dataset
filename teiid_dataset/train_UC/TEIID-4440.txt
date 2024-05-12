@@ -1,0 +1,2 @@
+Add an option to materialize common tables
+In addition to the no_inline hint, there should be a materialize hint to force a common table to be evaluated as a table, rather than eligible for partial pushdown.

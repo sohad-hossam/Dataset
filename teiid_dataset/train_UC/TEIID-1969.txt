@@ -1,0 +1,10 @@
+Missing message for key JDBCQueryExecution.Error_executing_query__1
+Ran into the following missing message when testing Teiid 8.0 Beta1
+
+Code:1146 Message:TEIID11008:<Missing message for key "JDBCQueryExecution.Error_executing_query__1" in: org.teiid.translator.jdbc.i18n>
+1 [MySQLSyntaxErrorException]Table 'test12Mar.ACCOUNT' doesn't exist
+	at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:90)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:235)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:355)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:144)
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:141)

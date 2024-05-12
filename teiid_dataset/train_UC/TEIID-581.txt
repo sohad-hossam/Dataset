@@ -1,0 +1,4 @@
+Embedded is creating a uber jar of the classes in the Engine side, this is no longer necessary
+Currently embedded kit builds the uber jar of all the query side modules. This is originally designed to keep all the classes under one jar, so that it is easier to deploy in the "classpath" profile. However, this not provided any benefits and obscured the fact that what modules were actually part of Embedded and their versions. Also, this required two separate sets of kitting sub-modules, one to pull the project jars together and another to pull their dependencies together. These should be one. 
+
+The only side effect of this is, Embedded will now have more jar files in "lib" directory.  If tooling is accessing this file directory directly it should be replaced with all "teiid-xxx.jar" files in the "lib" directory.  "lib" is considered internal, so no tooling or deployment should be explicitly copying or having class path entries into this at all.

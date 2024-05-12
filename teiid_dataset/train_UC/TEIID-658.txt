@@ -1,0 +1,2 @@
+Use client java logging instead of DriverManager.println
+See also TEIID-385

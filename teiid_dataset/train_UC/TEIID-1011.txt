@@ -1,0 +1,2 @@
+Add support for connecting to Mondrian
+We should add support for connecting to Mondrian (and multidimensional datasources in general) through http://www.jdbc4olap.org/. 

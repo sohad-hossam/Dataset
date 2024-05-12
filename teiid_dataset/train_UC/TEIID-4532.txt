@@ -1,0 +1,30 @@
+Provide one-way or cryptographic hash functions
+Provide one-way or [cryptographic hash functions|https://en.wikipedia.org/wiki/SHA-3#Comparison_of_SHA_functions], such as any of the MD5, SHA-1, SHA-2, or SHA-3 functions, so that views can define columns that are hashes of other columns.
+
+The goal is to allow views to hide some columns (e.g., personally identifying information), but to expose a new "primary key" that is a hash of other existing columns. So, given this source table:
+
+{code:sql}
+CREATE TABLE person (
+  id INT PRIMARY KEY,
+  name VARCHAR(256) NOT NULL,
+  age INT,
+  height INT,
+  weight DOUBLE
+);
+{code}
+
+a view could be created to hide the personally identifying information:
+
+{code:sql}
+CREATE VIEW anonymousPerson ()
+  id VARCHAR(64) PRIMARY KEY,
+  age INT,
+  height INT,
+  weight DOUBLE
+) AS
+   SELECT sha256(p.id, p.name) AS id, 
+          p.age AS age, 
+          p.height AS height, 
+          p.weight AS weight 
+          FROM person AS p;
+{code}

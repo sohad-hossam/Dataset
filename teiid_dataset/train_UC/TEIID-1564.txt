@@ -1,0 +1,27 @@
+Clustered Caching Not Working
+I have configured two Teiid servers in a cluster and renamed the teiid-cache-manager-jboss-beans-rename-me.xml file to enable clustered caching. I submit a query to one node and see in the log that the internal materialized view is being cached on that node. When I submit the same query to the second node, i see the following error:
+
+12:17:12,040 INFO [MATVIEWS] Loading materialized view table #MAT_CACHED.TEIID.EDS_TAB1_MV
+12:17:12,041 WARN [PROCESSOR] Processing exception 'Temporary table "#MAT_CACHED.TEIID.EDS_TAB1_MV" does not exist.' for request BBcYbxuqEAHL.5. Exception type org.teiid.api.exception.query.QueryProcessingException thrown from org.teiid.query.tempdata.TempTableStore.getOrCreateTempTable(TempTableStore.java:220). Enable more detailed logging to see the entire stacktrace.
+12:17:12,165 ERROR [MATVIEWS] Failed to load materialized view table #MAT_CACHED.TEIID.EDS_TAB1_MV.
+[BlockedException]
+at org.teiid.common.buffer.BlockedException.<clinit>(BlockedException.java:34)
+at org.teiid.common.buffer.TupleBuffer$1.finalRow(TupleBuffer.java:290)
+at org.teiid.common.buffer.AbstractTupleSource.getCurrentTuple(AbstractTupleSource.java:69)
+at org.teiid.common.buffer.AbstractTupleSource.nextTuple(AbstractTupleSource.java:48)
+at org.teiid.query.tempdata.TempTable$UpdateProcessor.process(TempTable.java:205)
+at org.teiid.query.tempdata.TempTable.insert(TempTable.java:446)
+at org.teiid.query.tempdata.TempTableDataManager.loadGlobalTable(TempTableDataManager.java:516)
+at org.teiid.query.tempdata.TempTableDataManager.access$100(TempTableDataManager.java:105)
+at org.teiid.query.tempdata.TempTableDataManager$2.call(TempTableDataManager.java:443)
+at org.teiid.query.tempdata.TempTableDataManager$2.call(TempTableDataManager.java:440)
+at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:188)
+at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:116)
+at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:290)
+at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+at java.lang.Thread.run(Thread.java:619)
+
+Case:00451425

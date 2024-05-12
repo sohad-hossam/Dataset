@@ -1,0 +1,2 @@
+Add unique id as a configuration property in the Google Resource adapter
+Currently,   only the google spreadsheet name can be used in the Google Resource adapter instead of the unique id of the document.   If there is more than one document with same name in multiple folders the wrong file may be picked up by the resource adapter.  Is it possible to use unique document ID instead of spreadsheet name for google data source 

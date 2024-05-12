@@ -1,0 +1,17 @@
+Push ORDER/LIMIT for UNION query
+Better support for queries on unions between different sources. ORDER BY is necessary on the inner queries because otherwise the result set will be truncated too early. ORDER BY can be hardcoded on the inner queries but this limits flexibility. Currently in 8.6 if LIMIT is not hardcoded on inner queries, ORDER BY will be stripped from query.
+
+{code:sql}
+create view v_items (...) as
+select * from (
+  (select item_id, created_at, 'Foo' source from foo.items)
+   union all
+  (select item_id, created_at, 'Bar' source from bar.items)
+) x;
+
+-- Page 1.
+select * from v_items order by created_at desc limit 0, 500;
+-- Page 2.
+select * from v_items order by created_at desc limit 500, 500;
+{code}
+

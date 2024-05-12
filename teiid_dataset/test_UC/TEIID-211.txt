@@ -1,0 +1,2 @@
+subquery optimization
+Implement rewriter (and planner) optimizations for subqueries based upon semi and anti semi join capabilities.

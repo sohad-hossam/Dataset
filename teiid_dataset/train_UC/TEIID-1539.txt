@@ -1,0 +1,6 @@
+Improve warning message when maximum thread count is encountered
+Getting the following warning message because of the RuntimeEngineDeployer.maxThread setting in the config file:
+
+2011-03-31 10:40:44,180 WARN  [org.teiid.RUNTIME] (Worker3_QueryProcessorQueue47) Reached maximum thread count "8" for worker pool "QueryProcessorQueue" with a queue size of "1".
+
+For usability, could the  message refer to the property setting as defined in the documentation.

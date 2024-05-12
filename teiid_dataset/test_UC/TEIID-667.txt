@@ -1,0 +1,2 @@
+Simplify "Command Logging"
+Currently the command logging is defined by Tracking Service and it can be extended by the user through "CommandLoggerSPI". This is verbose, Command Logger should be no different than any other logging, only that the messages are sent to a specific context.  User should have ability to stream to Teiid log file, or can add appender to separate them from main log file. File based appender should be supported.

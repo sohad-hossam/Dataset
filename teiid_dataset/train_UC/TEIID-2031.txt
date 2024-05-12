@@ -1,0 +1,2 @@
+Overloaded functions are not supported via ddl / Schema object
+The Schema object expects unique function names, but we need to allow multiple functions with the same name to support overloading.

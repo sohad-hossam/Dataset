@@ -1,0 +1,4 @@
+Metadata load failure between retries of multi-source models
+The code will attempt to load from each source until one is successful.  There is an issue however that the metadatafactory is not being reset, so the next load attempt will be against existing metadata.  At the debug level this will be seen as "Failed to get metadata, trying next source." 
+
+From the forum post - If the metadata factories are chained like "NATIVE, DDL", with invalid DDL, a duplicate table issue is seen instead.

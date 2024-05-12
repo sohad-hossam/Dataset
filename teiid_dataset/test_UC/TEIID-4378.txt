@@ -1,0 +1,2 @@
+Support clob concat
+Clob concat is the most important of the clob operations to support.

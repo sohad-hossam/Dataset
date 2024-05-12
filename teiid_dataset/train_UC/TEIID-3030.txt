@@ -1,0 +1,7 @@
+Update Saxon to current release (9.5.x)
+Our product embeds a Teiid server and provides its own set of 3rd party jar files, one of which clashes with Teiid: we provide Saxon-HE 9.4.0.6 and Teiid provides 9.2.1.5. These two versions are NOT binary compatible. 
+
+This shows up using the web services connector as a class not found error because some classes have been repackaged between Saxon 9.2.x and 9.4.x.
+
+If Teiid updates to the latest version (9.5), so can we, and avoid backporting our Saxon dependencies.
+

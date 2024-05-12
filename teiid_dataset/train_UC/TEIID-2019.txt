@@ -1,0 +1,2 @@
+Remove all references to "javax.xml.bind" classes in the Teiid and support stream based xml
+None

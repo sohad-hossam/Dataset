@@ -1,0 +1,2 @@
+Oracle driver throws ArrayIndexOutOfBounds on bulk insert
+The ojdbc6_g.jar driver cannot have the return generated keys flag set for a bulk insert.

@@ -1,0 +1,18 @@
+Order by is omitted when projection is raised above ordering with grouping
+I have a SQL which contain constants in the Select clause and also it contains Group By, Order By and Limit clauses in the SQL.
+When I execute the SQL, the Order By clause is not being pushed to the underlying translator. My translator doesn't support "SelectExpressions" i.e. supportsSelectExpression() returns false.
+When I remove the constant from the Select clause then the Order By is pushed to the translator.
+ 
+Is this a bug in Teiid's query Optimizer?
+ 
+The following are the sample queries and attached are the Query Plans for both the SQL's.
+ 
+Query1: This SQL doesn't push the Order By clause to the translator.
+ 
+SELECT B.RESCLASS, COUNT(*) AS GROUPING_COUNT, 'SECURITY.BASERULE' AS "__objecttype__" FROM
+SECURITY.BASERULE AS B GROUP BY B.RESCLASS ORDER BY B.RESCLASS DESC LIMIT 22
+ 
+Query2: This SQL pushes the Order By to the translator.
+ 
+SELECT B.RESCLASS, COUNT(*) AS GROUPING_COUNT FROM
+SECURITY.BASERULE AS B GROUP BY B.RESCLASS ORDER BY B.RESCLASS DESC LIMIT 22

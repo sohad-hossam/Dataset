@@ -1,0 +1,2 @@
+Cancelation of atomic requests should be based upon atomic requestid
+Atomic requests are currently canceled by node id, which is not unique. 

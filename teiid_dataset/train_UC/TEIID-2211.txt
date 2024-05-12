@@ -1,0 +1,2 @@
+Create object-translator to support Infinispan
+Create the object-translator and it will support Infinispan initially.

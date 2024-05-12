@@ -1,0 +1,2 @@
+Imported vdb external mat views fail subsequent validation
+The metadatavalidator is setting the materialization table to a resolved form, which removes the schema from the table name and thus fails to validate a second time.

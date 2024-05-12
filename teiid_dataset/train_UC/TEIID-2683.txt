@@ -1,0 +1,2 @@
+Proactive eviction of new batches reduces forward-only performance
+With TEIID-2429 to improve performance under heavy buffer load the cleaner was made more proactive in evicting new batches.  In streaming scenarios this results in a lot of unnecessary buffering as the batches are likely to be held only for a short time.

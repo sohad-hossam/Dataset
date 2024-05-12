@@ -1,0 +1,2 @@
+Replace client logging with java logging
+The client code is unnecessarily concerned with logging and log configuration with the socketlogger and the drivermanagerlogger.  These calls should be replaced with standard java logging.

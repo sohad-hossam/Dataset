@@ -1,0 +1,7 @@
+Google translator throws SpreadsheetOperationException for query DELETE FROM table
+Query "DELETE FROM smalla" where smalla is table throws exception:
+
+07:06:52,219 ERROR [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue20) Connector worker process failed for atomic-request=IlMZP21M8Gwr.8.0.2: org.teiid.resource.adapter.google.common.SpreadsheetOperationException: Error getting spreadsheet feed. Possibly bad authentication or connection problems. com.google.gdata.util.InvalidEntryException: Bad Request                                                                                                                                                                         
+Invalid query parameter value for sq.
+
+Please see server.log, standalone.xml and vdb for other information.

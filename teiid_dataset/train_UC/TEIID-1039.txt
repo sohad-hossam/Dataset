@@ -1,0 +1,6 @@
+Provide a solution to  'merge' two VDBs
+Based on the conversation on this thread
+
+http://lists.jboss.org/pipermail/teiid-designer-dev/2010-March/000212.html
+
+Teiid and Designer needs a mechanism, where child VDB can be merged into parent VDB. Designer can use this mechanism to  provide the preview functionality.

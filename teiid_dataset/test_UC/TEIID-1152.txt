@@ -1,0 +1,2 @@
+Jopr Plugin Needs to Handle Secure ProfileService Connection
+The Teiid Jopr plugin needs to create a secure connection to the Profile Service. Currently, authentication is not considered since since JBossAS has authentication disabled by default for the Profile Service. However, EAP/SOA-P will require a secure connection by default.

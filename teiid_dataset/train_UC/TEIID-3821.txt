@@ -1,0 +1,4 @@
+Expand xml output types
+XMLELEMENT/XMLFOREST, etc. should support outputting binary/blob as base64 binary.  Also array values could be output as a sequence - although support seems to be inconsistent there with other vendors.  
+
+Ideally XMLTABLE should support base64 binary in addition to hex binary as well.

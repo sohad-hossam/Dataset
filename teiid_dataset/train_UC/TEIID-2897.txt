@@ -1,0 +1,2 @@
+texttable performance enhancements
+texttable processing should be enhanced to be multi-threaded and should be able to determine if a limit is in effect.

@@ -1,0 +1,3 @@
+changes in requiresLeftLinearJoin and useParensForJoins needed for Hive
+4 table join in Hive requires settings:
+requiresLeftLinearJoin true, useParensForJoins false

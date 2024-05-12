@@ -1,0 +1,2 @@
+Add a full snapshot refresh strategy based upon table modifications
+using the existing full materialization refresh logic we can trigger a refresh based upon a notion of how dirty a table is based upon a proportion of rows updated to the rows in the table. This would also require some change to the status table to capture the number of transitive row updates.  This could then be hooked up to debezium as the event source.

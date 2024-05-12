@@ -1,0 +1,2 @@
+Update logging contexts
+We should consolidate logging contexts to make documenting their use easier.

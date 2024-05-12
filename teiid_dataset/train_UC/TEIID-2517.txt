@@ -1,0 +1,2 @@
+Incorrect handling of Complex Type in OData Metadata Procedures
+FunctionImports that return ComplexTypes are not being handled correctly. The metadata load fails during the VDB deploy.

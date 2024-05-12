@@ -1,0 +1,2 @@
+check for source not criteria support with negated abstractsetcriteria and isnull
+We currently only check for not support on negated like criteria, this check needs expanded.

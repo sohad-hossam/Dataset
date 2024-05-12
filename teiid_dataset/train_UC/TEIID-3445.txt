@@ -1,0 +1,55 @@
+StackOverflowError on TempTableStore.getTempTable()
+Below is a log snippet (working on getting the full plan) for a StackOverflowError on TempTableStore.getTempTable():
+
+Exception processin contiuous query begin
+insert into #mom_collectors select * from (call mom.connected_collectors()) t;
+insert into #apm_collectors select * from (call apm_server.connected_collectors()) t;
+select 'add', hostname, port, id from #mom_collectors
+where (hostname, port) not in (select (hostname, port) from #apm_collectors)
+union
+select 'delete', hostname, port, id from #apm_collectors
+where (hostname, port) not in (select (hostname, port) from #mom_collectors) with return;
+end
+org.teiid.jdbc.TeiidSQLException: org.teiid.core.TeiidException
+at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+at org.teiid.jdbc.ResultSetImpl.processBatch(ResultSetImpl.java:425)
+at org.teiid.jdbc.ResultSetImpl.access$000(ResultSetImpl.java:64)
+at org.teiid.jdbc.ResultSetImpl$1.onCompletion(ResultSetImpl.java:242)
+at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135)
+at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40)
+at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79)
+at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:1056)
+at org.teiid.dqp.internal.process.RequestWorkItem.close(RequestWorkItem.java:563)
+at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:363)
+at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:265)
+at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.j
+ava:119)
+at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+at java.lang.Thread.run(Thread.java:745)
+Caused by: org.teiid.core.TeiidException
+at org.teiid.client.ResultsMessage.setException(ResultsMessage.java:196)
+at org.teiid.dqp.internal.process.RequestWorkItem.sendError(RequestWorkItem.java:1054)
+... 10 more
+Caused by: java.lang.StackOverflowError
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)
+at org.teiid.query.tempdata.TempTableStore.getTempTable(TempTableStore.java:614)

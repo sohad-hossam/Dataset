@@ -1,0 +1,4 @@
+Missing message for key "gss_auth_failed"
+When trying to connect to the Teiid secured with kerberos without valid credentials in the URL (*), connection fails and one exception in the stacktrace has message: <Missing message for key "gss_auth_failed" in: org.teiid.jdbc.i18n>
+
+(*) e.g.: jdbc:teiid:test_vdb@mm://localhost:31000jaasName=TestClient;kerberosServicePrincipleName=service/this.service.does.not.exist@THIS.REALM.DOES.NOT.EXIST.COM

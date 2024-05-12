@@ -1,0 +1,2 @@
+PropertiesUtils should be tolerant of trailing spaces on all numeric conversions
+PropertiesUtils should be tolerant of trailing spaces and treat empty string as null on all numeric conversions

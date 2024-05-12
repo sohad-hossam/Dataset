@@ -1,0 +1,3 @@
+More optimistic dependent join planning should be implemented when TEMP tables are used for data inputs in WHERE IN clause
+Please follow:
+https://community.jboss.org/thread/217306 

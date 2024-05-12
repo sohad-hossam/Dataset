@@ -1,0 +1,2 @@
+Product Name not Set for Server (Integration Server)
+The "Product Name" is not being set when a client connects to the server (It is being set for AdminAPI). The value that is expected is "Integration Server", but it is currently "null".

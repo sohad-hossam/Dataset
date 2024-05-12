@@ -1,0 +1,6 @@
+filter on child table not working
+ 
+Please find the screenshot attached which has id as a foreign key. when i give the url - //localhost:8080/odata/testVDB/sales('13')/sales_uk?$format=json,  i get the results from sales_uk table which are having id=13.
+ 
+Now i am trying to apply a filter on this url, i am supposed to get results which are having id=13 and satisfy the filter condition, but this url blindly returns me data from sales_uk table which satisfy the filter condition. URL- //localhost:8080/odata/testVDB/sales('13')/sales_uk?$format=json&$filter=DISCOUNT eq '22'
+ 

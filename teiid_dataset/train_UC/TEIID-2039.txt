@@ -1,0 +1,2 @@
+Virtual table mapping with large number of UNIONs is resulting in excessively long source query
+Queries against a virtual table built upon several layers of UNION transformations is resulting in what appears to be a badly formed, excessively long source query (for example, a SQL string over 1 million characters) that results in slow query execution.

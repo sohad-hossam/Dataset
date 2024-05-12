@@ -1,0 +1,23 @@
+Support for SetQueryLimit
+OpenEdge RDBMS not support fetch/offset in a set query. For example, the generated SQL:
+SELECT 
+g_1.ejer AS c_0
+FROM PUB.modpre AS g_1 
+UNION ALL 
+SELECT 
+g_0.ejer AS c_0 
+FROM PUB.modesp AS g_0 
+FETCH NEXT 100 ROWS ONLY
+
+For the view:
+CREATE VIEW Modificaciones(
+    ejercicio     INTEGER
+)AS SELECT T.ejercicio
+FROM(
+    SELECT M.ejercicio,
+FROM sipbas.modesp AS M
+UNION ALL
+    SELECT M.ejercicio
+FROM sipbas.modpre AS M) AS T;
+
+It is necessary to be able to indicate SetQueryLimit in the same way as with SetQueryOrderBy.

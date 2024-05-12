@@ -1,0 +1,6 @@
+Quick Start Guide / Examples needs to add derbyclient.jar to UDFs for previewing
+I ran into this while assisting user Bribek.
+
+When the Derby source is created and imported, a connector binding is built in the Designer. The one thing Designer does not do is place the jar file where it needs to be for previewing. The Quick Start Example needs to add the step of adding the derbyclient.jar file using the UDFs view and "Import UDF Extension Jar Files" action. 
+
+IMHO, the Quick Start needs to be revisited to determine exactly what the required minimum effort is for a user to get through this. Perhaps on the Teiid side avoid all modeling and add a Quick Start on the Designer side that builds the VDB. If Teiid can do the Quick Start with just a VDB, that might be preferable.

@@ -1,0 +1,2 @@
+XMLFOREST returns source rather than view column names
+When querying a REST procedure built off of a virtual table, it returns the physical source column name instead of the virtual table column name.

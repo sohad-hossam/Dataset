@@ -1,0 +1,10 @@
+MSSQL JDBC driver invalidates kerberos ticket on Connection.close()
+MSSQL JDBC driver invalidate kerberos ticket on Connection.close() (related bugzilla \[1\]).
+If user creates kerberos connection, driver invalidates ticket on closing connection (Connection.close()). Therefore ticket cannot be re-used. EAP team creates a workaround for this by adding module option *wrapGSSCredential=true* with additional setting *credentialLifetime=-1* \[2, 3, 4, 5\]. This works for static kerberos authentication.
+However, passthrough authentication (org.teiid.jboss.PassthroughIdentityLoginModule) does not work, because passed ticket is not managed by EAP but by client.
+
+\[1\] https://bugzilla.redhat.com/show_bug.cgi?id=1097276
+\[2\] https://bugzilla.redhat.com/show_bug.cgi?id=1097276#c58
+\[3\] https://issues.jboss.org/browse/SECURITY-905
+\[4\] https://issues.jboss.org/browse/JBEAP-843
+\[5\] https://github.com/wildfly-security/jboss-negotiation/commit/0c7e06f58a79855d5ae2fbe6cb662e90baf7a5d4

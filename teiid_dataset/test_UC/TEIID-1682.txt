@@ -1,0 +1,2 @@
+Sort optimization with grouping does not preserve descending/null ordering
+If a sort operation is combined with grouping then any use of descending sort or a specific null ordering will be ignored.

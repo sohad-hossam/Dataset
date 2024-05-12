@@ -1,0 +1,115 @@
+CTEs combined with constant values yield an error message
+When a statement contains a WITH clause and then uses the defined table expression in combination with a constant expression for a column in the SELECT clause, different exceptions are thrown, depending on the datatype in the CTE.
+
+For example, running the following query:
+{code:sql}
+WITH tmp as
+(SELECT * FROM pg.test1 )
+SELECT 123 as col2, tmp.* FROM tmp
+{code}
+
+where pg.test1 has only one column of "string" datatype, this exception is thrown:
+{code:sql}
+11:38:48,960 ERROR [org.teiid.TRANSPORT] (New I/O worker #1)  TEIID40113 Unhandled exception, aborting operation: org.teiid.transport.ObjectEncoder$FailedWriteException: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 0 doesn't match the runtime type "java.lang.String". Please ensure that the column's modeled datatype matches the expected data.
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:136) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.jboss.netty.channel.Channels.write(Channels.java:704) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.jboss.netty.channel.Channels.write(Channels.java:671) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.jboss.netty.channel.AbstractChannel.write(AbstractChannel.java:248) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.teiid.transport.SSLAwareChannelHandler$ObjectChannelImpl.write(SSLAwareChannelHandler.java:93) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.SocketClientInstance.send(SocketClientInstance.java:88) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.ServerWorkItem.sendResult(ServerWorkItem.java:135) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.ServerWorkItem$1.onCompletion(ServerWorkItem.java:105) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:984) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:666) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.flushBatch(BatchCollector.java:223) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:194) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:344) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+Caused by: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 0 doesn't match the runtime type "java.lang.String". Please ensure that the column's modeled datatype matches the expected data.
+        at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:878) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:319) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_67]
+        at org.teiid.net.socket.Message.writeExternal(Message.java:61) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_67]
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:131) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        ... 25 more
+Caused by: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer
+        at org.teiid.client.BatchSerializer$IntColumnSerializer.writeObject(BatchSerializer.java:563) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.BatchSerializer$ColumnSerializer.writeColumn(BatchSerializer.java:534) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:867) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        ... 36 more
+{code}
+
+If datatypes match, like in this query:
+{code:sql}
+WITH tmp as
+(SELECT * FROM pg.test1 )
+SELECT '123' as col2, tmp.* FROM tmp
+{code}
+
+a different exception is thrown:
+{code:sql}
+11:41:22,456 ERROR [org.teiid.TRANSPORT] (New I/O worker #1)  TEIID40113 Unhandled exception, aborting operation: org.teiid.transport.ObjectEncoder$FailedWriteException: java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:136) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.jboss.netty.channel.Channels.write(Channels.java:704) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.jboss.netty.channel.Channels.write(Channels.java:671) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.jboss.netty.channel.AbstractChannel.write(AbstractChannel.java:248) [netty-3.6.9.Final-redhat-1.jar:3.6.9.Final-redhat-1]
+        at org.teiid.transport.SSLAwareChannelHandler$ObjectChannelImpl.write(SSLAwareChannelHandler.java:93) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.SocketClientInstance.send(SocketClientInstance.java:88) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.ServerWorkItem.sendResult(ServerWorkItem.java:135) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.transport.ServerWorkItem$1.onCompletion(ServerWorkItem.java:105) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:984) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:666) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.flushBatch(BatchCollector.java:223) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:194) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:462) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:344) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:271) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_67]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_67]
+        at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_67]
+Caused by: java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+        at java.util.ArrayList.rangeCheck(ArrayList.java:635) [rt.jar:1.7.0_67]
+        at java.util.ArrayList.get(ArrayList.java:411) [rt.jar:1.7.0_67]
+        at org.teiid.client.BatchSerializer.writeIsNullData(BatchSerializer.java:476) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.BatchSerializer$ColumnSerializer.writeColumn(BatchSerializer.java:529) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:867) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:319) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_67]
+        at org.teiid.net.socket.Message.writeExternal(Message.java:61) [teiid-client-8.12.0.Beta3.jar:8.12.0.Beta3]
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_67]
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_67]
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:131) [teiid-runtime-8.12.0.Beta3.jar:8.12.0.Beta3]
+        ... 25 more
+{code}

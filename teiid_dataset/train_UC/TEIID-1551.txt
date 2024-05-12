@@ -1,0 +1,2 @@
+ODBC logging context is not documented
+The org.teiid.ODBC context is not documented in the Admin Guide as well as in the teiid-log4j.xml file

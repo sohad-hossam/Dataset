@@ -1,0 +1,20 @@
+Hibernate Month Date Extraction
+When using teiid-hibernate-dialect-7.1.1.GA, the TeiidDialect does not include a function to get the month value of a date object. It includes functions to get other date attributes (year, dayofmonth etc). Without a defined function, attempting to get a month value falls back on the hibernate-core function which attempts to utilize an extract method which is not supported in 7.1.1. 
+
+Example Query: select d from Data d where month(d.date)='09'
+
+HQL Generated: 
+
+select
+        data0_.Id as Id25_,
+        data0_.DataAmt as DataAmt25_,
+        data0_.Data as Data25_,
+    from
+        Data data0_ 
+    where
+        extract(month 
+    from
+        data0_.date)='09'
+
+
+Being able to obtain a month value from a date is a critical requirement.

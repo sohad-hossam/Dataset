@@ -1,0 +1,2 @@
+Add information about the amount of data (in bytes) returned by each query
+It would be nice if we had the information about the amount of data (in bytes) returned by each query.

@@ -1,0 +1,2 @@
+expose bufferserviceimpl for configuration of buffermanager in embedded
+We have a few configuration options exposed on the embeddedconfiguration related to the buffer manager, but should also look at exposing more.

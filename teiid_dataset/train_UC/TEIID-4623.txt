@@ -1,0 +1,2 @@
+Add support for analytic  function "Lead" and "Lag" with GreenPlum Translator
+Request for adding support for analytical  functions  Lead and Lag to  GreenPlum translator out of box

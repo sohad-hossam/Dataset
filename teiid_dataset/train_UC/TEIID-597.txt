@@ -1,0 +1,2 @@
+AdminAPI method:  UpdateProperties() needs to support updating the Service properties
+The adminapi updateProperties(String identifier, String classname, Properties props) needs to support updating the Service properties.

@@ -1,0 +1,2 @@
+Update Object-Translator to add support for JPA/Hibernate search annotations in the metadata processor
+Update Object-Translator to add support for JPA/Hibernate search annotations in the metadata processor.   Coordinate with the JPA/OGM work that is being done.

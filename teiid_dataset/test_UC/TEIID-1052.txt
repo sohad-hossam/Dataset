@@ -1,0 +1,4 @@
+Replace beanshell based adminshell with Groovy
+After discussions on the mailing lists, it was determined that the contextual sql execution logic of the adminshell could be separated out, which paves the way for a simplified reimplementation of adminshell using Groovy.
+
+We will still need to determine what command line sql tool promote.

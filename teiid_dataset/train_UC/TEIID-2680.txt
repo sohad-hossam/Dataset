@@ -1,0 +1,2 @@
+VDBService not properly detecting missing delegate
+This is a regression introduced by TEIID-2629.  The getExecutionFactory check for setting the delegate is incorrect.

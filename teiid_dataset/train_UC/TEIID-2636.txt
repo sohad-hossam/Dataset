@@ -1,0 +1,52 @@
+Stream corruption errors when doing big query
+Hi,
+
+When performing the following big query against a virtual db we have setup in this environment, we get an error
+
+The query is
+
+{noformat}
+SELECT
+ bugs.bug_id, classification.name, bugs.cf_internal_whiteboard,
+ dev_cond_nak_grouped."value", partner_grouped."value",
+ bugs.cf_last_closed, bugs.bug_severity, bugs.cf_qa_whiteboard,
+ bugs.short_desc, qe_cond_nak_grouped."value", bugs.priority,
+ bugs.version, bugs.cf_pm_score, bugs.bug_status, product.name,
+ blocks_grouped.blocked, qa_contact.login_name, reporter.login_name,
+ component.name, flag_grouped.flag_full, bugs.delta_ts,
+ dependson_grouped.dependson, verified_grouped."value",
+ bugs.creation_ts, bugs.cf_devel_whiteboard, keyword_grouped.name,
+ target_release_grouped."value", bugs.target_milestone, assigned_to.login_name,
+ bugs.resolution
+FROM Bugzilla_raw.bugs
+
+LEFT JOIN Bugzilla_raw.products ON products.id = bugs.product_id
+LEFT JOIN Bugzilla_raw.classifications classification ON classification.id = products.classification_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(dev_cond_nak."value")) AS "value" FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.bug_cf_conditional_nak dev_cond_nak ON dev_cond_nak.bug_id = bugs.bug_id GROUP BY bugs.bug_id) dev_cond_nak_grouped ON bugs.bug_id = dev_cond_nak_grouped.bug_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(partner."value")) AS "value" FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.bug_cf_partner partner ON partner.bug_id = bugs.bug_id GROUP BY bugs.bug_id) partner_grouped ON bugs.bug_id = partner_grouped.bug_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(qe_cond_nak."value")) AS "value" FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.bug_cf_qe_conditional_nak qe_cond_nak ON qe_cond_nak.bug_id = bugs.bug_id GROUP BY bugs.bug_id) qe_cond_nak_grouped ON bugs.bug_id = qe_cond_nak_grouped.bug_id
+LEFT JOIN Bugzilla_raw.products product ON product.id = bugs.product_id LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(blocks.blocked)) AS blocked FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.dependencies blocks ON blocks.dependson = bugs.bug_id GROUP BY bugs.bug_id) blocks_grouped ON bugs.bug_id = blocks_grouped.bug_id
+LEFT JOIN Bugzilla_raw.profiles qa_contact ON qa_contact.userid = bugs.qa_contact LEFT JOIN Bugzilla_raw.profiles reporter ON reporter.userid = bugs.reporter LEFT JOIN Bugzilla_raw.components component ON component.id = bugs.component_id LEFT JOIN ( SELECT flags.bug_id, TEXTAGG(FOR(concat(ft.name, flags.status))) AS flag_full FROM Bugzilla_raw.flags
+LEFT JOIN Bugzilla_raw.flagtypes ft ON ft.id = flags.type_id GROUP BY flags.bug_id) flag_grouped ON bugs.bug_id = flag_grouped.bug_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(dependson.dependson)) AS dependson FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.dependencies dependson ON dependson.blocked = bugs.bug_id GROUP BY bugs.bug_id) dependson_grouped ON bugs.bug_id = dependson_grouped.bug_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(verified."value")) AS "value" FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.bug_cf_verified verified ON verified.bug_id = bugs.bug_id GROUP BY bugs.bug_id) verified_grouped ON bugs.bug_id = verified_grouped.bug_id
+LEFT JOIN ( SELECT keywords.bug_id, TEXTAGG(FOR(kw.name)) AS name FROM Bugzilla_raw.keywords LEFT JOIN Bugzilla_raw.keyworddefs kw ON kw.id = keywords.keywordid GROUP BY keywords.bug_id) keyword_grouped ON bugs.bug_id = keyword_grouped.bug_id
+LEFT JOIN (SELECT bugs.bug_id, TEXTAGG(FOR(target_release."value")) AS "value" FROM Bugzilla_raw.bugs JOIN Bugzilla_raw.bugs_release target_release ON target_release.bug_id = bugs.bug_id GROUP BY bugs.bug_id) target_release_grouped ON bugs.bug_id = target_release_grouped.bug_id
+LEFT JOIN Bugzilla_raw.profiles assigned_to ON assigned_to.userid = bugs.assigned_to
+
+WHERE bugs.bug_id > 990410 OR bugs.delta_ts > parseTimestamp('2013-07-31 06:57:31 +0000', 'yyyy-MM-dd HH:mm:ss z')
+LIMIT 0,1000000 
+{noformat}
+
+The error the client sees is
+
+ERROR:  TEIID30048 Error reading 24,668
+DETAIL:  org.teiid.jdbc.TeiidSQLException: TEIID30048 Error reading 24,668
+
+This is using the Postgresql ODBC interface or the JDBC interface
+
+The errors in the log file are quite long so I will attach the whole log file.
+
+Regards,
+
+Graeme

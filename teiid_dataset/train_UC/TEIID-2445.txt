@@ -1,0 +1,10 @@
+vdb.xml usability enhancements
+Couple of usability enhancements need to be done on the -vdb.xml to make the intent clear
+
+UseConnectorMetadata=true/cached
+
+- The true case could be removed entirely.  The notion of metadata caching could be handled by a model property and should probably be more baked into the MetadataRepository facility (such as passing the cached metadata in for update).
+
+supports-multi-source-bindings=true/false
+
+- Since we have mostly removed the binding terminology, it would make more sense to call this just multi-source or multisource (which is consistent with the multisource.columnName and addColumn properties).  We could also automatically infer it to be true when there are multiple sources listed for a single model (which is currently an error case without this property) so that it would only be needed if you wanted a single source to appear as if it were a multisource model.

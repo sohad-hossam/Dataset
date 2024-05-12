@@ -1,0 +1,2 @@
+The Object and Infinispan translators do not support negation (">" or "<") properly
+The Infinispan translators where lucene index querying can be performed (i.e., infinispan-cache and infinispan-cache-dsl) do not support negation (">" or "<") properly.

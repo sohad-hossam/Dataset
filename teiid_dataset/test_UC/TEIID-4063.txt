@@ -1,0 +1,4 @@
+OData - $all returns 500 without message (generic error page of EAP)
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/$all
+*Result:* OData returns status code 500 without message. There is no error in the console log of Teiid server.
+*Expected result:* if $all is not implemented then OData should return 501 otherwise correct result should be returned.

@@ -1,0 +1,2 @@
+Greedy join planning above exhaustive threshold issues
+For large join regions (above 6 tables), the greedy choice of the next table to add is not correct.  It is not initially removing the already chosen order, and it is not appropriately costing when a start index is passed to the scoring function.

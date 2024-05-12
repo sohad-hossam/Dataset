@@ -1,0 +1,4 @@
+support for pg regproc cast
+Attempting to use the PG 8.3 JDBC driver against an 8.6/master instance, a query against pg_proc (select * from pg_proc) failed due to how the older driver was looking up additional metadata with our enhanced support for array types - this does not occur in a 7.7 Teiid.
+
+The offending query will complete as expected with support for the ::regproc cast.

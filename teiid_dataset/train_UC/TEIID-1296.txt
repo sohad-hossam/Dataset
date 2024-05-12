@@ -1,0 +1,2 @@
+Multi-Source may not be wrapping the transactional scope correctly
+The distributed transaction is required when multiple sources are involved. Teiid determines this by counting the number of access nodes that represent sources. In the multi-source it counts as one, even in the cases it involves multiple sources underneath.

@@ -1,0 +1,4 @@
+Improve socket results processing
+To increase large result transfer performance we can:
+1. use a prefetch (which ideally will be performed before full deserialization)
+2. allow for the client to fetch multiple server batches (although this has quite a few implementation considerations

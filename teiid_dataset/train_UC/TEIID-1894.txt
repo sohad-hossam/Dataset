@@ -1,0 +1,2 @@
+Consolidate bulk/iterator based inserts
+There is redundancy and inconsistency in the translator api around performing bulk/iterator based updates.  These should be consolidated to a single execution model.

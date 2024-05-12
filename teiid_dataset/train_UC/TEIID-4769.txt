@@ -1,0 +1,6 @@
+Queries fail against SYS.Datatypes with predicates on columns other than name
+The datatiermanager logic is incorrect for datatypes.  Any sargable predicate on a column other than the pk name, for exampl:
+
+select * from SYS.DataTypes where isStandard = true
+
+will fail with an index out of bounds exception as we're allowing the predicate to be used effectively against the name index.

@@ -1,0 +1,2 @@
+Pushing blank-padded literals to source may fail to return correct results
+While reviewing possible CTC errors, it was noticed that SPACE(n) was not returning the number of spaces specified. We did see that going directly to Oracle worked correctly. Steve H. believes Oracle is returning a CHAR type and Teiid is trimming the values as a result. (It would not have if the return type was VARCHAR, like SQL Server returns.)

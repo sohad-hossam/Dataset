@@ -1,0 +1,10 @@
+Add "allow-join" metadata based join processing on Foreign keys
+MongoDB source generally does not support any joins between it collection of documents. However, one document can be embedded in other parent document, then those documents can be viewed as JOIN based documents.
+
+Teiid's MongoDB translator takes the above as an approach to define each collection as a table, and provides ways to embed related tables into parent document for supporting the JOIN in SQL.
+
+However, there may be situations, there is PK-FK relation between two tables, but they are not embeded, in those situations based on the capabilities of translator the query engine still pushes the join into translator for processing, but translator can not handle the join. In these situations, where the collections are not embedded the query engine need to behave as if translator does not support JOIN.
+
+The proposal here is to add a extension metadata on FOREIGN KEY called "allow-joins=false", which query engine will consult along with the capabilities of the translator before it pushes the JOIN to the source translator.
+
+This would be useful in non-relational translators to selectively support JOINS where possible.

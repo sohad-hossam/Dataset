@@ -1,0 +1,2 @@
+local connection doc provides an invalid example
+The local connection documentation shows a datasource with a min size of 5.  If you configure a local connection in this way, then pool startup can error since datasources are deployed before vdbs.

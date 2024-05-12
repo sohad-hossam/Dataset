@@ -1,0 +1,2 @@
+Missing parameter in validation of non-comparable type
+The validationvisitor checks for non-comparable types should have a parameter to the i18n message.

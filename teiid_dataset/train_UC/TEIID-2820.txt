@@ -1,0 +1,2 @@
+Support Couchbase as a resource
+Support Couchbase as a data source in Teiid.  This requires resource adapter and translater development

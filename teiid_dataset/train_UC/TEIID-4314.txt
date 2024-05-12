@@ -1,0 +1,5 @@
+Add DeleteFile call to File Translator
+Please add a support to delete a file using the file translator.
+
+I have created a pull request with it on version 8.7, which is the one i'm using: 
+https://github.com/teiid/teiid/pull/747

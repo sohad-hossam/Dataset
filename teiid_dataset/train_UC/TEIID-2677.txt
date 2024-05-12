@@ -1,0 +1,10 @@
+Makedep keyword hint not displayed correctly
+If an extended makedep keyword hint is used int the from clause:
+
+from x makedep(join) ...
+
+it will be displayed in the comment hint as:
+
+from /+* makedep(join) */ x ...
+
+which is not recognized by the parsing logic.

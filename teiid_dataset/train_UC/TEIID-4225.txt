@@ -1,0 +1,10 @@
+HANA translator : DAYNAME function is not pushed
+Teiid's DAYNAME function is not being pushed to HANA even though it could be as HANA's DAYNAME function. The only difference could be that HANA returns names in capital letters.
+Query:
+{code:sql}
+SELECT DAYNAME(datevalue) FROM bqt1.smalla
+{code}
+Source specific query:
+{code:sql}
+SELECT g_0."DATEVALUE" FROM "BQT1"."SMALLA" AS g_0
+{code}

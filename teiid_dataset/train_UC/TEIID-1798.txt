@@ -1,0 +1,22 @@
+Document to show how the CXF configuration file can be configured for Web-Service source
+Document how to use the CXF configuration file to define the timeout settings and ws-security settings for a web-service. The csf file is like below
+
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xmlns:http-conf="http://cxf.apache.org/transports/http/configuration"
+xsi:schemaLocation="http://cxf.apache.org/transports/http/configuration
+http://cxf.apache.org/schemas/configuration/http-conf.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+<http-conf:conduit name="{http://teiid.org}teiid.http-conduit">
+<http-conf:client ConnectionTimeout="120000" ReceiveTimeout="240000"/>
+</http-conf:conduit>
+</beans>
+
+Note the conduit name {http://teiid.org}teiid.http-conduit.  For WS adapters we currently hardcode the namespace of http://teiid.org.  But you can set the local name xxx.http-conduit based upon the configName setting.  
+
+Add this example to the admin guide.
+
+http://cxf.apache.org/docs/configuration.html

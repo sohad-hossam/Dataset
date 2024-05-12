@@ -1,0 +1,2 @@
+Primitive byte and char arrays always converted to binary/clob representation
+Teiid automatically converts char[] and byte[] to binary/clob representations as there are many cases where drivers return these values.  That conversion is taking place however without consulting the target type.  It would probably be better to delay this conversion for char[]/byte[] instances until an explicit cast is performed. 

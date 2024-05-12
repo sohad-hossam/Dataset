@@ -1,0 +1,8 @@
+MongoDB:  invalid ip address and port number
+I got invalid IP address/ port number error when I have ":" in IP address.
+
+Caused by: java.lang.NumberFormatException: For input string: "jasper@ds041671.mongolab.com:41671"
+        at java.lang.NumberFormatException.forInputString(NumberFormatException.java:65)
+        at java.lang.Integer.parseInt(Integer.java:492)
+        at java.lang.Integer.valueOf(Integer.java:582)
+        at org.teiid.resource.adapter.mongodb.MongoDBManagedConnectionFactory.getServers(MongoDBManagedConnectionFactory.java:129

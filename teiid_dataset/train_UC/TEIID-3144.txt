@@ -1,0 +1,8 @@
+Unrelated correlated subquery in order by not working
+A query such as the one below will fail with a low level exception:
+
+{code}
+select * from foo order by (select count(*) from x where x.fid = foo.id)
+{code}
+
+We should either validate against or update the logic (probably adding an inline view in the rewriter).

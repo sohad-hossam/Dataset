@@ -1,0 +1,2 @@
+Support larger statistic values
+The table/column stats are currently limited to max int (2^31 -1) values.

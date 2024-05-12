@@ -1,0 +1,2 @@
+The 1-to-1 relationship currently doesn't work and doesn't error either
+The 1-to-1 relationship currently doesn't work or produce an exception.   It appears to not be specifically handled.

@@ -1,0 +1,2 @@
+Log XML Request/Response Doc binding property = TRUE is not causing documents to be logged. 
+XML (relational) SOAP Connector: Setting the "Log XML Request and Response Docs" binding property to true is failing to enable logging of SOAP request and response documents.

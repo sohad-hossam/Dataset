@@ -1,0 +1,2 @@
+In subquery with no values returns wrong result
+If an in subquery is entered such that no rows will be returned and it is not pushed down, then the rewriter will incorrectly convert the in predicate to an is not null check.

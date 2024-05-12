@@ -1,0 +1,2 @@
+Create metadata processor to expose the object metadata for dynamic vdbs
+A metadata processor needs to be created to expose the object metadata based on the class or classes indicated that are accessible by querying the cache.  There will be 2 processors created based on: 1) the getters (when annotations is not being used) and 2) based on annotations.   The result of the metadata will be a view that uses the OBECTABLE.

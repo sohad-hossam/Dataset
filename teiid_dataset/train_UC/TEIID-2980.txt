@@ -1,0 +1,2 @@
+Expose sequences as arrays  in XMLTABLE construct
+we should allow xmltable to select sequences as array values.  The array then could be manipulated in any way needed

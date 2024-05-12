@@ -1,0 +1,13 @@
+Unable to import Teiid VDB metadata in OBIEE admin tool using ODBC connection
+Unable to import Teiid VDB metadata in OBIEE admin tool using ODBC connection
+
+I am working on 32 bit windows, have installed psqldriver, created a new ODBC data source using PostGreSQL Unicode driver.
+
+But now when I try to import metadata in OBIEE admin tools:
+
+1) It connects to Teiid VDB. 
+2) Shows me list of tables and views.
+
+3) But when I try to expand or import table/view its does not show any column.
+
+Even in OBIEE admin tool, if I update rwocount it does successfully but missing columns is an issue.

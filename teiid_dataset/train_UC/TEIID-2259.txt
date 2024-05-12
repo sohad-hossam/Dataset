@@ -1,0 +1,3 @@
+Error executing CASE WHEN THEN ELSE END statement
+Error executing CASE WHEN THEN ELSE END statement with boolean expression in the WHEN clause
+

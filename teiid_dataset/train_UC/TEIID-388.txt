@@ -1,0 +1,6 @@
+When determining kestore algorithm, the logic wasn't considering the setting "ssl.KeyManagerFactory.algorithm" for defining an algorithm to use 
+This is a rolled forward change from 5.5.4.   
+
+The problem was discovered when running on an IBM Z900 machine using the IBM jdk.   It uses the Security property  "ssl.KeyManagerFactory.algorithm" to specify the algorithm to use, and our logic doesn't include an alternative when the metamatrix algorithm property is not defined, it always defaulted to "SunX509".
+
+Therefore, the change is to check the Security property as an override to the default, but the metamatrix property will be the override to all.

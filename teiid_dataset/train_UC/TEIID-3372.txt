@@ -1,0 +1,2 @@
+Support multiple metadata tags
+To allow for a more flexible configuration, we should support multiple metadata tags under a model, rather than relying on comma separated values.

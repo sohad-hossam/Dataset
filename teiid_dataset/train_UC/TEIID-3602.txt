@@ -1,0 +1,2 @@
+NU.XOM dependency not defined for XOM for EAP Kit
+There is regression in defining the NU.XOM dependency on XOM.XOM module. It is been defined in Teiid's module, but not in XOM.XOM

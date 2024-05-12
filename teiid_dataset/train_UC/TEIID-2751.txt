@@ -1,0 +1,2 @@
+Add safer passthrough behavior wrt cancel/close
+In pass through authentication mode if another thread uses the connection another session is created without closing the previous.  This may lead to unexpected behavior if attempting to use another thread to call close and creates an unnecessary session for cancel.

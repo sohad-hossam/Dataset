@@ -1,0 +1,9 @@
+modifiable attributes for .rar TemplatePropertyDefinitions are inverted
+For the admin api call :
+getTemplatePropertyDefinitions()
+
+all *.rar 'templates' have incorrect 'modifiable' attributes - all are inverse of what they should be.
+
+For example for "teiid-connector-ws.rar" template:
+managedconnectionfactory-class - 'modifiable'=true, and
+authUsername - 'modifiable'=false 

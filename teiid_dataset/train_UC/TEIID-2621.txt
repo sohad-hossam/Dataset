@@ -1,0 +1,2 @@
+improve texttable error messages
+Not all exceptions from texttable report the line number.  Additionally we should be consistent about reporting a 1 based line number and a column number would be useful as well. 

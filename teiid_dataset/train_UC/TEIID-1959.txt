@@ -1,0 +1,2 @@
+Add a way to exclude tables/procedures from JDBC import
+The JDBC importer provides a simplistic pass-through for table/procedure inclusion, but that can make it cumbersome to exclude a small subset of tables/procedures.  

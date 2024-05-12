@@ -1,0 +1,2 @@
+Errors with bulk updates
+The bulk update logic is not correct JDBCBaseExecution is calling addBatch too many times, and JDBCUpdateExecution is determining the multivalued row count incorrectly (ClassCastException).

@@ -1,0 +1,2 @@
+Possible threading issues with index metadata loading
+Index metadata can be processed by several threads such that the modifications may not be seen appropriately by other threads.  This could include the materialization table not being set appropriately and model not found errors.

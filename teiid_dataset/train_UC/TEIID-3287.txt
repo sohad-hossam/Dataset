@@ -1,0 +1,4 @@
+Auto generated REST war does not query parameters
+Currently the REST war that gets deployed automatically based on metadata does not support query parameters defined on the procedure. The same can accomplished using path parameters.
+
+This must also support query parameters 

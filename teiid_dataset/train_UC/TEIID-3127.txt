@@ -1,0 +1,2 @@
+Multiple subquery arguments prevent plan completion
+The evaluator is closed after each successful evaluation, but the values are not saved so multiple subqueries in the same logical operation will cause indefinite blocking.

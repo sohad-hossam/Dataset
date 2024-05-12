@@ -1,0 +1,6 @@
+Provide functionality to perform RENAME table in DDL scripts
+Allow rename commands like:
+
+ALTER TABLE "teiidtest" RENAME TO "tmptbl_teiidtest";
+
+This should rename the table name teiidtest in the current schema to tmptbl_teiidtest.

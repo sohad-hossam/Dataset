@@ -1,0 +1,94 @@
+Infinispan DSL Translator: cannot insert into byte array column
+When a POJO class field is of type byte[] , insert into a table, which is mapped to the POJO class fails with:
+{code:plain}
+Caused by: org.teiid.translator.TranslatorException: Conversion from String to byte is not supported
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:624) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:579) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:572) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.handleInsert(ObjectUpdateExecution.java:208) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.executeUpdate(ObjectUpdateExecution.java:143) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.execute(ObjectUpdateExecution.java:100) ~[?:?]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:404) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_102]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_102]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_102]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_102]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at com.sun.proxy.$Proxy82.execute(Unknown Source) ~[?:?]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_102]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) ~[?:1.8.0_102]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) ~[?:1.8.0_102]
+	at java.lang.Thread.run(Thread.java:745) ~[?:1.8.0_102]
+Caused by: java.lang.IllegalArgumentException: Conversion from String to byte is not supported
+	at org.teiid.core.util.StringUtil.valueOf(StringUtil.java:797) ~[teiid-jdbc-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.core.util.StringUtil.valueOf(StringUtil.java:768) ~[teiid-jdbc-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.translator.object.ClassRegistry.executeSetMethod(ClassRegistry.java:139) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:608) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:579) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.writeColumnData(ObjectUpdateExecution.java:572) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.handleInsert(ObjectUpdateExecution.java:208) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.executeUpdate(ObjectUpdateExecution.java:143) ~[?:?]
+	at org.teiid.translator.object.ObjectUpdateExecution.execute(ObjectUpdateExecution.java:100) ~[?:?]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:404) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[?:1.8.0_102]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[?:1.8.0_102]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[?:1.8.0_102]
+	at java.lang.reflect.Method.invoke(Method.java:498) ~[?:1.8.0_102]
+	at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at com.sun.proxy.$Proxy82.execute(Unknown Source) ~[?:?]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) ~[?:1.8.0_102]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) ~[teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) ~[?:1.8.0_102]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) ~[?:1.8.0_102]
+	at java.lang.Thread.run(Thread.java:745) ~[?:1.8.0_102]
+{code}
+POJO class:
+{code:java|title=SmallA.proto}
+package org.jboss.qe.jdg.remote.protobuf;
+
+message SmallA {
+
+   required int32 intKey = 1;
+   optional string stringNum = 2;
+   required string stringKey = 3;
+   optional float floatNum = 4;
+   optional string bigIntegerValue = 5;
+   optional int32 shortValue = 6;
+   optional double doubleNum = 7;
+   optional bytes objectValue = 8;
+   optional int32 intNum = 9;
+   optional string bigDecimalValue = 10;
+   optional int64 longNum = 11;
+   optional bool booleanValue = 12;
+   optional int64 timeStampValue = 13;
+   optional int32 byteNum = 14;
+   optional int64 timeValue = 15;
+   optional int64 dateValue = 16;
+   optional int32 charValue = 17;
+}
+{code}
+
+Java code used to insert:
+{code:java}
+PreparedStatement pSt = con.prepareStatement(
+"INSERT INTO jdgSource1.SmallA(intKey,stringNum,stringKey,floatNum,bigIntegerValue,shortValue,doubleNum,objectValue,intNum,bigDecimalValue,longNum,booleanValue,timeStampValue,byteNum,timeValue,dateValue,charValue) VALUES"
++ "(1,'1','1',1.0,1,1,1,?,1,1.00,1,true,{ts '2016-01-01 12:00:00'},1,'12:00:00','2016-01-01','1')");
+pSt.setBytes(1, "1".getBytes());
+pSt.executeUpdate();
+{code}
+The cause is that internally the object translator uses StringUtil which can't handle byte type.

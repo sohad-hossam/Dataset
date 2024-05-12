@@ -1,0 +1,4 @@
+Backwards scrolling defect
+Iterating backwards does not work the since RequestWorkItem is setup to expect the end row as greater than the start row.  It would be much simpler if the client were changed to issue the batch bounds with the lower value as the begin row.
+
+Clients may not have noticed this issue since they would have to do iteration beyond the third batch and then go backwards three batches.

@@ -1,0 +1,4 @@
+Procedural relational and exec queries should not project out or return parameters
+IN_OUT, OUT, and RETURN parameters cannot be returned as projected symbols since the result set only contains the values at the end in a diagonal matrix.  We are already filtering this situation out on the JDBC client side, but we need to ensure that the exec and proc relational queries are correctly interpreted on the server side.
+
+IN_OUT parameters will have their IN parameters projected without the _IN suffix - this is a breaking change, but it is unlikely that a customer was using proc relational with source procedures using in_out parameters.

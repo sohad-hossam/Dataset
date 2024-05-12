@@ -1,0 +1,17 @@
+Verify Custom Appenders (command, audit) work in AS7
+AS7 has different logging configuration than the AS 5.1. The appenders do work as is, and configuration may be different. However based on this AS7-4925 it looks like Log4J appender can be supported in AS 7.2. This information needs to be verified and update Teiid documentation at 
+
+https://docs.jboss.org/author/display/teiid/Custom+Logging
+https://docs.jboss.org/author/display/teiid/Logging
+
+Since 7.2, is not available yet if we want to fix this change the document to use java.util.logging.Handler interface to extend and add configuration like below in the logging subsystem in standalone-teiid.xml file
+
+{code}
+<custom-handler name="COMMAND" module="" class="org.something.CustomAppender">
+</custom-handler>
+
+  <logger category="org.teiid.COMMAND_LOG">
+      <level name="INFO"/>
+      <handler name="COMMAND"/>
+  </logger>
+{code}

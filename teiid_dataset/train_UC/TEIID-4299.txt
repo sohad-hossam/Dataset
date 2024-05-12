@@ -1,0 +1,2 @@
+Object translator null values correctly
+The object translator wasn't handling the setting of null values when its tried to be set on a native attribute (i.e., long, int, boolean).

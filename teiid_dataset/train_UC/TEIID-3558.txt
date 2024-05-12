@@ -1,0 +1,4 @@
+Duplicate records being for formed for Internal Materialized View cluster
+-On running a query over one of the nodes of a cluster (say node A) to fetch 25000 records (with internal materialization switched on), the cache gets formed on node A and presumably gets synced using the JgroupsObjectReplicator. 
+-On running the same query on the cache formed in the other node (node B), I noticed that I was getting 25600 records.
+-On analysis the records, I saw there were only 1024 distinct records each of which repeated 25 times.

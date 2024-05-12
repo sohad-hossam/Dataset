@@ -1,0 +1,7 @@
+Insert with out of order variables and query expression is incorrect
+For example:
+
+create local temporary table x (e1 string, e2 integer);
+insert into x (e2, e1) select e2, e1 from pm1.g1;
+
+would fail because we are simply rewriting to select e2, e1 into x from pm1.g1.  

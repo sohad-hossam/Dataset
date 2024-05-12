@@ -1,0 +1,5 @@
+Async Event Processing: Standardize JDBC Callback API
+The existing callback API used by ODBC should be standardized and made friendly for async processing.  Basically, an interface that specifies three methods should suffice:
+   public void processRow(ResultSet rs);
+   public void onComplete();
+   public void onException(Exception e);

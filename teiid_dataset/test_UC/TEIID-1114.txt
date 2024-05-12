@@ -1,0 +1,2 @@
+Add support for xmltable
+We should add support for the xmltable table function to perform xml/relational mapping.

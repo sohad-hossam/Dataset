@@ -1,0 +1,2 @@
+out of range values not checked in sum aggregate
+The sum aggregate may overflow, so there should be an explicit check.

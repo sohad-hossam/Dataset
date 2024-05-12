@@ -1,0 +1,2 @@
+Using JDG annotations, unable to provide package name qualification for serialization
+When using the JDG annotations as the means of configuring the cache and serialization, its not specifying the package name qualifier.    

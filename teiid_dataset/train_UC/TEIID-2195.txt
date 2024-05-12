@@ -1,0 +1,2 @@
+Add support for function based indexes on materialized views
+Teiid materialized views should support function based indexes to improve performance.

@@ -1,0 +1,2 @@
+Attempt to get JDBC cardinalities with getLong
+Oracle, and possibly other drivers, can have an issue (numericoverflow) with table cardinalities over max int.  when getInt is used on the ResultSet (int is expected according to JDBC).  We can try getLong first and then getInt if there is an issue.  

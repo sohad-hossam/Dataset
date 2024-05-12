@@ -1,0 +1,2 @@
+Insert columns should be displayed unqualified
+For backwards compatibility we allow the parser to parse qualified insert columns, but we've also allowed the string logic to display them as qualified, which is unnecessary.

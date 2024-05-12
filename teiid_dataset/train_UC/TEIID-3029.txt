@@ -1,0 +1,2 @@
+Duplicate classes with bundle builds
+An issue with TEIID-2424 is that teiid internal dependencies marked as provided are added to the bundle jar, which results in duplicate classes.

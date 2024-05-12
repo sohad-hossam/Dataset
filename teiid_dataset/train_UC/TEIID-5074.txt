@@ -1,0 +1,2 @@
+Support a way provide SEQUENCE in TeiidDialect
+Currently, the sequence based Table identity generation support is not available in current TeiidDialect. The support will not be direct, but with additional constructs in VDB, we can make this available. Teiid needs to provide a way to call in source specific of way to insert a layer in Teiid to accomplish this.

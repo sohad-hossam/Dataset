@@ -1,0 +1,4 @@
+Add transitive join conditions across sources
+A situation such as 
+from a, b, c where a.x = b.x and a.x = c.x
+such that b and c are on a different source than a, it would be good to also use transitive condition b.x = c.x.

@@ -1,0 +1,6 @@
+OData - $skip is beeing ignored
+Query option $skip should accept non-negative integers but this option seems to be ignored by Teiid. Note, negative integer should cause error (i.e status code 400).
+
+http://localhost:8080/odata4/olingo_basic/Source/Customers/?$skip=3
+
+See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398307

@@ -1,0 +1,6 @@
+MERGE support
+Support for functionality similar to H2's MERGE command:  http://www.h2database.com/html/grammar.html?highlight=merge&search=merge#merge
+
+I don't know if there is a SQL standard for this and I don't care if the command is identical to H2's.  I'm mostly interested in a single command to support somewhat atomic* "if pkey exists then update else insert" operation
+
+* somewhat atomic =  this doesn't have to be entirely atomic but, to the degree the data source supports the equivalent of a MERGE or JTA

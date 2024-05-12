@@ -1,0 +1,7 @@
+Missing support for connection to Facebook via OAuth 2
+I would like to connect to facebook resource adapter and configure OAuth 2 security domain for it; I used teiid-oauth-util.sh to generate the security domain (see attachment). Facebook doesn't support refresh tokens and in the generated code is refresh token's value "null".
+
+If I try to execute VDB with source pointing to such resource adapter I get error:
+ ERROR [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue13) Connector worker process failed for atomic-request=Gapuea1/NRcn.6.3.0: org.apache.cxf.rs.security.oauth2.provider.OAuthServiceException
+ 
+(see server.log, facebook-vdb.xml, standalone.xml)

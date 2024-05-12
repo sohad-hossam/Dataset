@@ -1,0 +1,16 @@
+AdminShell/AdminAPI - deployVDB assumes the -vdb.xml file is in the server's deploy folder
+I started AdminShell and attempted to deploy a VDB using: deployVDB("/home/pnittel/TeiidGoodies/sakila-vdb.xml");
+
+I received the following exception:
+java.io.FileNotFoundException: /home/pnittel/Teiid7m3/jboss-5.1.0.GA/server/default/deploy/home/pnittel/TeiidGoodies/sakila-vdb.xml (No such file or directory)
+// Error: // Uncaught Exception: Method Invocation internalAdmin.deployVDB : at Line: 17 : in file: URL: jar:file:/home/pnittel/Teiid7m3/teiid-adminshell-7.0.0-SNAPSHOT/lib/teiid-adminshell-7.0.0-SNAPSHOT.jar!/scripts/adminapi.bsh : internalAdmin .deployVDB ( vdbFile , new FileInputStream ( new File ( vdbFile ) ) ) 
+
+Called from method: deployVDB : at Line: 6 : in file: <unknown file> : deployVDB ( "/home/pnittel/TeiidGoodies/sakila-vdb.xml" ) 
+Target exception: java.lang.reflect.UndeclaredThrowableException
+Nested: Class: SingleInstanceCommunicationException not found in namespace : at Line: 70 : in file: URL: jar:file:/home/pnittel/Teiid7m3/teiid-adminshell-7.0.0-SNAPSHOT/lib/teiid-adminshell-7.0.0-SNAPSHOT.jar!/scripts/util.bsh : SingleInstanceCommunicationException 
+
+It appears to have erroneously appended my file location to that of the server's deploy folder.
+
+I also tried it from Jopr and received this error:
+Failed to create Resource sakila-vdb.xml - cause: Incorrect extension specified on filename [/home/pnittel/Teiid7m3/jboss-5.1.0.GA/server/default/tmp/embjopr/uploads/sakila-vdb.xml] 
+Since the error does appear to be different, it may be unrelated, but it's still wrong.

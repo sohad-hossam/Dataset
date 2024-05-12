@@ -1,0 +1,2 @@
+Add support for blob/varbinary with xmltable
+blob/varbinary cannot be used as a column type with xmltable.

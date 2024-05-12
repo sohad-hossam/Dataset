@@ -1,0 +1,4 @@
+SQLServer SQLTranslator issues
+The time literal for Access/SQLServer is incorrect - should use 1970 not 1900
+Limit for a set op needs to use a subquery
+Support for repeat should be aliased to replicate

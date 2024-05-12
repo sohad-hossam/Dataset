@@ -1,0 +1,2 @@
+Allow buffer cleaner to evict more
+With our memory intensive performance tests we can see in isolated tests a 2-5% performance increase by allowing the cleaner to also evict from the persistent queue to free up working memory space.

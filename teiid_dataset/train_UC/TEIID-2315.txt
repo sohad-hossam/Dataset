@@ -1,0 +1,2 @@
+Multi-source metadata wrapper needs to distinguish between physical/virtual
+With TEIID-2136 it was allowable to mix virtual entries on a physical model.  The multi-source metadata wrapper is not aware of that distinction and will put a pseudo column on even the virtual entries.

@@ -1,0 +1,2 @@
+MetadataFactory should account for user defined aggregate functions
+MetadataFactory.createFunctionFromMethod does not check if the method is from a user defined aggregate function.

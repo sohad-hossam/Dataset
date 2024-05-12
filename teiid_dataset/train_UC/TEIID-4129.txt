@@ -1,0 +1,13 @@
+Wrong results with cross model join on 2 varchar fields
+I'm using Teiid 8.11.3 with H2 translator.
+I'm joining 2 h2 tables from 2 different teiid models linked on varchar fields.
+the query result is retuning empty values from the joined table even though the joined values are identical.
+
+You find attached a zip file containing 2 h2 DBs for a simplified example
+
+Here is the query used:
+_select "Customer"."City" as "Customer_City","Customer"."CustomerID" as "Customer_CustomerID","City"."City" as "City_City","City"."CityID" as "City_CityID" 
+from "db2"."Customer" "Customer" 
+LEFT JOIN "db1"."City" "City" ON "Customer"."City" = "City"."City"_
+
+Note that if the 2 tables are in the same model, the query return correct results.

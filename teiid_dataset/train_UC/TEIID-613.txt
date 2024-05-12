@@ -1,0 +1,2 @@
+CDK is incomplete
+The cdk is being built without transitive dependencies, so it lacks common-internal.  It should be changed to transitive (there will be some unused dependencies included in the lib, but that won't hurt anything).

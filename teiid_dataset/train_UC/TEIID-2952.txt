@@ -1,0 +1,4 @@
+Crypto exception with client/server running on different java versions
+The DiffieHellman key generation logic varies by platform with the handling of leading 0's in the secret.  1.6 seems to strip while most 1.7 vms do not.  A related Java bug is http://bugs.java.com/bugdatabase/view_bug.do?bug_id=8014618  which indicates Sun/OpenJDK JRE 7u17 - 8b94 are affected.
+
+If there is conflicting handling between the client/server then approximately 1 out of 256 connection attempts will fail with a bad padding exception, since the client/server will be operating against different symmetric keys.

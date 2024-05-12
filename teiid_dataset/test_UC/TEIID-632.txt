@@ -1,0 +1,6 @@
+Teiid Designer Integration Tasks
+Changes needed:
+
+1. Move DQPEmbeddedProperties to the client
+2. Add an extension mechanism to modify DQP services without directly depending upon embedded.
+3. Directory handling issues: the mm.io.tmpdir setting is ignored, cache and transaction store directories may be relative to launch location and should be based upon properties/tmp location.

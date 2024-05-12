@@ -1,0 +1,24 @@
+ORDER BY DESC is ignored in STRING_AGG function when DISTINCT is also specified
+When both DISTINCT and ORDER BY clause are specified in a STRING_AGG function, the result of the aggregate function is not correctly sorted.
+
+For example, running the following query:
+{code:sql}
+select 
+	string_agg(col1, ',' ORDER BY col1 DESC) as orderByDesc, 
+	string_agg(col1, ',' ORDER BY col1 ASC) as orderByAsc, 
+	string_agg(DISTINCT col1, ',' ORDER BY col1 DESC) as distinctOrderByDesc, 
+	string_agg(DISTINCT col1, ',' ORDER BY col1 ASC) as distinctOrderByAsc 
+from (
+	SELECT 'b' as col1
+	UNION ALL
+	SELECT 'c' as col1
+	UNION ALL
+	SELECT 'a' as col1
+        UNION ALL
+	SELECT 'c' as col1
+) x
+{code}
+
+the result is:
+||orderByDesc||orderByAsc||distinctOrderByDesc||distinctOrderByAsc||
+|c,c,b,a|a,b,c,c|a,b,c|a,b,c|

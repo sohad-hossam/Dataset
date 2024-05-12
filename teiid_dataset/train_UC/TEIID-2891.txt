@@ -1,0 +1,2 @@
+LDAP null update handling can produce invalid updates
+An update with a null value after a column with a value will inadvertently use the value from the preceding column. 

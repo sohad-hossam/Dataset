@@ -1,0 +1,20 @@
+bind variables and sql appear when exception thrown
+When a query causes an exception, bind variables and sql are written in teiid-command.log and are sent to a client.
+
+teiid-command.log:-
+{code}
+19:36:19,942 WARN  [org.teiid.PROCESSOR] (Worker8_QueryProcessorQueue29) TEIID30020 Processing exception for request 6jFRdyvDG5bU.0
+ 'TEIID30504 New_MySQL: 0 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: ['hokuda'] SQL: SELECT g_0.`USERNAM
+E`, g_0.`PASSWORD`, g_0.`USERROLE` FROM `LOGIN`.`USERS` AS g_0 WHERE g_0.`USERNAME` = ?]'. Originally TeiidProcessingException 'Can
+ not read response from server. Expected to read 4 bytes, read 0 bytes before connection was unexpectedly lost.' MysqlIO.java:3039.
+ Enable more detailed logging to see the entire stacktrace.
+{code}
+
+printStackTrace() at client side:-
+{code}
+org.teiid.jdbc.TeiidSQLException: TEIID30504 Remote org.teiid.core.TeiidProcessingException: TEIID30504 New_MySQL: 0 TEIID11008:TEI
+ID11004 Error executing statement(s): [Prepared Values: ['hokuda'] SQL: SELECT g_0.`USERNAME`, g_0.`PASSWORD`, g_0.`USERROLE` FROM 
+`LOGIN`.`USERS` AS g_0 WHERE g_0.`USERNAME` = ?]                                                                                  
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+        at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+{code}

@@ -1,0 +1,4 @@
+AS7 based Admin Console needed for Teiid
+Currently there is NO AS7 based console administration for Teiid. It needs one.
+
+Currently only solution available is either use CLI or AdminShell or Admin API for managing a Teiid instance.

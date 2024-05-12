@@ -1,0 +1,6 @@
+VDB deployment in EDS can be extremely slow based upon indexing needs
+Problem:
+The index metadata loading logic is not well optimized. In short, each time a call to IndexMetadataFactory.queryIndex is made the blocks are fully scanned.  For small VDBs there isn't much of an issue because of the block caching logic, but during a vdb deploy we could be constantly re-reading data from the files.
+
+Possible solution:
+The IndexMetadataFactory loading strategy should be made aware of the index file per schema strategy so that scans can be made per schema rather than against all index files. 

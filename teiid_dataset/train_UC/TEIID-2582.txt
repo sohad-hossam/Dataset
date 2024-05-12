@@ -1,0 +1,2 @@
+Local connections using the calling thread should not buffer results
+Local connection non-continuous queries using the calling thread are currently allowed to buffer their results, but they should instead be delivered and processed before pulling another batch.

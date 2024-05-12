@@ -1,0 +1,21 @@
+Couchbase update syntax error
+There is an issue with UPDATE queries.
+
+For a query:
+{code:sql}
+UPDATE SmallA SET StringNum = NULL WHERE IntNum > 0
+{code}
+following error is returned:
+{code}
+Error: TEIID30504 Remote org.teiid.core.TeiidProcessingException: TEIID30504 Source: Query did not complete successfully: [{"msg":"syntax error - at (","code":3000}], error code: fatal
+{code}
+
+The query being pushed is invalid:
+{code:sql}
+UPDATE `dvqe_crud` USE KEYS '1' SET META(`dvqe_crud`).id = '1', `StringKey` = '1', `IntNum` = 1417293, `StringNum` = NULL, `FloatNum` = 14735.7998046875, `LongN      um` = 826580, `DoubleNum` = -1098869.04, `ByteNum` = 15, `DateValue` = '2006-03-06', `TimeValue` = '10:57:23', `TimestampValue` = NULL, `BooleanValue` = TRUE, `CharValue` = '2', `ShortValue` = 5303, `BigIn      tegerValue` = 608932, `BigDecimalValue` = 1229956.01, `ObjectValue` = '-70' WHERE `dvqe_crud`.`type` = 'nullSmallA' RETURNING META(`dvqe_crud`).id AS PK
+{code}
+
+Couchbase complains about a '('. And from what I found, it is the first use of META() function in the command.
+
+On that topic I've found a note in Couchbase docs:
+bq. Every document is identified by a document ID, which can be automatically generated (as a UUID) or determined by the application; the only constraints are that it must be unique within the database, and it can't be changed.

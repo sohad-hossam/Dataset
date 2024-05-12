@@ -1,0 +1,128 @@
+Subquery field added in wrong place in generated JDBC SQL
+I'm using  Teiid 8.11.3 and h2 translator:
+I have a query that contains a subquery field in the select statement and a join over another subquery. In the JDBC query executed, i found that the subquery field was added into the subquery join which is giving an error in execution.
+
+Here is my query:
+
+SELECT
+	"Profile_fqS_030915"."CID" as "Profile_fqS_030915_CID"
+	,
+	(
+		SELECT
+			MAX("Trx_fil_030915_sub"."TransactionDate") as "Trx_fil_030915_TransactionDa"
+		FROM
+			"implify_data_BanksModel"."implify_data_Banks"."Trx_fil_030915" 
+			"Trx_fil_030915_sub"
+		WHERE
+			("Profile_fqS_030915"."CID" = "Trx_fil_030915_sub"."CID") ) as "SubQuery Trx"	,
+
+	TIMESTAMPDIFF(SQL_TSI_DAY,	"Trx"."TransactionDate", PARSETIMESTAMP( '2015-04-02 00:00:00.000',	'yyyy-MM-dd HH:mm:ss.SSS' )) as "CalculatedField2"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField12" as 
+	"Trxmo3U_CalculatedField1"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField3" as 
+	"Trxmo3U_CalculatedField"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField11" as 
+	"Trxmo3U_CalculatedField11"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField2" as 
+	"Trxmo3U_CalculatedField2"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField1" as 
+	"Trxmo3U_CalculatedField12"
+	,
+	"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_CalculatedField" as 
+	"Trxmo3U_CalculatedField3"
+FROM
+	"implify_data_BanksModel"."implify_data_Banks"."Profile_fqS_030915" 
+	"Profile_fqS_030915"
+		LEFT JOIN
+		"implify_data_BanksModel"."implify_data_Banks"."Trx_fil_030915" "Trx"
+		ON
+		"Profile_fqS_030915"."CID" = "Trx"."CID"
+		LEFT JOIN
+		(
+			SELECT
+				"Trxmo3U_sub"."Trx_fil_030915_CID" as "Trxmo3U_Trx_fil_030915_CID"
+				,
+				MIN("Trxmo3U_sub"."CalculatedField1") as "Trxmo3U_CalculatedField1"
+				,
+				MIN("Trxmo3U_sub"."CalculatedField") as "Trxmo3U_CalculatedField"
+				,
+				MAX("Trxmo3U_sub"."CalculatedField") as "Trxmo3U_CalculatedField2"
+				,
+				MAX("Trxmo3U_sub"."CalculatedField1") as "Trxmo3U_CalculatedField11"
+				,
+				AVG(1.0 * "Trxmo3U_sub"."CalculatedField") as "Trxmo3U_CalculatedField3"
+				,
+				AVG(1.0 * "Trxmo3U_sub"."CalculatedField1") as "Trxmo3U_CalculatedField12"
+			FROM
+				"Domain1BusinessModel"."Trxmo3U" "Trxmo3U_sub"
+			WHERE
+				( ( ("Trxmo3U_sub"."Trx_fil_030915_Channel" IN ('ATM'
+				,
+				'Branch'
+				,
+				'P.O.S.') ) ) )
+			GROUP BY
+				"Trxmo3U_sub"."Trx_fil_030915_CID") "Trxmo3UMEoebyXTVyguosX_Sub" ON
+		"Profile_fqS_030915"."CID" = 
+		"Trxmo3UMEoebyXTVyguosX_Sub"."Trxmo3U_Trx_fil_030915_CID" LIMIT 0, 10
+
+
+Here is the executed JDBC query:
+
+SELECT
+	g_0."CID" AS c_0,
+	(
+	SELECT
+		MAX(g_4."TransactionDate")
+	FROM
+		"implify_data_Banks"."Trx_fil_030915" AS g_4
+	WHERE
+		g_4."CID" = g_0."CID") AS c_1	,
+	g_1."TransactionDate" AS c_2,
+	v_0.c_2 AS c_3,
+	v_0.c_3 AS c_4,
+	v_0.c_4 AS c_5,
+	v_0.c_5 AS c_6,
+	v_0.c_6 AS c_7,
+	v_0.c_7 AS c_8
+FROM
+	("implify_data_Banks"."Profile_fqS_030915" AS g_0
+		LEFT OUTER JOIN
+		"implify_data_Banks"."Trx_fil_030915" AS g_1
+		ON
+		g_0."CID" = g_1."CID")
+		LEFT OUTER JOIN
+		(
+			SELECT
+				g_2."Trx_fil_030915_CID" AS c_0
+				,
+				*_(
+					SELECT
+						MAX(g_3."TransactionDate")
+					FROM
+						"implify_data_Banks"."Trx_fil_030915" AS g_3
+					WHERE
+						g_3."CID" = g_0."CID") AS c_1_*				,
+				AVG((1.0 * cast(g_2."CalculatedField1" AS decimal))) AS c_2	,
+				AVG((1.0 * g_2."CalculatedField")) AS c_3	,
+				MAX(g_2."CalculatedField1") AS c_4	,
+				MAX(g_2."CalculatedField") AS c_5	,
+				MIN(g_2."CalculatedField1") AS c_6	,
+				MIN(g_2."CalculatedField") AS c_7	
+			FROM
+				"implify_data_Banks"."Trxmo3U" AS g_2
+			WHERE
+				g_2."Trx_fil_030915_Channel" IN ('ATM',	'Branch', 'P.O.S.')
+			GROUP BY
+				g_2."Trx_fil_030915_CID") AS v_0	ON	g_0."CID" = v_0.c_0 LIMIT 10
+
+Error:
+Please try again! TEIID30504 implify_data_BanksModelVDB: 42122 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] 
+
+
+Note that if i remove TIMESTAMPDIFF from the main query, the query executes without a problem and the subquery field is no longer added in the join subquery

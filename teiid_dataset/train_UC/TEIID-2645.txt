@@ -1,0 +1,2 @@
+Invalid vdb results in NPE
+If we don't find a vdb.xml file in a vdb we'll later incur an NPE.

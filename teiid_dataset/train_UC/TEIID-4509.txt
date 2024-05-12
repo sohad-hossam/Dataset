@@ -1,0 +1,2 @@
+Implement transaction detection for procedures
+Building on TEIID-4076 we should also detect when transactions are needed with virtual procedures.

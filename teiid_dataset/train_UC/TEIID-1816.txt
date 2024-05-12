@@ -1,0 +1,9 @@
+Documentation changes for SSL configuration
+While testing SSL configuration I noticed a few items in the documentation which were confusing and in need of clarification.
+
+keymanagementAlgorithm - Type of key algorithm used. Default is based upon the VM, e.g. "SunX509"
+The out-of-the-box value of keymanagementAlgorithm is "false". If SunX509 is likely to be used, let's have it in teiid-jboss-beans.xml by default.
+
+The doc mentions the keystore "must be available in the classpath of Teiid Server." Apparently that's not just anywhere. I tried the lib directory and it failed. Ramesh suggested the conf directory and it worked. If it must be in conf, let's say so.
+
+Lastly, a minor nit. The second paragraph under section "3.5 Configuring SSL" is: There are three socket transports, each with it's own SSL configuration. Of course the word "it's" (a contraction of "it" and "is") should be replaced by the possessive form, "its". 

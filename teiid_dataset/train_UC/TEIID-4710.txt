@@ -1,0 +1,2 @@
+Request id conflict with CommandContext connection
+When using the connection from the command context it executes within the context of the current session - but is not ensuring non-conflicting request ids are being used.  This means that the current execution can be replaced or seemingly closed.

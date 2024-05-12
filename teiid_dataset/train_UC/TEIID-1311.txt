@@ -1,0 +1,2 @@
+Consider developing a connector/translator to Cassandra/Thrift
+Apache Cassandra is starting to see uptake beyond the big name social network players. Has any thought been given to offering connectivity to Cassandra through Teiid? Perhaps this is through consuming the Thrift file as metadata source.

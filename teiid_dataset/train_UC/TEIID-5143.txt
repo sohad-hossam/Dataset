@@ -1,0 +1,17 @@
+Infinispan hotrod translator proto-schema registered as ProtoFilePath
+When using an existing protobuf file to configure source metadata and providing full path via ProtoFilePath, there are issues with how the proto-schema is being registered in JDG.
+
+When using ProtoFilePath, the proto-schema is being registered under the exact value of this property. This is unexpected and source of many issues. Rather the proto-schema should be registered under the package context.
+
+This leads to a situation, when using the same file on various machines, or when the file is moved, then the proto-schema is being registered twice with different keys in JDG proto-schema cache, this leads to an exception on JDG's side and non-deployed VDB.
+
+I expect the ProtobufName to be a complementary to ProtoFilePath:
+# I register a proto-schema using ProtoFilePath property
+# I use that schema in different VDB using ProtobufName property
+
+Then the ProtobufName used in second case needs to contain exactly the same value as ProtoFilePath in the first case. This is hard to understand.
+
+Could the change be to:
+# Set both ProtoFilePath and ProtobufName properties (ProtobufName is our logical descriptor) when a user want to register new protobuf file. This way the contents of a file denoted by ProtoFilePath is registered in JDG under ProtobufName key.
+# Using only ProtobufName when an already registered proto-schema is to be used.
+

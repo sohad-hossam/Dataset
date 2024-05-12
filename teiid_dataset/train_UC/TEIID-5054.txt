@@ -1,0 +1,2 @@
+autoFailover with a multi-batch result timing issue
+With autoFailover=true there is a periodic ping before usage of the connection.  This ping may be called during processing of multi-batch results such that the ping call effectively hangs.  4 minutes later (or whatever the synch timeout is) the client will attempt to failover.

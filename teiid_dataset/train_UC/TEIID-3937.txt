@@ -1,0 +1,35 @@
+Multiplying two columns in CASE statement overrides pushdown (Impala)
+In the Impala translator, pushdown doesn't happen when two columns are multiplied in the THEN portion of a CASE statement with decimal data type.
+
+//this should push down but does not
+CASE WHEN column1  IS NOT NULL 
+THEN column1 * column2
+ELSE column3 END
+
+//but you can multiply the columns by a constant and it will push down
+CASE WHEN column1  IS NOT NULL 
+THEN column1 * 34567
+ELSE column3 END
+
+//or
+
+CASE WHEN column1  IS NOT NULL 
+THEN 34567 * column2
+ELSE column3 END
+
+//or casting to consistent datatypes with DECIMAL output
+CASE WHEN column1 IS NOT NULL 
+THEN cast(column1 as DECIMAL ) * cast(column2 as DECIMAL )
+ELSE cast(column3 as DECIMAL ) END
+
+//BUT output it as double with the cast statement above changed and it does push down (so floating point works)
+CASE WHEN column1 IS NOT NULL 
+THEN cast(column1 as double ) * cast(column2 as double)
+ELSE cast(column3 as double) END
+
+Source data types:
+Column1 is DECIMAL
+Column2 is BIGINT/LONG
+Column3 is DECIMAL
+Output column is DECIMAL
+

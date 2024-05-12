@@ -1,0 +1,2 @@
+Report translator CPU time
+The COMMAND_LOG ought to report the CPU time accumulated by the translator for performance tuning purposes.

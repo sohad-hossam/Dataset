@@ -1,0 +1,2 @@
+Locale issues
+Some tests are specific to the en us locale.  Also the monthname and dayname functions are hard coded to en, which is not consistent with our default logic of relying on the system locale for parse/format handling.

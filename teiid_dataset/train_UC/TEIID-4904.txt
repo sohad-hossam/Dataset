@@ -1,0 +1,2 @@
+Add support for identify security to the infinispan connector
+Add support for identify secuirty to the new infinispan connector/translator.  This is needed for openshift. 

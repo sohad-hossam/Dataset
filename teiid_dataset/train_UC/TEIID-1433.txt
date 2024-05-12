@@ -1,0 +1,2 @@
+Temp tables should support count(*)
+It would be good to have temp table implement count(*) directly rather than relying on iteration.  If there is a condition, then we'll still have to iterate the results - but at least we won't have to create a buffer backed form of the results in the case of an updatable table.

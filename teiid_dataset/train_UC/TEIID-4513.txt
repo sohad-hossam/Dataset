@@ -1,0 +1,2 @@
+Create a dummy pg_prepared_xacts table
+We should provide a dummy table to prevent errors from recovery scans.

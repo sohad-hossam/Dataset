@@ -1,0 +1,12 @@
+Admin API classes have boiler plate code for authentication of roles
+Admin API implementation classes have boiler plate code to authenticate the roles, this needs to be refactored  to use annotations and/or use the proxy objects to do the task.
+
+- AuthorizationAdminAPIImpl
+- ConfigurationAdminAPIImpl
+- ExtensionSourceAdminAPIImpl
+- MembershipAdminAPIImpl
+- QueryAdminAPIImpl
+- RuntimeMetadataAdminAPIImpl
+ - RuntimeStateAdminAPIImpl
+ - SessionAdminAPIImpl
+ - TransactionAdminAPIImpl

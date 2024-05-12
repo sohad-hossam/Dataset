@@ -1,0 +1,24 @@
+Planning issue with multiple aggregate decompositions through a join tree
+The logic for determining other symbols from aggregates will not work correctly when a staged grouping is initially pushed and another staged grouping is then pushed above a join that is above that location (typically due to join predicates that pull in other groups).
+
+A query such as:
+
+SELECT max(t3.e4), max(t2.e4) as s FROM pm1.g1 as t1, pm1.g2 as t2, pm1.g3 as t3, pm1.g4 as t4, pm2.g1 as t5 WHERE t1.e1 = t2.e1 and (t2.e2 = t3.e2 and t1.e3 || t2.e3 = t3.e3) and t3.e3 = t4.e3 and t4.e4 = t5.e4
+
+With capabilities that disable join pushdown will fail with an assertionerror that a staged grouping symbol cannot be found during the initialization of the parent join node.
+
+java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+	at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+	at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+	at org.teiid.query.processor.relational.RelationalNode.getProjectionIndexes(RelationalNode.java:367)
+	at org.teiid.query.processor.relational.JoinNode.initialize(JoinNode.java:133)
+	at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:96)
+	at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+	at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:102)
+	at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:91)
+	at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:226)
+	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:138)
+	at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+	at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)

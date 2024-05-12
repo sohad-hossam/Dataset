@@ -1,0 +1,2 @@
+possible timing issue with transport services
+Since the listener start is creating other threads we should ensure that services are added prior to starting the listener.

@@ -1,0 +1,21 @@
+Cassandra:  ORDER BY should do it in memory instead of trying to push down Cassandra in some cases
+When I tried to join 2 tables together from same keyspace using Teiid 8.6 Alpha with Cassandra 1.2.11.   It broke down SQL into 2 CQLs.  However, teiid SQL transformer adds order by clause to the CQL which is not supported.
+
+Original SQL:
+
+select "cassandraDS_users"."user_id" as "cassandraDS_users_user_id",
+"cassandraDS_invoice"."sale" as "cassandraDS_invoice_sale"
+from "cassandraDS"."invoice" "cassandraDS_invoice"
+inner join "cassandraDS"."users" "cassandraDS_users" on ("cassandraDS_invoice"."user_id" = "cassandraDS_users"."user_id")
+
+Break Down CQL:
+
+SELECT cassandraDS.invoice.user_id, cassandraDS.invoice.sale FROM cassandraDS.i
+nvoice ORDER BY cassandraDS.invoice.user_id
+
+SELECT cassandraDS.users.user_id FROM cassandraDS.users ORDER BY cassandraDS.us
+ers.user_id
+
+Error from CQL Driver:
+
+com.datastax.driver.core.exceptions.InvalidQueryException: ORDER BY is only supported when the partition key is restricted by an EQ or an IN.

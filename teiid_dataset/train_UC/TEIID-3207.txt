@@ -1,0 +1,63 @@
+JDBC native query with literals
+I'm trying to do something like this in the DDL section of my VDB. Basically the idea is to have my code use the simplified functions, and then have a different VDB for each database I'm sitting on. For example, Postgres would implement ANYINTERACT with ST_Intersects() instead.
+
+ 
+{code}
+create foreign function "RECT"(
+  "X1" double,
+  "Y1" double,
+  "X2" double,
+  "Y2" double
+) returns object options (
+  "teiid_rel:native-query" 'sdo_geometry(2003, 8307, null, sdo_elem_info_array(1, 1003, 3), sdo_ordinate_array($1, $2, $3, $4))'
+);
+
+create foreign function "ANYINTERACT"(
+  "G1" object,
+  "G2" object
+) returns boolean options (
+  "teiid_rel:native-query" 'sdo_anyinteract($1, $2) = \'TRUE\''
+);
+{code}
+ 
+First off, I can't get this to work because I can't figure out how to escape the quotes around TRUE. As a workaround I tried this instead, opting to just do the "= 'TRUE'" in the query.
+
+{code}
+create foreign function "ANYINTERACT"(
+  "G1" object,
+  "G2" object
+) returns string options (
+  "teiid_rel:native-query" 'sdo_anyinteract($1, $2)''
+);
+ 
+select foo_id from foo_spatial where anyinteract(footprint,rect(-20,-20,20,20)) = 'TRUE';
+{code}
+
+Unfortunately that fails with an exception...
+
+{code}
+20:21:39,581 ERROR [org.teiid.PROCESSOR] (Worker17_QueryProcessorQueue8155) KptxrAvVK+yw TEIID30019 Unexpected exception for request KptxrAvVK+yw.11: java.lang.reflect.UndeclaredThrowableException
+    at com.sun.proxy.$Proxy46.execute(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:298) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_71]
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_71]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_71]
+    at java.lang.Thread.run(Thread.java:745) [rt.jar:1.7.0_71]
+Caused by: java.lang.reflect.InvocationTargetException
+    at sun.reflect.GeneratedMethodAccessor128.invoke(Unknown Source) [:1.7.0_71]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_71]
+    at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_71]
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:208) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    ... 12 more
+Caused by: java.lang.ClassCastException: org.teiid.language.Argument cannot be cast to org.teiid.language.Parameter
+    at org.teiid.translator.jdbc.JDBCBaseExecution.bind(JDBCBaseExecution.java:94)
+    at org.teiid.translator.jdbc.JDBCQueryExecution.execute(JDBCQueryExecution.java:122)
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:327) [teiid-engine-8.10.0.Alpha1-SNAPSHOT.jar:8.10.0.Alpha1-SNAPSHOT]
+    ... 16 more
+{code}

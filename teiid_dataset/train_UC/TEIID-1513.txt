@@ -1,0 +1,4 @@
+Setting of translator properties should not be case sensitive
+Setting translator properties values is currently case sensitive.  It is also does not warn or give an indication if a user supplied property is not a valid translator property.
+
+We should double check what the standard MC behavior is in this regard.

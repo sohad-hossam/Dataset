@@ -1,0 +1,2 @@
+Add proper support for GT and LT criteria
+In cleaning up the connector api I noticed that proper LT and GT support needs to be added.

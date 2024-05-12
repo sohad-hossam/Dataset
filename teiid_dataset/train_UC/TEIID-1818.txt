@@ -1,0 +1,2 @@
+XMLQuery/XMLTable prepared context type
+A query such as "select xmlquery('/a' passing ?)" will not resolve since no type is associated with the parameter.  The context item at least should be known to be xml.  Other passing clause values are currently allowed to multiple types and would require a cast/convert.

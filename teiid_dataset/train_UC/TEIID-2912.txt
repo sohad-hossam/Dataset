@@ -1,0 +1,48 @@
+Teiid JDBC-ODBC bridge metada import fails from MS Access 2013
+Environment:
+ * MS Access 2013
+ * Windows 2012 Server
+
+
+VDB:
+{code:xml}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="testVDB" version="1">
+	<description>Importer VDB</description>
+	<property name="UseConnectorMetadata" value="true" />
+	<model name="testAccessModel" type="PHYSICAL" visible="true">
+		<source name="testAccessModel" translator-name="jdbc-simple" connection-jndi-name="java:/AccessDS" />
+	</model>
+</vdb>
+{code}
+
+Log exceprt (full log attached):
+{noformat}
+ory] (teiid-async-threads - 4) Driver loaded and instance created:sun.jdbc.odbc.JdbcOdbcDriver@49dd4a28
+08:32:23,935 DEBUG [org.teiid.CONNECTOR] (teiid-async-threads - 4) JDBCMetadataProcessor - Importing tables
+08:32:23,952 DEBUG [org.teiid.CONNECTOR] (teiid-async-threads - 4) JDBCMetadataProcessor - Importing columns
+08:32:23,985 DEBUG [org.teiid.CONNECTOR] (teiid-async-threads - 4) JDBCMetadataProcessor - Importing primary keys
+08:32:23,985 DEBUG [org.jboss.jca.core.connectionmanager.pool.strategy.OnePool] (teiid-async-threads - 4) AccessDS: returnConnection(2677c1e5, false) [1/20]
+08:32:23,985 WARN  [org.teiid.RUNTIME] (teiid-async-threads - 4) TEIID50036 VDB testVDB.1 model "testAccessModel" metadata failed to load. Reason:TEIID11010 java.sql.SQLException: [Microsoft][ODBC Driver Manager] Driver does not support this function
+
+{noformat}
+
+Driver (standalone.xml attached):
+{code:xml}
+  <datasource jndi-name="java:/AccessDS" pool-name="AccessDS" enabled="true">
+                    <connection-url>jdbc:odbc:AccessDS</connection-url>
+                    <driver>odbc</driver>
+                    <transaction-isolation>TRANSACTION_NONE</transaction-isolation>
+                    <pool>
+                        <prefill>false</prefill>
+                        <use-strict-min>false</use-strict-min>
+                        <flush-strategy>FailingConnectionOnly</flush-strategy>
+                    </pool>
+                </datasource>
+...
+ <drivers>
+    <driver name="odbc" module="sun.jdk">
+                        <driver-class>sun.jdbc.odbc.JdbcOdbcDriver</driver-class>
+                    </driver>
+</drivers>
+{code}

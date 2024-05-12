@@ -1,0 +1,19 @@
+runtime build unit test dump lots of log and error trace
+runtime build unit test dump lots of log and error trace, it looks
+{code}
+Jun 29, 2016 7:52:15 PM org.teiid.runtime.JBossLogger log
+INFO: 	START USER COMMAND:...
+
+org.infinispan.IllegalLifecycleStateException: ISPN000323: Cache 'preparedplan' is in 'TERMINATED' state and so it does not accept new invocations. Either restart it or recreate the cache container.
+	at org.infinispan.interceptors.InvocationContextInterceptor.handleAll(InvocationContextInterceptor.java:94)
+	at org.infinispan.interceptors.InvocationContextInterceptor.handleDefault(InvocationContextInterceptor.java:76)
+	at org.infinispan.commands.AbstractVisitor.visitGetKeyValueCommand(AbstractVisitor.java:85)
+	at org.infinispan.commands.read.GetKeyValueCommand.acceptVisitor(GetKeyValueCommand.java:40)
+	at org.infinispan.interceptors.InterceptorChain.invoke(InterceptorChain.java:336)
+	at org.infinispan.cache.impl.CacheImpl.get(CacheImpl.java:411)
+	at org.infinispan.cache.impl.DecoratedCache.get(DecoratedCache.java:443)
+	at org.teiid.cache.infinispan.InfinispanCache.get(InfinispanCache.java:61)
+	at org.teiid.dqp.internal.process.SessionAwareCache.get(SessionAwareCache.java:100)
+{code}
+
+In previous 8.x, i remembered no this kinds of log.

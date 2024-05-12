@@ -1,0 +1,23 @@
+Building Salesforce adapter/translator pair issues
+I tried to follow the instructions on https://github.com/teiid/salesforce to build a newer adapter/translator pair but I was not even able to build the provided v34 pair.
+The "mvn clean install" produce the following error:
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Salesforce Resource Adapter API 34 1.0-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+Downloading: https://repository.jboss.org/nexus/content/repositories/thirdparty-uploads/org/jboss/teiid/connectors/connector-salesforce/9.0.0.Final/connector-salesforce-9.0.0.Final.rar
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO]
+[INFO] Salesforce API 34 .................................. SUCCESS [  1.091 s]
+[INFO] Salesforce Translator 34 ........................... SUCCESS [  2.105 s]
+[INFO] Salesforce Resource Adapter API 34 ................. FAILURE [  1.596 s]
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 5.490 s
+[INFO] Finished at: 2017-09-20T11:13:59+02:00
+[INFO] Final Memory: 35M/425M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal on project connector-salesforce-34: Could not resolve dependencies for project org.jboss.teiid.connectors.salesforce-34:connector-salesforce-34:jar:1.0-SNAPSHOT: Could not find artifact org.jboss.teiid.connectors:connector-salesforce:rar:9.0.0.Final in thirdparty-uploads (https://repository.jboss.org/nexus/content/repositories/thirdparty-uploads/) -> [Help 1]
+
+After removing the dependencies block in the ...\connector-salesforce-34\pom.xml maven works, but it seems to create an invalid adapter.

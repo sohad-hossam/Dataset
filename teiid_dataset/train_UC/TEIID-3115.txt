@@ -1,0 +1,35 @@
+Invalid Query With OrderBy in SubQuery Table
+Hi, I'm using Teiid Embedded Server , i tried to execute the Following query :
+ 
+SELECT jiraissue.issuetype
+  FROM imOrganizationjiraissue jiraissue
+       LEFT OUTER JOIN
+       (SELECT jiraissue_sub.issuetype AS jiraissue_issuetype,
+               AVG(
+                  TIMESTAMPDIFF(SQL_TSI_DAY,
+                                jiraissue_sub.CREATED,
+                                jiraissue_sub.RESOLUTIONDATE))
+                  AS CalculatedField
+          FROM jiraissue jiraissue_sub
+        GROUP BY jiraissue_sub.issuetype
+        ORDER BY AVG(
+                    TIMESTAMPDIFF(SQL_TSI_DAY,
+                                  jiraissue_sub.CREATED,
+                                  jiraissue_sub.RESOLUTIONDATE)) ASC
+         LIMIT 2) j_Sub
+          ON jiraissue.issuetype = j_Sub.jiraissue_issuetype
+ 
+i verified the query sent to the JDBC [JDBCQueryExecution.java]
+SELECT g_0.issuetype
+  FROM JIRADB.dbo.jiraissue g_0
+  LEFT OUTER JOIN (
+    SELECT TOP 2 g_1.issuetype AS c_0
+    FROM JIRADB.dbo.jiraissue g_1
+    GROUP BY g_1.issuetype
+    ORDER BY anon_grp0.agg0
+  ) v_0
+  ON g_0.issuetype = v_0.c_0
+ 
+i got the following exception :
+ 
+java.sql.SQLException: The multi-part identifier "anon_grp0.agg0" could not be bound

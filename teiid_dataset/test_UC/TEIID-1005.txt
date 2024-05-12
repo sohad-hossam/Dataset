@@ -1,0 +1,6 @@
+Update reserved words
+Our reserved word haven't changed significantly in 2 major release.  As we implement features (or even look ahead to SQL/MED, etc.) having the keywords already reserved will prevent user problems down the road.
+
+The proposal is to add tinyint, the SQL 2003, SQL/MED, and SQL/XML reserved word sets.
+
+Initial changes should include adding SQL type alias to byte->tinyint, short->smallint, long->bigint, bigdecimal->decimal, string->varchar and to allow call along with exec and execute to call a stored procedure.

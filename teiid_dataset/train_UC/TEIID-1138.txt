@@ -1,0 +1,4 @@
+Add support to call binary web services
+We should add support to call http web services that return binary results.
+
+One problem is that JBoss WS does not support DataSource based calls.

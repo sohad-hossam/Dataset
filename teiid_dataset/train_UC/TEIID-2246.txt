@@ -1,0 +1,16 @@
+Incorrect results with TIMESTAMPDIFF
+2 issues with TIMESTAMPDIFF:
+1. 
+
+select TIMESTAMPDIFF(SQL_TSI_DAY,parseDate('2012-01-01', 'yyyy-MM-dd'),parseDate('2304-04-12', 'yyyy-MM-dd'));
+
+result = 106751
+
+If you increase the end date by 1 day:
+
+select TIMESTAMPDIFF(SQL_TSI_DAY,parseDate('2012-01-01', 'yyyy-MM-dd'),parseDate('2304-04-13', 'yyyy-MM-dd'))
+
+result = -106751.  I would expected the answer to be 106752
+
+
+2.  Both MS Excel and Oracle give the number of days between 1-Jan-2012 and 12-Apr-2304 as 106752, not the 106751 that EDS is reporting.

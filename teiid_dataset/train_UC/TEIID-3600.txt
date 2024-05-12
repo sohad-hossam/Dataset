@@ -1,0 +1,11 @@
+DB2 - error getting substring if "from position" is out of range
+If second argument of a SUBSTRING(x,y,z) function is out of range of first argument an exception is thrown [1]. Source-specific command [2].
+
+[1]
+Caused by: com.ibm.db2.jcc.am.SqlDataException: DB2 SQL Error: SQLCODE=-138, SQLSTATE=22011, SQLERRMC=null, DRIVER=4.12.55
+	at com.ibm.db2.jcc.am.hd.a(hd.java:668)
+	at com.ibm.db2.jcc.am.hd.a(hd.java:60)
+...
+
+[2]
+SELECT substr(varchar(g_0.TimestampValue), 40, CASE WHEN 0 > (length(varchar(g_0.TimestampValue)) - (40 - 1)) THEN (length(varchar(g_0.TimestampValue)) - (40 - 1)) ELSE 0 END) FROM SmallA AS g_0 WHERE g_0.IntKey = 1

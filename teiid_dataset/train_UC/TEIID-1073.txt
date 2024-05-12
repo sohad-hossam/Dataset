@@ -1,0 +1,2 @@
+Logging not working in Teiid Jopr Plugin
+Some stuff goes to console but for the most part log messages are swallowed

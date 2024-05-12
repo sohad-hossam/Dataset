@@ -1,0 +1,6 @@
+Fix Accumulo module missing dependencies
+08:04:01,070 INFO  [org.teiid.RUNTIME] (MSC service thread 1-1)  TEIID50029 VDB accum.1 model "accumModel" metadata is currently being loaded. Start Time: 1/15/14 8:04 AM
+08:04:01,170 WARN  [org.jboss.jca.core.connectionmanager.pool.strategy.OnePool] (teiid-async-threads - 1)  IJ000604: Throwable while attempting to get a new connection: null: java.lang.NoClassDefFoundError: org/apache/commons/io/output/ByteArrayOutputStream
+        at org.apache.accumulo.core.client.ZooKeeperInstance.getConnector(ZooKeeperInstance.java:222)
+
+See forum thread for more details.

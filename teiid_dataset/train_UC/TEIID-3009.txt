@@ -1,0 +1,2 @@
+perform projection minimization on with commands
+We currently treat the with clause as the creation of a temporary table at a query scope, but we can do projection minimization based upon the referenced columns.  This is somewhat tricky with the current planning logic as we must first plan the with clause to determine if it's eligible for pushdown to then plan the main command.  

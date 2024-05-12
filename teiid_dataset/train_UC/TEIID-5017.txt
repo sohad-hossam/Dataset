@@ -1,0 +1,2 @@
+More aggressively use enhanced join sorted index to prevent buffering 
+In some circumstances the cost of buffering the unsorted side to determine the applicability of the index is greater than simply using the index.  The logic should also use a better estimate of the memory footprint of the index - which is only required to hold the depth of tree in memory at one time.

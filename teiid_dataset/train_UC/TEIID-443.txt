@@ -1,0 +1,23 @@
+Failure in JGroups Communication
+ERROR Incoming-2,teiid,10.15.208.35:47163 org.jgroups.protocols.pbcast.NAKACK - failed reading retransmitted message
+java.io.IOException: failed reading header
+	at org.jgroups.Message.readHeader(Message.java:787)
+	at org.jgroups.Message.readFrom(Message.java:673)
+	at org.jgroups.util.Util.byteBufferToMessage(Util.java:808)
+	at org.jgroups.protocols.pbcast.NAKACK.handleXmitRsp(NAKACK.java:1038)
+	at org.jgroups.protocols.pbcast.NAKACK.up(NAKACK.java:709)
+	at org.jgroups.protocols.VERIFY_SUSPECT.up(VERIFY_SUSPECT.java:167)
+	at org.jgroups.protocols.FD_SOCK.up(FD_SOCK.java:308)
+	at org.jgroups.protocols.MERGE2.up(MERGE2.java:144)
+	at org.jgroups.protocols.Discovery.up(Discovery.java:263)
+	at org.jgroups.protocols.TP.passMessageUp(TP.java:1275)
+	at org.jgroups.protocols.TP.access$100(TP.java:49)
+	at org.jgroups.protocols.TP$IncomingPacket.handleMyMessage(TP.java:1818)
+	at org.jgroups.protocols.TP$IncomingPacket.run(TP.java:1797)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:885)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:907)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.InstantiationException: com.metamatrix.common.messaging.jgroups.JGroupsMessageBus$FederateHeader
+	at java.lang.Class.newInstance0(Class.java:340)
+	at java.lang.Class.newInstance(Class.java:308)
+	at org.jgroups.Message.readHeader(Message.java:777)

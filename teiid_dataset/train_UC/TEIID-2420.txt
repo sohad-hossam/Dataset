@@ -1,0 +1,2 @@
+Command logging causes an error to be logged
+A stacktrace is logged due to command logging for callable statement syntax or other sql that contains {.

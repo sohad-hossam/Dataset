@@ -1,0 +1,2 @@
+Develop the new Teiid Console using JOPR for its core framework
+Use the the JOPR framework to develop the new Teiid console for administrating and monitoring a Teiid resource.

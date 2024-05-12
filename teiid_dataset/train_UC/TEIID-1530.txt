@@ -1,0 +1,2 @@
+ODBC identifer matching issues
+The odbc system query matching only allows literals that have basic characters.  A lesser issue is that it also does not consider postgres escaping, which changes how formating characters are entered.

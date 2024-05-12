@@ -1,0 +1,2 @@
+Assertion error with temp table delete
+Related to TEIID-4405 there are circumstances where a temp table deletion results in an assertion error of "delete failed".  A possible scenario (that is dependent upon a number of factors, including batch sizes and garbage collection) requires the values stored by the tuple browser to get out of sync with what is stored by the page such that a delete is attempted twice.

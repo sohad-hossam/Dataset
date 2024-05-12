@@ -1,0 +1,4 @@
+Teiid should be deployable in EAP 6.1 bits
+EAP 6.1 Alpha 1 is available in community, Teiid must be able to layered on top of this version to make use this version.
+
+EAP 6.1 alpaha1, fixes few major issues that were discovered on AS 7.1.1 version.

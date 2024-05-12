@@ -1,0 +1,4 @@
+Configuration does not look up property definitions correctly, if the property defined on the parent component type
+This bug is related to configuration.xml file. If a masked property specified in a parent component type "Connector", and if you defined another component type say "JDBC Connector", which declares the "Connector" as super type and uses that masked property in its configuration, then at run time the embedded and server engines do not see the property definition for that masked property on the "JDBC Connector" and they treat it as if property is not masked, which is wrong. 
+
+Server and embedded should look up the parent component, if the property definition is not found in its own component type's property set.

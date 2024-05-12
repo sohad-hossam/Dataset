@@ -1,0 +1,27 @@
+IndexOutOfBoundsException when using GROUP BY
+Issuing the following queries that cause the IndexOutofBoundsException:
+
+SELECT IntKey, SUM(IntNum) FROM BQT1.SmallA GROUP BY intKey
+SELECT IntKey, IntNum FROM BQT1.SmallA GROUP BY IntKey, IntNum
+
+Will attach VDB.
+
+
+0:07:04,905 ERROR [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue14) Connector worker process failed for atomic-request=XEIlvkzunTej.7.1.0: java.lang.IndexOutOfBoundsException: Index: 1, Size: 1
+	at java.util.ArrayList.rangeCheck(ArrayList.java:604) [rt.jar:1.7.0_25]
+	at java.util.ArrayList.get(ArrayList.java:382) [rt.jar:1.7.0_25]
+	at org.teiid.translator.mongodb.MongoDBQueryExecution.next(MongoDBQueryExecution.java:124)
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.handleBatch(ConnectorWorkItem.java:384) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.more(ConnectorWorkItem.java:202) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:301) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:110) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:107) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0_25]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0_25]
+	at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:58) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.7.1.redhat-5.jar:8.7.1.redhat-5]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_25]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_25]
+	at java.lang.Thread.run(Thread.java:724) [rt.jar:1.7.0_25] 

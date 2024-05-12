@@ -1,0 +1,2 @@
+Produce a wildfly kit
+Ahead of the 9 release it would be good to provide an option for an 8.x kit on wildfly.  See also http://teiid.blogspot.com/2015/06/teiid-811-beta3-posted.html

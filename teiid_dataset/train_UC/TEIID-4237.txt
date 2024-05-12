@@ -1,0 +1,15 @@
+INNER JOIN returns incorrect results
+Running the following query:
+{code:sql}
+select avg(t1.a) from 
+	(select 3 as a, 3 as b union all
+	select 1 as a, 1 as b union all
+	select 3 as a, 3 as b) as t1 
+join (select 1 as a, 1 as b union all
+	select 1 as a, 1 as b union all
+	select 2 as a, 2 as b union all
+	select 2 as a, 2 as b union all
+	select 3 as a, 3 as b union all
+	select 3 as a, 3 as b) as t2 on t1.a=t2.a
+{code}
+on teiid causes incorrect result: 2 in comparing with mysql which returns 2.333.

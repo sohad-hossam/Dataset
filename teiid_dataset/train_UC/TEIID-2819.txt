@@ -1,0 +1,7 @@
+Use Oauth SAML Bearer Assertion Flow
+I can secure my mobile and cloud applications?
+
+Consider doing SAML first and Oauth later – the use cases are the same, the implementation is different
+
+Link - https://help.salesforce.com/apex/HTViewHelpDoc?id=remoteaccess_oauth_SAML_bearer_flow.htm&language=en
+

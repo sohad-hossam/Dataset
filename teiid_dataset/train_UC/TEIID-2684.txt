@@ -1,0 +1,2 @@
+Unexpected AsynchPositioningException
+A recent build failed due to an AsynchPositioningException being thrown from TestAsynch.testAsynchPlaning.  This is not expected and was reproduced.

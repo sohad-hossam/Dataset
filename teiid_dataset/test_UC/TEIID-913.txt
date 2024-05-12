@@ -1,0 +1,7 @@
+Refine buffer management
+The current buffermanagement scheme has several limitations that should be resolved:
+
+1. We over use the buffermanager to create temporary results for sub-plans and sort operations where batch streaming would suffice.
+2. The blockedonmemory exception is inefficient for resolving resource conflicts.
+3. Most of the buffers in the plan (batches stored on nodes and intermeiated node results) are not accounted for in the active batches.
+4. Outside of the initial sort phase of the multi-pass sort batch access is highly ephemeral and is inherently limited by the number of process worker threads.

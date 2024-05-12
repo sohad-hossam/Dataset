@@ -1,0 +1,2 @@
+Allow for backwards compatibility with multiple security domains per transport
+With TEIID-2863 the ability to assign multiple security domains per transport was removed in favor of a per vdb scheme.  However we still need to have it in place for backwards compatibility.

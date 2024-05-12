@@ -1,0 +1,9 @@
+Provide pre built "Translator" for all the popular data sources
+Out of the box provide the pre-built "translators" for all the sources Teiid supports like
+
+- Oracle, SQLServer, MySQL etc.
+- Text
+- Loopback
+- LDAP
+- Sales Force
+- XML ??

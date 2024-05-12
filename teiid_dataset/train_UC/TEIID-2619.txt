@@ -1,0 +1,4 @@
+Add an option to force executions to complete in a single thread
+In some cases drivers use thread local or other logic not conducive to Teiid's execution model where the processing/connector thread may be different for each source operation.  It would be useful to ensure completion of the source access in a single thread - which could be either to hold thread with the execution or to proactively process the results so that the thread can be released.
+
+See also TEIID-1648 TEIID-2428

@@ -1,0 +1,4 @@
+Improve xml/json production
+The current xml/json logic can produce a lot of intermediate results that are recopied and can result in a slower performance for larger documents.  
+
+The logic could allow for nested evaluations to delay creating their full string forms or simply allow the return values to remain appendable rather than requiring full copies.

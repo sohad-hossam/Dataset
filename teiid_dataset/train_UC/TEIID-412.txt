@@ -1,0 +1,14 @@
+The Postgres driver postgresql-8.1-404.jdbc3.jar isn't supported due to it's no 1.6 fully compatible
+The following exception is thrown due to the driver 1.6 incompatibility:
+
+Caused by: java.lang.AbstractMethodError: org.postgresql.jdbc3.Jdbc3Connection.isValid(I)Z
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at com.metamatrix.common.jdbc.SimplePooledConnectionSource$ConnectionProxy.invoke(SimplePooledConnectionSource.java:83)
+	at $Proxy0.isValid(Unknown Source)
+	at com.metamatrix.common.jdbc.SimplePooledConnectionSource.getConnection(SimplePooledConnectionSource.java:121)
+	at com.metamatrix.common.connection.jdbc.JDBCMgdResourceConnection.openConnection(JDBCMgdResourceConnection.java:72)
+	at com.metamatrix.common.connection.ManagedConnection.open(ManagedConnection.java:137)
+	at com.metamatrix.common.connection.TransactionMgr.getReadTransaction(TransactionMgr.java:73)

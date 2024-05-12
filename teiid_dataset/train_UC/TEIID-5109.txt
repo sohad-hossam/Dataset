@@ -1,0 +1,23 @@
+Set operations and parenthesis
+Using Teiid 9.2.2 with postgresql, I issue a query structured like this:
+ 
+(a
+UNION ALL
+b
+UNION ALL
+c)
+INTERSECT
+d
+ 
+All queries are from a single database.
+This query does not give back the expected result.
+
+In the plan, I see the query printed with no parenthesis around the unions:
+a UNION ALL b UNION ALL c INTERSECT d
+
+This gives the same result as the query submitted with no parens in it (the intersect of c and d is unioned with a union b.
+
+The expepeted result is to preserve the paren so that the intersect is performed against the union of all three tables.
+
+As a note, using UNION instead of UNION ALL did not preserve the parens, either.
+ 

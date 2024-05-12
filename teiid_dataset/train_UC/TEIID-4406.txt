@@ -1,0 +1,57 @@
+group by cast(... as date) results in NullPointException
+example query: 
+
+select oc.patientid, cast(oc.StartOfPeriod as date) as periodstart,
+        max(case when variableid = 10001001 then oc.Value end) as sofa_resp,
+        max(case when variableid = 10001002 then oc.Value end) as sofa_cardio,
+        max(case when variableid = 10001003 then oc.Value end) as sofa_liver,
+        max(case when variableid = 10001004 then oc.Value end) as sofa_coag,
+        max(case when variableid = 10001005 then oc.Value end) as sofa_cns,
+        max(case when variableid = 10001006 then oc.Value end) as sofa_renal,
+        max(case when variableid = 30010000 then oc.Value end) as sofa_total
+from #tmp_cohort10 c
+join oldcos_scores oc on oc.PatientID = c.patientid
+group by oc.patientid, cast(oc.StartOfPeriod as date)
+
+stacktrace: 
+
+2016-08-23 11:46:25,263 ERROR [org.teiid.PROCESSOR] (Worker50_QueryProcessorQueue784) BCXKsyPCGz6r TEIID30019 Unexpected exception for request BCXKsyPCGz6r.148: java.lang.NullPointerException
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:426)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:418)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:281)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:226)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:386)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:344)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:276)
+        at org.teiid.dqp.internal.datamgr.LanguageBridgeFactory.translate(LanguageBridgeFactory.java:184)
+        at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.<init>(ConnectorWorkItem.java:175)
+        at org.teiid.dqp.internal.datamgr.ConnectorManager.registerRequest(ConnectorManager.java:203)
+        at org.teiid.dqp.internal.process.DataTierManagerImpl.registerRequest(DataTierManagerImpl.java:1011)
+        at org.teiid.query.tempdata.TempTableDataManager.registerRequest(TempTableDataManager.java:179)
+        at org.teiid.query.processor.relational.AccessNode.registerRequest(AccessNode.java:500)
+        at org.teiid.query.processor.relational.AccessNode.openInternal(AccessNode.java:268)
+        at org.teiid.query.processor.relational.AccessNode.open(AccessNode.java:171)
+        at org.teiid.query.processor.relational.JoinStrategy.openRight(JoinStrategy.java:105)
+        at org.teiid.query.processor.relational.JoinNode.nextBatchDirect(JoinNode.java:223)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+        at org.teiid.query.processor.BatchCollector$BatchProducerTupleSource.nextTuple(BatchCollector.java:94)
+        at org.teiid.query.processor.relational.GroupingNode.groupSortPhase(GroupingNode.java:490)
+        at org.teiid.query.processor.relational.GroupingNode.nextBatchDirect(GroupingNode.java:366)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+        at org.teiid.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:150)
+        at org.teiid.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:282)
+        at org.teiid.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:145)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:151)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:114)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:164)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:472)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:348)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51)
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:274)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:276)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210)
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+        at java.lang.Thread.run(Thread.java:745)

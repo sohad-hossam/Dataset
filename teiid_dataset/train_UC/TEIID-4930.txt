@@ -1,0 +1,2 @@
+Scale of 0 always reported for 0 precision
+With invalid metadata from designer that specifies a 0 precision, the scale will always be reported as 0 as well.

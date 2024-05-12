@@ -1,0 +1,2 @@
+Connector Status can reported wrong or possibility of NPE
+The connector status through ConnectorManager object currently represented through Boolean and rest of the states are derived from that. That seems limited, the connector state should be correctly propagated from ConnectorManager. In the cases of user context based connection pooling under Connector, where connections are made based on individual user credentials it is not possible to check if the connection is alive. In this situation current code has bug that can be result in the NPE.

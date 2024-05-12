@@ -1,0 +1,2 @@
+Query engine should be able to plan and execute user queries based upon metadata from connectors
+When the connectors supply the metadata natively rather than from VDB, query engine must able to query this metadata from connectors and able to use this information during resolving and planning of the user query.

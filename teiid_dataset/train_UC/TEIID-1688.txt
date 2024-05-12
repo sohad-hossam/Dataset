@@ -1,0 +1,2 @@
+Derby is inappropriately picking up capabilities
+The base class for derby is db2.  However derby does not support enhanced numerics or common table expressions.

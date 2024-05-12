@@ -1,0 +1,45 @@
+Infinispan DSL translator - error deleting rows from table
+DSL translator is not able to delete rows from table:
+{code:sql|title=Example queries}
+insert into smalla (intkey, stringkey) values (1, '1');
+insert into smalla (intkey, stringkey) values (2, '2');
+delete from smalla
+{code}
+
+Teiid seems to try to delete record repeatedly:
+{code:plain|title=Exception}
+14:05:20,351 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue37) TEIID21013 ObjectUpdateExecution: Warning - The object does not exist when trying to delete from table SmallA with key 2
+14:05:20,352 WARN  [org.teiid.CONNECTOR] (Worker1_QueryProcessorQueue37) Connector worker process failed for atomic-request=IuoK2RpItaN2.13.0.6: org.teiid.translator.TranslatorException: TEIID21012 Processing error: Unable to delete the object in table SmallA with key 2
+    at org.teiid.translator.object.ObjectUpdateExecution.handleDelete(ObjectUpdateExecution.java:385) [translator-object-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.translator.object.ObjectUpdateExecution.executeUpdate(ObjectUpdateExecution.java:137) [translator-object-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.translator.object.ObjectUpdateExecution.execute(ObjectUpdateExecution.java:100) [translator-object-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem$1.execute(ConnectorWorkItem.java:404) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.datamgr.ConnectorWorkItem.execute(ConnectorWorkItem.java:366) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.8.0-internal]
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) [rt.jar:1.8.0-internal]
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.8.0-internal]
+    at java.lang.reflect.Method.invoke(Method.java:483) [rt.jar:1.8.0-internal]
+    at org.teiid.dqp.internal.datamgr.ConnectorManager$1.invoke(ConnectorManager.java:211) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at com.sun.proxy.$Proxy47.execute(Unknown Source)
+    at org.teiid.dqp.internal.process.DataTierTupleSource.getResults(DataTierTupleSource.java:306) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:112) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.process.DataTierTupleSource$1.call(DataTierTupleSource.java:108) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0-internal]
+    at org.teiid.dqp.internal.process.FutureWork.run(FutureWork.java:65) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:280) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.12.8.6_3-redhat-1.jar:8.12.8.6_3-redhat-1]
+    at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+    at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+    at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+{code}
+
+Moreover, Teiid removes only one row (I will log this issue separately):
+*Data in table before delete:*
+|IntKey|StringKey|...|
+|1|1|...|
+|2|2|...|
+
+*Data in table after delete:*
+|IntKey|StringKey|...|
+|2|2|...|

@@ -1,0 +1,13 @@
+Salesforce connector isn't consistently protecting against null values in binding parameters
+The GA release of the SFDC connector had one binding parameter that should have a number value - InLimit.  The p552_080717_0001 patch adds a second - PingInterval.
+
+When these parameters are actually read by the connector in com.metamatrix.connector.salesforce.connection.SalesforceConnection, the connector tries to use Integer.decode or Long.decode to convert these values to the correct numeric type from the String that is returned by the Properties object.  There is no checking to see if the values here are null before calling the decode method, so the connector bombs out with an NPE if either value is null.
+
+We should either silently fall back on a default value or throw an appropriate ConnectorException if these values are null, but we shouldn't be throwing an NPE.
+
+I looked through the code and it looks like we are careful with checking for nulls for the other SFDC connector binding parameters.
+
+Also, I noticed that both of these parameters are defined in the connector binding type's CDK file as type String, instead of the correct numeric type.  I don't know if setting the type correctly in the CDK file would actually add some extra validation in this case, but we should set the types correctly here in case we do (or if we don't, to take advantage of such validation if we add it in a later release).  Using correct numeric types would also make this connector type definition consistent with the other standard MMx connectors, where these types are widely used.
+
+
+

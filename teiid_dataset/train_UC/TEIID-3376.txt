@@ -1,0 +1,6 @@
+SQL Server 2008/2012 - incompatible data types in comparison after cast/convert
+If user want to cast/convert timestamp-value to time and then use it in comparison, Teiid throws an Exception:
+"SQLServerException: The data types datetime and time are incompatible in the greater than operator."
+
+Expected behavior:
+The query should return correct result as the SQL Server is able to handle similar queries (teiid does not have any problem with same query with oracle, postgres, mysql,...)

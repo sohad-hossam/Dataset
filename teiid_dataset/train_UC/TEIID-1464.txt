@@ -1,0 +1,2 @@
+Add uuid function
+Add a uuid function to the Teiid function library.

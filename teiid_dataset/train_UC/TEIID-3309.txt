@@ -1,0 +1,8 @@
+Add system functions for GML2
+JTS has a reader/writer for GML2. 
+* http://tsusiatsoftware.net/jts/javadoc/com/vividsolutions/jts/io/gml2/GMLReader.html
+* http://tsusiatsoftware.net/jts/javadoc/com/vividsolutions/jts/io/gml2/GMLWriter.html
+
+We should expose this functionality as system functions (similar to PostGIS).
+* http://postgis.net/docs/ST_GeomFromGML.html
+* http://postgis.net/docs/ST_AsGML.html

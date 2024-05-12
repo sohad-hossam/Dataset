@@ -1,0 +1,2 @@
+Add support for using source_name with multisource INSERT Statements
+source_name could be added as an additional column for multi-source inserts to determine which source the insert goes to.

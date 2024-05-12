@@ -1,0 +1,2 @@
+Update build to utilize a maven docker plugin
+We need to automate creating and pushing the docker image.

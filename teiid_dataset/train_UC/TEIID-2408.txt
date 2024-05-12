@@ -1,0 +1,4 @@
+statistics of teiid query queuing information
+At currently version of teiid, there is no teiid queuing information available from either teiid api or log or jmx, like how many query plans are still in the waiting queue, how many are in the active queue etc. .Thinking those queuing information is pretty critical for performance tuning up, 
+
+Based on the Ramesh's suggestion, creating this request for probably a statistics max water mark in the waiting queue, and average time spent in waiting queue etc.

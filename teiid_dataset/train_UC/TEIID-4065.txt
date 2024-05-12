@@ -1,0 +1,2 @@
+Accumulo encoding property is effectively unused
+With the use of lexi coders the translator encoding property is effectively unused - however it may be needed if we want to offer a backwards compatible way of accessing older Teiid accumulo data.  For older versions everything would need to be typed as string, but we defaulted to the system encoding rather than utf-8, which is what is expected by the string lexicoder.

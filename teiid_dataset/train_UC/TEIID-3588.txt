@@ -1,0 +1,2 @@
+A procedure without a return/results throws an exception through odata
+executeCall returning a dummy 1 value results in an npe in producing the atom feed.  It looks like it should return null instead.

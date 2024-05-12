@@ -1,0 +1,10 @@
+Rewrite of case with true condition is not correct
+If a secondary searched case condition is always true, then the case will be inappropriately rewritten as just the then expression:
+
+case when ... when true then x else y end
+
+becomes just
+
+x
+
+However the prior cases should still be considered.

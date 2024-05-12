@@ -1,0 +1,2 @@
+Re-enable multi-threaded source query execution
+As part of the moving threading concerns out of the connector layer, multi-threaded execution of source queries was temporarily lost. 

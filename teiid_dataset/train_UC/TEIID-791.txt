@@ -1,0 +1,29 @@
+M2 build getting NPE when connecting to VDB
+I found I get this NPE when connecting to the admin VDB. I see this using both a simple JDBC test tool and AdminShell.
+
+2009-08-18 10:07:51,957 ERROR [Worker0_SocketWorker1] org.teiid.ADMIN - Unexpected exception for session 0
+java.lang.NullPointerException
+	at com.metamatrix.jdbc.EmbeddedConnectionFactoryImpl.getProcess(EmbeddedConnectionFactoryImpl.java:382)
+	at com.metamatrix.dqp.embedded.admin.DQPMonitoringAdminImpl.getProcesses(DQPMonitoringAdminImpl.java:377)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at com.metamatrix.core.util.MixinProxy.invoke(MixinProxy.java:48)
+	at com.metamatrix.jdbc.EmbeddedConnectionFactoryImpl$1.invoke(EmbeddedConnectionFactoryImpl.java:364)
+	at $Proxy22.getProcesses(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.teiid.transport.AdminAuthorizationInterceptor.invoke(AdminAuthorizationInterceptor.java:122)
+	at $Proxy22.getProcesses(Unknown Source)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+	at java.lang.reflect.Method.invoke(Unknown Source)
+	at org.teiid.transport.ServerWorkItem.run(ServerWorkItem.java:100)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(Unknown Source)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(Unknown Source)
+	at java.lang.Thread.run(Unknown Source)

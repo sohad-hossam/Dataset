@@ -1,0 +1,36 @@
+Impala Translator - Support Multiple Count Distinct with Group By
+This is somewhat related to TEIID-3743, which added support of multiple count distinct metrics. We have a requirement to allow multiple count distinct metrics grouped by common attributes.
+
+Currently, we get a failure as follows:
+{noformat}org.teiid.runtime.client.TeiidClientException: java.lang.RuntimeException: Remote org.teiid.core.TeiidProcessingException: TEIID30504 vw_impression_click_transaction_process_date_detail: 500051 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.process_date_key, SUM(g_0.num_clicks), SUM(g_0.num_impressions), COUNT(DISTINCT g_0.orderid), COUNT(DISTINCT g_0.`hash_tid`), SUM(g_0.sales) FROM detail.vw_impression_click_transaction_process_date_detail g_0 WHERE g_0.process_date_key >= '2016-05-22' AND g_0.process_date_key < '2016-05-23' AND g_0.advertiser_key = 12345 GROUP BY g_0.process_date_key]
+{noformat}
+
+To allow this request to succeed, we could have translator write that Impala query as:
+{noformat}
+select nvl(v1.c1,v2.c1), nvl(v1.c2,v1.c2), nvl(v1.c3,v1.c3), v1.c4, v2.c5, nvl(v1.c6,v1.c6)  from (
+SELECT g_0.process_date_key as c1,
+         SUM(g_0.num_clicks) as c2,
+         SUM(g_0.num_impressions) as c3,
+         COUNT(DISTINCT g_0.orderid) as c4,
+         SUM(g_0.sales) as c6
+FROM detail.vw_impression_click_transaction_process_date_detail g_0
+WHERE g_0.process_date_key >= '2016-05-22'
+        AND g_0.process_date_key < '2016-05-23'
+        AND g_0.advertiser_key = 12345
+GROUP BY  g_0.process_date_key
+  ) v1 inner join
+  (
+    SELECT g_0.process_date_key as c1,
+         SUM(g_0.num_clicks) as c2,
+         SUM(g_0.num_impressions) as c3,
+         COUNT(DISTINCT g_0.`hash_tid`) as c5,
+         SUM(g_0.sales) as c6
+FROM detail.vw_impression_click_transaction_process_date_detail g_0
+WHERE g_0.process_date_key >= '2016-05-22'
+        AND g_0.process_date_key < '2016-05-23'
+        AND g_0.advertiser_key = 12345
+GROUP BY  g_0.process_date_key
+   ) v2 on v1.c1 = v2.c1;
+{noformat}
+
+FYI [~shawkins]

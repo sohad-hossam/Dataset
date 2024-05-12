@@ -1,0 +1,14 @@
+Excel translator and dynamic filenames
+Hi all,
+
+All samples I've reached on how to setup a connection to xls files, set up file names as properties in the source model:
+
+    ...  
+    <property name="importer.ExcelFileName" value="names.xls"/>  
+    ...  
+
+Is there any way to specify filenames dynamically at run-time? 
+
+Best regards
+
+MB!

@@ -1,0 +1,2 @@
+Remove optional parenthesis for joins
+Parenthesis are added to joins when translating queries in connector. Some parenthesis are optional, but caused problem for Oracle 9 (case 270389). However, MySql does still need those parenthesis (case 289582).

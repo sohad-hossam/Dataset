@@ -1,0 +1,2 @@
+Teiid JDBC Driver does not participate in Kerberos delegation
+The current JDBC driver can negotiate a static kerberos based connection, but it currently does not have capability participate in kerberos delegation scenarios.

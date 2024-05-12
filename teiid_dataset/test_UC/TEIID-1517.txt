@@ -1,0 +1,4 @@
+Use tree logic for dependent joins, subquery set, and partitioned joins
+The tree logic would help each of the given areas of functionality.
+
+Currently subqueryin produces a linear search, partitioning is limited by the bucketing logic, and dependent joins will only create a tree of a limited size.

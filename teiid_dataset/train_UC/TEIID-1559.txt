@@ -1,0 +1,24 @@
+Dynamic VDB deployed in inactive state on Oracle11g
+Dynamic VDB is deployed in inactive state on SOA-P 5.1 server configured with Oracle 11g R2 database. First I deploy both datasources required by VDB and then dynamic VDB itself. But the VDB remains in inactive state, despite all datasources referred by this VDB are in place (= deployed correctly). Few seconds after deployment of VDB I got this exception from the server.
+
+08:42:24,335 INFO  [RUNTIME] VDB "myvdb-1" - "Employees" model metadata is currently being loaded. Start Time: 4/19/11 8:42 AM
+08:42:24,355 INFO  [PROCESSOR] Clearing prepared plan cache
+08:42:24,358 INFO  [RUNTIME] VDB "myvdb.1[Employees[oracle-connector/oracle/java:DefaultDS], TextFileData[text-connector/file/java:TxtFileDS]]" deployed in inactive state.
+08:42:50,307 WARN  [RunnableTaskWrapper] Unhandled throwable for runnable: org.teiid.deployers.VDBDeployer$1@13bf30c
+java.lang.AssertionError: Duplicate Table APEX_ACTIVITY_LOG
+	at org.teiid.metadata.Schema.addTable(Schema.java:42)
+	at org.teiid.metadata.MetadataFactory.addTable(MetadataFactory.java:82)
+	at org.teiid.translator.jdbc.JDBCMetdataProcessor.getTables(JDBCMetdataProcessor.java:195)
+	at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:110)
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:268)
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:80)
+	at org.teiid.dqp.internal.datamgr.ConnectorManager.getMetadata(ConnectorManager.java:125)
+	at org.teiid.deployers.VDBDeployer.loadMetadata(VDBDeployer.java:310)
+	at org.teiid.deployers.VDBDeployer.access$000(VDBDeployer.java:59)
+	at org.teiid.deployers.VDBDeployer$1.run(VDBDeployer.java:293)
+	at org.jboss.util.threadpool.RunnableTaskWrapper.run(RunnableTaskWrapper.java:147)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:662)
+
+I also tried deploying this VDB on MySQL 5.1 and PostgreSQL 8.3 and the VDB was deployed without any problems or exceptions.

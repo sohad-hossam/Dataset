@@ -1,0 +1,6 @@
+Error or incorrect value when there is a conflict between local and correlated names
+With a query such as:
+
+select e1, (select e1 from (select t1.e1 from pm1.g1 as t1) as t2 where t2.e1 = t1.e1) from pm2.g1 as t1
+
+The correlated reference to t1.e1 will get evaulated as if it were a local value from pm1.g1 as t1  instead.  This is because the evaluator doesn't immediately look for the context value, but rather calls to internalEvaluate.

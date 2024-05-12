@@ -1,0 +1,2 @@
+Upgrade Cassandra Client library
+Cassandra client version of the library is 2.1, this needs to be upgraded to the latest version.

@@ -1,0 +1,11 @@
+Produce an embeddable Teiid engine
+Teiid's federation and query processing features are of use to several other projects.  An embeddedable form is desired such that:
+- the application server is not required
+- queries could be issued in the engine object model to by-pass parsing/validation and results retrieved without the need for JDBC
+- new translators could be added
+
+The following would be open for discussion:
+- the inclusion of saxon/xom/nux for SQL/XML processing
+- if the general deployment logic would be needed, or if just a single dynamic vdb is all that is needed
+
+See the org.teiid.jdbc.FakeServer in the test-integration/common module for a rough approximation at the entry point for a embeddable server.  Note that it is more geared at unit testing JDBC/ODBC rather than providing the features needed here.

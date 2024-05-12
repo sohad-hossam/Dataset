@@ -1,0 +1,2 @@
+Null values in oidvector and int2vector should be 0
+If an oid or int2 vector has a null value in it our logic will omit that value, which results in an array out of bounds exception in the pg JDBC client.  PostgreSQL will actually substitute 0 for null values.  This can occur in querying pg_proc with a procedure that has an array argument.

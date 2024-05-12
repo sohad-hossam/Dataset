@@ -1,0 +1,4 @@
+VDB connection type(Any,none,Version_specific) are not persisted
+The connection type attribute in VDB is not being persistent across server re-loads. If user changes from default "BY_VERSION" to another value, after the restart of the server the value is being reset to "BY_VERSION".
+
+Lack of this persistence makes the VDB version rolling and working with multiple versions of VDB not possible with server restarts.

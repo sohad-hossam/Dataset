@@ -1,0 +1,2 @@
+Hive: Convert "UseDatabaseMetaData: to be an translator import property
+Currently "UseDatabaseMetadata" as been designed as Translator property, may be this should be designed as translator importer property?

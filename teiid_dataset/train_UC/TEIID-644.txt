@@ -1,0 +1,8 @@
+XML-Relational connector is failing to load a SAX parser.
+In the past the connector inherited xerces.  I think it may need to be added to the connector classpath.
+
+Caused by: org.jdom.JDOMException: Could not load default SAX parser: org.apache.xerces.parsers.SAXParser: SAX2 driver class org.apache.xerces.parsers.SAXParser not found: org.apache.xerces.parsers.SAXParser
+	at org.jdom.input.SAXBuilder.createParser(SAXBuilder.java:581)
+	at org.jdom.input.SAXBuilder.build(SAXBuilder.java:424)
+	at org.jdom.input.SAXBuilder.build(SAXBuilder.java:851)
+	at com.metamatrix.connector.xml.base.ExecutionInfo.getNamespaces

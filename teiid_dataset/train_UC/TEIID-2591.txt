@@ -1,0 +1,2 @@
+Incorrect values returned from system table on dependent side of join
+If a system table is marked as the dependent side of a join (should be rarely planned, but can be forced with a makedep) the system table access is not corrected for the projection and may return values that are not matched to the columns requested.

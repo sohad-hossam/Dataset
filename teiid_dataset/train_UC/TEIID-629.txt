@@ -1,0 +1,76 @@
+Blocked Exception thrown - BQT Query Testing
+The following two BQT queries are throwing Blocked Exception.  Still reviewing query results but if I find more of these I will
+log them to this JIRA.
+
+SELECT stringkey, (SELECT intkey from BQT1.SmallA where Intnum &gt; 22) FROM BQT1.SmallA  order by stringkey
+
+SELECT INTKEY, (SELECT TIMESTAMPVALUE FROM BQT1.SMALLA WHERE DOUBLENUM &lt; 25) FROM BQT1.SMALLA ORDER BY Intkey 
+
+May 26, 2009 10:28:31.250 [Worker1_QueryProcessorQueue12|0] ERROR <DQP|0> Unexpected exception for request 2304.5
+[MetaMatrixComponentException]
+1 [BlockedException]
+	at com.metamatrix.query.processor.relational.SubqueryAwareEvaluator.evaluateSubquery(SubqueryAwareEvaluator.java:133)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:651)
+	at com.metamatrix.query.eval.Evaluator.internalEvaluate(Evaluator.java:556)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:514)
+	at com.metamatrix.query.processor.relational.ProjectNode.updateTuple(ProjectNode.java:233)
+	at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:193)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.BatchCollector.collectTuples(BatchCollector.java:58)
+	at com.metamatrix.query.processor.relational.BatchCollector.collectTuples(BatchCollector.java:52)
+	at com.metamatrix.query.processor.relational.SortNode.collectionPhase(SortNode.java:117)
+	at com.metamatrix.query.processor.relational.SortNode.nextBatchDirect(SortNode.java:102)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:110)
+	at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:160)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:264)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:210)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: [BlockedException]
+	at com.metamatrix.common.buffer.BlockedException.<clinit>(BlockedException.java:34)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.switchBatch(DataTierTupleSource.java:148)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:89)
+	at com.metamatrix.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.SelectNode.nextBatchDirect(SelectNode.java:92)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:166)
+	... 15 more
+May 26, 2009 10:28:31.312 [Worker1_QueryProcessorQueue14|0] ERROR <DQP|0> Unexpected exception for request 2304.6
+[MetaMatrixComponentException]
+1 [BlockedException]
+	at com.metamatrix.query.processor.relational.SubqueryAwareEvaluator.evaluateSubquery(SubqueryAwareEvaluator.java:133)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:651)
+	at com.metamatrix.query.eval.Evaluator.internalEvaluate(Evaluator.java:556)
+	at com.metamatrix.query.eval.Evaluator.evaluate(Evaluator.java:514)
+	at com.metamatrix.query.processor.relational.ProjectNode.updateTuple(ProjectNode.java:233)
+	at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:193)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.BatchCollector.collectTuples(BatchCollector.java:58)
+	at com.metamatrix.query.processor.relational.BatchCollector.collectTuples(BatchCollector.java:52)
+	at com.metamatrix.query.processor.relational.SortNode.collectionPhase(SortNode.java:117)
+	at com.metamatrix.query.processor.relational.SortNode.nextBatchDirect(SortNode.java:102)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:110)
+	at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:160)
+	at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:264)
+	at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:210)
+	at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:44)
+	at com.metamatrix.common.queue.WorkerPoolFactory$StatsCapturingSharedThreadPoolExecutor$1.run(WorkerPoolFactory.java:211)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: [BlockedException]
+	at com.metamatrix.common.buffer.BlockedException.<clinit>(BlockedException.java:34)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.switchBatch(DataTierTupleSource.java:148)
+	at org.teiid.dqp.internal.process.DataTierTupleSource.nextTuple(DataTierTupleSource.java:89)
+	at com.metamatrix.query.processor.relational.AccessNode.nextBatchDirect(AccessNode.java:136)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.SelectNode.nextBatchDirect(SelectNode.java:92)
+	at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:257)
+	at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:166)
+	... 15 more

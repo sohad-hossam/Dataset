@@ -1,0 +1,6 @@
+Insert with simple select ? fails
+A query such as 
+
+Insert Into TableA( col1, col2 ) Select ?, ?
+
+will fail as we are not expecting to implicitly resolve references in an insert query expression.

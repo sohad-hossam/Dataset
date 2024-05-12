@@ -1,0 +1,39 @@
+OData - creation of entity (POST) returns exception (status code 500)
+Creation of entity returns exception \[1\]. Representation of entity \[2\]. Http request \[3\]. Header \[4\]. Same exception with of JSON format.
+
+\[1\]
+{code:plain}
+TEIID10076 Invalid conversion from type class java.lang.Object with value 'java.util.GregorianCalendar[time=4000,areFieldsSet=true,areAllFieldsSet=true,
+lenient=true,zone=sun.util.calendar.ZoneInfo[id="GMT",offset=0,dstSavings=0,useDaylight=false,transitions=0,lastRule=null],f
+irstDayOfWeek=2,minimalDaysInFirstWeek=4,ERA=1,YEAR=1970,MONTH=0,WEEK_OF_YEAR=1,
+WEEK_OF_MONTH=1,DAY_OF_MONTH=1,DAY_OF_YEAR=1,DAY_OF_WEEK=5,DAY_OF_WEEK_IN_MONTH=1,
+AM_PM=0,HOUR=0,HOUR_OF_DAY=0,MINUTE=0,SECOND=4,MILLISECOND=0,ZONE_OFFSET=0,DST_OFFSET=0]' 
+to type class java.sql.Time
+{code}
+
+\[2\]
+{code:xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:d="http://docs.oasis-open.org/odata/ns/data" xmlns:georss="http://www.georss.org/georss" xmlns:gml="http://www.opengis.net/gml" xmlns:m="http://docs.oasis-open.org/odata/ns/metadata">
+   <category scheme="http://docs.oasis-open.org/odata/ns/scheme" />
+   <content type="application/xml">
+      <m:properties>
+         <d:intkey m:type="Int32">4</d:intkey>
+         <d:intnum m:type="Int32">4</d:intnum>
+         <d:stringkey>4</d:stringkey>
+         <d:stringval>value_4</d:stringval>
+         <d:booleanval m:type="Boolean">false</d:booleanval>
+         <d:decimalval m:type="Double">-20.4</d:decimalval>
+         <d:timeval m:type="TimeOfDay">00:00:04</d:timeval>
+         <d:dateval m:type="Date">2004-04-04</d:dateval>
+         <d:timestampval m:type="DateTimeOffset">2004-01-01T00:00:04Z</d:timestampval>
+         <d:clobval m:type="Binary">Y2xvYl92YWx1ZV8wMDAwNA==</d:clobval>
+      </m:properties>
+   </content>
+</entry>
+{code}
+
+\[3\]
+POST http://localhost:8080/odata4/olingo_basic/Source/PostTable(4)
+\[4\]
+Content-type: application/xml

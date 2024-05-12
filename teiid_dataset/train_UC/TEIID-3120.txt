@@ -1,0 +1,12 @@
+honor javax.sql.DataSource LoginTimeout
+setLoginTimeout is currently not honored.
+
+Modify [1] to generate a reproducer.  Use [2] in order to simulate an unresponsive Teiid instance.  
+  
+[1]
+https://github.com/teiid/teiid-quickstarts/tree/8.4.x/simpleclient
+
+add  ds.setLoginTimeout(1) to JDBCClient.getDataSourceConnection
+
+[2]
+sudo iptables -I INPUT 1 -m state --state NEW -m tcp -p tcp --dport 31000 -j DROP

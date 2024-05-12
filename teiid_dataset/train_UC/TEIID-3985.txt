@@ -1,0 +1,2 @@
+NativeMetadataRepository swallowing original exceptions
+NativeMetadataRepository exceptions do not rethrow the underlying exception, nor produce a log if not thrown for connection exceptions.

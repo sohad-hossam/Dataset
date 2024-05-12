@@ -1,0 +1,2 @@
+Handling for null values in plan nodes
+PlanNode with a null string value can throw an exception when writing out as xml since the writer may not handle a null.

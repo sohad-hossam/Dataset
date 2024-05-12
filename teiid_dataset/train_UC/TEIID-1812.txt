@@ -1,0 +1,18 @@
+Client Recieving java.lang.IndexOutOfBoundsException when performing query
+When attempting to perform the following query using the postgres command line client connecting to teiids postgres emulation layer, we get the following error
+
+{code}
+SELECT components.name, COUNT(bug_id) FROM BugzillaS.bugs bugs, BugzillaS.components components, BugzillaS.profiles profiles WHERE (bugs.component_id = 
+            components.id AND bugs.reporter = profiles.userid AND bugs.creation_ts>='2011-10-04') GROUP BY components.name ORDER BY components.name limit 1500;
+{code}
+
+{code}
+ERROR:  java.lang.IndexOutOfBoundsException
+DETAIL:  org.teiid.jdbc.TeiidSQLException: java.lang.IndexOutOfBoundsException
+{code}
+
+Watching the server logs we don't see any such exception reported there, so I'd need some advice on how to get you some more information.
+
+Regards,
+
+Graeme

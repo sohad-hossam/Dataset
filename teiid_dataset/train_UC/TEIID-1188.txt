@@ -1,0 +1,7 @@
+Error while reading the template properties for LDAP
+groovy:000> getTemplatePropertyDefinitions("connector-ldap");
+ERROR org.teiid.adminapi.AdminComponentException:
+Failed to find template for: translator-connector-ldap
+        at org.teiid.client.util.ExceptionUtil.convertException (ExceptionUtil.java:72)
+        at org.teiid.net.socket.SocketServerConnection$ServerConnectionInvocationHandler.invoke (SocketServerConnection.java:239)
+        at $Proxy7.getTemplatePropertyDefinitions (Unknown Source

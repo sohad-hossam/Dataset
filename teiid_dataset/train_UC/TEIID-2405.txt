@@ -1,0 +1,2 @@
+getVDBImports returns empty list when an importing VDB becomes active.
+I am calling the adminapi getVDB() on a VDB that imports other VDBs. Then I am calling getVDBImports() on the VDB object that is returned. If this VDB object is in a LOADING state, it returns correct list of imported VDBs. If this VDB object is in an ACTIVE state, the call to getVDBImports() returns an empty list. We need a way to get imported VDBs when an importing VDB is ACTIVE.  

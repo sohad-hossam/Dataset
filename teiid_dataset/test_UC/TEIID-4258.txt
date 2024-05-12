@@ -1,0 +1,54 @@
+Cannot connect to Teiid if server runs on JVM 1.6
+If Teiid runs on JVM 1.6. connection fails with EOFException \[1\]
+
+\[1\] Exception thrown (used squirrel client)
+{code:plain}
+java.util.concurrent.ExecutionException: java.lang.RuntimeException: org.teiid.jdbc.TeiidSQLException: TEIID20020 Error establishing socket to host and port: localhost:31000. Reason: null
+	at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:206)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand.awaitConnection(OpenConnectionCommand.java:132)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand.access$100(OpenConnectionCommand.java:45)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand$2.run(OpenConnectionCommand.java:115)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.lang.RuntimeException: org.teiid.jdbc.TeiidSQLException: TEIID20020 Error establishing socket to host and port: localhost:31000. Reason: null
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand.executeConnect(OpenConnectionCommand.java:171)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand.access$000(OpenConnectionCommand.java:45)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand$1.run(OpenConnectionCommand.java:104)
+	... 5 more
+Caused by: org.teiid.jdbc.TeiidSQLException: TEIID20020 Error establishing socket to host and port: localhost:31000. Reason: null
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:135)
+	at org.teiid.jdbc.TeiidSQLException.create(TeiidSQLException.java:71)
+	at org.teiid.jdbc.SocketProfile.connect(SocketProfile.java:66)
+	at org.teiid.jdbc.TeiidDriver.connect(TeiidDriver.java:107)
+	at org.teiid.jdbc.TeiidDriver.connect(TeiidDriver.java:55)
+	at net.sourceforge.squirrel_sql.fw.sql.SQLDriverManager.getConnection(SQLDriverManager.java:133)
+	at net.sourceforge.squirrel_sql.client.mainframe.action.OpenConnectionCommand.executeConnect(OpenConnectionCommand.java:167)
+	... 7 more
+Caused by: org.teiid.net.socket.SingleInstanceCommunicationException: TEIID20020 Error establishing socket to host and port: localhost:31000. Reason: null
+	at org.teiid.net.socket.SocketServerConnection.selectServerInstance(SocketServerConnection.java:161)
+	at org.teiid.net.socket.SocketServerConnection.<init>(SocketServerConnection.java:95)
+	at org.teiid.net.socket.SocketServerConnectionFactory.getConnection(SocketServerConnectionFactory.java:316)
+	at org.teiid.jdbc.SocketProfile.connect(SocketProfile.java:64)
+	... 11 more
+Caused by: java.io.EOFException
+	at java.io.DataInputStream.readInt(DataInputStream.java:392)
+	at org.teiid.netty.handler.codec.serialization.ObjectDecoderInputStream.readObjectOverride(ObjectDecoderInputStream.java:97)
+	at java.io.ObjectInputStream.readObject(ObjectInputStream.java:365)
+	at org.teiid.net.socket.OioOjbectChannelFactory$OioObjectChannel.read(OioOjbectChannelFactory.java:117)
+	at org.teiid.net.socket.SocketServerInstanceImpl.doHandshake(SocketServerInstanceImpl.java:128)
+	at org.teiid.net.socket.SocketServerInstanceImpl.connect(SocketServerInstanceImpl.java:96)
+	at org.teiid.net.socket.SocketServerConnectionFactory.getServerInstance(SocketServerConnectionFactory.java:277)
+	at org.teiid.net.socket.SocketServerConnection.connect(SocketServerConnection.java:239)
+	at org.teiid.net.socket.SocketServerConnection.selectServerInstance(SocketServerConnection.java:125)
+	... 14 more
+{code}
+
+I have tried several combinations:
+|client|server|result|
+|JVM 1.6| JVM 1.6|fail|
+|JVM 1.8| JVM 1.6|fail|
+|JVM 1.6| JVM 1.8|OK|

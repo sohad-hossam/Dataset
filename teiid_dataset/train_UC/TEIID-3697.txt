@@ -1,0 +1,2 @@
+minimize invalid session exceptions in the logs
+Due to our asynch close operations there can be invalid session exceptions even on a normal connection close.  Generally we should avoid throwing the exception unless it is needed.

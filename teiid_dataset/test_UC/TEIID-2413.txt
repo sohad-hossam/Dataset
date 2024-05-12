@@ -1,0 +1,2 @@
+Need admin api methods to return properties and template for a dataSource
+For the designer import work, we need a way to get the properties for a DataSource via the adminApi.  Also the 'template' that was used to create it.

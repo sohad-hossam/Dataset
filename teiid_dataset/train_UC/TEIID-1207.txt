@@ -1,0 +1,4 @@
+Fix Yahoo Translator to work with "Dynamic Portfoilo" example
+The "DynamicPortfoilo" example is driven between "text" and "relational" source, and shows how these two sources can be integrated into single view. Where as Yahoo translator is written as extension, where user can replace the "text" translator and use "yahoo" translator and get the delayed quotes from Yahoo web site. which are more or less real time. This shows the user ability switch sources and keep the top level model work as before.
+
+However, currently "yahoo translator" does not expose the metadata so that it can be used with dynamic vdb scenario. This needs to be fixed for example purposes.

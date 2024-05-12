@@ -1,0 +1,6 @@
+Import properties definitions provided via getTranslatorDefinitions() call do not return default values
+While enabling runtime-provided *IMPORT* properties for the Teiid Connection importer in Designer, I noticed that the property definitions that got returned did not include a *defaultValue*.
+
+The feature will work as is, however, users may be needlessly setting some properties to default (like most booleans) to false.
+
+This is also inconsistent with the Translator Override property definitions. The majority of those are defined with default values.

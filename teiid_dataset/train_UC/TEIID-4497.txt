@@ -1,0 +1,2 @@
+Add upsert support for JDG
+The infinispan/JDG/object translator logic should support upsert.

@@ -1,0 +1,2 @@
+Hive Translator does not utilize some or all of the Importer Properties. 
+None

@@ -1,0 +1,11 @@
+Extension metadata is not visible when queried through OData
+x`Hi,
+I used Teiid Designer and just plain XML editor (because Teiid Designer would constantly complain) I created Model Extension Definition file which I was able to successfully register. My definition was showing up in Model Extension Registry view. I deployed my virtual database and tried accessing columns and tables via Odata:
+http://localhost:8080/odata/MCR_VDB/Tables?$format=json
+http://localhost:8080/odata/MCR_VDB/Columns?$format=json
+
+Both documents returned did not contain any extra metadata I defined.
+HELP!
+
+Thanks.
+Alex

@@ -1,0 +1,33 @@
+JDBC LocalProfile should not bind with jboss-modules
+JDBC LocalProfile seems strictly bind with jboss-modules
+{code}
+class ModuleHelper {
+	
+	static ServerConnection createFromModule(Properties info)
+			throws ConnectionException, TeiidException {
+		ClassLoader tccl = Thread.currentThread().getContextClassLoader();
+        try {
+        	ModuleLoader callerModuleLoader = Module.getCallerModuleLoader();
+        	if (callerModuleLoader == null) {
+        		throw new ConnectionException(JDBCPlugin.Event.TEIID20033, null, JDBCPlugin.Util.gs(JDBCPlugin.Event.TEIID20033));
+        	}
+			final Module module = callerModuleLoader.loadModule(ModuleIdentifier.create("org.jboss.teiid")); //$NON-NLS-1$
+        	Thread.currentThread().setContextClassLoader(module.getClassLoader());
+        	return (ServerConnection)ReflectionHelper.create("org.teiid.transport.LocalServerConnection", Arrays.asList(info, PropertiesUtils.getBooleanProperty(info, LocalProfile.USE_CALLING_THREAD, true)), Thread.currentThread().getContextClassLoader()); //$NON-NLS-1$
+        } catch (ModuleLoadException e) {
+        	 throw new ConnectionException(JDBCPlugin.Event.TEIID20008, e, JDBCPlugin.Util.gs(JDBCPlugin.Event.TEIID20008));
+		} finally {
+        	Thread.currentThread().setContextClassLoader(tccl);
+        }
+	}
+
+}
+{code}
+These code may have risk when invoked by no-jboss environment, eg, the below is the stacktrace of spring boot invoke these code
+{code}
+Caused by: org.teiid.net.ConnectionException: TEIID20033 Cannot use a local connection as no Teiid instance was detected.
+	at org.teiid.jdbc.ModuleHelper.createFromModule(ModuleHelper.java:45) ~[teiid-client-10.0.0.Alpha1-SNAPSHOT.jar:10.0.0.Alpha1-SNAPSHOT]
+	at org.teiid.jdbc.LocalProfile.createServerConnection(LocalProfile.java:56) ~[teiid-client-10.0.0.Alpha1-SNAPSHOT.jar:10.0.0.Alpha1-SNAPSHOT]
+	at org.teiid.jdbc.LocalProfile.connect(LocalProfile.java:46) ~[teiid-client-10.0.0.Alpha1-SNAPSHOT.jar:10.0.0.Alpha1-SNAPSHOT]
+	... 45 common frames omitted
+{code}

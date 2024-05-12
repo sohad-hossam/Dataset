@@ -1,0 +1,111 @@
+ArrayIndexOutOfBounds and ASSERTION FAILED in models with UNION
+I've three simple source models. Two of them (namely "support_phy" and "oasi_phy") are on MySQL, and one ("tricolore_phy") on SQL Server 2000. I also have three view models, one for each source model, named "support_log", "oasi_log" and "tricolore_log". Don't mind the names...
+
+Every model has only one table. Each of these view models reflects one of the source models. In addition I have a fourth view model, named "aop", which integrates the data from the other view models using a simple UNION ALL operation. In particular this view model is defined by the following query:
+
+{code:sql}
+SELECT
+		TR_v.data AS data_fattura, TR_v.n_prog, TR_v.quantita
+	FROM
+		tricolore_log.misura124.tricolore.vendita_referenza AS TR_v
+UNION ALL
+SELECT
+		OA_v.data AS data_fattura, OA_v.n_prog, OA_v.quantita
+	FROM
+		oasi_log.misura124.oasi.vendita_referenza AS OA_v
+{code}
+
+One problem is that if I execute the following query, against the integrated model:
+{code:sql}
+SELECT
+    data_fattura,
+    n_prog,
+    quantita
+FROM
+    aop.misura124.aop.vendita_referenza
+WHERE n_prog = 1
+{code}
+
+I get a ArrayIndexOutOfBoundsException:
+{code}
+2011-04-20 17:26:26,332 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-1)      START USER COMMAND:     startTime=2011-04-20 17:26:26.332       requestID=8LzPNHldNJhu.2     txID=null       sessionID=8LzPNHldNJhu  applicationName=JDBC    principal=admin@teiid-security  vdbName=misura124       vdbVersion=1sql=SELECT
+    data_fattura,
+    n_prog,
+    quantita
+FROM
+    aop.misura124.aop.vendita_referenza
+where n_prog = 1
+2011-04-20 17:26:26,373 DEBUG [org.teiid.COMMAND_LOG] (Worker163_QueryProcessorQueue7610)       ERROR USER COMMAND:     endTime=2011-04-20 17:26:26.373 requestID=8LzPNHldNJhu.2     txID=null       sessionID=8LzPNHldNJhu  principal=admin@teiid-security  vdbName=misura124       vdbVersion=1    finalRowCount=null
+2011-04-20 17:26:26,373 ERROR [org.teiid.PROCESSOR] (Worker163_QueryProcessorQueue7610) Unexpected exception for request 8LzPNHldNJhu.2
+java.lang.ArrayIndexOutOfBoundsException
+{code}
+
+I've tried to swap the order of the SELECTs statements in the query as follows:
+{code:sql}
+SELECT
+		OA_v.data AS data_fattura, OA_v.n_prog, OA_v.quantita
+	FROM
+		oasi_log.misura124.oasi.vendita_referenza AS OA_v
+UNION ALL
+SELECT
+		TR_v.data AS data_fattura, TR_v.n_prog, TR_v.quantita
+	FROM
+		tricolore_log.misura124.tricolore.vendita_referenza AS TR_v
+{code}
+Surprisingly it works!!
+
+This was the first problem. While finding a solution to that problem, I found a second problem. The definition of the table in the "tricolore_log" model is as follows:
+{code:sql}
+SELECT
+		TR_v.DataDocumento AS data, 1 AS n_prog, CAST(SUM(TR_v.NrPezzi) AS INTEGER) AS quantita
+	FROM
+		tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS TR_v INNER JOIN support_log.mediator.referenza_op AS SUP_r ON TR_v.Cod_Dsc = SUP_r.codice
+	WHERE
+		SUP_r.codop = 1
+	GROUP BY TR_v.DataDocumento, COALESCE(NULLIF(RTRIM(LTRIM(TR_v.NumeroDocumento)), ''), 'N.D.')
+{code}
+
+The GROUP BY clause is a little bit complex, so I tried to simplify it by removing the COALESCE function, thereby maintaining in the clause only the TR_v.DataDocumento field. I've run the same query on the integrated schema, and the result is an ASSERTION FAILED error:
+
+{code}
+2011-04-20 17:06:33,572 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2)      START USER COMMAND:     startTime=2011-04-20 17:06:33.571       requestID=iMaBNssX10Nx.0     txID=null       sessionID=iMaBNssX10Nx  applicationName=JDBC    principal=admin@teiid-security  vdbName=misura124       vdbVersion=1sql=SELECT
+    data_fattura,
+    n_prog,
+    quantita
+FROM
+    aop.misura124.aop.vendita_referenza
+where n_prog = 1
+2011-04-20 17:06:33,586 DEBUG [org.teiid.COMMAND_LOG] (Worker158_QueryProcessorQueue7536)       ERROR USER COMMAND:     endTime=2011-04-20 17:06:33.586 requestID=iMaBNssX10Nx.0     txID=null       sessionID=iMaBNssX10Nx  principal=admin@teiid-security  vdbName=misura124       vdbVersion=1    finalRowCount=null
+2011-04-20 17:06:33,588 ERROR [org.teiid.PROCESSOR] (Worker158_QueryProcessorQueue7536) Unexpected exception for request iMaBNssX10Nx.0
+java.lang.AssertionError: ASSERTION FAILED: expected reference to be not null
+        at org.teiid.core.util.Assertion.failed(Assertion.java:73)
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:100)
+        at org.teiid.core.util.Assertion.isNotNull(Assertion.java:92)
+        at org.teiid.query.processor.relational.RelationalNode.getProjectionIndexes(RelationalNode.java:367)
+        at org.teiid.query.processor.relational.JoinNode.initialize(JoinNode.java:129)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:103)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+        at org.teiid.query.processor.relational.RelationalPlan.connectExternal(RelationalPlan.java:108)
+        at org.teiid.query.processor.relational.RelationalPlan.initialize(RelationalPlan.java:98)
+        at org.teiid.query.processor.QueryProcessor.init(QueryProcessor.java:175)
+        at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:125)
+        at org.teiid.query.processor.QueryProcessor.nextBatch(QueryProcessor.java:104)
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146)
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:305)
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:233)
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:56)
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:197)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:118)
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:292)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+        at java.lang.Thread.run(Thread.java:662)
+{code}
+
+Worst of all, the clients seems to not recognize the error, and thus it continues to wait for a response which will never arrive. From the client point of view, the server seems to be in a infinite loop.
+
+In addition the query works either by completely removing the GROUP BY clause, or removing the INNER JOIN and the WHERE clauses. But these can not be considered as workarounds because they change the semantics of the model.
+
+I found the two bugs using Teiid 7.3 patched with https://issues.jboss.org/browse/TEIID-1458 and https://issues.jboss.org/browse/TEIID-1465, and then I upgraded to Teiid 7.4 beta2, which doesn't solve the problem.

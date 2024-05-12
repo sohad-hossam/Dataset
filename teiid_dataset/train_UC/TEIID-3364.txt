@@ -1,0 +1,4 @@
+Teiid Embedded generic-soap run failed
+I test the 8.10 embedded-dist zip download, the generic-soap run failed with Connection reset exception.
+
+On the other sides, can we add more samples for teiid embedded mode?

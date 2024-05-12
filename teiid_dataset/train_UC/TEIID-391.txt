@@ -1,0 +1,5 @@
+Missing Message Key After Server Failed to Start
+My server failed to start due to my database connectivity going down and the following error was logged:
+
+Mar 02, 2009 16:23:22.399 [RegistryUpdate6|0] ERROR <RESOURCE_POOLING|0> <Missing message for key "WorkerPool.uncaughtException" in: com.metamatrix.common.i18n>
+java.lang.IllegalStateException: Cache not in STARTED state!

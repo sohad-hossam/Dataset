@@ -1,0 +1,2 @@
+Literal date comparisons with databasetimezone set are incorrect
+If the database timezone property is set and a literal comparison is used, then the date value will be shifted from the local timezone into the database timezone, but it should be the other way around.

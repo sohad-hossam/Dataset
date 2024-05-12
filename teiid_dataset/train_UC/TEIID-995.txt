@@ -1,0 +1,2 @@
+The management console should support deploying VDB to EDS
+The management console should support deploying VDB to EDS, and subsequently, enable the establishment of a JDBC connection from a client application to EDS using the same VDB

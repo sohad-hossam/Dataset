@@ -1,0 +1,2 @@
+Upgrade accumulo and solr libraries
+Related to TEIID-4572 the solr version should be upgraded.  To keep the common version of zookeeper however, we also need to upgrade accumulo.

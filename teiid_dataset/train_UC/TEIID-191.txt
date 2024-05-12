@@ -1,0 +1,4 @@
+connector-api enhancements
+Add the ability for connector jobs - ConnectorEnvironment.addWork(Runnable) and possibly repeating tasks
+Add isEnabled methods for log levels on connector logger
+Add the ability to return warnings (as ConnectorExceptions) from an execution and allow them to flow all the way to the client.

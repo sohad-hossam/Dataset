@@ -1,0 +1,6 @@
+LDAP Connector should provide a way to retrieve all values of an attribute that appears multiple times within a search result
+If an attribute appears more than once, we should have some way to return all values. Currently, we only return one value, with no rhyme, reason, or determinism as to which one gets returned. Implementing this is difficult when multiple attributes appear more than once, of course. But a simple example of where this problem rears it's head is in modeling LDAP groups. Groups typically have repeating attributes to represent each member, and it would be nice to query all members of a given group, but impossible to do so with the current logic. 
+
+A sophisticated solution would create a normalized view of a DN, breaking out multi-valued attributes into a separate table that could be joined by a primary key. A simple solution might allow attributes to be flagged as "multi-valued", in which case, they could be maintained in a single denormalized table that represents all values in the DN. 
+
+If we build an importer for LDAP, we should consider how to best handle this issue in the importer design.

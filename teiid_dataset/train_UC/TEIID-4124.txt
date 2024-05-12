@@ -1,0 +1,3 @@
+add literal date format YYYY-MM-DD to the SQL Server translator
+We are missing literal data format YYYY-MM-DD, which is 23 in our mapping for the sqlserver translator:
+http://stackoverflow.com/questions/15555275/undocumented-convert-styles-datetime-23

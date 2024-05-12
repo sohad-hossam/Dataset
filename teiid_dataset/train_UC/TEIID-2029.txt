@@ -1,0 +1,2 @@
+Allow defining multiple dependencies with "lib" property in the vdb.xml
+Currently "lib" property allows single module dependency, allow to define multiple modules with comma as the delimiter. Also allow the JAR or EAR/WAR based dependencies.

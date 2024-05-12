@@ -1,0 +1,8 @@
+patch to CXF no longer needed with new version of the CXF in 9.0 series.
+Using oauth2 authentication for rest webservice in Teiid (issuing sql request through invokeHTTP method in  dynamic VDB), fails with an error like:
+
+ERROR [org.teiid.CONNECTOR] (Worker0_QueryProcessorQueue61) P8QCt6jWv5/F Connector worker process failed for atomic-request=P8QCt6jWv5/F.7.4.35838: java.lang.NoClassDefFoundError: javax/ws/rs/client/ClientException
+at org.apache.cxf.rs.security.oauth2.client.OAuthClientUtils.getAccessToken(OAuthClientUtils.java:287)
+...many more 
+
+(see forum reference for more stack trace)

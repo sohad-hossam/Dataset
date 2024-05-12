@@ -1,0 +1,46 @@
+Undeployable dynamic VDB at start-up time removes all previously deployed artifacts
+If standalone/deployments directory contains undeployable dynamic VDB at start-up (reload) time all deployments previously deployed via mangement CLI are undeployed.
+
+Log:
+{code:text}
+13:42:48,993 INFO  [org.jboss.as] (MSC service thread 1-4) JBAS015899: JBoss Red Hat JBoss Data Virtualization 6.2.0 (AS 7.5.3.Final-redhat-2) starting
+...
+...
+...
+13:42:53,258 ERROR [org.jboss.as.controller.management-operation] (Controller Boot Thread) JBAS014612: Operation ("deploy") failed - address: ([("deployment" => "oo-vdb.xml")]) - failure description: {"JBAS014671: Failed services" => {"jboss.teiid.vdb.odata.1" => "org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1
+    Caused by: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1"}}
+13:42:53,300 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015859: Deployed "QT_MySql55_Push.vdb" (runtime-name : "QT_MySql55_Push.vdb")
+13:42:53,301 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 30) JBAS015859: Deployed "oo-vdb.xml" (runtime-name : "oo-vdb.xml")
+13:42:53,302 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 52) JBAS015859: Deployed "modeshape-cmis.war" (runtime-name : "modeshape-cmis.war")
+13:42:53,302 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 30) JBAS015859: Deployed "integration-platform-console.war" (runtime-name : "integration-platform-console.war")
+13:42:53,302 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 52) JBAS015859: Deployed "modeshape-webdav.war" (runtime-name : "modeshape-webdav.war")
+13:42:53,302 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 52) JBAS015859: Deployed "modeshape-rest.war" (runtime-name : "modeshape-rest.war")
+13:42:53,303 INFO  [org.jboss.as.controller] (Controller Boot Thread) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.teiid.vdb.odata.1: org.jboss.msc.service.StartException in service jboss.teiid.vdb.odata.1: org.teiid.deployers.VirtualDatabaseException: TEIID40093 Model Source specified with no source information in VDB odata.1
+
+13:42:53,330 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+13:42:53,330 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+13:42:53,331 ERROR [org.jboss.as] (Controller Boot Thread) JBAS015875: JBoss Red Hat JBoss Data Virtualization 6.2.0 (AS 7.5.3.Final-redhat-2) started (with errors) in 4336ms - Started 619 of 664 services (1 services failed or missing dependencies, 100 services are lazy, passive or on-demand)
+13:42:53,529 INFO  [org.jboss.web] (ServerService Thread Pool -- 26) JBAS018224: Unregister web context: /modeshape-rest
+13:42:53,538 INFO  [org.jboss.web] (ServerService Thread Pool -- 19) JBAS018224: Unregister web context: /modeshape-webdav
+13:42:53,540 INFO  [org.jboss.web] (ServerService Thread Pool -- 18) JBAS018224: Unregister web context: /modeshape-cmis
+13:42:53,544 INFO  [org.teiid.RUNTIME] (MSC service thread 1-4) TEIID50026 VDB "QT_MySql55_Push.1[Source{Source=Source, mysql5, MySQL55_PushDS}, XQTRecursiveSchema{}, BQT2{}, SP{SP=SP, mysql5, MySQL55_PushDS}, VirtProcs{}, XQTSchema{}, XQTRecursiveDoc{}, XQT{}, BQT1{}, VQT{}, XQTNestedDoc{}, XQTDoc{}]" undeployed.
+13:42:53,569 INFO  [javax.enterprise.resource.webservices.jaxws.servlet.http] (ServerService Thread Pool -- 18) WSSERVLET15: JAX-WS servlet destroyed
+13:42:53,572 INFO  [javax.enterprise.resource.webservices.jaxws.server.http] (ServerService Thread Pool -- 18) WSSERVLET13: JAX-WS context listener destroyed
+13:42:53,578 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment modeshape-rest.war (runtime-name: modeshape-rest.war) in 50ms
+13:42:53,580 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment oo-vdb.xml (runtime-name: oo-vdb.xml) in 43ms
+13:42:53,582 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment modeshape-webdav.war (runtime-name: modeshape-webdav.war) in 45ms
+13:42:53,583 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-5) JBAS015877: Stopped deployment QT_MySql55_Push.vdb (runtime-name: QT_MySql55_Push.vdb) in 46ms
+13:42:53,607 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment modeshape-cmis.war (runtime-name: modeshape-cmis.war) in 70ms
+13:42:53,647 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015858: Undeployed "oo-vdb.xml" (runtime-name: "oo-vdb.xml")
+13:42:53,648 INFO  [org.jboss.as.repository] (DeploymentScanner-threads - 2) JBAS014901: Content removed from location /home/jdurani/redhat/data-virtualization/dv_6.2.0/untouched_tmp3/standalone/data/content/45/9c1839c446e700d7f0b713f5f949b068fbeb24/content
+13:42:53,648 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015858: Undeployed "QT_MySql55_Push.vdb" (runtime-name: "QT_MySql55_Push.vdb")
+13:42:53,649 INFO  [org.jboss.as.repository] (DeploymentScanner-threads - 2) JBAS014901: Content removed from location /home/jdurani/redhat/data-virtualization/dv_6.2.0/untouched_tmp3/standalone/data/content/a3/b37a584c66a65d33bf194ffa9fc0e93c83b9ca/content
+13:42:53,649 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015858: Undeployed "modeshape-webdav.war" (runtime-name: "modeshape-webdav.war")
+13:42:53,651 INFO  [org.jboss.as.repository] (DeploymentScanner-threads - 2) JBAS014901: Content removed from location /home/jdurani/redhat/data-virtualization/dv_6.2.0/untouched_tmp3/standalone/data/content/f2/00c83231bcb7a63276d49ac9e01bcbbde30424/content
+13:42:53,651 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015858: Undeployed "modeshape-cmis.war" (runtime-name: "modeshape-cmis.war")
+13:42:53,652 INFO  [org.jboss.as.repository] (DeploymentScanner-threads - 2) JBAS014901: Content removed from location /home/jdurani/redhat/data-virtualization/dv_6.2.0/untouched_tmp3/standalone/data/content/2b/4d8dbcf74227d075e54215d1f330da494a4b22/content
+13:42:53,657 INFO  [org.jboss.as.server] (DeploymentScanner-threads - 2) JBAS015858: Undeployed "modeshape-rest.war" (runtime-name: "modeshape-rest.war")
+13:42:53,658 INFO  [org.jboss.as.controller] (DeploymentScanner-threads - 2) JBAS014774: Service status report
+JBAS014777:   Services which failed to start:      service jboss.teiid.vdb.odata.1
+{code}

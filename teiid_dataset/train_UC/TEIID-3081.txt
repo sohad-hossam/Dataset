@@ -1,0 +1,2 @@
+Correct test errors with Java 8
+When running with a Java 8 vm there are test errors.

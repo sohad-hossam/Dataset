@@ -1,0 +1,10 @@
+Designer VDB with WebService model failed to deploy
+Trying deploy a VDB with Web service and XML models is having metadata resolution issues during deploy.
+
+{code}
+11:18:07,636 WARN  [org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 3) TEIID31080 View PostgreTxn_WS.PostgreTxn_g1.getg1 validation error: QueryResolverException-Group does not exist: PostgreTxn_Output_View.g1_OutputView
+11:18:07,638 WARN  [org.teiid.PLANNER.RESOLVER] (teiid-async-threads - 3) TEIID31080 View PostgreTxn_WS.PostgreTxn_g2.getg2 validation error: QueryResolverException-Group does not exist: PostgreTxn_Output_View.g2_OutputView
+11:18:07,639 INFO  [org.teiid.RUNTIME] (teiid-async-threads - 3) TEIID40073 The metadata for the VDB TxnService.1 is loaded, however it is not valid. Check models for errors. Correct the metadata and re-deploy.
+{code}
+
+I originally remembered to skip the model validation on these types of models.

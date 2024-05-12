@@ -1,0 +1,3 @@
+Detect situations in which intermediate updates are not needed such that the updates can be grouped
+ The default processing model is to simply perform the execution for each row, an enhancment would be required for Teiid to detect situations in which intermediate updates are not needed such that the updates can be grouped.
+

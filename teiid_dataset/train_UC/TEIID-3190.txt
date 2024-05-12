@@ -1,0 +1,60 @@
+The modeled datatype integer for column 0 doesn't match the runtime type "java.lang.String" - TEIID 8.9.BETA1
+issuing the following query
+
+{code:sql}
+insert into pgsql.xyz select * from (select uuid() from mysql.test_a limit 5) a LIMIT 0  
+ {code}
+
+Throws the following exception for me. The same query with LIMIT 1 instead of LIMIT 0 correctly works.
+ 
+{code:java}
+ERROR [org.teiid.TRANSPORT] (New I/O worker #2) null TEIID40113 Unhandled exception, aborting operation: org.teiid.transport.ObjectEncoder$FailedWriteExcepti  
+on: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 0 doesn't match the runtime type "java.lang.String". Please ensure that the c  
+olumn's modeled datatype matches the expected data.  
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:136) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.jboss.netty.channel.Channels.write(Channels.java:704) [netty-3.6.2.Final.jar:]  
+        at org.jboss.netty.channel.Channels.write(Channels.java:671) [netty-3.6.2.Final.jar:]  
+        at org.jboss.netty.channel.AbstractChannel.write(AbstractChannel.java:248) [netty-3.6.2.Final.jar:]  
+        at org.teiid.transport.SSLAwareChannelHandler$ObjectChannelImpl.write(SSLAwareChannelHandler.java:93) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.transport.SocketClientInstance.send(SocketClientInstance.java:87) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.transport.ServerWorkItem.sendResult(ServerWorkItem.java:135) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.transport.ServerWorkItem$1.onCompletion(ServerWorkItem.java:105) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.util.ResultsFuture.done(ResultsFuture.java:135) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.util.ResultsFuture.access$200(ResultsFuture.java:40) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.util.ResultsFuture$1.receiveResults(ResultsFuture.java:79) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.sendResultsIfNeeded(RequestWorkItem.java:926) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem$1.flushBatchDirect(RequestWorkItem.java:642) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.processor.BatchCollector.flushBatch(BatchCollector.java:223) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:194) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.query.processor.BatchCollector.collectTuples(BatchCollector.java:146) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.processMore(RequestWorkItem.java:444) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.process(RequestWorkItem.java:326) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.AbstractWorkItem.run(AbstractWorkItem.java:51) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.RequestWorkItem.run(RequestWorkItem.java:254) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.DQPWorkContext.runInContext(DQPWorkContext.java:274) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$RunnableWrapper.run(ThreadReuseExecutor.java:119) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.dqp.internal.process.ThreadReuseExecutor$3.run(ThreadReuseExecutor.java:210) [teiid-engine-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]  
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]  
+        at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]  
+Caused by: org.teiid.core.TeiidRuntimeException: TEIID20001 The modeled datatype integer for column 0 doesn't match the runtime type "java.lang.String". Please ensure tha  
+t the column's modeled datatype matches the expected data.  
+        at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:851) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.ResultsMessage.writeExternal(ResultsMessage.java:317) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_51]  
+        at org.teiid.net.socket.Message.writeExternal(Message.java:61) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at java.io.ObjectOutputStream.writeExternalData(ObjectOutputStream.java:1458) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeOrdinaryObject(ObjectOutputStream.java:1429) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeObject0(ObjectOutputStream.java:1177) [rt.jar:1.7.0_51]  
+        at java.io.ObjectOutputStream.writeObject(ObjectOutputStream.java:347) [rt.jar:1.7.0_51]  
+        at org.teiid.transport.ObjectEncoder.handleDownstream(ObjectEncoder.java:131) [teiid-runtime-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        ... 25 more  
+Caused by: java.lang.ClassCastException: java.lang.String cannot be cast to java.lang.Integer  
+        at org.teiid.client.BatchSerializer$IntColumnSerializer.writeObject(BatchSerializer.java:535) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.BatchSerializer$ColumnSerializer.writeColumn(BatchSerializer.java:506) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        at org.teiid.client.BatchSerializer.writeBatch(BatchSerializer.java:840) [teiid-client-8.9.0.Beta1.jar:8.9.0.Beta1]  
+        ... 36 more  
+{code}

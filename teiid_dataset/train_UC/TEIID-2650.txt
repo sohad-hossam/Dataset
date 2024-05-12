@@ -1,0 +1,8 @@
+A jboss server in domain mode does not advertise its teiid runtime-version
+A standalone jboss server installed with teiid advertises its teiid runtime version at the path /subsystem=teiid/runtime-version.
+
+Likewise, a domain jboss server installed with teiid in the 'ha' profile should advertise its runtime version at the path /profile=ha/subsystem=teiid/runtime-version.
+
+However, whereas the standalone returns the correct value for this attribute, the domain mode server fails, only returning 'undefined'.
+
+This attribute is essential to designer in determining what version is the teiid instance. This in turns determines the functionality of the modelling that is available and which teiid client should be used for connection.

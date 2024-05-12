@@ -1,0 +1,2 @@
+hasWsdl attribute Not Set in VDB
+The hasWsdl attribute of a VDB should be set to true for VDBs that contain a MetaMatrixDataServices.wsdl file. Currently this value is false for Web Service VDBs. This attribute is used for the WSDL auto-discovery process.

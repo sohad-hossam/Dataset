@@ -1,0 +1,12 @@
+AdminShell is not able to handle SELECT * INTO #TEMP FROM foo; (statement does not return a result set)
+Here's the crux of the issue:
+
+select * into #temp from bqt1.smalla;
+// Error: // Uncaught Exception: TargetError : at Line: 165 : in file: URL: jar:file:/home/pnittel/teiid62/adminshell/lib/teiid-adminshell-6.2.0.jar!/scripts/jdbc.bsh : throw e ; 
+
+Target exception: com.metamatrix.jdbc.MMSQLException: Statement does not return a result set.
+
+Steve H. put it this way:
+"The into clause turns the statement into an insert, which does not have a result set - it only returns an update count.  It does seem like AdminShell should handle that case.  It's probably doing some parsing of the command and expecting it to return a resultset..."
+
+This same statement works fine in SQL Explorer.

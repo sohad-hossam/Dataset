@@ -1,0 +1,6 @@
+Support JBoss EAP 6.3 Alpha1 as host environment
+Now that EAP 6.3.Alpha1 is supported with out any $0 developer license, this would be eligible for accepting as the host environment for Teiid.
+
+We know this late in the cycle, but the benefit is users no longer have to manually put in the RestEasy fix. Also there are many bug fixes.
+
+If there are any concerns, let's hear it.

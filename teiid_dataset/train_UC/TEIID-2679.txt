@@ -1,0 +1,2 @@
+future proof the client handshake client/server version
+Until the version logic in the DQPWorkContext, the version strings are being compared lexically which will have an issue with any version part greater than 9.

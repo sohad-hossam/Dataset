@@ -1,0 +1,2 @@
+Node statistics not populated when node returns a buffer
+The method getBuffer does not update node stats like the nextBatch method.

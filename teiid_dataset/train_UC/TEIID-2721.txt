@@ -1,0 +1,12 @@
+Resolving an aliased view prevents inherent update from working
+If an aliased form of an inherently updatable view is resolved first, we will cache invalid update info which prevents inherent insert/update from functioning correctly.
+
+For example with the view gx, first running:
+
+select * from gx as x
+        
+will prevent an inherent insert such as:
+
+insert into gx (e1, e2, e3, e4) select * from pm1.g1
+
+from working as expected

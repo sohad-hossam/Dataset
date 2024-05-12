@@ -1,0 +1,7 @@
+File translator cannot find a file without an extensioin
+Spark creates files with no extension, so using the following:
+
+EXEC Spark.getTextFiles('part-00001')  will generate an error when trying any of the following ways:  part-*.*  or part*.* or part-*
+
+org.teiid.runtime.client.TeiidClientException: java.lang.RuntimeException: Remote org.teiid.core.TeiidProcessingException: TEIID30504 Spark: File not found part*.*
+

@@ -1,0 +1,11 @@
+OData - request is not traslated to valid SQL
+*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$filter=Orders_FK0/$count%20lt%202
+*Result:* TEIID31118 Element "g30.customerid" is not defined by any relevant group.
+*SQL:*
+{code:sql}
+SELECT g30.idcust, g30.name FROM Source.Customers AS g30 WHERE (SELECT COUNT(*) FROM Source.Orders AS g31 WHERE g30.customerid = g31.idcust) < ? ORDER BY g30.idcust
+{code}
+*Correct SQL:*
+{code:sql}
+SELECT g30.idcust, g30.name FROM Source.Customers AS g30 WHERE (SELECT COUNT(*) FROM Source.Orders AS g31 WHERE g30.idcust = g31.customerid) < ? ORDER BY g30.idcust
+{code}

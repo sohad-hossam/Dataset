@@ -1,0 +1,2 @@
+Spurious wake-up error with connector work item
+If a synch work items has a spurious wake up, that can cause state exceptions in start/end processing.

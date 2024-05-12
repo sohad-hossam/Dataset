@@ -1,0 +1,15 @@
+Duplicate column occurs when using translator to produce metadata for staging table
+When deploying a VDB xml where the JDG source model doesn't contain the metadata, it relies upon the translator to generate the metadata for the tables.  However, when there is a materialized view, the staging metadata is causing the following exception:
+
+{code}
+19:52:29,254 ERROR [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue16) TEIID30019 Unexpected exception for request 7Dx4HhkSCh4e.0: java.lang.AssertionError: duplicate uid Column name=name, nameInSource=name, uuid=tid:97f8ad85a287-1c39ba6d-00000002
+	at org.teiid.query.metadata.CompositeMetadataStore.addOid(CompositeMetadataStore.java:199) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.query.metadata.CompositeMetadataStore.addOids(CompositeMetadataStore.java:212) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.query.metadata.CompositeMetadataStore.assignOids(CompositeMetadataStore.java:179) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.query.metadata.CompositeMetadataStore.getOids(CompositeMetadataStore.java:231) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierManagerImpl$13.processQuery(DataTierManagerImpl.java:567) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.ChildRecordExtractionTable.processQuery(BaseExtractionTable.java:151) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierManagerImpl.processSystemQuery(DataTierManagerImpl.java:1177) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+	at org.teiid.dqp.internal.process.DataTierManagerImpl.registerRequest(DataTierManagerImpl.java:941) [teiid-engine-8.12.7.6_3-redhat-1.jar:8.12.7.6_3-redhat-1]
+{code}
+	

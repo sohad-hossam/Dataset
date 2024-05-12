@@ -1,0 +1,14 @@
+External Materialization MATVIEW_ONERROR_ACTION WAIT problem
+When using "teiid_rel:MATVIEW_ONERROR_ACTION" 'WAIT' option in materialized view definition, there's problem with blocked request.
+
+The blocked request is the one, that triggered the materialized view's loading (first query on the defined materialized view). After such request, one can observe, that the query execution doesn't end, but hangs.
+
+Meanwhile while examining the contents  of 'status' table in the underlying database, the LoadNumber column's value increases regularly according to the defined ttl. Moreover the 'LOADSTATE' column changes from LOADING to LOADED in similar manner. The materialized table is populated with correct data. From this I assume, materialization is set up correctly.
+
+During the wait, when logging set to DEBUG, there appears regularly, apart from the logs about refreshing the mat view, this entry:
+{code:plain}
+[32m09:14:52,151 DEBUG [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue2695) Request Thread 87XzBpSzkyk4.0 with state PROCESSING
+[32m09:14:52,151 DEBUG [org.teiid.PROCESSOR] (Worker0_QueryProcessorQueue2695) Request Thread 87XzBpSzkyk4.0 - processor blocked
+{code}
+The log appears in 'ttl' determined intervals, each time after materialized table loading related entries.
+The thread mentioned is the one created after the original query execution was initiated.

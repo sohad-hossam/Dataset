@@ -1,0 +1,25 @@
+VDB Deployment buttons are activated for Product Admin but error is produced on final Finish
+Logged in as a Product Admin user and attempted to deploy a VDB.  Everything worked fine until the final Finish button when an error was produced.  
+
+[AuthorizationException] ERR.014.001.0008: The client is not authorized to attempt this operation. User: SessionToken[pjones@MyLDAP,3653,slntmm05_15301] Role: Admin.SystemAdmin
+	at com.metamatrix.platform.admin.apiimpl.AdminHelper.checkForRequiredRole(AdminHelper.java:102)
+	at com.metamatrix.platform.admin.apiimpl.AdminAPIHelper.checkForRequiredRole(AdminAPIHelper.java:71)
+	at com.metamatrix.platform.admin.apiimpl.ConfigurationAdminAPIImpl.checkPropertiesDecryptable(ConfigurationAdminAPIImpl.java:1254)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:585)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeOn(ServiceInvocation.java:91)
+	at com.metamatrix.core.proxy.DefaultTerminalServiceInterceptor.invoke(DefaultTerminalServiceInterceptor.java:29)
+	at com.metamatrix.core.proxy.SecureTerminalServiceInterceptor.invoke(SecureTerminalServiceInterceptor.java:45)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.core.proxy.ServerSecurityServiceInterceptor.invoke(ServerSecurityServiceInterceptor.java:23)
+	at com.metamatrix.core.proxy.ServiceInvocation.invokeNext(ServiceInvocation.java:87)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receiveLocal(MessageServiceAgent.java:90)
+	at com.metamatrix.common.comm.platform.server.MessageServiceAgent.receive(MessageServiceAgent.java:114)
+	at com.metamatrix.common.comm.platform.server.MessageFilterServiceAgent.receive(MessageFilterServiceAgent.java:99)
+	at com.metamatrix.platform.admin.apiimpl.RuntimeStateListenerAgent.receive(RuntimeStateListenerAgent.java:103)
+	at com.metamatrix.common.comm.platform.socket.SocketVMController.receive(SocketVMController.java:388)
+	at com.metamatrix.common.comm.platform.socket.server.ServerSynchronousWorkItem.process(ServerSynchronousWorkItem.java:36)
+	at com.metamatrix.common.comm.platform.socket.server.SocketServerWorker.process(SocketServerWorker.java:35)
+	at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)

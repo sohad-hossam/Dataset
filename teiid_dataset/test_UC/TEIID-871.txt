@@ -1,0 +1,8 @@
+Refactor system vdb
+1. We should remove the system physical model - it's undocumented, exposes too much metadata cruft, and requires too much logic in the index connector to support it.
+2. We should remove System.datatypeelements and System.datatypeelementproperties - the transformations are invalid (they will always return no rows) and they are redundant 
+3. There should be a new system table ProcedureParamProperties that exposes annotations for procedure params.
+with System.element/datatype and the corresponding properties tables.
+4. This one is open to debate, but I would also like to remove System.describe - since annotations are available directly on the appropriate type table, there doesn't seem to be a good reason to introduce a procedure that operates over all metadata records to return the same information.
+5. The OA ODBC views should be moved into a separate vdb that can be optionally including along with the system vdb
+

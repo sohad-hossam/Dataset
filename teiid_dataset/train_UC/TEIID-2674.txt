@@ -1,0 +1,4 @@
+Makedep not honored with aggregate decomposition
+A makedep hint on a joined table under aggregation for a source that does not support the grouping will result in the makedep hint being ignored - for example where pm1 does not support join/aggregation:
+
+select count(x.e2), e1 from pm1.g1 x makedep, pm1.g2 where x.e3 = pm1.g2.e3 group by e1

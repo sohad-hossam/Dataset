@@ -1,0 +1,16 @@
+Consider using Salesforce retrieve() rather than generic query() call for queries with IN criteria
+One of the usage guidelines for the SFDC WS API (http://blog.sforce.com/sforce/2005/04/performance_tip.html) says
+
+Get familiar with the retrieve call.  If you are pulling data from related tables, the retrieve call is a high performance call that you should be using
+
+So I looked up retrieve() in the API doc (http://www.salesforce.com/us/developer/docs/api/Content/sforce_api_calls_retrieve.htm)
+
+It looks like retrieve() is a special purpose call that gives high performance when you want to retrieve a list of records from an object by object Id.  It lets you select which fields you want returned (and I believe their order), but does not allow any functions on those fields, or any additional criteria beyond this object list.
+
+At first, this sounds like a very limited case, but in fact this is essentially the case we have in the SFDC connector when MM plans out a query as a dep join, with an SFDC table as the dependent source.  In fact the API doc specifically recommends retrieve() for this case:
+
+Client applications can use retrieve() to perform a client-side join. For example, a client application can run a query() to obtain a set of Opportunity records, iterate through the returned opportunity records, obtain the accountId for each opportunity, and then call retrieve() to obtain Account information for those accountIds. 
+
+We may want to implement this special case in the SFDC connector - if a query has as criteria only a single IN clause, and that IN clause is on the Id column, then use retrieve rather than query.
+
+If we implement relationship joins in the SFDC connector, then this optimization is largely irrelevant - so this is a potential fallback or stopgap if we don't want to tackle relationship joins just yet.

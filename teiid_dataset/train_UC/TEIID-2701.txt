@@ -1,0 +1,4 @@
+Don't proactively close source executions under a transaction scope higher than request
+Under a transaction we are always closing source executions that are typically held open for lobs.  While this is basically required in the request scope (as close is too late for a commit - the client would not receive a failure notification), it should not be needed in the other transaction scopes.
+
+For lobs that are not readable after close currently will be seen as unreabable values from Teiid.

@@ -1,0 +1,5 @@
+Some Management CLI should setAllowedValues
+* /subsystem=teiid:write-attribute(name=authentication-type,value=USERPASSWORD) - the allowed values should be USERPASSWORD,GSS
+* /subsystem=teiid:clear-cache(cache-type=PREPARED_PLAN_CACHE) - the cach-type allowed values should be PREPARED_PLAN_CACHE, QUERY_SERVICE_RESULT_SET_CACHE
+* /subsystem=teiid/transport=jdbc:write-attribute(name=protocol,value=teiid) - the protocol allowed values should be teiid, pg,?
+* /subsystem=teiid/transport=jdbc:write-attribute(name=keystore-type,value=JKS) - the keystore-type allowed values should be JKS, and ?

@@ -1,0 +1,4 @@
+Push down DISTINCT with select expression in the query and the datasource doesn't support select expressions 
+Teiid doesn't push down DISTINCT when a select expression is used and the underlying data source doesn't support select expressions. The data source supports DISTINCT.
+
+Related discussion thread: https://community.jboss.org/thread/243376

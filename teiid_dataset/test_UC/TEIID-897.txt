@@ -1,0 +1,13 @@
+Create a new autowrap mode to replace pessimistic/optimistic
+There are issues with pessimistic/optimistic autowrap modes:
+
+1. optimistic transaction autowrap is no longer needed since all installations of Teiid have a transaction manager available.  This mode is really only useful as a development time aid - there is also a case to replace it with a readonly mode to prevent all updates.
+
+2. the detection of when a transaction is needed is based upon the resolved from of a command and not the actual plan/execution.  This has led to progressively more pessimistic logic to capture when a transaction is needed (being fully pessimistic we'd have to assume that any procedure with an update count of 1 also needs a transaction since an error can occur during the conversion of output parameters that should cause a rollback).  We should either do a better job based upon the plan/execution, or just state simple assumptions (select -no txn, source insert, update, delete, exec w/ update count <=1 -no txn, else txn).
+
+3. the terminology is confusing since it's evocative of locking semantics
+
+I therefore propose we change these to txnAutoWrap=AUTO, which would be similar to pessimistic mode and would change the detection strategy to one of the proposals from 2.
+
+We should also be explicit that this mode is based upon the assumption that multiple selects do not need to be grouped in the same transaction.  However when there is a transaction, then the selects will be performed in the same transaction.
+

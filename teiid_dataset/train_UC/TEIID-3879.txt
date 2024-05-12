@@ -1,0 +1,2 @@
+Error during state transfer prevents a node from loading later
+During an initial transfer or a later transfer after invalidation an error will cause the receiving node to just wait for the next load (which could be indefinite) rather than initiating it's own load.

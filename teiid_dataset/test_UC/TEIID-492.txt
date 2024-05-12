@@ -1,0 +1,2 @@
+Reference evaluation should not rely on exact reference instances
+Reference cloning currently returns the reference itself and all associated evaluation code relies upon setting values directly on these references.  It would be far better - and allow for follow on features (plan caches that aren't restricted to a single session) - to have references be properly clonable and have evaluation based upon dynamic value contexts.

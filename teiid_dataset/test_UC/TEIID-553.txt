@@ -1,0 +1,2 @@
+check for element comparable in pushdown of sort/group by/and dup removal
+Since the validation visitor no longer checks for element supports (it is just looking for runtime type TEIID-384), these need to be checked prior to pushdown.

@@ -1,0 +1,6 @@
+VDB re-deploy issue with VDB that auto-generates REST wars
+I've encountered an issue when re-deploying a VDB that auto-generates and deploys REST wars.  On re-deploy of the VDB, the REST wars don't always get deployed. 
+
+Steps to reproduce and server.log is attached.
+
+Note this is on deploy of the VDB over an existing deployment.  Workaround would be to explicitly un-deploy the VDB before doing the deploy.

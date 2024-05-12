@@ -1,0 +1,4 @@
+Change the default for value caching
+There is a larger performance impact from having value caching enabled with large data sets (which is the more typical deployment scenario) than having value caching disabled and a larger memory footprint.
+
+So the value caching default should change to false.

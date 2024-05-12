@@ -1,0 +1,10 @@
+with clause used by subquery repeated in the subquery
+A query such as:
+
+with eee as (select * from pm1.g1) select * from pm1.g2 where pm1.g2.e1 in (select e1 from eee)
+
+will result in a push down that repeats the with clause in the subquery:
+
+... (with eee ... select e1 from eee)
+
+It is sufficient to rely on the parent to define the common table.

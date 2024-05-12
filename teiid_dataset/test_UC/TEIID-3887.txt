@@ -1,0 +1,9 @@
+Redshift - RS does not support ASCII function 
+Redshift database does not support ASCII function
+
+E.g. *SELECT INTKEY, ASCII(INTKEY) FROM BQT1.SmallA ORDER BY INTKEY* is translated as *SELECT g_0.intkey AS c_0, ascii(cast(g_0.intkey AS varchar(4000))) AS c_1 FROM smalla AS g_0 ORDER BY c_0*
+
+Result:
+{code:text}
+Caused by: org.postgresql.util.PSQLException: ERROR: Specified types or functions (one per INFO message) not supported on Redshift tables.
+{code}

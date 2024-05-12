@@ -1,0 +1,2 @@
+SubSystem admin calls to not check read only role requirements.
+The subsystem admin api (not publically accessible) assumes that any usage is already restricted to admins - this is not necessarily true.

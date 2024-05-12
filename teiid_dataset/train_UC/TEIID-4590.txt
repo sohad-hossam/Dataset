@@ -1,0 +1,2 @@
+Fix the Select ALL logic so that it works when different object types exists
+Fix the select * (ALL) logic so that it can work when there are multiple object types in the cache.   The select ALL should only be selecting based on the object type associated with that table.

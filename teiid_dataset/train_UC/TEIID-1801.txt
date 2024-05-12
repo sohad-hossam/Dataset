@@ -1,0 +1,2 @@
+Async Event Processing:  Reset and Re-run plan
+In order to processing a stream of events aggregated within a specified time window, the engine should provide some way of specifying the time period (analogous to a window), reset and re-rerun the plan for every time period.  There should also be an engine to translator callback indicating that the plan has been reset as opposed to closed.

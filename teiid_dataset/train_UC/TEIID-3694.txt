@@ -1,0 +1,19 @@
+Netezza translator - add additional support for other regexp functions
+Support for LIKE_REGEX predicate was added, now would like to add support for the following:
+
+Netezza doesn't support regular expression by default, but with the installation of SQL Extensions toolkit this functionality is added. After installation Netezza provide the regular expression functions:
+regexp_extract()
+regexp_extract_all()
+regexp_extract_all_sp()
+regexp_extract_sp()
+regexp_instr()
+regexp_like()
+regexp_match_count()
+regexp_replace()
+regexp_replace_sp()
+
+IBM Netezza SQL Extensions toolkit is an optional package for IBM Netezza data warehouse appliances.
+
+After installing this toolkit on Netezza and requires that regular expression in JBoss DV syntax are pushed down (delegated) to Netezza to prevent that filtering in the Jboss DV server most be done.
+
+So please provide a configurable option in the Netezza translator of Jboss DV by which we can enable the LIKE_REGEX predicate for Netezza. This option when enabled will assume that the Netezza SQL extension toolkit is installed and the function regexp_like() is available.

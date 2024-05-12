@@ -1,0 +1,2 @@
+DDL format of a vdb lacks import information
+Database and schema imports are not represented from the admin getSchema logic.  It looks better that we still restrict this to just a schema for now.

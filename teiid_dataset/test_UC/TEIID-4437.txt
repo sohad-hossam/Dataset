@@ -1,0 +1,39 @@
+Convert Teiid build to use "feature-pack"
+Change the current build process to build "feature-packs" for project, and then based on feature pack, build 
+
+- WildFly Server distribution
+-WildFly Server Overlay distribution
+
+Teiid currently have distributions, but not based on feature-packs, they need to be. Other distributions like AdminShell do not fall into this category. Only distributions that has WF involvement need a feature -pack (this is important to remember).
+
+Currently Teiid uses "kit" directory in many different projects along with "wildfly-dist.xml" to populate "modules" directory. A feature-pack does EXACTLY same thing, but more with checks and balances. A feature pack, makes sure all the dependencies are met based on module.xml and module.xml defines the maven artifact rather than JAR file. i.e. it defines a metadata file, from which it can be build the zip file that "wildfly-dist.xml" assembly is currently doing. It also can has capabilities to "configure" the WF subsystem. That is manually done or done through CLI currently, using this part will be new.
+
+Implementation Rules 
+1) Every where we have "kit" directory, that module REQUIRES a "feature-pack" module. That means, every translator and resource-adapter gets it's own, and Teiid engine modules separately gets its own module. The reason to keep/create multiple modules is STRICTLY to keep the "modules" directory in feature-pack aligned ONE TO ONE with project that feature-pack represents. Otherwise, as developer we will NOT know which project is bringing in certain dependency, if all the modules are in single place. So, this is more about management of dependencies in a sane way. (Teiid did have all the modules in once place before in 7.x/8.x time, it is a nightmare to handle growing dependencies with our translators)
+
+2) NONE of the work we have is useless/or need to be redone, most everything we have PERFECTLY maps to this effort, except for for configuration part.
+
+3) For translator and resource adapter pair, I recommend that we pull them into single sub folder, and create a single feature pack for it. For example:
+
+we have
+{code}
+connectors/translator-mongodb
+connectors/connector-mongodb
+{code}
+
+I would like see we design as
+
+{code}
+connectors
+         /mongdb
+              /translator-mongodb
+              /connector-mongodb
+              /feature-pack-mongodb
+{code}
+
+No need to create "dist" packages for any resource-adapters or translators. As I mentioned in the beginning of the issue, there are two distributions, they are built using these various feature-packs.
+
+4) I would like to see a clean move of "kit/wildfly/modules" to "feature-packs" using "git", NOT CUT n PASTE where we loose the GIT history.  This will preserve the confidence that what we have currently is EXACTLY same as in future with feature-packs.
+
+5) When designing the "feature-pack" projects, they ABSOLUTELY MUST NOT define any dependencies in their pom.xml other than Teiid project(s) they represent and any other feature-pack they refer to. (Kylin this is what cause most concern from your design for me)
+

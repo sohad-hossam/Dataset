@@ -1,0 +1,15 @@
+Arquillian test failed due to new added ftp connector
+If execute arquillian test
+{code}
+mvn -Dtest=IntegrationTestDeployment clean test -P arquillian-tests
+{code}
+
+getDatasourceTemplateNames will failed due to new added ftp connector
+{code}
+Results :
+
+Failed tests: 
+  IntegrationTestDeployment.getDatasourceTemplateNames:415 expected:<[teiid, simpledb, teiid-xa, google, h2, salesforce, accumulo, file, ldap, cassandra, teiid-local, solr, teiid-local-xa, salesforce-34, webservice, h2-xa, mongodb]> but was:<[h2, teiid, teiid-local, teiid-local-xa, teiid-xa, h2-xa, accumulo, cassandra, file, ftp, google, ldap, mongodb, salesforce, salesforce-34, simpledb, solr, webservice]>
+
+Tests run: 25, Failures: 1, Errors: 0, Skipped: 1
+{code}

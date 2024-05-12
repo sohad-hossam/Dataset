@@ -1,0 +1,6 @@
+Misc improvements
+Based upon recent forum and activity there are few small changes to make:
+
+minimize variadic overhead with logging
+add class type to prepared statement parameter resolving error
+allow inputstreamfactory to directly be converted to a blob

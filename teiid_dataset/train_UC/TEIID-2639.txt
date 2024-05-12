@@ -1,0 +1,4 @@
+Internally generated and user submitted anonymous blocks can't access temp tables from the surrounding scope
+While the blocks are resolved against the surrounding scope, when executed the procedure plan shields them from seeing the higher level scopes just as when a real procedure is executed.  This results in temporary table 'temp' not found exceptions, for example with a non-simple view v and the delete:
+
+delete from v where e2 = (select max(e2) from temp as z where e3 = z.e3)

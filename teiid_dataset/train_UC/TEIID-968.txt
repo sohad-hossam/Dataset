@@ -1,0 +1,10 @@
+Timestamp literals with fractional seconds result in source query execution performance when being compared to less percise time types
+Seeing that the only "time" type for MetaMatrix is timestamp and Oracle uses DATE to store time and TIMESTAMP to store time with fractional seconds we need a method of sending a timestamp as a literal that Oracle can use as a DATE instead of requiring the comparison to be normalized to TIMESTAMP as this results in a huge performance hit within Oracle.
+
+It is possible to change this behaviour by actually setting a date only column to MetaMatrix date in the model but this does not account for situations where a DATE column in Oracle holds date and time information.  In those cases, I would still need to use timestamp for MetaMatrix and this would result in a huge performance impact.
+
+Oracle will automatically use the widest type possible when doing comparisons so if I store date only data in a DATE column and then attempt to query using criteria on that column such ad {d'2000-01-01'} the date literal gets converted to {ts'2000-01-01 00:00:00.0'} prior to it being sent to Oracle.  This will result in Oracle converting my DATE column into a TIMESTAMP column to handle the comparison.  
+
+The current DataDirect driver we are using actually accounts for this issue when dealing with timestamp literals.  Basically, if the timestamp literal does not include fractional seconds, the driver will pass it to Oracle as a date instead of a timestamp.  This greatly improves performance in these situations.  
+
+So, if the current logic is kept, but we simply truncate the timestamp literal to remove the fractional seconds, we get the advantage of the driver performing better type mapping in this situation.

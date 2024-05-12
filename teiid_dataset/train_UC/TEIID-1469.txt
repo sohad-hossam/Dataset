@@ -1,0 +1,2 @@
+EDS Teiid Plugin uses Invalid Datatype Mask for SessionID Parameter to Terminate Session Operation
+The Terminate Session operation validates the session id parameter as an integer when it is actually alpha-numeric, making it impossible to execute the operation.

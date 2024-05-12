@@ -1,0 +1,5 @@
+Error when limit/sort is pushed above a window function
+TEIID-3568 introduced a regression by pushing a sort over a project node, but not accounting for aliases.  This can be reproduced with a query such as:
+
+select column_a, column_b from (select sum(column_a) over (partition by key_column) as column_a, key_column from a ) a left outer join ( select sum(column_b) over (partition by key_column) as column_b, key_column from b) b on a.key_column = b.key_column order by column_a desc limit 10
+

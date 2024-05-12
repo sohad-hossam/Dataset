@@ -1,0 +1,122 @@
+Couchbase INTERSECT doesn't return any values
+INTERSECT operator pushed to Couchbase returns no rows, even though there is an intersection in the values.
+
+{code:sql|title=query_smallA}
+SELECT IntKey FROM BQT1.SmallA
+{code}
+|| IntKey ||
+|| 0 ||
+|| 1 ||
+|| 10 ||
+|| 11 ||
+|| 12 ||
+|| 13 ||
+|| 14 ||
+|| 15 ||
+|| 16 ||
+|| 17 ||
+|| 18 ||
+|| 19 ||
+|| 2 ||
+|| 20 ||
+|| 21 ||
+|| 22 ||
+|| 23 ||
+|| 24 ||
+|| 25 ||
+|| 26 ||
+|| 27 ||
+|| 28 ||
+|| 29 ||
+|| 3 ||
+|| 30 ||
+|| 31 ||
+|| 32 ||
+|| 33 ||
+|| 34 ||
+|| 35 ||
+|| 36 ||
+|| 37 ||
+|| 38 ||
+|| 39 ||
+|| 4 ||
+|| 40 ||
+|| 41 ||
+|| 42 ||
+|| 43 ||
+|| 44 ||
+|| 45 ||
+|| 46 ||
+|| 47 ||
+|| 48 ||
+|| 49 ||
+|| 5 ||
+|| 6 ||
+|| 7 ||
+|| 8 ||
+|| 9 ||
+{code:sql|title=query_smallB}
+SELECT IntKey FROM BQT1.SmallB
+{code}
+|| IntKey ||
+|| 0 ||
+|| 1 ||
+|| 10 ||
+|| 11 ||
+|| 12 ||
+|| 13 ||
+|| 14 ||
+|| 15 ||
+|| 16 ||
+|| 17 ||
+|| 18 ||
+|| 19 ||
+|| 2 ||
+|| 20 ||
+|| 21 ||
+|| 22 ||
+|| 23 ||
+|| 24 ||
+|| 25 ||
+|| 26 ||
+|| 27 ||
+|| 28 ||
+|| 29 ||
+|| 3 ||
+|| 30 ||
+|| 31 ||
+|| 32 ||
+|| 33 ||
+|| 34 ||
+|| 35 ||
+|| 36 ||
+|| 37 ||
+|| 38 ||
+|| 39 ||
+|| 4 ||
+|| 40 ||
+|| 41 ||
+|| 42 ||
+|| 43 ||
+|| 44 ||
+|| 45 ||
+|| 46 ||
+|| 47 ||
+|| 48 ||
+|| 49 ||
+|| 5 ||
+|| 6 ||
+|| 7 ||
+|| 8 ||
+|| 9 ||
+{code:sql|title=query_intersect}
+SELECT IntKey FROM BQT1.SmallA INTERSECT SELECT IntKey FROM BQT1.SmallB
+{code}
+|| IntKey ||
+{code:title=teiid-command.log}
+16:54:04,453 INFO  [org.teiid.COMMAND_LOG] (New I/O worker #2) QE2ZpDa/Btt5     START USER COMMAND: startTime=2017-08-24 16:54:04.453       requestID=QE2ZpDa/Btt5.141    txID=null sessionID=QE2ZpDa/Btt5        applicationName=JDBC          principal=user@teiid-security vdbName=couchbase   vdbVersion=1        sql=SELECT IntKey FROM BQT1.SmallA INTERSECT SELECT IntKey FROM BQT1.SmallB
+16:54:04,455 DEBUG [org.teiid.COMMAND_LOG] (Worker45_QueryProcessorQueue420) QE2ZpDa/Btt5           START DATA SRC COMMAND:       startTime=2017-08-24 16:54:04.455       requestID=QE2ZpDa/Btt5.141    sourceCommandID=0   executionID=102     txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security sql=SELECT Couchbase_small.SmallA.IntKey AS c_0 FROM Couchbase_small.SmallA INTERSECT SELECT Couchbase_small.SmallB.IntKey AS c_0 FROM Couchbase_small.SmallB
+16:54:04,455 DEBUG [org.teiid.COMMAND_LOG] (Worker45_QueryProcessorQueue420) QE2ZpDa/Btt5           SOURCE SRC COMMAND: endTime=2017-08-24 16:54:04.455         requestID=QE2ZpDa/Btt5.141    sourceCommandID=0   executionID=102     txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security sourceCommand=[SELECT `$cb_c1_IntKey` FROM `dvqe_small` `$cb_t1` LET `$cb_c1_IntKey` = `$cb_t1`.`IntKey` WHERE `$cb_t1`.`type` = 'SmallA' INTERSECT SELECT `$cb_c2_IntKey` FROM `dvqe_small` `$cb_t2` LET `$cb_c1_IntKey` = `$cb_t2`.`IntKey`, `$cb_c2_IntKey` = `$cb_t2`.`IntKey` WHERE `$cb_t2`.`type` = 'SmallA']
+16:54:04,680 DEBUG [org.teiid.COMMAND_LOG] (Worker44_QueryProcessorQueue421) QE2ZpDa/Btt5           END SRC COMMAND:    endTime=2017-08-24 16:54:04.68          requestID=QE2ZpDa/Btt5.141    sourceCommandID=0   executionID=102     txID=null modelName=Couchbase_small     translatorName=couchbase      sessionID=QE2ZpDa/Btt5        principal=user@teiid-security finalRowCount=0     cpuTime(ns)=953196
+16:54:04,687 INFO  [org.teiid.COMMAND_LOG] (Worker44_QueryProcessorQueue422) QE2ZpDa/Btt5           END USER COMMAND:   endTime=2017-08-24 16:54:04.687         requestID=QE2ZpDa/Btt5.141    txID=null sessionID=QE2ZpDa/Btt5        principal=user@teiid-security vdbName=couchbase   vdbVersion=1        finalRowCount=0
+{code}

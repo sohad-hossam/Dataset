@@ -1,0 +1,2 @@
+DB2 does not support pushdown of null keyword as a select expression
+For example SELECT SmallA.IntKey, NULL FROM SmallA will fail.

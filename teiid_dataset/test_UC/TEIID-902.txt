@@ -1,0 +1,8 @@
+Restructure planning
+All transformation queries should be cached - not just views.
+All cached queries should already be validated - and not revalidated with every request.
+Cached queries should be stored individually - not as full and separate trees as they are now, where the same view command exists can exist multiple times in cache.
+
+The choice about whether to use a materialized view or not should also be moved to planning time - not a resolver activity.
+
+We should remove the concept of non-embedded command from everything except planning logic.  It's error-prone and confusing in a resolving/rewrite context.

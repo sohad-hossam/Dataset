@@ -1,0 +1,12 @@
+inconsistencies with the week function
+For consistency we could enforce a standard iso behavior for the week function by default.
+
+For mysql there is the weekofyear function that matches the iso behavior.
+hsql uses iso by default
+oracle should use iw, not ww
+
+However:
+h2 uses the locale (the current teiid behavior)
+sqlserver/sybase you can use SET DATEFIRST to move the first day of the week to monday, but the return values are still not fully iso. 
+
+And there are still several others to verify

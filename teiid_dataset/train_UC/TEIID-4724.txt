@@ -1,0 +1,2 @@
+Allow support for vdb.ddl in the .vdb files
+With the DDL based metadata, ".vdb" file archive should allow to contain a "vdb.ddl" file that can be deployed. Based on TEIID-4719 this needs to allow to load metadata from INDEX and DDL-FILE metadata repositories.

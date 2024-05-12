@@ -1,0 +1,2 @@
+Standardize logging in Teiid
+Per http://community.jboss.org/wiki/HowToLogInJBossProjects rework the logging to include the id for all the messages > INFO

@@ -1,0 +1,13 @@
+Impala Time/Date/Timestamp handling
+Impala supports only TIMESTAMP datatype (see here http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/Impala/Installing-and-Using-Impala/ciiu_porting.html) 
+
+Converted everything into timestamp and now I am trying to get Date and Time parts of the timestamp in Teiid e.g.
+
+SELECT DISTINCT convert(Source.SmallA.TimeValue, time) as TimeValue FROM Source.SmallA ORDER BY TimeValue
+
+But I get TranslatorException: Unexpected exception while translating results: Method not supported
+
+
+Tried to workaround this but with limited success. For Date it is possible to use to_date function that returns string reprsentation of the date part. For Time I wasn't able to find the solution (have not yet figured out how to use extract function through Teiid).
+
+http://www.cloudera.com/content/cloudera-content/cloudera-docs/CDH5/latest/Impala/Installing-and-Using-Impala/ciiu_datetime_functions.html

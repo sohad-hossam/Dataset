@@ -1,0 +1,2 @@
+Implement a partitioned merge join
+To obviate the need for a hash join, we should have a scalable partitioned merge join.  The smaller of the two join sides will be sorted and it's batch bounds used to partition the larger side rather than performing a full sort.  

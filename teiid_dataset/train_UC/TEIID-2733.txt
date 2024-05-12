@@ -1,0 +1,2 @@
+TEIID-2633 goes too far
+TEIID-2633 can have a negative performance impact if discovered transitive criteria is removed that could help filter more rows from a multi-column dependent join.

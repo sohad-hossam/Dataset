@@ -1,0 +1,2 @@
+Allow for a vdb zip to store ddl outside of the vdb.xml
+Our current vdb.xml design will include the ddl metadata string in-memory which is not desirable for large metadata sets.  We should provide a built-in mechanism to relocate the metadata to separate files in a zip (which can also be a natural replacement for index files when the designer is ready).

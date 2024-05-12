@@ -1,0 +1,2 @@
+non-selectable columns will cause OData failures
+An odata table/view with a non-selectable column will return an error if it is returned as an odata entity without the $select option to exclude the non-selectable column.

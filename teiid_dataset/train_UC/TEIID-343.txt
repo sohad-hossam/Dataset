@@ -1,0 +1,2 @@
+SQLTranslators are held per connection, but are inited for each execution
+This is problematic for several reasons.  One the runtimemetadata is expected by the sqltranslator, but that is an execution level context - multiple models from different vdbs may be assigned to the same connector.  Also the initialize method is still called, which incurs the cost rebuilding the modifiers.

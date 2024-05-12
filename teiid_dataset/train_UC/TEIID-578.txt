@@ -1,0 +1,4 @@
+Having max pool connections and max threads as connector properties is confusing
+After talking over connection pool monitoring, it was desirable to make connector configuration easier to understand.  A simple change that will alleviate much confusion is to remove the max pool connections property and to change ConnectorMaxThreads to be "Connector Max Concurrent Connections".  If it's a synch connector "Connector Max Concurrent Connections" is the max number of connections in the pool (if pooled) and is also the max number of threads allowed.  
+
+If asynch (and thus not pooled), "Connector Max Concurrent Connections" still acts as the max threads setting, which limits the number of connections that can be concurrently used.  The absolute max number of connections may grow higher than max concurrent connections depending on the number of asynch operations performed.

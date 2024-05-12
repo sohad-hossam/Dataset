@@ -1,0 +1,10 @@
+Infinispan-dsl-cache translator: Operator <> incorrectly handles NULL values
+Operator '<>' returns true for NULL <> 1
+
+Example:
+{code}
+select intKey,intNum from smallA where intNum<>1
+{code} 
+It returns also rows which have NULL in column intNum
+
+I believe that NULL <> 1 is not true in SQL.

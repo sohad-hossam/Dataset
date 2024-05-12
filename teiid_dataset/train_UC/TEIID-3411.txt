@@ -1,0 +1,2 @@
+LDAP translator and multi-valued arrays
+The problem is with how multi-valued attribute from the LDAP response is handled. They don't want to have the data mapped to an array or multivalued-concat and then transformed into another table to get the unique values. There is an issue with the translator as it should handle multivalued attribute, by simply creating multiple rows for each value of the multivalued attribute.

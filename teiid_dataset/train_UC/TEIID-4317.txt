@@ -1,0 +1,2 @@
+Always init translator capabilities
+there is init logic on the impala, pg, and sqlserver translators that won't get run if the database version is explicitly set on the translator.  Can it be changed to always run init logic?

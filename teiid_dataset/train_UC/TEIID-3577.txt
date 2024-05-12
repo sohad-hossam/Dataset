@@ -1,0 +1,2 @@
+Add cli script to configure audit and command logging
+Need a cli script to configure the audit and command logging, that include the async-handlers for performance improvements.

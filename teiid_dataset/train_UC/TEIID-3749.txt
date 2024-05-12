@@ -1,0 +1,4 @@
+Remove CXF patch file for "PATCH" http transport issue
+When the below error [1] is fixed and the appropriate CXF version is being used in the Teiid, remove the patch file "cxf-rt-transports-http-hc-patch.jar" from the "connecor-ws" module's xml file.
+
+[1]https://issues.apache.org/jira/browse/CXF-6638

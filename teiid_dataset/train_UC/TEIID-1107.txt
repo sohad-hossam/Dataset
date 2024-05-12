@@ -1,0 +1,2 @@
+Add support for raising criteria if it has been pushed too far
+Since a SELECT with criteria that includes a call to a Teiid function (for example formatDate) cannot be pushed down to a source, the aim of this modification is to move the SELECT so that it will not prevent other parts of the query from being pushed down.

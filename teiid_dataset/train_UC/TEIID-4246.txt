@@ -1,0 +1,19 @@
+HANA translator: boolean column is not valid boolean expression in HANA
+SAP HANA does not take boolean column or literal as boolean expressions.
+Query like this won't pass (invoked on HANA directly):
+{code:sql}
+SELECT (CASE WHEN BooleanValue THEN 'a' ELSE 'b' END) FROM BQT1.smalla;
+{code}
+The following could serve as workaround (invoked on HANA directly):
+{code:sql}
+SELECT (CASE WHEN BooleanValue=true THEN 'a' ELSE 'b' END) FROM BQT1.smalla;
+{code}
+
+The problem is observable when using boolean column in string function (invoked on Teiid):
+{code:sql}
+SELECT INTKEY, ('test+' || (BOOLEANVALUE || '+test')) FROM BQT1.SmallA ORDER BY IntKey
+{code}
+Which results in following error:
+{code:sql}
+TEIID30504 Remote org.teiid.core.TeiidProcessingException: TEIID30504 HanaSource: 257 TEIID11008:TEIID11004 Error executing statement(s): [Prepared Values: [] SQL: SELECT g_0."INTKEY" AS c_0, concat('test+', concat(CASE WHEN g_0."BOOLEANVALUE" THEN 'true' WHEN not(g_0."BOOLEANVALUE") THEN 'false' END, '+test')) AS c_1 FROM "BQT1"."SMALLA" AS g_0 ORDER BY c_0]
+{code}

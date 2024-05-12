@@ -1,0 +1,4 @@
+IP address incorrectly exposed via SECURITY logger
+After configuring a logger for org.teiid.SECURITY debug level,  fields for IP address information appears to be supplied by the client and not observed from the connection itself (odbc connections).  It is reported as null for psql based connections.
+
+This had previously been reported as TEIID-1586 and TEIID-1672 .  IT still presents an issue where audit trail is required.

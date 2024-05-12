@@ -1,0 +1,9 @@
+Order By not pushed down
+ORDER BY is not pushed down in the following query:
+
+SELECT J0.APPNAME, B.\"SYSID\", B.\"USERID\", 
+(select count(*) from (select * from notes.RETRIEVE_NOTES where OBJECT_PKEY = B.USERID) as foo) as C_notesForObject
+FROM \"SECURITY.BASEUSER\" as B left join security.sysinfo J0 on J0.sysid=B.sysid ORDER BY J0.APPNAME ASC
+
+SECURITY comes from the DB2 translator
+notes comes from a programmatic translator which does not support ORDER BY

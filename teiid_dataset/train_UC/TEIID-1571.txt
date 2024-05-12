@@ -1,0 +1,2 @@
+Error due to merge virtual with join and group by
+A query such as "SELECT x FROM (select c.e1 as x from (select e1 from pm1.g1) as c, pm1.g2 as d) as a group by x" will fail with invalid group by column aliases due to an invalid merge.

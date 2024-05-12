@@ -1,0 +1,13 @@
+HIVE2:  HAVING specified without GROUP BY
+If SQL contains HAVING, with group by.
+
+HIVE2 will throw the following exception: 
+
+HAVING specified without GROUP BY, errorCode:40000, SQLState:42000)
+        at org.apache.hadoop.hive.service.ThriftHive$execute_result$execute_resultStandardScheme.read(ThriftHive.java:1494)
+        at org.apache.hadoop.hive.service.ThriftHive$execute_result$execute_resultStandardScheme.read(ThriftHive.java:1480)
+        at org.apache.hadoop.hive.service.ThriftHive$execute_result.read(ThriftHive.java:1430)
+        at org.apache.thrift.TServiceClient.receiveBase(TServiceClient.java:78)
+        at org.apache.hadoop.hive.service.ThriftHive$Client.recv_execute(ThriftHive.java:116)
+        at org.apache.hadoop.hive.service.ThriftHive$Client.execute(ThriftHive.java:103)
+        at org.apache.hadoop.hive.jdbc.HivePreparedStatement.executeImmediate(HivePreparedStatement.java:175)

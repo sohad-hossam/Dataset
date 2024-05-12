@@ -1,0 +1,7 @@
+Refine client control of query plans
+The OPTION clause settings DEBUG, SHOWPLAN and PLANONLY should be replaced with the following set statements:
+
+SET SHOWPLAN ON|DEBUG|OFF
+SET NOEXEC ON|OFF - general purpose way to turn off execution
+
+The plan will still be available off of the TeiidStatement JDBC extension.

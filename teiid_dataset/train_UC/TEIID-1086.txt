@@ -1,0 +1,25 @@
+Possible missing I18N bundle for AdminShell
+This code excerpt
+
+println( "\nListing Connectors" )
+    aCon = getConnectorNames();
+    for (c in aCon) {
+        println( "    " + c )
+        println( "         " + getConnectorPropertyDefinitions( c ) )
+    }
+
+produces output like this:
+Listing Connectors
+    connector-salesforce-7.0.0-SNAPSHOT
+Exception thrown
+
+java.lang.ExceptionInInitializerError
+        at org.teiid.adminapi.impl.PropertyDefinitionMetadata.toString(PropertyDefinitionMetadata.java:52)
+        at TestAdmin.run(TestAdmin.groovy:54)
+        at org.teiid.adminshell.GroovyAdminConsole$1$1.run(GroovyAdminConsole.java:55)
+Caused by: java.util.MissingResourceException: Can't find bundle for base name org.teiid.adminapi.impl.i18n, locale en_US
+        at java.util.ResourceBundle.throwMissingResourceException(ResourceBundle.java:1521)
+        at java.util.ResourceBundle.getBundleImpl(ResourceBundle.java:1260)
+        at java.util.ResourceBundle.getBundle(ResourceBundle.java:715)
+        at org.teiid.adminapi.impl.AdminPlugin.<clinit>(AdminPlugin.java:35)
+        ... 3 more

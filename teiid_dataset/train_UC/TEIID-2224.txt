@@ -1,0 +1,4 @@
+public int TeiidResultSet.available()
+Expose a new method in TeiidResultSet:  int available() to return the number of rows available in the result set before blocking (contract similar to InputStream available)
+
+See https://community.jboss.org/thread/205559?tstart=0 for more context

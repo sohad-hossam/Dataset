@@ -1,0 +1,16 @@
+ignored properties in dynamic vdb should be flagged with a WARN log entry
+Invalid properties are silently ignored,  this can be troublesome to diagnose when there is a case mismatch, etc.  useConnectorMetadata vs. UseConnectorMetadata
+
+
+{code:java}
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<vdb name="test" version="1">
+
+    <property name="useConnectorMetadata" value="true"/>
+    <property name="BREAK ME" value="true"/>
+       
+    <model name="EMPTY">
+        
+    </model>
+</vdb>
+{code}

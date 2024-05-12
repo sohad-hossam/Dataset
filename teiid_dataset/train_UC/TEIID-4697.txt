@@ -1,0 +1,2 @@
+Swagger translator issue with content type charsets
+From https://github.com/teiid/teiid/issues/858 - the logic needs to better handle when a charset is specified with the content type. 

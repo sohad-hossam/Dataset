@@ -1,0 +1,2 @@
+Incorrect parent name for child to parent query
+The parent relationship is named based upon the foreign key column which typically is [Some Object]Id, but can be ParentId, etc. which need for example Parent rather than the object name in the source query.

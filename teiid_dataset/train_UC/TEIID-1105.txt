@@ -1,0 +1,2 @@
+Add Translator Instance Information from the VDB to the VDB Configuration Tab
+Need to take the information related to the Translator for the VDB to its configuration tab

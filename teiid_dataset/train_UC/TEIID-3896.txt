@@ -1,0 +1,6 @@
+When error occurs in the materialization process, an ERROR should be logged instead of DEBUG
+When trying to do materialization, there's an issue (DEBUG) appearing in the server.log:
+
+09:58:51,272 DEBUG [org.teiid.PROCESSOR] (Worker5_QueryProcessorQueue302) org.teiid.jdbc.TeiidSQLException: TEIID30168 Couldn't execute the dynamic SQL command "EXECUTE IMMEDIATE ('SELECT count(*) as rowCount FROM ' || matViewTable) AS rowCount integer INTO #load_count" with the SQL statement "('SELECT count(*) as rowCount FROM ' || matViewTable)" due to: Group specified is ambiguous, resubmit the query by fully qualifying the group name: Stock
+
+I believe  this be logged as an ERROR as it appears to be detrimental to what's being materialized.

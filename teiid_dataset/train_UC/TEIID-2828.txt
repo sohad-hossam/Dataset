@@ -1,0 +1,8 @@
+ResteasyEnabler fails with OTHER model types
+If a vdb contains OTHER type models (typically used for .xsd), then the schema lookup will produce a null and result in an NPE:
+
+java.lang.NullPointerException
+        at org.teiid.jboss.rest.ResteasyEnabler.hasRestMetadata(ResteasyEnabler.java:146) [teiid-jboss-integration-8.4.1-redhat-2.jar:8.4.1-redhat-2]
+        at org.teiid.jboss.rest.ResteasyEnabler.finishedDeployment(ResteasyEnabler.java:81) [teiid-jboss-integration-8.4.1-redhat-2.jar:8.4.1-redhat-2]
+        at org.teiid.deployers.VDBRepository.notifyFinished(VDBRepository.java:351) [teiid-runtime-8.4.1-redhat-2.jar:8.4.1-redhat-2]
+      

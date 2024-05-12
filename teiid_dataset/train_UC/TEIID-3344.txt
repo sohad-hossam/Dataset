@@ -1,0 +1,4 @@
+Querying server-generated REST WAR fails with NPE when parameter is of type string
+When the attached dynamic VDB is deployed, querying http://localhost:8080/sample_1/view/proc1/1 causes a NullPointerException (stacktrace from log attached).
+
+Querying the other procedures in the VDB (proc2 - proc4, which are identical except for the type of the parameter) works as expected.

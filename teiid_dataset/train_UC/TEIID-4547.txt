@@ -1,0 +1,2 @@
+getQueryPlan fails in adminapi
+The adminapi is using get-plan, while the server is exposes the operation get-query-plan

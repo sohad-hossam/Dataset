@@ -1,0 +1,2 @@
+Add a CommandContext interface to the teiid api
+UDFs can use the commandcontext to get additional information about the currently executing query, but it's use in a custom udfs would introduce a dependency on the engine code.  We should add a commandcontext interface to the teiid api for use by custom functions.

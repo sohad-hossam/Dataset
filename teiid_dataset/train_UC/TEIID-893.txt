@@ -1,0 +1,4 @@
+XML Formatting error in Dynamic VDB (.def) file presents to user as file not found
+I created paul.def which contained a connector to Oracle. When I tried to query anything (for example, "SELECT 1;"), I received an error that indicated the paul.def file was not found. After patching Teiid to produce a better message, we found I had fat-fingered the XML in the .def.
+
+Would have saved a bunch o' time had the correct error message been shown in the beginning.

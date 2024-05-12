@@ -1,0 +1,2 @@
+executeUpdate is too restrictive
+executeUpdate should allow any statement to execute as long as it does not return a resultset.

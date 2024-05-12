@@ -1,0 +1,4 @@
+Allow '-' character in VDB names.
+Teiid Designer is intending to use UUID prefixes for Preview VDB names. However, during development testing, the DTP connection fails because of the URL matcher for Teiid does not allow the '-' character.
+
+Sample Name:  cfa01efb-34ea-43ab-b5cd-e29857150d4f_PartsTestProject_project.vdb

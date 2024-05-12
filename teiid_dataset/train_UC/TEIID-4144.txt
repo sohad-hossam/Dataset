@@ -1,0 +1,2 @@
+Mismanagement of output columns in ruleimplementjoinstrategy
+Related to TEIID-3973 - the fix introduced a situation where if the sort node is not added and a join expression is used and there are intervening nodes, then the output columns are not correctly managed.  The result is a similar value not found exception.

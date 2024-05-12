@@ -1,0 +1,2 @@
+Change the default log level for command_log in the community kit to warn
+With TEIID-3594 the product scripts were also updated to adjust the default logging level, but that was not done in the standalone-teiid.xml

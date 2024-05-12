@@ -1,0 +1,2 @@
+Virtual access pattern validation issue.
+Virtual access patterns are not validated properly on updates and deletes.  We will always throw an exception rather than finding the criteria.

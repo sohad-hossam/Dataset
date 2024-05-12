@@ -1,0 +1,33 @@
+ORA-01702: a view is not appropriate here
+When importing tables/views from Oracle, importing keys/indexes fails. Workaround is to disable importing of either views or indexes. I think the issue is that Oracle views cannot have indexes/primary-keys, so the fix would be to not call getIndexInfo() on views.
+
+{code}
+<property name="importer.tableTypes" value="TABLE,VIEW"/>
+<property name="importer.importKeys" value="true"/>
+{code}
+
+{code}
+23:03:42,170 CONFIG [oracle.jdbc.driver] (teiid-async-threads - 4)  593E0A4C SQL: analyze table FOO.MY_VIEW compute statistics: java.lang.Throwable: No Error
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1592)
+	at oracle.jdbc.driver.OracleStatement.executeUpdateInternal(OracleStatement.java:2618)
+	at oracle.jdbc.driver.OracleStatement.executeUpdate(OracleStatement.java:2547)
+	at oracle.jdbc.driver.OracleStatementWrapper.executeUpdate(OracleStatementWrapper.java:1073)
+	at oracle.jdbc.OracleDatabaseMetaData.getIndexInfo(OracleDatabaseMetaData.java:9365)
+	at org.teiid.translator.jdbc.JDBCMetdataProcessor.getIndexes(JDBCMetdataProcessor.java:553)
+	at org.teiid.translator.jdbc.JDBCMetdataProcessor.getConnectorMetadata(JDBCMetdataProcessor.java:135)
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:309)
+	at org.teiid.translator.jdbc.JDBCExecutionFactory.getMetadata(JDBCExecutionFactory.java:57)
+	at org.teiid.query.metadata.NativeMetadataRepository.loadMetadata(NativeMetadataRepository.java:73) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.query.metadata.ChainingMetadataRepository.loadMetadata(ChainingMetadataRepository.java:55) [teiid-engine-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.jboss.VDBService$6.run(VDBService.java:395) [teiid-jboss-integration-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at org.teiid.jboss.VDBService$7.run(VDBService.java:442) [teiid-jboss-integration-8.9.0.Alpha2-SNAPSHOT.jar:8.9.0.Alpha2-SNAPSHOT]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_02]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_02]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_02]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+{code}
+
+{code}
+23:03:42,173 WARN  [org.teiid.RUNTIME] (teiid-async-threads - 4)  TEIID50036 VDB Foo.1 model "foo" metadata failed to load. Reason:TEIID11010 java.sql.SQLSyntaxErrorException: ORA-01702: a view is not appropriate here
+{code}
+

@@ -1,0 +1,4 @@
+DQP Identity issues
+Currently we key off of a system property to determine dqp identity.  This does not work in environments that load multiple instances of teiid in the same vm - it's also cumbersome even with multiple vms sharing the same deployment location.
+
+We should determine a unique value for the user based upon the instances in use.

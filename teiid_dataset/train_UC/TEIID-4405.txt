@@ -1,0 +1,118 @@
+delete using in statement does not remove records from temporary table
+Hi,
+
+I have a temporary table called #tmp_cohort that was constructed using this create statement.
+
+create local temporary table #tmp_cohort(
+	patientid integer not null,
+	age float not null,
+	sex string not null,
+	patgroup string not null,
+	admtime timestamp not null,
+	distime timestamp not null,
+	los long not null,
+	icuoutcome string,
+	hospoutcome string,
+	PRIMARY KEY(patientid)
+);
+
+After filling it up it contains 12230 records. I only want to keep 10 records and remove the rest.
+
+When I do the following select it does indeed return the 10 records I want to keep.
+
+select *
+from #tmp_cohort c
+where c.patientid in (24123,55785,16667,53701,30763,59762,22679,46328,46453,55956)
+
+The delete command however returns "0 rows deleted":
+
+delete from #tmp_cohort
+where patientid not in (24123,55785,16667,53701,30763,59762,22679,46328,46453,55956);
+
+This is the query plan:
+
+
+============================================================================
+USER COMMAND:
+DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)
+
+----------------------------------------------------------------------------
+OPTIMIZE: 
+DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)
+
+----------------------------------------------------------------------------
+GENERATE CANONICAL: 
+DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)
+
+CANONICAL PLAN: 
+Project(groups=[], props={PROJECT_COLS=[Count]})
+  Source(groups=[#tmp_cohort], props={ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), VIRTUAL_COMMAND=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)})
+
+
+============================================================================
+EXECUTING PlaceAccess
+
+AFTER: 
+Project(groups=[], props={PROJECT_COLS=[Count]})
+  Access(groups=[#tmp_cohort], props={SOURCE_HINT=null, MODEL_ID=__TEMP__})
+    Source(groups=[#tmp_cohort], props={ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), VIRTUAL_COMMAND=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)})
+
+
+============================================================================
+EXECUTING RaiseAccess
+
+AFTER: 
+Access(groups=[#tmp_cohort], props={SOURCE_HINT=null, MODEL_ID=__TEMP__})
+  Project(groups=[], props={PROJECT_COLS=[Count]})
+    Source(groups=[#tmp_cohort], props={ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), VIRTUAL_COMMAND=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)})
+
+
+============================================================================
+EXECUTING AssignOutputElements
+
+AFTER: 
+Access(groups=[#tmp_cohort], props={SOURCE_HINT=null, MODEL_ID=__TEMP__, OUTPUT_COLS=[Count]})
+  Project(groups=[], props={PROJECT_COLS=[Count], OUTPUT_COLS=[Count]})
+    Source(groups=[#tmp_cohort], props={ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), VIRTUAL_COMMAND=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), OUTPUT_COLS=[Count]})
+
+
+============================================================================
+EXECUTING CalculateCost
+
+AFTER: 
+Access(groups=[#tmp_cohort], props={SOURCE_HINT=null, MODEL_ID=__TEMP__, OUTPUT_COLS=[Count], EST_CARDINALITY=12230.0, EST_COL_STATS={Count=[-1.0, -1.0]}})
+  Project(groups=[], props={PROJECT_COLS=[Count], OUTPUT_COLS=[Count], EST_CARDINALITY=12230.0, EST_COL_STATS={Count=[-1.0, -1.0]}})
+    Source(groups=[#tmp_cohort], props={ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), VIRTUAL_COMMAND=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956), OUTPUT_COLS=[Count], EST_CARDINALITY=12230.0})
+
+
+============================================================================
+EXECUTING PlanSorts
+
+AFTER: 
+Access(groups=[#tmp_cohort])
+  Project(groups=[])
+    Source(groups=[#tmp_cohort])
+
+
+============================================================================
+EXECUTING CollapseSource
+
+AFTER: 
+Access(groups=[#tmp_cohort], props={SOURCE_HINT=null, MODEL_ID=__TEMP__, OUTPUT_COLS=[Count], EST_CARDINALITY=12230.0, EST_COL_STATS={Count=[-1.0, -1.0]}, ATOMIC_REQUEST=DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)})
+
+
+============================================================================
+CONVERTING PLAN TREE TO PROCESS TREE
+
+PROCESS PLAN = 
+AccessNode(0) output=[Count] DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)
+
+============================================================================
+
+----------------------------------------------------------------------------
+OPTIMIZATION COMPLETE:
+PROCESSOR PLAN:
+AccessNode(0) output=[Count] DELETE FROM #tmp_cohort WHERE #tmp_cohort.patientid NOT IN (24123, 55785, 16667, 53701, 30763, 59762, 22679, 46328, 46453, 55956)
+
+============================================================================
+

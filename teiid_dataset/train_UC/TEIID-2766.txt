@@ -1,0 +1,2 @@
+OData large batch size does not allow all results to be returned to the client in a single batch
+OData large batch-size, for example -1 to get all results in 1 response, doesn't work. Largest tested value that does work 51210.

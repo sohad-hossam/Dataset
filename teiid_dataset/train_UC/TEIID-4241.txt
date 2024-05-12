@@ -1,0 +1,2 @@
+Remove dependencies used for embedded examples
+TEIID-3510 moved the embedded examples, but left dependencies in build pom.

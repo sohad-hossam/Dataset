@@ -1,0 +1,4 @@
+adding possibility to proxy URI in odata server
+As for https://community.jboss.org/thread/237239 there is the need to proxy the URI exposed by the odata server when this is behind a proxy and we do not want the URi to disclose and invalidate the reference.
+
+The odata server should have some parameters gotten from deployment for proxy hostname and port and path up to the VDB name

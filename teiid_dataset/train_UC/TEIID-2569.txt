@@ -1,0 +1,26 @@
+Inefficient Outer Join compensation when translator restricted on KEY based joins
+When the following capabilities are set on ExecutionFactory
+{code}
+setSupportsOuterJoins(true);
+setSupportedJoinCriteria(SupportedJoinCriteria.KEY);
+{code}
+
+A three table JOIN like
+{code}
+select G1.e1, G2.e1, G3.e1 from G1, G2, G3 where G1.e1=G2.e2 and G2.e2 = G3.e3
+{code}
+
+gets pushed to translator as two separate queries like
+{code}
+SELECT G3.e3 AS c_0, G3.e1 AS c_1 FROM G3 ORDER BY c_0
+SELECT G2.e2 AS c_0, G1.e1 AS c_1, G2.e1 AS c_2 FROM G1 LEFT OUTER JOIN G2 ON G1.e1 = G2.e2 WHERE G2.e2 IS NOT NULL ORDER BY c_0
+{code}
+
+
+instead of of one query which should be like
+
+{code}
+SELECT G1.e1, G2.e1, G3.e1 FROM G1 INNER JOIN G2 ON G1.e1 = G2.e2 INNER JOIN G3 ON G2.e2 = G3.e3
+{code}
+
+When the key restriction is removed, it works fine, which should be un-related.

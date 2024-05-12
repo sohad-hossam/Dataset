@@ -1,0 +1,10 @@
+Additional feature to TEIID-1726
+Specifying the aliases in the hints added in https://issues.jboss.org/browse/TEIID-1726 do not work with even the full table name (fdm.wh_gl_daily_balances_f). However, if you were to specify g_0 and g_1 as the aliases for the tables, the hints take effect. The teiid engine has rewritten the query with its own internal aliases and the only way to find out what has been specified is to actually look at the source system sql send to Oracle.
+
+Can we specify the table aliases of the main query in the source
+hints rather than looking at what Teiid engine has rewritten to? It
+is quite confusing for developers to use the source hints feature
+and if the developer does not have access to the Oracle database
+they wont be able to tell what has been used in the source query to
+reflect the aliases in the source hints.
+ 

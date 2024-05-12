@@ -1,0 +1,4 @@
+Allow UDFs to call Teiid functions
+Currently custom functions require the implementation on be in Java, there could be an alternative way to allow using Teiid expressions inside the custom functions. The related thread is here-
+
+https://developer.jboss.org/thread/251179

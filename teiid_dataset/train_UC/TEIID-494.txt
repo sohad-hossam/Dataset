@@ -1,0 +1,2 @@
+BatchedUpdateCommands possible need evaluation before executing
+The BatchedUpdateNode does not attempt to evaluate commands (unless they originated from a prepared batch update).  So a batch from a statement that contains a delayed evaluation function will fail.

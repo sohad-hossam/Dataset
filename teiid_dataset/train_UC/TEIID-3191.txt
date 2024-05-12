@@ -1,0 +1,5 @@
+Teiid global temporary table error with first invocation
+When working with global temporary table in teiid an error occurs while accessing the temp table for the first time. 
+Error: org.teiid.metadata.Column cannot be cast to org.teiid.query.metadata.TempMetadataID
+All the following invocations of the global temporary table run fine.
+Global temporary table is defined through Teiid designer within my vdb.

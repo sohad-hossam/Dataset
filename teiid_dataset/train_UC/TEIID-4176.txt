@@ -1,0 +1,2 @@
+Initialize temp table metadata cardinality as 0
+We are leaving the metadata cardinality as undefined until the first modification.

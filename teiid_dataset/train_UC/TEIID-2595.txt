@@ -1,0 +1,2 @@
+Allow for more limit/offset expressions
+In virtual procedures it can be useful to specify limits based upon an expression rather than a constant.

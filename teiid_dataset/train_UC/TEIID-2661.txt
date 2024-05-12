@@ -1,0 +1,4 @@
+Mistakenly replanning on subsequent executions of continuous execution
+The first time through we are mistakenly replanning the execution during continuous executions.  
+
+See https://community.jboss.org/thread/232434 for more detail

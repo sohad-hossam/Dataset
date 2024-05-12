@@ -1,0 +1,2 @@
+Accumulo translators should use LexiCoders to preserve the native ordering
+Accumulo translator currently converts all the data to string based byte array and management of the data types is done at the translator level. In 1.6 version, there is support for LexiCoders which is standard way to encode/decode Java data types. The translator must be changed to make use of these.

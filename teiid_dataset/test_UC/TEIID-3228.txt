@@ -1,0 +1,8 @@
+SOLR: Date and Timestamp parsing is incorrect
+SolrSQLHierarchyVisitor uses incorrect Date and Timestamp pattern.
+
+The pattern for Date is yyyy-MM-DD, but it should be yyyy-MM-dd.
+
+DD represents day in year, not day in month
+
+Similar issue occurs for Timestamp.

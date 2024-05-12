@@ -1,0 +1,98 @@
+Infinispan Cache DSL translator: materialization incomplete results during view's loading
+When user tries to query materialized view in a moment when its loading is in progress, incomplete results are returned. The status of the view in corresponding status table is LOADING.
+Vdb used:
+{code:xml}
+<?xml version="1.0" encoding="UTF-8"?>
+<vdb name="jdg-remote" version="1">
+  <description>For testing of materialized views</description>
+  <property name ="lib" value ="org.jboss.qe.jdg.pojos"></property>
+  <model name="jdgSource">
+    <source name="jdgSource" translator-name="jdg-override"
+      connection-jndi-name="java:/jdg-mat-ds" />
+      <metadata type="DDL"><![CDATA[
+        CREATE FOREIGN TABLE CustomerReport(
+        customerId integer not null OPTIONS (SEARCHABLE 'Searchable', NATIVE_TYPE 'int'),
+        totalAmount integer,
+        CONSTRAINT PK_ID PRIMARY KEY(customerId)
+        ) OPTIONS (NAMEINSOURCE '${db.table.prefix}jdg-mat', UPDATABLE TRUE);]]>
+      </metadata>
+  </model>
+  <model name="h2Source">
+    <source name="h2Source" translator-name="h2" connection-jndi-name="java:/h2-ds" />
+  </model>
+  <model name="View" type="VIRTUAL">
+    <metadata type="DDL"><![CDATA[
+        CREATE VIEW external_long_ttl (
+           customerId integer NOT NULL,
+           totalAmount integer
+        ) OPTIONS (MATERIALIZED 'TRUE',
+            MATERIALIZED_TABLE 'jdgSource.CustomerReport',
+            "teiid_rel:ALLOW_MATVIEW_MANAGEMENT" 'true',
+            "teiid_rel:MATVIEW_LOAD_SCRIPT" 'INSERT INTO jdgSource.CustomerReport(customerId,totalAmount) SELECT c.id AS customerId, CONVERT(SUM(o.amount),integer) AS totalAmount FROM DV_MATVIEWS_CUSTOMERS c INNER JOIN DV_MATVIEWS_ORDERS o ON c.id = o.customer_id GROUP BY c.id;',
+            "teiid_rel:MATVIEW_STATUS_TABLE" 'h2Source.DB.PUBLIC.DV_MATVIEWS_STATUSTABLE',
+            "teiid_rel:MATVIEW_BEFORE_LOAD_SCRIPT" 'execute jdgSource.native(''truncate cache'');',
+            "teiid_rel:MATVIEW_AFTER_LOAD_SCRIPT" 'execute jdgSource.native(''swap cache names'');',
+            "teiid_rel:MATVIEW_ONERROR_ACTION" 'WAIT',
+            "teiid_rel:MATVIEW_TTL" 10000
+        )
+            AS SELECT c.id AS customerId, CONVERT(SUM(o.amount),integer) AS totalAmount FROM DV_MATVIEWS_CUSTOMERS c INNER JOIN DV_MATVIEWS_ORDERS o ON c.id = o.customer_id GROUP BY c.id;
+     ]]>
+    </metadata>
+  </model>
+  <translator name="jdg-override" type="infinispan-cache-dsl">
+    <property name="SupportsDirectQueryProcedure" value="true" />
+  </translator>
+</vdb>
+{code}
+Resource-adapter used:
+{code:xml}
+<resource-adapter id="jdg-mat">
+    <module slot="main" id="org.jboss.teiid.resource-adapter.infinispan.dsl"/>
+    <connection-definitions>
+        <connection-definition class-name="org.teiid.resource.adapter.infinispan.dsl.InfinispanManagedConnectionFactory" jndi-name="java:/jdg-mat-ds" enabled="true" pool-name="jdg-mat">
+            <config-property name="ProtobufDefinitionFile">
+                /org/jboss/qe/jdg/remote/protobuf/CustomerReport.proto
+            </config-property>
+            <config-property name="AliasCacheName">
+                ${db.table.prefix}jdg-alias
+            </config-property>
+            <config-property name="MessageMarshallers">
+                org.jboss.qe.jdg.pojo.CustomerReport:org.jboss.qe.jdg.remote.marshaller.CustomerReportMarshaller
+            </config-property>
+            <config-property name="RemoteServerList">
+                [remote-server-address]:11322
+            </config-property>
+            <config-property name="StagingCacheName">
+                ${db.table.prefix}jdg-mat-stage
+            </config-property>
+            <config-property name="CacheTypeMap">
+                ${db.table.prefix}jdg-mat:org.jboss.qe.jdg.pojo.CustomerReport;customerId
+            </config-property>
+            <config-property name="MessageDescriptor">
+                org.jboss.qe.jdg.remote.protobuf.CustomerReport
+            </config-property>
+            <config-property name="Module">
+                org.jboss.qe.jdg.pojos
+            </config-property>
+        </connection-definition>
+    </connection-definitions>
+</resource-adapter>
+{code}
+Datasource used (tables that the view queries):
+{code:xml}
+<xa-datasource jndi-name="java:/h2-ds" pool-name="h2-xa-ds" enabled="true">
+    <xa-datasource-property name="URL">
+        jdbc:h2:tcp://localhost:9292/db;TRACE_LEVEL_FILE=4
+    </xa-datasource-property>
+    <driver>h2</driver>
+    <security>
+        <user-name>sa</user-name>
+    </security>
+</xa-datasource>
+{code}
+Query invoked to check current contents of materialized view:
+{code:sql}
+SELECT COUNT(*) FROM external_long_ttl;
+{code}
+And expected result is the same as count of DV_MATVIEWS_CUSTOMERS table from source h2Source. In my case 10.
+But when I print out the result I get all numbers from 0 to 10 . See attached log output (search for 'check-count:')

@@ -1,0 +1,2 @@
+Reduce the memory footprint of metadata
+The strings held in the querymetadatainterface cache and by the metadata/resolved symbols should be optimized.

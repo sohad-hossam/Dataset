@@ -1,0 +1,2 @@
+Default for max sessions not consistently updated
+The session service change for 9.0 doubled the default to 10000, but it was not updated everywhere.

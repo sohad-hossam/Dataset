@@ -1,0 +1,2 @@
+Remove MembershipAdminApi
+The MembershipAdminApi subsystem interface should be removed.  Remaining methods should be added to the ServerSecurityAdmin

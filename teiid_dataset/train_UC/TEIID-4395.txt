@@ -1,0 +1,70 @@
+Oracle translator should pushdown clob conversion
+We have an "attributes" table defined like this
+
+{code:sql}
+CREATE TABLE "ATTRS"
+(
+   NAME varchar2(50) NOT NULL,
+   ATTR_NAME varchar2(50) NOT NULL,
+   ATTR_VALUE clob,
+   CONSTRAINT ATTRS_PK PRIMARY KEY (NAME,ATTR_NAME)
+);
+{code}
+
+The value column is unfortunately defined as a clob, but most of the data is small enough to fit in varchar (4000 chars). We have a somewhat complex query that ends up grouping by the clob value and with Teiid it is causing N-many queries.
+
+Simplified to this
+
+{code:sql}
+select cast(attr_value as varchar) from attrs
+{code}
+
+{code}
+ProjectNode
+  + Relational Node ID:0
+  + Output Columns:expr1 (string)
+  + Statistics:
+    0: Node Output Rows: 293
+    1: Node Next Batch Process Time: 5
+    2: Node Cumulative Next Batch Process Time: 5
+    3: Node Cumulative Process Time: 11
+    4: Node Next Batch Calls: 2
+    5: Node Blocks: 1
+  + Cost Estimates:Estimated Node Cardinality: 293.0
+  + Child 0:
+    AccessNode
+      + Relational Node ID:1
+      + Output Columns:ATTR_VALUE (clob)
+      + Statistics:
+        0: Node Output Rows: 293
+        1: Node Next Batch Process Time: 0
+        2: Node Cumulative Next Batch Process Time: 0
+        3: Node Cumulative Process Time: 6
+        4: Node Next Batch Calls: 2
+        5: Node Blocks: 1
+      + Cost Estimates:Estimated Node Cardinality: 293.0
+      + Query:SELECT g_0.ATTR_VALUE FROM foo.ATTRS AS g_0
+      + Model Name:foo
+  + Select Columns:convert(foo.ATTRS.ATTR_VALUE, varchar)
+  + Data Bytes Sent:6783
+  + Planning Time:2
+{code}
+
+Ideally on Oracle it would just get pushed down like this
+
+{code:sql}
+SELECT TO_CHAR(g_0.ATTR_VALUE) FROM foo.ATTRS AS g_0
+{code}
+
+From looking in the Oracle translator it looks like it should do this already... I added a test case which passes, but the plan seems to disagree.
+
+{code:java}
+    @Test public void testClobToString() throws Exception {
+    	Column column = new Column();
+    	column.setNativeType("CLOB");
+    	column.setNameInSource("dt");
+        helpTest(LANG_FACTORY.createColumnReference("dt", LANG_FACTORY.createNamedTable("x", null, null), column, Clob.class), "varchar", "to_char(x.dt)"); //$NON-NLS-1$ //$NON-NLS-2$
+    }
+{code}
+
+As a workaround I added a CLOB_TO_CHAR foreign function in the model DDL (using teiid_rel:native-query 'TO_CHAR($1)') and changed my query to use that instead of cast, but I'd prefer to not have to do that in the long term.

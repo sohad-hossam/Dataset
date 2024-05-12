@@ -1,0 +1,2 @@
+Teradata IN pushdown issues
+In predicates for Teradata are always being expanded to AND/ORs of comparison criteria.  This should only be needed if the predicate values contain a non-literal.  Also the logic does not nest the expansion in parens, which can cause the evaluation to be incorrect when the IN was on the left hand side of an AndOr condition. 

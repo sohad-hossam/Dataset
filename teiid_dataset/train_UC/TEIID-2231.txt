@@ -1,0 +1,2 @@
+Prodive a way to implement ddl preprocessors
+A common pattern is to use ddl that needs preprocessing before it is valid Teiid sql.  However the MetadataFactory does not expose a way to either set a Reader to pass the ddl to the chained MetadataRepository nor does it directly expose a parse method backed by the parser (which would need injected).

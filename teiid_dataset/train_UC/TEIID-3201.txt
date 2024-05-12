@@ -1,0 +1,26 @@
+Pushing a predicate when it is used only in a window function partition
+The issue was described in the following community post: https://developer.jboss.org/thread/249972
+
+I have a table that contains some temperature values. I'd like to make some time series selecting the previous value by joining all previous values and selecting the first previous value using the rank function.
+
+e.g.
+
+select v.*
+from(
+    select mv1.admissionid, mv1.time as temptime, mv1.value as degrees, mv2.time as previoustime, mv2.value as previousdegrees,
+        rank() over(partition by mv1.admissionid, mv1.time order by mv2.time desc) as rang
+    from cos2_monitorvalue mv1
+    left join cos2_monitorvalue mv2 on
+        mv2.admissionid = mv1.admissionid and
+        mv2.time < mv1.time and
+        mv2.variableid = mv1.variableid
+    where mv1.variableid = 'TEMPCENTR'
+) v
+where v.rang = 1 and
+v.admissionid = 11111
+
+Is there a way to tell Teiid that v.admissionid should be used when selecting rows from mv1? 
+
+Reply from Steven Hawkins on this question:
+
+The current logic (8.4+) is checking if the predicate is compatible with the partition, but if there is an ordering on the window function then the predicate won't be pushed.  This is too strict for the case that you have where the predicate is just over the partition - if it were against any other columns it could alter the aggregate values.  Can you convert this to an issue? 

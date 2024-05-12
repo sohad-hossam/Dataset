@@ -1,0 +1,11 @@
+Default keystore may lead to confusion or provide false sense of security in encrypting passwords
+Currently Teiid source code contains a default "teiid.keystore", which is then used by any component (connector binding) in encrypting password. Designer does use this to encrypt the password as it does not have it's own private keystore. This poses 
+
+1) False sense of security, as this is mere obfuscation as "keystore" available to anybody. 
+2) If the Designer provides a keystore of its own, now it becomes the burden on the user to share this same keystore on the runtime environment to enable decrypting the password. Currently this major issue in connector binding as not starting, or somebody imports previous configuration where the passwords are encrypted with different keystore.
+
+The simple solution is not provide a "default" keystore. If Designer does not provide a private keystore,  then passwords in plain text in the connector binding properties.  That will seamlessly run in Teiid runtime, if user does not care about having clear text passwords. That may be situation in DEV environments. In production environments during runtime (if required) Teiid will provide tools and instructions as to how to encrypt passwords.
+
+If the user does provide keystore in the Designer then it is user responsibility to share this keystore with runtime environment, that they work in sync in encrypting and decrypting the password.
+
+Users will be provided with scripts to generate a keystore with Teiid kit, with which they can use to encrypt the passwords. So, this will make the encryption as an option rather than requirement in the Teiid system.

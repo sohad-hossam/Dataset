@@ -1,0 +1,2 @@
+An importing vdb does not properly handle imported multi-source
+When importing a vdb the imported multi-source models are not properly treated as multi-source.

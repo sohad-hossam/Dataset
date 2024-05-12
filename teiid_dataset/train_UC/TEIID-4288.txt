@@ -1,0 +1,4 @@
+Cancel method against a socket based jdbc query can wait for synch timeout
+If a JDBC socket query is cancelled using a separate thread, the cancel call may wait until the timeout due to being synchronized which prevents the main execution thread from processing it's response.
+
+Details were also added to TEIID-3781

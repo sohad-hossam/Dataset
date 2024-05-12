@@ -1,0 +1,6 @@
+Make VDB work with Model based index files
+Currently the VDB generated from the Designer, generates the metadata in the form of Index file that are type based. i.e. there is index file for tables, columns, procedures etc. This is done before for speed of access from the index file to retrieve the metadata.
+
+Going forward, Designer team is looking into providing the same metadata in the form of "Model" index files. This means all the metadata for the model is placed in a single index file, so if there are multiple models, then table, column information from two different tables in two different models are spread across two files. 
+
+Teiid runtime should be modified such that this form of index files can be read. The issue of speed to not existent, because Teiid upon reading it, converts the Metadata Store format and keeps a object form of it locally in the memory and on the disk. The sample VDB is attached.  Fix the vdb.xml file before start.

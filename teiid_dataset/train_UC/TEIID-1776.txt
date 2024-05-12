@@ -1,0 +1,22 @@
+Ingres as source - Source Error Codes 2118, 2501, and 263071 being returned
+EDS Query Testing is getting unexpected results on 4 queries.  The queries are
+listed below:
+
+SELECT TIMEVALUE, BYTENUM, (SELECT B.FLOATNUM FROM BQT1.SMALLA AS B WHERE (B.INTKEY = (SELECT A.INTKEY FROM BQT1.SMALLA AS A WHERE (A.STRINGNUM &gt; 10) AND (A.INTKEY = B.INTKEY))) AND (B.INTKEY = A.INTKEY)) FROM bqt1.smalla AS a
+
+Error Code:2118 Message:Remote org.teiid.core.TeiidProcessingException: Error Code:2118 Message:Source: Error Code:2118 Message:'Invalid qualifier 'g_1'. 'g_1' must be declared in the FROM clause or equivalent. If used in a target list, 'g_1' must be declared at the current scope.' error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.timevalue, cast(g_0.bytenum AS tinyint), (SELECT g_1.floatnum FROM smalla AS g_1 WHERE g_1.intkey = g_0.intkey AND g_1.intkey = (SELECT g_2.intkey FROM smalla AS g_2 WHERE g_2.stringnum > '10' AND g_2.intkey = g_1.intkey)) FROM smalla AS g_0]
+********************************************************
+
+SELECT BQT1.SmallA.TimeValue, BQT2.SmallB.TimestampValue FROM BQT1.SmallA, BQT2.SmallB WHERE BQT1.SmallA.TimeValue = convert(BQT2.SmallB.TimestampValue, time) AND BQT1.SmallA.IntKey &gt;= 0 AND BQT2.SmallB.IntKey &gt;= 0 ORDER BY BQT1.SmallA.TimeValue
+
+Error Code:2501 Message:Remote org.teiid.core.TeiidProcessingException: Error Code:2501 Message:Source: Error Code:2501 Message:'line 1, Syntax error on 'with time'.  The correct syntax is:  SELECT [ALL|DISTINCT] target_list   FROM table(s)   [WHERE search_cond]   [GROUP BY col(s)]   [HAVING search_cond]  [UNION subselect]  [ORDER BY col(s)]' error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.timevalue AS c_0, g_1.timestampvalue AS c_1 FROM smalla AS g_0, smallb AS g_1 WHERE g_0.timevalue = cast(g_1.timestampvalue AS time with time zone) AND g_0.intkey >= 0 AND g_1.intkey >= 0 ORDER BY c_0]
+********************************************************
+
+SELECT BQT1.SmallA.TimeValue, BQT1.SmallB.TimestampValue FROM BQT1.SmallA, BQT1.SmallB WHERE BQT1.SmallA.TimeValue = convert(BQT1.SmallB.TimestampValue, time) AND BQT1.SmallA.IntKey &gt;= 0 AND BQT1.SmallB.IntKey &gt;= 0 ORDER BY BQT1.SmallA.TimeValue
+
+Error Code:2501 Message:Remote org.teiid.core.TeiidProcessingException: Error Code:2501 Message:Source: Error Code:2501 Message:'line 1, Syntax error on 'with time'.  The correct syntax is:  SELECT [ALL|DISTINCT] target_list   FROM table(s)   [WHERE search_cond]   [GROUP BY col(s)]   [HAVING search_cond]  [UNION subselect]  [ORDER BY col(s)]' error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.timevalue AS c_0, g_1.timestampvalue AS c_1 FROM smalla AS g_0, smallb AS g_1 WHERE g_0.timevalue = cast(g_1.timestampvalue AS time with time zone) AND g_0.intkey >= 0 AND g_1.intkey >= 0 ORDER BY c_0]
+*******************************************************
+
+SELECT intkey, stringkey, floatnum, bytenum, (SELECT bytenum FROM bqt1.smalla AS b WHERE (bytenum = a.longnum) AND (intkey = '10')) AS longnum FROM bqt1.smalla AS a
+
+Error Code:263071 Message:Remote org.teiid.core.TeiidProcessingException: Error Code:263071 Message:Source: Error Code:263071 Message:'consistency check     - all elements of boolean factor do not have same join id' error executing statement(s): [Prepared Values: [] SQL: SELECT g_0.intkey, g_0.stringkey, g_0.floatnum, cast(g_0.bytenum AS tinyint), (SELECT cast(g_1.bytenum AS tinyint) FROM smalla AS g_1 WHERE cast(cast(g_1.bytenum AS tinyint) AS bigint) = g_0.longnum AND g_1.intkey = 10) FROM smalla AS g_0]

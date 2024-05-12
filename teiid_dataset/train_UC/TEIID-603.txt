@@ -1,0 +1,4 @@
+New LDAP membership provider ignored by server
+Using the Console and Server from May 13, 2009, I added a new LDAP membership provider. After bouncing he server, I tried to access the new provider from the Admin Roles page. The provider combo box was empty (in prior versions, the provider would be listed, even if it were incorrectly defined and inaccessible).
+
+I checked the process log files and there is no mention of the provider.

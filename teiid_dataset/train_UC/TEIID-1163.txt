@@ -1,0 +1,2 @@
+Provide LOB support in ODBC
+LOB support was not provided with initial release, this needs to be supported for BLOBS, CLOBS and XML.

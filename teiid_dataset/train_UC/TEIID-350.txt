@@ -1,0 +1,2 @@
+Add documentation about function determinism
+Functions are given varying levels of determinism, which effect when they are evaluated.  Something about this and the effected functions should be added to the docs.

@@ -1,0 +1,2 @@
+allow for more incremental insert with iterator
+The current bulk insert logic assumes that it is avoiding a global transactions by fully reading the results before sending the tuplebuffer iterator to the source for processing, which can then just use a local transaction.  However if we are already operating under a transaction or the user doesn't want a transaction (such as with a staging materialized view load) then the insert should happen more incrementally.

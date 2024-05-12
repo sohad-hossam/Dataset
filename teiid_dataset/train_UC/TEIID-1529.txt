@@ -1,0 +1,12 @@
+LIMIT not pushed down for queries with subselects and ORDER BY
+It doesn't look like the engine pushes down LIMIT in the following query:
+SELECT B."SYSID", B."USERID", (SELECT COUNT(*)  FROM 
+(SELECT * FROM notes.RETRIEVE_NOTES WHERE OBJECT_PKEY = XMLSERIALIZE(XMLELEMENT("SECURITY.BASEUSER", XMLATTRIBUTES(B."SYSID",B."USERID")) as String)) as foo) as C_notesForObject, 'SECURITY.BASEUSER' as "__objecttype__" FROM "SECURITY.BASEUSER" as B ORDER BY B."USERID" ASC LIMIT 10 
+
+However, the engine does push down the LIMIT in the same query without the ORDER BY:
+SELECT B."SYSID", B."USERID", (SELECT COUNT(*)  FROM 
+(SELECT * FROM notes.RETRIEVE_NOTES WHERE OBJECT_PKEY = XMLSERIALIZE(XMLELEMENT("SECURITY.BASEUSER", XMLATTRIBUTES(B."SYSID",B."USERID")) as String)) as foo) as C_notesForObject, 'SECURITY.BASEUSER' as "__objecttype__" FROM "SECURITY.BASEUSER" as B LIMIT 10 
+
+Another piece of relevant information is notes.RETRIEVE_NOTE is a stored procedure backed by java code in a translator.
+
+Since SECURITY.BASEER contains ~20,000 rows and each row requires a select against the RETRIEVE_NOTE stored procedure, the difference in processing time is huge:  about two minutes with the ORDER BY versus a few hundred milliseconds without the ORDER BY.

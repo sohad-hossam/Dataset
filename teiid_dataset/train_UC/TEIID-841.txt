@@ -1,0 +1,8 @@
+Failed to export extension module from admin shell
+admin $ connectAsAdmin("admin","teiid","mm://localhost:31000");
+conn-1[mm://localhost:31000] $ exportExtensionModule("connector-text-6.2.0-SNAPSHOT.jar", "/home/pnittel/temp/foo.jar");
+// Error: EvalError: Condition must evaluate to a Boolean or boolean. : at Line: 385 : in file: URL: jar:file:/home/pnittel/teiid62RC1/adminshell/lib/teiid-adminshell-6.2.0-SNAPSHOT.jar!/scripts/adminapi.bsh : contents 
+
+Called from method: exportExtensionModule : at Line: 2 : in file: <unknown file> : exportExtensionModule ( "connector-text-6.2.0-SNAPSHOT.jar" , "/home/pnittel/temp/foo.jar" ) 
+
+Boolean? What Boolean?? (I like that it must evaluate to a Boolean or boolean. What's up with that?)

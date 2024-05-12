@@ -1,0 +1,28 @@
+Mongo translator - fail to initialize translator wiith property SupportsAggregatesCount
+If translator has *SupportsAggregatesCount* property set, initialization fails.
+{code:plain|title=Exception}
+08:15:26,455 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-4) MSC000001: Failed to start service jboss.teiid.vdb.mongo_enhancements.1: org.jboss.msc.service.StartException in service jboss.teiid.vdb.mongo_enhancements.1: TEIID50035 TEIID40028 No setSetSupportsAggregatesCount method found for translator property setSupportsAggregatesCount
+	at org.teiid.jboss.VDBService.createConnectorManagers(VDBService.java:299)
+	at org.teiid.jboss.VDBService.start(VDBService.java:129)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1980) [jboss-msc-1.1.6.Final-redhat-1.jar:1.1.6.Final-redhat-1]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1913) [jboss-msc-1.1.6.Final-redhat-1.jar:1.1.6.Final-redhat-1]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0-internal]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0-internal]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.8.0-internal]
+Caused by: org.teiid.core.TeiidException: TEIID40028 No setSetSupportsAggregatesCount method found for translator property setSupportsAggregatesCount
+	at org.teiid.deployers.TranslatorUtil.getSetter(TranslatorUtil.java:207)
+	at org.teiid.deployers.TranslatorUtil.injectProperties(TranslatorUtil.java:167)
+	at org.teiid.deployers.TranslatorUtil.buildExecutionFactory(TranslatorUtil.java:123)
+	at org.teiid.jboss.VDBService.getExecutionFactory(VDBService.java:320)
+	at org.teiid.jboss.VDBService$5.getExecutionFactory(VDBService.java:292)
+	at org.teiid.dqp.internal.datamgr.ConnectorManagerRepository.createConnectorManager(ConnectorManagerRepository.java:134)
+	at org.teiid.dqp.internal.datamgr.ConnectorManagerRepository.createConnectorManagers(ConnectorManagerRepository.java:108)
+	at org.teiid.jboss.VDBService.createConnectorManagers(VDBService.java:296)
+	... 6 more
+{code}
+
+{code:xml|title=Translator override}
+<translator name="mongodb-no-count-over" type="mongodb">
+    <property name="SupportsAggregatesCount" value="false"/>
+</translator>
+{code}

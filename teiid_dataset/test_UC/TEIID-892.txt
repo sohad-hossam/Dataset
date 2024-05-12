@@ -1,0 +1,4 @@
+Add a capability to control bulk insert batch size
+Based upon a recent customer conversation our default batching strategy to the connector may not be the most performant for large datasets.  In general our current approach limits batches to a maximum = processor batch size (default 2000).
+
+We already have a property connector batch size, but it's across all connectors - and is mostly irrelevant since the source fetch size will have a larger impact on performance and the result batches are resized to the processor batch size anyway.  The only time connector batch size really matters is if we bring back "remote" connectors.

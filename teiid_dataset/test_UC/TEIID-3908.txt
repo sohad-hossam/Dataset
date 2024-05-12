@@ -1,0 +1,2 @@
+Escaped quotes are not handled in odata4 parameter string literal
+String literals use '' to escape the single quote character, but the literal parsing logic will retain the double single quotes.

@@ -1,0 +1,11 @@
+DISTINCT not pushed down to multisource sources
+Simple DISTINCT queries do not push down DISTINCT to the underlying sources (SQL Server, in this case) of a multisource schema. Instead, all values are selected, and the sorting out is done in teiid.
+
+{noformat}
+select distinct bic_status
+from account;
+{noformat}
+
+Debug plan attached.
+
+This is an enhancement request to support partial distinct pushdown in the multi-source case.

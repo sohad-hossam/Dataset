@@ -1,0 +1,2 @@
+OData improvements
+We should only use scrolling when performing caching and we should ensure that the cache entries are being created - either by reading the whole resultset or by adding read all functionality to the cache hint.

@@ -1,0 +1,7 @@
+Creating XA data sources from AdminShell: prop name "addtional-ds-properties" has misspelling - could cause confusion
+With help from Ramesh, I was able to create an XA data source using:
+dp.setProperty( "addtional-ds-properties", "ServerName=foo, PortNumber=50000, DatabaseName=dbdata, DriverType=4, User=someuser, Password=somepwd" )
+
+I noticed that "additional" was misspelled and tried that. It doesn't work; you must use the misspelled version.
+
+I'd like to see this be corrected before some user tries to use this with the correct spelling.

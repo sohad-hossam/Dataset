@@ -1,0 +1,5 @@
+assignDataSource issues
+The assignDataSource admin operation has several issues
+- it uses different logic to create translator instances (which means that it cannot newly create delegating transaltors)
+- it adds new ConnectorManagers to the repository before they are valid (may have the wrong ExecutionFactory)
+- if the datasource is changes, the translator will stay same regardless of if it is being changed

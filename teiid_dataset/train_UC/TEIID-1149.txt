@@ -1,0 +1,6 @@
+Importing tables from a deployed VDB does not import columns
+I created, and deployed, a VDB containing source and view models. I am able to query these tables.
+
+I created a new project and into that project I attempted to import a view model's table from the previously-created VDB. What I found in the imported was the models and tables were shown, but no columns were available for import. Once imported, the tables did have no columns.
+
+Screenshot and other stuff attached.

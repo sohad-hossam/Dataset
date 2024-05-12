@@ -1,0 +1,2 @@
+Error loading older cached metadata
+A cached 7.1 schema will be loaded with a null map of functions, which can cause an npe.

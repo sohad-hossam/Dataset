@@ -1,0 +1,71 @@
+Dynamic portfolio throws NullPointerException
+I removed Account model from portfolio-vdb.xml (see attached file), then deployed marketdata-file-ds.xml and subsequent deployment of portfolio-vdb.xml caused NullPointerException
+
+Here is a stacktrace from SOA-P 5.1 DEV2 build:
+
+16:28:00,361 INFO  [ConnectionFactoryBindingService] Bound ConnectionManager 'jboss.jca:service=ConnectionFactoryBinding,name=marketdata-file' to JNDI name 'java:marketdata-file'
+16:28:10,485 INFO  [RUNTIME] VDB "DynamicPortfolio-1" - "MarketData" model metadata is currently being loaded. Start Time: 8/9/10 4:28 PM
+16:28:10,489 ERROR [AbstractKernelController] Error installing to Real: name=vfsfile:/home/bbelovic/jbosssoa-51/jboss-as/server/production/deploy/portfolio-vdb.xml state=PreReal mode=Manual requiredState=Real
+org.jboss.deployers.spi.DeploymentException: Error during deploy: vfsfile:/home/bbelovic/jbosssoa-51/jboss-as/server/production/deploy/portfolio-vdb.xml
+	at org.jboss.deployers.spi.DeploymentException.rethrowAsDeploymentException(DeploymentException.java:49)
+	at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:185)
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doDeploy(DeployersImpl.java:1454)
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.doInstallParentFirst(DeployersImpl.java:1172)
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.install(DeployersImpl.java:1113)
+	at org.jboss.dependency.plugins.AbstractControllerContext.install(AbstractControllerContext.java:348)
+	at org.jboss.dependency.plugins.AbstractController.install(AbstractController.java:1652)
+	at org.jboss.dependency.plugins.AbstractController.incrementState(AbstractController.java:938)
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:1082)
+	at org.jboss.dependency.plugins.AbstractController.resolveContexts(AbstractController.java:988)
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:826)
+	at org.jboss.dependency.plugins.AbstractController.change(AbstractController.java:556)
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.process(DeployersImpl.java:789)
+	at org.jboss.deployers.plugins.main.MainDeployerImpl.process(MainDeployerImpl.java:699)
+	at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.process(MainDeployerAdapter.java:117)
+	at org.jboss.system.server.profileservice.hotdeploy.HDScanner.scan(HDScanner.java:409)
+	at org.jboss.system.server.profileservice.hotdeploy.HDScanner.run(HDScanner.java:294)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+Caused by: java.lang.NullPointerException
+	at org.teiid.deployers.VDBDeployer.buildDynamicMetadataStore(VDBDeployer.java:322)
+	at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:118)
+	at org.teiid.deployers.VDBDeployer.deploy(VDBDeployer.java:61)
+	at org.jboss.deployers.spi.deployer.helpers.AbstractSimpleRealDeployer.internalDeploy(AbstractSimpleRealDeployer.java:62)
+	at org.jboss.deployers.spi.deployer.helpers.AbstractRealDeployer.deploy(AbstractRealDeployer.java:55)
+	at org.jboss.deployers.plugins.deployers.DeployerWrapper.deploy(DeployerWrapper.java:179)
+	... 24 more
+16:28:10,503 WARN  [HDScanner] Failed to process changes
+org.jboss.deployers.client.spi.IncompleteDeploymentException: Summary of incomplete deployments (SEE PREVIOUS ERRORS FOR DETAILS):
+
+*** DEPLOYMENTS IN ERROR: Name -> Error
+
+vfsfile:/home/bbelovic/jbosssoa-51/jboss-as/server/production/deploy/portfolio-vdb.xml -> org.jboss.deployers.spi.DeploymentException: Error during deploy: vfsfile:/home/bbelovic/jbosssoa-51/jboss-as/server/production/deploy/portfolio-vdb.xml
+
+
+DEPLOYMENTS IN ERROR:
+  Deployment "vfsfile:/home/bbelovic/jbosssoa-51/jboss-as/server/production/deploy/portfolio-vdb.xml" is in error due to the following reason(s): java.lang.NullPointerException
+
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.checkComplete(DeployersImpl.java:1008)
+	at org.jboss.deployers.plugins.deployers.DeployersImpl.checkComplete(DeployersImpl.java:954)
+	at org.jboss.deployers.plugins.main.MainDeployerImpl.checkComplete(MainDeployerImpl.java:870)
+	at org.jboss.system.server.profileservice.repository.MainDeployerAdapter.checkComplete(MainDeployerAdapter.java:128)
+	at org.jboss.system.server.profileservice.hotdeploy.HDScanner.scan(HDScanner.java:416)
+	at org.jboss.system.server.profileservice.hotdeploy.HDScanner.run(HDScanner.java:294)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:441)
+	at java.util.concurrent.FutureTask$Sync.innerRunAndReset(FutureTask.java:317)
+	at java.util.concurrent.FutureTask.runAndReset(FutureTask.java:150)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$101(ScheduledThreadPoolExecutor.java:98)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.runPeriodic(ScheduledThreadPoolExecutor.java:181)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:205)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908)
+	at java.lang.Thread.run(Thread.java:619)
+
+I am also attaching server.log files from plain JBoss AS and server.log from SOA-P 5.1 dev2 build.

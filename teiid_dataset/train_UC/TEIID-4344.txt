@@ -1,0 +1,4 @@
+OData static context - if resource does not exist then Teiid throws NPE and returns empty page
+If user requests static resource, which does not exists, Teiid throws NPE and returns empty page.
+
+Example URL: http://localhost:8080/odata4/static/xyz.xml

@@ -1,0 +1,8 @@
+Phoenix/Hbase junit test code, resource should be more clean
+Some test code/resouroces( as below )of HBase translator should remove
+{code}
+TestHBaseLoggerFormatter.java
+TestHBaseExecution.java
+logging.properties
+TestHBaseUtil.java (jdbc operations related)
+{code}

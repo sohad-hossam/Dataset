@@ -1,0 +1,2 @@
+for each row trigger forcing txn to start
+TEIID-4504 relaxed when atomic blocks started transactions, but it did not address for each row procedure plans.

@@ -1,0 +1,4 @@
+Support function SUBSTRING_INDEX in MySQL5ExecutionFactory
+It is currently difficult to achieve the same functionality that is offered by *SUBSTRING_INDEX * function without direct support from _MySQL5ExecutionFactory_.
+
+So it would be nice to have this function implemented in the execution factory.

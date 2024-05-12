@@ -1,0 +1,2 @@
+Criteria pushed across frame can be pushed too far
+When pushing across a frame (union or just source) we push the criteria below the root project node - this may be too far however if an access node has been raise above the project node.

@@ -1,0 +1,139 @@
+unexpected query result when joining with a virtual procedure
+Hi,
+Teiid produces unexpected results when querying a view that joins records of a table with a record coming from a virtual procedure.
+
+My models are nearly identical to the models that I have described in [https://issues.jboss.org/browse/TEIID-1562], so I will not describe all of them another time. In addition to what I have already described, in the model named "support_log" I have a virtual procedure with one input parameter (named "nome") of type string. Given this parameter, the procedure finds the string in a mysql table and returns a single record which comprises two fields: the parameter itself, and an integer field name "codop", which represents a code associated to the string given in input.
+
+In the view model named "tricolore_log" I have another virtual procedure which calls the procedure above and gives it in input the string "Tricolore". The code corresponding to this string is 1, and I'm sure it can not change because I'm in a closed testing environment.
+
+In this same view model I have a single view, named "vendita_referenza". It joins the data of a table stored in SQL Server 2000 with the data stored in a MySQL table. In addition, it joins the result with the output of the second virtual procedure, in order to generate a column (named "codop") which has the same value for all the records. As I have already said, this value is 1. The result of these two joins is grouped, and the count of the number of rows in each group is stored in a column named "groupdim".
+
+The SQL query which defines the view is the following:
+{code:sql}
+SELECT
+		TR_v.DataDocumento AS data, TR_op.codop AS codop, COUNT(*) AS groupdim, TR_v.NumeroDocumento AS codice, codref
+	FROM
+		(tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS TR_v INNER JOIN support_log.mediator.referenza_op AS SUP_r ON TR_v.Cod_Dsc = SUP_r.codice) INNER JOIN tricolore_log.misura124.tricolore.op AS TR_op ON TR_op.codop = SUP_r.codop
+	GROUP BY TR_op.codop, TR_v.DataDocumento, TR_v.NumeroDocumento, codref
+{code}
+
+The problem arises when I execute the following query:
+{code:sql}
+SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1
+{code}
+It's a simple query but it produces a wrong result. It gets 15890 records, that are less than expected. In the log there's nothing strange:
+{noformat}
+2011-05-03 00:37:05,018 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2) 	START USER COMMAND:	startTime=2011-05-03 00:37:05.018	requestID=q6g/6RpZyGZy.0	txID=null	sessionID=q6g/6RpZyGZy	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1
+2011-05-03 00:37:05,032 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24587) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:37:05.032	requestID=q6g/6RpZyGZy.0	sourceCommandID=7	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	sql=SELECT g_0.Cod_Dsc AS c_0, g_0.DataDocumento AS c_1, g_0.NumeroDocumento AS c_2 FROM tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS g_0 ORDER BY c_0
+2011-05-03 00:37:05,032 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24588) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:37:05.032	requestID=q6g/6RpZyGZy.0	sourceCommandID=6	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	sql=SELECT g_0.codice AS c_0, g_0.codop AS c_1, g_0.codref AS c_2 FROM support_phy.mediator.referenza_op AS g_0 ORDER BY c_0
+2011-05-03 00:37:05,035 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24590) 	END SRC COMMAND:	endTime=2011-05-03 00:37:05.035	requestID=q6g/6RpZyGZy.0	sourceCommandID=6	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	finalRowCount=22
+2011-05-03 00:37:05,247 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24622) 	END SRC COMMAND:	endTime=2011-05-03 00:37:05.247	requestID=q6g/6RpZyGZy.0	sourceCommandID=7	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	finalRowCount=16317
+2011-05-03 00:37:05,250 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24623) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:37:05.25	requestID=q6g/6RpZyGZy.0	sourceCommandID=1	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	sql=SELECT g_0.codop, g_0.nome FROM support_phy.mediator.op AS g_0 WHERE g_0.nome = 'Tricolore'
+2011-05-03 00:37:05,251 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24625) 	END SRC COMMAND:	endTime=2011-05-03 00:37:05.251	requestID=q6g/6RpZyGZy.0	sourceCommandID=1	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	finalRowCount=1
+2011-05-03 00:37:05,854 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24636) 	END USER COMMAND:	endTime=2011-05-03 00:37:05.854	requestID=q6g/6RpZyGZy.0	txID=null	sessionID=q6g/6RpZyGZy	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=15890
+{noformat}
+
+To get all the rows that I expect I have to change the query as follows:
+
+{code:sql}
+SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1 and codop = 1
+{code}
+
+With this last query I obtain all the 15919 records, as expected. This doesn't make sense because, as I've already said, the value of 'codop' is 1, and is fixed for all rows. Moreover, it is absurd that if one adds a restriction the result set is larger. The following is the content of the log file, and, as before, I don't see anything strange:
+{noformat}
+2011-05-03 00:38:39,617 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2) 	START USER COMMAND:	startTime=2011-05-03 00:38:39.617	requestID=jtCZ3TLiORTr.0	txID=null	sessionID=jtCZ3TLiORTr	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT Name AS TABLE_SCHEM, VDBName AS TABLE_CATALOG FROM SYS.Schemas WHERE UCASE(VDBName) LIKE ? ESCAPE '\'  AND UCASE(Name) LIKE ? ESCAPE '\'  ORDER BY TABLE_SCHEM
+2011-05-03 00:38:39,629 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24638) 	END USER COMMAND:	endTime=2011-05-03 00:38:39.629	requestID=jtCZ3TLiORTr.0	txID=null	sessionID=jtCZ3TLiORTr	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=5
+2011-05-03 00:38:39,659 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2) 	START USER COMMAND:	startTime=2011-05-03 00:38:39.659	requestID=jtCZ3TLiORTr.1	txID=null	sessionID=jtCZ3TLiORTr	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT Name AS TABLE_SCHEM, VDBName AS TABLE_CATALOG FROM SYS.Schemas WHERE UCASE(VDBName) LIKE ? ESCAPE '\'  AND UCASE(Name) LIKE ? ESCAPE '\'  ORDER BY TABLE_SCHEM
+2011-05-03 00:38:39,668 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24640) 	END USER COMMAND:	endTime=2011-05-03 00:38:39.668	requestID=jtCZ3TLiORTr.1	txID=null	sessionID=jtCZ3TLiORTr	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=5
+2011-05-03 00:38:39,709 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2) 	START USER COMMAND:	startTime=2011-05-03 00:38:39.709	requestID=jtCZ3TLiORTr.2	txID=null	sessionID=jtCZ3TLiORTr	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT VDBName AS TABLE_CAT, SchemaName AS TABLE_SCHEM, Name AS TABLE_NAME, CASE WHEN IsSystem = 'true' and UCASE(Type) = 'TABLE' THEN 'SYSTEM TABLE' ELSE UCASE(Type) END AS TABLE_TYPE, Description AS REMARKS, NULL AS TYPE_CAT, NULL AS TYPE_SCHEM, NULL AS TYPE_NAME, NULL AS SELF_REFERENCING_COL_NAME, NULL AS REF_GENERATION, IsPhysical AS ISPHYSICAL FROM SYS.Tables g  WHERE UCASE(VDBName) LIKE ? ESCAPE '\'  AND UCASE(SchemaName) LIKE ? ESCAPE '\'  AND UCASE(Name) LIKE ? ESCAPE '\'  AND (CASE WHEN IsSystem = 'true' and UCASE(Type) = 'TABLE' THEN 'SYSTEM TABLE' ELSE UCASE(Type) END LIKE ? ESCAPE '\' ) ORDER BY TABLE_TYPE, TABLE_SCHEM, TABLE_NAME
+2011-05-03 00:38:39,718 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24642) 	END USER COMMAND:	endTime=2011-05-03 00:38:39.718	requestID=jtCZ3TLiORTr.2	txID=null	sessionID=jtCZ3TLiORTr	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=1
+2011-05-03 00:38:43,317 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-1) 	START USER COMMAND:	startTime=2011-05-03 00:38:43.317	requestID=wgxX2Uc0JYTb.0	txID=null	sessionID=wgxX2Uc0JYTb	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1 and codop = 1
+2011-05-03 00:38:43,326 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24644) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:38:43.326	requestID=wgxX2Uc0JYTb.0	sourceCommandID=6	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	sql=SELECT g_0.codice AS c_0, g_0.codref AS c_1 FROM support_phy.mediator.referenza_op AS g_0 WHERE g_0.codop = 1 ORDER BY c_0
+2011-05-03 00:38:43,329 DEBUG [org.teiid.COMMAND_LOG] (Worker323_QueryProcessorQueue24645) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:38:43.329	requestID=wgxX2Uc0JYTb.0	sourceCommandID=7	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	sql=SELECT g_0.Cod_Dsc AS c_0, g_0.DataDocumento AS c_1, g_0.NumeroDocumento AS c_2 FROM tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS g_0 ORDER BY c_0
+2011-05-03 00:38:43,330 DEBUG [org.teiid.COMMAND_LOG] (Worker322_QueryProcessorQueue24646) 	END SRC COMMAND:	endTime=2011-05-03 00:38:43.33	requestID=wgxX2Uc0JYTb.0	sourceCommandID=6	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	finalRowCount=7
+2011-05-03 00:38:43,494 DEBUG [org.teiid.COMMAND_LOG] (Worker322_QueryProcessorQueue24650) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:38:43.493	requestID=wgxX2Uc0JYTb.0	sourceCommandID=1	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	sql=SELECT g_0.codop, g_0.nome FROM support_phy.mediator.op AS g_0 WHERE g_0.nome = 'Tricolore'
+2011-05-03 00:38:43,497 DEBUG [org.teiid.COMMAND_LOG] (Worker322_QueryProcessorQueue24653) 	END SRC COMMAND:	endTime=2011-05-03 00:38:43.497	requestID=wgxX2Uc0JYTb.0	sourceCommandID=1	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	finalRowCount=1
+2011-05-03 00:38:43,567 DEBUG [org.teiid.COMMAND_LOG] (Worker324_QueryProcessorQueue24679) 	END SRC COMMAND:	endTime=2011-05-03 00:38:43.567	requestID=wgxX2Uc0JYTb.0	sourceCommandID=7	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	finalRowCount=16317
+2011-05-03 00:38:44,072 DEBUG [org.teiid.COMMAND_LOG] (Worker321_QueryProcessorQueue24690) 	END USER COMMAND:	endTime=2011-05-03 00:38:44.072	requestID=wgxX2Uc0JYTb.0	txID=null	sessionID=wgxX2Uc0JYTb	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=15919
+{noformat}
+
+I noticed that query works with no problems if one removes the join with the virtual procedure, and then fixes the value of "codop" in the SELECT statement. In other words, it works if the view is defined as follows:
+{code:sql}
+SELECT
+		TR_v.DataDocumento AS data, 1 AS codop, COUNT(*) AS groupdim, TR_v.NumeroDocumento AS codice, codref
+	FROM
+		(tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS TR_v INNER JOIN support_log.mediator.referenza_op AS SUP_r ON TR_v.Cod_Dsc = SUP_r.codice)
+GROUP BY TR_v.DataDocumento, TR_v.NumeroDocumento, codref
+{code}
+
+This is the log content when I execute the first query (that with only one condition) on the view defined with this last definition.
+{noformat}
+2011-05-03 00:44:32,495 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-2) 	START USER COMMAND:	startTime=2011-05-03 00:44:32.495	requestID=OtRJtnWwABM1.0	txID=null	sessionID=OtRJtnWwABM1	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1
+2011-05-03 00:44:32,499 DEBUG [org.teiid.COMMAND_LOG] (Worker326_QueryProcessorQueue24800) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:44:32.499	requestID=OtRJtnWwABM1.0	sourceCommandID=5	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=OtRJtnWwABM1	principal=admin@teiid-security	sql=SELECT g_0.codice AS c_0, g_0.codref AS c_1 FROM support_phy.mediator.referenza_op AS g_0 ORDER BY c_0
+2011-05-03 00:44:32,499 DEBUG [org.teiid.COMMAND_LOG] (Worker327_QueryProcessorQueue24801) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:44:32.499	requestID=OtRJtnWwABM1.0	sourceCommandID=6	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=OtRJtnWwABM1	principal=admin@teiid-security	sql=SELECT g_0.Cod_Dsc AS c_0, g_0.DataDocumento AS c_1, g_0.NumeroDocumento AS c_2 FROM tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS g_0 ORDER BY c_0
+2011-05-03 00:44:32,499 DEBUG [org.teiid.COMMAND_LOG] (Worker326_QueryProcessorQueue24803) 	END SRC COMMAND:	endTime=2011-05-03 00:44:32.499	requestID=OtRJtnWwABM1.0	sourceCommandID=5	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=OtRJtnWwABM1	principal=admin@teiid-security	finalRowCount=22
+2011-05-03 00:44:32,724 DEBUG [org.teiid.COMMAND_LOG] (Worker327_QueryProcessorQueue24835) 	END SRC COMMAND:	endTime=2011-05-03 00:44:32.724	requestID=OtRJtnWwABM1.0	sourceCommandID=6	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=OtRJtnWwABM1	principal=admin@teiid-security	finalRowCount=16317
+2011-05-03 00:44:33,292 DEBUG [org.teiid.COMMAND_LOG] (Worker326_QueryProcessorQueue24846) 	END USER COMMAND:	endTime=2011-05-03 00:44:33.292	requestID=OtRJtnWwABM1.0	txID=null	sessionID=OtRJtnWwABM1	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=15919
+{noformat}
+
+And the following is the log content for the second query. As you can see, the number of rows is equal in both cases, and is as expected.
+{noformat}
+2011-05-03 00:47:11,586 DEBUG [org.teiid.COMMAND_LOG] (New I/O server worker #1-1) 	START USER COMMAND:	startTime=2011-05-03 00:47:11.586	requestID=nyJAHOCEfGlJ.0	txID=null	sessionID=nyJAHOCEfGlJ	applicationName=JDBC	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	sql=SELECT
+    data,
+    codop,
+    groupdim,
+    codice,
+    codref
+FROM
+    tricolore_log.misura124.tricolore.vendita_referenza
+where groupdim = 1 and codop = 1
+2011-05-03 00:47:11,604 DEBUG [org.teiid.COMMAND_LOG] (Worker331_QueryProcessorQueue24855) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:47:11.604	requestID=nyJAHOCEfGlJ.0	sourceCommandID=6	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=nyJAHOCEfGlJ	principal=admin@teiid-security	sql=SELECT g_0.Cod_Dsc AS c_0, g_0.DataDocumento AS c_1, g_0.NumeroDocumento AS c_2 FROM tricolore_phy.Tricolore.dbo.DISCO_Vendita_Referenza AS g_0 ORDER BY c_0
+2011-05-03 00:47:11,604 DEBUG [org.teiid.COMMAND_LOG] (Worker330_QueryProcessorQueue24854) 	START DATA SRC COMMAND:	startTime=2011-05-03 00:47:11.604	requestID=nyJAHOCEfGlJ.0	sourceCommandID=5	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=nyJAHOCEfGlJ	principal=admin@teiid-security	sql=SELECT g_0.codice AS c_0, g_0.codref AS c_1 FROM support_phy.mediator.referenza_op AS g_0 ORDER BY c_0
+2011-05-03 00:47:11,606 DEBUG [org.teiid.COMMAND_LOG] (Worker330_QueryProcessorQueue24857) 	END SRC COMMAND:	endTime=2011-05-03 00:47:11.606	requestID=nyJAHOCEfGlJ.0	sourceCommandID=5	txID=null	modelName=support_phy	connectorBindingName=mysql5	sessionID=nyJAHOCEfGlJ	principal=admin@teiid-security	finalRowCount=22
+2011-05-03 00:47:11,801 DEBUG [org.teiid.COMMAND_LOG] (Worker329_QueryProcessorQueue24888) 	END SRC COMMAND:	endTime=2011-05-03 00:47:11.801	requestID=nyJAHOCEfGlJ.0	sourceCommandID=6	txID=null	modelName=tricolore_phy	connectorBindingName=sqlserver	sessionID=nyJAHOCEfGlJ	principal=admin@teiid-security	finalRowCount=16317
+2011-05-03 00:47:12,321 DEBUG [org.teiid.COMMAND_LOG] (Worker331_QueryProcessorQueue24899) 	END USER COMMAND:	endTime=2011-05-03 00:47:12.321	requestID=nyJAHOCEfGlJ.0	txID=null	sessionID=nyJAHOCEfGlJ	principal=admin@teiid-security	vdbName=misura124	vdbVersion=1	finalRowCount=15919
+{noformat}
+
+Unfortunately I can't change the model in the way I have described because it is not as simple. I've simplified it as more as possible in order to identify the problem.
+
+I think that this behavior is definitely a bug.
