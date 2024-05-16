@@ -1,2 +1,0 @@
-Many console errors logged when JS Interop exports not enabled
-Errai's dynamic module support uses a non-native @JsType (WindowInjectionContext). When JS Interop exports are not enabled, attempting to use the WindowInjectionContext logs errors to the console any time a bean is dynamically looked up.
