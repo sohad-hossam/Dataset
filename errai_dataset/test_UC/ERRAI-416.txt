@@ -1,0 +1,17 @@
+Define an application lifecycle and provide means for observation & manipulation
+As an application developer, I care about certain phases of the (in-page) application lifecycle. I want to know when the page has loaded, when the server bus is first federated with the client bus, when the server bus is unreachable and when it becomes reachable again, and so on. I also want to be able to ask the client side of the framework to make some of these things happen (for example, take the client bus offline and back online again.)
+
+I propose the following arrangement for lifecycle states and the corresponding events that indicate to the app that these state transitions have happened:
+
+* Page Loaded (traditional onLoad event like jQuery.ready())
+** Server Bus Federation Started
+*** Server Bus Online
+*** Server Bus Offline
+** Server Bus Federation Stopped
+* Page Unloading (onUnload)
+
+We could name the states that you are in before and after each event happens. Respective to the above, starting before the Page Loaded event: PartiallyLoaded, Loaded, NegotiatingFederation, Federated (normal ErraiBus operation).
+
+We must guarantee that the events are always delivered in the above order, and further guarantee that when unwinding the application's state, we deliver all the corresponding downgrade events in strict order, even when two of them are technically the same thing (eg. Lost Federation always comes before Server Unreachable). This allows setup and teardown logic to be written in pairs and frees the app developer from having to guard against irregular/asymmetric state changes.
+
+One last thing: the onLoad and onUnload events should be available to apps that don't use ErraiBus. The rest of the events are tied to ErraiBus. We could declare the outer callback methods in an ErraiCommon interface, and extend it in ErraiBus to declare the rest of the events.

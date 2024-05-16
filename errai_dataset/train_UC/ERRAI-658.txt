@@ -1,0 +1,8 @@
+Errai UI should not inherit Errai CDI
+org.jboss.errai.ui.UI inherits org.jboss.errai.enterprise.CDI, but does not actually depends on it. Please remove this dependency.
+
+I build an application, where I use GWTP for MVP implementation and Errai UI for templating. Errai UI adds Errai CDI and Errai Bus to my application. I can disable Errai Bus by setting erraiBusRemoteCommunicationEnabled = false, but the code is still there.
+
+As a workaround, I added org.jboss.errai.ui.UIWithoutCDI.gwt.xml as a copy of UI.gwt.xml and commented out the dependency on CDI. I also had to exclude errai-cdi-client dependency and inclide errai-ioc dependency.
+
+As the result my compiled JS file has become 233 KB instead of 660 KB with Errai CDI.

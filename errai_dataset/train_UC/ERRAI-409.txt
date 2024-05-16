@@ -1,0 +1,4 @@
+ErraiBus does not recover from session expiration
+Forum post on issue: https://community.jboss.org/thread/205847?tstart=0
+
+When the session is expired, the MessageBus attempts to restablish a session. But gets frozen because the initialization votes are not reset.

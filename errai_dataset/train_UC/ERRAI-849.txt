@@ -1,0 +1,14 @@
+PropertyChangeHandlerSupport notifyHandlers() - new handlers cannot be added/removed from inside existing property change handler
+{code:java}
+    for (PropertyChangeHandler handler : handlers) {
+      handler.onPropertyChange(event);
+    }
+{code}
+must be replaced by something else (temporary local list), because if I wish to add new handlers or remove existing ones when processing property change notification, handlers iterator becomes invalid and fails within ArrayList:
+
+{code:java}
+        final void checkForComodification() {
+            if (modCount != expectedModCount)
+                throw new ConcurrentModificationException();
+        }
+{code}

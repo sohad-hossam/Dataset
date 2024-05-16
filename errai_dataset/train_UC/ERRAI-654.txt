@@ -1,0 +1,19 @@
+[errai-codegen] Specifying class comment though ClassBuilder
+It would be nice if the class comment could be set via the ClassBuilder.
+
+This is currently not possible. In order to set the class comment I have to obtain the ClassDefinition and set it manually.
+{code:borderStyle=solid}
+ClassStructureBuilder<?> classBuilder = ClassBuilder.define("MyClass")
+    .publicScope()
+    .body();
+classBuilder.getClassDefinition().setClassComment("Some documentation");
+{code}
+
+
+Proposal via ClassBuilder
+{code:borderStyle=solid}
+ClassBuilder.define("MyClass")
+    .classComment("Some documentation")
+    .publicScope()
+    .body();
+{code}

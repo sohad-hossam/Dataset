@@ -1,0 +1,26 @@
+Make the navigation container injectable as a @DataField.
+It would be great to be able to directly @Inject the Navigation content panel as a @DataField rather than having to programmatically add it.
+
+Workaround:
+{code:java}
+public class CdiConfig
+{
+  @Inject
+  private Navigation navigation;
+
+  @Qualifier
+  @Target({ElementType.FIELD,ElementType.PARAMETER,ElementType.METHOD,ElementType.TYPE})
+  @Retention(RetentionPolicy.RUNTIME)
+  public @interface NavigationPanel { }
+  
+  /**
+   * Make the navigation panel directly Injectable (via the NavigationPanel Qualifier
+   * above.)
+   */
+  @Produces @NavigationPanel
+  private SimplePanel getNavigationPanel()
+  {
+    return (SimplePanel) navigation.getContentPanel();
+  }
+}
+{code}

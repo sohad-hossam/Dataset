@@ -1,0 +1,84 @@
+Creating an @EventHandler without appropriate method arguments causes ArrayIndexOutOfBoundsException
+If done correctly, this works fine:
+
+{code}
+
+	@EventHandler("button")
+	public void buttonHandler(ClickHandler event) {
+		this.removeFromParent();
+	}
+{code}
+
+The bad code does not, note the missing event type in the method signature:
+
+{code}
+
+	@EventHandler("button")
+	public void buttonHandler(/*missing event type*/) {
+		this.removeFromParent();
+	}
+{code}
+
+Results in:
+
+{code}
+[INFO] INFO [IOCBootstrapGenerator] generating IOC bootstrapping class...
+[ERROR] java.lang.ArrayIndexOutOfBoundsException: 0
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateEventHandlerMethodClasses(DecoratorTemplated.java:231)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateTemplatedInitialization(DecoratorTemplated.java:205)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateDecorator(DecoratorTemplated.java:126)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:88)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.handleInjectionTasks(InjectUtil.java:160)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.access$000(InjectUtil.java:70)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil$2.generateConstructor(InjectUtil.java:148)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector._getType(TypeInjector.java:161)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector.getBeanInstance(TypeInjector.java:110)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$3.handle(IOCProcessorFactory.java:362)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$6.process(IOCProcessorFactory.java:593)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory.process(IOCProcessorFactory.java:543)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateExtensions(IOCBootstrapGenerator.java:354)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator._generate(IOCBootstrapGenerator.java:328)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:157)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generateIOCBootstrapClass(IOCGenerator.java:96)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:65)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generate(GeneratorExtWrapper.java:48)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generateIncrementally(GeneratorExtWrapper.java:60)
+[ERROR] 	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:647)
+[ERROR] 	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:268)
+[ERROR] 	at com.google.gwt.dev.shell.ShellModuleSpaceHost.rebind(ShellModuleSpaceHost.java:141)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.rebind(ModuleSpace.java:585)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.rebindAndCreate(ModuleSpace.java:455)
+[ERROR] 	at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:49)
+[ERROR] 	at com.google.gwt.core.client.GWT.create(GWT.java:97)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.bootstrapContainer(Container.java:55)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.onModuleLoad(Container.java:34)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+[ERROR] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+[ERROR] 	at java.lang.reflect.Method.invoke(Method.java:597)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.onLoad(ModuleSpace.java:396)
+[ERROR] 	at com.google.gwt.dev.shell.OophmSessionHandler.loadModule(OophmSessionHandler.java:200)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:525)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:363)
+[ERROR] 	at java.lang.Thread.run(Thread.java:680)
+[ERROR] java.lang.RuntimeException: Deferred binding failed for 'org.jboss.errai.ioc.client.Bootstrapper' (did you forget to inherit a required module?)
+[ERROR] 	at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:53)
+[ERROR] 	at com.google.gwt.core.client.GWT.create(GWT.java:97)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.bootstrapContainer(Container.java:55)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.onModuleLoad(Container.java:34)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+[ERROR] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+[ERROR] 	at java.lang.reflect.Method.invoke(Method.java:597)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.onLoad(ModuleSpace.java:396)
+[ERROR] 	at com.google.gwt.dev.shell.OophmSessionHandler.loadModule(OophmSessionHandler.java:200)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:525)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:363)
+[ERROR] 	at java.lang.Thread.run(Thread.java:680)
+[ERROR] Caused by: com.google.gwt.core.ext.UnableToCompleteException: (see previous log entries)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.rebindAndCreate(ModuleSpace.java:503)
+[ERROR] 	at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:49)
+[ERROR] 	... 12 more
+{code}

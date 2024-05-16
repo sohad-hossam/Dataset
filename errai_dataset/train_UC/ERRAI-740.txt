@@ -1,0 +1,2 @@
+Provide a custom linker to generate permutation(user-agent) specific cache manifest files
+The generated cache manifest file would only list the resources that are relevant to the corresponding user-agent, since we don't want to serve all compiled permutations to the client for offline mode.

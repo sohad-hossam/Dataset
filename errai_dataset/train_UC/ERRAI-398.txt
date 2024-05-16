@@ -1,0 +1,2 @@
+Errai UI should depend on Errai CDI Client as "compile" scope, not "provided" scope
+None

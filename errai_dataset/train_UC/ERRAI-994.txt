@@ -1,0 +1,55 @@
+CDI: Duplicate local variable when overriding method injection
+Given (for example):-
+{code}
+class Parent {
+
+    Child child;
+
+    @Inject
+    void setChild( Child child ) {
+        this.child = child;
+    }
+
+}
+{code}
+And
+{code}
+class NewParent extends Parent {
+
+    @Inject
+    @Override
+    void setChild( @SomeQualifier Child child ) {
+        super.setChild( child );
+    }
+
+}
+{code}
+GWT compilation throws errors like this real-world example:-
+{code}
+ Adding '1' new generated units
+[INFO]       Tracing compile failure path for type 'org.jboss.errai.ioc.client.Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default'
+[INFO]          [ERROR] Errors in '/home/manstis/workspaces/git/manstis/forks/drools-wb/drools-wb-webapp/target/.generated/org/jboss/errai/ioc/client/Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]             [ERROR] Line 111: Duplicate local variable setRegisteredDocumentsMenuBuilder_registeredDocumentsMenuBuilder_0
+[INFO]       See snapshot: /tmp/org.jboss.errai.ioc.client.Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default1332009459043603114.java
+[INFO]    [ERROR] Errors in '/home/manstis/workspaces/git/manstis/forks/drools-wb/drools-wb-webapp/target/.generated/org/jboss/errai/ioc/client/Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]       [ERROR] Line 111: Duplicate local variable setRegisteredDocumentsMenuBuilder_registeredDocumentsMenuBuilder_0
+[INFO]       See snapshot: /tmp/org.jboss.errai.ioc.client.Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default8203124247636684065.java
+[INFO]    Tracing compile failure path for type 'org.jboss.errai.ioc.client.Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default'
+[INFO]       [ERROR] Errors in '/home/manstis/workspaces/git/manstis/forks/drools-wb/drools-wb-webapp/target/.generated/org/jboss/errai/ioc/client/Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]          [ERROR] Line 111: Duplicate local variable setRegisteredDocumentsMenuBuilder_registeredDocumentsMenuBuilder_0
+[INFO]    [ERROR] Hint: Check that the type name 'org.jboss.errai.ioc.client.Type_factory__o_d_w_s_g_d_c_e_GuidedDecisionTableGraphEditorPresenter__quals__j_e_i_Any_j_e_i_Default' is really what you meant
+[INFO]    [ERROR] Hint: Check that your classpath includes all required source roots
+[INFO]    [ERROR] Errors in 'gen/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+{code}
+Changing the sub-class to the following solves the problem (the only difference is that the method parameter name was changed from {{child}} to {{c}}):-
+{code}
+class NewParent extends Parent {
+
+    @Inject
+    @Override
+    void setChild( @SomeQualifier Child c ) {
+        super.setChild( c );
+    }
+
+}
+{code}

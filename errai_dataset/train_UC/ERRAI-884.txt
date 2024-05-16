@@ -1,0 +1,5 @@
+ClientMessageBusImpl catches exceptions in MessageCallbacks, preventing @UncaughtException Handing
+When executing code in a RemoteCallback (after a service call to the server), all exceptions are caught by ClientMessageBusImpl rather than the method annotated with @UncaughtException as would be expected.  ClientMessageBusImpl is catching exceptions from our code (not related to the messaging) (line 673).
+
+It would be nice to be able to control the exception handling at this point (or for it not to handle it at all).
+

@@ -1,0 +1,62 @@
+client side parameter injection for producer methods
+This code:
+
+{code}
+@EntryPoint
+@Templated("Layout.html")
+public class App extends Composite {
+
+	@Inject @ContentPanel @DataField
+	private Widget content;
+
+	@Produces @ContentPanel
+	public Widget produceNavigationContent(final Navigation navigation) {
+		return navigation.getContentPanel();
+	}
+
+}
+{code}
+
+Is generating the following error in GWT compiler:
+
+{noformat}
+Errors in 'generated://968A3718186859764553E9811258F272/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+            Line 248: Syntax error, insert "AssignmentOperator Expression" to complete Expression
+{noformat}
+
+and this is how the line 248 looks like:
+
+{code}
+  private final BeanProvider<Widget> inj1664_Widget_creational = new BeanProvider<Widget>() {
+    public Widget getInstance(CreationalContext pContext) {
+      inj1710_Navigation; // this line
+      Widget var8 = inj1713_App.produceNavigationContent(inj1710_Navigation);
+      context.addBean(context.getBeanReference(Widget.class, arrayOf_19635043Annotation_215406303), var8);
+      return var8;
+    }
+  };
+{code}
+
+
+But injecting done by property compiles fine:
+
+{code}
+@EntryPoint
+@Templated("Layout.html")
+public class App extends Composite {
+
+	@Inject @ContentPanel @DataField
+	private Widget content;
+
+	@Inject
+	private Navigation navigation;
+
+	@Produces @ContentPanel
+	public Widget produceNavigationContent() {
+		return navigation.getContentPanel();
+	}
+
+}
+{code}
+
+Am i doing something wrong or this is just not implemented yet?

@@ -1,0 +1,37 @@
+IoC generates invalid code for some usages of generics
+From https://community.jboss.org/thread/223072?tstart=0 :
+
+I have a class that compiles fine with Errai 2.1.0, but will not build with 2.3.0.CR1.  When I build it with 2.3.0 I get these errors:
+ 
+         [ERROR] Errors in 'generated://203AF005B6B57DF1BE3A46C024E2E66D/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+            [WARN] Line 4452: Referencing deprecated method 'com.google.gwt.user.client.ui.Composite.setWidget'
+            [ERROR] Line 851: T cannot be resolved to a type
+            See snapshot: /tmp/org.jboss.errai.ioc.client.BootstrapperImpl2084728906436240268.java
+ 
+Lines 849-856 are:
+  private final CreationalCallback<HistoryStack> inj2285_HistoryStack_creational = new CreationalCallback<HistoryStack>() {
+    public HistoryStack getInstance(final CreationalContext context) {
+      final ArrayList<T> var40 = inj2286_ArrayList_creational.getInstance(context);
+      final HistoryStack inj351_HistoryStack = new HistoryStack(var40);
+      context.addBean(context.getBeanReference(HistoryStack.class, QualifierUtil.DEFAULT_QUALIFIERS), inj351_HistoryStack);
+      return inj351_HistoryStack;
+    }
+  };
+ 
+This seems to be generated from this java code:
+ 
+public class HistoryStack<T> {
+          ArrayList<T> historyList;
+          int historyIndex = -1;
+ 
+ 
+          @Inject
+          public HistoryStack(ArrayList<T> historyList) {
+                    this.historyList = historyList;
+          }
+ 
+  /// API removed
+}
+ 
+This class works well in 2.1.0, so something appears to have happened since then in Errai.
+ 

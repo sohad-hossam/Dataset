@@ -1,0 +1,8 @@
+Refactor BootstrapperImpl to make dev performance scalable for large applications
+Currently, BootstrapperImpl is created as one large monolithic file.  Each time the developer hits 'refresh', Errai performs a series of complex calculations to determine the makeup of the file.  For large applications, this can take upwards of one minute for a single refresh.  Because of this, I am hesitant to embrace ErraiUI, which will no doubt double (or more) the size of the bootstrapper).
+
+I propose investigating how the Bootstrapper can be broken up into separate files (one per class) so that the generator can leverage incremental compiles.  It is my understanding that the bootstrapper is designed the way it is because it needs to know about the entire object graph in order to create static code.
+
+If this indeed the case, would it be possible to have a flag for errai that would generate an alternate bootstrapper that uses proxies to determine at runtime what should be injected by the bootstrapper?  This would let each BeanProvider anonymous class sit as a self contained class (and use the incremental generator).  This might have a runtime performance hit, but especially for dev mode, would pale compared to the prohibitive refresh times currently experienced.
+
+I realize this is a tall task, but I believe it to be necessary for Errai to really work with large scale applications.

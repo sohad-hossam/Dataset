@@ -1,0 +1,83 @@
+Marshaller generator attempts to call nonexistent method
+I've got the following entity class:
+
+{code}
+import java.util.ConcurrentModificationException;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
+import java.util.Queue;
+
+import org.jboss.errai.common.client.api.annotations.Portable;
+import org.jboss.errai.marshalling.client.api.annotations.MapsTo;
+
+@Portable
+public class TickCache implements Iterable<Tick> {
+
+  private final Queue<Tick> entries;
+  private long timeSpan = 3 * 60 * 1000;
+  private Tick newestEntry;
+
+  public TickCache(@MapsTo("entries") Queue<Tick> queueImpl) {
+    entries = queueImpl;
+  }
+
+  /**
+   * Returns an iterator over this cache's entries. The returned iterator will
+   * not throw {@link ConcurrentModificationException} even if entries are added
+   * to the cache during iteration.
+   */
+  @Override
+  public Iterator<Tick> iterator() {
+    return entries.iterator();
+  }
+
+  public long getTimeSpan() {
+    return timeSpan;
+  }
+
+  public void setTimeSpan(long timeSpan) {
+    this.timeSpan = timeSpan;
+  }
+
+  public Tick getNewestEntry() {
+    return newestEntry;
+  }
+}
+{code}
+
+
+And the Marshaller generates the following code for it:
+
+
+{code}
+      public TickCache demarshall(EJValue a0, MarshallingSession a1) {
+        try {
+          if (a0.isNull() != null) {
+            return null;
+          }
+          EJObject obj = a0.isObject();
+          String objId = obj.get("^ObjectID").isString().stringValue();
+          if (a1.hasObjectHash(objId)) {
+            return a1.getObject(TickCache.class, objId);
+          }
+          TickCache entity = new TickCache(java_util_Queue.demarshall(obj.get("entries"), a1));
+          a1.recordObjectHash(objId, entity);
+          if ((obj.containsKey("entries")) && (obj.get("entries").isNull() == null)) {
+            entity.setEntries(java_util_Queue.demarshall(obj.get("entries"), a1));
+          }
+          if ((obj.containsKey("timeSpan")) && (obj.get("timeSpan").isNull() == null)) {
+            entity.setTimeSpan(java_lang_Long.demarshall(obj.get("timeSpan"), a1));
+          }
+          if ((obj.containsKey("newestEntry")) && (obj.get("newestEntry").isNull() == null)) {
+            org_jboss_errai_cdi_demo_stock_client_shared_TickCache_newestEntry(entity, org_jboss_errai_cdi_demo_stock_client_shared_Tick.demarshall(obj.get("newestEntry"),
+ a1));
+          }
+          return entity;
+        } catch (Throwable t) {
+          t.printStackTrace();
+          throw new RuntimeException("error demarshalling entity: org.jboss.errai.cdi.demo.stock.client.shared.TickCache", t);
+        }
+      }
+{code}
+
+Note the call to the nonexistent method setEntries(Queue). Note also that newestEntry got private field marshalling. So the marshaller isn't assuming EVERY field has a setter method.

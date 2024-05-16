@@ -1,0 +1,5 @@
+ProxyMaker generates code that does not compile
+There are cases where our ProxyMaker generates code that won't compile:
+
+* When the proxied class contains static methods (the actual proxy class tries to override the static methods which is wrong of course)
+* When methods of the proxied class throw checked exceptions (the overridden methods do not contain the corresponding throws declarations)

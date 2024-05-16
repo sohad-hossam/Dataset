@@ -1,0 +1,2 @@
+Support for defining @Bindable types in ErraiApp.properties
+Currently classes have to be annotated with @Bindable to participate in data bindings. This is often not desired. We should allow to configure bindable types in ErraiApp.properties similar to @Portable types.

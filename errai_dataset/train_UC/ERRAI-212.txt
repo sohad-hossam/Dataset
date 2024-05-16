@@ -1,0 +1,4 @@
+Allow Errai's DefaultBlockingServlet to be configured as a filter
+To allow Errai to work alongside existing web application frameworks, such as Liferay, which set up filters to handle every request, it's sometimes necessary to configure the *.erraiBus requests to be handled by a filter so that they are not passed on to the other framework which doesn't know what to do with them.
+
+See https://community.jboss.org/thread/177590?tstart=0 for a specific use case.

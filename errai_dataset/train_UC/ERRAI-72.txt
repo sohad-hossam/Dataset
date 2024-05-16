@@ -1,0 +1,13 @@
+WSGrid->setPreciseHeight() method should check for non-negative input
+===========
+java.lang.AssertionError:
+[ERROR] CSS heights should not be negative
+[ERROR]     at com.google.gwt.user.client.ui.UIObject.setHeight(UIObject.java:607)
+[ERROR]     at com.google.gwt.user.client.ui.ScrollPanel.setHeight(ScrollPanel.java:170)
+[ERROR]     at org.jboss.errai.widgets.client.WSGrid.setPreciseHeight(WSGrid.java:1681)
+[ERROR]     at org.jboss.errai.widgets.client.WSGrid.setPixelSize(WSGrid.java:1707)
+[ERROR]     at org.jboss.errai.widgets.client.WSGrid.onResize(WSGrid.java:1836)
+[ERROR]     at org.gwt.mosaic.ui.client.layout.LayoutPanel.layoutChildren(LayoutPanel.java:729)
+[ERROR]     at org.gwt.mosaic.ui.client.layout.LayoutPanel.layout(LayoutPanel.java:686)
+
+==================

@@ -1,0 +1,5 @@
+Support for javax.enterprise.inject.Typed
+Consider this simple example about two client side managed beans:
+  interface Viewer<T> {}
+  interface Editor<T> extends Viewer<T> {}
+The injection point for Viewer<T> will resolve the Editor<T> instances as well, even if the editors have the '@Typed(Editor.class)' annotation.

@@ -1,0 +1,4 @@
+Sending message from the client to the server doesn't work with Wildfly 8.2.0
+Error received: SEVERE [LogConfiguration] Exception caught: no subscribers to deliver to for subject: MyEchoService
+
+See example at https://developer.jboss.org/message/916406?et=watches.email.thread#916406

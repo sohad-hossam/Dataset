@@ -1,0 +1,2 @@
+Cordova module should automatically include the right javascript
+Now one should include the right javascript file by hand this should be taken care of by the framework.

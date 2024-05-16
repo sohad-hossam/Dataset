@@ -1,0 +1,2 @@
+Cannot demarshall Integer when value is null
+Throws a NPE if the value of Integer is null

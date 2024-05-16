@@ -1,0 +1,4 @@
+less files within jar files are being parsed and fail
+Less files that are included in a jar file are found and cannot be read properly. So the parsing fails and stops the build.
+
+Only scan the path containing the ErraiApp.properties

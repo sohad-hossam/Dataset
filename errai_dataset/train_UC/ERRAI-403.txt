@@ -1,0 +1,11 @@
+demarshalling map of abstract classes throws nullpointer exception
+I have a class Test which contains a map of type <String, Job> where Job is an abstract class. so there are specialized classes which extend job. on demarshalling the map I get a nullpointerexception. with beta1 everything worked fine. 
+
+
+MapMarshaller throws nullpointerexception since beta1
+
+CR2 line 88
+
+final Object demarshalledValue = ctx.getMarshallerInstance(valueType).demarshall(ejValue, ctx);
+
+valuetype is Job and not the specialized class. as it is abstract no marshaller exists.

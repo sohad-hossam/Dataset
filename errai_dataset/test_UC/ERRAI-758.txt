@@ -1,0 +1,2 @@
+Server-side security interceptors not triggered for @RestrictedAccess on interface type
+The SecurityAnnotationExtension does not copy {{RestrictedAccess}} annotations on interfaces at the type level.

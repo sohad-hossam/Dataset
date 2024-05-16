@@ -1,0 +1,2 @@
+WSModalWindow -> hide() method
+See the discussion thread for more details.  The hide() method will internally call the hide() on the WindowPanel.

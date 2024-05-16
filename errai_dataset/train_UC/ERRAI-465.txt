@@ -1,0 +1,11 @@
+Wrong veto logic in CDIExtensionPoints class
+CDIExtensionPoints vetoes all beans which contain substring "client" in their package name due to this snippet of code:
+
+    if (vetoClasses.contains(type.getJavaClass().getName())
+        || (type.getJavaClass().getPackage().getName().contains("client") && !type.getJavaClass().isInterface())) {
+      event.veto();
+    }
+
+The bug leads to hard-to-debug issues when beans are located in packages like org.company.name.forms.clients.server. 
+
+I think it would make sense to add more robust package name validation logic or at least replace .contains("client") to .contains(".client")

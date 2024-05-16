@@ -1,0 +1,2 @@
+Use Logger for MessageDeliveryFailure Exception
+When throwing an Exception using RPC there is a StackTrace for MessageDeliveryFailure in the logs. Since the Exception is handled on client side this is not necessary and there should be a possibility to hide this exception. 

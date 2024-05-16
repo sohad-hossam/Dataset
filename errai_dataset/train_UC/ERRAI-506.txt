@@ -1,0 +1,3 @@
+Double.NaN causes JSONException
+When serializing Double.NaN to the client, it serializes as the value NaN which is not supported by JSON.parse() resulting in a JSONException in the broswer.
+According to the spec infinity and NaN should be sent as null.

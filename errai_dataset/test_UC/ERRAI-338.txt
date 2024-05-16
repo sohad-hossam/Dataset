@@ -1,0 +1,20 @@
+Client-side BeanManager fails to look up beans using an extended interface type
+In the following scenario the BeanManager fails to look up both implementations of interface A.
+
+{code}
+public interface A {
+}
+
+public interface B extends A { 
+}
+
+@ApplicationScoped
+public class AImpl implements A {
+}
+ 
+@ApplicationScoped
+public class BImpl implements B {
+}
+{code} 
+
+Both AImpl and BImpl are managed beans of type A (B extends A), so {{beanManager.lookupBeans(A.class)}} should return both beans but currently doesn't.

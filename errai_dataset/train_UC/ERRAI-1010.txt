@@ -1,0 +1,6 @@
+Remove warning about missing no-arg constructors in normal scope beans
+For every normal scoped type (such as @ApplicationScoped), if the type uses constructor injection and doesn't have a no-argument constructor, Errai logs warnings of the form:
+
+The class $CLASS must be proxiable but does not have an accessible no-argument constructor
+
+Often this isn't a problem, and when it is Errai fails at runtime with an error naming the problematic type in the console. Hence this compile-time warning is unnecessary.

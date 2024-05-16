@@ -1,0 +1,9 @@
+public variable in superclass causes "no such field" in generating marshallers for @Portable subclass
+class Parent{
+	public String text;
+}
+
+@Portable
+class Child extends Parent{}
+
+...causes "no such field: text in class mypackage.Child". Removing the "public" modifier avoids the error.

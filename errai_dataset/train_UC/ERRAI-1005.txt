@@ -1,0 +1,2 @@
+Add property to generate extremely-shortened marshaller class names
+Errai generates server-side marshaller classes with very long names, which causes issues with zip files on Windows from paths being too long.

@@ -1,0 +1,2 @@
+Errai Bus and SSE channel error (some client side CDI observers are not called for remote events)
+Some observed events aren't executing methods when events are fired, after a quick hangout we noticed some SSE channel errors that might be the root cause of the problem.

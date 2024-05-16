@@ -1,0 +1,3 @@
+ErraiApp.properties - add parameter errai.ui.nonbindableTypes logically similar to errai.marshalling.nonserializableTypes
+It's very convenient to have an ability to exclude some classes from data binding proxy generation depending on, for instance, build profile. I.e. initially many classes are annotated with @Bindable, but when building for mobile some of them are not needed for sure.
+Also it would be nice to have wildcards support, like com.xx.mm.canvas.* excludes all bindable classes under this namespace.

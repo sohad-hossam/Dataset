@@ -1,0 +1,11 @@
+TransmissionBuffer write sequence (seq) becomes negative thus leading to AIOOBE all the time
+TransmissionBuffer write method calculates the write sequence as follows:
+
+final int seq = (int) writeHead % segments;
+
+This will lead to a negative seq when writeHead which is a long will get bigger than Integer.MAX_VALUE and will be cast to int, because the cast will take precedence over the % operation. From there on, all the writes to the buffer will fail with an AIOOBE, so no messages at all.
+
+the fix is fairly simple, just add the needed paranthesis:
+final int seq = (int) (writeHead % segments);
+
+Of course that it needs to be fixed in all places where this operation appears!

@@ -1,0 +1,6 @@
+Add navigation error callback
+When _manually_ entering an url with a page that doesn't exist in the NavigationGraph, the exception IllegalArgumentException("Page not found: \"" + name + "\"")  is thrown.
+
+in this case it would be good to have the possibility to pass in an error callback to the navigation, such as Navigation.addErrorCallback(...).
+
+the information passed in could be an enum to distinguish the errors. in case no callback is defined, the IllegalArgumentException can be continued to be thrown.

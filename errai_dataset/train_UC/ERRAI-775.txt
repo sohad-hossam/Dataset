@@ -1,0 +1,2 @@
+Use GWT 2.6.1 for Errai 3.1.x setup with Forge addon
+The Forge addon currently uses GWT 2.5.1 when configuring the gwt-maven-plugin. This needs to be changed to 2.6.1 for Errai versions 3.1+. Ideally, the addon should figure out which GWT version is used by an Errai version so that the plugin version is always equal to the gwt-user dependency.

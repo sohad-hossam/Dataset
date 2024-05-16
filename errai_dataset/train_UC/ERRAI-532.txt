@@ -1,0 +1,2 @@
+Errai fails to find array marshallers for non-concrete types in DevMode
+When using dynamic marshallers (in DevMode), Errai sometimes fails to find marshallers for non-concrete array types. The reason for this is that we need to fall back to using the object marshaller which may not have been created yet.

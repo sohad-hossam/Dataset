@@ -1,0 +1,59 @@
+RPC fails in face of similar interface names
+RPC proxy generation appears to only look at the final component
+of an RPC interface's name --- which leads to the generation of
+broken code when multiple interfaces share the same name.  (This
+may affect more than just RPC proxy generation; that's as far as
+I tracked it down.)
+
+For example, suppose two distinct interfaces are defined as like-named
+nested interfaces:
+{code:title=ShellX.java}
+public interface ShellX {
+	@Remote
+	public interface RpcInterface {
+		public void doX(int a);
+	}
+}
+{code}
+and
+{code:title=ShellY.java}
+public interface ShellY {
+	@Remote
+	public interface RpcInterface {
+		public void doY(int b);
+	}
+}
+{code}
+
+This ends up producing the following RPC proxy loader code:
+{code:title=RpcProxyLoaderImpl.java}
+import ShellX.RpcInterface;
+...
+public class RpcProxyLoaderImpl implements RpcProxyLoader {
+  public void loadProxies(final MessageBus bus) {
+    class RpcInterfaceImpl implements RpcInterface, RpcStub {
+      ...
+      public void doX(final int a0) {
+        ...
+      }
+      ...
+    }
+    ...
+    class RpcInterfaceImpl implements ShellY.RpcInterface, RpcStub {
+      ...
+      public void doY(final int a0) {
+        ...
+      }
+      ...
+    }
+    ...
+  }
+}
+{code}
+Java is unhappy about the attempt to define two classes named
+"RpcInterfaceImpl" in the same block.
+
+I imagine the same thing would happen with two like-name interfaces
+from different packages, but I have not tested that.
+
+

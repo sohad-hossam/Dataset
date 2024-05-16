@@ -1,0 +1,7 @@
+Support enable/disable for TransitionAnchor
+Currently the TransitionAnchor cannot be disabled (I don't actually know why the "disabled" attribute doesn't get set, but it doesn't seem to).  In addition, even if the "disabled" attribute is set via getElement() on the TransitionAnchor instance, the onclick code still runs.
+
+Two things need to be done:
+
+1) make sure that setEnabled() works
+2) when the TransitionAnchor is in the disabled state, don't do the onclick logic

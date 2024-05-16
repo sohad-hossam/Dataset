@@ -1,0 +1,5 @@
+Marshaller loses instances constructed in wrong order
+Having an instance multiple times in the same serialization graph can cause the instance to be null depending on order of constructor parameters.
+
+If the instance is used first in a List it is lost (null on every occurence), if it is stored directly first (exchange the parameter order) it works as expected 
+

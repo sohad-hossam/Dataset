@@ -1,0 +1,8 @@
+websocket avertised address is not accessible
+The address sent back the client with the websocket address is of the form : ws://<ip>:<port>/path
+
+Not sure if this is common, but where I work the company's browser proxy.pac config file can't handle IP addresses and tries to send them via the internet. 
+
+It would be good if the hostname could be used instead of the IP address. Configured or determined.
+
+Not sure how it hangs together, but the url is built in ServerMessageBusImpl and WebSocketServerHandler. 

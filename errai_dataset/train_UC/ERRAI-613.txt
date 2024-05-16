@@ -1,0 +1,28 @@
+could not create Vfs.Dir when building 
+when building my gwt application which uses errai I get annoying errors in my log output. The build is not affected though. 
+
+The problem occurs on windows when the path to the java jdk contains spaces (which the default path does: c:/program files/java/jdk/...).
+
+Moving the jdk to a different path without spaces works as a workaround. 
+
+
+Log output: 
+ 
+
+[ERROR] 12:16:11 (Reflections.java:210) could not create Vfs.Dir from url. ignoring the exception and continuing
+
+[INFO] org.jboss.errai.reflections.ReflectionsException: could not create Dir using org.jboss.errai.reflections.vfs.Vfs$DefaultUrlTypes$1 from url file:/C:/Program%20Files/Java/jdk1.7.0_25/jre/lib/ext/sunmscapi.jar
+
+[INFO]     at org.jboss.errai.reflections.vfs.Vfs.fromURL(Vfs.java:121) ~[reflections-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.reflections.vfs.Vfs.fromURL(Vfs.java:108) ~[reflections-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.reflections.Reflections.scan(Reflections.java:205) ~[reflections-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.validation.rebind.GwtValidatorGenerator$ValidationScanner.<init>(GwtValidatorGenerator.java:55) ~[errai-validation-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.validation.rebind.GwtValidatorGenerator.<init>(GwtValidatorGenerator.java:63) ~[errai-validation-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.validation.rebind.ValidatorFactoryGenerator.generate(ValidatorFactoryGenerator.java:53) ~[errai-validation-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]
+
+[INFO]     at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:42) ~[errai-config-2.4-SNAPSHOT.jar:2.4-SNAPSHOT]

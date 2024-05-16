@@ -1,0 +1,4 @@
+Unable to turn off log messages generated from DefaultBlockingServlet
+The poll method in DefaultBlockingServlet.java is calling printstacktrace() to log exceptions in it's catch block.
+
+While trying to stop the ClientMessageBus , the onfly GET requests are being aborted resulting in ClientAbortException in DefaultBlockingServlet , as a result the catch block is printing the stack trace by printStackTrace()method which cannot be turned off by using application level logging.

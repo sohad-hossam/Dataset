@@ -1,0 +1,4 @@
+CDI events not observed on client for indirectly implemented interfaces
+If you fire an event for a type that indirectly implements and interface, observers of the indirectly implemented interface do not observe the event.
+
+For example if you have IfaceB extends IfaceA, and you have Impl implementing IfaceB, then an Event<Impl> will not be observed by an observer of IfaceA.

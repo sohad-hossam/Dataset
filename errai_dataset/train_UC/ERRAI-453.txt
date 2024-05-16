@@ -1,0 +1,2 @@
+Page Navigation should not fail build when there are no @Page classes present
+The Page Navigation framework tries to be helpful by failing the build when there's no default page. But in the special case where there are no pages at all, the build should be allowed to proceed. This is especially important for getting-started projects that use the errai-javaee-all and org.jboss.errai.All dependencies.

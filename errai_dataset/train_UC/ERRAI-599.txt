@@ -1,0 +1,4 @@
+Client side CDI module cannot be used without the server side weld integration module
+The client side Errai CDI bootstrapping logic sends a message to CDI.SERVER_DISPATCHER_SUBJECT which fails with a NoSubscribersToDeliverTo exception if the server side weld integration module is not available.
+
+It should be possible to use Errai CDI on the client only (as it was in 2.3.* and earlier versions).

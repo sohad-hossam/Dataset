@@ -1,0 +1,2 @@
+MetaClass.isAssignableTo() does not take into account interfaces on supertypes
+This is essentially the same issue as ERRAI-238, but for isAssignableTo() rather than isAssignableFrom().

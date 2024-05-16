@@ -1,0 +1,4 @@
+Errai's dependencies on weld-servlet should be weld-servlet-core (this would fix slf4j multiple binding errors)
+All the errai modules, demos, and archetypes that specify a dependency on weld-servlet should be adjusted to depend on weld-servlet-core. weld-servlet is a self-contained über-jar, definitely not what we want to add to the classpath.
+
+See https://issues.jboss.org/browse/WELD-845 for details.

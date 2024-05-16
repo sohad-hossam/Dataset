@@ -1,0 +1,39 @@
+Need a way to automatically "RootPanel.get().add(navigation.getContentPanel())"
+In order to use Navigation, a user must currently:
+
+{code}
+@EntryPoint
+public class App {
+ 
+  @Inject
+  private Navigation navigation;
+ 
+  @PostConstruct
+  public void clientMain() {
+    RootPanel.get().add(navigation.getContentPanel());
+  }
+ 
+}
+{code}
+
+Which could be simplified by assuming that the following means Navigation should be configured automatically:
+
+{code}
+@Page
+@EntryPoint
+public class App {
+ 
+ 
+}
+{code}
+
+This could be further simplified if the trigger is @Page used anywhere in the client code:
+
+{code}
+@Page
+public class AnyClientClass {
+  
+}
+{code}
+
+Injection of a Navigation manager should perhaps override any default or automatic configuration, it could still be added, but simply supply a handle to the Navigation manager already added to the RootPanel.

@@ -1,0 +1,2 @@
+ListWidget removes widgets from the UI panel but does not destroy them.
+When you remove an item from a BIndableListWrapper, the ListWidget does not destroy widgets that it removes from the UI panel, even if they are dependent scoped.

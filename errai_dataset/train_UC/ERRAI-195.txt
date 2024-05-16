@@ -1,0 +1,9 @@
+Marshaller throws a NPE for type Void
+When invoking an Errai RPC method having a void return type, the marshaller throws a NPE when trying to demarshall the payload.
+
+at org.jboss.errai.marshalling.client.marshallers.ErraiProtocolEnvelopeMarshaller.doDermashall(ErraiProtocolEnvelopeMarshaller.java:53)
+	at org.jboss.errai.marshalling.client.marshallers.ErraiProtocolEnvelopeMarshaller.demarshall(ErraiProtocolEnvelopeMarshaller.java:43)
+	at org.jboss.errai.marshalling.client.protocols.ErraiProtocol.decodePayload(ErraiProtocol.java:50)
+	at org.jboss.errai.bus.client.json.JSONUtilCli.decodePayload(JSONUtilCli.java:96)
+	at org.jboss.errai.bus.client.json.JSONUtilCli.decodeCommandMessage(JSONUtilCli.java:100)
+	at org.jboss.errai.bus.client.framework.ClientMessageBusImpl.procPayload(ClientMessageBusImpl.java:1304)

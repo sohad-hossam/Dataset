@@ -1,0 +1,13 @@
+Getting started broken: Do not depend on xercesImpl 2.11.0.SP4 because that doesn't exist in Maven Central
+Try building a hello world project with Errai without explicitly adding the Jboss maven repository in the pom or in your settings.xml.
+
+You'll run into:
+[ERROR] ...Could not resolve dependencies for project ...T: Failure to find xerces:xercesImpl:jar:2.11.0.SP4
+for example after adding the artifact errai-javaee-all.
+
+2.11.0.SP4 is in Jboss nexus:
+https://repository.jboss.org/nexus/content/groups/public/xerces/xercesImpl/2.11.0.SP4/
+but it isn't synced to maven central:
+http://mvnrepository.com/artifact/xerces/xercesImpl
+
+Do "mvn dependency:tree -Dverbose" on errai-javaee-all and clean up the dependency tree.

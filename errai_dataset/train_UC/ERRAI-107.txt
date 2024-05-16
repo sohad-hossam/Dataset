@@ -1,0 +1,2 @@
+VfsUrlType chokes on regular directories
+i.e. unpacked WEB-INF/classes

@@ -1,0 +1,10 @@
+Allow package wildcard usage for filterting marshalling classes
+Allow using package wildcard filtering for including and excluding serializable types.
+
+Ex:
+errai.marshalling.serializableTypes=org.foo.client.* \
+                                    org.abcinc.model.client.*
+
+
+errai.marshalling.nonserializableTypes=org.foo.client.* \
+                                       org.abcinc.model.client.*

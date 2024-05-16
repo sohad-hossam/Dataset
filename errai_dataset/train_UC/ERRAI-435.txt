@@ -1,0 +1,21 @@
+@MapsTo doesn't work for arrays
+When generating marshallers for entities that use @MapsTo in combination with arrays, the marshaller generator fails with the following exception:
+
+org.jboss.errai.marshalling.client.api.exceptions.MarshallingException: no marshaller for type: [Ljava.lang.String;
+	at org.jboss.errai.marshalling.rebind.api.impl.defaultjava.DefaultJavaMappingStrategy$1.getMarshaller(DefaultJavaMappingStrategy.java:175)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory.addMarshaller(MarshallerGeneratorFactory.java:313)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory.generateMarshallers(MarshallerGeneratorFactory.java:296)
+
+An example entity to reproduce the problem:
+
+{code}
+@Portable
+public class ImmutableArrayContainer {
+
+  private final String[] test;
+
+  public ImmutableArrayContainer(@MapsTo("test") String[] test) {
+    this.test = test;
+  }
+...
+{code}

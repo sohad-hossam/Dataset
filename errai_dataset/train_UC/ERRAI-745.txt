@@ -1,0 +1,25 @@
+Bean validation for collections of bindable types fail when elements are proxies
+When validating a collection of bindable types Errai can't unwrap the potentially proxied list elements which causes the proxy fields to get validated instead of the actual fields.
+
+Example:
+
+{code}
+@Bindable
+@Portable
+public class ComponentData {
+    @Size(min = 5, max = 10)
+    private String title = "";
+ 
+    @NotNull @Valid
+    private List<Data> dataList = new ArrayList<Data>();
+}
+ 
+@Bindable
+@Portable
+public class Data {
+    @Size(min = 1)
+    private String name = "";
+}
+{code}
+
+If {{dataList}} contains plain {{Data}} objects everything works as expected. However, validation won't work if {{dataList}} contains bindable proxies of {{Data}}.

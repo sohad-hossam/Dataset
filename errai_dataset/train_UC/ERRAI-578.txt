@@ -1,0 +1,10 @@
+Xerces 2.4.0 dependency causes problems in JBoss/EAP and Jetty+Weld
+Feedback from Eric Wittmann on the 2.4.0.Beta1 release:
+
+there is a transitive dependency in there somewhere to an older version of xercesImpl.jar.  I think it might be 2.4.1 if I recall correctly. That gave me an AbstractMethodError when I was running in my jetty based dev environment.  It also seemed to give me a bizarre Weld error when deployed to JBoss AS 7.1.1.Final.
+
+To fix my dev env. I simply forced it to use the latest version of xercesImpl (my jetty dev env is all maven based - so it was just a matter of adding the latest version of xercesImpl.jar to my pom.xml).
+
+To fix the deploy-time problem I excluded xercesImpl.jar entirely from the WAR (since JBoss provides xercesImpl version 2.9.1).
+
+But I've now tested in both environments and everything seems to be working well.

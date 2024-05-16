@@ -1,0 +1,25 @@
+Event observers in the client that do not have corresponding default injectors with the same annotations cannot be addressed.
+For instance:
+
+In the client:
+{code}
+public void observesEvent(@Observes @Foo Bar evt) { 
+  ...
+}
+{code}
+
+and on the server:
+
+{code}
+class Foo {
+  @Inject Event<Bar> barEvent;
+
+  public void fireEventWithFoo() {
+    barEvent.select(new Foo() { 
+      public Class<? extends Annotation> annotationType() { return Foo.class; }  
+    }).fire(new Bar());
+  }
+}
+{code}
+
+The dynamically selected qualifier is never routed on the ErraiBus because Errai does not see the @Foo case. 

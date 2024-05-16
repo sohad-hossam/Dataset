@@ -1,0 +1,2 @@
+DataBinding uses converters for null values only on properties with specific converters registered
+If the "new value" is null, the data binding code is unable to determine the runtime type of the object, so it can't look up the default converter (because the "from type" is not known). We can fix this by requiring the "from type" to be passed in to the conversion functions. This will affect the programmatic binding API, because the property's type will have to be specified when the property is registered.

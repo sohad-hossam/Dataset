@@ -1,0 +1,17 @@
+Clean up dependency scopes in Kitchen Sink archetype
+The following jars are deployed with the .war file you get from a fresh project created from the kitchensink-quickstart archetype:
+
+Exclude:
+
+* errai-cdi-jetty-2.0.Beta2.jar
+* guice-servlet-2.0.jar
+* javax.inject-1.jar
+* jboss-servlet-api_3.0_spec-1.0.0.Final.jar
+* weld-servlet-1.1.5.Final.jar
+* weld-build-config-1.1.5.Final.jar
+
+These are questionable, but we think we should leave them in because we want client-side validation behaviour to be identical to server-side validation behaviour:
+
+* validation-api-1.0.0.GA.jar
+* validation-api-1.0.0.GA-sources.jar
+

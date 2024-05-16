@@ -1,0 +1,14 @@
+client bus chokes on true transport errors
+If a client bus's poll request fails due to a transport error, or anything
+that doesn't result in receiving an HTTP response, the bus hangs.
+
+The problem is in ClientMessageBusImpl.LongPollRequestCallback.onError().
+The onError() method has a short-circuit return when statusCode is zero,
+but statusCode can only become non-zero if the request has completed
+successfully and a valid HTTP response has been received from the server.
+Thus, with some irony, onError() does not actually handle Request errors:
+it only does work when called by onResponseReceived().
+
+Since onError() short-circuits, no bus errors are broadcast on the local
+bus and no reconnect attempt is scheduled.  The net result is that polling
+is dead and the client bus receives no more messages from the server.

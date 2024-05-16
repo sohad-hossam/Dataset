@@ -1,0 +1,8 @@
+Nested Maps with different Key Types don't work
+Consider the case:
+
+HashMap<Long,HashMap<String,Object>> map = new HashMap<>();
+
+When marshalling, he DecodingSession (ctx) variable has an assumedMapKeyType, assumedMapValueType, and in this case, there are two different key types.
+
+The marshalling fails.

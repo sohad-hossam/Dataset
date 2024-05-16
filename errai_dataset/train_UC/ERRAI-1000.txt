@@ -1,0 +1,2 @@
+User is displayed as ANONYMOUS if his/her role name contains apostrophe
+If user belongs to role whose role name  contains  apostrophe('), when the user logged in on business central, he/she is shown as ANONYMOUS and ROLE is shown as NOBOY and appropriate role is not applied.

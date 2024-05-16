@@ -1,0 +1,48 @@
+IOC fails for inherited @Templated beans that are not marked as @Dependent
+@Templated beans cause an IOC error when inheriting from other @Templated beans that are not also in an explicit scope. This is surprising because all templated beans should by default be in @Dependent scope.
+
+For example the following scenario will fail:
+
+{code}
+@Templated
+public class BaseComponent extends Composite {
+  @Inject
+  @DataField
+  private Anchor c1;
+}
+{code}
+
+{code}
+@Templated("BaseComponent.html")
+public class ExtensionComponent extends BaseComponent {}
+{code}
+
+Error:
+java.lang.Error: Unresolved compilation problems: 
+    inj768_PageLayout cannot be resolved
+    inj768_PageLayout cannot be resolved
+    inj768_PageLayout cannot be resolved
+    inj768_PageLayout cannot be resolved
+
+    at org.jboss.errai.ioc.client.BootstrapperImpl.&lt;init&gt;(BootstrapperImpl.java:819)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+    at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+    at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+    at java.lang.reflect.Constructor.newInstance(Constructor.java:525)
+    at com.google.gwt.dev.shell.ModuleSpace.rebindAndCreate(ModuleSpace.java:475)
+    at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:49)
+    at com.google.gwt.core.shared.GWT.create(GWT.java:57)
+    at com.google.gwt.core.client.GWT.create(GWT.java:85)
+    at org.jboss.errai.ioc.client.Container.bootstrapContainer(Container.java:62)
+    at org.jboss.errai.ioc.client.Container.onModuleLoad(Container.java:39)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    at java.lang.reflect.Method.invoke(Method.java:601)
+    at com.google.gwt.dev.shell.ModuleSpace.onLoad(ModuleSpace.java:406)
+    at com.google.gwt.dev.shell.OophmSessionHandler.loadModule(OophmSessionHandler.java:200)
+    at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:526)
+    at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:364)
+    at java.lang.Thread.run(Thread.java:722)
+
+Marking the BaseComponent as @Dependent will avoid the problem. So will removing the @Templated annotation on the super type. 

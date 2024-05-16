@@ -1,0 +1,22 @@
+java.lang.AssertionError: This UIObject's element is not set using @StyleBinding on @Templated components
+A complex UI based on template contains custom components, also build on templates. A modified {{StyleBoundTemplate.java}} test case looks like:
+{code} 
+@Templated
+public class StyleBoundTemplate extends Composite {
+  @Inject @AutoBound DataBinder<TestModel> dataBinder;
+  @Inject @Bound @AdminBinding @DataField private Label testA;
+  @Inject @Bound @TestBinding @DataField private Label testB;
+  @Inject @Bound @ComponentBinding @DataField private CustomComponent testC;
+...
+{code}
+ 
+An attempt to implement {{@StyleBinding}} on {{CustomComponent}} results in error:
+{code}
+java.lang.AssertionError: This UIObject's element is not set; you may be missing a call to either Composite.initWidget() or UIObject.setElement()
+  at com.google.gwt.user.client.ui.UIObject.getElement(UIObject.java:558)
+  at org.jboss.errai.ioc.client.BootstrapperImpl$9.getInstance(BootstrapperImpl.java:218)
+  at org.jboss.errai.ioc.client.BootstrapperImpl$9.getInstance(BootstrapperImpl.java:1)
+  at org.jboss.errai.ioc.client.container.IOCDependentBean.getInstance(IOCDependentBean.java:96)
+  at org.jboss.errai.ioc.client.container.IOCDependentBean.getInstance(IOCDependentBean.java:87)
+  at org.jboss.errai.ui.test.stylebinding.client.StyleBindingTest.testStyleBinding(StyleBindingTest.java:38)
+{code}

@@ -1,0 +1,4 @@
+Page not reloaded correctly if user navigates to same page but with different page state values.
+If user is on Page A, and page state values are changed manually in the URL bar, the page is not reloaded with the new values. The @PageShowing method does not get called.
+
+However, if navigation.goTo() is directly called, this problem does not occur. See test case https://github.com/divd/errai/commit/271fabde13eeea74b6d46524872fac0ee5596872. This code executes as expected.

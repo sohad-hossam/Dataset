@@ -1,0 +1,2 @@
+@Bound onKeyUp property doesn't work with native input elements
+Currently declarative data-binding doesn't support onKeyUp events with native input elements.

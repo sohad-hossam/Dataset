@@ -1,0 +1,4 @@
+Bus getting disconnected under high loads
+Under high loads (or relatively high loads -- such as in dev mode where the browser runs slow) a backlog of messages may cause the server to aggressively disconnect the client causing unexpected behavior.
+
+The shows up as missing subscriptions as the server unsubscribes the client.

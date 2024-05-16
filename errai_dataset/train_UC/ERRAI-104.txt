@@ -1,0 +1,6 @@
+Shutdown on tomcat 6 causes NPE
+INFO: Stopping Coyote HTTP/1.1 on http-8080
+java.lang.NullPointerException
+        at org.jboss.errai.bus.server.async.scheduling.PooledExecutorService.getNextTask(PooledExecutorService.java:198)
+        at org.jboss.errai.bus.server.async.scheduling.ThreadWorker.run(ThreadWorker.java:63)
+        at java.lang.Thread.run(Thread.java:637)

@@ -1,0 +1,33 @@
+Nested bindings not updated for types configured in ErraiApp.properties
+{code:java}
+class Abc {
+    String a;
+    String b;
+    String c;
+    //... getters and setters
+}
+
+@Bindable
+class Model {
+    private Abc data;
+
+    public Abc getData() {
+        return data;
+    }
+
+    public void setData(Abc value) {
+        this.data = value;
+    }
+
+    // Workaround! BindableProxyAgent.updateWidgetsAndFireEvents()
+    // will call nestedBinder.setModel()
+    public void setNestedData(Abc value) {
+        this.data = value;
+    }
+}
+{code}
+
+!!! NOTE: class Abc is not annotated with @Bindable directly, but declared as bindable in ErraiApp.properties file, like: errai.ui.bindableTypes=com...Abc 
+
+I have bindings to data.a, data.b, data.c
+They are not updated on model.setData(new Abc()), but updated perfectly fine when I call workaround method model.setNestedData(new Abc()).

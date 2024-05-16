@@ -1,0 +1,4 @@
+errai.compile.perf.perform_reachability_analysis is not documented yet warning/error generated
+This compiler property, if not set to true, raises a WARNING yet no documentation references it. 
+
+When I set it to "true", my client side code didn't work anymore. If this feature is experimental I think it should be mentioned in the documentation as such.

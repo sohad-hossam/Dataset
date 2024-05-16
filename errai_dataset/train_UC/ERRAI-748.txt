@@ -1,0 +1,13 @@
+Allow for flexible URL design in Errai Navigation
+We should allow for more flexibility when defining URL paths for @Pages. 
+
+{code}
+@Templated
+@Page(path="/{customerId}/orders/{orderId}")
+public class OrderDetailsPage extends Composite {
+
+   @PageState String customerId;
+   @PageState String orderId;
+
+}
+{code}

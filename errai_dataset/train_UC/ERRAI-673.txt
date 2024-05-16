@@ -1,0 +1,2 @@
+Errai JAX-RS does not support List/Set/SortedSet as resource method parameters
+Errai JAX-RS does not support using Lists, Sets and SortedSets as parameter types for resource method parameters.

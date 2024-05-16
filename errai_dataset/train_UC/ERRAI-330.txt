@@ -1,0 +1,21 @@
+public @Portable variable of an abstract superclass causes "no such field" in generating marshallers for @Portable subclass
+In trying to generate a marshaller for "SubObject":
+
+@Portable
+public class SubObject extends ParentObject{
+     public SubObject(){}
+}
+ 
+public abstract class ParentObject{
+     public ParentObject(){}
+ 
+     public Id id;
+     public Id getId(){
+          return this.id;
+     }
+     public void setId(Id id){
+          this.id = id;
+     }
+}
+
+...where "Id" is another portable class. This leads to "no such field: id in class: com.mypackage.shared.SubObject. Removing the "public" modifier from "public Id id;" avoids the error. This limitation did not exist in Errai 1.3.2.

@@ -1,0 +1,27 @@
+Non-fatal Reflections scanning error when Apache Camel is on classpath
+A bunch of exceptions like this are getting logged during the Reflections scan:
+
+[INFO] could not scan file /Users/jfuerth/.m2/repository/org/apache/camel/camel-core/2.5.0/camel-core-2.5.0.jar/META-INF/services/org/apache/camel/component/class with scanner org.jboss.errai.reflections.scanners.FieldAnnotationsScanner
+[INFO] org.jboss.errai.reflections.ReflectionsException: could not create class file from class
+[INFO] 	at org.jboss.errai.reflections.scanners.AbstractScanner.scan(AbstractScanner.java:40)
+[INFO] 	at org.jboss.errai.reflections.Reflections.scan(Reflections.java:265)
+[INFO] 	at org.jboss.errai.reflections.Reflections.scan(Reflections.java:206)
+[INFO] 	at org.jboss.errai.validation.rebind.GwtValidatorGenerator$ValidationScanner.<init>(GwtValidatorGenerator.java:58)
+[INFO] 	at org.jboss.errai.validation.rebind.GwtValidatorGenerator.<init>(GwtValidatorGenerator.java:66)
+[INFO] 	at org.jboss.errai.validation.rebind.ValidatorFactoryGenerator.generate(ValidatorFactoryGenerator.java:57)
+[INFO] 	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:42)
+[INFO] 	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:39)
+[INFO] 	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:303)
+[INFO] 	at java.util.concurrent.FutureTask.run(FutureTask.java:138)
+[INFO] 	at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:895)
+[INFO] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:918)
+[INFO] 	at java.lang.Thread.run(Thread.java:680)
+[INFO] Caused by: java.io.IOException: bad magic number: 230a2320
+[INFO] 	at javassist.bytecode.ClassFile.read(ClassFile.java:761)
+[INFO] 	at javassist.bytecode.ClassFile.<init>(ClassFile.java:109)
+[INFO] 	at org.jboss.errai.reflections.adapters.JavassistAdapter.createClassObject(JavassistAdapter.java:88)
+[INFO] 	at org.jboss.errai.reflections.adapters.JavassistAdapter.createClassObject(JavassistAdapter.java:22)
+[INFO] 	at org.jboss.errai.reflections.scanners.AbstractScanner.scan(AbstractScanner.java:37)
+[INFO] 	... 12 more
+
+I think this is caused by the file named "class" inside the jar. Apparently it's tricking the scanner into thinking it is a Java class file.

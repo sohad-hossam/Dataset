@@ -1,0 +1,82 @@
+Improve DeMarshaller Performance
+For large datasets, ErraiMarshalling can take a perceptible amount of time, especially on 'average' hardware (i5 laptops).  We have relatively large datasets (think purchase orders with hundreds of lines, with each line containing 40-50 fields.  It would not be uncommon for a call to the database to require 3000-5000 fields to be unmarshalled, so improving the speed can make a difference.
+
+For each field, the following block is run:
+{code}
+if ((obj.containsKey("code")) && (!obj.get("code").isNull())) {
+      entity.setCode(java_lang_String.demarshall(obj.get("code"), a1));
+}
+{code}
+
+In this block, there are 3 calls:
+* obj.containsKey
+* obj.get("code")
+* obj.get("code")
+
+obj.get("code") creates a new GWTJSONValue every time it is called, along with a JSONObject lookup which calls the wonderful JSNI method:
+
+{code}
+ private native JSONValue get0(String key) /*-{
+    var jsObject = this.@com.google.gwt.json.client.JSONObject::jsObject;
+    var v;
+    // In Firefox, jsObject.hasOwnProperty(key) requires a primitive string
+    key = String(key);       
+    if (jsObject.hasOwnProperty(key)) {
+      v = jsObject[key];
+    }
+    var func = @com.google.gwt.json.client.JSONParser::typeMap[typeof v];
+    var ret = func ? func(v) : @com.google.gwt.json.client.JSONParser::throwUnknownTypeException(Ljava/lang/String;)(typeof v);
+    return ret;
+  }-*/;
+{code}
+
+For Errai 4, we have the opportunity to use Java 8 syntax, and I believe the following would yield significant performance gains:
+
+{code}
+
+ for( String key : obj.keySet() ) {
+	
+    	switch( key ) {
+	
+		    case "code":
+		    	demarshallField(obj, key, a1, (String s) -> entity.setCode(s), java_lang_String);
+		    	break;
+			
+		    case "description":
+		    	demarshallField(obj, key, a1, (String s) -> entity.setDescription(s), java_lang_String);
+		    	break;
+		    	
+		    case "id":
+		    	demarshallField(obj, key, a1, (Long s) -> entity.setId(s), java_lang_Long);
+		    	break;
+
+    	}
+    }
+
+ // should be in super class util class
+  private <T> void demarshallField( EJObject obj, String key, MarshallingSession a1, Setter<T> setter, Marshaller<T> marshaller ) { 
+  
+	  EJValue v = obj.get(key);
+	  if( !v.isNull() ) {
+		  setter.set( marshaller.demarshall(v, a1) );
+	  }
+  }
+  
+ // should be in super class / util class
+  private <T> void demarshallMapField( EJObject obj, String key, MarshallingSession a1, Setter<T> setter, Marshaller<T> marshaller, String keyType, String valueType ) { 
+	  
+		  EJValue v = obj.get(key);
+		  if( !v.isNull() ) {
+		      a1.setAssumedMapKeyType(keyType);
+		      a1.setAssumedMapValueType(valueType);
+			  setter.set( marshaller.demarshall( v, a1) );
+		  }
+  }
+
+{code}
+
+This SHOULD yield greater performance, especially for entities with a large number of fields, because:
+
+* we are eliminating the obj.containsKey, which is called 'N' times
+* we are only calling obj.get(key) ONCE per field, instead of TWICE.  Each call does a relatively expensive lookup, as well as a JSON object creation
+* switch vs if / else is quite a bit faster, especially as the number of cases grows.

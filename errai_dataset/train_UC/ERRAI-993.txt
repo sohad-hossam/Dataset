@@ -1,0 +1,10 @@
+i18n allow translations in template views to use keys without prefix
+Currently, data-i18n-prefix is set in templated views, forcing that each translation key to be composed by viewname.key. Problem is that in some cases it can cause keys to be duplicated across different views and translation service. See example below for a common key:
+
+close=Close
+view1.close=Close
+view2.close=Close
+
+Ideally, we should be able to share the same key (close) across the different views and translationservice.format.
+
+It could be that the translation at the template levels would look for prefix at data-i18n-prefix but fallback to no prefix in case that is not found.

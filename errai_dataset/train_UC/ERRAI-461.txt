@@ -1,0 +1,2 @@
+Tests (and probably webapp startup) don't fail when -Derrai.marshalling.force_static_marshallers=true and static marshalling code doesn't compile
+The contract with -Derrai.marshalling.force_static_marshallers=true is that the webapp won't start if the static marshallers can't be loaded and/or compiled. Yet, the tests are still falling back on dynamic marshalling even with this flag set.

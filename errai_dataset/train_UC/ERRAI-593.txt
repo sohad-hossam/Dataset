@@ -1,0 +1,12 @@
+CodeGen error with @InterceptedCall on methods with primitive or boxed @PathParams
+Adding an interceptor to a resource method with primitive or boxed primitive path parameters fails with a codegen error:
+
+@InterceptedCall(SecurityInterceptor.class)
+@GET
+@Produces(MediaType.APPLICATION_JSON)
+User findUserById(@PathParam("id") Long id);
+
+Error:
+[ERROR] Error generating JAX-RS extensions
+org.jboss.errai.codegen.exception.InvalidTypeException: java.lang.String is not assignable from java.lang.Long
+in method call: com.google.gwt.http.client.URL.encodePathSegment([java.lang.String])

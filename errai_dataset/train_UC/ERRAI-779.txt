@@ -1,0 +1,2 @@
+Errai UI Template fails to load some template fragments with no specified root on GWT 2.6.1
+With GWT 2.6.1 a template fragment that contains the word "body" anywhere within is parsed into a full html file (with some meta tags added). If no fragment id is specified for a template fragment with "body" then the template will be incorrectly parsed and there will be errors about missing data-fields.

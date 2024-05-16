@@ -1,0 +1,2 @@
+Multiple applications sharing the same reflections cache clash with each other.
+When deploying in application servers, multiple applications may end up sharing the same temp path, and thus the first Errai app to boot deploys a class scan cache, and the second deployed app then erroneously picks up that cache.

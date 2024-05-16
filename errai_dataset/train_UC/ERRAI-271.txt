@@ -1,0 +1,2 @@
+ServerMarshalling.fromJSON() does not support bare String values
+The ignored test "testStringWithHighLevelAPI" in ServerMarshallingTest demonstrates this problem. That test should be re-enabled when we're ready to fix this issue.

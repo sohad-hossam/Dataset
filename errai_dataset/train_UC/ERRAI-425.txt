@@ -1,0 +1,7 @@
+Resolution of @Templated with fully qualified path name fails
+I annotated one of my pages with: @Templated("/at/w0mb/ErraiPlayground/client/local/PageLayout.html").
+
+Compilation fails with: "Finding resources
+[INFO]                      [ERROR] Resource at/w0mb/ErraiPlayground/client/local/pages/login//at/w0mb/ErraiPlayground/client/local/PageLayout.html not found. Is the name specified as Class.getResource() would expect?"
+
+According to the documentation this should be possible.

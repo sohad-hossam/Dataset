@@ -1,0 +1,2 @@
+Errai Security Keycloak Module has Weld error when no other AuthenticationService exists
+Errai Security Keycloak is supposed to work with or without an application specific AuthenticationService. But when no other AuthenticationService exists, the dummy service used in place causes a Weld error because it is not Serializable (but is injected into a @SessionScoped bean).

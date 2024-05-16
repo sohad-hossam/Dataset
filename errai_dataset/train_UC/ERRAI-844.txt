@@ -1,0 +1,33 @@
+Application fails to start when logging is disabled.
+On starting of the application in the browser, the application fails to start with the javascript error: Cannot read property 'length' of null'
+
+If the application GWT module contains the following statement
+{code}
+<set-property name="gwt.logging.enabled" value="FALSE"/>
+{code}
+
+The LoggingHandlerConfigurator.java file (line:48 onwards)
+{code}
+...
+Handler[] logHandlers = logger.getHandlers();
+  for (Handler logHandler : logHandlers) {
+    if (logHandler instanceof HasWidgetsLogHandler) {
+      logger.removeHandler(logHandler);
+      ((HasWidgetsLogHandler)logHandler).clear();
+    }
+  }
+...
+{code}
+
+produces invalid javascript.as follows
+{code}
+var orgjboss_errai_common_client_framework_RemoteServiceProxyFactory_remoteProxyProviders;
+function org_jboss_errai_common_client_logging_LoggingHandlerConfigurator$onModuleLoadLorg_jboss_errai_common_client_logging_LoggingHandlerConfigurator_2V(this$static){
+var logHandler$index, logHandler$max;
+for (logHandler$index = 0 , logHandler$max = null.length; logHandler$index < logHandler$max; ++logHandler$index) {
+}
+{code}
+
+Note the *null.length* in the for statement.
+
+A simple null check will prevent this.

@@ -1,0 +1,6 @@
+Add client only CDI event support
+CDI events are pretty nice. Anyhow they are currently designed for sending events over the wire. So for every @Portable annotated class used as an event there is a remote subscribed message send to the server during the startup of the app. This is even the case for events only used on the client side but annotated with @Portable because of the needed Errai RPC support.
+
+There should be an option (e.g. additional annotation) to specify which classes are used for client-server events. 
+
+See this discussion for some more details: https://community.jboss.org/thread/232658

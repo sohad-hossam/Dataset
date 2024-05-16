@@ -1,0 +1,6 @@
+IOC bootstrapping fails when proxied classes invoke public methods in their constructor
+IOC bootstrapping fails with an NPE when proxied classes contain calls to public methods in their constructors. The reason for this is that the proxy implementation overrides all public methods and dispatches to the delegate. At the time the constructors of the proxied class (and its super class) run, the delegate is not initialized yet.
+
+GWT widget classes are affected by that as many of them call the public setStyleName() method in their constructor. A way to work around the issue is to add a producer method to provide the widget instance.
+
+We should investigate adding an additional initialization state to the proxied class in which it will not dispatch until the delegate (target instance) has been initialized (setProxiedInstance() has been called).

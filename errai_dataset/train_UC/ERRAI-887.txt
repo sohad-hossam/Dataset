@@ -1,0 +1,2 @@
+Enhance EmbeddedWildFlyLauncher to allow use of different server profiles
+Currently EmbeddedWildFlyLauncher always uses default standalone.xml profile which essentially does not allow to use features such as JMS provider when running in hosted mode. Rather important when developing KIE workbench which uses JMS for certain parts of the system.

@@ -1,0 +1,21 @@
+java.lang.Class is not marshallable
+Attempting to marshal the following {{@Portable}} object {{s}} results in {{java.lang.RuntimeException: java.lang.RuntimeException: no marshalling definition available for type:java.lang.Class}} at runtime. {{Class}} is partially emulated by GWT so it's reasonable to expect {{Class}} to be (in part) portable.
+
+I spoke to [~csa] who would like to investigate potential workarounds to the root cause; being {{Class}} only has a private constructor. However since {{Class}} is pretty useless on the client anyway; for my purposes I'm happy to use class name instead.
+
+{code}
+@Portable
+public class Smurf {
+
+private Map<String, Object> stuff = new HashMap<>();
+
+public void addStuff( final String key, final Object value ) {
+stuff.put( key, value );
+}
+
+}
+
+Smurf s = new Smurf();
+s.addStuff( "key", new String().getClass() );
+
+{code}

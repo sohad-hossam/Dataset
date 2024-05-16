@@ -1,0 +1,4 @@
+Package-private constructors not recognised for constructor mapped entities
+When using a builder pattern to construct an entity due to having a large number of optional fields, the constructor is restricted to package-private or private.  At the moment, the Errai marshaller only scans public constructors.
+
+It would be nice to have package-private constructors scanned for constructor mapped entities so that the builder pattern can be used effectively.

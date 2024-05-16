@@ -1,0 +1,4 @@
+Fix IOC bean creation ordering issue between ClientSyncManager and beans with Sync annotation
+The SyncDecorator generates initialization code that indirectly makes a {{getInstance}} call to the bean manager for the {{ClientSyncManager}}.
+
+There is currently no guarantee that the singleton instance of the {{ClientSyncManager}} has been created (unless you explicitly inject the {{ClientSyncManager}} into the class with the {{Sync}} annotation).

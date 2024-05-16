@@ -1,0 +1,14 @@
+Uncaught Exception seems to be thrown in StackTraceFormatter
+When errai attempts to format the stacktrace, an uncaught exception is thrown.  It looks like in the code (StackTraceFormatter line 62) it is catching a NullPointerException, which looks right.  However, I am getting 'String stack' with a JS value of undefined, however the call to stack.indexOf is not throwing a NullPointerException, but is in fact going into an indexOf function, which then throws a different, uncaught exception.  
+
+!Screen Shot 2016-03-03 at 9.51.23 AM.png|thumbnail!
+
+Notice above the value of 'stack'
+
+!Screen Shot 2016-03-03 at 9.51.44 AM.png|thumbnail!
+
+It goes into the indexOf method.  Curious.
+
+The result is that the ultimate method for Errai Uncaught Exceptions never gets called.
+
+I believe rather than catching a NullPointerException, catching ANY exception would fix the issue.

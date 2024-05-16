@@ -1,0 +1,108 @@
+Error with a layout hierarchy (templated composites) over more than 1 level
+According to the documentation (http://docs.jboss.org/errai/latest/errai/reference/html_single/#sid-51806600_ErraiUI-ExtendCompositecomponents), we can define an hierarchy of 2 layouts (a templated composite). But, if a page extends a layout that extends itself a parent layout, then an error occurs during the compilation as showed below:
+
+GET /recompile/SilverpeasPoc
+   Job org.silverpeas.poc.SilverpeasPoc_1_1
+      starting job: org.silverpeas.poc.SilverpeasPoc_1_1
+      binding: locale=default
+      binding: user.agent=safari
+      Compiling module org.silverpeas.poc.SilverpeasPoc
+         Computing all possible rebind results for 'org.jboss.errai.ioc.client.container.IOCEnvironment'
+            Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+               Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+                  Generating Extensions Bootstrapper...
+         Computing all possible rebind results for 'org.jboss.errai.ioc.client.Bootstrapper'
+            Rebinding org.jboss.errai.ioc.client.Bootstrapper
+               Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+                  generating ioc bootstrapping code...
+                  Checking ErraiApp.properties for configured types ...
+org.jboss.errai.codegen.exception.UndefinedMethodException: undefined method: _$2001354016__$1862661780_header(java.lang.Object); in class: org.jboss.errai.ioc.client.BootstrapperImpl
+	at org.jboss.errai.codegen.builder.callstack.MethodCall.handleCall(MethodCall.java:73)
+	at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+	at org.jboss.errai.codegen.builder.callstack.LoadClassReference.handleCall(LoadClassReference.java:48)
+	at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+	at org.jboss.errai.codegen.Cast.generate(Cast.java:58)
+	at org.jboss.errai.codegen.util.GenUtil.generate(GenUtil.java:130)
+	at org.jboss.errai.codegen.util.GenUtil.generateCallParameters(GenUtil.java:76)
+	at org.jboss.errai.codegen.builder.callstack.MethodCall.handleCall(MethodCall.java:61)
+	at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+	at org.jboss.errai.codegen.builder.callstack.LoadClassReference.handleCall(LoadClassReference.java:48)
+	at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+	at org.jboss.errai.codegen.BlockStatement.generate(BlockStatement.java:90)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$2$1.doGenerate(AnonymousClassStructureBuilderImpl.java:111)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.doGenerate(AnonymousClassStructureBuilderImpl.java:186)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.access$200(AnonymousClassStructureBuilderImpl.java:43)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$3.generate(AnonymousClassStructureBuilderImpl.java:152)
+	at org.jboss.errai.codegen.builder.impl.ObjectBuilder$2.doDeferred(ObjectBuilder.java:175)
+	at org.jboss.errai.codegen.builder.callstack.DeferredCallElement.handleCall(DeferredCallElement.java:42)
+	at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+	at org.jboss.errai.codegen.builder.impl.ObjectBuilder.generate(ObjectBuilder.java:183)
+	at org.jboss.errai.codegen.util.GenUtil.generate(GenUtil.java:130)
+	at org.jboss.errai.codegen.util.GenUtil.generateCallParameters(GenUtil.java:76)
+	at org.jboss.errai.codegen.builder.callstack.MethodCall.handleCall(MethodCall.java:61)
+	at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+	at org.jboss.errai.codegen.builder.callstack.LoadVariable.handleCall(LoadVariable.java:122)
+	at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+	at org.jboss.errai.codegen.BlockStatement.generate(BlockStatement.java:90)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$2$1.doGenerate(AnonymousClassStructureBuilderImpl.java:111)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.doGenerate(AnonymousClassStructureBuilderImpl.java:186)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.access$200(AnonymousClassStructureBuilderImpl.java:43)
+	at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$3.generate(AnonymousClassStructureBuilderImpl.java:152)
+	at org.jboss.errai.codegen.builder.impl.ObjectBuilder$2.doDeferred(ObjectBuilder.java:175)
+	at org.jboss.errai.codegen.builder.callstack.DeferredCallElement.handleCall(DeferredCallElement.java:42)
+	at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+	at org.jboss.errai.codegen.builder.impl.ObjectBuilder.generate(ObjectBuilder.java:183)
+	at org.jboss.errai.codegen.builder.impl.FieldBuilder$1.generate(FieldBuilder.java:123)
+	at org.jboss.errai.codegen.meta.impl.build.BuildMetaField.toJavaString(BuildMetaField.java:218)
+	at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.membersToString(BuildMetaClass.java:744)
+	at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.toJavaString(BuildMetaClass.java:682)
+	at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.toJavaString(BuildMetaClass.java:582)
+	at org.jboss.errai.codegen.builder.impl.ClassBuilder.toJavaString(ClassBuilder.java:493)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateBootstrappingClassSource(IOCBootstrapGenerator.java:347)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:141)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:72)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:67)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:55)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.RuntimeException: Problem was caused by this call
+	at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.<init>(AbstractCallElement.java:33)
+	at org.jboss.errai.codegen.builder.callstack.MethodCall.<init>(MethodCall.java:52)
+	at org.jboss.errai.codegen.builder.impl.StatementBuilder.invokeStatic(StatementBuilder.java:250)
+	at org.jboss.errai.codegen.util.Stmt.invokeStatic(Stmt.java:225)
+Caused by: java.lang.RuntimeException: External call to API
+	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.getPrivateFieldValue(InjectUtil.java:983)
+	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.getPublicOrPrivateFieldValue(InjectUtil.java:1073)
+	at org.jboss.errai.ioc.rebind.ioc.injector.api.InjectableInstance.getValueStatement(InjectableInstance.java:317)
+	at org.jboss.errai.ui.rebind.DataFieldCodeDecorator.generateDecorator(DataFieldCodeDecorator.java:56)
+	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:103)
+	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.handleInjectionTasks(InjectUtil.java:164)
+	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.access$000(InjectUtil.java:73)
+	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil$2.generateConstructor(InjectUtil.java:151)
+	at org.jboss.errai.ioc.rebind.ioc.injector.basic.TypeInjector.renderProvider(TypeInjector.java:138)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCConfigProcessor$3.handle(IOCConfigProcessor.java:404)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCConfigProcessor$7.process(IOCConfigProcessor.java:673)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCConfigProcessor.process(IOCConfigProcessor.java:619)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateBootstrappingClassSource(IOCBootstrapGenerator.java:299)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:141)
+	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:72)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:67)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:55)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)
+         Adding '1' new generated units
+            See snapshot: /tmp/org.jboss.errai.ioc.client.BootstrapperImpl8432345005893679819.java
+            Ignored 1 unit with compilation errors in first pass.
+Compile with -strict or with -logLevel set to TRACE or DEBUG to see all errors.
+         [ERROR] Errors in 'org/jboss/errai/ioc/client/Container.java'
+            [ERROR] Line 64: Rebind result 'org.jboss.errai.ioc.client.BootstrapperImpl' could not be found
+         Unification traversed 526 fields and methods and 350 types. 6 are considered part of the current module and 6 had all of their fields and methods traversed.
+         [WARN] Some stale types ([org.jboss.errai.ioc.client.BootstrapperImpl_org_silverpeas_poc_client_local_HomePageTemplateResource_default_InlineClientBundleGenerator, org.jboss.errai.ioc.client.BootstrapperImpl$40, org.jboss.errai.ioc.client.BootstrapperImpl$1, org.jboss.errai.ioc.client.BootstrapperImpl$2, org.jboss.errai.ioc.client.BootstrapperImpl$3, org.jboss.errai.ioc.client.BootstrapperImpl$27$1, org.jboss.errai.ioc.client.BootstrapperImpl$4, org.jboss.errai.ioc.client.BootstrapperImpl$9, org.jboss.errai.ioc.client.BootstrapperImpl$5, org.jboss.errai.ioc.client.BootstrapperImpl$6, org.jboss.errai.ioc.client.BootstrapperImpl$7, org.jboss.errai.ioc.client.BootstrapperImpl$8, org.jboss.errai.ioc.client.BootstrapperImpl$7$1, org.jboss.errai.ioc.client.BootstrapperImpl$org_silverpeas_poc_client_local_ParentLayoutTemplateResource, org.jboss.errai.ioc.client.BootstrapperImpl$32, org.jboss.errai.ioc.client.BootstrapperImpl$33, org.jboss.errai.ioc.client.BootstrapperImpl$34, org.jboss.errai.ioc.client.BootstrapperImpl$35, org.jboss.errai.ioc.client.BootstrapperImpl$39$1, org.jboss.errai.ioc.client.BootstrapperImpl$30, org.jboss.errai.ioc.client.BootstrapperImpl$31, org.jboss.errai.ioc.client.BootstrapperImpl_org_silverpeas_poc_client_local_ChildLayoutTemplateResource_default_InlineClientBundleGenerator, org.jboss.errai.ioc.client.BootstrapperImpl$35$1, org.jboss.errai.ioc.client.BootstrapperImpl$org_silverpeas_poc_client_local_ChildLayoutTemplateResource, org.jboss.errai.ioc.client.BootstrapperImpl$36, org.jboss.errai.ioc.client.BootstrapperImpl$37, org.jboss.errai.ioc.client.BootstrapperImpl$31$1, org.jboss.errai.ioc.client.BootstrapperImpl$38, org.jboss.errai.ioc.client.BootstrapperImpl$39, org.jboss.errai.ioc.client.BootstrapperImpl$21, org.jboss.errai.ioc.client.BootstrapperImpl$22, org.jboss.errai.ioc.client.BootstrapperImpl$23, org.jboss.errai.ioc.client.BootstrapperImpl$24, org.jboss.errai.ioc.client.BootstrapperImpl, org.jboss.errai.ioc.client.BootstrapperImpl$20, org.jboss.errai.ioc.client.BootstrapperImpl$29, org.jboss.errai.ioc.client.BootstrapperImpl$25, org.jboss.errai.ioc.client.BootstrapperImpl$26, org.jboss.errai.ioc.client.BootstrapperImpl$27, org.jboss.errai.ioc.client.BootstrapperImpl$28, org.jboss.errai.ioc.client.BootstrapperImpl_org_silverpeas_poc_client_local_ParentLayoutTemplateResource_default_InlineClientBundleGenerator, org.jboss.errai.ioc.client.BootstrapperImpl$6$1, org.jboss.errai.ioc.client.BootstrapperImpl$10, org.jboss.errai.ioc.client.BootstrapperImpl$11, org.jboss.errai.ioc.client.BootstrapperImpl$12, org.jboss.errai.ioc.client.BootstrapperImpl$org_silverpeas_poc_client_local_HomePageTemplateResource, org.jboss.errai.ioc.client.BootstrapperImpl$13, org.jboss.errai.ioc.client.BootstrapperImpl$7$2, org.jboss.errai.ioc.client.BootstrapperImpl$18, org.jboss.errai.ioc.client.BootstrapperImpl$19, org.jboss.errai.ioc.client.BootstrapperImpl$14, org.jboss.errai.ioc.client.BootstrapperImpl$32$1, org.jboss.errai.ioc.client.BootstrapperImpl$15, org.jboss.errai.ioc.client.BootstrapperImpl$16, org.jboss.errai.ioc.client.BootstrapperImpl$11$1, org.jboss.errai.ioc.client.BootstrapperImpl$17]) were not reprocessed as was expected. This is either a compiler bug or a Generator has legitimately stopped creating these types.
+      [ERROR] Compiler returned false
+      [WARN] recompile failed
+      [WARN] continuing to serve previous version
+

@@ -1,0 +1,4 @@
+Only Configure errai-bom for dependency management with Forge addon if Errai version is 3.1.x
+The Forge addon uses errai-parent, errai-bom, and errai-version-master for dependency management.
+
+For Errai 3.1.x there is no longer an errai-verison-master, so this setup would cause the build to fail. The pom should only use errai-bom for dependency management.

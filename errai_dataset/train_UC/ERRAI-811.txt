@@ -1,0 +1,3 @@
+Marshalling a HashMap containg null as key creates invalid json
+When marshalling a HashMap<String, List<String>> that contains an entry with key null, the key in the json map is omitted causing invalid json.
+ 

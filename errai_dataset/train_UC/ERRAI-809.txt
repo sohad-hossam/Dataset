@@ -1,0 +1,2 @@
+NPE when working directory contains folder with insufficient permissions
+See forum reference.

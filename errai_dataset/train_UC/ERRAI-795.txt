@@ -1,0 +1,110 @@
+Errai Security doesn't work with JSR-356 WebSockets
+If use errai-security with wildfly 8.1.0.Final and testing websocket.(errai-bus-jsr356-websocket-weld)
+
+I log on to the system and refresh browser, security redirect to login page...
+I'm trying to login again, but:
+[
+	{
+		"AdditionalDetails": "<tt><br/>org.jboss.errai.bus.client.api.base.MessageDeliveryFailure: error invoking RPC endpoint public abstract org.jboss.errai.security.shared.api.identity.User org.jboss.errai.security.shared.service.AuthenticationService.login(java.lang.String,java.lang.String)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.AbstractRPCMethodCallback.invokeMethodFromMessage(AbstractRPCMethodCallback.java:58)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.ValueReplyRPCEndpointCallback.callback(ValueReplyRPCEndpointCallback.java:22)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.RemoteServiceCallback.callback(RemoteServiceCallback.java:54)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.cdi.server.CDIExtensionPoints$2.callback(CDIExtensionPoints.java:499)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.DeliveryPlan.deliver(DeliveryPlan.java:47)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.ServerMessageBusImpl.sendGlobal(ServerMessageBusImpl.java:296)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.SimpleDispatcher.dispatchGlobal(SimpleDispatcher.java:46)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.service.ErraiServiceImpl.store(ErraiServiceImpl.java:97)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.service.ErraiServiceImpl.store(ErraiServiceImpl.java:114)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.channel.DefaultErraiWebSocketChannel.doErraiMessage(DefaultErraiWebSocketChannel.java:89)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.weld.channel.CdiErraiWebSocketChannel.doErraiMessage(CdiErraiWebSocketChannel.java:41)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.ErraiWebSocketEndpoint.onMessage(ErraiWebSocketEndpoint.java:50)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.lang.reflect.Method.invoke(Method.java:606)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.annotated.BoundMethod.invoke(BoundMethod.java:70)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.annotated.AnnotatedEndpoint$AnnotatedEndpointFrameHandler$5.run(AnnotatedEndpoint.java:304)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.ServerWebSocketContainer$1.run(ServerWebSocketContainer.java:303)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.OrderedExecutor$ExecutorTask.run(OrderedExecutor.java:49)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.lang.Thread.run(Thread.java:744)<br/>Caused by: org.picketlink.authentication.UserAlreadyLoggedInException: Already logged in as john<br/>&nbsp;&nbsp;&nbsp;&nbsp;at hu.eggproject.bi8magic.meerp.server.AuthenticationServiceImpl.login(AuthenticationServiceImpl.java:59)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at hu.eggproject.bi8magic.meerp.server.AuthenticationServiceImpl$Proxy$_$$_WeldClientProxy.login(Unknown Source)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.lang.reflect.Method.invoke(Method.java:606)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.AbstractRPCMethodCallback.invokeMethodFromMessage(AbstractRPCMethodCallback.java:48)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.ValueReplyRPCEndpointCallback.callback(ValueReplyRPCEndpointCallback.java:22)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.io.RemoteServiceCallback.callback(RemoteServiceCallback.java:54)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.cdi.server.CDIExtensionPoints$2.callback(CDIExtensionPoints.java:499)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.DeliveryPlan.deliver(DeliveryPlan.java:47)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.ServerMessageBusImpl.sendGlobal(ServerMessageBusImpl.java:296)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.SimpleDispatcher.dispatchGlobal(SimpleDispatcher.java:46)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.service.ErraiServiceImpl.store(ErraiServiceImpl.java:97)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.service.ErraiServiceImpl.store(ErraiServiceImpl.java:114)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.channel.DefaultErraiWebSocketChannel.doErraiMessage(DefaultErraiWebSocketChannel.java:89)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.weld.channel.CdiErraiWebSocketChannel.doErraiMessage(CdiErraiWebSocketChannel.java:41)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at org.jboss.errai.bus.server.websocket.jsr356.ErraiWebSocketEndpoint.onMessage(ErraiWebSocketEndpoint.java:50)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.lang.reflect.Method.invoke(Method.java:606)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.annotated.BoundMethod.invoke(BoundMethod.java:70)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.annotated.AnnotatedEndpoint$AnnotatedEndpointFrameHandler$5.run(AnnotatedEndpoint.java:304)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.ServerWebSocketContainer$1.run(ServerWebSocketContainer.java:303)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at io.undertow.websockets.jsr.OrderedExecutor$ExecutorTask.run(OrderedExecutor.java:49)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)<br/>&nbsp;&nbsp;&nbsp;&nbsp;at java.lang.Thread.run(Thread.java:744)<br/><\/tt>",
+		"ErrorMessage": "Error calling remote service: org.jboss.errai.security.shared.service.AuthenticationService:RPC",
+		"ErrorTo": "org.jboss.errai.security.shared.service.AuthenticationService:RPC.login:java.lang.String:java.lang.String::3:Errors:RPC",
+		"ToSubject": "ClientBusErrors",
+		"Throwable": {
+			"^EncodedType": "java.lang.RuntimeException",
+			"^ObjectID": "2129675866",
+			"message": "org.picketlink.authentication.UserAlreadyLoggedInException:Already logged in as john"
+		}
+	}
+]
+
+My AuthenticationServiceImpl class:
+@ApplicationScoped
+@Service
+public class AuthenticationServiceImpl implements AuthenticationService {
+
+	private static final Logger logger = org.slf4j.LoggerFactory
+			.getLogger(AuthenticationServiceImpl.class);
+	@Inject
+	private DefaultLoginCredentials credentials;
+	@Inject
+	private Identity identity;
+	@Inject
+	private RelationshipManager relationshipManager;
+	@EJB
+	private MeerpUserAdapter userAdapter;
+
+	@Override
+	public org.jboss.errai.security.shared.api.identity.User login(
+			String username, String password) {
+		credentials.setUserId(username);
+		credentials.setPassword(password);
+
+		final AuthenticationResult result;
+
+		try {
+			result = identity.login();
+		} catch (UserAlreadyLoggedInException ex) {
+			logger.warn("Already logged in as "
+					+ ((User) identity.getAccount()).getLoginName());
+			throw new UserAlreadyLoggedInException("Already logged in as "
+					+ ((User) identity.getAccount()).getLoginName());
+		} catch (RuntimeException ex) {
+			throw new AuthenticationException(
+					"An error occurred during authentication.", ex);
+		}
+
+		if (result == Identity.AuthenticationResult.SUCCESS) {
+			final User picketLinkUser = (User) identity.getAccount();
+			final MeerpUser todoListUser = lookupTodoListUser(picketLinkUser
+					.getEmail());
+
+			return todoListUser;
+		} else {
+			throw new FailedAuthenticationException();
+		}
+	}
+
+	@Override
+	public boolean isLoggedIn() {
+		return identity.isLoggedIn();
+	}
+
+	@Override
+	public void logout() {
+		identity.logout();
+	}
+
+	@Override
+	public org.jboss.errai.security.shared.api.identity.User getUser() {
+		try {
+			if (identity.isLoggedIn()) {
+				final User picketLinkUser = (User) identity.getAccount();
+				return lookupTodoListUser(picketLinkUser.getEmail());
+			} else {
+				return org.jboss.errai.security.shared.api.identity.User.ANONYMOUS;
+			}
+		} catch (Throwable ex) {
+			logger.error(ex.getMessage());
+		}
+		return org.jboss.errai.security.shared.api.identity.User.ANONYMOUS;
+	}
+
+	private MeerpUser lookupTodoListUser(String email) {
+		return userAdapter.lookupTodoListUser(email, getRolesOfCurrentUser());
+	}
+
+	private Set<Role> getRolesOfCurrentUser() {
+		Set<Role> roles = new HashSet<Role>();
+
+		if (identity.isLoggedIn()) {
+			RelationshipQuery<Grant> query = relationshipManager
+					.createRelationshipQuery(Grant.class);
+			query.setParameter(Grant.ASSIGNEE, identity.getAccount());
+			for (final Grant grant : query.getResultList()) {
+				roles.add(new RoleImpl(grant.getRole().getName()));
+			}
+		}
+
+		return roles;
+	}
+}

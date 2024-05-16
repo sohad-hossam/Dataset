@@ -1,0 +1,6 @@
+Support secure websockets scheme
+At the moment, the Errai-bus doesn't support the wss scheme. There are two possible deployments to consider.
+
+1. direct deployment to the WAN, here can the servlet scheme be used.
+2. behind a reverse proxy for example. In this case could a force context-param in the web.xml solve this issue.
+

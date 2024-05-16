@@ -1,0 +1,7 @@
+[Errai][Navigation][Security] Only "admin role based" item from Navigation Bar menu can be hidden
+Indeed, I implemented what has been explain at http://planet.jboss.org/post/security. 
+The problem is only admin item in a navigation bar which is associated to the "admin" Roles can be hidden.
+ 
+@Inject @DataField @RequireRoles("admin") Anchor admin;
+
+I tried with other role names but it does not work.

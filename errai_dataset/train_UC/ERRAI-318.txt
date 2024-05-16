@@ -1,0 +1,13 @@
+Errai RPC varargs methods don't work if no varargs values passed.
+{code}
+@Remote
+public interface RemoteIface {
+  public void varArgsMeth(String val, String... vals);
+}
+{code}
+
+Making the RPC call {{varArgsMeth("foo", "bar")}} works. 
+
+Making the RPC call {{varArgsMeth("foo", null)}} works.
+
+Making the RPC call {{varArgsMeth("foo")}} does not work -- fails silently.

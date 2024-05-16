@@ -1,0 +1,16 @@
+Portable entities with arrays of interface types fail marshaller generation at compile time
+Consider the following classes:
+
+public interface MyInterface {}
+
+@Portable
+public class MyInterfaceImpl implements MyInterface {}
+
+@Portable
+public class Trouble {
+  private MyInterface[] arrayOfInterfaceType;
+  public void setArrayOfInterfaceType(MyInterface[] val) { arrayOfInterfaceType = val; }
+  public MyInterface[] getArrayOfInterfaceType() { return arrayOfInterfaceType }
+}
+
+An Errai project with the above types will fail when the marshaller generator attempts to create a marshaller for the Trouble.arrayOfInterfaceType field.

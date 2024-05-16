@@ -1,0 +1,11 @@
+@MapsTo fails in the presence of other annotations.
+A constructor or factory method which has been marked for use by marshallers with @MapsTo will be ignored/overlooked if any other annotations are present on its arguments.  For example, this method will be recognized properly:
+{code}
+  public static MyClass makeMyClass(@MapsTo("field") final String field) { ... }
+{code}
+But, this method will be skipped over:
+{code}
+  public static MyClass makeMyClass(@MapsTo("field") @Nonnull final String field) { ... }
+{code}
+
+The bug is in (two places in) DefaultJavaDefinitionMapper.map(), in the convoluted conditionals that are checking for @MapsTo annotated parameters.  Errai should simply ignore any other annotations.

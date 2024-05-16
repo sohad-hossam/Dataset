@@ -1,0 +1,3 @@
+Solution for: class is not available to the marshaller framework: ...Exception
+marshal exceptions even if no matching marshaller found
+see https://community.jboss.org/thread/222750?tstart=0

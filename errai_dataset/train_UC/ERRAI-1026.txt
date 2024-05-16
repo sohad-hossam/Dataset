@@ -1,0 +1,5 @@
+fix jaxrs-demo-crud
+    1) fix dev mode
+    2) fix wildfly profile
+    3) add jetty9 support 
+

@@ -1,0 +1,3 @@
+Add parameter for code partition/fragment name to @LoadAsync
+Starting with GWT 2.6.0, GWT.runAsync makes use of the additional parameter that identifies the code fragment. By adding an additional parameter of type Class<?> to @LoadAsync, we can provide better control over split points as all beans using the same partition/fragment name will now end up in the same code fragment.
+

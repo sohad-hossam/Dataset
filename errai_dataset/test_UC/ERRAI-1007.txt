@@ -1,0 +1,9 @@
+Append (and attach) GWT widgets to HTMLElement
+It would be great to have a way to append (and attach) old GWT widgets to a HTMLElements. Right now, we have this way:
+
+HTMLElement htmlElement = TemplateUtil.<HTMLElement>nativeCast( c.getElement() );
+header.appendChild( htmlElement )
+
+But doing that only works once a widget has been attached. It will be awesome if we have some utility method that attaches and append a GWT widget to an HTMLElement.
+
+

@@ -1,0 +1,4 @@
+Update jboss.spec.jboss.javaee.6.0.version to v3.0.3.
+The current spec version being used contains a transitive dependency on a xalan version that's not in public Maven repositories.  The new release (3.0.3.Final) fixes this issue.
+
+See https://github.com/jboss/jboss-javaee-specs/issues/3 for details.

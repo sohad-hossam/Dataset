@@ -1,0 +1,64 @@
+QueueUnavailableException is thrown repeatively using AsyncDispatcher with 10 workers.
+Hello,
+
+I'm trying to implement our stockticker like application to stream data back to browser. I'm using DefaultBlockingServlet on GWTHosted app, and GrizzlyCometServlet on our production glassfish server.
+
+Using AsyncDispatcher, with 10 workers causes the server to throw repeated QueueUnavailableException when 2 or more browsers that are connected to the server and one or more of the browsers disconnected/closed.
+
+My code, closely resembles one your examples, the AsyncDemo.
+
+
+StackTrace:
+{code}
+org.jboss.errai.bus.server.QueueUnavailableException: no queue available to send. (queue or session may have expired)
+	at org.jboss.errai.bus.server.ServerMessageBusImpl.getQueueByMessage(ServerMessageBusImpl.java:882)
+	at org.jboss.errai.bus.server.ServerMessageBusImpl.send(ServerMessageBusImpl.java:412)
+	at org.jboss.errai.bus.server.Worker.deliverToBus(Worker.java:143)
+	at org.jboss.errai.bus.server.Worker.run(Worker.java:111)
+{code}
+
+Looking at the run() code for org.jboss.errai.bus.server.Worker.class, these exception was not handled.
+
+{code:title=Worker.java:borderStyle=solid}
+  
+   ...
+   public void run() {
+   ...
+   while (true) {
+      try {
+        // looping inside a catch block is cheaper than entering and leaving it
+        // every time.
+        while (true) {
+          if ((message = messages.poll(60, TimeUnit.SECONDS)) != null) {
+            workExpiry = currentTimeMillis() + timeout;
+            deliverToBus(bus, message);
+            workExpiry = 0;
+          }
+          if (!active) {
+            return;
+          }
+        }
+      }
+      catch (InterruptedException e) {
+        if (!active) return;
+      }
+      catch (QueueOverloadedException e) {
+        handleMessageDeliveryFailure(bus, message, "Queue has become saturated/overloaded", e, true);
+      }
+      catch (QueueUnavailableException e) {
+        e.printStackTrace();
+        //  handleMessageDeliveryFailure(bus, message, "Queue is not available", e, true);
+      }
+
+     ....
+  }
+{code}
+
+Is there specific reason why was this done (Commenting the handleMessageDeliveryFailure())? Are we planning to do a release in the future to fix this?
+
+In interim, if I can have a way to get those message before the worker get to it, and remove it from the BlockingQueue, that would be helpful.
+
+Let me know if you need more information.
+
+Thanks,
+Melvin

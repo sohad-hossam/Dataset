@@ -1,0 +1,7 @@
+Add hints to "no proxy provider found" error message for case when new remote service is added in SDM
+When a new RPC interface is created during in an SDM session (Bus or JAX-RS) the GWT compiler does not retrigger the respective proxy generator.
+
+The error message in this case gives no help in resolving the issue, and should be updated with hints on the possible ways of resolving the problem which are:
+# Touching/modifying a pre-existing RPC interface (one that already has a generated proxy).
+# Clearing the SDM cache and refreshing.
+# Running SDM without incremental compilation.

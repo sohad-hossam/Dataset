@@ -1,0 +1,3 @@
+Remove WARN message "The property errai.marshalling.serializableTypes has been set multiple times"
+We are seeing the following WARN message when building/running KIE Workbench:
+{{The property errai.marshalling.serializableTypes has been set multiple times}}}. After briefly discussing this with [~mbarkley] the logging message should not be printed at all for "list" properties (e.g. values of those are merged together).

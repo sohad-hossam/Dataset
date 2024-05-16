@@ -1,0 +1,4 @@
+Cordova maven plugin does not work with Maven 3.1 or higher
+Error message:
+
+Failed to execute goal org.jboss.errai:cordova-maven-plugin:3.0.2.Final:build-project (build) on project errai-tutorial: Execution build of goal org.jboss.errai:cordova-maven-plugin:3.0.2.Final:build-project failed: An API incompatibility was encountered while executing org.jboss.errai:cordova-maven-plugin:3.0.2.Final:build-project: java.lang.NoSuchMethodError: org.apache.maven.execution.MavenSession.getRepositorySession()Lorg/sonatype/aether/RepositorySystemSession;

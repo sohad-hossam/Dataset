@@ -1,0 +1,21 @@
+Performance issues in DevMode after recent changes
+The errai client/server communication becomes really slow when you have more than one tab opened (same user and same browser).
+
+In order to reproduce the issue it's necessary to clone and build locally our repos:
+
+Beginnign with:
+https://github.com/droolsjbpm/droolsjbpm-build-bootstrap
+
+In this repo you'll have to add manually @ kie-parent-with-dependencies/pom.xml the latest errai version (something like we had here: https://github.com/droolsjbpm/droolsjbpm-build-bootstrap/blob/ec09d0a4f672bbeaaf30cf1d4a6f9e88364a76d6/kie-parent-with-dependencies/pom.xml)
+
+after that all you need is clone and build local the following repos:
+
+https://github.com/droolsjbpm/kie-commons
+https://github.com/droolsjbpm/uberfire
+https://github.com/droolsjbpm/guvnor
+https://github.com/droolsjbpm/kie-wb-common
+https://github.com/droolsjbpm/drools-wb
+
+In order to test, go to author perspective, select mortgages and open the Dummy rule.drl... open the same file in both browsers and start to see how slow it becomes.
+
+In order to test the same events.. just open a file in both browser tabs, then rename the file in one tab... you'll get a message in the other. And for an unknown reason if you close and open the same file again.. it get slower and slower.

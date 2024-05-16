@@ -1,0 +1,14 @@
+StandardAsyncServlet causes delayed delivery of broadcast CDI events
+When broadcasting CDI events and using the StandardAsyncServlets, some clients experience significant delays (a few seconds up to a minute).
+
+The delay seems to coincide with the following stacktrace (warning) on the server:
+
+WARNING: onComplete() failed for listener of type [org.apache.catalina.core.AsyncListenerWrapper]
+     java.lang.IllegalStateException: Calling [asyncComplete()] is not valid for a request with Async state [MUST_COMPLETE]
+        at org.apache.coyote.AsyncStateMachine.asyncComplete(AsyncStateMachine.java:223)
+        at org.apache.coyote.http11.Http11Processor.actionInternal(Http11Processor.java:358)
+        at org.apache.coyote.http11.AbstractHttp11Processor.action(AbstractHttp11Processor.java:851)
+        at org.apache.coyote.Request.action(Request.java:344)
+        at org.apache.catalina.core.AsyncContextImpl.complete(AsyncContextImpl.java:92)
+        at org.jboss.errai.bus.server.servlet.StandardAsyncServlet$1.onComplete(StandardAsyncServlet.java:80)
+        at org.apache.catalina.core.AsyncListenerWrapper.fireOnComplete(AsyncListenerWrapper.java:40)

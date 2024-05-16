@@ -1,0 +1,20 @@
+Marshaller generator fails on non-public getter methods
+This class:
+
+{code}
+public class EntityWithConstructorAndMethodMappedLong {
+
+  private final long value;
+
+  public EntityWithConstructorAndMethodMappedLong(@MapsTo("value") long value) {
+    this.value = value;
+  }
+
+  // note non-public getter method for value
+  long getValue() {
+    return value;
+  }
+}
+{code}
+
+causes marshaller code generation to emit code that attempts to invoke the getValue() method directly, even though is it not visible to the caller.

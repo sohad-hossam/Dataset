@@ -1,0 +1,269 @@
+Generic array type parameters cause error in GWT MetaClasses
+I added the errai-javaee-all dependency of CR3 and the 2 lines in the gwt.xml as described here:
+http://erraiframework.org/getting-started/index.html#ErraiCDIPage
+
+and got this error:
+
+
+{noformat}
+[INFO] --- gwt-maven-plugin:1.0-rc-6:compile (default-compile) @ optashift-employee-rostering-gwtui ---
+[INFO] Compiling module org.optaplanner.openshift.employeerostering.gwtui.WorkerRosteringWebapp
+[INFO]    Ignored 4 units with compilation errors in first pass.
+[INFO] Compile with -strict or with -logLevel set to TRACE or DEBUG to see all errors.
+[WARNING] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+[WARNING] SLF4J: Defaulting to no-operation (NOP) logger implementation
+[WARNING] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[INFO]    Computing all possible rebind results for 'org.jboss.errai.marshalling.client.api.MarshallerFactory'
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]             Checking ErraiApp.properties for configured types ...
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]    Computing all possible rebind results for 'org.jboss.errai.ioc.client.container.IOCEnvironment'
+[INFO]       Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+[INFO]             Generating Extensions Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+[INFO]             Generating Extensions Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+[INFO]             Generating Extensions Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+[INFO]             Generating Extensions Bootstrapper...
+[INFO]       Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+[INFO]             Generating Extensions Bootstrapper...
+[INFO]    Computing all possible rebind results for 'org.jboss.errai.ioc.client.Bootstrapper'
+[INFO]       Rebinding org.jboss.errai.ioc.client.Bootstrapper
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+[INFO]             generating ioc bootstrapping code...
+[WARNING] java.util.concurrent.ExecutionException: java.lang.IllegalArgumentException: Cannot represent "T extends java.lang.Object[][]" as a class. Try a different meta type such as GWTWildcardType or GWTTypeVaraible.
+[WARNING]       at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+[WARNING]       at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+[WARNING]       at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:112)
+[WARNING]       at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:86)
+[WARNING]       at org.jboss.errai.config.rebind.AbstractAsyncGenerator.startAsyncGeneratorsAndWaitFor(AbstractAsyncGenerator.java:205)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:62)
+[WARNING]       at com.google.gwt.core.ext.IncrementalGenerator.generateNonIncrementally(IncrementalGenerator.java:40)
+[WARNING]       at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:745)
+[WARNING]       at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:103)
+[WARNING]       at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[WARNING]       at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:262)
+[WARNING]       at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:251)
+[WARNING]       at com.google.gwt.dev.PrecompilationContextCreator$1.getAllPossibleRebindAnswers(PrecompilationContextCreator.java:86)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.createStaticRebindExpression(UnifyAst.java:519)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.createRebindExpression(UnifyAst.java:487)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.maybeHandleMagicMethodCall(UnifyAst.java:415)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.visit(UnifyAst.java:402)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JMethodCall.traverse(JMethodCall.java:265)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:118)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JCastOperation.traverse(JCastOperation.java:72)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:118)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JDeclarationStatement.traverse(JDeclarationStatement.java:49)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor$ListContext.traverse(JModVisitor.java:88)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.acceptWithInsertRemove(JModVisitor.java:331)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JBlock.traverse(JBlock.java:92)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:139)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:135)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JTryStatement.traverse(JTryStatement.java:93)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor$ListContext.traverse(JModVisitor.java:88)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.acceptWithInsertRemove(JModVisitor.java:331)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JBlock.traverse(JBlock.java:92)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:139)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:135)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JMethodBody.traverse(JMethodBody.java:83)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JMethod.visitChildren(JMethod.java:786)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JMethod.traverse(JMethod.java:778)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[WARNING]       at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst.mainLoop(UnifyAst.java:1401)
+[WARNING]       at com.google.gwt.dev.jjs.impl.UnifyAst.exec(UnifyAst.java:896)
+[WARNING]       at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.unifyJavaAst(JavaToJavaScriptCompiler.java:1410)
+[WARNING]       at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.constructJavaAst(JavaToJavaScriptCompiler.java:1222)
+[WARNING]       at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:1140)
+[WARNING]       at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:255)
+[WARNING]       at com.google.gwt.dev.Precompile.precompile(Precompile.java:255)
+[WARNING]       at com.google.gwt.dev.Precompile.precompile(Precompile.java:202)
+[WARNING]       at com.google.gwt.dev.Precompile.precompile(Precompile.java:143)
+[WARNING]       at com.google.gwt.dev.Compiler.compile(Compiler.java:204)
+[WARNING]       at com.google.gwt.dev.Compiler.compile(Compiler.java:155)
+[WARNING]       at com.google.gwt.dev.Compiler.compile(Compiler.java:144)
+[WARNING]       at com.google.gwt.dev.Compiler$1.run(Compiler.java:118)
+[WARNING]       at com.google.gwt.dev.CompileTaskRunner.doRun(CompileTaskRunner.java:55)
+[WARNING]       at com.google.gwt.dev.CompileTaskRunner.runWithAppropriateLogger(CompileTaskRunner.java:50)
+[WARNING]       at com.google.gwt.dev.Compiler.main(Compiler.java:125)
+[WARNING] Caused by: java.lang.IllegalArgumentException: Cannot represent "T extends java.lang.Object[][]" as a class. Try a different meta type such as GWTWildcardType or GWTTypeVaraible.
+[WARNING]       at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.<init>(GWTClass.java:88)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.newUncachedInstance(GWTClass.java:159)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.newInstance(GWTClass.java:142)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.gwt.GWTParameterizedType.getTypeParameters(GWTParameterizedType.java:62)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaParameterizedType.toString(AbstractMetaParameterizedType.java:106)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.hashString(AbstractMetaClass.java:826)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.hashCode(AbstractMetaClass.java:838)
+[WARNING]       at java.util.HashMap.hash(HashMap.java:338)
+[WARNING]       at java.util.HashMap.get(HashMap.java:556)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableFrom(AbstractMetaClass.java:469)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableFrom(AbstractMetaClass.java:496)
+[WARNING]       at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableTo(AbstractMetaClass.java:518)
+[WARNING]       at org.jboss.errai.ui.rebind.ElementProviderExtension$1.callback(ElementProviderExtension.java:101)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.lambda$null$2(IOCProcessor.java:280)
+[WARNING]       at java.util.ArrayList.forEach(ArrayList.java:1249)
+[WARNING]       at java.util.Collections$UnmodifiableCollection.forEach(Collections.java:1080)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.lambda$runExtensionCallbacks$3(IOCProcessor.java:280)
+[WARNING]       at java.lang.Iterable.forEach(Iterable.java:75)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.runExtensionCallbacks(IOCProcessor.java:280)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.process(IOCProcessor.java:194)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateBootstrappingClassSource(IOCBootstrapGenerator.java:237)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:132)
+[WARNING]       at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:72)
+[WARNING]       at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:66)
+[WARNING]       at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:54)
+[WARNING]       at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[WARNING]       at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[WARNING]       at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[WARNING]       at java.lang.Thread.run(Thread.java:745)
+[INFO]             [ERROR] Error generating BootstrapperImpl
+[INFO] java.util.concurrent.ExecutionException: java.lang.IllegalArgumentException: Cannot represent "T extends java.lang.Object[][]" as a class. Try a different meta type such as GWTWildcardType or GWTTypeVaraible.
+[INFO]  at java.util.concurrent.FutureTask.report(FutureTask.java:122)
+[INFO]  at java.util.concurrent.FutureTask.get(FutureTask.java:192)
+[INFO]  at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:112)
+[INFO]  at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:86)
+[INFO]  at org.jboss.errai.config.rebind.AbstractAsyncGenerator.startAsyncGeneratorsAndWaitFor(AbstractAsyncGenerator.java:205)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:62)
+[INFO]  at com.google.gwt.core.ext.IncrementalGenerator.generateNonIncrementally(IncrementalGenerator.java:40)
+[INFO]  at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:745)
+[INFO]  at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:103)
+[INFO]  at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[INFO]  at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:262)
+[INFO]  at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:251)
+[INFO]  at com.google.gwt.dev.PrecompilationContextCreator$1.getAllPossibleRebindAnswers(PrecompilationContextCreator.java:86)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.createStaticRebindExpression(UnifyAst.java:519)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.createRebindExpression(UnifyAst.java:487)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.maybeHandleMagicMethodCall(UnifyAst.java:415)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst$UnifyVisitor.visit(UnifyAst.java:402)
+[INFO]  at com.google.gwt.dev.jjs.ast.JMethodCall.traverse(JMethodCall.java:265)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:118)
+[INFO]  at com.google.gwt.dev.jjs.ast.JCastOperation.traverse(JCastOperation.java:72)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:118)
+[INFO]  at com.google.gwt.dev.jjs.ast.JDeclarationStatement.traverse(JDeclarationStatement.java:49)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor$ListContext.traverse(JModVisitor.java:88)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.acceptWithInsertRemove(JModVisitor.java:331)
+[INFO]  at com.google.gwt.dev.jjs.ast.JBlock.traverse(JBlock.java:92)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:139)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:135)
+[INFO]  at com.google.gwt.dev.jjs.ast.JTryStatement.traverse(JTryStatement.java:93)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor$ListContext.traverse(JModVisitor.java:88)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.acceptWithInsertRemove(JModVisitor.java:331)
+[INFO]  at com.google.gwt.dev.jjs.ast.JBlock.traverse(JBlock.java:92)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:139)
+[INFO]  at com.google.gwt.dev.jjs.ast.JVisitor.accept(JVisitor.java:135)
+[INFO]  at com.google.gwt.dev.jjs.ast.JMethodBody.traverse(JMethodBody.java:83)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[INFO]  at com.google.gwt.dev.jjs.ast.JMethod.visitChildren(JMethod.java:786)
+[INFO]  at com.google.gwt.dev.jjs.ast.JMethod.traverse(JMethod.java:778)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.traverse(JModVisitor.java:361)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:273)
+[INFO]  at com.google.gwt.dev.jjs.ast.JModVisitor.accept(JModVisitor.java:265)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst.mainLoop(UnifyAst.java:1401)
+[INFO]  at com.google.gwt.dev.jjs.impl.UnifyAst.exec(UnifyAst.java:896)
+[INFO]  at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.unifyJavaAst(JavaToJavaScriptCompiler.java:1410)
+[INFO]  at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.constructJavaAst(JavaToJavaScriptCompiler.java:1222)
+[INFO]  at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:1140)
+[INFO]  at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:255)
+[INFO]  at com.google.gwt.dev.Precompile.precompile(Precompile.java:255)
+[INFO]  at com.google.gwt.dev.Precompile.precompile(Precompile.java:202)
+[INFO]  at com.google.gwt.dev.Precompile.precompile(Precompile.java:143)
+[INFO]  at com.google.gwt.dev.Compiler.compile(Compiler.java:204)
+[INFO]  at com.google.gwt.dev.Compiler.compile(Compiler.java:155)
+[INFO]  at com.google.gwt.dev.Compiler.compile(Compiler.java:144)
+[INFO]  at com.google.gwt.dev.Compiler$1.run(Compiler.java:118)
+[INFO]  at com.google.gwt.dev.CompileTaskRunner.doRun(CompileTaskRunner.java:55)
+[INFO]  at com.google.gwt.dev.CompileTaskRunner.runWithAppropriateLogger(CompileTaskRunner.java:50)
+[INFO]  at com.google.gwt.dev.Compiler.main(Compiler.java:125)
+[INFO] Caused by: java.lang.IllegalArgumentException: Cannot represent "T extends java.lang.Object[][]" as a class. Try a different meta type such as GWTWildcardType or GWTTypeVaraible.
+[INFO]  at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.<init>(GWTClass.java:88)
+[INFO]  at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.newUncachedInstance(GWTClass.java:159)
+[INFO]  at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.newInstance(GWTClass.java:142)
+[INFO]  at org.jboss.errai.codegen.meta.impl.gwt.GWTParameterizedType.getTypeParameters(GWTParameterizedType.java:62)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaParameterizedType.toString(AbstractMetaParameterizedType.java:106)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.hashString(AbstractMetaClass.java:826)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.hashCode(AbstractMetaClass.java:838)
+[INFO]  at java.util.HashMap.hash(HashMap.java:338)
+[INFO]  at java.util.HashMap.get(HashMap.java:556)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableFrom(AbstractMetaClass.java:469)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableFrom(AbstractMetaClass.java:496)
+[INFO]  at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.isAssignableTo(AbstractMetaClass.java:518)
+[INFO]  at org.jboss.errai.ui.rebind.ElementProviderExtension$1.callback(ElementProviderExtension.java:101)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.lambda$null$2(IOCProcessor.java:280)
+[INFO]  at java.util.ArrayList.forEach(ArrayList.java:1249)
+[INFO]  at java.util.Collections$UnmodifiableCollection.forEach(Collections.java:1080)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.lambda$runExtensionCallbacks$3(IOCProcessor.java:280)
+[INFO]  at java.lang.Iterable.forEach(Iterable.java:75)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.runExtensionCallbacks(IOCProcessor.java:280)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessor.process(IOCProcessor.java:194)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateBootstrappingClassSource(IOCBootstrapGenerator.java:237)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:132)
+[INFO]  at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:72)
+[INFO]  at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:66)
+[INFO]  at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:54)
+[INFO]  at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+[INFO]  at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+[INFO]  at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+[INFO]  at java.lang.Thread.run(Thread.java:745)
+[INFO]       Rebinding org.jboss.errai.ioc.client.Bootstrapper
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+[INFO]             generating ioc bootstrapping code...
+[INFO]       Rebinding org.jboss.errai.ioc.client.Bootstrapper
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+[INFO]             generating ioc bootstrapping code...
+[INFO]       Rebinding org.jboss.errai.ioc.client.Bootstrapper
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+[INFO]             generating ioc bootstrapping code...
+[INFO]       Rebinding org.jboss.errai.ioc.client.Bootstrapper
+[INFO]          Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+[INFO]             generating ioc bootstrapping code...
+[INFO]    [WARN] For the following type(s), generated source was never committed (did you forget to call commit()?)
+[INFO]       [WARN] org.jboss.errai.ioc.client.BootstrapperImpl
+[INFO]    [ERROR] Could not find org.jboss.errai.ioc.client.BootstrapperImpl in types compiled from source. Is the source glob too strict?
+[INFO]    [ERROR] Errors in 'org/jboss/errai/ioc/client/Container.java'
+[INFO]       [ERROR] Line 70: Rebind result 'org.jboss.errai.ioc.client.BootstrapperImpl' could not be found
+{noformat}

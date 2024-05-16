@@ -1,0 +1,113 @@
+Creating an @EventHandler with invalid data-field results in NullPointerException
+{code}
+@Templated("Mockup.html#template")
+@EntryPoint
+public class App extends Composite {
+
+	@Inject
+	@DataField
+	private Button send;
+
+	@EventHandler("message")
+	public void handleSendMessage(ClickEvent event) {
+		Window.alert(message.getText());
+	}
+
+}
+{code}
+
+{code}
+[ERROR] java.lang.NullPointerException
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateEventHandlerMethodClasses(DecoratorTemplated.java:357)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateTemplatedInitialization(DecoratorTemplated.java:205)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateDecorator(DecoratorTemplated.java:126)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:88)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.handleInjectionTasks(InjectUtil.java:160)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.access$000(InjectUtil.java:70)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil$2.generateConstructor(InjectUtil.java:148)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector._getType(TypeInjector.java:161)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector.getBeanInstance(TypeInjector.java:110)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$4.handle(IOCProcessorFactory.java:377)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$6.process(IOCProcessorFactory.java:593)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory.process(IOCProcessorFactory.java:543)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateExtensions(IOCBootstrapGenerator.java:354)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator._generate(IOCBootstrapGenerator.java:328)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:157)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generateIOCBootstrapClass(IOCGenerator.java:96)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:65)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generate(GeneratorExtWrapper.java:48)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generateIncrementally(GeneratorExtWrapper.java:60)
+[ERROR] 	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:647)
+[ERROR] 	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:268)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:257)
+[ERROR] 	at com.google.gwt.dev.DistillerRebindPermutationOracle.getAllPossibleRebindAnswers(DistillerRebindPermutationOracle.java:91)
+[ERROR] 	at com.google.gwt.dev.jdt.WebModeCompilerFrontEnd.doFindAdditionalTypesUsingRebinds(WebModeCompilerFrontEnd.java:96)
+[ERROR] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.process(AbstractCompiler.java:254)
+[ERROR] 	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:444)
+[ERROR] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.compile(AbstractCompiler.java:173)
+[ERROR] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.compile(AbstractCompiler.java:288)
+[ERROR] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.access$400(AbstractCompiler.java:139)
+[ERROR] 	at com.google.gwt.dev.jdt.AbstractCompiler.compile(AbstractCompiler.java:588)
+[ERROR] 	at com.google.gwt.dev.jdt.BasicWebModeCompiler.getCompilationUnitDeclarations(BasicWebModeCompiler.java:97)
+[ERROR] 	at com.google.gwt.dev.jdt.WebModeCompilerFrontEnd.getCompilationUnitDeclarations(WebModeCompilerFrontEnd.java:52)
+[ERROR] 	at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:569)
+[ERROR] 	at com.google.gwt.dev.jjs.JavaScriptCompiler.precompile(JavaScriptCompiler.java:33)
+[ERROR] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:284)
+[ERROR] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:233)
+[ERROR] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:145)
+[ERROR] 	at com.google.gwt.dev.Compiler.run(Compiler.java:232)
+[ERROR] 	at com.google.gwt.dev.Compiler.run(Compiler.java:198)
+[ERROR] 	at com.google.gwt.dev.Compiler$1.run(Compiler.java:170)
+[ERROR] 	at com.google.gwt.dev.CompileTaskRunner.doRun(CompileTaskRunner.java:88)
+[ERROR] 	at com.google.gwt.dev.CompileTaskRunner.runWithAppropriateLogger(CompileTaskRunner.java:82)
+[ERROR] 	at com.google.gwt.dev.Compiler.main(Compiler.java:177)
+[INFO]                [ERROR] Error generating extensions
+[INFO] java.lang.NullPointerException
+[INFO] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateEventHandlerMethodClasses(DecoratorTemplated.java:357)
+[INFO] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateTemplatedInitialization(DecoratorTemplated.java:205)
+[INFO] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateDecorator(DecoratorTemplated.java:126)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:88)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.handleInjectionTasks(InjectUtil.java:160)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.access$000(InjectUtil.java:70)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil$2.generateConstructor(InjectUtil.java:148)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector._getType(TypeInjector.java:161)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector.getBeanInstance(TypeInjector.java:110)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$4.handle(IOCProcessorFactory.java:377)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$6.process(IOCProcessorFactory.java:593)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory.process(IOCProcessorFactory.java:543)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateExtensions(IOCBootstrapGenerator.java:354)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator._generate(IOCBootstrapGenerator.java:328)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:157)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generateIOCBootstrapClass(IOCGenerator.java:96)
+[INFO] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:65)
+[INFO] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generate(GeneratorExtWrapper.java:48)
+[INFO] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generateIncrementally(GeneratorExtWrapper.java:60)
+[INFO] 	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:647)
+[INFO] 	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+[INFO] 	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[INFO] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:268)
+[INFO] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:257)
+[INFO] 	at com.google.gwt.dev.DistillerRebindPermutationOracle.getAllPossibleRebindAnswers(DistillerRebindPermutationOracle.java:91)
+[INFO] 	at com.google.gwt.dev.jdt.WebModeCompilerFrontEnd.doFindAdditionalTypesUsingRebinds(WebModeCompilerFrontEnd.java:96)
+[INFO] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.process(AbstractCompiler.java:254)
+[INFO] 	at org.eclipse.jdt.internal.compiler.Compiler.compile(Compiler.java:444)
+[INFO] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.compile(AbstractCompiler.java:173)
+[INFO] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.compile(AbstractCompiler.java:288)
+[INFO] 	at com.google.gwt.dev.jdt.AbstractCompiler$Sandbox$CompilerImpl.access$400(AbstractCompiler.java:139)
+[INFO] 	at com.google.gwt.dev.jdt.AbstractCompiler.compile(AbstractCompiler.java:588)
+[INFO] 	at com.google.gwt.dev.jdt.BasicWebModeCompiler.getCompilationUnitDeclarations(BasicWebModeCompiler.java:97)
+[INFO] 	at com.google.gwt.dev.jdt.WebModeCompilerFrontEnd.getCompilationUnitDeclarations(WebModeCompilerFrontEnd.java:52)
+[INFO] 	at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.precompile(JavaToJavaScriptCompiler.java:569)
+[INFO] 	at com.google.gwt.dev.jjs.JavaScriptCompiler.precompile(JavaScriptCompiler.java:33)
+[INFO] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:284)
+[INFO] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:233)
+[INFO] 	at com.google.gwt.dev.Precompile.precompile(Precompile.java:145)
+[INFO] 	at com.google.gwt.dev.Compiler.run(Compiler.java:232)
+[INFO] 	at com.google.gwt.dev.Compiler.run(Compiler.java:198)
+[INFO] 	at com.google.gwt.dev.Compiler$1.run(Compiler.java:170)
+[INFO] 	at com.google.gwt.dev.CompileTaskRunner.doRun(CompileTaskRunner.java:88)
+[INFO] 	at com.google.gwt.dev.CompileTaskRunner.runWithAppropriateLogger(CompileTaskRunner.java:82)
+
+{code}

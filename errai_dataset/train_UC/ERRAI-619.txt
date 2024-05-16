@@ -1,0 +1,2 @@
+@Command methods do not work properly when using ErraiCDI
+@Command endpoints are not properly discovered via CDIExtensionPoints. This feature is implemented correctly in ErraiBus (see ERRAI-618).

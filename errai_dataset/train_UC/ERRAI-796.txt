@@ -1,0 +1,18 @@
+Support for JsonTypeInfo and inheritance with Jackson
+Seems, the Jackson support is very limited: I have a simple Hirarchy in my Model and Errai doesn't seems to support it with the Jackson-Wrapper.
+
+Server sends it correctly (jersey), but the Erray is ignoring the type-attribte. When sending something to the Server, the attribute is not added.
+
+Would be nice to add the supported Features to the Docu, too.
+
+
+
+ExampleCode::
+@JsonTypeInfo(use = JsonTypeInfo.Id.CLASS, include = JsonTypeInfo.As.PROPERTY, property = "type")
+@JsonSubTypes({ 
+   @Type(MyTestModel .class),
+})
+public class TestModel
+...
+public class MyTestModel extends TestModel
+...

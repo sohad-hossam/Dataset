@@ -1,0 +1,45 @@
+BindableProxyAgent.oneTypeIsInterface() is implemented incorrectly
+{code:java}
+private boolean oneTypeIsInterface(final Class<?> propertyType, final Class<?> converterModelType) {
+    return propertyType.isInterface() ^ converterModelType.isInterface();
+}
+{code}
+
+First of all, current code is just illogical, XOR should be replaced by OR, because if both types are interfaces this method currently returns false, but must return true. The real meaning of this method is: at least one of two types is interface.
+
+Currently in model it could be only List.
+But I have few converters, which are used not only in Errai related code, but in other places as well. Of course I can make an additional classes for Errai only, but it's just boring.
+Simplest example:
+
+{code:java}
+ /** Allows binding to collection's size. */
+    public static class SizeConverter implements Converter<Collection<?>, String> {
+
+        public SizeConverter() {
+        }
+
+        @Override
+        public Collection<?> toModelValue(String widgetValue) {
+            throw new UnsupportedOperationException("SizeConverter is one-way only");
+        }
+
+        @Override
+        public String toWidgetValue(Collection<?> modelValue) {
+            return Empty.is(modelValue) ? "0" : String.valueOf(modelValue.size());
+        }
+
+        @SuppressWarnings({ "unchecked", "rawtypes" })
+        @Override
+        public Class<Collection<?>> getModelType() {
+            Class<Collection<?>> rslt = (Class) Collection.class;
+            return rslt;
+        }
+
+        @Override
+        public Class<String> getComponentType() {
+            return String.class;
+        }
+    }
+{code}
+
+For more details please see https://github.com/errai/errai/issues/210

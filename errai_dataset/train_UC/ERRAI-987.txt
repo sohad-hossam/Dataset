@@ -1,0 +1,10 @@
+Nested @Templated beans that aren't Composite or IsElement have incorrect Widget hierarchy
+I have been chasing an Errai 4 failure, for which I finally can produce stack trace - I have attached stack trace image and generated code.
+
+The forum reference with more details is here:
+https://developer.jboss.org/thread/272402
+
+My code is no longer using widgets, so this maybe E4 internal stuff.
+
+Sugested fix:  shouldn't you check with Windget.isAttached() just in case before the atach/detach calls?   
+

@@ -1,0 +1,240 @@
+Data binding proxies performance and js size optimization
+Currently generated proxies methods get() and set() are highly inefficient by using string comparison:
+
+{code:java}
+    public Object get(String property) {
+        if (property.equals("address")) {
+          return getAddress();
+        }
+        if (property.equals("latitude")) {
+          return getLatitude();
+        }
+        if (property.equals("name")) {
+          return getName();
+        }
+        if (property.equals("departments")) {
+          return getDepartments();
+        }
+        if (property.equals("id")) {
+          return getId();
+        }
+        if (property.equals("radius")) {
+          return getRadius();
+        }
+        if (property.equals("longitude")) {
+          return getLongitude();
+        }
+        if (property.equals("this")) {
+          return agent.target;
+        }
+        throw new NonExistingPropertyException("Store", property);
+      }
+
+      public void set(String property, Object value) {
+        if (property.equals("address")) {
+          agent.target.setAddress((String) value);
+          return;
+        }
+        if (property.equals("latitude")) {
+          agent.target.setLatitude((Double) value);
+          return;
+        }
+        if (property.equals("name")) {
+          agent.target.setName((String) value);
+          return;
+        }
+        if (property.equals("departments")) {
+          agent.target.setDepartments((List<Department>) value);
+          return;
+        }
+        if (property.equals("radius")) {
+          agent.target.setRadius((Integer) value);
+          return;
+        }
+        if (property.equals("longitude")) {
+          agent.target.setLongitude((Double) value);
+          return;
+        }
+        if (property.equals("this")) {
+          agent.target = (Store) value;
+          return;
+        }
+        throw new NonExistingPropertyException("Store", property);
+      }
+{code}
+
+it must be replaced by switch clause:
+
+{code:java}
+    public Object get(String property) {
+        switch (property) {
+          case "address": return getAddress();
+          case "latitude": return getLatitude();
+          case "name": return getName();
+          case "departments": return getDepartments();
+          case "id": return getId();
+          case "radius": return getRadius();
+          case "longitude": return getLongitude();
+          case "this": return target;
+          default: throw new NonExistingPropertyException("Store", property);
+        }
+      }
+
+      public void set(String property, Object value) {
+        switch (property) {
+          case "address": target.setAddress((String) value);
+          break;
+          case "latitude": target.setLatitude((Double) value);
+          break;
+          case "name": target.setName((String) value);
+          break;
+          case "departments": target.setDepartments((List<Department>) value);
+          break;
+          case "radius": target.setRadius((Integer) value);
+          break;
+          case "longitude": target.setLongitude((Double) value);
+          break;
+          case "this": target = (Store) value;
+          agent.target = target;
+          break;
+          default: throw new NonExistingPropertyException("Store", property);
+        }
+      }
+{code}
+
+Another problem - every overridden set method has too much repeatable code, which affects badly resulting js size:
+
+{code:java}
+      public String getAddress() {
+        return agent.target.getAddress();
+      }
+
+      public void setAddress(String address) {
+        String oldValue = agent.target.getAddress();
+        agent.target.setAddress(address);
+        agent.updateWidgetsAndFireEvent(false, "address", oldValue, address);
+      }
+
+      public double getLatitude() {
+        return agent.target.getLatitude();
+      }
+
+      public void setLatitude(double latitude) {
+        double oldValue = agent.target.getLatitude();
+        agent.target.setLatitude(latitude);
+        agent.updateWidgetsAndFireEvent(false, "latitude", oldValue, latitude);
+      }
+
+      public String getName() {
+        return agent.target.getName();
+      }
+
+      public void setName(String name) {
+        String oldValue = agent.target.getName();
+        agent.target.setName(name);
+        agent.updateWidgetsAndFireEvent(false, "name", oldValue, name);
+      }
+
+      public List getDepartments() {
+        return agent.target.getDepartments();
+      }
+
+      public void setDepartments(List<Department> departments) {
+        List<Department> oldValue = agent.target.getDepartments();
+        departments = agent.ensureBoundListIsProxied("departments", departments);
+        agent.target.setDepartments(departments);
+        agent.updateWidgetsAndFireEvent(true, "departments", oldValue, departments);
+      }
+
+      public long getId() {
+        return agent.target.getId();
+      }
+
+      public Integer getRadius() {
+        return agent.target.getRadius();
+      }
+
+      public void setRadius(Integer radius) {
+        Integer oldValue = agent.target.getRadius();
+        agent.target.setRadius(radius);
+        agent.updateWidgetsAndFireEvent(false, "radius", oldValue, radius);
+      }
+
+      public double getLongitude() {
+        return agent.target.getLongitude();
+      }
+
+      public void setLongitude(double longitude) {
+        double oldValue = agent.target.getLongitude();
+        agent.target.setLongitude(longitude);
+        agent.updateWidgetsAndFireEvent(false, "longitude", oldValue, longitude);
+      }
+{code} 
+
+this part should be replaced by the following code:
+
+{code:java}
+    private void changeAndFire(String property, Object value) {
+        final Object oldValue = get(property);
+        set(property, value);
+        agent.updateWidgetsAndFireEvent(false, property, oldValue, value);
+      }
+
+      public String getAddress() {
+        return target.getAddress();
+      }
+
+      public void setAddress(String address) {
+        changeAndFire("address", address);
+      }
+
+      public double getLatitude() {
+        return target.getLatitude();
+      }
+
+      public void setLatitude(double latitude) {
+        changeAndFire("latitude", latitude);
+      }
+
+      public String getName() {
+        return target.getName();
+      }
+
+      public void setName(String name) {
+        changeAndFire("name", name);
+      }
+
+      public List getDepartments() {
+        return target.getDepartments();
+      }
+
+      public void setDepartments(List<Department> departments) {
+        List<Department> oldValue = target.getDepartments();
+        departments = agent.ensureBoundListIsProxied("departments", departments);
+        target.setDepartments(departments);
+        agent.updateWidgetsAndFireEvent(true, "departments", oldValue, departments);
+      }
+
+      public long getId() {
+        return target.getId();
+      }
+
+      public Integer getRadius() {
+        return target.getRadius();
+      }
+
+      public void setRadius(Integer radius) {
+        changeAndFire("radius", radius);
+      }
+
+      public double getLongitude() {
+        return target.getLongitude();
+      }
+
+      public void setLongitude(double longitude) {
+        changeAndFire("longitude", longitude);
+      }
+{code}
+
+After implementing these changes, in my project resulting js size of data binding went down from 210kb to 184kb, i.e. more than 12% improvement.
+I will open pull request soon. 

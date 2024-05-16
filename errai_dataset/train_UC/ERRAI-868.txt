@@ -1,0 +1,26 @@
+Unsafe JAXRS proxy codegeneration for @QueryParam of List<String> or Set<String> types
+{code:java}
+@POST
+@Produces(MediaType.APPLICATION_JSON_VALUE)
+@Consumes(MediaType.TEXT_PLAIN_VALUE)
+@Path("abc/{id}")
+void doAbc(@PathParam("id") Integer id, @QueryParam("lst") List<String> lst);
+{code}
+
+lst == null cannot be passed as parameter, because in JaxrsProxyLoaderImpl the following code is generated:
+
+{code:java}
+public void doAbc(final Integer a0, final List<String> a1) {
+        StringBuilder url = new StringBuilder(getBaseUrl());
+        url.append("service/abc/{id}".replace("{id}", URL.encodePathSegment(a0 == null ? "" : a0.toString()))).append("?");
+        for (String p : a1) {
+          if (!url.toString().endsWith("?")) {
+            url.append("&");
+          }
+          url.append("lst").append("=").append(URL.encodeQueryString(p == null ? "" : p));
+        }
+{code}
+
+There must be check for a1 != null before "for (String p : a1)" statement.
+
+Also Set<String> is not working, and List<Integer>, Set<Integer> as well.

@@ -1,0 +1,2 @@
+Add the Errai annotation processor dependency to the Errai BOM.
+It would be useful to add the Errai annotation processors to the BOM so that a version doesn't need to be separately specified for them.  If you agree I could submit a pull request for this.

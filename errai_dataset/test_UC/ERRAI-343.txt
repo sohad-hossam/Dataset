@@ -1,0 +1,8 @@
+Add an implementation of javax.ws.rs.core.PathSegment to Errai JAX-RS
+Errai JAX-RS should support PathSegments. It needs its own GWT translatable implementation of javax.ws.rs.core.PathSegment.
+
+{code}
+@GET
+@Path("/book/{id}")
+public String getBook(@PathParam("id") PathSegment id) {...}
+{code}

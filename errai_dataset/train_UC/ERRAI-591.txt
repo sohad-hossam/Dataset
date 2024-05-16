@@ -1,0 +1,4 @@
+Errai only observes CDI events for which an observer method has been registered before the first event of that type was fired
+When a CDI event is fired on the server, Errai will only deliver that event to the connected clients if an observer method has been registered before the very first event of that type has been fired.
+
+This does not allow for creating new beans on the client (e.g. dependent scoped pages) that observe events that have already been fired and previously had no observers. The reason for this is that Weld's bean manager caches the resolved list of observers.

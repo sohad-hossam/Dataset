@@ -1,0 +1,5 @@
+errai-ui-binder leaks references to org.jboss.errai.ioc.rebind.ioc.injector.api.InjectionContext
+Errai's UiBinder module leaks a reference to InjectionContext every time its IOCExtension is loaded which causes a big memory leak as the InjectionContext instances store references to all injectors (including the QualifiedTypeInjectorDelegates). The injectors in turn reference all the GWTClass and BuildMetaClass instances.
+
+When starting the errai-mvp-demo, we start off with 1 InjectionContext instance and ~15000 GWTClass instances, after the first refresh we end up with 2 InjectionContext instances and ~26000 GWTClass instances.
+

@@ -1,0 +1,14 @@
+JAX-RS Demarshalling does not handle subclasses
+If my JAX-RS class signature is:
+
+public BaseClass getObject() {
+    return new SubClass();
+}
+
+The generated JSON code will correctly send out "SubClass".
+
+However, the client stub is generated statically, and will demarshall as "BaseClass".
+
+Changing the return type to Object goes through the generic Object demarshaller, that does return the correct subclass.
+
+This can be worked around with a custom marshaller (even one that simply delegates to the Object.class demarshaller), but it would be better if the framework supported this functionality out of the box.

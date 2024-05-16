@@ -1,0 +1,2 @@
+Change Forge Addon to setup projects with Wildfly 8
+Currently the Forge Addon sets up projects with JBoss 7.1.1 for running dev mode. It will need to use Wildfly 8 for projects using Errai 3.1.x because of ERRAI-700.

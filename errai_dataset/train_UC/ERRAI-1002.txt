@@ -1,0 +1,22 @@
+Compilation issue with @ApplicationScope
+The following error is produced on compilation:
+{panel:title=Compilation}
+]    Adding '1' new generated units
+[INFO]       Tracing compile failure path for type 'org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default'
+[INFO]          [ERROR] Errors in 'C:\Projects\errai-prototype\target\.generated\org\jboss\errai\ioc\client\Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]             [ERROR] Line 69: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]             [ERROR] Line 94: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]       See snapshot: C:\Users\Ben\AppData\Local\Temp\org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default7673354518715258014.java
+[INFO]    [ERROR] Errors in 'C:\Projects\errai-prototype\target\.generated\org\jboss\errai\ioc\client\Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]       [ERROR] Line 69: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]       [ERROR] Line 94: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]       See snapshot: C:\Users\Ben\AppData\Local\Temp\org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default3045740157265946330.java
+[INFO]    Tracing compile failure path for type 'org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default'
+[INFO]       [ERROR] Errors in 'C:\Projects\errai-prototype\target\.generated\org\jboss\errai\ioc\client\Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default.java'
+[INFO]          [ERROR] Line 69: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]          [ERROR] Line 94: Duplicate method AbstractViewTest_onPreDestroy(AbstractViewTest) in type Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default
+[INFO]    [ERROR] Hint: Check that the type name 'org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default' is really what you meant
+[INFO]    [ERROR] Hint: Check that your classpath includes all required source roots
+[INFO]    [ERROR] Errors in 'gen/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+[INFO]       [ERROR] Line 448: Rebind result 'org.jboss.errai.ioc.client.Type_factory__e_p_c_v_ContentTest__quals__j_e_i_Any_j_e_i_Default' could not be found
+{panel}

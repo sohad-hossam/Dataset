@@ -1,0 +1,4 @@
+EnabledByProperty annotation should not be a scope
+There are 6 classes in Errai that are annotated with both @Singleton and @EnabledByProperty. This very occasionally (why not always??) causes a deployment failure when Weld correctly complains that these types have two scope annotations on them.
+
+There's no obvious reason why EnabledByProperty should be a CDI scope.

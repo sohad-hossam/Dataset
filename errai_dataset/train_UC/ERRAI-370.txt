@@ -1,0 +1,23 @@
+RuntimeException looking up enum referenced by field of class in errai.marshalling.serializableTypes of ErraiApp.properties
+While attempting to map a 3rd party library's class in the ErraiApp.properties of my gwt project I get an error when the DefinitionsFactoryImpl tries to look up an enum type that is referenced by a field of the mapped class.
+ErraiApp.properties snippet:
+errai.marshalling.serializableTypes=com.sencha.gxt.data.shared.SortInfoBean \
+com.sencha.gxt.data.shared.SortDir
+
+I've tried with and without the SortDir listed, but have the same result either way.
+
+End of StackTrace:
+Caused by: java.lang.RuntimeException: cannot marshal an abstract class or interface: com.sencha.gxt.data.shared.SortDir
+	at org.jboss.errai.marshalling.rebind.api.impl.defaultjava.DefaultJavaDefinitionMapper.map(DefaultJavaDefinitionMapper.java:52)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.loadCustomMappings(DefinitionsFactoryImpl.java:289)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.<init>(DefinitionsFactoryImpl.java:80)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.newInstance(DefinitionsFactorySingleton.java:41)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.<clinit>(DefinitionsFactorySingleton.java:26)
+	... 31 more
+   [ERROR] Errors in 'jar:file:/C:/Users/jxolhoft/.gradle/caches/artifacts-13/filestore/org.jboss.errai/errai-marshalling/2.1.0-SNAPSHOT/jar/869666af21df7ac6071555886ab53a8c84f55357/errai-marshalling-2.1.0-SNAPSHOT.jar!/org/jboss/errai/marshalling/client/api/MarshallerFramework.java'
+      [ERROR] Line 42:  Rebind result 'org.jboss.errai.marshalling.client.api.MarshallerFactoryImpl' could not be found
+   [ERROR] Cannot proceed due to previous errors
+
+In debugging I see that enums that get mapped to GWTClass evaluate as isEnum()==true and isAbstract()==true which is why the throw RuntimeException executes. 
+
+I'm unable to determine how to make an enumeration mapped as a GWTClass to behave similar to the way that the enum's mapped as the JavaReflectionClass representations do (with isAbstract()==false).

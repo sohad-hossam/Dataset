@@ -1,0 +1,31 @@
+ErraiEntityManager treats proxied entity instances and their wrapped targets as separate instances
+This causes trouble in the following scenario, among others:
+
+{code}
+  // excerpt of a test method in ErraiCascadeTest
+  public void testCascadeMerge() throws Exception {
+    EntityManager em = getEntityManagerAndClearStorageBackend();
+
+    CascadeFrom from = new CascadeFrom();
+
+    // store nonproxied object
+    em.persist(from);
+
+    final DataBinder<CascadeFrom> dataBinder = DataBinder.forModel(from);
+    dataBinder.getModel().setMergeCollection(listOfCascadeTo(3));
+
+    assertNotNull(dataBinder.getModel().getMergeCollection().get(0).getString());
+    
+    // entity manager thinks this wrapped version of "from" is DETACHED
+    // which causes merge to attempt a field-by-field copy of "from"'s proxy onto "from"
+    em.merge(dataBinder.getModel());
+    
+    // the following assertion fails because:
+    // 1. the merge creates new CascadeTo instances to fill in the list. only the ID properties are given a value.
+    // 2. it replaces the list entries in "from.getMergeCollection()" with these new ones (because "from" is the merge target)
+    // 3. because the state of dataBinder.getModel() *is* the state of "from", when we recurse to copy the attributes of the CascadeTo objects in dataBinder.getModel().getMergeCollection(), we see the uninitialized CascadeTo objects that were created in step 1
+    assertNotNull(dataBinder.getModel().getMergeCollection().get(0).getString());
+  }
+{code}
+
+The whole problem is that the merge source and the merge target are actually the same thing in this scenario. The ErraiEntityManager should have treated "from" and "dataBinder.getModel()" as the same instance. Then it would not have attempted a multi-step recursive copy of "from" onto itself.

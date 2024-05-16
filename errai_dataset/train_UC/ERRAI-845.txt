@@ -1,0 +1,10 @@
+class with @Timed annotation fails to compile if type set to DELAYED
+If a method is annotated with {{@org.jboss.errai.ioc.client.api.Timed}} annotation (see [Reference Guide section 3.4.4|http://docs.jboss.org/errai/3.1.2.Final/errai/reference/html/sid-5931402.html#sid-71467095]) and specify type {{DELAYED}}, the application fails to compile.
+
+It appears that the generated code is trying to call a method named {{schedule}} with a long value, while the method expects an int.
+
+After some research I found that the class {{org.jboss.errai.ioc.rebind.ioc.builtin.TimedExtension}} generates a call to {{com.google.gwt.user.client.Timer.schedule}} passing as parameter {{System.currentTimeMillis}} plus the specified {{interval}} on the annotation, which is an expression of type {{long}}.
+
+The fix is probably only pass the {{interval}} (as does the block of code that generates the code when the type is set to {{REPEATING}}.
+
+Also there is no test case for the {{@Timed}} annotation with {{DELAYED}} type, I only found {{org.jboss.errai.cdi.scheduler.client.BeanWithTimedMethod}} which only tests the {{REPEATED}} type.

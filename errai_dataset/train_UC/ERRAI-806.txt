@@ -1,0 +1,4 @@
+Binding to List<> property is behaving inconsistently.
+When I use DataBinder.bind(myWidget, "myList") then myWidget.setValue() will be called only if myList property set to another instance, like: myList = new ArrayList<>();
+
+But in case I'm using DataBinder.addPropertyChangeHandler("myList", ...) my change handler will be called even if only myList content changed (add/delete items). This behavior is more preferable and should be the same in case of bind() as well, if possible. 

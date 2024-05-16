@@ -1,0 +1,2 @@
+List<Date> Serialization fails
+See forum reference

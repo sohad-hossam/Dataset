@@ -1,0 +1,6 @@
+Demarshalling of BigDecimal fails when Jackson JSON format is used
+Errai fails with a NPE when trying to demarshal BigDecimals in Jackson Mode.
+
+[ERROR] Caused by: java.lang.NullPointerException
+[ERROR] at org.jboss.errai.marshalling.client.api.json.impl.gwt.GWTJSONValue.isString(GWTJSONValue.java:79)
+ERROR] at org.jboss.errai.marshalling.client.marshallers.BigDecimalMarshaller.doNotNullDemarshall(BigDecimalMarshaller.java:47)

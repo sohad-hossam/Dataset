@@ -1,0 +1,4 @@
+Provide an ErraiBus WebSocket endpoint for WildFly/Undertow
+Currently WebSocket support in Errai Bus works with either a sideband server using Netty or with our custom HttpEventServlet and the native APR connector in AS 7.1.2 or higher.
+
+We need to add a separate module to support WebSockets in WildFly/Undertow.

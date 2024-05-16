@@ -1,0 +1,39 @@
+MessageBuilder single-response repliesTo API has incorrect usage not caught by compiler
+The following message has a unique replyToSubject when it arrives at the server:
+
+        MessageBuilder.createMessage()
+        .toSubject("StressTestService")
+        .withValue(messageValue)
+        .done()
+        .repliesTo(new MessageCallback() {
+          @Override
+          public void callback(Message message) {
+            // ...
+          }
+        }).sendNowWith(bus);
+
+But the following does not:
+
+        Message message = MessageBuilder.createMessage()
+        .toSubject("StressTestService")
+        .withValue(messageValue)
+        .done()
+        .repliesTo(new MessageCallback() {
+          @Override
+          public void callback(Message message) {
+            // ...
+          }
+        }).getMessage();
+        message.sendNowWith(bus);
+
+The problem is that the Sendable.sendNowWith(Bus) implementation that's part of the builder is responsible for setting the reply to field on the message. I guess this is because the Sendable is reusable and needs a new reply to subject each time it is sent.
+
+On the other hand, it's wrong that in the second code example, the Sendable.getMessage() call returns a message with no reply to subject. The MessageCallback instance given to the builder is lost.
+
+Possible solutions:
+
+1. change repliesTo() to return an OnDemandMessageSendable type that lacks the getMessage() method
+2. change Sendable.sendNowWith(Bus) to return the Message instance it sent (although as-is, this is dangerous because the message's reply to subject will be modified next time the Sendable.sendNowWith() is called)
+3. change repliesTo() to return an OnDemandMessageSendable type that whose getMessage() method creates a new instance of Message every time it's called. sendNowWith() would be reimplemented in terms of the special getMessage() call.
+
+I think option 3 is best, but it's also the biggest code change. :)

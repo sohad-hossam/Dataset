@@ -1,0 +1,4 @@
+Builtin Injectors for Elemental 2 Elements in Errai IOC
+Currently there are building producers for Errai DOM wrappers and gwt-user elements so that they can be injected "out of the box".
+
+Errai should provide similar producers for Elemental 2.

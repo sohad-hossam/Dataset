@@ -1,0 +1,25 @@
+Support for wildcards and cascading when registering property change handlers
+We should allow for wildcards and cascading when adding property change handlers to data binder instances.
+
+Examples:
+
+Wildcards: Listen for changes of any property in customer.address (e.g. customer.address.street, customer.address.postalCode)
+{code}
+binder.addPropertyChangeHandler("customer.address.*", handler);
+{code}
+
+Cascading: Listen for changes of any property in customer and any property of nested bindables recursively. (e.g. customer.name and customer.address.street)
+{code}
+binder.addPropertyChangeHandler("customer.**", handler);
+{code}
+
+Note that 
+{code}
+binder.addPropertyChangeHandler("*", handler)
+{code}
+
+should be equivalent to 
+
+{code}
+binder.addPropertyChangeHandler(handler)
+{code}

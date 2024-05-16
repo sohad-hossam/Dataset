@@ -1,0 +1,2 @@
+Allow Errai to bootstrap without an ErraiService.properties
+After the latest changes to the properties default values, ErraiService.properties is in many cases just an empty file. Errai should be able to bootstrap without the file present.

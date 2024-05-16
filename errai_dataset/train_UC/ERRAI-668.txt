@@ -1,0 +1,2 @@
+Support whitelisting of client packages and classes in Errai IOC
+The blacklisting feature is great, but it may become tedious to blacklist all unnecessary classes in a big project with a lot of dependencies. Add whitelisting feature in addition to the blacklisting.

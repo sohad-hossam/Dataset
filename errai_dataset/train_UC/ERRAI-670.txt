@@ -1,0 +1,2 @@
+Make data-field attributes in html templates optional
+We should fall back to the id attribute in case a data-field attribute can't be found and to the class attribute when neither a data-field nor an id attribute is present.

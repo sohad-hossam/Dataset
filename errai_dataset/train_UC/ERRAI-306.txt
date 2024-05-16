@@ -1,0 +1,2 @@
+LinkedHashMap is deserialized as a HashMap, breaking the LinkedHashMap contract.
+When serializing {{LinkedHashMap}}, the marshalling system aliases to the default {{List}} marshaller, which in turn, uses {{java.util.HashMap}} in order to deserialize. This means that iteration ordering is not preserved when marshalling LinkedHashMaps with Errai Marshalling.

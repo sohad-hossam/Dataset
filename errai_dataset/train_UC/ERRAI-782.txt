@@ -1,0 +1,7 @@
+ContextualProviderInjector NPE for classes without generic
+In org.jboss.errai.ioc.rebind.ioc.injector.basic.ContextualProviderInjector
+the variable pType declared in line 54 is null after the switch if the class which should be injected by an ContextualTypeProvider has no generic types.
+
+Don't know if the bug is a missing null check or the MetaField class that returns null for getParameterizedType(). Because the getParameterizedType method has no javadoc.
+
+The class java doc of org.jboss.errai.ioc.client.api.ContextualTypeProvider says that it gives the class types if they are present so i assumed that it can handle classes without them.

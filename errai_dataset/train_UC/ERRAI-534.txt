@@ -1,0 +1,10 @@
+Clean up netty dependencies
+Presently, errai-bus depends on two different netty versions:
+
+org.jboss.netty:netty:3.2.7.Final  <-- contains org.jboss.netty.**
+
+and
+
+org.jboss.errai.io.netty:netty:4.0.0.Alpha1.errai.r1  <-- contains io.netty.**
+
+We should depend on at most one netty, and the one we do depend on needs to be aligned with the current version of EAP we're targeting the current release of Errai against.

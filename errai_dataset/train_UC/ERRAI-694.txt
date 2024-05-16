@@ -1,0 +1,2 @@
+Make gwt-maven configuration responsive to warSourceDirectory
+When running the Setup command, the hostedWebapp configuration in the gwt-maven plugin and maven-clean-plugin still use "src/main/webapp". These values should be responsive to the value of the warSourceDirectory.

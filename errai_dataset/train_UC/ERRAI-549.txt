@@ -1,0 +1,16 @@
+example "errai-jpa-demo-grocery-list" - NullPointerException on the page "ItemListPage"
+When some item with the empty "name" is created and then the page "ItemListPage" is rendered the NullPointerException is thrown and neither the form nor the list is rendered.
+
+What steps will reproduce the problem?
+1. build and deploy the example "errai-jpa-demo-grocery-list" (EAP 6.1, profile: jboss7)
+2. go to the page "ItemListPage" (click on Items or click on the "Try The Demo!" button)
+3. Create an item with the empty "name"
+4. Refresh the page
+
+The cause:
+In Java class "ItemForm" the method "setupSuggestions" tries to add null value to the MultiWordSuggestOracle which throws the NullPointerException
+
+Possible solutions:
+1. Add some validation to the form - not to allow to save an item with the empty "name".
+2. In the Java class "ItemForm" in the method "setupSuggestions" replace "iso.add(i.getName());" with something like "iso.add(i.getName() == null ? "" : i.getName());"
+3. Change the sql query which retrieve the list of items.

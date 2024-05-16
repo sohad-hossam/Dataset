@@ -1,0 +1,4 @@
+fix jpa-demo-basic
+    1) fix wildfly build
+    2) fix dev mode
+    3) update org.mortbay.jetty to org.eclipse.jetty

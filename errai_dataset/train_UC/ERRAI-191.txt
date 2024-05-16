@@ -1,0 +1,39 @@
+Incorrect cross-referencing when marshalling 
+When marshalling, the fields of a class can become improperly cross-referenced (i.e. cross-referenced when they should not be).  Here is a test case to illustrate what I am talking about:
+
+Take this class:
+{code}
+@Getter
+@Setter
+@EqualsAndHashCode
+@Portable
+public final class Koron {
+  @Nonnull private List<Integer> someList = new ArrayList<Integer>();
+  @Nonnull private List<Integer> sameList = someList;
+  @Nonnull private List<Integer> otherList = new ArrayList<Integer>();
+}
+{code}
+
+and serialize a default constructed (i.e. empty lists) instance like so:
+{code}
+final Koron k = new Koron();
+MessageBuilder.createConversation(message)
+  .subjectProvided()
+  .withValue(k)
+  .done().reply();
+{code}
+
+The resulting JSON over the wire looks like this:
+{code}
+[{"Value":{"__EncodedType":"Koron",
+           "__ObjectID":"1",
+           "someList":{"__EncodedType":"java.util.ArrayList","__ObjectID":"2","__Value":[]},
+           "sameList":{"__EncodedType":"java.util.ArrayList","__ObjectID":"2"},
+           "otherList":{"__EncodedType":"java.util.ArrayList","__ObjectID":"2"}},
+  "ToSubject":"KoronService:RespondTo:2"}]
+{code}
+
+The cross-reference of 'sameList' to 'someList' is correct, as they are indeed the same object.
+
+The cross-reference of 'otherList' to 'someList' is *not* correct, as they should be different list instances.
+

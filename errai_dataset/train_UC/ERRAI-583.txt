@@ -1,0 +1,4 @@
+Use flow panel rather than VerticalPanel  in ListWidget
+Please use flow planel, rather than VerticalPanel in the ListWidget
+
+See http://mechanitis.blogspot.dk/2011/01/gwt-why-verticalpanel-is-evil.html

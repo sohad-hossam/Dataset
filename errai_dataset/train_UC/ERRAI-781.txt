@@ -1,0 +1,5 @@
+weld-integration uses client code
+Weld integration class errai-cdi/weld-integration/src/main/java/org/jboss/errai/cdi/server/CDIExtensionPoints imports client class errai-cdi/errai-cdi-client/src/main/java/org/jboss/errai/enterprise/client/cdi/internal/ObserverModel
+
+Server code should never import client code.
+ObserverModel should move to a "shared" package.

@@ -1,0 +1,2 @@
+Server-side marshalling generation fails when creating multiple portable types with private constructors.
+None

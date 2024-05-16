@@ -1,0 +1,2 @@
+Make javax.ws.rs.core.Response work on the client
+javax.ws.rs.core.Response is not GWT-translatable. We could provide an override to support getting the response code and entity.

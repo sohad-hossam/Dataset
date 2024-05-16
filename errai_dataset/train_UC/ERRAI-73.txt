@@ -1,0 +1,2 @@
+WSGrid -> setColumnWidth has a hosted mode error
+In the hosted mode (eclipse),  there is an array list index out of bounds exception.

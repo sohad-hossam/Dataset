@@ -1,0 +1,23 @@
+IOCBeanManager doesn't find concrete classes extending Abstract
+Unable to look up concrete types from parent abstract types in the bean manager. For instance:
+
+{code}
+interface Activity {
+...
+} 
+
+public abstract class AbstractMyActivity implements Activity {
+...
+}
+
+@Dependent
+public class MyActivityImpl extends AbstractMyActivity {
+...
+}
+{code}
+
+And looking up with the following fails:
+
+{code}
+Collection<IOCBeanDef> beans = iocBeanManager.lookupBeans( Activity.class );
+{code}

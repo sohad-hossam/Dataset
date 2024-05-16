@@ -1,0 +1,2 @@
+NullPointerException in JettyContinuationsServlet
+In case a queue instance cannot be found for the current session, JettyContinuationsServlet fails with a NPE.

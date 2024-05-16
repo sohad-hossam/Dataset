@@ -1,0 +1,2 @@
+Exclude client package from CDI annotation scan
+otherwise weld tries to invoke on some client (GWT) beans, because they share annotations (like @Observes)

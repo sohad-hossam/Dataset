@@ -1,0 +1,201 @@
+Tomcat undeploy/redeploy does not work
+Build stockdemo app (mvn3 clean install -P tomcat).
+Using Timcat manager app:
+- deploy stock demo war
+- open stock demo app .. works fine
+- undeploy stock demo app
+- deploy stock demo app .. application no longer works
+
+Here is the Tomcat console log:
+
+Using CATALINA_BASE:   /home/davidg/JSF/apache-tomcat-7.0.23
+Using CATALINA_HOME:   /home/davidg/JSF/apache-tomcat-7.0.23
+Using CATALINA_TMPDIR: /home/davidg/JSF/apache-tomcat-7.0.23/temp
+Using JRE_HOME:        /usr
+Using CLASSPATH:       /home/davidg/JSF/apache-tomcat-7.0.23/bin/bootstrap.jar:/home/davidg/JSF/apache-tomcat-7.0.23/bin/tomcat-juli.jar
+Feb 13, 2012 10:20:55 AM org.apache.catalina.core.AprLifecycleListener init
+INFO: The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: /usr/lib/jvm/java-6-openjdk/jre/lib/amd64/server:/usr/lib/jvm/java-6-openjdk/jre/lib/amd64:/usr/lib/jvm/java-6-openjdk/jre/../lib/amd64:/usr/java/packages/lib/amd64:/usr/lib/jni:/lib:/usr/lib
+Feb 13, 2012 10:20:55 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["http-bio-8080"]
+Feb 13, 2012 10:20:55 AM org.apache.coyote.AbstractProtocol init
+INFO: Initializing ProtocolHandler ["ajp-bio-8009"]
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.Catalina load
+INFO: Initialization processed in 1155 ms
+Feb 13, 2012 10:20:56 AM org.apache.catalina.core.StandardService startInternal
+INFO: Starting service Catalina
+Feb 13, 2012 10:20:56 AM org.apache.catalina.core.StandardEngine startInternal
+INFO: Starting Servlet Engine: Apache Tomcat/7.0.23
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/davidg/JSF/apache-tomcat-7.0.23/webapps/host-manager
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/davidg/JSF/apache-tomcat-7.0.23/webapps/ROOT
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/davidg/JSF/apache-tomcat-7.0.23/webapps/docs
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.HostConfig deployDirectory
+INFO: Deploying web application directory /home/davidg/JSF/apache-tomcat-7.0.23/webapps/manager
+Feb 13, 2012 10:20:56 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["http-bio-8080"]
+Feb 13, 2012 10:20:56 AM org.apache.coyote.AbstractProtocol start
+INFO: Starting ProtocolHandler ["ajp-bio-8009"]
+Feb 13, 2012 10:20:56 AM org.apache.catalina.startup.Catalina start
+INFO: Server startup in 883 ms
+Feb 13, 2012 10:23:46 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo.war
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/classes/
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-bus-2.0-20120212.090558-148.jar
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-marshalling-2.0-20120212.085139-147.jar
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-tools-2.0-20120212.090636-141.jar
+INFO [Reflections] Reflections took 759 ms to scan 4 urls, producing 209 keys and 688 values 
+INFO [Reflections] Reflections took 290 ms to scan 4 urls, producing 209 keys and 688 values 
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [WebSocketServer] started web socket server on port: 8085
+INFO [ErraiMarshalling] searching for marshaller class: org.jboss.errai.marshalling.server.impl.ServerMarshallingFactoryImpl
+WARN [ErraiMarshalling] could not locate marshaller class. will attempt dynamic generation.
+INFO [MarshallerGeneratorFactory] nothing has changed. using cached marshaller factory class.
+INFO [WorkerFactory] stopping workering pool.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [com.google.inject.internal.util.$Finalizer] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Thread-3] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-26-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:00 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@678a270a]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@1f0936a1]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:01 AM org.apache.catalina.startup.HostConfig checkResources
+INFO: Undeploying context [/errai-bus-demos-stockdemo]
+Feb 13, 2012 10:24:12 AM org.apache.catalina.startup.HostConfig deployWAR
+INFO: Deploying web application archive /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo.war
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/classes/
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-bus-2.0-20120212.090558-148.jar
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-marshalling-2.0-20120212.085139-147.jar
+INFO [PackagingUtil] identifying deployment type for uri: /home/davidg/JSF/apache-tomcat-7.0.23/webapps/errai-bus-demos-stockdemo/WEB-INF/lib/errai-tools-2.0-20120212.090636-141.jar
+INFO [Reflections] Reflections took 516 ms to scan 4 urls, producing 209 keys and 688 values 
+INFO [Reflections] Reflections took 263 ms to scan 4 urls, producing 209 keys and 688 values 
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [ServerMessageBusImpl] [experimental] buffer status [freebytes: 134217728 (100.0%) tail rng: 0; actv tails: 0]
+INFO [ServerMessageBusImpl] [experimental] buffer status [freebytes: 134217728 (100.0%) tail rng: 0; actv tails: 0]
+INFO [ServerMessageBusImpl] [experimental] buffer status [freebytes: 134217728 (100.0%) tail rng: 0; actv tails: 0]
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [OrderedBootstrap] Bootstrap Errai
+INFO [OrderedBootstrap] Working directory: /home/davidg/JSF/apache-tomcat-7.0.23/bin
+INFO [DefaultComponents] using dispatcher implementation: org.jboss.errai.bus.server.AsyncDispatcher
+INFO [WorkerFactory] initializing async worker pools (poolSize: 2; workerTimeout: 30000)
+INFO [WorkerFactory] starting worker pool.
+INFO [DefaultComponents] using session provider implementation: org.jboss.errai.bus.server.HttpSessionProvider
+INFO [LoadExtensions] searching for Errai extensions ...
+INFO [LoadExtensions] found extension org.jboss.errai.tools.monitoring.MonitorExtension
+INFO [BootstrapContext] Running deferred bootstrap tasks ...
+INFO [OrderedBootstrap] Initialization complete
+INFO [ServerMessageBusImpl] [experimental] buffer status [freebytes: 134217728 (100.0%) tail rng: 0; actv tails: 0]
+^CFeb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol pause
+INFO: Pausing ProtocolHandler ["http-bio-8080"]
+Feb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol pause
+INFO: Pausing ProtocolHandler ["ajp-bio-8009"]
+Feb 13, 2012 10:24:51 AM org.apache.catalina.core.StandardService stopInternal
+INFO: Stopping service Catalina
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [com.google.inject.internal.util.$Finalizer] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-32-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Thread-4] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [ExecutorPoolWorker] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-35-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-38-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-41-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [pool-44-thread-1] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader clearReferencesThreads
+SEVERE: The web application [/errai-bus-demos-stockdemo] appears to have started a thread named [Dispatch Worker Thread] but has failed to stop it. This is very likely to create a memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@13af9d1c]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@6e73a35c]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@69ea25aa]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@b4ef239]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@6c0081fb]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@1555bd22]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@2ff40e1f]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@3fcb2dd1]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.catalina.loader.WebappClassLoader checkThreadLocalMapForLeaks
+SEVERE: The web application [/errai-bus-demos-stockdemo] created a ThreadLocal with key of type [com.google.inject.internal.InjectorImpl$1] (value [com.google.inject.internal.InjectorImpl$1@342d150f]) and a value of type [java.lang.Object[]] (value [[Ljava.lang.Object;@7bc1a68b]) but failed to remove it when the web application was stopped. Threads are going to be renewed over time to try and avoid a probable memory leak.
+Feb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol stop
+INFO: Stopping ProtocolHandler ["http-bio-8080"]
+Feb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol stop
+INFO: Stopping ProtocolHandler ["ajp-bio-8009"]
+Feb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol destroy
+INFO: Destroying ProtocolHandler ["http-bio-8080"]
+Feb 13, 2012 10:24:51 AM org.apache.coyote.AbstractProtocol destroy
+INFO: Destroying ProtocolHandler ["ajp-bio-8009"]
+

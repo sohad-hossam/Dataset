@@ -1,0 +1,22 @@
+Create build in widget types for Table ListWidgets
+It is inconvenient and not exactly intuitive to have to override a constructor and pass in HTMLPanel in order to change the DOM element type of the underlying ListWidget panel element. 
+
+{code}
+@Templated
+public class ComplaintListWidget extends ListWidget<UserComplaint, ComplaintWidget>
+{
+   public ComplaintListWidget()
+   {}
+
+   public ComplaintListWidget(String type)
+   {
+      super(new HTMLPanel(type, ""));
+   }
+
+   @Override
+   protected Class<ComplaintWidget> getItemWidgetType()
+   {
+      return ComplaintWidget.class;
+   }
+}
+{code}

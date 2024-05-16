@@ -1,0 +1,7 @@
+Provide a mechanism to handle init-failure on client
+If errai fails to initialize, e.g., does not complete all the handshaking with the server, etc, in a timely fashion, it currently just logs a message to the browser's web-console (see InitVotes.initTimeout), and then hangs.
+
+It would be useful if errai would notify the client code of the failure, so that the client code could handle it as it sees fit.  Perhaps the client code could register a callback, or --- in the IOC formulation --- supply a particularly annotated method which will be called in this situation.
+
+(Note that in implementing this feature, it is important that, when errai tells the client code of initialization failure, that it has shutdown its initialization attempts.  I recall, but am not certain, that in current (say, 2.0.0) code, if InitVotes times out and gives up, handshaking calls to the server may still be outstanding, and their callbacks will still be executed if the server eventually responds, leaving the client in a half-initialized broken state.)
+

@@ -1,0 +1,4 @@
+Async Bean Manager gets NPE with pseudo-dependent scoped @IOCProvider
+When the async bean manager is used the AsyncTypeProvider gets an NPE while trying to load the CreationalCallbackVar. It appears somewhere earlier the InstanceVar is set instead (so there is not a proper check on whether the provider is dependent or a singleton).
+
+This can be reproduced by setting the LocalStorageHandlerProvider in Errai Security to not have an explicit scope and then running the Errai Security Demo with the async bean manager turned on.

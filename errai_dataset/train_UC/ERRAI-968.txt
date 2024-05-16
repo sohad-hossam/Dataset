@@ -1,0 +1,2 @@
+Support Errai UI quick event handlers using native @JsType events
+Currently Errai UI quick event handlers (using @EventHandler) use event types from gwt-user. There should be an annotation for defining a native @JsType as an event wrapper (similarly to @Element for defining element wrappers) so that Errai UI components can have quick event handlers using purely native browser UI.

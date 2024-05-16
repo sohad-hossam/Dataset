@@ -1,0 +1,31 @@
+Ability to batch/chain rpc service requests to server
+One of the nice features of the RequestFactory framework is to chain requests together before sending them to the server.  The use cases for this type of requirement are numerous.  For example, a "page" can be provided modules which are each responsible for loading their own component.  A Single request can be passed into the module and the module can append its service calls.  The entire request is either passed/failed together.  
+
+Advantages:
+* Keeps the Service API clean and simple, rather than creating specific methods/response beans to handle the loading requirements for a particular page view.  
+* Moves Errai further along towards erasing the line between client and server (I believe).  This is a more natural way of programming, and makes the asynchronous nature less of a burden
+
+Workaround:
+* Create specific method calls for complex loading requirements OR
+* chain the requests, with each subsequent request only occurring once the first one is finished. This is more unnatural for the developer.
+
+I've put together a sample, which is purely for informational purposes of how something like this could look:
+
+{code}
+public class ChainedCaller {
+
+	@Inject BatchCaller batchCaller;
+
+	@Inject Caller<Service1> service1;
+	@Inject Caller<Service2> service2;
+	
+	public ChainedCaller() {
+
+		
+		batchCaller.batch(service1.call( responseHandler1 ).method1() );
+		batchCaller.batch(service2.call( responseHandler2 ).method2() );
+		
+		batchCaller.callBatch( responsehandler3 );
+	}
+}
+{code}

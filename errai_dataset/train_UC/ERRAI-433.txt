@@ -1,0 +1,6 @@
+Errai throws NPE for null @QueryParamater
+If I have a JAX-RS method like
+
+public SomeObject doSomething(@QueryParam("version") final Integer version);
+
+and I set version to null, a NPE will be thrown when calling the method from the client.

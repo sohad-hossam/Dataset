@@ -1,0 +1,2 @@
+Reachability analysis fails for subtypes in cases where the subtype is only referenced through an interface.
+None

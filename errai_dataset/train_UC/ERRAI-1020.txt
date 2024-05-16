@@ -1,0 +1,18 @@
+Unable to build and deploy errai-cdi-demo-mobile using wildfly profile
+mvn clean package -DskipTests -Pwildfly
+leads to:
+
+[ERROR]     'dependencies.dependency.version' for org.mortbay.jetty:jetty-plus:jar is missing. @ line 467, column 21
+[ERROR]     'dependencies.dependency.version' for org.mortbay.jetty:jetty-naming:jar is missing. @ line 473, column 21
+
+and on deploy:
+
+standalone@localhost:9990 /] deploy ~/workspace/errai/errai-demos/errai-cdi-demo-mobile/target/errai-cdi-demo-mobile.war
+{"WFLYCTL0062: Composite operation failed and was rolled back. Steps that failed:" => {"Operation step-2" => {"WFLYCTL0080: Failed services" => {"jboss.undertow.deployment.default-server.default-host./errai-cdi-demo-mobile" => "org.jboss.msc.service.StartException in service jboss.undertow.deployment.default-server.default-host./errai-cdi-demo-mobile: java.lang.RuntimeException: failed to load class metadata
+    Caused by: java.lang.RuntimeException: failed to load class metadata
+    Caused by: java.util.concurrent.ExecutionException: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NoClassDefFoundError: javassist/bytecode/ClassFile
+    Caused by: java.lang.RuntimeException: java.util.concurrent.ExecutionException: java.lang.NoClassDefFoundError: javassist/bytecode/ClassFile
+    Caused by: java.util.concurrent.ExecutionException: java.lang.NoClassDefFoundError: javassist/bytecode/ClassFile
+    Caused by: java.lang.NoClassDefFoundError: javassist/bytecode/ClassFile
+    Caused by: java.lang.ClassNotFoundException: javassist.bytecode.ClassFile from [Module \"deployment.errai-cdi-demo-mobile.war:main\" from Service Module Loader]"}}}}
+

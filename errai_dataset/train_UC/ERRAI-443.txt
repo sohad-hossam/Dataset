@@ -1,0 +1,33 @@
+demarshalling of JSON array (in 'Jackson mode') fails when expected type is unkown
+(See comment - this is a duplicate/resolved)
+
+I have JSON which contains a JSON array ("data") as one of the field values:  
+
+{"response":{
+  "status" : 0,
+  "data" : [ {
+    "username" : "test",
+    "channel" : "session-1"
+  } ],
+  "queueStatus" : 0,
+  "dataSource" : "users",
+  "operationType" : "fetch"
+}}
+
+I created a class to demarshall this JSON
+
+class ResponseWrapper { 
+  class Response { 
+     List<User> data;
+  }
+
+  Response response;
+}
+
+and during demarshalling it converts the JSON into "errai JSON"
+
+ {"response":{"status":{"^ObjectID":"3", "^NumVal":0}, "data":{"^ObjectID":"4", "^Value":[{"username":"test", "channel":"session-1", "^ObjectID":"5"}]}, "queueStatus":{"^ObjectID":"6", "^NumVal":0}, "dataSource":"users", "operationType":"fetch", "^ObjectID":"2"}, "^ObjectID":"1"}
+
+which then blows up (in AbstractBackReferencingMarshaller:71) when it tries to get the value of "data" as an object (since it is a JSONArray)
+
+I don't understand why a list/array demarshaller has not been used - I suspect the Jackson JSON->Errai JSON code may not handle this case.

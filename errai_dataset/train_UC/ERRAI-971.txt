@@ -1,0 +1,4 @@
+Upgrade IP BOM to 7.0.0.CR5
+One more (non-backwards compatible) IP BOM upgrade. Hopefully, this should be the last hard one. IP BOM 7.0.0.CR5 brings JPA 2.1 + Hibernate 5.x (upgraded from JPA 2.0 + Hibernate 4.x).
+
+I did the initial upgrade in my feature branch:  https://github.com/psiroky/errai/tree/ip-bom-7.0.0.CR5. Basic build ({{mvn clean install}}) works, but integration tests are failing in {{errai-jpa}} module. I was very briefly looking at those, but could not find quick and easy fix. My Errai knowledge is close to zero so it would be very time consuming for me trying to figure our what is going on and fix the tests. [~mbarkley] or [~csa] could you please take a look at that when you have some time?

@@ -1,0 +1,6 @@
+Build/Compilation hangs when running with only one CPU
+Based on this thread: https://community.jboss.org/message/845380?et=watches.email.thread#845380
+I've manage to reproduce the issue installing VirtualBox with Ubuntu 13.04
+The errai compilation hangs when Virtual Box has only one CPU enabled.
+It doesn't matter the JDK or Maven Version that you use, it's only related with the amount of CPUs enabled. 
+I've tested the issues with three different applications which involve ERRAI compilation, all with the same results.

@@ -1,0 +1,2 @@
+Allow for model properties to be updated on events other than GWT's ValueChangeEvent
+Currently, model properties bound to Widgets only get updated when a ValueChangeEvent is fired. For text-based Widgets, this means that the property value is updated only once the Widget has lost focus. It would be ideal for the property to be updated on every change, i.e. when a key event is fired.

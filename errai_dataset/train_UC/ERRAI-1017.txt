@@ -1,0 +1,8 @@
+Duplicated history entries on navigation initialization with pushState support enabled
+[HistoryImplPushState.init()|https://github.com/errai/errai/blob/3.2/errai-navigation/src/main/java/org/jboss/errai/ui/nav/client/local/pushstate/HistoryImplPushState.java#L61] creates new entry in browser's history on host-page bootstraping.
+
+For example, if I'll open url http://localhost/pageName in new browser's window, then history stack will contain two entries:
+2: http://localhost/pageName, historyToken=/pageName
+1: http://localhost/pageName, historyToken=/pageName
+
+This caused by calling nativeUpdate (and native pushState) in init method. Instead of native pushState, navigation initialization logic should call native replaceState on initialization

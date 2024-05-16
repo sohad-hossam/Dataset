@@ -1,0 +1,3 @@
+Add an integrated log message console 
+Currently only exception are logged. We need an integrated log console that display messages across log levels which users can refer to.
+The current error handling is not appropriate.

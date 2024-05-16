@@ -1,0 +1,5 @@
+Problem with lookup of @Named @Singleton producer beans. 
+As described in this forum post: https://community.jboss.org/thread/222717?tstart=0
+
+The problem is caused by the QualifierEqualityFactory not containing a comparison strategy for @Named.
+

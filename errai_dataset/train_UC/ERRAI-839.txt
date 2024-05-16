@@ -1,0 +1,37 @@
+Class level validation does not execute in some cases
+Class level class validation does not occur unless there is at least one field level validation annotation on the class.
+{code}
+
+@Portable
+@Bindable
+@ApplicationScoped
+@PropertySearchParamsValid
+public class PropertySearchParams extends PagingInfo {
+    // -----------------------------------------------------------------------------
+    // Instance Variables
+    // -----------------------------------------------------------------------------
+    private String addressOrPropertyKey;
+    private Date dateFrom;
+    private Date dateTo;
+    private String agencyText;
+    private String agentText;
+    private String phoneText;
+    private String supplierListingKey;
+    private String supplier;
+    
+    // This is required to force validation at the class level, otherwise class level validation is omitted on the client side
+    @NotNull private transient Boolean forceClassLevelValidation = true;
+
+  ...
+}
+
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.TYPE)
+@Constraint(validatedBy = PropertySearchParamsValidator.class)
+public @interface PropertySearchParamsValid {
+    String message() default "";
+    Class<?>[] groups() default { };
+    Class<? extends Payload>[] payload() default { };
+}
+
+{code}

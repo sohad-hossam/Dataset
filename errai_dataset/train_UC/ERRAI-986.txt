@@ -1,0 +1,20 @@
+Memory leak in ServerMessageBusImpl on remoteSubscriptions
+When ClientMessageBusImpl does re-init in case of SessionExpired by server, the getAdvertisableSubjects() method returns strange subjects.
+For example many pairs of:
+com.example.Service:RPC.unsubscribe:java.lang.String:java.lang.String::71:RespondTo:RPC
+and
+com.example.Service:RPC.unsubscribe:java.lang.String:java.lang.String::71:Errors:RPC
+or
+com.example.Service:RPC.subscribe:java.lang.String:com.example.Message::72:RespondTo:RPC
+and
+com.example.Service:RPC.subscribe:java.lang.String:com.example.Message::72:Errors:RPC
+
+As a consequence, the connection phase request will contain in the RemoteServices field all these subjects so they will end up on the server side in the remoteSubscriptions map which will increase indefinitely because of the auto-increment 71, 72 above.
+
+Basically, the client puts in the RemoteServices list all "messages" which remained unanswered because of SessionExpire by the server.
+
+Example of re-init connection phase RemoteServices list:
+
+"ClientBusErrors,ClientBus,cdi.event:ClientDispatcher,DTReceiver,BroadcastStopReceiver,CommandServiceReceiver,MessagingTopicReceiver,ServerControlReceiver,com.example.service.ChService,com.example.MessagingService:RPC.unsubscribe:java.lang.String:java.lang.String::71:RespondTo:RPC,com.example.MessagingService:RPC.unsubscribe:java.lang.String:java.lang.String::71:Errors:RPC,com.example.MessagingService:RPC.subscribe:java.lang.String:com.example.shared.MessageSelector::72:RespondTo:RPC,com.example.MessagingService:RPC.subscribe:java.lang.String:com.example.shared.MessageSelector::72:Errors:RPC,com.example.MessagingService:RPC.unsubscribe:java.lang.String:java.lang.String::73:RespondTo:RPC,com.example.MessagingService:RPC.unsubscribe:java.lang.String:java.lang.String::73:Errors:RPC,com.example.MessagingService:RPC.subscribe:java.lang.String:com.example.shared.MessageSelector::74:RespondTo:RPC,com.example.MessagingService:RPC.subscribe:java.lang.String:com.example.shared.MessageSelector::74:Errors:RPC,com.example.CommandService:RPC.serviceRequestAsync:com.example.command.CommandRequest::87:RespondTo:RPC,com.example.CommandService:RPC.serviceRequestAsync:com.example.command.CommandRequest::87:Errors:RPC,com.example.CommandService:RPC.serviceRequestAsync:com.example.command.CommandRequest::88:RespondTo:RPC,com.example.CommandService:RPC.serviceRequestAsync:com.example.command.CommandRequest::88:Errors:RPC,SSEAgent"
+
+Moreover, the subscriptions map on the client side will also grow indefinitely in such case.

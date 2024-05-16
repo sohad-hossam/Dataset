@@ -1,0 +1,2 @@
+Create Native TransitionAnchor
+The current TransitionAnchor in Errai Navigation is a widget. There should be a replacement that wraps a native element.

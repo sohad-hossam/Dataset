@@ -1,0 +1,12 @@
+Support marshalling of types with abstract or interface fields
+Errai should be capable of marshalling portable types that have abstract or interface fields as long as the runtime types are marked as portable e.g.
+
+{code}
+@Portable
+public class MyPortable {
+
+  private MyInterface field1;
+
+  private MyAbstractClass field2;
+}
+{code}

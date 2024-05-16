@@ -1,0 +1,2 @@
+@AfterInitialization does not seem to fire in Cordova-based apps
+An @AfterInitialization-annotated method does not fire when run from a Cordova-based app.

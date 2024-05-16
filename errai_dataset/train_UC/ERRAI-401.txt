@@ -1,0 +1,20 @@
+CDI events fired on the client are implicitly conversational when received on the server
+CDI events fired on the client are implicitly conversational when received on the server (no matter if @Conversational is present on the event type or not). If the server (re-)fires the event it will only be sent to the one client which originally fired the event but not to all clients (broadcasting the event is not possible).
+
+Example including workaround:
+
+{code}
+@ApplicationScoped
+public class OrientationService {
+
+  @Inject
+  private Event<Orientation> orientationEvent;
+
+  public void onOrientationChangeFromClient(@Observes @FromClient Orientation orientation) {
+    // event will only be visible to the client that originally fired the event
+    orientationEvent.fire(orientation);
+    // copied event will be broadcasted to all clients
+    orientationEvent.fire(new Orientation(orientation));
+  }
+}
+{code}

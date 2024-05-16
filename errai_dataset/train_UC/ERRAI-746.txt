@@ -1,0 +1,12 @@
+Errai marshalling causes compile errors with latest GWT 2.7 SNAPSHOT
+Compiling an application using errai-marshalling with the latest GWT 2.7 SNAPSHOT causes the follwing compilation errors when compiling with -strict flag:
+
+   Validating units:
+      [ERROR] Errors in 'org/jboss/errai/marshalling/client/util/ArraysUtil.java'
+         [ERROR] Line 103: Referencing method 'com.google.gwt.lang.Array.initDims([Ljava/lang/Class;[Lcom/google/gwt/core/client/JavaScriptObject;[I[III)': unable to resolve method in class 'com.google.gwt.lang.Array'
+         [ERROR] Line 115: Referencing field 'java.lang.Class.seedId': unable to resolve field in class 'java.lang.Class'
+         [ERROR] Line 122: Referencing method 'com.google.gwt.lang.Array.initValues(Ljava/lang/Class;Lcom/google/gwt/core/client/JavaScriptObject;ILcom/google/gwt/lang/Array;)': unable to resolve method in class 'com.google.gwt.lang.Array'
+   [ERROR] Aborting compile due to errors in some input files
+:compileGwt FAILED
+
+Compiling with 2.5.1 and 2.6.1 works without errors.

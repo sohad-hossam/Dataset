@@ -1,0 +1,4 @@
+Errai UI should provide support for interacting natively with HTML forms
+It is currently difficult to do things like create an HTML Login form that preserves the user's username and password via native browser "Save this password?" feature. This is due to the poor Form support in GWT.
+
+We could override the form.submit and preventDefault() in order to allow the browser to do its field persistence, but still fire and handle the submission with errai protocols. 

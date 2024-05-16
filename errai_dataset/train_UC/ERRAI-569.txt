@@ -1,0 +1,4 @@
+Errors on errai-tools while building fresh copy of 3.0-SNAPSHOT - problem in errai-bus pom packaging.
+Fresh clone from git. Tried to build with command (from build info):
+mvn clean install -s settings.xml
+Failed on building errai-tools because there was no errai-bus JAR.

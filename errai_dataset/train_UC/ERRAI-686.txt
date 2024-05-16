@@ -1,0 +1,29 @@
+Improve error message when errai.jboss.home is not set correctly
+To reproduce this issue:
+
+1. In a fresh copy of the errai-tutorial project, set errai.jboss.home to a path where no app server is installed (for example, /tmp/foo)
+2. Launch Dev Mode from the command line (mvn gwt:run)
+
+You should see the following output in the terminal:
+
+{code}
+[INFO] --- gwt-maven-plugin:2.5.1:run (default-cli) @ uberfire-poc ---
+[WARNING] Don't declare gwt-dev as a project dependency. This may introduce complex dependency conflicts
+[INFO] create exploded Jetty webapp in /Users/jfuerth/git/uberfire-poc/src/main/webapp
+[ERROR] Unable to start embedded HTTP server
+[ERROR] com.google.gwt.core.ext.UnableToCompleteException: (see previous log entries)
+[ERROR] 	at org.jboss.errai.cdi.server.gwt.JBossLauncher.copyConfigFile(JBossLauncher.java:139)
+[ERROR] 	at org.jboss.errai.cdi.server.gwt.JBossLauncher.start(JBossLauncher.java:66)
+[ERROR] 	at com.google.gwt.dev.DevMode.doStartUpServer(DevMode.java:509)
+[ERROR] 	at com.google.gwt.dev.DevModeBase.startUp(DevModeBase.java:1093)
+[ERROR] 	at com.google.gwt.dev.DevModeBase.run(DevModeBase.java:836)
+[ERROR] 	at com.google.gwt.dev.DevMode.main(DevMode.java:311)
+{code}
+
+And in the Web Server tab of the Dev Mode GUI:
+
+{code}
+00:00:00.030  [ERROR] Config file /ProjectThunderLips/CORS_ORIGINAL/wildfly/build/target/jboss-as-8.0.0.Alpha1-SNAPSHOT/standalone/configuration/standalone-full.xml does not exit. It must be created or another one must be specified with the errai.jboss.config.file JVM property.
+{code}
+
+It would be better to validate that the errai.jboss.home directory exists and contains the expected subdirectories (maybe standalone and standalone/conf) and print a message explaining how to set the errai.jboss.home variable in the pom.xml and on the commandline.

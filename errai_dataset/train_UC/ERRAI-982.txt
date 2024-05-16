@@ -1,0 +1,6 @@
+navigateBackOrToPage should keep  page state
+SecurityContextImpl does not cache page state 
+so any redirection via navigateBackOrToPage cannot
+keep the state.
+
+github issue:[ https://github.com/errai/errai/issues/188]

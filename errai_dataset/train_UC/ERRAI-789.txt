@@ -1,0 +1,2 @@
+Translation bundle scanner fails for directories that contain spaces
+We need to decode the scannable URLs we get from the classloader otherwise special characters in file paths will cause the scanner to fail.

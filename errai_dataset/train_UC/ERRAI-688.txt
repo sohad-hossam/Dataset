@@ -1,0 +1,13 @@
+Add a declarative API for data sync
+A declarative API will make it easier to get started with Errai's data sync module. The API should also support automatic continuous updates as well as abstract the implementation details (polling vs. incremental push updates).
+
+Example of how the API could look like:
+{code}
+@Sync(query = "allComplaints", params = { @SyncParam(name = "id", val = "{id}"), 
+    @SyncParam(name = "name", val = "{name}") })
+private void onSyncResponse(SyncResponses responses) {
+  ...
+}
+{code}
+
+The @SyncParam values refer to fields of the class that declares the @Sync method or to a literal value (val = 123).

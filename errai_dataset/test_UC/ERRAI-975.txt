@@ -1,0 +1,4 @@
+Remove temporary client-side replacements of Optional, Function, Supplier, etc.
+Before GWT 2.8.0-rc1 was released, types mimicking some Java 8 API were added such as Optional, Function, BiFunction, and Supplier.
+
+These types should be removed and all usage replaced the Java 8 classes.

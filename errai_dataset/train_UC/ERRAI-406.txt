@@ -1,0 +1,8 @@
+Ability for the databinder to return an array (object) that contains the paths that are bound in the object
+It would be useful in a variety of circumstances to know the paths that are bound by the databinder.  This something that the main GWT Editor framework does, mainly to support the RequestFactory.  It is useful to have the object graph in order to make a determination about what data is needed to support a particular view.  
+
+An Example would be:
+
+[ foo.bar.code, foo.bar.name, foo.bar.status, foo.man.firstname, foo.status]
+
+Another additional method that would be useful would be to load a widget based on a path.  For example, dataBinder.getWidget( "foo.bar.code")

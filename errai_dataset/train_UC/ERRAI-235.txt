@@ -1,0 +1,2 @@
+Log a useful message when ErraiService JNDI lookup fails in Dev Mode
+Unfortunately, the log message for this lookup failure is only visible within the bowels of the Jetty tab in the dev mode console. And even then there's no clue about how to fix it. Much better would be an error message logged to the console with instructions about telling dev mode to use org.jboss.errai.cdi.server.gwt.JettyLauncher as its "server."

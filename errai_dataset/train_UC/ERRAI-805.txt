@@ -1,0 +1,2 @@
+Errai Navigation doesn't compile with GWT 2.7
+Errai Navigation fails to compile with GWT 2.7 because DynamicHistoryImpl subclasses com.google.gwt.user.client.impl.HistoryImpl which is no longer accessible.

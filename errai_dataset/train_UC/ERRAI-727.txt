@@ -1,0 +1,2 @@
+Cleanup Page annotation (remove deprecated attribute and rename roles)
+We need to remove the deprecated startingPage attribute from the Page annotation. We should also rename the roles attribute because there is already a roles attribute in the RestrictedAccess annotation in Errai Security.

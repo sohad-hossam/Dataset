@@ -1,0 +1,24 @@
+Marshalling Fails when using Map with generics
+I have a @Portable entity that is roughly as follows:
+
+{code}
+class X {
+    List<Y> entities = new ArrayList<>();
+    HashMap<String,List<String>> map = new HashMap<>();
+}
+{code}
+
+The Marshaller is failing to Marshal the contents of the map properly.  It appears the problem is that the assumed value type in the MarshallingSession is being carried over from the first List ('Y'), so that the contents of List<String> are always marshalled as 'null'.
+
+I've traced the problem to AbstractCollectionMarshaller line 62:
+
+{code}
+  protected <T extends Collection<Object>> T marshallToCollection(final T collection,
+                                                                  final EJArray array,
+                                                                  final MarshallingSession ctx) {
+    if (array == null) return null;
+
+    final String assumedElementType = ctx.getAssumedElementType();
+{code}
+
+The assumedElementType is wrong (it is the last List that was marshalled). Is this clear? I'm guessing this has to do with the second list being contained within a map.

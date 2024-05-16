@@ -1,0 +1,52 @@
+Incorrect code generation for bindable property defined in errai.ui.bindableTypes
+{code:java}
+
+public class CarInfo {
+    // some getters and setters
+}
+
+public class CarPresenter {
+    private CarInfo car;
+
+    public void setCar(CarInfo car) {
+        this.car = car;
+    }
+
+    public CarInfo getCar() {
+        return car;
+    }
+}
+{code}
+
+CarPresenter is bindable (doesn't matter with @Bindable or through errai.ui.bindableTypes).
+
+If CarInfo class is annotated with @Bindable, then generated code is correct, and looks like:
+{code:java}
+public CarPresenterProxy(CarPresenter target, InitialState initialState) {
+        agent = new BindableProxyAgent<CarPresenter>(this, target, initialState);
+        agent.propertyTypes.put("car", new PropertyType(CarInfo.class, true, false));
+    //...
+}
+
+public void setCar(CarInfo car) {
+        if (agent.binders.containsKey("car")) {
+          car = (CarInfo) agent.binders.get("car").setModel(car, InitialState.FROM_MODEL, true);
+        }
+        CarInfo oldValue = agent.target.getCar();
+    //...
+}
+{code}
+
+If CarInfo defined in errai.ui.bindableTypes, then generated code is invalid, and looks like:
+{code:java}
+public CarPresenterProxy(CarPresenter target, InitialState initialState) {
+        agent = new BindableProxyAgent<CarPresenter>(this, target, initialState);
+        agent.propertyTypes.put("car", new PropertyType(CarInfo.class, false, false));
+    //...
+}
+
+public void setCar(CarInfo car) {
+        CarInfo oldValue = agent.target.getCar();
+    //...
+}
+{code}

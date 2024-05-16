@@ -1,0 +1,2 @@
+Less styleNameMapping treats base css classes with pseudo classes as different style classes
+Css classes with pseudo classes are treated as as separate style classes while less style mapping. 

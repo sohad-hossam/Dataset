@@ -1,0 +1,2 @@
+compiler exception when running errai on linux with diffrent users 
+errai is creating a folder e.g. /tmp/errai when running a build from two diffrent users there is a problem with the rights. deleting the folder fixes the problem. but it is somehow annoying.

@@ -1,0 +1,10 @@
+ClientMessageBus fails to start with ArithemticException (\ by zero)
+There's a chance that the client message bus fails to start. The reason for this is how the client id is calculated:
+
+{code}
+clientId = String.valueOf(com.google.gwt.user.client.Random.nextInt(99999)) 
++ "-" + (System.currentTimeMillis() % 
+(com.google.gwt.user.client.Random.nextInt(99999)));
+{code}
+
+Random.nextInt returns an int between 0 (inclusive) and upperBound (exclusive) which might cause a division by zero in the statement above.

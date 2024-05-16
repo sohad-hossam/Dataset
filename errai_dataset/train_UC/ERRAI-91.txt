@@ -1,0 +1,2 @@
+WSGrid - Focus range selection (mouse or keyboard) auto-extends to merged rows and columns
+When selecting a range of cells in WSGrid it would be beneficial if the selection automatically extended to span merged rows and cells; for example consider a 3 (X) x 3 (Y) grid with cell (1,1) merged into cell (2, 1) - ie columns merged. If a selection starts at (0,0), extends right to (1,0) and then extends down to (1,1) the selection should automatically extend to to cover (2,1) and (2,0) ie origin (0,0) and extent (2,1). Currently cell (2,0) remains unselected.

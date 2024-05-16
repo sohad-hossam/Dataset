@@ -1,0 +1,39 @@
+@Templated with templates available at run-time instead of compile-time
+I already discussed about that with Jonathan Fuerth. Find below our IRC conversation:
+
+{quote}
+<m4rt1n> is it possible to use @Templated with a template which is not available at compile-time but on run-time?
+<jfuerth> m4rt1n: not at the moment, no
+<jfuerth> m4rt1n: but it should be relatively easy to modify the client-side templating system to support that
+<jfuerth> m4rt1n: what's your use case?
+<m4rt1n> jfuerth: at the moment we have our own template engine together with servlets and jsps and are looking for alternatives to shift more to the client. our server supports multi-client functionality and we need highly customizable layouts
+<m4rt1n> with our template enginge we can modify our output via xslt so at the moment it is very powerful
+<m4rt1n> and we are looking how this could work with gwt
+<m4rt1n> so i found errai ui which looks impressive
+<jfuerth> m4rt1n: okay, I see. so you choose the templates based on, say, which user has signed in?
+<m4rt1n> jfuerth: yes but only in rare cases. but mostly we have a single web application (installed on different machines) used by different customers and all want their own layout
+<jfuerth> m4rt1n: okay, I see. so this could still be solved at compile time if that's what you wanted. but I understand the desire to add new templates at runtime
+<m4rt1n> jfuerth: but if we want solve this at compile time we would have to compile different front-end versions isn't it?
+<jfuerth> m4rt1n: with ErraiUI in its current form, yes that's the only option
+<jfuerth> m4rt1n: but another option would be to compile multiple sets of templates (still in GWT resource bundles) and provide a way of choosing one at runtime
+<jfuerth> m4rt1n: it's just a thought. since we don't have any feature to match your use case, we can explore the possible alternatives. :)
+<m4rt1n> jfuerth: right but sometimes our customers are doing their layout on there own so we are not involved
+<jfuerth> m4rt1n: ah, interesting. good point!
+<jfuerth> m4rt1n: of course, you'd be giving up the compile-time checking that guarantees all @DataField references actually refer to something in the template
+<m4rt1n> jfuerth: yep
+<jfuerth> but yeah, it shouldn't be a giant change to the existing framework code to enable download-at-runtime templates
+<m4rt1n> jfuerth: we are in an orientation phase since 1 1/2 years. we did a prototype in 2011 with vanilla gwt (but without templating) and at the moment i would tend to use vaadin
+<jfuerth> m4rt1n: what is it about vaadin that appeals to you?
+<m4rt1n> jfuerth: you mean what i like about vaadin?
+<m4rt1n> jfuerth: it runs on the server :) and they have custom layouts
+<m4rt1n> jfuerth: https://vaadin.com/book/-/page/layout.customlayout.html which makes it easy to change layout on the fly
+<jfuerth> m4rt1n: I see. At least superficially, that looks a lot like ErraiUI (except that you've got some logic on the server that's selecting the layout)
+<jfuerth> it does say in the doc that "The client-side engine of Vaadin will replace contents of the location elements with the components."
+<jfuerth> so that part must be very similar
+<m4rt1n> jfuerth: maybe you can discuss this with the rest of the errai ui team?
+<jfuerth> m4rt1n: yeah, we'll definitely give it some thought. can you file a Jira so we don't forget?
+<m4rt1n> jfuerth: i will do that
+<jfuerth> m4rt1n: cool
+{quote}
+
+So here we are

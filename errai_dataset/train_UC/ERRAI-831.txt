@@ -1,0 +1,2 @@
+Errai Binding: Support binding Widgets that implement TakesValue<V>.
+There are a number of GWT Widgets that implement TakesValue<V> such as NumberLabel & DateLabel.  These Widgets have the advantage of providing formatting features so it appears useful to support them.

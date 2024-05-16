@@ -1,0 +1,4 @@
+Introduce gradual random backoff into ClientMessageBus retries
+I recently deployed an Errai app to a server that happens to return 401 Unauthorized for every POST request the Errai Bus makes. This exposed a less-than-ideal behaviour: the bus retries its request immediately and never gives up. This loop of hundreds of failed requests per minute continues until the browser tab is closed.
+
+We should introduce a waiting period for client-initiated retries that starts small and grows larger with each consecutive failure. This waiting period should include a random component so that the load is spread out if hundreds of clients happen to get disconnected at the same time (for example, because a node in the server cluster goes offline).

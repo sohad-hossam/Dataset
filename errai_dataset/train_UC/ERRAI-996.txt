@@ -1,0 +1,2 @@
+Errai does not use qualifiers on parameters of setters with @Inject
+Instead of using qualifiers on a setter method parameter, Errai is using the qualifiers on the method.

@@ -1,0 +1,49 @@
+EmbeddedWildFlyLauncher without wildfly home configured should give an error message that says it's due to the wildfly home missing
+This is getting started experience (= important to attract more users)
+
+1) When I configure `-server org.jboss.errai.cdi.server.gwt.EmbeddedWildFlyLauncher`, I didn't add `-Derrai.jboss.home=...` yet, because I wanted to see if it would at least get to that launcher and report an error such as "The required property errai.jboss.home is missing."
+
+It did crash, but the error message is very different, so for new users this is very confusing to figure out how to fix it:
+
+{code}
+[INFO] --- gwt-maven-plugin:1.0-rc-6:devmode (default-cli) @ optashift-employee-rostering ---
+[INFO] Super Dev Mode starting up
+[INFO]    workDir: /home/ge0ffrey/projects/jboss/openshift/optaplanner-openshift-worker-rostering/target/gwt/devmode/work
+[WARNING] SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+[WARNING] SLF4J: Defaulting to no-operation (NOP) logger implementation
+[WARNING] SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+[INFO]    Loading Java files in org.optaplanner.openshift.employeerostering.gwtui.WorkerRosteringWebapp.
+[INFO]    Ignored 4 units with compilation errors in first pass.
+[INFO] Compile with -strict or with -logLevel set to TRACE or DEBUG to see all errors.
+[INFO]    Module setup completed in 12438 ms
+[INFO] 
+[INFO] The code server is ready at http://127.0.0.1:9876/
+[WARNING] Unable to start embedded HTTP server
+[WARNING] com.google.gwt.core.ext.UnableToCompleteException: (see previous log entries)
+[WARNING]       at org.jboss.errai.cdi.server.gwt.EmbeddedWildFlyLauncher.start(EmbeddedWildFlyLauncher.java:113)
+[WARNING]       at com.google.gwt.dev.DevMode.doStartUpServer(DevMode.java:634)
+[WARNING]       at com.google.gwt.dev.DevModeBase.startUp(DevModeBase.java:923)
+[WARNING]       at com.google.gwt.dev.DevModeBase.run(DevModeBase.java:706)
+[WARNING]       at com.google.gwt.dev.DevMode.main(DevMode.java:430)
+
+{code}
+
+This is just with this config on the tbroyer plugin
+
+{code}
+            <devmodeArgs>
+              <arg>-server</arg>
+              <arg>org.jboss.errai.cdi.server.gwt.EmbeddedWildFlyLauncher</arg>
+            </devmodeArgs>
+{code}
+
+
+2) When I add:
+
+{code}
+            <systemProperties>
+              <errai.jboss.home>/foo/bar/doesNotExist</errai.jboss.home>
+            </systemProperties>
+{code}
+
+I get the exact same error message (so I have no clue if it's being picked up, even though it was). I should get a different error message: "The required property errai.jboss.home (/foo/bar/doesNotExist) does not exist as a directory."

@@ -1,0 +1,4 @@
+Errai Navigation Removes Leading Slash from Paths
+Errai Navigation removes leading slashes from page paths when push state is not used.
+
+For example, if a site is hosted at {{mydomain.com}} and the page path is {{/path}}, then Errai Navigation changes the url to {{mydomain.com/#path}} when the desired path is more likely {{mydomain.com/#/path}}.

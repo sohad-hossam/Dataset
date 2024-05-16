@@ -1,0 +1,34 @@
+Dynamically looking up beans in @AfterInitialization methods causes a concurrent modification exception
+Can be reproduced with the following code, don't know if this is proper use. It's done this way because SampleClass is dynamic, workaround is putting this lookup code in @PostConstruct
+
+@EntryPoint
+public class SampleEntryPoint {
+ 
+        private Logger log = Logger.getLogger(getClass().getName());
+ 
+        @PostConstruct
+        public void afterConstruct() {
+        }
+ 
+        @AfterInitialization
+        public void loadApplication() {
+ 
+                log.info("@AfterInitialisation inside SampleEntryPoint");
+ 
+                SampleClass inst = IOC.getBeanManager().lookupBean(SampleClass.class).getInstance();
+                log.info("SomeClass getInstance is: " + inst);
+        }
+ 
+}
+ 
+@Dependent
+public class SampleClass {
+ 
+        private Logger log = Logger.getLogger(getClass().getName());
+ 
+        @AfterInitialization
+        public void afterInit() {
+ 
+                log.info("@AfterInitialisation inside SomeClass");
+        }
+}

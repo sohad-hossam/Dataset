@@ -1,0 +1,30 @@
+Conversational event in rpc context
+We use a the Caller-interface (or MessageBuilder.createCall) on client to do rpc service calls. 
+On server-side we would like to fire conversational events which are caught by client-side observers which know nothing about the initial call.
+This of course can be achieved by using the MessageBuilder-API but this would mean that we cannot use all the convenience stuff like injectable callers and automatic Service-method invocation on server-side without ever having to deal with the actual Message.
+
+After a little digging we found that the problem is, that EventConversationScope is only activated in case of an incoming CDI event.
+We cannot think of any negative sideeffects of activating this context whenever a call is made, be it rpc or event.
+
+We wrote an interceptor to deal with this problem until it hopefully finds its way into the framework:
+
+{code}
+@ConversationalService
+@Interceptor
+public class ConversationalServiceInterceptor {
+	@AroundInvoke
+	public Object invoke(InvocationContext ctx) throws Exception {
+		Context conversationalContext = EventConversationContext.get();
+		if (conversationalContext == null || conversationalContext.getSessionId() == null) {
+			EventConversationContext.activate(RpcContext.getMessage());
+			try {
+				return ctx.proceed();
+			} finally {
+				EventConversationContext.deactivate();
+			}
+		} else {
+			return ctx.proceed();
+		}
+	}
+}
+{code}

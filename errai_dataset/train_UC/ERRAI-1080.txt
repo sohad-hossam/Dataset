@@ -1,0 +1,14 @@
+Add @ClassName annotation support.
+It could be really  handy to add @ClassName annotation because @Property doesn't allow us to set class to the element. As a result, we could easily work with patternfly elements like <div class="card-pf-item"> and so on.
+{code:java}
+@Element("input")
+@ClassName("my_cards")
+@Properties({
+        @Property(name = "id", value = "id_1"),
+        @Property(name = "placeholder", value = "13378"),
+
+})
+@JsType(isNative = true, namespace = JsPackage.GLOBAL, name = "HTMLInputElement")
+public interface CardsCollection extends InputElement{
+}
+{code}

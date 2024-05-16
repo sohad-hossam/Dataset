@@ -1,0 +1,9 @@
+Marshaller not generated if there are public ArrayLists etc. within a @Portable class
+Having a public ArrayList<Something> within a @Portable class gives:
+
+37. ERROR in C:\Users\admin\AppData\Local\Temp\errai\7c2aa826f82ceab411fec8e8a739446fbc592f2afe682331fe9ed5ee771\errai.marshalling\gen\org\jboss\errai\marshalling\server\impl\ServerMarshallingFactoryImpl.java (at line 438)
+          entity.somethingList = java_util_ArrayList.demarshall(obj.get("somethingList"), a1);
+                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Type mismatch: cannot convert from List to ArrayList<Something>
+
+Problem only goes when public modifier is removed.

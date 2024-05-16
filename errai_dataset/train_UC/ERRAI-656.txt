@@ -1,0 +1,2 @@
+[Errai][WARN][org.jboss.weld.Bean] An InjectionTarget is created for a class org.jboss.errai.bus.server.service.ErraiServiceImpl which does not have any appropriate constructor.
+ WARN  [org.jboss.weld.Bean] (MSC service thread 1-1) WELD-001529: An InjectionTarget is created for a class org.jboss.errai.bus.server.service.ErraiServiceImpl which does not have any appropriate constructor.

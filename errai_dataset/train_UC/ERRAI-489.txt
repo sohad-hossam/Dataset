@@ -1,0 +1,26 @@
+@Bound should default to field name rather than the name given in @DataField
+Given the following in a template:
+
+      <div data-field=phone class=phone>123-456-7890</div>
+
+and the following in the corresponding @Templated class:
+
+      @Inject @Bound @DataField("phone") Label phoneNumber;
+
+we get the following failure:
+
+org.jboss.errai.codegen.exception.GenerationException: Invalid binding of DataField phone in class x.y.z.client.local.MemberRow! Property phone not resolvable from class x.y.z.client.shared.Member. Hint: All types in a property chain must be @Bindable! 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateComponentCompositions(DecoratorTemplated.java:549) 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateTemplatedInitialization(DecoratorTemplated.java:208) 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateDecorator(DecoratorTemplated.java:132) 	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:88) 
+
+if we change the binding to this:
+
+      @Inject @Bound(property="phoneNumber") @DataField("phone") Label phoneNumber;
+
+then it works.
+
+I would have expected @Bound to use phoneNumber (which matches the model property name) regardless of what I told @DataField (which is the template name). This is corroborated by the existing javadoc:
+
+    /**
+     * The name of the data model property to bind the {@link DataField} to, following Java bean conventions. If omitted,
+     * the data field will be bound to the data model property with matching name.
+     */
+    String property() default "";

@@ -1,0 +1,20 @@
+Error when destroying beans that contain observer methods
+Destroying a bean that contains observer methods does not work.
+
+Example:
+
+{code}
+@Dependent
+public class DestroyMe {
+  public void someObserver(@Observes String s) {
+    
+  }
+}
+{code}
+
+{code}
+  final DestroyMe bean = IOC.getBeanManager().lookupBean(DestroyMe.class).getInstance();
+  IOC.getBeanManager().destroyBean(bean);
+{code}
+
+The call to destroyBean results in a ClassCastException: org.jboss.errai.cdi.injection.client.DestroyMe cannot be cast to java.lang.String

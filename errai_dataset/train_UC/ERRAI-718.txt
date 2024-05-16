@@ -1,0 +1,2 @@
+Compile time enforcement of navigation to page roles
+Currently navigation to between @Pages is compile-time verified, but navigation to pages by role is not. There should be a declarative API for defining compile-time dependencies on page roles so that compilation fails if no page exists with a required role.

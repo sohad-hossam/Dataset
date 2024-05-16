@@ -1,0 +1,21 @@
+Launch of Activity Console result in server exception
+When using bus monitoring app, clicking "Activity Console" button results in the following trace:
+
+Exception in thread "pool-26-thread-1" java.lang.RuntimeException: error
+	at org.jboss.errai.tools.monitoring.Dataservice.getAllMessages(Dataservice.java:196)
+	at org.jboss.errai.tools.monitoring.Dataservice$4.monitorEvent(Dataservice.java:227)
+	at org.jboss.errai.tools.monitoring.ActivityProcessor$2.run(ActivityProcessor.java:124)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:679)
+Caused by: java.lang.RuntimeException: java.lang.RuntimeException: expected list or map but found: null
+	at org.jboss.errai.marshalling.server.JSONStreamDecoder.parse(JSONStreamDecoder.java:92)
+	at org.jboss.errai.marshalling.server.JSONDecoder.decode(JSONDecoder.java:28)
+	at org.jboss.errai.tools.monitoring.UiHelper.decodeAndDemarshall(UiHelper.java:61)
+	at org.jboss.errai.tools.monitoring.Dataservice.getAllMessages(Dataservice.java:187)
+	... 5 more
+Caused by: java.lang.RuntimeException: expected list or map but found: null
+	at org.jboss.errai.marshalling.server.JSONStreamDecoder$OuterContext.addValue(JSONStreamDecoder.java:318)
+	at org.jboss.errai.marshalling.server.JSONStreamDecoder._parse(JSONStreamDecoder.java:165)
+	at org.jboss.errai.marshalling.server.JSONStreamDecoder.parse(JSONStreamDecoder.java:89)
+	... 8 more

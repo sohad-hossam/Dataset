@@ -1,0 +1,6 @@
+Replace System.out.println with Logger 
+Classes, such as TemplateUtil.java contain System.out.println code which cannot be disabled.  TemplateUtil can produces a lot of console output which makes it harder to spot errors in the console.
+
+Please replace System.out.println with Logger calls so it is possible to adjust the verbosity of output.  
+
+

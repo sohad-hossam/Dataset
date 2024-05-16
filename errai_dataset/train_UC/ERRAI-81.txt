@@ -1,0 +1,2 @@
+Update to GWT 2.1-M1
+Requires an update of the GWT plugin as well. Gives access to Cell API.

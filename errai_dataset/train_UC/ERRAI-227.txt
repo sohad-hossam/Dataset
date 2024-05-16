@@ -1,0 +1,4 @@
+Implement an explicit kill switch for the client-server bus federation
+For Errai 2.1, we plan to sort out the framework's internal dependencies so that you don't have to include the bus module at all.
+
+In the mean time, for the 2.0 release, we should at least provide a client-side configuration option that prevents the ClientMessageBus from communicating with the server: some sort of "maintain radio silence" switch. There are tons of use cases, but opting to do all communication over Errai-JAX-RS is one of the most obvious.

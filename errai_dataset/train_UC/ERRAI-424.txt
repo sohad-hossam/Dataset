@@ -1,0 +1,2 @@
+Warn/fail when classes in the .client package use non-compatible CDI scopes
+Currently it is possible to use incompatible CDI scopes in the browser, and Errai will still fail complaining that no beans could be found for the annotated type. This means that we should provide better error messaging, and-or fail compilation for this error scenario.

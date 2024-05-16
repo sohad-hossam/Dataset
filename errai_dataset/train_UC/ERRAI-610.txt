@@ -1,0 +1,2 @@
+ApplicationScoped UI components are not being translated when language is switched
+An UI component that has the ApplicationScope will not get translated when language is switched manually. 

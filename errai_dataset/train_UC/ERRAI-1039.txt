@@ -1,0 +1,219 @@
+Errai generates factories for native JS types with only private constructors, leading to GWT compilation failure
+Errai projects fail when I try to use Elemental2 (which requires the latest GWT 2.8.1 or newer). Here is a piece of code that fails to compile:
+
+<module rename-to='Main'>
+    
+    <inherits name='com.google.gwt.user.User'/>
+    <inherits name="com.google.gwt.i18n.I18N"/>
+    <inherits name="com.google.gwt.logging.Logging"/>
+
+ *   <inherits name="elemental2.core.Core"/>
+    <inherits name="elemental2.dom.Dom"/>*
+    
+    <!-- Inherit Errai modules.                        -->
+    <inherits name="org.jboss.errai.enterprise.Jaxrs"/>
+    <inherits name="org.jboss.errai.common.ErraiCommon" />
+    <inherits name="org.jboss.errai.bus.ErraiBus" />
+    <inherits name="org.jboss.errai.ioc.Container" />
+    <inherits name="org.jboss.errai.ui.UI" />
+    <inherits name="org.jboss.errai.ui.nav.Navigation" />
+    <inherits name="org.jboss.errai.databinding.DataBinding" />
+    <inherits name="org.jboss.errai.enterprise.CDI" />
+
+    
+    
+    <!-- Inherit 3rd party modules -->
+    <inherits name="gwt.OracleJet"/>
+
+    
+    <!-- Specify the app entry point class.                         -->
+    <entry-point class="com.recres.web.gwt.client.RecResMain"/>     
+
+    <!-- Specify the paths for translatable code                    -->
+    <source path='gwt'/>
+    
+    <!-- Dev settings -->
+    <set-property name="user.agent" value="safari" />
+    <set-property name="locale" value="default" />    
+    <collapse-all-properties />
+    
+</module>
+
+
+
+import elemental2.dom.Console;
+import javax.inject.Inject;
+import org.jboss.errai.ioc.client.api.AfterInitialization;
+import org.jboss.errai.ioc.client.api.EntryPoint;
+
+@EntryPoint
+public class RecResMain {
+
+    @Inject
+    private Console console;
+
+    @AfterInitialization
+    private void afterInitialization() {
+        console.log("Hello elemental2!");
+    }
+}
+
+
+===========================
+The code server is ready at http://127.0.0.1:9876/
+GET /recompile/Main
+   Job com.recres.web.MainDev_1_0
+      starting job: com.recres.web.MainDev_1_0
+      Compiling module com.recres.web.MainDev
+         Unification traversed 599 fields and methods and 208 types. 0 are considered part of the current module and 5 had all of their fields and methods trave
+rsed.
+         Compiling 1 permutation
+            Compiling permutation 0...
+            Linking per-type JS with 0 new/changed types.
+            Source Maps Enabled
+         Compile of permutations succeeded
+         Compilation succeeded -- 1.649s
+      Linking into C:\temp\gitlab\recres\recres-webapp\build\putnami\work\com.recres.web.MainDev\compile-2\war\Main; Writing extras to C:\temp\gitlab\recres\rec
+res-webapp\build\putnami\work\com.recres.web.MainDev\compile-2\extras\Main
+         Link succeeded
+         Linking succeeded -- 0.374s
+      2.527s total -- Compile completed
+GET /sourcemaps/Main/36B6E4F73EFB38ACE8C1C4680502C970_sourcemap.json
+   sent source map for module 'Main' in 57 ms
+GET /recompile/Main
+   Job com.recres.web.MainDev_1_1
+      starting job: com.recres.web.MainDev_1_1
+      Compiling module com.recres.web.MainDev
+         Computing all possible rebind results for 'org.jboss.errai.marshalling.client.api.MarshallerFactory'
+            Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+               Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+                  Generating Marshallers Bootstrapper...
+                  Checking ErraiApp.properties for configured types ...
+         Computing all possible rebind results for 'org.jboss.errai.ioc.client.container.IOCEnvironment'
+            Rebinding org.jboss.errai.ioc.client.container.IOCEnvironment
+               Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCEnvironmentGenerator
+                  Generating Extensions Bootstrapper...
+         Computing all possible rebind results for 'org.jboss.errai.ioc.client.Bootstrapper'
+            Rebinding org.jboss.errai.ioc.client.Bootstrapper
+               Invoking generator org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator
+                  generating ioc bootstrapping code...
+         Unification traversed 48733 fields and methods and 5019 types. 4980 are considered part of the current module and 4980 had all of their fields and meth
+ods traversed.
+         Warnings in com/google/gwt/emul/java/util/Arrays.java
+            [WARN] Line 1782: [unusable-by-js] Type of parameter 'd1' in 'int Arrays.1methodref$compare$Type.compare(long, long)' is not usable by but exposed t
+o JavaScript.
+            [WARN] Line 1782: [unusable-by-js] Type of parameter 'd2' in 'int Arrays.1methodref$compare$Type.compare(long, long)' is not usable by but exposed t
+o JavaScript.
+         [WARN] Suppress "[unusable-by-js]" warnings by adding a `@SuppressWarnings("unusable-by-js")` annotation to the corresponding member.
+         Compiling 1 permutation
+            Compiling permutation 0...
+            [ERROR] An internal compiler exception occurred
+com.google.gwt.dev.jjs.InternalCompilerException: Unexpected error during visit.
+        at com.google.gwt.dev.js.ast.JsVisitor.translateException(JsVisitor.java:482)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:469)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsNew.traverse(JsNew.java:71)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsReturn.traverse(JsReturn.java:51)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAcceptWithInsertRemove(JsVisitor.java:461)
+        at com.google.gwt.dev.js.ast.JsVisitor.acceptWithInsertRemove(JsVisitor.java:121)
+        at com.google.gwt.dev.js.ast.JsBlock.traverse(JsBlock.java:53)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsFunction.traverse(JsFunction.java:181)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsExprStmt.traverse(JsExprStmt.java:42)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAcceptWithInsertRemove(JsVisitor.java:461)
+        at com.google.gwt.dev.js.ast.JsVisitor.acceptWithInsertRemove(JsVisitor.java:121)
+        at com.google.gwt.dev.js.ast.JsBlock.traverse(JsBlock.java:53)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsProgramFragment.traverse(JsProgramFragment.java:41)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.ast.JsProgram.traverse(JsProgram.java:120)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        at com.google.gwt.dev.js.ast.JsVisitor.doAccept(JsVisitor.java:444)
+        at com.google.gwt.dev.js.ast.JsVisitor.accept(JsVisitor.java:109)
+        at com.google.gwt.dev.js.JsSymbolResolver.execImpl(JsSymbolResolver.java:69)
+        at com.google.gwt.dev.js.JsSymbolResolver.exec(JsSymbolResolver.java:58)
+        at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.compilePermutation(JavaToJavaScriptCompiler.java:391)
+        at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.compilePermutation(JavaToJavaScriptCompiler.java:272)
+        at com.google.gwt.dev.CompilePerms.compile(CompilePerms.java:198)
+        at com.google.gwt.dev.ThreadedPermutationWorkerFactory$ThreadedPermutationWorker.compile(ThreadedPermutationWorkerFactory.java:50)
+        at com.google.gwt.dev.PermutationWorkerFactory$Manager$WorkerThread.run(PermutationWorkerFactory.java:74)
+        at java.lang.Thread.run(Thread.java:745)
+Caused by: java.lang.NullPointerException
+        at com.google.gwt.thirdparty.guava.common.base.Preconditions.checkNotNull(Preconditions.java:212)
+        at com.google.gwt.thirdparty.guava.common.collect.MapMakerInternalMap.putIfAbsent(MapMakerInternalMap.java:3521)
+        at com.google.gwt.thirdparty.guava.common.collect.Interners$WeakInterner.intern(Interners.java:88)
+        at com.google.gwt.dev.js.ast.JsNormalScope.doCreateName(JsNormalScope.java:49)
+        at com.google.gwt.dev.js.ast.JsScope.declareName(JsScope.java:60)
+        at com.google.gwt.dev.js.ast.JsScope.declareUnobfuscatableName(JsScope.java:91)
+        at com.google.gwt.dev.js.JsSymbolResolver$JsResolveSymbolsVisitor.resolveUnqualifiedName(JsSymbolResolver.java:51)
+        at com.google.gwt.dev.js.JsAbstractSymbolResolver.endVisit(JsAbstractSymbolResolver.java:54)
+        at com.google.gwt.dev.js.ast.JsNameRef.traverse(JsNameRef.java:113)
+        at com.google.gwt.dev.js.ast.JsVisitor.doTraverse(JsVisitor.java:467)
+        ... 42 more
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(23): <source info not available>
+                  com.google.gwt.dev.js.ast.JsNameRef
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(23): <source info not available>
+                  com.google.gwt.dev.js.ast.JsNew
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(23): <source info not available>
+                  com.google.gwt.dev.js.ast.JsReturn
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(22): <source info not available>
+                  com.google.gwt.dev.js.ast.JsBlock
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(22): <source info not available>
+                  com.google.gwt.dev.js.ast.JsFunction
+               [ERROR] at Type_factory__e_d_MediaStreamTrackEvent__quals__j_e_i_Any_j_e_i_Default.java(22): <source info not available>
+                  com.google.gwt.dev.js.ast.JsExprStmt
+               [ERROR] at com.google.gwt.dev.js.ast.JsProgram(0): var _, prototypesByTypeId, initFnList, PERMUTATION_NOT_SET = -1, permutationId = -1;
+function getPermutationId(){
+  if (!(permutationId != -1)) {
+    debugger;
+    throw toJs(makeAssertionError_Object('The bootstrap linker did not provide a soft permutation id to the gwtOnLoad function'));
+  }
+  return permutationId;
+}
+
+function setGwtProperty(propertyName, propertyValue){
+  if (typeof window === 'object' && typeof window['$gwt'] === 'object') {
+    window['$gwt'][propertyName] = propertyValue;
+  }
+}
+
+function registerEntry(){
+  return registerEntry();
+}
+
+[...]
+
+                  com.google.gwt.dev.js.ast.JsGlobalBlock
+               [ERROR] at com.google.gwt.dev.js.ast.JsProgram(0): <JsProgramFragment>
+                  com.google.gwt.dev.js.ast.JsProgramFragment
+               [ERROR] at com.google.gwt.dev.js.ast.JsProgram(0): <JsProgram>
+                  com.google.gwt.dev.js.ast.JsProgram
+            [ERROR] Unrecoverable exception, shutting down
+com.google.gwt.core.ext.UnableToCompleteException: (see previous log entries)
+        at com.google.gwt.dev.javac.CompilationProblemReporter.logAndTranslateException(CompilationProblemReporter.java:106)
+        at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.compilePermutation(JavaToJavaScriptCompiler.java:459)
+        at com.google.gwt.dev.jjs.JavaToJavaScriptCompiler.compilePermutation(JavaToJavaScriptCompiler.java:272)
+        at com.google.gwt.dev.CompilePerms.compile(CompilePerms.java:198)
+        at com.google.gwt.dev.ThreadedPermutationWorkerFactory$ThreadedPermutationWorker.compile(ThreadedPermutationWorkerFactory.java:50)
+        at com.google.gwt.dev.PermutationWorkerFactory$Manager$WorkerThread.run(PermutationWorkerFactory.java:74)
+        at java.lang.Thread.run(Thread.java:745)
+            [ERROR] Not all permutation were compiled , completed (0/1)
+      [WARN] recompile failed
+      [WARN] continuing to serve previous version
+<========-----> 66% EXECUTING
+> :recres-webapp:gwtCodeServer

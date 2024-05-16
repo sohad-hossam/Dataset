@@ -1,0 +1,4 @@
+Cutover to DynamicDeliveryPlan causes ClassCastException
+After 100 changes to the subscriber list for a topic, the server-side message bus replaces the normal DeliveryPlan (which is actually just a list of subscribers, represented by MessageCallback objects) with a specialized DynamicDeliveryPlan instance. As it turns out, DynamicDeliveryPlan stores the subscriber list in an ConcurrentSkipListMap, which requires its entries to implement Comparable. MessageCallback implementations are generally not Comparable, so ClassCastExceptions abound.
+
+See https://community.jboss.org/message/836167#836167 for the original report.

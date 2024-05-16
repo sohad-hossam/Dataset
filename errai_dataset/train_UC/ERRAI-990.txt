@@ -1,0 +1,2 @@
+ObjectMarshaller for null objects causes stack overflow
+Marshalling of a null object to JSON generates a JSON string where the encoded type is "java.lang.Object" and its value is null. Attempting to demarshall this JSON in ObjectMarshaller causes a stack overflow because it is not recognized as a null value.

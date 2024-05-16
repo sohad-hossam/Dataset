@@ -1,0 +1,4 @@
+Support nested parameterized type when transforming to/from Jackson
+When implementing the JacksonTransformer we needed the ability to infer the first parameterized type from the target type as the type information is not part of the Jackson generated payload. This was done to support typical use cases like Collection<SomePortable>.
+
+We still need to support nested parameterized types.

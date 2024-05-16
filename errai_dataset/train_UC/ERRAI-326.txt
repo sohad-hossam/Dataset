@@ -1,0 +1,11 @@
+Bean manager adding references to non-public superclasses of beans creating compile problems.
+For example:
+{code}
+[ERROR] INFO: nothing has changed. using cached rpc proxy loader class.
+[INFO]    [ERROR] Errors in '/Users/christopherbrock/Projects/jbossworld2012/jbwdemo-leaderboard/target/.generated/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+[INFO]       [ERROR] Line 18:  The type java.util.AbstractHashMap is not visible
+[INFO]       [ERROR] Line 941:  AbstractHashMap cannot be resolved to a type
+[INFO]    [ERROR] Cannot proceed due to previous errors
+{code}
+
+AbstractHashMap is a package private class in the GWT emulation library which is inaccessible from the Bootstrapper. The bean manager detects it is an assignable type and records a reference to it. It should exclude non-public classes from consideration.

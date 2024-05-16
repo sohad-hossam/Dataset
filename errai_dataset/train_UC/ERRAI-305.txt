@@ -1,0 +1,2 @@
+@Portable(aliasOf) for non-interface types not working as expected.
+The {{aliasOf}} parameter in {{@Portable}} does not work as expected for inherited types. Only for customer marshaller handled interface types.

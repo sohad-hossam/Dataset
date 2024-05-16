@@ -1,0 +1,7 @@
+Websocket transport bus re-connect after network failure
+When a network failure occurs using the websocket transport the WebsocketHandler will automatically try to reconnect, and send a Associate command to the server.   Because the server already has a QueueSession with the same id marked as active it never sends a Successful Negotiation message and the client side bus never changes its state back to ONLINE
+
+Proposed fix is to add
+        sendMessage(queueChannel, WebSocketNegotiationMessage.getSuccessfulNegotiation());
+
+To line 57 of WebsocketNegotiationHandler.java in the errai-bus module. 

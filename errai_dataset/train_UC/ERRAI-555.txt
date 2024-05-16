@@ -1,0 +1,28 @@
+Constructor-mapped entities that have members with generic type variables cause invalid marshaller code to be generated
+As reported in the forum, this class causes bad code to be generated starting with Errai 2.2.x.
+
+{code}
+@Portable
+public class TestDTO<T> {
+   
+    private Long n;
+    private List<T> data;
+
+    public TestDTO(@MapsTo("n") Long nrItems,
+                           @MapsTo("data") List<T> data) {
+ 
+        this.n = nrItems;
+        this.data = data;
+    }
+ 
+    public Long getNrItems() {
+ 
+        return n;
+    }
+ 
+    public List<T> getData() {
+ 
+        return data;
+    }
+}
+{code}

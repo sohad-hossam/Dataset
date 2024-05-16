@@ -1,0 +1,16 @@
+Span html element
+Please add Span HTML element. This should be very easy as there are no properties:
+===============================================
+package org.jboss.errai.common.client.dom;
+
+import org.jboss.errai.common.client.api.annotations.Element;
+import jsinterop.annotations.JsProperty;
+import jsinterop.annotations.JsType;
+
+/**
+ * @author Max Barkley <mbarkley@redhat.com>
+ * @see <a href="https://developer.mozilla.org/en-US/docs/Web/API/HTMLSpanElement">Web API</a>
+ */
+@JsType(isNative = true)
+@Element("span")
+public interface Span extends HTMLElement {}

@@ -1,0 +1,15 @@
+GWT 2.7.0-SNAPSHOT removes some logging properties
+GWT 2.7.0-SNAPSHOT removed some logging properties (gwt.logging.popupHandler and gwt.logging.firebugHandler):
+https://github.com/gwtproject/gwt/commit/de218e819bd3d0b9818fe40c34999f4fa192e4fc#diff-d8f3ec69afd1e094b593ffc88e794122
+
+The GWT compiler will throw an error because those properties are set in the org.jboss.errai.common.ErraiCommon.gwt.xml file.
+
+[INFO] --- gwt-maven-plugin:2.7.0-SNAPSHOT:compile (gwt-compile) @ genophenbrowser-client ---
+[INFO] Loading inherited module 'com.gmi.nordborglab.browser.Browser_dev'
+[INFO]    Loading inherited module 'com.gmi.nordborglab.browser.Browser'
+[INFO]       Loading inherited module 'org.jboss.errai.bus.ErraiBus'
+[INFO]          Loading inherited module 'org.jboss.errai.common.ErraiCommon'
+[INFO]             Loading inherited module 'org.jboss.errai.common.Logging'
+[INFO]                [ERROR] Line 11: Property 'gwt.logging.firebugHandler' not found
+[ERROR] Line 7: Property 'gwt.logging.popupHandler' not found
+

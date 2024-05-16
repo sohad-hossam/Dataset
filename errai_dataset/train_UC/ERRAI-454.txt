@@ -1,0 +1,2 @@
+PropertyChangeHandlers are lost when calling setModel on a DataBinder
+When calling setModel on a DataBinder, a new proxy for the model is created, and the old proxy's state is copied in. Thereby, the property change handlers are not copied causing the client to miss events.

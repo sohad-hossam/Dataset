@@ -1,0 +1,73 @@
+cannot marshal an abstract class or interface: com.xyz.MyInterface for interfaces not marked as Portable
+After a recent update on Errai 3.0-SNAPSHOT, we received a report of a Dev Mode launch of an app failing with this exception:
+
+5206 [pool-3-thread-3] INFO org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory - generating marshalling class...
+Failed to bootstrap errai marshalling system!
+java.lang.RuntimeException: cannot marshal an abstract class or interface: com.blinco.gwt.shared.search.SearchRequest
+  at org.jboss.errai.marshalling.rebind.api.impl.defaultjava.DefaultJavaDefinitionMapper.map(DefaultJavaDefinitionMapper.java:52)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.loadCustomMappings(DefinitionsFactoryImpl.java:321)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.<init>(DefinitionsFactoryImpl.java:81)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.newInstance(DefinitionsFactorySingleton.java:41)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.<clinit>(DefinitionsFactorySingleton.java:26)
+	at org.jboss.errai.marshalling.rebind.api.GeneratorMappingContext.<init>(GeneratorMappingContext.java:43)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory._generate(MarshallerGeneratorFactory.java:157)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory.generate(MarshallerGeneratorFactory.java:142)
+	at org.jboss.errai.marshalling.rebind.MarshallersGenerator.generate(MarshallersGenerator.java:336)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:42)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:39)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)
+java.util.concurrent.ExecutionException: java.lang.ExceptionInInitializerError
+	at java.util.concurrent.FutureTask$Sync.innerGet(FutureTask.java:252)
+	at java.util.concurrent.FutureTask.get(FutureTask.java:111)
+	at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:112)
+	at org.jboss.errai.config.rebind.AsyncGenerators$FutureWrapper.get(AsyncGenerators.java:86)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator.startAsyncGeneratorsAndWaitFor(AbstractAsyncGenerator.java:100)
+	at org.jboss.errai.marshalling.rebind.MarshallersGenerator.generate(MarshallersGenerator.java:227)
+	at com.google.gwt.core.ext.IncrementalGenerator.generateNonIncrementally(IncrementalGenerator.java:40)
+	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:657)
+	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:79)
+	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:276)
+	at com.google.gwt.dev.shell.ShellModuleSpaceHost.rebind(ShellModuleSpaceHost.java:141)
+	at com.google.gwt.dev.shell.ModuleSpace.rebind(ModuleSpace.java:595)
+	at com.google.gwt.dev.shell.ModuleSpace.rebindAndCreate(ModuleSpace.java:465)
+	at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:49)
+	at com.google.gwt.core.shared.GWT.create(GWT.java:57)
+	at com.google.gwt.core.client.GWT.create(GWT.java:85)
+	at org.jboss.errai.marshalling.client.api.MarshallerFramework.<clinit>(MarshallerFramework.java:42)
+	at java.lang.Class.forName0(Native Method)
+	at java.lang.Class.forName(Class.java:264)
+	at com.google.gwt.dev.shell.ModuleSpace.loadClassFromSourceName(ModuleSpace.java:665)
+	at com.google.gwt.dev.shell.ModuleSpace.onLoad(ModuleSpace.java:373)
+	at com.google.gwt.dev.shell.OophmSessionHandler.loadModule(OophmSessionHandler.java:200)
+	at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:526)
+	at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:364)
+	at java.lang.Thread.run(Thread.java:722)
+Caused by: java.lang.ExceptionInInitializerError
+	at org.jboss.errai.marshalling.rebind.api.GeneratorMappingContext.<init>(GeneratorMappingContext.java:43)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory._generate(MarshallerGeneratorFactory.java:157)
+	at org.jboss.errai.marshalling.rebind.MarshallerGeneratorFactory.generate(MarshallerGeneratorFactory.java:142)
+	at org.jboss.errai.marshalling.rebind.MarshallersGenerator.generate(MarshallersGenerator.java:336)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:42)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:39)
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	... 1 more
+Caused by: java.lang.RuntimeException: java.lang.RuntimeException: cannot marshal an abstract class or interface: com.blinco.gwt.shared.search.SearchRequest
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.<clinit>(DefinitionsFactorySingleton.java:32)
+	... 11 more
+Caused by: java.lang.RuntimeException: cannot marshal an abstract class or interface: com.blinco.gwt.shared.search.SearchRequest
+	at org.jboss.errai.marshalling.rebind.api.impl.defaultjava.DefaultJavaDefinitionMapper.map(DefaultJavaDefinitionMapper.java:52)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.loadCustomMappings(DefinitionsFactoryImpl.java:321)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactoryImpl.<init>(DefinitionsFactoryImpl.java:81)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.newInstance(DefinitionsFactorySingleton.java:41)
+	at org.jboss.errai.marshalling.rebind.DefinitionsFactorySingleton.<clinit>(DefinitionsFactorySingleton.java:26)
+	... 11 more
+
+Investigation has revealed that the error is caused by a new feature in Errai RPC, which auto-registers types as portable when they are used in parameters and return types of RPC methods.

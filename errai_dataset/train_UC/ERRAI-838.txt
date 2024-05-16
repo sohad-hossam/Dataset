@@ -1,0 +1,12 @@
+NPE in CdiExtensionPoints if any bean is in Java root package
+ Any CDI deployment with beans in the root package fails.
+
+{code}
+java.lang.NullPointerException
+	at org.jboss.errai.cdi.server.CDIExtensionPoints.observeResources(CDIExtensionPoints.java:203)
+	at sun.reflect.GeneratedMethodAccessor6.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+{code}
+
+The problematic call is type.getJavaClass().getPackage().getName().

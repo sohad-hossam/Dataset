@@ -1,0 +1,6 @@
+Errai JPQL comparisons treat null incorrectly
+In JPQL (as in SQL), null != null (in fact, any comparison involving null evaluates to null). In Java null == null. Errai JPA is using Java comparison semantics for null. It should use JPQL semantics.
+
+The fix for this will be to move the Comparisons class out of errai-common and into errai-jpa-client, then change the null semantics for all methods.
+
+Also, un-disable HibernateQueryTest.testFilterByNullEntityReference, fix the test method it overrides to expect an empty result. And add more tests of course.

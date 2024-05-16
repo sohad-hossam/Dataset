@@ -1,0 +1,6 @@
+infinite loop 100% CPU in generated ServerMarshallingFactoryImpl.getMarshaller
+Generated ServerMarshallingFactoryImpl uses a HashMap for the Marshallers.
+Under concurrent use the getMarshaller method will get into an infinite loop inside java.util.HashMap.getEntry(HashMap.java:465) thus leading to 100% cpu usage.
+It happens for all threads delivering messages.
+
+https://www.google.ro/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8#q=hashmap+getEntry+infinite+loop

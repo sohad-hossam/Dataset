@@ -1,0 +1,2 @@
+JPA2 method-accessed attributes don't work
+Errai generates incorrect, uncompilable code at rebind time for entity attributes that are accessed via get/set methods rather than by direct field access.

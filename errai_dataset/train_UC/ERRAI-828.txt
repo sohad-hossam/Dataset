@@ -1,0 +1,3 @@
+BoundAnnotationChecker doesn't seem to properly validate property chains.
+With the annotation processors enabled when we attempt to bind a chained property we get an invalid error complaining that our bound type doesn't contain the property.  As far as I can tell ``BoundAnnotationChecker`` is treating all properties as a simple bound property and isn't parsing chained properties properly.
+

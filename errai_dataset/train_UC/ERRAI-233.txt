@@ -1,0 +1,24 @@
+Marshaller generator tries to create marshallers for all nested types of a @Portable entity
+I have an entity where it contains a Builder static member class.  The entity is annotated with @Portable, where the static member class isn't.
+
+If the member class does not have a public no-args constructor then the marshallers fail to generate any code.
+
+@Portable
+public class BalanceSheet {
+...
+    public static class Builder {
+        public Builder(String someArg) {
+            this.someArg = someArg;
+        }
+
+        public build() {
+            return new BalanceSheet(someArg);
+        }
+    }
+
+    public BalanceSheet(@MapsTo("someArg") String someArg) {
+        this.someArg = someArg;
+    }
+
+    ...
+}

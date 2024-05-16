@@ -1,0 +1,2 @@
+Provide an install mechanism for JBoss 6 (CDI Integration)
+None

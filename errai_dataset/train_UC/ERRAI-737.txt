@@ -1,0 +1,17 @@
+Page Navigation should be confirmable
+The option to confirm a page navigation should be supported in the @PageHiding lifecyle method. For example.
+{code}
+...
+import com.google.gwt.user.client.Command;
+...
+@PageHiding
+public void confirm (Command command ) {
+  // ask the user what they want to do
+  // and in the callback do something like
+  if  (response = "LEAVE") {
+    command.execute();     // the navigation continues
+   } else {
+     // probably do nothing and stay on the page
+   }
+}
+{code}

@@ -1,0 +1,4 @@
+Errai 2B3 results in JavaScript "exception thrown and not caught" during startup in IE7
+A GWT application built against Errai 2.0 Beta 3 (in the above environment, at least) will fail during initialization when accessed via Internet Explorer 7. IE reports "Exception thrown and not caught" and points to the end of the try block inside the JavaScript translation of com.google.gwt.core.client.impl.Impl.entry.entry0 (the $entry pump). The specific GWT application being run does not seem to matter.
+
+This only occurs when the app is run from an actual copy of Internet Explorer 7; it doesn't manifest when run from IE8 in compatibility mode.

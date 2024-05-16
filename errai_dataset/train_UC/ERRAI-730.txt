@@ -1,0 +1,2 @@
+Remove tmp package from Errai Security after new PicketLink release
+There are two classes in org.jboss.errai.security.tmp that are modified classes from PicketLink. These changes have already been accepted by PicketLink, and will be released in 2.6.0.CR2, at which point the temporary classes in Errai Security should be deleted.

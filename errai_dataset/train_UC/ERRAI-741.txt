@@ -1,0 +1,21 @@
+Incorrect code generation in case of write-only properties and getXxx(String v) with parameters.
+{code:java}
+@Bindable
+public class MyModel1 {
+    public void setXxx3(String value) { // Error - no wrapper!
+        // Should have exactly the same wrapper as putXxx3(), i.e.        
+        // agent.target.setXxx3(a0);
+        // agent.updateWidgetsAndFireEvents();
+    }
+
+    public void putXxx3(String value) { // OK - wrapper is generated
+    }
+
+    public String getXxxData1(String info) { // Error - no wrapper!
+        // Wrapper is needed to allow safe access to model fields, i.e.
+        // return agent.target.getXxxData1(info);
+        // Warning! No agent.updateWidgetsAndFireEvents(); is needed here, because it's getter.
+        // Also if only getOtherProperty() used in model, it's working just fine without wrapper in current implementation, but access to otherProperty field leads to NPE.
+    }
+}
+{code}

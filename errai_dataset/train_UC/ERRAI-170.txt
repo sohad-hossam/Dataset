@@ -1,0 +1,4 @@
+Error when redirecting to servlet
+When redirecting to a plain Java Servlet (in this case a File Download Servlet) via Window.open(GWT.getHostPageBaseURL() + ....) Errai throws an error: org.jboss.errai.bus.client.api.base.TransportIOException: Unexpected response code
+
+This problem does not occur when redirecting in a new window.

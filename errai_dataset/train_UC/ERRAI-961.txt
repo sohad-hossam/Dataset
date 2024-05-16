@@ -1,0 +1,4 @@
+Migrate IOCUtil functionality from kie-wb-common into errai-ioc as enhanced version of Instance<T>
+The [IOCUtil class|https://github.com/droolsjbpm/kie-wb-common/blob/master/kie-wb-common-screens/kie-wb-common-server-ui/kie-wb-common-server-ui-client/src/main/java/org/kie/workbench/common/screens/server/management/client/util/IOCUtil.java] in kie-wb-common provides useful functionality for properly managing lifecycles of dynamically created beans.
+
+This functionality should be incorporated into errai-ioc with a similar API as Instance<T>, except  that beans created through this new managed instance will be automatically destroyed via a disposer. See [here|https://github.com/uberfire/uberfire/pull/395#issuecomment-226521822] for suggestions.

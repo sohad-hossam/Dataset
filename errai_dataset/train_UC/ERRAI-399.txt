@@ -1,0 +1,12 @@
+Data Binding doesn't react on changes that happen outside a property's write method (outside the corresponding setter method)
+If a bean property is manipulated from within a method of the model class that is not the corresponding setter method, Errai's data binder will not be able to see and react to these changes.
+
+E.g.
+{code}
+public void foo() {
+  this.active = true;
+  setActive(true);
+}
+{code}
+
+We can fix this by doing a full comparison of the target model's state with the bindable proxy's state whenever a method is called on the proxy to detect which properties have changed.

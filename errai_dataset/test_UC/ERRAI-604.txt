@@ -1,0 +1,13 @@
+Problem with i18n TranslateCommand for templates with multiple fragments
+When using i18n, if there are multiple @Templated widgets all using the same HTML template, some i18n keys are left out of the errai-bundle-all.json report.
+
+Digging into this, I think I discovered the problem.
+
+* TranslateCommand (createInitialContext) loses sub-contexts when multiple fragments are present per template file.
+* TranslateCommand (execute) assumes there is only a single sub-context (one sub-context per template file!)
+
+If I understand the code properly, it looks like TranslateCommand::createInitialContext creates and saves for later a bunch of sub-contexts - currently one for each template.  However, if multiple @Templated widgets are using the same html template but with different fragments, then the createInitialContext method will overwrite entries in the map of sub contexts.
+
+Of course, TranslateCommand::execute also assumes there is only a single sub-context for each template.
+
+Possibly this should be storing a list of fragments in the sub-context, or else possibly change the "contexts" key to be the resource+fragment?

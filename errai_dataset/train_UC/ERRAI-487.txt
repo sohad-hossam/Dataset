@@ -1,0 +1,3 @@
+BootstrapperImpl generation fails with abstract class + generics
+This scenario works under 2.2, so something in the 3 branch breaks this.
+Basically, the bootstrapper compilation fails when using an abstract class marked with generics, and an @Inject into the abstract class.  Having multiple classes extending the abstract class breaks it.

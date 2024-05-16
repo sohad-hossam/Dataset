@@ -1,0 +1,6 @@
+errai.marshalling.serializableTypes disregarded for types coming from other modules
+It appears that errai.marshalling.serializableTypes in Errai.properties is completely broken. I have tested with types coming from different modules that get included into the one that gets compiled via inherits tag in the module xml. The cause could be the same one as for ERRAI-297 and ERRAI-275.
+
+In addition to above I did some more testing and it appears that errai.marshalling.serializableTypes does not work even in the case when the objects that get marshalled are coming from the top level project not from inherited GWT modules. Marshalling only works with the @Portable annotation. errai.marshalling.serializableTypes makes no difference at all in all cases. I doubt that the "serialization" demo from the distribution actually works.
+
+Thanks

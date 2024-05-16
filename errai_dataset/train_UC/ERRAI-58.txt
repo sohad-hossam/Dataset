@@ -1,0 +1,2 @@
+Move development proxy from BPM console into errai
+None

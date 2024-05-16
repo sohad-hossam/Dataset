@@ -1,0 +1,24 @@
+Entity Manager fails to persist entity with ID of type Long and value 0.
+In our database it is possible to have entities with ID of value 0. If such entity is sent to client and persisted then Errai throws following exception:
+UnsupportedOperationException: 'Not a generated attribute'
+
+I’ve narrowed the problem down to the method below which is implemented in class ErraiEntityManager. The if condition seems little bit confusing to me. I don’t really get the part where ID is converted to doubleValue and then compared against 0.0. Maybe that should cower the case where ID is defined as a primitive int or long which are initialized to 0 by default. However there should be additional check for isGeneratedValue() to handle the case where the ID is not auto generated but it can be 0.
+
+I saw the same implementation in 3.1.1 and 3.2.3.
+
+  public <X> Key<X, ?> keyFor(ErraiIdentifiableType<X> entityType, X entity) {
+    ErraiSingularAttribute<? super X, ?> idAttr;
+    switch (entityType.getIdType().getPersistenceType()) {
+    case BASIC:
+      idAttr = entityType.getId(entityType.getIdType().getJavaType());
+      break;
+    default:
+      throw new RuntimeException(entityType.getIdType().getPersistenceType() + " ids are not yet supported");
+    }
+    Object id = idAttr.get(entity);
+    if ( id == null || (id instanceof Number && ((Number) id).doubleValue() == 0.0) ) {
+      id = generateAndSetLocalId(entity, idAttr);
+      // TODO track this generated ID for later reconciliation with the server
+    }
+    return new Key<X, Object>(entityType, id);
+  }

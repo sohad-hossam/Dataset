@@ -1,0 +1,2 @@
+@RestrictedAccess(roles = "basic") does not work on elements
+See https://developer.jboss.org/thread/268317

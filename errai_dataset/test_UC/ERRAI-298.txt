@@ -1,0 +1,15 @@
+RpcProxyLoaderGenerator FAILS when the Service extends a base service - Needs to include @Override in generated output
+There are two services, ServiceA<E extends BaseEntity> and ServiceB<SpecificEntity> extends ServiceA<E>.
+ServiceA has a method create( E x);
+
+When the RpcProxyLoaderGenerator generates the proxy for ServiceBImpl, it puts all methods in the impl, including the ones inherited from ServiceA.  The generated ServiceBImpl does not extend ServiceAimpl, but includes all methods from ServiceA AND ServiceB.  It looks like there are the following problems:
+
+* It does not handle the generics, and the references to the SpecificEntity are dropped and replaced with BaseEntity
+* the create( BaseEntity x) that is generated does not @Override.  GWT compilation fails: [ERROR] Line 43:  The type ServiceBImpl must implement the inherited abstract method ServiceA<SpecificEntity>.create(SpecificEntity x)
+
+
+Another Problem:
+Conversational Endpoints are not created on the server for extended interfaces.  I'm not sure if this would be fixed by the above, but when generating conversational endpoints, it is not creating ServiceA.create(SpecificEntity entity), so even though the client is able to send the message (in dev mode), the server doesn't respond.
+
+
+It works fine in development mode.  Not being able to use inheritance/generics in services is a bit of a show stopper.

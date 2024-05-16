@@ -1,0 +1,2 @@
+User cookies sent from a Jetty server demarshall as String instead of UserImpl
+Jetty quotes and escapes cookie values when they contain certain 'special' characters, including " and {. This causes the user cookie received on the client side to be interpreted as a JSON string (because it's surrounded with quotes) rather than as a JSON object. This then leads to a ClassCastException (String can't be cast to User) in the client on startup.

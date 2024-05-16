@@ -1,0 +1,2 @@
+Upgrade to GWT 2.8.0-rc2
+None

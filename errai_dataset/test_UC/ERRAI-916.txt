@@ -1,0 +1,6 @@
+Respect surefire's -DskipTests property
+When running {{mvn clean install -DskipTests}}, some tests are still being executed. For example those in {{errai-codegen}} module. {{-DskipTests}} should result in no tests being executed.
+
+This is because the POMs are explicitly configuring the {{skipTests}} config option to {{false}} and thus it cannot be overridden from outside (cmd line).
+
+Solution should be to configure this via {{properties}}, not directly in the surefire config.

@@ -1,0 +1,2 @@
+JBossLauncher does not work with Wildfly 8 "out of the box"
+In Wildfly 8 the native management port is disabled by default. The JbossLauncher should explicitly configure this port in the xml configuration file before starting the application server.

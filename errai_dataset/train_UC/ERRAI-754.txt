@@ -1,0 +1,121 @@
+Broken pipe on logout on WildFly 8
+When running on WildFly (both 8.0.0.Final and 8.1.0.Final) upon logout following exception is thrown. 
+
+{code}
+17:45:32,017 ERROR [io.undertow.request] (default task-57) UT005023: Exception handling request to /kie-wb/org.kie.workbench.KIEWebapp/in.16076-49907.erraiBus: javax.enterprise.event.ObserverException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [rt.jar:1.7.0_45]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [rt.jar:1.7.0_45]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [rt.jar:1.7.0_45]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526) [rt.jar:1.7.0_45]
+	at java.lang.Class.newInstance(Class.java:374) [rt.jar:1.7.0_45]
+	at org.jboss.weld.security.NewInstanceAction.run(NewInstanceAction.java:33) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at java.security.AccessController.doPrivileged(Native Method) [rt.jar:1.7.0_45]
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:40) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:78) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.injection.MethodInjectionPoint.invokeOnInstanceWithSpecialValue(MethodInjectionPoint.java:101) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:266) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:253) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverMethodImpl.notify(ObserverMethodImpl.java:232) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverNotifier.notifyObserver(ObserverNotifier.java:169) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverNotifier.notifyObserver(ObserverNotifier.java:165) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.TransactionalObserverNotifier.notifyObserver(TransactionalObserverNotifier.java:46) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverNotifier.notifyObservers(ObserverNotifier.java:119) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:112) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.manager.BeanManagerImpl.fireEvent(BeanManagerImpl.java:664) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.weld.util.ForwardingBeanManager.fireEvent(ForwardingBeanManager.java:101) [weld-core-impl-2.1.2.Final.jar:2014-01-09 09:23]
+	at org.jboss.solder.servlet.exception.CatchExceptionFilter.doFilter(CatchExceptionFilter.java:74) [solder-impl-3.2.1.Final.jar:3.2.1.Final]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:60) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.jboss.solder.servlet.event.ServletEventBridgeFilter.doFilter(ServletEventBridgeFilter.java:74) [solder-impl-3.2.1.Final.jar:3.2.1.Final]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:60) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.jbpm.designer.web.filter.impl.PluggableFilter.doFilter(PluggableFilter.java:70) [jbpm-designer-backend-6.1.0-SNAPSHOT.jar:6.1.0-SNAPSHOT]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:60) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.uberfire.security.server.UberFireSecurityFilter.doFilter(UberFireSecurityFilter.java:283) [uberfire-security-server-0.4.0-SNAPSHOT.jar:0.4.0-SNAPSHOT]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:60) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.uberfire.security.server.UberFireSecurityFilter.doFilter(UberFireSecurityFilter.java:283) [uberfire-security-server-0.4.0-SNAPSHOT.jar:0.4.0-SNAPSHOT]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:60) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:85) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:61) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.wildfly.extension.undertow.security.SecurityContextAssociationHandler.handleRequest(SecurityContextAssociationHandler.java:78)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:113) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:56) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.handlers.DisableCacheHandler.handleRequest(DisableCacheHandler.java:27) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.security.handlers.AuthenticationConstraintHandler.handleRequest(AuthenticationConstraintHandler.java:51) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:61) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.ServletSecurityConstraintHandler.handleRequest(ServletSecurityConstraintHandler.java:56) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:58) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:70) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:76) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at org.wildfly.extension.undertow.security.jacc.JACCContextIdHandler.handleRequest(JACCContextIdHandler.java:61)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:240) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:227) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:73) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:146) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:177) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:727) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+Caused by: java.io.IOException: Broken pipe
+	at sun.nio.ch.FileDispatcherImpl.writev0(Native Method) [rt.jar:1.7.0_45]
+	at sun.nio.ch.SocketDispatcher.writev(SocketDispatcher.java:51) [rt.jar:1.7.0_45]
+	at sun.nio.ch.IOUtil.write(IOUtil.java:148) [rt.jar:1.7.0_45]
+	at sun.nio.ch.SocketChannelImpl.write(SocketChannelImpl.java:524) [rt.jar:1.7.0_45]
+	at org.xnio.nio.NioSocketConduit.write(NioSocketConduit.java:159)
+	at io.undertow.server.protocol.http.HttpResponseConduit.write(HttpResponseConduit.java:561) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.conduits.ChunkedStreamSinkConduit.doWrite(ChunkedStreamSinkConduit.java:165) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.conduits.ChunkedStreamSinkConduit.write(ChunkedStreamSinkConduit.java:128) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at org.xnio.conduits.ConduitStreamSinkChannel.write(ConduitStreamSinkChannel.java:150) [xnio-api-3.2.2.Final.jar:3.2.2.Final]
+	at io.undertow.channels.DetachableStreamSinkChannel.write(DetachableStreamSinkChannel.java:217) [undertow-core-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.spec.ServletOutputStreamImpl.writeBufferBlocking(ServletOutputStreamImpl.java:584) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.spec.ServletOutputStreamImpl.write(ServletOutputStreamImpl.java:221) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.spec.ServletOutputStreamImpl.write(ServletOutputStreamImpl.java:122) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.jboss.errai.bus.server.servlet.AbstractErraiServlet.writeToOutputStream(AbstractErraiServlet.java:115) [errai-bus-2.4.4.Final.jar:2.4.4.Final]
+	at org.jboss.errai.bus.server.servlet.AbstractErraiServlet.writeExceptionToOutputStream(AbstractErraiServlet.java:150) [errai-bus-2.4.4.Final.jar:2.4.4.Final]
+	at org.jboss.errai.bus.server.servlet.DefaultBlockingServlet.pollForMessages(DefaultBlockingServlet.java:195) [errai-bus-2.4.4.Final.jar:2.4.4.Final]
+	at org.jboss.errai.bus.server.servlet.DefaultBlockingServlet.doGet(DefaultBlockingServlet.java:114) [errai-bus-2.4.4.Final.jar:2.4.4.Final]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:687) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:85) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:130) [undertow-servlet-1.0.15.Final.jar:1.0.15.Final]
+	at org.jboss.solder.servlet.exception.CatchExceptionFilter.doFilter(CatchExceptionFilter.java:65) [solder-impl-3.2.1.Final.jar:3.2.1.Final]
+	... 43 more
+
+17:45:32,023 WARN  [org.jboss.weld.Servlet] (default task-57) WELD-000712: Unable to dissociate context org.jboss.weld.context.http.LazyHttpConversationContextImpl@75d2feca when destroying request io.undertow.servlet.spec.HttpServletRequestImpl@2de24a5d
+17:45:32,024 ERROR [io.undertow.request] (default task-57) Blocking request failed HttpServerExchange{ GET /kie-wb/org.kie.workbench.KIEWebapp/in.16076-49907.erraiBus}: java.lang.RuntimeException: java.io.IOException: UT000029: Channel was closed mid chunk, if you have attempted to write chunked data you cannot shutdown the channel until after it has all been written.
+	at io.undertow.servlet.spec.HttpServletResponseImpl.responseDone(HttpServletResponseImpl.java:527)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:287)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:227)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:73)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:146)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:177)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:727)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+Caused by: java.io.IOException: UT000029: Channel was closed mid chunk, if you have attempted to write chunked data you cannot shutdown the channel until after it has all been written.
+	at io.undertow.conduits.ChunkedStreamSinkConduit.terminateWrites(ChunkedStreamSinkConduit.java:290)
+	at org.xnio.conduits.ConduitStreamSinkChannel.shutdownWrites(ConduitStreamSinkChannel.java:178) [xnio-api-3.2.2.Final.jar:3.2.2.Final]
+	at io.undertow.channels.DetachableStreamSinkChannel.shutdownWrites(DetachableStreamSinkChannel.java:60)
+	at io.undertow.servlet.spec.ServletOutputStreamImpl.close(ServletOutputStreamImpl.java:624)
+	at io.undertow.servlet.spec.HttpServletResponseImpl.closeStreamAndWriter(HttpServletResponseImpl.java:451)
+	at io.undertow.servlet.spec.HttpServletResponseImpl.responseDone(HttpServletResponseImpl.java:525)
+	... 9 more
+
+{code}
+Haven't noticed any issues afterwards but every single logout from application logs these exception.
+
+Environment:
+WildFly 8.1.0.Final
+testing with kie workbench which is built on top of UberFire though could not spot any reference to UF code thus filing jira for errai.

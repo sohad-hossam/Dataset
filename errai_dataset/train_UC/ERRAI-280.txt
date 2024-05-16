@@ -1,0 +1,4 @@
+Cast.to() and Stmt.castTo() are allergic to Variable.get() (causes NullPointerException)
+Christian believes we can fix this by deferring validation until later on in the Cast.to() implementation.
+
+In the meantime, an easy workaround is to use Stmt.loadVariable(foo) instead of Variable.get(foo).

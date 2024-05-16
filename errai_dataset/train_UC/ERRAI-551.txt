@@ -1,0 +1,22 @@
+BindableProxyGenerator class cast exception when generating
+add a method to a @Bindable that is not a setter with a type parameter you'll get a class cast exception
+
+method:
+public void testMethod(List<String> list) {}
+
+exception:
+
+java.lang.ClassCastException: org.jboss.errai.codegen.meta.impl.gwt.GWTParameterizedType cannot be cast to org.jboss.errai.codegen.meta.MetaClass
+	at org.jboss.errai.databinding.rebind.BindableProxyGenerator.getTypeOrFirstUpperBound(BindableProxyGenerator.java:364)
+	at com.google.gwt.core.ext.IncrementalGenerator.generateNonIncrementally(IncrementalGenerator.java:40)
+	at org.jboss.errai.databinding.rebind.BindableProxyGenerator.generateNonAccessorMethods(BindableProxyGenerator.java:253)
+	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:657)
+	at org.jboss.errai.databinding.rebind.BindableProxyGenerator.generate(BindableProxyGenerator.java:120)
+	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:79)
+	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:276)
+	at org.jboss.errai.databinding.rebind.BindableProxyLoaderGenerator.generate(BindableProxyLoaderGenerator.java:85)
+	at com.google.gwt.dev.shell.ShellModuleSpaceHost.rebind(ShellModuleSpaceHost.java:141)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:42)
+	at com.google.gwt.dev.shell.ModuleSpace.rebind(ModuleSpace.java:595)
+	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:39)

@@ -1,0 +1,2 @@
+Make attributes in ErraiService.properties overridable at runtime by system properties
+There are many properties (such as whether the message bus uses SSE or Long Polling) that currently are only configurable in ErraiService.properties files. Most of these properties should be able to be overridden at deployment time without having to repackage an application.

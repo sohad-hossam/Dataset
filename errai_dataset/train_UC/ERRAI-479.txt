@@ -1,0 +1,20 @@
+BindableProxyGenerator tries to override static methods
+Compiling a project with the following model object:
+
+@Bindable
+public class Department {
+  public static Department resolve(EntityManager em, String name) { return null; }
+}
+
+causes this compile-time failure:
+
+03:24:44.928 [ERROR] Errors in '/Users/jfuerth/git/errai/errai-jpa/demos/errai-jpa-demo-grocery-list/target/.generated/org/jboss/errai/databinding/client/BindableProxyLoaderImpl.java'
+03:24:44.928 [ERROR] Line 86: This instance method cannot override the static method from Department
+
+The method referred to in the error message (line 86) looks like this:
+
+      public Department resolve(EntityManager a0, String a1) {
+        final Department returnValue = agent.target.resolve(a0, a1);
+        agent.updateWidgetsAndFireEvents();
+        return returnValue;
+      }

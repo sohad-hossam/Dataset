@@ -1,0 +1,2 @@
+Add support for @Startup.
+Currently @ApplicationScoped implies @Startup since all @ApplicationScoped beans are instantiated eagerly.  However, if ERRAI-850 is implemented Errai will need to provide a replacement.  

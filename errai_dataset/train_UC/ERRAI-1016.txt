@@ -1,0 +1,12 @@
+Duplicate method getContext() in generated Proxy error
+We've got an abstract class containing getContext() method https://github.com/droolsjbpm/kie-wb-common/blob/master/kie-wb-common-screens/kie-wb-common-data-modeller/kie-wb-common-data-modeller-client/src/main/java/org/kie/workbench/common/screens/datamodeller/client/widgets/common/domain/BaseDomainEditor.java#L75 which has multiple @ApplicationScope implementations, e.g. https://github.com/droolsjbpm/kie-wb-common/blob/master/kie-wb-common-screens/kie-wb-common-data-modeller/kie-wb-common-data-modeller-client/src/main/java/org/kie/workbench/common/screens/datamodeller/client/widgets/jpadomain/JPADataObjectEditor.java
+
+The compilation fails with the following error:
+ {code}[ERROR] Errors in '/tmp/gwt-codeserver-137189374766769051.tmp/org.optaplanner.workbench.OptaPlannerWorkbench/compile-2/gen/org/jboss/errai/ioc/client/Type_factory__o_k_w_c_s_d_c_w_j_JPADomainEditor__quals__j_e_i_Any_j_e_i_Default.java'
+            [ERROR] Line 67: The return type is incompatible with BaseDomainEditor.getContext()
+            [ERROR] Line 67: Duplicate method getContext() in type Type_factory__o_k_w_c_s_d_c_w_j_JPADomainEditor__quals__j_e_i_Any_j_e_i_Default.Type_factory__o_k_w_c_s_d_c_w_j_JPADomainEditor__quals__j_e_i_Any_j_e_i_DefaultProxyImpl
+            [ERROR] Line 89: Duplicate method getContext() in type Type_factory__o_k_w_c_s_d_c_w_j_JPADomainEditor__quals__j_e_i_Any_j_e_i_Default.Type_factory__o_k_w_c_s_d_c_w_j_JPADomainEditor__quals__j_e_i_Any_j_e_i_DefaultProxyImpl
+{code}
+
+I suspect the error is caused by the following change which added getContext() method to the generated Proxy: 
+https://github.com/errai/errai/commit/c7e3618269e5454363b1117e14ec52a4be09cb4f#diff-acbde666a89dee08847e11cfe629e574R59

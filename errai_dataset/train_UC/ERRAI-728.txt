@@ -1,0 +1,40 @@
+Make SecurityContextImpl startup happen before @AfterInitialization methods are invoked
+Right now, SecurityContextImpl sends a query to the server using ErraiRPC, and this is initiated from an @AfterInitialization method. So the app's own @AfterInitialization code gets stale info from SecurityContext. Further, there is no way to know when the SecurityContext info has become valid. Even polling it in a timer is no guarantee, because other security-related async queries the app makes at startup could conceivably complete before the SecurityContext's own startup request gets responded to.
+
+We already tried fixing this by asking InitVotes to delay startup until the security RPC has completed. This mostly worked, but it caused several navigate-to-login-page tests to fail, apparently because the SecurityContext init vote was never cast:
+
+WIP from SecurityContextImpl:
+{code}
+  @PostConstruct
+  private void setup() {
+    performLoginStatusChangeActions(userCache.getUser());
+
+    InitVotes.waitFor(SecurityContext.class);
+    InitVotes.registerOneTimeDependencyCallback(ClientMessageBus.class, new Runnable() {
+      @Override
+      public void run() {
+        logger.debug("Checking with server for current user");
+        userServiceCaller.call(
+                new RemoteCallback<User>() {
+                  @Override
+                  public void callback(final User response) {
+                    logger.debug("Server reports current user is: " + String.valueOf(response));
+                    setCachedUser(response);
+                    InitVotes.voteFor(SecurityContext.class);
+                  }
+                },
+                new BusErrorCallback() {
+                  @Override
+                  public boolean error(Message message, Throwable throwable) {
+                    logger.error("Unable to contact server. Assuming no current user.", throwable);
+                    setCachedUser(User.ANONYMOUS);
+                    InitVotes.voteFor(SecurityContext.class);
+                    return false;
+                  }
+                }).getUser();
+      }
+    });
+  }
+{code}
+
+There may be completely different ways to solve this that are even better. As a bonus, it would be nice to make the whole thing more Bus/JAX-RS agnostic, which the set-cookie stuff on the server side could help with...

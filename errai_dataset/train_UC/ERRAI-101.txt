@@ -1,0 +1,17 @@
+Allow passing of subject as parameter to MessageBuilder#createMessage() or createConversation()
+Just a simple API addition. It would reduce verbosity and is pretty clear and natural. Eg.
+
+MessageBuilder.createMessage()
+                    .toSubject("HelloWorldClient")
+                    .signalling()
+                    .with("text", "Hi There")
+                    .noErrorHandling()
+                    .sendNowWith(dispatcher);
+
+could be writter as:
+
+MessageBuilder.createMessage("HelloWorldClient")
+                    .signalling()
+                    .with("text", "Hi There")
+                    .noErrorHandling()
+                    .sendNowWith(dispatcher);

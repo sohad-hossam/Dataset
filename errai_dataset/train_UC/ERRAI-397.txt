@@ -1,0 +1,15 @@
+Failed to to compile marshaller class
+It appears that spaces in the classpath are not properly escaped when Errai attempts to compile its static marshaller class.  In the snippet below, the space seems to end the classpath and "UI" is processed as an option.
+
+{code}
+[INFO]             Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]                Generating Marshallers Bootstrapper...
+[INFO] *** FAILED TO COMPILE MARSHALLER CLASS ***
+[INFO] *** Classpath Used: /Users/<username snipped>/AccuRev/Entitlements UI Integration/src/main/resources:<remainder of classpath snipped>
+[INFO] Unrecognized option : UI
+[INFO]          Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]             Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]                Generating Marshallers Bootstrapper...
+{code}
+
+I should also note that running Maven in debug mode doesn't provide additional information.

@@ -1,0 +1,19 @@
+jax-rs jackson subcollection serrialization issue
+if you have the class for example:
+public class Foo{
+    private List<Bar> barCollection;
+}
+
+and second class
+public class Bar{
+    private List<Contact> contacts;
+}
+
+and another one
+
+public class Contact{
+    private Integer id;
+    private String name;
+}
+
+than if you create a rest services, that rescive type "Foo", than you get exception, becouse "contacts" property of "Bar" type can not be successfully serrialized to jackson. 

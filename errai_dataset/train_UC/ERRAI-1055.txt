@@ -1,0 +1,41 @@
+Marshalling - inefficient implementation of marshall() method.
+GWT compiler deduplicates string constants, but cannot fully do that due to Errai marshalling implementation inefficiency. Example:
+{code:java}
+@Portable
+class MySettings {
+    private String builtAtShort;
+    public MySettings() { }
+    //... getters/setters
+}
+
+// Following code is generated:
+public MySettings demarshall(EJValue a0, MarshallingSession a1) {
+    //...
+    // here "builtAtShort" repeated three times, but will be successfully deduplicated by GWT compiler
+    if ((obj.containsKey("builtAtShort")) && (!obj.get("builtAtShort").isNull())) {
+      entity.setBuiltAtShort(java_lang_String.demarshall(obj.get("builtAtShort"), a1));
+    }
+    //...
+}
+
+public String marshall(MySettings a0, MarshallingSession a1) {
+    //...
+    // "\"builtAtShort\":" will be added to resulting js, so ALL fields names appear TWICE and significantly increase resulting js size! 
+    return json.append(",").append("\"builtAtShort\":").append(java_lang_String.marshall(a0.getBuiltAtShort(), a1)).append(",")...
+}
+{code}
+
+To fix this inefficiency it's just enough to generate:  {code:java} append("\"").append("builtAtShort").append("\":") {code}
+then GWT compiler will put "builtAtShort" only once to resulting js, and size will be seriously reduced.
+
+Also the following part should be split as well to allow GWT compiler do optimization:
+{code:java} append("{\"^EncodedType\":\"com.vx.sw.shared.domain.SortingOrder\",\"^EnumStringValue\":\"") {code}
+must be:
+{code:java} append("{\"").append("^EncodedType").append("\":\"").append("com.vx.sw.shared.domain.SortingOrder").append("\",\"").append("^EnumStringValue").append("\":\"") {code}
+
+As result "^EncodedType" and "^EnumStringValue" will not be repeated multiple times in resulting js (in my project it's 267 and 44 repetitions of these strings!), and class name "com.vx.sw.shared.domain.SortingOrder" will not be repeated twice as well. 
+
+==========================
+
+Unfortunately my initial idea with append() caused too many append calls, so resulting js size was even 2% bigger.
+Then I've implemented another solution - direct string concatenations. It works just fine, and marshalling code size in my project decreased from 433kb down to 395kb.

@@ -1,0 +1,4 @@
+Global Error Handler to catch uncaught exceptions
+It would be very useful to be able to define a global error handler that can handle uncaught exceptions.  That way, an ErrorCallback would not have to be passed on each RPC call, but basic general exceptions ( Permission failure, login required, etc) could still be caught and handled.
+
+As Discussed with Christian + Jonathan

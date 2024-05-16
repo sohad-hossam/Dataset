@@ -1,0 +1,9 @@
+Errai Security redirects users away from secured pages when app loads, even if they are logged in
+Currently Errai Security uses a cached {{User}} instance to decide if a user has authorization to navigate to a page. If the cache is not yet populated, it is assumed the user is logged out and they are redirected to the login page.
+
+If an app is initially loaded on a secure page, the cache will not yet be populated, so this page load will always result in redirection.
+
+A few potential solutions:
+# The initial page load could wait for the caching RPC to complete.
+# A cached {{User}} could be kept in the browser's local storage.
+# There could be a new {{UniquePageRole}} for loading, which could be redirected to while we check if the user is authenticated.

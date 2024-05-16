@@ -1,0 +1,21 @@
+Empty directories can cause VFS metadata scanner to fail
+The problem was initially brought to our attention in this forum thread:
+
+http://community.jboss.org/thread/174101?tstart=0
+
+Relevant stack trace from posting:
+
+Caused by: java.lang.ArrayIndexOutOfBoundsException: -1
+    at java.util.ArrayList.remove(Unknown Source)
+    at org.jboss.errai.bus.server.service.metadata.JBossVFSDIr$1$1.next(JBossVFSDIr.java:61)
+    at org.jboss.errai.bus.server.service.metadata.JBossVFSDIr$1$1.next(JBossVFSDIr.java:65)
+    at org.jboss.errai.bus.server.service.metadata.JBossVFSDIr$1$1.next(JBossVFSDIr.java:52)
+    at org.reflections.Reflections.scan(Reflections.java:199)
+    at org.reflections.Reflections.(Reflections.java:91)
+    at org.jboss.errai.bus.server.service.metadata.MetaDataScanner.(MetaDataScanner.java:64)
+    at org.jboss.errai.bus.server.service.metadata.MetaDataScanner.createInstance(MetaDataScanner.java:90)
+    at org.jboss.errai.bus.server.service.metadata.MetaDataScanner.createInstance(MetaDataScanner.java:82)
+    at org.jboss.errai.bus.server.service.ErraiServiceConfiguratorImpl.(ErraiServiceConfiguratorImpl.java:54)
+    at org.jboss.errai.bus.server.service.ErraiServiceConfiguratorImpl$$FastClassByGuice$$b6139751.newInstance()
+    at com.google.inject.internal.cglib.reflect.$FastConstructor.newInstance(FastConstructor.java:40)
+    

@@ -1,0 +1,6 @@
+Event qualifiers being missed when JSON contains empty collection
+Our application currently broadcasts edits to application data using CDI events with qualifiers over SSE. Whenever the marshalled bean contains an empty collection the CDI event observers on the client side aren't executed because the qualifiers don't match.
+
+Our event firer has two Qualifiers (@Server and @Create) and our observer has the same two qualifiers plus the @Observes annotation. I can see that the JSON arrives correctly at the SSEHandler on the client-side with the two qualifiers but in the process of unmarshalling into JS only the first qualifier is present. 
+
+To get Errai to actually fire our @Observes method we have to make sure the bean we send has no empty collections and instead has null values. Is this expected behaviour?

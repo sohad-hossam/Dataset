@@ -1,0 +1,2 @@
+Declarative Binding of TextInput doesn't work outside of @Templated beans
+Declarative data-binding currently uses the ElementWrapperWidget. If declarative binding is used outside of an Errai UI templated bean then the ElementWrapperWidget is never attached and it's handlers are not sunk.

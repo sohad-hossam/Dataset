@@ -1,0 +1,2 @@
+Deprecate Errai DOM Wrappers
+Once Elemental 2 is finalised, we should deprecate Errai's DOM wrappers and promote Elemental 2 as the preferred DOM API wrappers for use in Errai UI.

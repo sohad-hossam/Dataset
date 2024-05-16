@@ -1,0 +1,3 @@
+PropertyChangeHandlers not firing when root of property chain changes
+I have chain binding to aaa.bbb
+When aaa is changing, no change notification occurs for aaa.bbb and therefore ui controls are not updated. When one of the head links is changing, all tail links must be notified as well.

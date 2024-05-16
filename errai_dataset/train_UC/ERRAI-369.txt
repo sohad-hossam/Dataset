@@ -1,0 +1,2 @@
+PathSegmentImpl incorrectly encoded
+MatrixParameters that are part of PathSegments are incorrectly encoded in Errai JAX-RS.

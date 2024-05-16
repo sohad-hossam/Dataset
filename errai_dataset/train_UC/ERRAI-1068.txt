@@ -1,0 +1,10 @@
+Extend EnabledByProperty annotation to allow multiple conditions
+Currently, it is only possible to use 
+{code:java}
+@EnabledByProperty
+{code}
+to match if a system property contains a "true" value.
+Some other scenarios could be useful, such as defining a default value in case the system property is not set as well setting a matching value other than only "true".
+Ex: 
+* Checking that a system property matches a specific value as "enabled" or "disabled".
+* Having it enabled by default in case the system property is not set.

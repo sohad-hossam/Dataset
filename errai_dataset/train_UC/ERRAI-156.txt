@@ -1,0 +1,2 @@
+Expose SaturationPolicy in ErraiService.properties
+Currently we have two saturation policies: CallerRuns and Fails. However, there is no way to choose one without recompiling errai-bus.

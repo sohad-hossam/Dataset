@@ -1,0 +1,11 @@
+[Eclipse Integration] Eclipse clean build removes but doesn't regenerate errai classes
+* Create a new GWT Project from JBoss Central
+* Right-click on project, Run As > Maven build
+* Set goals = package and click OK
+* Right-click on project, Refresh
+* In the Navigator view, check target/classes/classlist.mf and target/classes/org/jboss/errai/** are present
+* In the toolbar, click Project > Clean... and select your project
+* In the Navigator view, target/classes/classlist.mf and target/classes/org/jboss/errai/** are missing but the other classes have been recompiled
+
+Deployement at this point would lead to ERRAI-230
+

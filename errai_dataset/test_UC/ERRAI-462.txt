@@ -1,0 +1,2 @@
+CDIServletStateListener breaks @Inject in HttpServlets
+See https://community.jboss.org/thread/215908 for details. My initial response includes a recipe for reproducing the problem.

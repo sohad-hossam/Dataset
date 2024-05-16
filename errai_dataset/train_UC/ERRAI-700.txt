@@ -1,0 +1,7 @@
+Improper use of CDI SPI by Errai's CDI extension
+Errai's CDI extension holds on to a {{AfterBeanDiscovery}} event reference to register observer methods at runtime. This is only supposed to work during the CDI bootstrap process and before the {{AfterDeploymentValidation}} event is fired.
+
+This currently works "by accident" in OWB, and in Weld because Errai clears Weld's observer cache using Java Reflection.
+
+Our CDI extension should instead register a single observer method for {{java.lang.Object}} and {{@Any}} which will be responsible for the filtering/dispatching to the actual observers.
+

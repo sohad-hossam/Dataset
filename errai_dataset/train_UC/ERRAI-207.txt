@@ -1,0 +1,2 @@
+Built-in subscription for RPC services cannot be used to receive plain (non-RPC) messages
+The built-in subscription for Errai RPC services cannot be used to receive plain messages. It is currently necessary to create an additional manual subscription if a @Service should be used as both an RPC-endpoint and a target/subject for plain messages using MessageCallback.

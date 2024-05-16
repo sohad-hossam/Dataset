@@ -1,0 +1,6 @@
+Updates to elements in bound lists don't cause change events when list is not mutated
+Bound lists get proxied using {{BindableListWrapper}} so that any mutation of the list will update the UI and trigger the corresponding property change events. However, when a proxied list element changes without mutating the underlying list, the {{BindableListWrapper}} can't react to any list changes and doesn't fire property change events. 
+
+The UI updates work fine because the list is bound to a {{ListWidget}} and the list element to the corresponding item widget which guarantees that the model and UI are kept in sync. 
+
+A possible fix is to add an implicit {{PropertyChangeHandler}} to the list element proxy and call {{onItemsChanged}} on the {{BindableListChangeHandler}} when it fires.

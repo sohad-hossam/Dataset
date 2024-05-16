@@ -1,0 +1,6 @@
+Network failure during Sync
+If a network failure occurs during a coldSync, the active sync never completes, nor reports an error via the ErrorCallback, and the  isSyncInProgress() on ClientSyncManager remains "true" which prevents any future sync's from occurring without reloading the application.
+
+Other RPC calls can be made successfully after the connection is re-established but the isSyncInProgress() is "stuck", and never allows any future calls.     
+
+I would expect that the coldSync() errorCallback should be called when the network failure occurs to set syncInProgress to false, and notify the caller, but this does not seem to happen for some reason.

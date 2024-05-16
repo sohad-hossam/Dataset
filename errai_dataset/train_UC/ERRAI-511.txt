@@ -1,0 +1,4 @@
+Demo parent poms should be synced to Maven Central
+Without the demo parent poms in Maven Central, the demos in the distro zip cannot be built individually by people who want to take Errai for a test drive.
+
+See this forum discussion for details: https://community.jboss.org/thread/222246?tstart=0

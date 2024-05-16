@@ -1,0 +1,2 @@
+Implement the destroy() method in javax.enterprise.inject.Instance
+CDI 1.1 implements the destroy() method for an Instance which is currently unavailable for Errai CDI.

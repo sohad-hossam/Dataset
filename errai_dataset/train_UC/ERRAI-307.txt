@@ -1,0 +1,2 @@
+Support client-side request/call interceptors in Errai
+Support interceptors or custom dispatchers for Errai RPC and JAX-RS.

@@ -1,0 +1,2 @@
+Upgrade resteasy
+Errai is currently using Resteasy 2.3.5.Final. It would be helpful if this could be aligned with EAP/SRAMP who use Resteasy 2.3.6.Final

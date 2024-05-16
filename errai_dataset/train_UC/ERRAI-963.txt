@@ -1,0 +1,4 @@
+Remove errai-js
+The errai-js module uses GWT exporter to export a JavaScript API for the message bus. But this approach is obsolete in GWT 2.8 because of JS interop. Futhermore, there's no evidence that anyone is using this module to interact with Errai through JavaScript.
+
+After this module has been removed from downstream projects (Uberfire and the Drools/JBPM Workbenches) it should be deleted.

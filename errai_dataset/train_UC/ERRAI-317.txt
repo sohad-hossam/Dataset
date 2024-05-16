@@ -1,0 +1,4 @@
+Subscription.remove() is broken (client-side)
+On the client (ClientMessageBusImpl), the remove() method of the Subscription objects produced by subscribe() and subscribeLocal() do not work.  Calling them does not unsubscribe anything.
+
+The underlying problem:  the remove() method is trying to simply remove the original user-supplied callback instance from a list.  However, directSubscribe() always wraps the user-supplied callback inside a new instance (with some try/catch logic)... so the user-supplied callback will never be found on that list.

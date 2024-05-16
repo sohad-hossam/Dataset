@@ -1,0 +1,4 @@
+Make @ApplicationScoped more CDI-compliant.
+Currently @ApplicationScoped also implies @Startup (Eg. @ApplicationScoped beans are eagerly instantiated).  Consider making @ApplicationScoped act CDI-compliant to reduce confusion. 
+
+NOTE: This change would break backwards compatibility.

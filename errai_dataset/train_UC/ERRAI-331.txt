@@ -1,0 +1,4 @@
+Errai JPA code generator should not use persistence.xml
+We currently require a persistence.xml in projects that use Errai JPA, because we get help from Hibernate at compile time, and we launch Hibernate in Java SE mode. JPA2 says providers running in the SE environment must provide an explicit persistence.xml, whereas providers running in the EE environment can omit persistence.xml and rely on classpath scanning.
+
+We already have the ability to scan for @Entity annotations, so we could construct a persistence.xml in cases when we can't find one.

@@ -1,0 +1,2 @@
+Convert @UncaughtException to work with all uncaught exceptions (not just those in the client message bus)
+Currently the @UncaughtException annotation only registers a method to handle uncaught exceptions originating from the message bus. This should be changed so that these methods are registered to handle all uncaught exceptions in client code.

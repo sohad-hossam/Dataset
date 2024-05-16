@@ -1,0 +1,6 @@
+Provide a way to handle server-side exceptions on the client
+Providing an ErrorCallback (using errorsHandledBy() in the MessageBuilder API) works fine for handling local exceptions but we also need support for handling remote exceptions that result from Errai RPC calls. Server-side exceptions are already sent to the client using a special message format but there they are only logged and reported to the user. 
+
+A solution could be to internally create a temporary subscription to errors for a specific message and to invoke the corresponding client-side ErrorCallback from the MessageCallback.
+
+We also need to reconstruct (serialize/deserialize) the original Throwable to pass it to the error() method.

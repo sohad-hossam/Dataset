@@ -1,0 +1,4 @@
+Nested type params on maps don't work
+It seems that the assumed map key/value type system that's used for Jackson compatibility is interfering with the correct processing of nested maps (for example, Map<String, Map<String, String>>).
+
+See all the details (including a zipped up project that demonstrates the problem) in this forum post: https://community.jboss.org/thread/215933

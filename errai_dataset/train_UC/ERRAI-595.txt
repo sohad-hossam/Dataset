@@ -1,0 +1,43 @@
+Native long breaks constructor-mapped marshalling
+This portable class:
+
+{code}
+@Portable
+public final class JobDescriptor {
+
+  private static long nextId;
+
+  private long id;
+  private String description;
+
+  private JobDescriptor(@MapsTo("id") long id, @MapsTo("description") String description) {
+    this.id = id;
+    this.description = Assert.notNull(description);
+  }
+}
+{code}
+
+causes this to be generated:
+
+{code}
+  public native static JobDescriptor _$943694848_(long a0, String a1) /*-{
+    return @org.jboss.errai.cdiwb.shared.JobDescriptor::new(JLjava/lang/String;)(a0, a1);
+  }-*/;
+{code}
+
+which makes the GWT compiler complain like this:
+
+{code}
+[INFO]    Adding '1' new generated units
+[INFO]       Validating units:
+[INFO]          Errors in '/Users/jfuerth/git/errai-cdi-workbench/target/.generated/org/jboss/errai/marshalling/client/api/MarshallerFactoryImpl.java'
+[INFO]             See snapshot: /var/folders/g8/31dng2352n76vdnzy2vwnp640000gn/T/org.jboss.errai.marshalling.client.api.MarshallerFactoryImpl4301968436900144017.java
+[INFO]          Ignored 1 unit with compilation errors in first pass.
+[INFO] Compile with -strict or with -logLevel set to TRACE or DEBUG to see all errors.
+[INFO]    [ERROR] Errors in '/Users/jfuerth/git/errai-cdi-workbench/target/.generated/org/jboss/errai/marshalling/client/api/MarshallerFactoryImpl.java'
+[INFO]       [ERROR] Line 621: Parameter 1 of method 'org.jboss.errai.cdiwb.shared.JobDescriptor.new': type 'long' may not be passed out of JSNI code
+[INFO]       [ERROR] Line 620: Parameter 'a0': type 'long' is not safe to access in JSNI code
+[INFO]       See snapshot: /var/folders/g8/31dng2352n76vdnzy2vwnp640000gn/T/org.jboss.errai.marshalling.client.api.MarshallerFactoryImpl7322461809608257607.java
+[INFO]    [ERROR] Errors in 'org/jboss/errai/marshalling/client/api/MarshallerFramework.java'
+[INFO]       [ERROR] Line 42: Rebind result 'org.jboss.errai.marshalling.client.api.MarshallerFactoryImpl' could not be found
+{code}

@@ -1,0 +1,15 @@
+Injecting on fields that have corresponding setters results in failure
+For example, the following class fails injection:
+
+{code}
+@ApplicationScoped
+public class BeanInjectsNonModuleDependentBeanB {
+  @Funject ArrayList<String> funArrayListOfString;
+
+  public void setFunArrayListOfString(ArrayList<String> funArrayListOfString) {
+    this.funArrayListOfString = funArrayListOfString;
+  }
+}
+{code}
+
+The IOC container is incorrectly reasoning that it cannot perform the injection specifically for method injection because the dependent scoped bean is not marked as available. 

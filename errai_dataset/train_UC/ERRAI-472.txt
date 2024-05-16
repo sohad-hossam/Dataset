@@ -1,0 +1,6 @@
+@PageShowing should not be called until after @AfterInitialization
+While playing with the GoogleMaps API, I had to create a bootstrapper class that holds initialization until the async load of the Maps API has completed. But to my surprise, the widget was being instantiated and displayed before all the init votes were in. This caused an exception at the attempt to create a MapWidget.
+
+It's quite complicated to try and split the page initialization logic between a @PageShowing and an @AfterInitialization method. The @AfterInitialization method only gets called in some cases.
+
+Iinstead, we should ensure the page navigtion framework does not attempt to display a page until all the init votes are in AND all the @AfterInitialization methods have been called.

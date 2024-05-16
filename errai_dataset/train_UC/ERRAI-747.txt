@@ -1,0 +1,36 @@
+IOC container reports unresolvable bean with injection cycle involving interfaces on both ends
+The following 4 types together make an injection cycle that Errai IOC has trouble with:
+
+{code}
+public interface Cycle1TypeA { Cycle1TypeB getBInstance(); }
+public interface Cycle1TypeB { Cycle1TypeA getAInstance(); }
+
+@ApplicationScoped
+public class Cycle1TypeAImpl implements Cycle1TypeA {
+
+  @Inject
+  private Cycle1TypeB bInstance;
+
+  @Override
+  public Cycle1TypeB getBInstance() {
+    return bInstance;
+  }
+}
+
+@ApplicationScoped
+public class Cycle1TypeBImpl implements Cycle1TypeB {
+
+  @Inject
+  Cycle1TypeA aInstance;
+
+  @Override
+  public Cycle1TypeA getAInstance() {
+    return aInstance;
+  }
+}
+{code}
+
+There are two known workarounds:
+
+1. Switch one or both of the injection points to inject the concrete type rather than the interface
+2. Switch one or both of the injection points to inject Instance<Cycle1Type[AB]>, which manually breaks the injection cycle

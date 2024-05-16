@@ -1,0 +1,2 @@
+Local CDI events should not be advertised to the server
+Currently local events (non-portable event types) are advertised to the server (in RemoteSubscribe). This causes a ClassNotFoundException in production mode (when client.local classes have been filtered out).

@@ -1,0 +1,19 @@
+Codegen can't see fields of anonymous inner classes
+The code generator does not include fields of anonymous inner classes in the scope of that inner class. Example:
+
+    public class A {
+      public void outerMethod() {
+        Runnable r = new Runnable() {
+          private Object I_AM_INVISIBLE = what.ever;
+          public void run() {
+            System.out.println(I_AM_INVISIBLE);
+          }
+        }
+      }
+    }
+
+In the above example, the reference to I_AM_INVISIBLE in the run() method will cause an out of scope error when generating the Java code.
+
+The workaround is to refer to I_AM_INVISIBLE using a StringStatement.
+
+The fix would be to include I_AM_INVISIBLE in the scope of the inner class (right now, the scope is reported to contain a "this" reference and nothing else).

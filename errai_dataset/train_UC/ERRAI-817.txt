@@ -1,0 +1,17 @@
+StyleBinding requires @AutoBound model field to precede @Bound component
+Generated BootstraperImpl.java follows class field order initialization sequence. While this makes no problem in standard use cases, adding custom StyleBinding based annotation and handler method results in NPE during runtime in case where @Bound field is declared before @AutoBound model.
+Stack trace for the failure is:
+{code}
+java.lang.NullPointerException: null
+	at org.jboss.errai.ioc.client.BootstrapperImpl$66.getInstance(BootstrapperImpl.java:1510)
+	at org.jboss.errai.ioc.client.BootstrapperImpl$66.getInstance(BootstrapperImpl.java:1)
+	at org.jboss.errai.ioc.client.BootstrapperImpl$89.getInstance(BootstrapperImpl.java:1997)
+	at org.jboss.errai.ioc.client.BootstrapperImpl$89.getInstance(BootstrapperImpl.java:1)
+	at org.jboss.errai.ioc.client.container.IOCDependentBean.getInstance(IOCDependentBean.java:96)
+{code}
+
+Apparently the generated code:
+{code}      _574997196__$483175978_customerDataBinder(inj660_CustomerDetail).addPropertyChangeHandler(bindingChangeHandler);
+{code}
+is called before the data binder is initialized. 
+A workaround is to ensure that the DataBinder is initialized before component fields.

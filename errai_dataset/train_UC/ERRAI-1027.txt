@@ -1,0 +1,3 @@
+fix errai-cdi-demo-mobile
+1) update to jetty 9
+2) fix dev mode

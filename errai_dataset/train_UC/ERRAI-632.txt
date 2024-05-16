@@ -1,0 +1,62 @@
+ConcurrentModificationException during client-side CDI event dispatch
+java.util.ConcurrentModificationException
+  at java.util.ArrayList$Itr.checkForComodification(ArrayList.java:819)
+	at java.util.ArrayList$Itr.next(ArrayList.java:791)
+	at org.jboss.errai.enterprise.client.cdi.api.CDI._fireEvent(CDI.java:252)
+	at org.jboss.errai.enterprise.client.cdi.api.CDI.consumeEventFromMessage(CDI.java:241)
+	at org.jboss.errai.enterprise.client.cdi.api.CDI$1.callback(CDI.java:73)
+	at org.jboss.errai.bus.client.framework.ClientMessageBusImpl$13.callback(ClientMessageBusImpl.java:639)
+	at org.jboss.errai.bus.client.framework.ClientMessageBusImpl.processMessageFromTransportLayer(ClientMessageBusImpl.java:801)
+	at org.jboss.errai.bus.client.framework.ClientMessageBusImpl.access$0(ClientMessageBusImpl.java:797)
+	at org.jboss.errai.bus.client.framework.ClientMessageBusImpl$2.callback(ClientMessageBusImpl.java:116)
+	at org.jboss.errai.bus.client.util.BusToolsCli.decodeToCallback(BusToolsCli.java:53)
+	at org.jboss.errai.bus.client.framework.transports.HttpPollingHandler$LongPollRequestCallback.onResponseReceived(HttpPollingHandler.java:411)
+	at org.jboss.errai.bus.client.framework.transports.HttpPollingHandler$2.onResponseReceived(HttpPollingHandler.java:524)
+	at com.google.gwt.http.client.Request.fireOnResponseReceived(Request.java:287)
+	at com.google.gwt.http.client.RequestBuilder$1.onReadyStateChange(RequestBuilder.java:395)
+	at sun.reflect.GeneratedMethodAccessor139.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at com.google.gwt.dev.shell.MethodAdaptor.invoke(MethodAdaptor.java:103)
+	at com.google.gwt.dev.shell.MethodDispatch.invoke(MethodDispatch.java:71)
+	at com.google.gwt.dev.shell.OophmSessionHandler.invoke(OophmSessionHandler.java:172)
+	at com.google.gwt.dev.shell.BrowserChannelServer.reactToMessagesWhileWaitingForReturn(BrowserChannelServer.java:338)
+	at com.google.gwt.dev.shell.BrowserChannelServer.invokeJavascript(BrowserChannelServer.java:219)
+	at com.google.gwt.dev.shell.ModuleSpaceOOPHM.doInvoke(ModuleSpaceOOPHM.java:136)
+	at com.google.gwt.dev.shell.ModuleSpace.invokeNative(ModuleSpace.java:571)
+	at com.google.gwt.dev.shell.ModuleSpace.invokeNativeObject(ModuleSpace.java:279)
+	at com.google.gwt.dev.shell.JavaScriptHost.invokeNativeObject(JavaScriptHost.java:91)
+	at com.google.gwt.core.client.impl.Impl.apply(Impl.java)
+	at com.google.gwt.core.client.impl.Impl.entry0(Impl.java:242)
+	at sun.reflect.GeneratedMethodAccessor138.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at com.google.gwt.dev.shell.MethodAdaptor.invoke(MethodAdaptor.java:103)
+	at com.google.gwt.dev.shell.MethodDispatch.invoke(MethodDispatch.java:71)
+	at com.google.gwt.dev.shell.OophmSessionHandler.invoke(OophmSessionHandler.java:172)
+	at com.google.gwt.dev.shell.BrowserChannelServer.reactToMessages(BrowserChannelServer.java:293)
+	at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:547)
+	at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:364)
+	at java.lang.Thread.run(Thread.java:724)
+
+Explanation of scenario given on IRC:
+
+porcelli		we have in 4 different active places that observes an event
+porcelli		this event is sent by server->clients
+porcelli		this error happens when i have two clients (in this case same browser, different tabs and same user)
+
+My analysis:
+
+Here's the code that fires the event:
+
+{code}
+  private static void _fireEvent(final String beanType, final Message message) {
+    if (eventObservers.containsKey(beanType)) {
+      for (final MessageCallback callback : eventObservers.get(beanType)) {
+        fireIfNotFired(callback, message);
+      }
+    }
+  }
+{code}
+
+During event dispatch, anything that modifies the observer list for beanType can cause this exception to be thrown. It might not show up if the last observer in the list is the one doing the modification. We should be iterating over a copy of the list, or we should use a CopyOnWrite list. It would be worth looking at how the message bus delivers events to local subscribers to see if it has solved this problem (or if it suffers from the same issue).

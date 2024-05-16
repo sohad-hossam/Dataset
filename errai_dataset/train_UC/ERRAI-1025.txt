@@ -1,0 +1,2 @@
+EmbeddedWildFlyLauncher breaks SDM when package-info.class exists
+The WildFly launcher adds exclusions to an apps beans.xml for all class files in *.client.local.* packages. This breaks SDM when a package-info.class files exists, as the beans.xml becomes invalid and WildFly does not start.

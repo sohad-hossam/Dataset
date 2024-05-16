@@ -1,0 +1,2 @@
+Heading not implementing HTMLElement?
+org.jboss.errai.common.client.dom.Heading should extend HTMLElement?

@@ -1,0 +1,28 @@
+StandardAsyncServlet throws exceptions on Jetty
+When running ErraiBus on Jetty the following exception is generated. I don't think the call to  asyncContext.complete() is necessary in the onComplete method
+
+https://github.com/errai/errai/blob/a90718b3cbaecc0c8059f9b2d6a2d97a2517e0ea/errai-bus/src/main/java/org/jboss/errai/bus/server/servlet/StandardAsyncServlet.java#L80
+
+
+WARN [HttpChannelState] 
+java.lang.IllegalStateException: s=COMPLETED i=false a=COMPLETE
+	at org.eclipse.jetty.server.HttpChannelState.complete(HttpChannelState.java:438)
+	at org.eclipse.jetty.server.AsyncContextState.complete(AsyncContextState.java:92)
+	at org.jboss.errai.bus.server.servlet.StandardAsyncServlet$1.onComplete(StandardAsyncServlet.java:80)
+	at org.eclipse.jetty.server.HttpChannelState.completed(HttpChannelState.java:506)
+	at org.eclipse.jetty.server.HttpChannel.handle(HttpChannel.java:391)
+	at org.eclipse.jetty.server.HttpChannel.run(HttpChannel.java:241)
+	at org.eclipse.jetty.server.handler.ContextHandler.handle(ContextHandler.java:1160)
+	at org.eclipse.jetty.server.HttpChannelState.complete(HttpChannelState.java:452)
+	at org.eclipse.jetty.server.AsyncContextState.complete(AsyncContextState.java:92)
+	at org.jboss.errai.bus.server.servlet.StandardAsyncServlet$1.onComplete(StandardAsyncServlet.java:80)
+	at org.jboss.errai.bus.server.servlet.StandardAsyncServlet$1.onTimeout(StandardAsyncServlet.java:86)
+	at org.eclipse.jetty.server.HttpChannelState.expired(HttpChannelState.java:401)
+	at org.eclipse.jetty.server.AsyncContextEvent.run(AsyncContextEvent.java:161)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:511)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.access$201(ScheduledThreadPoolExecutor.java:180)
+	at java.util.concurrent.ScheduledThreadPoolExecutor$ScheduledFutureTask.run(ScheduledThreadPoolExecutor.java:293)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617)
+	at java.lang.Thread.run(Thread.java:745)

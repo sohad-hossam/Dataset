@@ -1,0 +1,11 @@
+BindableProxyAgent.syncState must use converter when setting model's property value in InitialState.FROM_UI mode.
+Line 368 in errai-2.4.0.Final\errai-data-binding\src\main\java\org\jboss\errai\databinding\client\BindableProxyAgent.java:
+
+proxy.set(property, value); 
+
+must be changed to something like this:
+
+Object newValue = toModelValue(propertyTypes.get(property).getType(), widget, value, converter);
+proxy.set(property, newValue);
+
+In current implementation UI values cannot be populated into model and raise exception, because converters are not called during initial bind() in InitialState.FROM_UI mode.

@@ -1,0 +1,12 @@
+Can not inject com.google.gwt.user.cellview.client.CellTable in errai-ui project
+If you attempt to inject a com.google.gwt.user.cellview.client.CellTable widget using erraiUi, the following error is thrown during compilation of .generated/org/jboss/errai/ioc/client/BootstrapperImpl.java
+
+[INFO]    [ERROR] Errors in '/home/john/dev/java/errai-tutorial/target/.generated/org/jboss/errai/ioc/client/BootstrapperImpl.java'
+[INFO]       [ERROR] Line 55: The type com.google.gwt.user.cellview.client.AbstractCellTable.TableSectionChangeHandler is not visible
+[INFO]       [ERROR] Line 1337: TableSectionChangeHandler cannot be resolved to a type
+[INFO]       See snapshot: /tmp/org.jboss.errai.ioc.client.BootstrapperImpl5949668040029665838.java
+[INFO]    [ERROR] Errors in 'org/jboss/errai/ioc/client/Container.java'
+[INFO]       [ERROR] Line 64: Rebind result 'org.jboss.errai.ioc.client.BootstrapperImpl' could not be found
+
+
+This was working with 2.3.0.Final and GWT 2.4.0

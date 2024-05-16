@@ -1,0 +1,2 @@
+Cloning of bindable types doesn't clone their non-proxied bindable properties
+When recursively cloning a bindable type (calling deepUnwrap), non-proxied properties are not cloned, even if bindable. They are shallow copied which should only happen if the property is a non-bindable non-primitive type.

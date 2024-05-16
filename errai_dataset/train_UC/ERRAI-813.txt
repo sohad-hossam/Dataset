@@ -1,0 +1,8 @@
+Forge Plugin: Adds an invalid interceptor when configuring security.
+When using the Errai Forge Addon to configure Errai Security it adds two interceptors to beans.xml:
+{code}
+<class>org.jboss.errai.security.server.SecurityUserInterceptor</class>
+<class>org.jboss.errai.security.server.ServerSecurityRoleInterceptor</class>
+{code}
+
+But the {{org.jboss.errai.security.server.SecurityUserInterceptor}} class doesn't exist in Errai 3.0.3.

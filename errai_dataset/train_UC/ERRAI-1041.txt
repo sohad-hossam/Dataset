@@ -1,0 +1,6 @@
+Errai always generates factories for native JS types that are injectable, even if they are not used
+Normally Errai generates a factory for a bean when one of two conditions is met: the bean is injected somewhere, or the bean has CDI annotations.
+
+The rational for the second criterion is that CDI annotated beans can be dynamically looked up at runtime even if they have no individual injection sites.
+
+But native JS types cannot be looked up dynamically (at present) because they do not have Class objects at runtime. Thus (at least at present) it doesn't make sense to have factories generated for native JS types that do not have static injection sites.

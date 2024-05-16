@@ -1,0 +1,4 @@
+Add client-side exception mappers for jax-rs
+Currently the happy response from a REST (jax-rs) call is properly de-marshaled into an entity and passed to the client side response handler.  However, if an application defined exception is thrown by the service, it is not properly de-marshaled into an exception object.  Instead, a generic "Server Error" type exception is passed to the error handler (if one exists).
+
+We need to support some way to de-marshal custom application exceptions into proper entity instances and then pass them to the error handler registered at the time the call as made.

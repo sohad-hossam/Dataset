@@ -1,0 +1,2 @@
+QualifierEqualityFactoryGenerator fails at rebind for qualifiers with String[] values
+When a qualifier having a String[] value exists, the QualifierEqualityFactoryGenerator fails with a codegen error. The generated call to Arrays.equals fails because errai-codegen uses the Arrays.equals with primitive arguments rather than the Arrays.equals(Object[], Object[]).

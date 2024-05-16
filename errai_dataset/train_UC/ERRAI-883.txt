@@ -1,0 +1,6 @@
+Custom Type qualifier not working with @DataField in constructor injection
+When combining a custom type qualifier (e.g. @Base) with @DataField in the constructor I get an InjectionFailure: 
+
+{code:java}
+java.util.concurrent.ExecutionException: org.jboss.errai.ioc.rebind.ioc.exception.InjectionFailure: unable to resolve type injector for: ...
+{code}

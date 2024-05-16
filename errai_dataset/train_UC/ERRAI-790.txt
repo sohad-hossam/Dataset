@@ -1,0 +1,19 @@
+Errai UI fails for templated static nested classes
+Templated static nested classes cause the following error:
+  [ERROR] Unable to find type 'org.jboss.errai.ioc.client.BootstrapperImpl.org_jboss_errai_ui_test_nested_client_res_NestedClassComponent.ContentTemplateResource'
+         [ERROR] Hint: Check that the type name 'org.jboss.errai.ioc.client.BootstrapperImpl.org_jboss_errai_ui_test_nested_client_res_NestedClassComponent.ContentTemplateResource' is really what you meant
+         [ERROR] Hint: Check that your classpath includes all required source roots
+
+Example to reproduce the problem:
+
+{code}
+@Templated("A.html")
+public class NestedClassComponent extends Composite {
+  @Inject @DataField Content b;
+
+  @Templated("B.html")  
+  public static class Content extends Composite {  
+
+  }  
+}
+{code}

@@ -1,0 +1,4 @@
+Make Errai Forge Addon less brittle regarding user modifications to project
+Currently the Errai Forge Addon requires precise configurations for any of the commands other than setup to be run. This is fine for getting started, but if a user tweaks some values in their pom.xml (or other config files) they may no longer be able to use commands in the addon.
+
+Dependencies should be strictly required, but *.xml configurations should be more flexible so that users can still take advantage of the addon after doing manual modifications.

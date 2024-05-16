@@ -1,0 +1,4 @@
+There should be a way of specifying which LESS stylesheets are to be compiled
+Currently, Errai attempts to compile all .less files it finds on the classpath. But some LESS files are only meant to be used as imports. In some cases, files meant for importing will not compile on their own. And in other cases where they do compile, they might override styles unintentionally (such as a file only meant to be imported within media query).
+
+There should be a way of defining which LESS files are meant to be used in a webapp, either by configuration or convention.

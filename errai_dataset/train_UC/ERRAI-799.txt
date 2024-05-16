@@ -1,0 +1,18 @@
+GWT 2.7.0-SNAPSHOT removed FirebugLogHandler
+In GWT 2.7.0-SNAPSHOT the FirebugLogHandler is deprecated and removed (https://github.com/gwtproject/gwt/commit/de218e819bd3d0b9818fe40c34999f4fa192e4fc#diff-d8f3ec69afd1e094b593ffc88e794122). 
+This will lead to this error: 
+
+[INFO] Compiling module com.gmi.nordborglab.browser.Browser_dev
+[INFO]    Tracing compile failure path for type 'org.jboss.errai.common.client.logging.handlers.ErraiFirebugLogHandler'
+[INFO]       [ERROR] Errors in 'jar:file:/home/GMI/uemit.seren/.m2/repository/org/jboss/errai/errai-common/3.1.0.CR1/errai-common-3.1.0.CR1.jar!/org/jboss/errai/common/client/logging/handlers/ErraiFirebugLogHandler.java'
+[INFO]          [ERROR] Line 15: FirebugLogHandler cannot be resolved to a type
+[INFO]          [ERROR] Line 8: The import com.google.gwt.logging.client.FirebugLogHandler cannot be resolved
+[INFO]          [ERROR] Line 23: The method setFormatter(Formatter) is undefined for the type ErraiFirebugLogHandler
+[INFO]    Tracing compile failure path for type 'org.jboss.errai.common.client.logging.LoggingHandlerConfigurator'
+[INFO]       [ERROR] Errors in 'jar:file:/home/GMI/uemit.seren/.m2/repository/org/jboss/errai/errai-common/3.1.0.CR1/errai-common-3.1.0.CR1.jar!/org/jboss/errai/common/client/logging/LoggingHandlerConfigurator.java'
+[INFO]          [ERROR] Line 48: The method put(Class<? extends ErraiLogHandler>, Handler) in the type Map<Class<? extends ErraiLogHandler>,Handler> is not applicable for the arguments (Class<ErraiFirebugLogHandler>, ErraiFirebugLogHandler)
+[INFO]    Finding entry point classes
+[INFO]       Tracing compile failure path for type 'org.jboss.errai.common.client.logging.LoggingHandlerConfigurator'
+[INFO]          [ERROR] Errors in 'jar:file:/home/GMI/uemit.seren/.m2/repository/org/jboss/errai/errai-common/3.1.0.CR1/errai-common-3.1.0.CR1.jar!/org/jboss/errai/common/client/logging/LoggingHandlerConfigurator.java'
+[INFO]             [ERROR] Line 48: The method put(Class<? extends ErraiLogHandler>, Handler) in the type Map<Class<? extends ErraiLogHandler>,Handler> is not applicable for the arguments (Class<ErraiFirebugLogHandler>, ErraiFirebugLogHandler)
+[INFO]       [ERROR] Hint: Check the inheritance chain from your module; it may not be inheriting a required module or a module may not be adding its source path entries properly

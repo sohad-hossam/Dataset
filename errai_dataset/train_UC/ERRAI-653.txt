@@ -1,0 +1,6 @@
+Support custom provider of content panel for Navigation UI
+When installing Navigation Panel (Content Panel) into user interface, Errai uses SimplePanel that changes its content during navigation between views / places.
+
+Sometimes SimplePanel is not sufficient and users would prefer to use another implementation. For example, when building web application it is more common to use SimpleLayoutPanel that manages child size state or LayoutContainer from GXT that allows to use different layouts on it's children.
+
+Ideally it would be nice to override creation of Content Panel in Navigation class with @Produces mechanisms.

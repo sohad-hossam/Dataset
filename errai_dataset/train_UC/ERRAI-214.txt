@@ -1,0 +1,2 @@
+@Inject not honored from super-types
+When inheriting from a super-type that defines an @Inject point, the sub-type does not receive injection for said points in the super-type. They must currently be directly injected into the sub-type.

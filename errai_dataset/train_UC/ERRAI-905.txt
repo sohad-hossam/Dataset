@@ -1,0 +1,37 @@
+4.0.0-SNAPSHOT: TranslationServiceGenerator creates flawed URLs for MessageBundleScanner
+I couldn't compile @Bundle for love nor money; stack trace:-
+
+{code}
+[INFO] Compiling module org.drools.workbench.DroolsWorkbench
+[INFO]    Computing all possible rebind results for 'org.jboss.errai.marshalling.client.api.MarshallerFactory'
+[INFO]       Rebinding org.jboss.errai.marshalling.client.api.MarshallerFactory
+[INFO]          Invoking generator org.jboss.errai.marshalling.rebind.MarshallersGenerator
+[INFO]             Generating Marshallers Bootstrapper...
+[INFO]             Checking ErraiApp.properties for configured types ...
+[INFO] 2016-03-02 09:41:16,202 [pool-5-thread-3] ERROR could not create Vfs.Dir from url. ignoring the exception and continuing
+[INFO] org.jboss.errai.reflections.ReflectionsException: could not create Dir using org.jboss.errai.reflections.vfs.Vfs$DefaultUrlTypes$2 from url file:/home/manstis/workspaces/git/manstis/forks/drools-wb/file:/home/manstis/.m2/repository/org/kie/workbench/screens/kie-wb-common-examples-screen-client/7.0.0-SNAPSHOT/kie-wb-common-examples-screen-client-7.0.0-SNAPSHOT.jar!
+[INFO] 	at org.jboss.errai.reflections.vfs.Vfs.fromURL(Vfs.java:137) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.reflections.vfs.Vfs.fromURL(Vfs.java:124) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.reflections.Reflections.scan(Reflections.java:229) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.ui.rebind.TranslationServiceGenerator$MessageBundleScanner.<init>(TranslationServiceGenerator.java:627) [errai-ui-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.ui.rebind.TranslationServiceGenerator.generate(TranslationServiceGenerator.java:192) [errai-ui-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:67) [errai-config-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.config.rebind.AbstractAsyncGenerator$1.call(AbstractAsyncGenerator.java:55) [errai-config-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [na:1.8.0_72]
+[INFO] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_72]
+[INFO] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_72]
+[INFO] 	at java.lang.Thread.run(Thread.java:745) [na:1.8.0_72]
+[INFO] Caused by: java.lang.RuntimeException: java.io.FileNotFoundException: /home/manstis/workspaces/git/manstis/forks/drools-wb/file:/home/manstis/.m2/repository/org/kie/workbench/screens/kie-wb-common-examples-screen-client/7.0.0-SNAPSHOT/kie-wb-common-examples-screen-client-7.0.0-SNAPSHOT.jar! (No such file or directory)
+[INFO] 	at org.jboss.errai.reflections.vfs.ZipDir.<init>(ZipDir.java:43) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.reflections.vfs.ZipDir.<init>(ZipDir.java:33) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.reflections.vfs.Vfs$DefaultUrlTypes$2.createDir(Vfs.java:213) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	at org.jboss.errai.reflections.vfs.Vfs.fromURL(Vfs.java:134) ~[reflections-4.0.0-SNAPSHOT.jar:4.0.0-SNAPSHOT]
+[INFO] 	... 10 common frames omitted
+[INFO] Caused by: java.io.FileNotFoundException: /home/manstis/workspaces/git/manstis/forks/drools-wb/file:/home/manstis/.m2/repository/org/kie/workbench/screens/kie-wb-common-examples-screen-client/7.0.0-SNAPSHOT/kie-wb-common-examples-screen-client-7.0.0-SNAPSHOT.jar! (No such file or directory)
+[INFO] 	at java.util.zip.ZipFile.open(Native Method) ~[na:1.8.0_72]
+[INFO] 	at java.util.zip.ZipFile.<init>(ZipFile.java:219) ~[na:1.8.0_72]
+[INFO] 	at java.util.zip.ZipFile.<init>(ZipFile.java:149) ~[na:1.8.0_72]
+[INFO] 	at java.util.zip.ZipFile.<init>(ZipFile.java:120) ~[na:1.8.0_72]
+{code}
+
+The cause is that "TranslationServiceGenerator" uses "new File(pathRoot).toURI().toURL().toString()" where "pathRoot" is "file:/xxx" which is interpreted by "toURI()" as a non-absolute path (at least with JDK1.8.0_72 and UnixFileSystem) giving the crazy URL "file:/home/manstis/workspaces/git/manstis/forks/drools-wb/drools-wb-webapp/file:/home/manstis/.m2/repository/org/kie/workbench/screens/kie-wb-common-examples-screen-client-SNAPSHOT/kie-wb-common-examples-screen-client-7.0.0-SNAPSHOT.jar!" -- NOTE the two "file:/..." in the URL.

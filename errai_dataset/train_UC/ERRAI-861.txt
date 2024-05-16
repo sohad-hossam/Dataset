@@ -1,0 +1,22 @@
+Websocket scheme behind loadbanlancer
+When errai set socket scheme it doesn't check "X-Forwarded-Ssl" header. 
+We are using errai behind a loadbalancer (haproxy) who is handling ssl, we use "force-secure-websockets" but we can't use http and https on the same project.
+
+Is it possible de replace this :
+
+String websocketScheme = "ws";
+if (request.getScheme().equals("https") || useSecureWebsocket) {
+  websocketScheme = "wss";
+  log.debug("use secure websocket");
+}
+
+By something like this :
+
+String websocketScheme = "ws";
+if (request.getScheme().equals("https") || useSecureWebsocket || "on".equalsIgnoreCase(request.getHeader("X-Forwarded-Ssl")) ) {
+  websocketScheme = "wss";
+  log.debug("use secure websocket");
+}
+
+Regards
+Thomas.

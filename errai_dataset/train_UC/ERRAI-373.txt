@@ -1,0 +1,61 @@
+ErraiUI compile error: The method 'getAssociatedType()' in the event [ClickEvent] does not return Type<? extends EventHandler>..
+Note: the original description of this issue made the assumption that this error was caused by an invalid field name for the event target. This is not the case; even with the correct field name, the error persists.
+
+Attempting to compile this class:
+
+@Templated("#root")
+public class WelcomePage extends CompositePage {
+
+  @Inject @DataField Button startButton;
+  
+  @EventHandler("startButton")
+  public void onStartButtonPress(ClickEvent e) {
+    System.out.println("You pressed the start button");
+  }
+}
+
+Results in this error at rebind time:
+
+[ERROR] org.jboss.errai.codegen.exception.GenerationException: The method 'getAssociatedType()' in the event [ClickEvent] does not return Type<? extends EventHandler>..
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.getHandlerForEvent(DecoratorTemplated.java:377)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateEventHandlerMethodClasses(DecoratorTemplated.java:291)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateTemplatedInitialization(DecoratorTemplated.java:186)
+[ERROR] 	at org.jboss.errai.ui.rebind.DecoratorTemplated.generateDecorator(DecoratorTemplated.java:110)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.api.DecoratorTask.doTask(DecoratorTask.java:88)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.handleInjectionTasks(InjectUtil.java:161)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil.access$0(InjectUtil.java:158)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.InjectUtil$2.generateConstructor(InjectUtil.java:149)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector._getType(TypeInjector.java:159)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.injector.TypeInjector.getBeanInstance(TypeInjector.java:109)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$3.handle(IOCProcessorFactory.java:331)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory$5.process(IOCProcessorFactory.java:493)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCProcessorFactory.process(IOCProcessorFactory.java:452)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generateExtensions(IOCBootstrapGenerator.java:345)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator._generate(IOCBootstrapGenerator.java:318)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCBootstrapGenerator.generate(IOCBootstrapGenerator.java:154)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generateIOCBootstrapClass(IOCGenerator.java:96)
+[ERROR] 	at org.jboss.errai.ioc.rebind.ioc.bootstrapper.IOCGenerator.generate(IOCGenerator.java:65)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generate(GeneratorExtWrapper.java:48)
+[ERROR] 	at com.google.gwt.core.ext.GeneratorExtWrapper.generateIncrementally(GeneratorExtWrapper.java:60)
+[ERROR] 	at com.google.gwt.dev.javac.StandardGeneratorContext.runGeneratorIncrementally(StandardGeneratorContext.java:647)
+[ERROR] 	at com.google.gwt.dev.cfg.RuleGenerateWith.realize(RuleGenerateWith.java:41)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle$Rebinder.rebind(StandardRebindOracle.java:78)
+[ERROR] 	at com.google.gwt.dev.shell.StandardRebindOracle.rebind(StandardRebindOracle.java:268)
+[ERROR] 	at com.google.gwt.dev.shell.ShellModuleSpaceHost.rebind(ShellModuleSpaceHost.java:141)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.rebind(ModuleSpace.java:585)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.rebindAndCreate(ModuleSpace.java:455)
+[ERROR] 	at com.google.gwt.dev.shell.GWTBridgeImpl.create(GWTBridgeImpl.java:49)
+[ERROR] 	at com.google.gwt.core.client.GWT.create(GWT.java:97)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.bootstrapContainer(Container.java:55)
+[ERROR] 	at org.jboss.errai.ioc.client.Container.onModuleLoad(Container.java:34)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+[ERROR] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+[ERROR] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+[ERROR] 	at java.lang.reflect.Method.invoke(Method.java:597)
+[ERROR] 	at com.google.gwt.dev.shell.ModuleSpace.onLoad(ModuleSpace.java:396)
+[ERROR] 	at com.google.gwt.dev.shell.OophmSessionHandler.loadModule(OophmSessionHandler.java:200)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.processConnection(BrowserChannelServer.java:525)
+[ERROR] 	at com.google.gwt.dev.shell.BrowserChannelServer.run(BrowserChannelServer.java:363)
+[ERROR] 	at java.lang.Thread.run(Thread.java:680)
+
+I see in the docs that declaring an EventHandler method for a nonexistent data field is allowed in order to handle native DOM events, but it seems that the @SinkNative annotation is also required in that case. Perhaps we can make it a compile-time error when an @EventHandler refers to a nonexistent field and @SinkNative is not also present?

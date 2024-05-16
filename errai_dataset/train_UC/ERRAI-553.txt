@@ -1,0 +1,132 @@
+Errai's sessions can't be replicated by Infinispan
+This is what happens when I have a JBoss cluster with an Errai based Application (sharedAttributes from your SessionsContainer):
+
+
+23:39:31,690 ERROR [org.infinispan.transaction.TransactionCoordinator] (ajp-/127.0.0.1:8109-1) ISPN000097: Error while processing a prepare in a single-phase transaction: org.infinispan.CacheException: java.lang.RuntimeException: Failure to marshal argument(s)
+	at org.infinispan.util.Util.rewrapAsCacheException(Util.java:542)
+	at org.infinispan.remoting.transport.jgroups.CommandAwareRpcDispatcher.invokeRemoteCommand(CommandAwareRpcDispatcher.java:186)
+	at org.infinispan.remoting.transport.jgroups.JGroupsTransport.invokeRemotely(JGroupsTransport.java:515)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.invokeRemotely(RpcManagerImpl.java:169)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.invokeRemotely(RpcManagerImpl.java:190)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.invokeRemotely(RpcManagerImpl.java:247)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.invokeRemotely(RpcManagerImpl.java:234)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.invokeRemotely(RpcManagerImpl.java:229)
+	at org.infinispan.remoting.rpc.RpcManagerImpl.broadcastRpcCommand(RpcManagerImpl.java:208)
+	at org.infinispan.interceptors.ReplicationInterceptor.broadcastPrepare(ReplicationInterceptor.java:109)
+	at org.infinispan.interceptors.ReplicationInterceptor.visitPrepareCommand(ReplicationInterceptor.java:101)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.base.CommandInterceptor.handleDefault(CommandInterceptor.java:132)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.base.CommandInterceptor.handleDefault(CommandInterceptor.java:132)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.EntryWrappingInterceptor.visitPrepareCommand(EntryWrappingInterceptor.java:106)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.locking.AbstractTxLockingInterceptor.invokeNextAndCommitIf1Pc(AbstractTxLockingInterceptor.java:108)
+	at org.infinispan.interceptors.locking.OptimisticLockingInterceptor.visitPrepareCommand(OptimisticLockingInterceptor.java:135)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.NotificationInterceptor.visitPrepareCommand(NotificationInterceptor.java:58)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.TxInterceptor.invokeNextInterceptorAndVerifyTransaction(TxInterceptor.java:128)
+	at org.infinispan.interceptors.TxInterceptor.visitPrepareCommand(TxInterceptor.java:115)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.base.CommandInterceptor.handleDefault(CommandInterceptor.java:132)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.statetransfer.TransactionSynchronizerInterceptor.visitPrepareCommand(TransactionSynchronizerInterceptor.java:61)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.statetransfer.StateTransferInterceptor.handleTopologyAffectedCommand(StateTransferInterceptor.java:216)
+	at org.infinispan.statetransfer.StateTransferInterceptor.handleTxCommand(StateTransferInterceptor.java:189)
+	at org.infinispan.statetransfer.StateTransferInterceptor.visitPrepareCommand(StateTransferInterceptor.java:93)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.base.CommandInterceptor.handleDefault(CommandInterceptor.java:132)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.InvocationContextInterceptor.handleAll(InvocationContextInterceptor.java:128)
+	at org.infinispan.interceptors.InvocationContextInterceptor.handleDefault(InvocationContextInterceptor.java:92)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.base.CommandInterceptor.invokeNextInterceptor(CommandInterceptor.java:118)
+	at org.infinispan.interceptors.BatchingInterceptor.handleDefault(BatchingInterceptor.java:92)
+	at org.infinispan.commands.AbstractVisitor.visitPrepareCommand(AbstractVisitor.java:126)
+	at org.infinispan.commands.tx.PrepareCommand.acceptVisitor(PrepareCommand.java:124)
+	at org.infinispan.interceptors.InterceptorChain.invoke(InterceptorChain.java:343)
+	at org.infinispan.transaction.TransactionCoordinator.commit(TransactionCoordinator.java:175)
+	at org.infinispan.transaction.synchronization.SynchronizationAdapter.afterCompletion(SynchronizationAdapter.java:81)
+	at org.infinispan.transaction.tm.DummyTransaction.notifyAfterCompletion(DummyTransaction.java:285)
+	at org.infinispan.transaction.tm.DummyTransaction.runCommitTx(DummyTransaction.java:334)
+	at org.infinispan.transaction.tm.DummyTransaction.commit(DummyTransaction.java:91)
+	at org.infinispan.transaction.tm.DummyBaseTransactionManager.commit(DummyBaseTransactionManager.java:102)
+	at org.jboss.as.clustering.web.impl.TransactionBatchingManager.endBatch(TransactionBatchingManager.java:75)
+	at org.jboss.as.web.session.DistributableSessionManager.processSessionRepl(DistributableSessionManager.java:1527) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.DistributableSessionManager.storeSession(DistributableSessionManager.java:865) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.InstantSnapshotManager.snapshot(InstantSnapshotManager.java:47) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.ClusteredSessionValve.handleRequest(ClusteredSessionValve.java:142) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.ClusteredSessionValve.invoke(ClusteredSessionValve.java:99) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.JvmRouteValve.invoke(JvmRouteValve.java:92) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.LockingValve.invoke(LockingValve.java:64) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:169) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:145) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:97) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:102) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:336) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.coyote.ajp.AjpProcessor.process(AjpProcessor.java:488) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.coyote.ajp.AjpProtocol$AjpConnectionHandler.process(AjpProtocol.java:420) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:920) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at java.lang.Thread.run(Thread.java:680) [classes.jar:1.6.0_45]
+Caused by: java.lang.RuntimeException: Failure to marshal argument(s)
+	at org.infinispan.remoting.transport.jgroups.CommandAwareRpcDispatcher.marshallCall(CommandAwareRpcDispatcher.java:281)
+	at org.infinispan.remoting.transport.jgroups.CommandAwareRpcDispatcher.processSingleCall(CommandAwareRpcDispatcher.java:300)
+	at org.infinispan.remoting.transport.jgroups.CommandAwareRpcDispatcher.invokeRemoteCommand(CommandAwareRpcDispatcher.java:179)
+	... 79 more
+Caused by: org.infinispan.marshall.NotSerializableException: org.apache.catalina.session.StandardSessionFacade
+Caused by: an exception which occurred:
+	in field sharedAttributes
+	in object java.util.HashMap@b96d7139
+	in object org.jboss.as.clustering.SimpleMarshalledValue@b96d7139
+	in object org.infinispan.atomic.PutOperation@56c36f68
+	in object java.util.LinkedList@b85cf174
+	in object org.infinispan.atomic.AtomicHashMapDelta@1cb55c5
+	in object org.infinispan.commands.write.PutKeyValueCommand@6157c43e
+	in object org.infinispan.commands.tx.PrepareCommand@5bac08f3
+
+23:39:31,696 ERROR [org.infinispan.transaction.tm.DummyTransaction] (ajp-/127.0.0.1:8109-1) ISPN000111: afterCompletion() failed for SynchronizationAdapter{localTransaction=LocalTransaction{remoteLockedNodes=null, isMarkedForRollback=false, lockedKeys=null, backupKeyLocks=[eUkHqnEITVeMa8IG3Db5UHW9], topologyId=2, isFromStateTransfer=false} org.infinispan.transaction.synchronization.SyncLocalTransaction@24} org.infinispan.transaction.synchronization.SynchronizationAdapter@43: org.infinispan.CacheException: Could not commit.
+	at org.infinispan.transaction.synchronization.SynchronizationAdapter.afterCompletion(SynchronizationAdapter.java:83)
+	at org.infinispan.transaction.tm.DummyTransaction.notifyAfterCompletion(DummyTransaction.java:285)
+	at org.infinispan.transaction.tm.DummyTransaction.runCommitTx(DummyTransaction.java:334)
+	at org.infinispan.transaction.tm.DummyTransaction.commit(DummyTransaction.java:91)
+	at org.infinispan.transaction.tm.DummyBaseTransactionManager.commit(DummyBaseTransactionManager.java:102)
+	at org.jboss.as.clustering.web.impl.TransactionBatchingManager.endBatch(TransactionBatchingManager.java:75)
+	at org.jboss.as.web.session.DistributableSessionManager.processSessionRepl(DistributableSessionManager.java:1527) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.DistributableSessionManager.storeSession(DistributableSessionManager.java:865) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.InstantSnapshotManager.snapshot(InstantSnapshotManager.java:47) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.ClusteredSessionValve.handleRequest(ClusteredSessionValve.java:142) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.ClusteredSessionValve.invoke(ClusteredSessionValve.java:99) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.JvmRouteValve.invoke(JvmRouteValve.java:92) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.session.LockingValve.invoke(LockingValve.java:64) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.jboss.as.web.security.SecurityContextAssociationValve.invoke(SecurityContextAssociationValve.java:169) [jboss-as-web-7.2.0.Final-redhat-4.jar:7.2.0.Final-redhat-4]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:145) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:97) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:102) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:336) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.coyote.ajp.AjpProcessor.process(AjpProcessor.java:488) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.coyote.ajp.AjpProtocol$AjpConnectionHandler.process(AjpProtocol.java:420) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:920) [jbossweb-7.2.0.Final-redhat-1.jar:7.2.0.Final-redhat-1]
+	at java.lang.Thread.run(Thread.java:680) [classes.jar:1.6.0_45]
+Caused by: javax.transaction.xa.XAException
+	at org.infinispan.transaction.TransactionCoordinator.handleCommitFailure(TransactionCoordinator.java:224)
+	at org.infinispan.transaction.TransactionCoordinator.commit(TransactionCoordinator.java:177)
+	at org.infinispan.transaction.synchronization.SynchronizationAdapter.afterCompletion(SynchronizationAdapter.java:81)
+	... 21 more
+
+In order to be sure that this was an errai bug, i've changed the sharedAttributes transient: of couse the Clustering fails, but I managed to remove the above exception.

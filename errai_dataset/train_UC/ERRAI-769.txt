@@ -1,0 +1,7 @@
+Less variable import fails
+org.jboss.errai.ui.rebind.less.LessConverter.parseLess(URL resource) does not resolve transitive variables.
+
+A.less imports B.less then A.less imports C.less
+Variables defined in B.less are not visible to C.less =>  substitution fails.
+
+Parsing C.less always fails, parsing A.less is ok.

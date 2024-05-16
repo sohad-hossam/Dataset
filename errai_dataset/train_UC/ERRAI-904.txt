@@ -1,0 +1,10 @@
+@PathParam regex incomplete support 
+There is a hole in the path param detection with regex containing brackets.
+
+Indeed, the regular expression used in [https://github.com/errai/errai/blob/master/errai-jaxrs/errai-jaxrs-client/src/main/java/org/jboss/errai/enterprise/rebind/JaxrsResourceMethodParameters.java#L58] does not take into account the internal brackets that might be present in the PathParam regular expression.
+
+This is due to a limitation in the Java Regular Expression library that can not find balanced members of a string.
+
+However, Resteasy works fine with these regular expressions, so I looked into it to find out how it did it. The answer is in its [https://github.com/resteasy/Resteasy/blob/master/jaxrs/resteasy-jaxrs/src/main/java/org/jboss/resteasy/util/PathHelper.java#L51] class. They replace internal brackets programmatically with an unlikely used character, apply the regex to find pathParamNames and associated regex, and then replace the characters back to brackets.
+
+In the mean time, the only available workaround is to replace the *\{n\}* syntax with *n* times the repeated group/character: *[A-Z]\{3\}* becomes *[A-Z][A-Z][A-Z]*.

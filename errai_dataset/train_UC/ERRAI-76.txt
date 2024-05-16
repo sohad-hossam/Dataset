@@ -1,0 +1,2 @@
+Closing login window makes it disappear permanently
+Closing the login window should send an anonymous challenge to the server (ie. attempt to login without credentials). This was the behaviour before.  This will normally result in a failed login, but it provides the ability to bypass the login in certain systems where a guest login (ie. login bypass) is considered appropriate.

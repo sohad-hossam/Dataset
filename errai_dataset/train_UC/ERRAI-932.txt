@@ -1,0 +1,4 @@
+Please provide more informative error messages
+See
+
+https://developer.jboss.org/thread/269326

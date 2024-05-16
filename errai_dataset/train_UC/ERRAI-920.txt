@@ -1,0 +1,6 @@
+Major Bottleneck in Errai Codegen found in AbstractCallElement
+When Codegen is running, the initialization of AbstractCallElement is by far taking the most time of errai code.  I believe this is due to the creation of the 'blame' RuntimeException which is created when initialized.
+
+I remember from a previous conversation that there was a reason for doing this, but that there was a way this could be refactored.  For my initial startup in SDM, a full 82s is spent initializing AbstractCallElements (see attached screenshot).  At one point I had played with the source and refactored it out and it basically fell off the list completely.
+
+This would be a really nice performance win if it could be remediated.

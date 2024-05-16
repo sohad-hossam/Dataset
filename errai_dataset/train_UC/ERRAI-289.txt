@@ -1,0 +1,2 @@
+Remove support for @Service annotations on fields
+This was originally a workaround because inner classes annotated with @Service were not supported. Now they are, and since this usage is not documented, not tested, and more boilerplate heavy than @Service on a class or a method, it should be removed.

@@ -1,0 +1,4 @@
+Raise exception if @Portable models use *reserved* names
+Using a model property of "agent" produces compilation problems in the generated marshalling class, as "agent" is used internally.
+
+An exception should be raised so the user uses any "reserved" property names.

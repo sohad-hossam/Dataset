@@ -1,0 +1,61 @@
+generics lead to generation of broken marshalling code
+The marshalling code generator can generate broken (uncompilable) code in MarshallerFactoryImpl when generics are involved, in which the generated code overspecifies the type (vs using the raw type).  An example will make this clear.
+
+Define the following three classes:
+
+{code}
+@Portable
+public class Genie<T> {
+  private int x;
+  
+  public int getX() { return x; }
+  public void setX(final int x) { this.x = x; }
+}
+{code}
+
+{code}
+public final class Major {
+  private Genie<Major> genie;
+
+  public Genie<Major> getGenie() { return genie; }
+  public void setGenie(Genie<Major> genie) { this.genie = genie; }
+}
+{code}
+
+{code}
+@Portable
+public final class Einor {
+  private Genie<Einor> genie;
+
+  public Genie<Einor> getGenie() { return genie; }
+  public void setGenie(Genie<Einor> genie) { this.genie = genie; }
+}
+{code}
+
+The generated marshalling code looks like:
+{code}
+...
+    innerds_shared_Genie = new Marshaller<Genie<Einor>>() {
+      private Genie[] EMPTY_ARRAY = new Genie<Einor>[0];
+      ...
+      public Genie<Einor> demarshall(EJValue a0, MarshallingSession a1) {
+        try {
+          if (a0.isNull()) {
+            return null;
+          }
+          EJObject obj = a0.isObject();
+          String objId = obj.get("^ObjectID").isString().stringValue();
+          if (a1.hasObject(objId)) {
+            return a1.getObject(Genie.class, objId);
+          }
+          Genie<Einor> entity = new Genie<Einor>();
+          ...
+    }
+...
+{code}
+
+Wherever it occurs in the above code, "Genie<Einor>" should be just "Genie".
+
+Note that the class names affect the bug:  if "Einor" is renamed to "Minor", so that Genie becomes the first of the three classes in alphabetical order, then the bug is not tickled.  (I suppose the marshaller generator is scanning the packages for @Portable classes in alphabetical order.)
+
+

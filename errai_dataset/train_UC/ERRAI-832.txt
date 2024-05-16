@@ -1,0 +1,7 @@
+Add posibility to exclude Entities from Errai JPA scan
+As [~csa] said, currently there's two possibilities to exclude an entity from Errai JPA scan:
+ 
+* Move the types to a non-translatable package
+* Put them in a jar/module without an ErraiApp.properties
+
+But both solutions will also exclude the types from Errai scanning so you won't be able to use the types in client side. What is asked here is the possibility to only exclude the types from Errai JPA scan. 

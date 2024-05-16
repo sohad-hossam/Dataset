@@ -1,0 +1,31 @@
+Use PageState to Retrieve a Bindable Model to Populate a Page
+It would be really useful to be able to retrieve a Bound Model from the server using a PageState as a key.
+
+Example use case: On an Account Info Page, information is displayed using a Bound User object.
+
+Using the proposed feature we would lookup the relevant user doing something like this:
+
+{code:language=java}
+@Page
+public class AccountPage {
+
+  @PageState
+  Integer userId;
+
+  @Model
+  @PageState(map={"userId":"id"}) // id is a field in User
+  private User user;
+
+  @Bound
+  @Inject
+  private TextBox name;
+
+  @Bound
+  @Inject
+  private TextBox age;
+
+  // et cetera...
+}
+{code}
+
+Thus we could automatically retrieve entities from the server simply by declaring a mapping form PageState to a key used to lookup the object.

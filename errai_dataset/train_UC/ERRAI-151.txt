@@ -1,0 +1,27 @@
+Clients fall behind when server sends many messages per second across bus
+I came across this problem when working with the errai-cdi-demos-stock demo. It appears to be more of a problem in some browsers than others, but I'm not sure why.
+
+As of now, the CDI Stock Demo fires one or more events every 250ms. When the only client is a current Chrome Dev Channel build, everything works great, although this message appears in the log every 10-15 seconds:
+
+  18:00:05,186 ERROR [stderr] (http--127.1.31.129-8080-4) [Warning: A queue has become saturated and performance is now being degraded.]
+
+(which Mike says is a good sign--this means the server noticed the client queue getting full, and took measures to prevent the client from falling too far behind)
+
+But when Firefox 5 or Chrome Release Channel is the only connected client, it's a different story: the age of received ticks creeps up slowly over time, until the ticks being received by the client are ~90 seconds old. Eventually, we see this in the log:
+
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) java.lang.RuntimeException: cannot have a conversation.  the incoming message has not session data associated with it.
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.api.builder.ConversationMessageWrapper.commit(ConversationMessageWrapper.java:215)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.server.ServerMessageBusImpl.send(ServerMessageBusImpl.java:416)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.api.builder.ConversationMessageWrapper.sendNowWith(ConversationMessageWrapper.java:183)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.api.builder.AbstractMessageBuilder$1.sendNowWith(AbstractMessageBuilder.java:59)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.util.ErrorHelper.sendClientError(ErrorHelper.java:108)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.util.ErrorHelper.sendClientError(ErrorHelper.java:78)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.client.util.ErrorHelper.handleMessageDeliveryFailure(ErrorHelper.java:162)
+18:00:02,996 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.server.ServerMessageBusImpl$7.run(ServerMessageBusImpl.java:480)
+18:00:02,997 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.server.async.scheduling.PooledExecutorService$SingleFireTask.run(PooledExecutorService.java:225)
+18:00:02,997 ERROR [stderr] (ExecutorPoolWorker) 	at org.jboss.errai.bus.server.async.scheduling.ThreadWorker.run(ThreadWorker.java:66)
+18:00:02,997 ERROR [stderr] (ExecutorPoolWorker) 	at java.lang.Thread.run(Thread.java:636)
+
+and fresh ticks start arriving again. But there's this 90 second span of time that's lost. Note that there is no actual delay on the client: ticks keep rushing in the whole time. It's just that the client was seeing older and older data, and then suddenly caught up to see current data by skipping over what was "in the queue."
+
+Further compounding the strangeness, if I connect both Firefox 5 and Chrome Dev clients to the same server, they both fall behind but at different rates. (Remember, Chrome Dev as the only client was able to keep up reliably.) Firefox falls further behind than Chrome. Again, we periodically see the "cannot have a conversation" exceptions, and when this happens, both clients miss a bunch of data simultaneously. They "land" on the same new tick, but Firefox has a bigger time gap (i.e. more lost ticks) than Chrome because it was further behind.

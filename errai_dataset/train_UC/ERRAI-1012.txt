@@ -1,0 +1,8 @@
+Support for Page Gatekeepers
+Really need a way of Gatekeeping my Pages, as of right now there is @ActivatedBy for IOC beans, but for some reason this doesn't work with Pages (as far as I have been able to test it).
+
+It is really important that I am able to interrupt the loading of a page based on certain business logic requirements. Would be ideal that this was handled on the server side and the Page load could be interrupted and redirect handled on a page by page basis.
+
+@RestrictedAccess isn't enough since roles are not the only factor in a pages gate keeping.
+
+Thanks!

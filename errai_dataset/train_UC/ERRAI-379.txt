@@ -1,0 +1,12 @@
+Support for bindable property chains 
+Errai's data binding module should support chaining of bindable properties. E.g the following binding expressions should work, given that Address is a @Bindable type:
+
+{code}
+@Bound(property="customer.address.streetName")
+{code}
+
+or
+
+{code}
+dataBinder.bind(widget, "customer.address.streetName")
+{code}

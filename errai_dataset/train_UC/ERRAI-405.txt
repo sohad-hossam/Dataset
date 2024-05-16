@@ -1,0 +1,4 @@
+Add The Ability to bind to Lists
+I believe this is something that will be required in order for the databinding framework to be useful for anything more than simple cases.  Many business objects will have lists of objects (think of an invoice with lines).  
+
+I would assume that this might involve both databinding and errai-ui.  This is a feature that is currently supported (although I'm not wild about its implementation) by the GWT Editor module

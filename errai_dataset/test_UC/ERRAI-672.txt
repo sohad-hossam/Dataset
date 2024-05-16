@@ -1,0 +1,62 @@
+Bean validation does not work as expected on nested data binding model beans
+Given the folowing classes :
+
+@Bindable
+public class Customer {
+	@Valid
+        @NotNull
+	private Phone phone;
+}
+
+@Bindable
+public class Phone {
+	@NotNull
+	private String phoneNumber;
+}
+
+@Dependent
+public class MyView {
+	@Inject
+	@AutoBound
+	private DataBinder<Customer> dataBinder;
+
+	@Inject
+	private Validator validator;
+
+	protected void valider() {
+		Customer customer = dataBinder.getModel();
+		Set<ConstraintViolation<Customer>> violations = validator.validate(customer);
+	}
+}
+
+the validate() method is called by the UI
+The expected behaviour is :
+- the validation should fail because of the @NotNull
+- customer .getPhone() must be null
+
+What happens :
+- The validation the phone @NotNull succeed
+- The validation of the phone @NotNull fails
+- customer.getPhone() returns a Proxy bean
+- phoneNumber is null
+
+The bean seems to be incorrectly unwrapped by dataBinder.getModel().
+
+Now if I change the customer class to remove the @NotNull on phone :
+
+@Bindable
+public class Customer {
+	@Valid
+	private Phone phone;
+}
+
+The behaviour is different :
+- phone is still not null (proxy)
+- phoneNumber is null
+- the phoneNumber @NotNull should fail, but this time the phoneNumber is not checked by the validator, and no validation error is returned.
+
+
+In conclusion : 
+- the @NotNull constraint does not work on complex Objects (other than String) 
+- the cascading validation (@Valid) works only if the parent bean is declared @NotNull
+- The model returned by dataBinder.getModel() is not unwrapped and still have proxies so I cannot manually test it for null values.

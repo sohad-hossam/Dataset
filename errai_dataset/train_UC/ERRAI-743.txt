@@ -1,0 +1,2 @@
+Less parsing fails with multiple imports
+None

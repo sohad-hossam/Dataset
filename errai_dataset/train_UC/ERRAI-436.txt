@@ -1,0 +1,12 @@
+Jackson demarshalling doesn't work when @MapsTo is used on a List<T> parameter
+Errai's marshaller fails to infer the element types (required for Jackson compatibility) when @MapsTo is used on collection parameters e.g.
+
+{code}
+@Portable
+public class ImmutableEntity {
+  private ImmutableEntity(@MapsTo("entities") final List<Entity> entities) {
+    this.entities = entities;
+  }
+  ...
+}
+{code}

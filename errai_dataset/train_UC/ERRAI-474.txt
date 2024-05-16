@@ -1,0 +1,25 @@
+Allow the addition of primitive attributes to entities that have been persisted
+Scenario:
+
+Say I had a class called Beer in release 1.0 of my app:
+
+@Entity
+public class Beer {
+  @Id @GeneratedValue
+  private long id;
+  private String name;
+}
+
+and now in version 2, I want to add a field called "rating":
+
+@Entity
+public class Beer {
+  @Id @GeneratedValue
+  private long id;
+  private String name;
+  private int rating;
+}
+
+now when users who have used version 1.0 of the app try to use version 2, the EntityManager will throw a NullPointerException whenever it tries to retrieve an instance of Beer from local storage. The problem boils down to an attempt to assign null to the primitive field rating. This isn't a problem for non-primitive types because they can handle null values.
+
+It would be convenient if adding primitive attributes to existing entity types was not a fatal error requiring all of localStorage to be cleared.

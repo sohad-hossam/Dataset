@@ -1,0 +1,22 @@
+[errai-codegen] StatementBuilder.loadVariable() doesn't work with fields from super classes with reduced visiblity
+{code:title=ThingyBase.java|borderStyle=solid}
+public abstract class ThingyBase {
+  protected int protectedField;
+  int packagePrivateField;
+}
+{code}
+{code:title=ThingyGenerator.java|borderStyle=solid}
+public class ThingyGenerator {
+  /* ... */
+    Stmt.loadVariable("protectedField")
+  /* ... */
+
+  /* ... */
+    Stmt.loadVariable("packagePrivateField")
+  /* ... */
+}
+{code}
+
+This pseudo example will fail with a org.jboss.errai.codegen.exception.OutOfScopeException
+
+Workaround: Make fields public.

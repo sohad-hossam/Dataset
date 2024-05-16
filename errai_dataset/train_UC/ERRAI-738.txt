@@ -1,0 +1,19 @@
+CORS support in google chrome 34+
+With Chrome 34+ on Linux the cookie header is never sent in a cross-domain request to the Errai bus, this problem appears to occur in the latest version of Firefox as well.   
+
+Setup:
+
+Errai-3.0.0.CR1 with org.jboss.errai.bus.server.servlet.CorsFilter enabled in the server web.xml
+
+A standalone Errai client running in Chrome with a org.jboss.errai.bus.client.framework.Configuration pointing to a cross-domain Errai bus.
+
+
+Solution:
+
+Add setIncludeCredentials( true ) on the RequestBuilder in 
+org.jboss.errai.bus.client.framework.transports.HttpPollingHandler
+
+With setIncludeCredentials(true), Chrome will no longer allow a wildcard for Access-Control-Allow-Origin.  So CorsFilter.java also needs to be updated to replace
+
+-r.addHeader("Access-Control-Allow-Origin", "*");  with
++r.addHeader("Access-Control-Allow-Origin", ((HttpServletRequest)request).getHeader("origin"));

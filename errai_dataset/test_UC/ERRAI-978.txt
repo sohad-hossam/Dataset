@@ -1,0 +1,2 @@
+Generated client code doesn't compile for observer methods of primitive types.
+Observer methods cause IOC factories to have generated code with an anonymous inner subtype of AbstractCDIEventCallback<T>. For primitive types, the wrong type type argument is used (i.e. AbstractCDIEventCallback<double> instead of AbstractCDIEventCallback<Double>) causing compilation errors.

@@ -1,0 +1,4 @@
+Forge Addon does not remove unnecessary provided scoped dependencies when feature is removed
+The Forge addon has a list of "blacklisted" dependencies that must be set to provided scope (either because they are client-only modules or because they should not be deployed to jboss).
+
+These dependencies are added as necessary whenever a new feature is installed, but they are not removed in the case the feature is uninstalled.

@@ -1,0 +1,7 @@
+Changes made in .html files are not picked up in super dev/development mode
+Currently changes made in html files used with errai ui are not picked up in development / super dev mode when recompiling.
+
+After debugging into it the LessStyleGenerator seams to be the source of the problem. Since the less extension requires some modifications to the html file, an updated files is generated and saved to the temp directory.
+This file is not updated when making changes to the original html file since the LessStyleGenerator is not invoked again (result is cached).
+
+

@@ -1,0 +1,4 @@
+Errai Navigation never destroys @Dependent scoped @Page instances
+Errai navigation creates new instances of @Dependent scoped pages before transitioning to them.
+
+It also needs to destroy these instances using {{IOC.destroyBean}} when transitioning away.

@@ -1,0 +1,2 @@
+Jackson marshalling/demarshalling fails for collections of enums
+None

@@ -1,0 +1,2 @@
+Support for generic methods in Errai RPC
+see http://community.jboss.org/thread/172772

@@ -1,0 +1,7 @@
+Make generated Errai marshaller class names shorter
+Errai marshalling classes include the whole FQN of the class in the file name. This can sometimes lead to very long names which then leads to issues on Windows systems where the path length is limited to 255 characters.
+
+For example in KIE Worbench you can find the following marshalling class, which has about 160 characters:
+{{ServerMarshallingFactoryImpl$Marshaller_for_org_drools_workbench_models_guided_dtable_shared_model_adaptors_ActionInsertFactCol52ActionInsertLogicalFactAdaptorImpl.class}}. When you add common app and container directories (.../WEB-INF/lib/...) in front, you can easily go over the 255 char limit.
+
+When speaking with [~mbarkley] it seems this should be possible.

@@ -1,0 +1,10 @@
+DataBinding appears to fail when a generic is involved in method definition
+I have a Bean that has been annotated with @Bindable.  It has a method:
+
+public <Q extends IsQueryParameter> Q registerQueryParameter( String code, Q queryParameter )
+
+When a binding is attempt, the following error is generated: 
+
+ Bound mismatch: The generic method registerQueryParameter(String, Q) of type SearchRequestImpl is not applicable for the arguments (String, Object). The inferred type Object is not a valid substitute for the bounded parameter <Q extends IsQueryParameter>
+
+Not sure if this is fixable or not.  Registering so I remember to ask Christian tomorrow.

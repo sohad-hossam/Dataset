@@ -1,0 +1,2 @@
+Remove soyc generation from archetype
+None

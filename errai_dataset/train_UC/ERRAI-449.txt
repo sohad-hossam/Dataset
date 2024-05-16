@@ -1,0 +1,4 @@
+Remove or test-and-document ConversationalEvent[Impl]
+It appears that ConversationalEvent[Impl] are no longer needed for Errai's weld integration to work properly. We should remove them.
+
+While we're at it, we should look into whether we can eliminate @ObserverModel. It also appears no longer necessary.

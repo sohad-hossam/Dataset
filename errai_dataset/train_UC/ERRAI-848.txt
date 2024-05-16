@@ -1,0 +1,2 @@
+BindableListWrapper contains() calls convertToProxy() even for already proxied items
+convertToProxy() must not be called for already proxied objects, because it leads to excessive PropertyChangeHandler creation and registration.

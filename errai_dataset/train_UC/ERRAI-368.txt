@@ -1,0 +1,2 @@
+ErraiApp.properties should allow serializableTypes, nonserializableTypes, and mappingAliases all in the same file
+The first recognized config option halts processing of ErraiApp.properties. This is not intentional behaviour. All three config options should be processed.

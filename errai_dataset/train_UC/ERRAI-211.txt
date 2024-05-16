@@ -1,0 +1,9 @@
+Probable race condition when generating code when context starts up
+At ServerMarshallUtil:127, the output directory for generated classes is set like this:
+
+{code}
+    File directory =
+            new File(System.getProperty("java.io.tmpdir") + "/errai.gen/classes/" + packageName.replaceAll("\\.", "/"));
+{code}
+
+The problem is, if multiple Errai apps exist in the same web server, they will be racing each other to create and classload their own versions of classes like org/jboss/errai/marshalling/server/impl/ServerMarshallingFactoryImpl.class. Each app must create its own unique temporary directory (for example, using Guava's createTempDir() call).

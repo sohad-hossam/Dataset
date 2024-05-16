@@ -1,0 +1,6 @@
+A single DataBinder instance should support binding a bean property to multiple widgets
+A single DataBinder instance currently limits a property binding to at most one widget. The reason this limitation is in place is to consistently support the InitialState.FROM_UI use case where the initial state of the model is synced from the UI.
+
+However, InitialState.FROM_UI does not seem to be a required feature, as the model is always bound before the UI is updated (the UI doesn't change without a bound model). All our existing examples only use InitialState.FROM_MODEL to sync the UI state from the model when the UI is first displayed. So, we should retire the InitialState feature and just always sync from the model. 
+
+Then we can easily implement support binding a single property to multiple widgets.

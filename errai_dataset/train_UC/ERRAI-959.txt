@@ -1,0 +1,2 @@
+Dependent bean in cycle with no default constructor can blow up at runtime
+If a dependent bean has a constructor dependency that triggers creation of the same bean, the Context will throw a runtime exception.

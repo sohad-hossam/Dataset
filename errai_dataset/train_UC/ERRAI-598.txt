@@ -1,0 +1,23 @@
+IOC fails when 2 or more @Pages have the same @Templated parent class
+Errai IOC fails to generate its bootstrapper when two or more @Pages have the same @Templated super class.
+
+Example:
+
+{code}
+@Templated
+public class PageLayout extends Composite {}
+{code}
+
+{code}
+@Page
+@Templated("PageLayout.html#foo")
+public class Page1 extends PageLayout {}
+{code}
+
+{code}
+@Page
+@Templated("PageLayout.html#bar")
+public class Page2 extends PageLayout {}
+{code}
+
+In 2.4.0.Beta1 and earlier this fails due to the bug described in ERRAI-597. After the fix, the problem is that the injectors for Page1 and Page2 are processed before the injector for PageLayout. When the PageLayout injector is finally processed it is ignored because there is already more than one injector for that type. Our algorithm usually make sure that super types are processed first. In case of Errai navigation the custom IOC extension interferes with this algorithm as it adds all @Pages to the graph builder (thereby not considering its super types).

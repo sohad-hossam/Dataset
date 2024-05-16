@@ -1,0 +1,2 @@
+Add declarative property change handler methods for @Bindable types
+None

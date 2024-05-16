@@ -1,0 +1,3 @@
+Errai Templated ClientBundle names too long
+For templated beans, Errai generates a ClientBundle in the IOC factory of the templated type. This bundle has a very long name. Worse yet is that the ClientBundle generator creates a type that's name is the IOC factory concatenated with the bundle name, leading to very long file names. For example:
+Type_factory__o_k_w_c_s_s_m_c_c_c_p_ContainerProcessConfigView__quals__j_e_i_Any_j_e_i_Default_org_kie_workbench_common_screens_server_management_client_container_config_process_ContainerProcessConfigViewTemplateResource_default_InlineClientBundleGenerator.java

@@ -1,0 +1,2 @@
+NPE binding null List field to ListWidget
+Passing a {{null}} to {{ListWidget.setItems}} causes a NullPointerException in {{BindableListWrapper}}. Consequently, a {{@Bindable}} type with an uninitialized List as a field will cause an NPE when the bound widget is initialized to a default no-args constructed model.

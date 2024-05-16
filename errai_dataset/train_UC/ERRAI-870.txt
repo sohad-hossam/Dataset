@@ -1,0 +1,2 @@
+ClassCastException on context.proceed() in aroundInvoke
+When implementing RestClientInterceptor and calling context.proceed() with callbacks ClassCastException is thrown. The issue was described [here|https://developer.jboss.org/thread/235601] with a good example, so I won't repeat it. The problem with the suggested solution is that there is no way for me to know if the original callback uses RemoteCallback or ResponseCallback. Since both RemoteCallback and ResponseCallback are used in the application, there is no way to avoid the error.

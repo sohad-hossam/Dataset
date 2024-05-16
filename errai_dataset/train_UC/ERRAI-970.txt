@@ -1,0 +1,2 @@
+Allow using IsWidget implementations with @DataField annotation
+As Widget types are supported, it would be useful to support IsWidget implementations as well. 

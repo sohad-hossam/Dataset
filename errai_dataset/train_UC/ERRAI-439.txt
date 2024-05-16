@@ -1,0 +1,98 @@
+Marshaller generator fails on types with inherited getters for public fields
+Consider the following classes:
+
+public interface IFactPattern {
+    public String getFactType();
+}
+
+@Portable
+public class FromCompositeFactPattern implements IFactPattern {
+
+    public FactPattern factPattern;
+    private ExpressionFormLine expression = new ExpressionFormLine();
+
+    public FromCompositeFactPattern() {
+    }
+
+    public ExpressionFormLine getExpression() {
+        return expression;
+    }
+
+    public void setExpression( ExpressionFormLine expression ) {
+        this.expression = expression;
+    }
+
+    public FactPattern getFactPattern() {
+        return factPattern;
+    }
+
+    public void setFactPattern( FactPattern pattern ) {
+        this.factPattern = pattern;
+    }
+
+    public String getFactType() {
+        if ( this.factPattern == null ) {
+            return null;
+        }
+
+        return this.factPattern.getFactType();
+    }
+
+}
+
+@Portable
+public class FromCollectCompositeFactPattern extends FromCompositeFactPattern {
+
+    private IPattern rightPattern;
+
+    public FromCollectCompositeFactPattern() {
+    }
+
+    public IPattern getRightPattern() {
+        return rightPattern;
+    }
+
+    public void setRightPattern( IPattern rightPattern ) {
+        this.rightPattern = rightPattern;
+    }
+
+}
+
+When generating marshallers for these two types, we get the following error:
+
+[INFO]             Generating Marshallers Bootstrapper...
+[ERROR] java.lang.RuntimeException: no such field: factPattern in class: org.kie.guvnor.guided.model.FromCollectCompositeFactPattern
+[ERROR]         at org.jboss.errai.codegen.meta.impl.gwt.GWTClass.getDeclaredField(GWTClass.java:328)
+[ERROR]         at org.jboss.errai.codegen.meta.impl.AbstractMetaClass.getInheritedField(AbstractMetaClass.java:352)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.LoadField.handleCall(LoadField.java:47)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.LoadVariable.handleCall(LoadVariable.java:122)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+[ERROR]         at org.jboss.errai.codegen.BlockStatement.generate(BlockStatement.java:81)
+[ERROR]         at org.jboss.errai.codegen.control.TryBlock.generate(TryBlock.java:59)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.TryBlockBuilderImpl$1.doDeferred(TryBlockBuilderImpl.java:54)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.DeferredCallElement.handleCall(DeferredCallElement.java:42)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+[ERROR]         at org.jboss.errai.codegen.BlockStatement.generate(BlockStatement.java:81)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$2$1.doGenerate(AnonymousClassStructureBuilderImpl.java:111)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.doGenerate(AnonymousClassStructureBuilderImpl.java:186)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl.access$200(AnonymousClassStructureBuilderImpl.java:43)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AnonymousClassStructureBuilderImpl$3.generate(AnonymousClassStructureBuilderImpl.java:152)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.ObjectBuilder$2.doDeferred(ObjectBuilder.java:173)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.DeferredCallElement.handleCall(DeferredCallElement.java:42)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.ResetCallElement.handleCall(ResetCallElement.java:29)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.ObjectBuilder.generate(ObjectBuilder.java:181)
+[ERROR]         at org.jboss.errai.codegen.util.GenUtil.generate(GenUtil.java:131)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.AssignVariable.handleCall(AssignVariable.java:46)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.AbstractCallElement.nextOrReturn(AbstractCallElement.java:46)
+[ERROR]         at org.jboss.errai.codegen.builder.callstack.LoadVariable.handleCall(LoadVariable.java:122)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.AbstractStatementBuilder.generate(AbstractStatementBuilder.java:61)
+[ERROR]         at org.jboss.errai.codegen.BlockStatement.generate(BlockStatement.java:81)
+[ERROR]         at org.jboss.errai.codegen.meta.impl.build.BuildMetaConstructor.toJavaString(BuildMetaConstructor.java:274)
+[ERROR]         at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.membersToString(BuildMetaClass.java:744)
+[ERROR]         at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.toJavaString(BuildMetaClass.java:650)
+[ERROR]         at org.jboss.errai.codegen.meta.impl.build.BuildMetaClass.toJavaString(BuildMetaClass.java:550)
+[ERROR]         at org.jboss.errai.codegen.builder.impl.ClassBuilder.toJavaString(ClassBuilder.java:495)
+

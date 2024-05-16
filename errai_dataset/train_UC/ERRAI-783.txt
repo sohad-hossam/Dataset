@@ -1,0 +1,4 @@
+org.jboss.errai.security.server.ServerSecurityRoleInterceptor
+The Class ServerSecurityRoleInterceptor does not comply with the requirement for an Inteceptor class "An interceptor class must have a public constructor with no parameters." from http://docs.oracle.com/javaee/6/api/javax/interceptor/package-summary.html
+
+as a result this fails a validity check on WebLogic application server

@@ -1,0 +1,2 @@
+Support Optional in Errai marshaller
+Should support fields with type Optional in a portable type.

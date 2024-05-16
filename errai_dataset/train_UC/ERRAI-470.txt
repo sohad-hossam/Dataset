@@ -1,0 +1,2 @@
+errai-cdi-stress-test is leaking a thread after undeploying (edit) 
+None

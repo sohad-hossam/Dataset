@@ -1,0 +1,7 @@
+data-field does not get filled when nested @Template class has data-field with the same name
+I have a @Templated Class A which is a snippet from a template html file. This Class has a data-field called address and a another data-field which is a @Templated Class B. This class B also contains a data-field called address.
+As soon as I render the page, the value for the data-field in class B is set correctly, but the data-field in Class A is untouched and no error occurs in the console.
+
+In other words: Class A has a HTML table, which is specified as a data-field. This data-field contains a List(table-row) of @Templated class B. Both contain a data-field with the same name which leads to the weired result. As soon a I rename one of the data-fields, the error is gone.
+
+As I said, the consoles do not show any errors.

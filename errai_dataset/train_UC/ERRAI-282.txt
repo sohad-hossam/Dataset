@@ -1,0 +1,2 @@
+Server-side Services (@Service) cannot inherit methods from super interfaces
+When CDIExtensionPoints attemts to build the RpcScaffolding, it calls getDeclaredMethod (Line 438) to get the methods declared in the service/class.  It never checks the super class to see if there are more methods that should be a part of the signature.  This creates an error when trying to call a method that *should* be available from the client.

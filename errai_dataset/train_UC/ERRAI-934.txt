@@ -1,0 +1,7 @@
+DOMTokenList is missing apis
+According to MDN:
+https://developer.mozilla.org/en-US/docs/Web/API/DOMTokenList
+
+two more methods need to be added
+- replace()
+- supports()

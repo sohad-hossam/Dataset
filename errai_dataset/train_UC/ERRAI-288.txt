@@ -1,0 +1,14 @@
+Exceptions within @Command methods become InvocationTargetExceptions
+When a @Command annotated server-side service method throws an exception, one expects the exception to be marshalled and returned to the client, to be handled by an ErrorCallback.
+Instead, however, the service unsuccessfully tries to marshall an (unmarshallable) java.lang.reflect.InvocationTargetException.
+
+I believe the problem is in (bus.server.io.)CommandBindingsCallback.callback():
+      try {
+        method.dispatch(message);
+      }
+      catch (Exception e) {
+        throw new MessageDeliveryFailure(e);
+      }
+
+
+The DefaultMessageDispatcher.dispatch() method calls invoke() on the method, which by contract wraps any exception thrown by the method in an InvocationTargetException.  I think that this wrapper should be removed before the original exception is wrapped again by the MessageDeliveryFailure.

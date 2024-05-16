@@ -1,0 +1,4 @@
+Treat null fields correctly when cascading across singular or plural attributes
+This comes up commonly: whenever an entity with a collection property and fails to initialize it. It also affects singular references.
+
+Have to double-check what JPA specifies and what Hibernate does, but right now we throw NPE part way through persist(). That's probably wrong.

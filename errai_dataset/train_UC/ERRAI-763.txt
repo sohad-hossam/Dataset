@@ -1,0 +1,7 @@
+Bean Validation causes NPE for bindable types with uninitialized collection fields
+Caused by: java.lang.NullPointerException
+	at org.jboss.errai.databinding.client.BindableProxyLoaderImpl$1org_jboss_errai_validation_client_TestModelProxy.deepUnwrap(BindableProxyLoaderImpl.java:168)
+	at org.jboss.errai.databinding.client.BindableProxyLoaderImpl$1org_jboss_errai_validation_client_TestModelProxy.deepUnwrap(BindableProxyLoaderImpl.java:1)
+	at org.jboss.errai.validation.client.BeanValidator.maybeUnwrapBindable(BeanValidator.java:88)
+	at org.jboss.errai.validation.client.BeanValidator.validate(BeanValidator.java:53)
+	at 

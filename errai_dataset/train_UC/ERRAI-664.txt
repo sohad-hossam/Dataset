@@ -1,0 +1,2 @@
+Missing support for hiding classes from Errai IOC
+Errai IOC scans JARs even if there is no ErraiApp.properties at the root. Test project comes soon.
