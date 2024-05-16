@@ -1,0 +1,4 @@
+Implement doRecover method into JTS XATerminatorImple for WFTC inflow jca txn integration works
+When RAR calls {{XATerminator.recover(int)}} the call chain is not directed to Narayana implementation of XATerminator but it's passed to WFTC where {{ExtendedJBossXATerminator}} method {{doRecover}} is called. But the {{doRecover}} does not provide the expected recovery call - e.g. it does not accept flags ({{XAResource.TMSTARTRSCAN}},  {{XAResource.TMENDRSCAN}}) to drive the whole recovery process in case.
+
+The biggest functionality trouble is for JTS where {{XATerminatorImple}} does not implement intentionally the {{doRecover}} function (https://github.com/jbosstm/narayana/blob/5.5.24.Final/ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/transaction/jts/jca/XATerminatorImple.java#L511). Thus RAR using call {{XATerminator.recover}} when JTS is under use does nothing.

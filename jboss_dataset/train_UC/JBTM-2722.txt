@@ -1,0 +1,2 @@
+AtomicTransaction equals method is incorrect
+Method returns false even for equal objects.

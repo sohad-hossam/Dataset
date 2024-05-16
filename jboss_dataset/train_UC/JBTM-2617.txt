@@ -1,0 +1,2 @@
+Add recovery support to JMS integration
+None

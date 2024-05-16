@@ -1,0 +1,4 @@
+QA test suite failure on HQStore: CrashRecovery12_Test03
+CI failure in hq store qa crash rec tests:
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-hqstore-jacorb/22/TESTS=QA_JTS_JACORB,jdk=jdk7.latest,label=linux/

@@ -1,0 +1,4 @@
+xaResourceRecordWrappingPluginClassName won't get set from property
+field name xaResourceRecordWrappingPluginClassName in com.arjuna.ats.jta.common.JTAEnvironmentBean with incorrect setter and getter name. So this field can't be initialized by BeanPopulator. 
+
+The setter name need to be changed to setXaResourceRecordWrappingPluginClassName, and getter name should getXaResourceRecordWrappingPluginClassName

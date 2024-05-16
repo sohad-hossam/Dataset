@@ -1,0 +1,13 @@
+Migrate "REST-AT to JTA" bridge into RTS component
+The task is to the work Gytis did on his internship and migrate it into the REST-TX project.
+
+Tasks:
+
+1. Review the current solution looking for:
+1.1 Major issues that prevent an initial release
+1.2 Test coverage
+2. Make any required changes
+3. Merge into the REST-TX project
+4. Migrate the quickstarts accross
+5. Create a blog post
+5.1 Consider what the end user will need to do to use this technology. We may want to wait until REST-AT and this Bridge are shipped with a Narayana build of AS7. Otherwise the steps to get this working could be rather lengthy.

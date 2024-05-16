@@ -1,0 +1,2 @@
+Add localisation to JMS module warnings
+Warning messages in JMS modules should be localised same as other modules in ArjunaJTA.

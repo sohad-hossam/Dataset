@@ -1,0 +1,4 @@
+Document configuration
+In the pre-Bean days of setting properties, we had all of the TS properties called out in a properties.xml file. In that file there were copious comments to say what the property was for and whether it should be changed. We also documented these properties in the docs. It seems from some investigation that Mike and I have done today that the migration away from the properties file to using MBeans has removed those comments and the docs for the properties. Sometimes the comments do appear in the code.
+
+If you go back to before everything got turned everything into a Bean (probably 4.6.1 GA) then look in the etc directories.

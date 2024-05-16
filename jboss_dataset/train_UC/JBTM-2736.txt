@@ -1,0 +1,2 @@
+Enhance error log message on long node name to contain max node name length
+When maximal node identifier size is exceeded an exception and log message is shown. This message does not contain information what was the maximum of the node identifier length for user could easily adjust his setting based on that info.

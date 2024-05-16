@@ -1,0 +1,14 @@
+Allow the setting of an initial delay in PeriodRecovery
+Currently Periodic Recovery kicks off at the same interval on every server.  As a domain mode cluster grows in size, this leads to significant contention in the DB, especially for RAC implementations.  Completion time goes from milliseconds with 1 server to 20+ seconds with 20+ servers.
+
+In an effort to avoid this, an offset the initial start of Periodic Recovery could be provided for the nodes in the cluster.
+
+Periodic Recovery currently leverages 2 properties:
+
+<system-properties>
+        <property name="RecoveryEnvironmentBean.periodicRecoveryPeriod" value="120"/>
+        <property name="RecoveryEnvironmentBean.recoveryBackoffPeriod"  value="10"/>
+</system-properties>
+
+The proposal would be to add a 3rd property, 'RecoveryEnvironmentBean.periodicRecoveryInitilizationOffset' which, when set, would be used for each node.  If not set, it would default to current behavior.
+

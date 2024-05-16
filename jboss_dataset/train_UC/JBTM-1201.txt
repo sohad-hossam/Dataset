@@ -1,0 +1,12 @@
+Fail in com.hp.mwtests.ts.jta.recovery.CrashRecoveryCommitReturnsXA_RETRY::testHeuristicRollback when whole testset is ran
+http://172.17.131.2/job/narayana-java6/ws/ArjunaJTA/jta/target/surefire-reports/com.hp.mwtests.ts.jta.recovery.CrashRecoveryCommitReturnsXA_RETRY.txt 
+
+
+If both tests in CrashRecoveryCommitReturnsXA_RETRY are ran then the testHeuristicRollback test fails. If only testHeuristicRollback is ran then it works.
+
+i.e. Fails:
+
+./build.sh clean install -pl :jta -Dtest=CrashRecoveryCommitReturnsXA_RETRY
+
+Succeeds:
+./build.sh clean install -pl :jta -Dtest=CrashRecoveryCommitReturnsXA_RETRY#testHeuristicRollback

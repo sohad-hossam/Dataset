@@ -1,0 +1,2 @@
+Method end on PGXAConnection has been called twice
+End method from PGXAConnection has been called twice when an EJB called another EJB to get data from psql database (9.2.5)

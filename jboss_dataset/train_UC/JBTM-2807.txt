@@ -1,0 +1,7 @@
+StoreManager return always the same store
+StoreManager.get*Store() returns always the same store even after changing it via BeanPopulator.
+
+Problem is that StoreManager.actionStore, StoreManager.stateStore, StoreManager.communicationStore won't change after they are set for the first time.
+
+https://github.com/jbosstm/narayana/blob/master/ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/objectstore/StoreManager.java#L53
+this method should null stores.

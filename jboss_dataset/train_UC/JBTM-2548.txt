@@ -1,0 +1,5 @@
+CrashRecovery05_2_Test076 (through CrashRecovery05_2_Test100) failures
+These tests typically start 2 servers and crash one of them in various ways.
+Then the two servers are restarted but the tests fail because the recovery port used by one of the two servers is stuck in the TIME-WAIT state so the server restart gets a "Bind: Address Already in Use" error.
+
+I propose to fix this by doing a retry and backoff approach.

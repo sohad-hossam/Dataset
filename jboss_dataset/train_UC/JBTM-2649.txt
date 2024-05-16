@@ -1,0 +1,20 @@
+Inconsistent behavior of journal object store for heuristic state
+We do experience inconsistent behavior of journal object store (amq) against shadow store. This starts to happen from EAP7/Narayana 5.2.14.Final.
+
+Our test case:
+* enlist activemq JMS resource
+* enlist test XA resource
+* prepare JMS resource
+* prepare test XA resource
+* commit JMS resource
+* commit test XA resource
+** byteman force {{topLevelCommit}} to return {{XAException.XA_HEURRB}}
+2PC result for XA resource is {{TwoPhaseOutcome.HEURISTIC_HAZARD}} and client gets {{javax.transaction.HeuristicMixedException}} 
+* probing log and showing state of transactions {{/subsystem=transactions/log-store=log-store:probe}}
+** expecting one indoubt participant in HEURISTIC state
+* calling operation {{recovery}} on all transaction's participants
+* do recovery
+
+This works fine when Shadow log store or jdbc object store is used. For AMQ object log store the participant is first not in HEURISTIC state but is in state PREPARED. And second there is not only one participant of transaction in-doubt but they're returned two participants.
+
+Then during recovery process the periodic recovery also can see two participants for recovery (that's my feeling from log). Not only one as expected as first resource was already correctly committed (that's how shadow log store works).

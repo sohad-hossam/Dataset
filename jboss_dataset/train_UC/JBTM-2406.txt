@@ -1,0 +1,14 @@
+BABridgedTest and BAParticipantCompletionTest tests failed because of the race condition
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/825/PROFILE=XTS,jdk=jdk7.latest,label=linux/
+
+{code}
+-------------------------------------------------------------------------------
+Test set: org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 44.774 sec <<< FAILURE!
+testManualComplete(org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest)  Time elapsed: 4.202 sec  <<< ERROR!
+com.arjuna.wst.TransactionRolledBackException: null
+	at com.arjuna.wst11.stub.BusinessActivityTerminatorStub.close(BusinessActivityTerminatorStub.java:95)
+	at com.arjuna.mwlabs.wst11.ba.remote.UserBusinessActivityImple.close(UserBusinessActivityImple.java:157)
+	at org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest.testManualComplete(BAParticipantCompletionTest.java:129)
+{code}

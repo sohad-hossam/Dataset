@@ -1,0 +1,8 @@
+Use the local ActionStatusService to determine if a transaction containing XAResources is still in-flight before relying on orphan detection
+Currently we use a timeout based system to determine if prepared Xids that a ResourceManager knows about but where the transaction is not prepared yet are the result of a pre-prepare crash or whether it is just slow progress of the resources/transaction manager.
+
+This issue is to record an enhancement to the recovery manager for XAResources to attempt to contact the transaction manager to determine if an Xid is indoubt before rolling it back.
+ 
+* In the case where the recovery manager and transaction manager are co-located this negates the need for a timeout based process entirely
+
+* In the case where the recovery manager and transaction manager are not in the same JVM process, the current behaviour of timeout based orphan detection MUST still be employed

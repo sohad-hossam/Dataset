@@ -1,0 +1,2 @@
+Change LockManagerProxy constructor API
+LockManagerProxy constructors pass in a number of parameters which are actually obtainable from the first parameter, the container. Tidy it up.

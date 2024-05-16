@@ -1,0 +1,2 @@
+CMR synchronisations should be interposed
+A CMR resource registers a synchronization to perform deferred cleanup of xids. Since it is possible for another synchronization to enlist a CMR resource the CMR synch must be ordered after non interposed synchronizations.

@@ -1,0 +1,2 @@
+Update Arquillian version in TxBridge tests, TxBridge demo tests and XTS demo tests
+Arquillian version used in pom.xml's at txbridge tests, txbridge demo tests and xts demo tests are out of date. Please update them to the latest stable ones.

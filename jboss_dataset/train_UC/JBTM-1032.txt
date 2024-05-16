@@ -1,0 +1,2 @@
+XTS SimplifyLogs fails if the output directory is a child of the input directory 
+This is because it tries to process the output dir as if it where an input file.

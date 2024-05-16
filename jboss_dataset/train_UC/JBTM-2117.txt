@@ -1,0 +1,6 @@
+codeCoverage job can't create report
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-codeCoverage/
+
+Mike, please can you change the emma config to whatever jacoco config we need to create the report?
+
+Thanks!

@@ -1,0 +1,2 @@
+JBTM-1700 slows down app server shutdown due to use of singular notify
+The way notify() rather than notifyAll() is used means that it can be several recovery manager cycles before all XAResourceRecoveryHelper are able to deregister from the XARecoveryModule

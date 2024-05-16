@@ -1,0 +1,9 @@
+Finish Migration of ACID features from TXFramework to XTS and REST-AT
+All the usability features developed in TXFramework, for ACID transactions have now been applied to the RTS and XTS projects. These improvements covered JTA bridging and automatically setting up handler chains. 
+
+The remaining task is:
+
+# Remove the unused code from the TXFramework module.
+# Remove the TXFramework Quickstarts for ACID features.
+# Ensure we have quickstarts demonstrating these XTS and RTS improvements.
+# rename TXFramework module to compensations.

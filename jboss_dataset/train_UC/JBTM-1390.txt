@@ -1,0 +1,9 @@
+Update BaseCrashTest to use global arguments
+Ideally we should only have the byteman, memory and ipv6 args in a single place (root pom.xml). However, these are hardcoded in the BaseCrashTest of the XTS recovery tests.
+
+These should be using the values set in the pom.
+
+{code}
+protected String BytemanArgs = "-Xms64m -Xmx1024m -XX:MaxPermSize=512m -Dorg.jboss.byteman.verbose -Djboss.modules.system.pkgs=org.jboss.byteman -Dorg.jboss.byteman.transform.all -javaagent:target/test-classes/lib/byteman.jar=script:target/test-classes/scripts/@BMScript@.txt,boot:target/test-classes/lib/byteman.jar,listener:true";
+    protected String iPv6Args = "-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true -Djboss.bind.address=[::1] -Djboss.bind.address.management=[::1] -Djboss.bind.address.unsecure=[::1] ";
+{code}

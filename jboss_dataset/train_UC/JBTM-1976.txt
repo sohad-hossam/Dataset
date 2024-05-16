@@ -1,0 +1,2 @@
+Add support for JDBC object store on PostgreSQL Plus 9.2
+It is requested to add support for postgres plus which is distinct from postgres as a database. Dev do not have a postgres plus database to test on but as it is the commercial variant of postgres and matches version numbering it should be similar to the corresponding postgres variant.

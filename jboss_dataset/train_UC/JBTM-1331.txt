@@ -1,0 +1,7 @@
+Failure to prepare in IndirectTXManagementTest (REST-AT TXF test)
+Happened twice in a row.
+
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-narayana-java7/38/
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-narayana-java7/39/
+
+The code change passed pull-req CI and was unrelated (TXBridge), so is unlikely to be the cause. Assuming the issue is not intermittent, it's likely to be caused by an AS7 change.

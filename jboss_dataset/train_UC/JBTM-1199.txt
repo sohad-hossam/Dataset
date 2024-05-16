@@ -1,0 +1,2 @@
+XTS crash rec tests fail as "cannot shutdown jboss-as"
+None

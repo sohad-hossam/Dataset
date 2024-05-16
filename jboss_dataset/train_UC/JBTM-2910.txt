@@ -1,0 +1,2 @@
+Don't allow transactional driver recovery handler to close underlying JDBC connection
+As the reference to the JDBC2RecoveryConnection is not retained, it is eligible for garbage collection. It's finalizer calls the connection close and can prevent recovery from completing.

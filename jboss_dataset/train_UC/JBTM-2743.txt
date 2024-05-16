@@ -1,0 +1,2 @@
+Blacktie integration-tests TestTPCancel hang
+The root cause is that the server is blocking in the thread which is connecting to the call back server in the java client. It looks like the java client has been shutdown but the apr_pollset_poll in the server HybridSocketEndpointQueue.cxx can not get the socket status and it is running infinitely.

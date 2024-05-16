@@ -1,0 +1,2 @@
+Mavenize JBoss Transactional File IO project
+JBoss Transactional File IO project http://www.jboss.org/jbosstm/fileio/ currently is not available in the Maven repo. Making it available in the Maven repo would help other (Maven based) projects to easily consume it.

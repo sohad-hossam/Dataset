@@ -1,0 +1,4 @@
+Re-enable generate of javadoc jar for narayana-full
+It seems as part of JBTM-2395 it seems the generation of the uber javadoc jar was accidentally disabled. It should be re-enabled for the next release.
+
+Workaround was to mod the pom during the release.

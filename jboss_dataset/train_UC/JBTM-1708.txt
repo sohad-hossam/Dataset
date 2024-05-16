@@ -1,0 +1,2 @@
+readme instructions for starting the standalone transaction manager are incorrect
+The instructions in ./narayana-full/readme.txt for starting the transaction manager don't work. Also the script for starting the TM only starts the JTS version.

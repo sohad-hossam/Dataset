@@ -1,0 +1,2 @@
+Update README.md to include minimum build requirements
+Narayana currently needs at least JDK 6 to build and eventually will probably need at least 7. There is no mention of this requirement in the README.

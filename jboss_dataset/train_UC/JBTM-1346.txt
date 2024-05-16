@@ -1,0 +1,2 @@
+crashrecovery05_1 test failure
+See: http://172.17.131.2/job/jbossts-narayana-java6/89/console

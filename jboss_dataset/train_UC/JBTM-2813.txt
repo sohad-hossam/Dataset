@@ -1,0 +1,43 @@
+Cli operation for listing transactions returns not only transactions but participants too - for JTS inflow txn
+This is a follow-up from JBEAP-6307 where change JBTM-2767 (Allow JTS JCA imported transactions to have clearHeuristic called on their participants) was part of it.
+
+That seems to bring wrong behavior of cli operation for listing transactions when JTS inflow txn is in use. Currently I do observe that operation [1] lists not only transactions as it should but there are listed participants of transaction as well - what is not expected.
+
+When inflow transaction is prepared then I can see (the testcase contains only one prepared transaction at the time which consists of two test XAResources)
+{code}
+[standalone@localhost:42042 /] /subsystem=transactions/log-store=log-store:probe()
+{"outcome" => "success"}
+[standalone@localhost:42042 /] /subsystem=transactions/log-store=log-store:read-resource()
+{
+    "outcome" => "success",
+    "result" => {
+        "expose-all-logs" => false,
+        "type" => "default",
+        "transactions" => {
+            "0:ffff7f000001:-f30b80c:58480e0a:2c" => undefined,
+            "0:ffff7f000001:-f30b80c:58480e0a:26" => undefined,
+            "0:ffff7f000001:-f30b80c:58480e0a:2f" => undefined
+        }
+    }
+}
+{code}
+
+My test causes that one participant ends in heuristic state thus recovery is processed only for the second one. After recovery is processed the listing changes to
+{code}
+[standalone@localhost:42042 /] /subsystem=transactions/log-store=log-store:probe()
+{"outcome" => "success"}
+[standalone@localhost:42042 /] /subsystem=transactions/log-store=log-store:read-resource()
+{
+    "outcome" => "success",
+    "result" => {
+        "expose-all-logs" => false,
+        "type" => "default",
+        "transactions" => {
+            "0:ffff7f000001:-f30b80c:58480e0a:26" => undefined,
+            "0:ffff7f000001:-f30b80c:58480e0a:2f" => undefined
+        }
+    }
+}
+{code}
+
+I'm adding the content of {{tx-object-store}} at both phases and the {{server.log}} as well.

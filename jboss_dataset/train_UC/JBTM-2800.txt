@@ -1,0 +1,2 @@
+Miscellaneous qa suite improvements
+Some of the tests are not easy to debug and during debug you have to constantly move your TaskImpl.properties out of the way so provide a way to get more logging and allow setting options such as remote debugger easier.

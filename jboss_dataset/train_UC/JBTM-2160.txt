@@ -1,0 +1,17 @@
+ActivityHierarchy comparison fails
+To reproduce:
+
+{code}
+CoordinatorManager cm1 =  CoordinatorManagerFactory.coordinatorManager();
+CoordinatorManager cm2 =  CoordinatorManagerFactory.coordinatorManager();
+
+cm1.begin("Sagas11HLS");
+ActivityHierarchy hierarchy1 = cm1.suspend();
+
+cm2.begin("Sagas11HLS");
+ActivityHierarchy hierarchy2 = cm2.suspend();
+
+Assert.assertFalse(hierarchy1.equals(hierarchy2));
+{code}
+
+The assertion fails. It is caused by a broken isEqual method and also an omitted cast. See the fix for details.

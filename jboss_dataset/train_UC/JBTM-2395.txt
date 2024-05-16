@@ -1,0 +1,2 @@
+Correct Javadoc errors on JDK8
+WFLY has updated to JDK8, this means due to our build approach (early integration testing and BlackTie) we need to make sure we are compatible with JDK8. Currently there are Javadoc errors.

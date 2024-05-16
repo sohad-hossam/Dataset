@@ -1,0 +1,7 @@
+Implement JTA 1.2
+TCK here, this is not necessarily the final version: https://svn.devel.redhat.com/repos/jboss-tck/standalone-tck7/jta/jtatck-1.2_25-Feb-2013.zip
+Old instructions (for JTA 1.1) here: https://community.jboss.org/wiki/StandaloneJTA11TCKGuide 
+
+To test the big new features (@Transactional & @TransactionScoped), we need the Java EE 7 CTS. This is not currently available, so we will need to write our own tests for now and test against the Java EE 7 CTS when it is ready.
+
+Design discusion here: https://community.jboss.org/message/816442

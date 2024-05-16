@@ -1,0 +1,2 @@
+Add QA profile for cersei
+just need to copy an existing config from another ncl node. Jaime, for example.

@@ -1,0 +1,8 @@
+RecoveredTransactionReplayerUnitTest may raise a nullpointerexception
+java.lang.NullPointerException
+	at com.arjuna.ats.internal.jts.recovery.transactions.RecoveredTransactionReplayer.run(RecoveredTransactionReplayer.java:118)
+	at com.hp.mwtests.ts.jts.recovery.RecoveredTransactionReplayerUnitTest.testCommitted(RecoveredTransactionReplayerUnitTest.java:71)
+
+Looking at the test it spawns a thread to call run(), then it expects that the thread hasn't finished launching before doing further setup. Then it triggers the logic that is expected in the thread anyway.
+
+I will not trigger the thread which should have the same test behavior but without the timing issue.

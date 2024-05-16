@@ -1,0 +1,2 @@
+ORB JTS classes not added to classpath in setup script
+Tried using the setup script which does create/augment the CLASSPATH. But it doesn't add the jts-jacorb.jar (or equivalent) for some reason. So when trying to run the transaction manager (using the startup script) it fails.

@@ -1,0 +1,299 @@
+ArjunaCore CachedTest failed
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-codeCoverage/119
+
+{code}
+-------------------------------------------------------------------------------
+Test set: com.hp.mwtests.ts.arjuna.objectstore.CachedTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 0.495 sec <<< FAILURE!
+test(com.hp.mwtests.ts.arjuna.objectstore.CachedTest)  Time elapsed: 0.378 sec  <<< FAILURE!
+java.lang.AssertionError: null
+	at org.junit.Assert.fail(Assert.java:86)
+	at org.junit.Assert.assertTrue(Assert.java:41)
+	at org.junit.Assert.assertTrue(Assert.java:52)
+	at com.hp.mwtests.ts.arjuna.objectstore.CachedTest.test(CachedTest.java:120)
+{code}
+
+{code}
+i: 0
+i: 1
+i: 2
+i: 3
+i: 4
+i: 5
+i: 6
+i: 7
+i: 8
+i: 9
+i: 10
+i: 11
+i: 12
+Thread for 0:ffffac118321:be80:5376a725:1 succeeded
+Thread for 0:ffffac118321:be80:5376a725:3 succeeded
+Thread for 0:ffffac118321:be80:5376a725:5 succeeded
+Thread for 0:ffffac118321:be80:5376a725:7 succeeded
+Thread for 0:ffffac118321:be80:5376a725:9 succeeded
+i: 13
+i: 14
+i: 15
+i: 16
+i: 17
+i: 18
+i: 19
+Thread for 0:ffffac118321:be80:5376a725:d succeeded
+Thread for 0:ffffac118321:be80:5376a725:f succeeded
+Thread for 0:ffffac118321:be80:5376a725:11 succeeded
+Thread for 0:ffffac118321:be80:5376a725:13 succeeded
+Thread for 0:ffffac118321:be80:5376a725:15 succeeded
+Thread for 0:ffffac118321:be80:5376a725:17 succeeded
+i: 20
+i: 21
+i: 22
+i: 23
+i: 24
+i: 25
+i: 26
+Thread for 0:ffffac118321:be80:5376a725:b succeeded
+Thread for 0:ffffac118321:be80:5376a725:1b succeeded
+Thread for 0:ffffac118321:be80:5376a725:1d succeeded
+i: 27
+i: 28
+i: 29
+i: 30
+i: 31
+i: 32
+i: 33
+Thread for 0:ffffac118321:be80:5376a725:19 succeeded
+i: 34
+i: 35
+i: 36
+i: 37
+i: 38
+i: 39
+i: 40
+i: 41
+i: 42
+i: 43
+i: 44
+i: 45
+i: 46
+i: 47
+i: 48
+i: 49
+i: 50
+i: 51
+i: 52
+i: 53
+i: 54
+i: 55
+i: 56
+i: 57
+i: 58
+i: 59
+i: 60
+i: 61
+i: 62
+i: 63
+i: 64
+i: 65
+i: 66
+i: 67
+i: 68
+i: 69
+i: 70
+i: 71
+i: 72
+i: 73
+i: 74
+i: 75
+i: 76
+i: 77
+i: 78
+i: 79
+i: 80
+i: 81
+i: 82
+i: 83
+i: 84
+i: 85
+i: 86
+i: 87
+i: 88
+i: 89
+i: 90
+i: 91
+i: 92
+Thread for 0:ffffac118321:be80:5376a725:1f succeeded
+Thread for 0:ffffac118321:be80:5376a725:21 succeeded
+Thread for 0:ffffac118321:be80:5376a725:23 succeeded
+Thread for 0:ffffac118321:be80:5376a725:25 succeeded
+Thread for 0:ffffac118321:be80:5376a725:27 succeeded
+Thread for 0:ffffac118321:be80:5376a725:29 succeeded
+Thread for 0:ffffac118321:be80:5376a725:2d succeeded
+Thread for 0:ffffac118321:be80:5376a725:2f succeeded
+Thread for 0:ffffac118321:be80:5376a725:31 succeeded
+Thread for 0:ffffac118321:be80:5376a725:33 succeeded
+Thread for 0:ffffac118321:be80:5376a725:35 succeeded
+Thread for 0:ffffac118321:be80:5376a725:37 succeeded
+Thread for 0:ffffac118321:be80:5376a725:39 succeeded
+Thread for 0:ffffac118321:be80:5376a725:3b succeeded
+Thread for 0:ffffac118321:be80:5376a725:3d succeeded
+Thread for 0:ffffac118321:be80:5376a725:3f succeeded
+Thread for 0:ffffac118321:be80:5376a725:41 succeeded
+Thread for 0:ffffac118321:be80:5376a725:43 succeeded
+Thread for 0:ffffac118321:be80:5376a725:45 succeeded
+Thread for 0:ffffac118321:be80:5376a725:47 succeeded
+Thread for 0:ffffac118321:be80:5376a725:49 succeeded
+Thread for 0:ffffac118321:be80:5376a725:4b succeeded
+Thread for 0:ffffac118321:be80:5376a725:4d succeeded
+Thread for 0:ffffac118321:be80:5376a725:4f succeeded
+Thread for 0:ffffac118321:be80:5376a725:51 succeeded
+Thread for 0:ffffac118321:be80:5376a725:53 succeeded
+Thread for 0:ffffac118321:be80:5376a725:55 succeeded
+Thread for 0:ffffac118321:be80:5376a725:57 succeeded
+Thread for 0:ffffac118321:be80:5376a725:59 succeeded
+Thread for 0:ffffac118321:be80:5376a725:5b succeeded
+Thread for 0:ffffac118321:be80:5376a725:5d succeeded
+Thread for 0:ffffac118321:be80:5376a725:5f succeeded
+Thread for 0:ffffac118321:be80:5376a725:61 succeeded
+Thread for 0:ffffac118321:be80:5376a725:63 succeeded
+Thread for 0:ffffac118321:be80:5376a725:65 succeeded
+Thread for 0:ffffac118321:be80:5376a725:67 succeeded
+Thread for 0:ffffac118321:be80:5376a725:69 succeeded
+Thread for 0:ffffac118321:be80:5376a725:6b succeeded
+Thread for 0:ffffac118321:be80:5376a725:6d succeeded
+Thread for 0:ffffac118321:be80:5376a725:6f succeeded
+Thread for 0:ffffac118321:be80:5376a725:71 succeeded
+Thread for 0:ffffac118321:be80:5376a725:73 succeeded
+Thread for 0:ffffac118321:be80:5376a725:75 succeeded
+Thread for 0:ffffac118321:be80:5376a725:77 succeeded
+Thread for 0:ffffac118321:be80:5376a725:79 succeeded
+Thread for 0:ffffac118321:be80:5376a725:7b succeeded
+Thread for 0:ffffac118321:be80:5376a725:7d succeeded
+Thread for 0:ffffac118321:be80:5376a725:7f succeeded
+Thread for 0:ffffac118321:be80:5376a725:81 succeeded
+Thread for 0:ffffac118321:be80:5376a725:83 succeeded
+Thread for 0:ffffac118321:be80:5376a725:85 succeeded
+Thread for 0:ffffac118321:be80:5376a725:87 succeeded
+Thread for 0:ffffac118321:be80:5376a725:8b succeeded
+Thread for 0:ffffac118321:be80:5376a725:8d succeeded
+Thread for 0:ffffac118321:be80:5376a725:8f succeeded
+Thread for 0:ffffac118321:be80:5376a725:91 succeeded
+Thread for 0:ffffac118321:be80:5376a725:93 succeeded
+Thread for 0:ffffac118321:be80:5376a725:97 succeeded
+Thread for 0:ffffac118321:be80:5376a725:99 succeeded
+Thread for 0:ffffac118321:be80:5376a725:9b succeeded
+Thread for 0:ffffac118321:be80:5376a725:9d succeeded
+Thread for 0:ffffac118321:be80:5376a725:9f succeeded
+Thread for 0:ffffac118321:be80:5376a725:a1 succeeded
+Thread for 0:ffffac118321:be80:5376a725:a5 succeeded
+Thread for 0:ffffac118321:be80:5376a725:a7 succeeded
+Thread for 0:ffffac118321:be80:5376a725:a9 succeeded
+i: 93
+i: 94
+i: 95
+i: 96
+i: 97
+i: 98
+i: 99
+Thread for 0:ffffac118321:be80:5376a725:89 succeeded
+Thread for 0:ffffac118321:be80:5376a725:95 succeeded
+Thread for 0:ffffac118321:be80:5376a725:a3 succeeded
+Thread for 0:ffffac118321:be80:5376a725:ad succeeded
+Thread for 0:ffffac118321:be80:5376a725:af succeeded
+Thread for 0:ffffac118321:be80:5376a725:b1 succeeded
+Thread for 0:ffffac118321:be80:5376a725:b3 succeeded
+j: 0
+j: 1
+j: 2
+j: 3
+j: 4
+j: 5
+j: 6
+j: 7
+j: 8
+j: 9
+j: 10
+j: 11
+j: 12
+j: 13
+j: 14
+j: 15
+Thread for 0:ffffac118321:be80:5376a725:b5 succeeded
+java.lang.IndexOutOfBoundsException: Index: 0, Size: 0
+	at java.util.LinkedList.checkElementIndex(LinkedList.java:553)
+	at java.util.LinkedList.get(LinkedList.java:474)
+	at com.arjuna.ats.internal.arjuna.objectstore.AsyncStore.getState(CacheStore.java:564)
+	at com.arjuna.ats.internal.arjuna.objectstore.CacheStore.read_state(CacheStore.java:130)
+	at com.arjuna.ats.internal.arjuna.objectstore.FileSystemStore.read_committed(FileSystemStore.java:98)
+	at com.hp.mwtests.ts.arjuna.objectstore.ThreadWriter.run(CachedTest.java:69)
+Thread for 0:ffffac118321:be80:5376a725:2b failed
+Thread for 0:ffffac118321:be80:5376a725:ab succeeded
+j: 16
+j: 17
+j: 18
+j: 19
+j: 20
+j: 21
+j: 22
+j: 23
+j: 24
+j: 25
+j: 26
+j: 27
+j: 28
+j: 29
+j: 30
+j: 31
+j: 32
+j: 33
+j: 34
+j: 35
+j: 36
+j: 37
+j: 38
+j: 39
+j: 40
+j: 41
+j: 42
+j: 43
+j: 44
+j: 45
+j: 46
+j: 47
+j: 48
+j: 49
+j: 50
+j: 51
+j: 52
+j: 53
+j: 54
+j: 55
+j: 56
+j: 57
+j: 58
+j: 59
+j: 60
+j: 61
+j: 62
+j: 63
+j: 64
+j: 65
+j: 66
+j: 67
+j: 68
+j: 69
+j: 70
+j: 71
+j: 72
+j: 73
+j: 74
+Thread for 0:ffffac118321:be80:5376a725:c5 succeeded
+Thread for 0:ffffac118321:be80:5376a725:c3 succeeded
+Thread for 0:ffffac118321:be80:5376a725:c1 succeeded
+Thread for 0:ffffac118321:be80:5376a725:bf succeeded
+Thread for 0:ffffac118321:be80:5376a725:bd succeeded
+Thread for 0:ffffac118321:be80:5376a725:bb succeeded
+Thread for 0:ffffac118321:be80:5376a725:b9 succeeded
+Thread for 0:ffffac118321:be80:5376a725:b7 succeeded
+{code}

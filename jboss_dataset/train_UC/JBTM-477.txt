@@ -1,0 +1,2 @@
+ControlWrapper.getStatus rolledback status versus unknown
+currently returns unknown since a remote transaction could be terminated (committed) by different threads, so OBJECT_NOT_EXIST may not mean 'rollback'. Could tie this into checked transaction semantics to get the definitive answer.

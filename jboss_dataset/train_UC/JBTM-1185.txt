@@ -1,0 +1,4 @@
+@WebService annotation is missing targetNamespace in outbound.service.TestServiceImpl class
+TestServiceImpl class from org.jboss.jbossts.txbridge.tests.outbound.service packages contains empty @WebService annotation which makes troubles on IBM JDK 7.
+
+Add targetNamespace parameter to that annotation to fix the issue.

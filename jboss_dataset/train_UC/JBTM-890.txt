@@ -1,0 +1,2 @@
+Update the XTS tests to use maven
+Currently the XTS tests are built using Ant, they need to be updated to maven to be consistent with the rest of Narayana. The use of Maven should be consistent with the other Narayana sub-components. For example you should inherit from a parent pom.xml and manage dependencies and versions in the same way

@@ -1,0 +1,2 @@
+XTS code coverage failures
+XTS tests fail to start on CI nodes when code coverage testing is enabled.

@@ -1,0 +1,4 @@
+Improve concurrent behavior of HornetqJournalStore
+Remove existing synchronized block and also make better usage of concurrent data structures already present in the code.
+
+When there is a high number of threads, some will be block reducing the overall throughput and increasing response times on the whole system.

@@ -1,0 +1,6 @@
+Incomplete BlackTie quickstart documentation
+The BlackTie README.md quickstart files are out of date with respect to running against the latest wildfly.
+
+Ideally, the quickstarts should be standalone (and automatable - run.sh nearly works but not quite) so we need better instructions on how to configure, start and deploy to wildfly.
+
+My ideal quickstart is one from which I can cut lines and paste into a terminal in order to get it working.

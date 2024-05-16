@@ -1,0 +1,6 @@
+Transactional File I/O build fails
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-compiler-plugin:2.3.2:compile (default-compile) on project jbossts-transactional-fileio: Compilation failure
+[ERROR] Failure executing javac,  but could not parse the error:
+[ERROR] /bin/sh: /bin/javac: No such file or directory
+
+Looks like the build is hard coded with the assumption for the path to javac.

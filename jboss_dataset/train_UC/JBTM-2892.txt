@@ -1,0 +1,5 @@
+Calling Subordinate transaction to enlist with empty parameter list ends with IndexOutOfBoundsException
+When calling enlist method on {{com.arjuna.ats.internal.jta.transaction.jts.TransactionImple}} when parameters are defined as empty array the {{IndexOutOfBoundsException}} exception is thrown.
+
+The method call I do refer to is
+https://github.com/jbosstm/narayana/blob/master/ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/transaction/jts/TransactionImple.java#L517

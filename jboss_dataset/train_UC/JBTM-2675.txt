@@ -1,0 +1,2 @@
+Participant Initialization startup() method instead of shutdown() at ParticipantSideInitialisation
+ParticipantSideInitialisation class calls ParticipantInitialisation.startup() instead of ParticipantInitialisation.shutdown() in its shutdown method.

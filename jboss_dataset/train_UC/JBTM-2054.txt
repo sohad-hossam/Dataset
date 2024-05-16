@@ -1,0 +1,2 @@
+JNDI names from JTAEnvironmentBean should be used in ArjunaJTA/cdi classes
+Currently ArjunaJTA/cdi uses java:/jboss namespace for JNDI lookup. However, in standalone mode such names do not exist.

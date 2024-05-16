@@ -1,0 +1,37 @@
+WSTX11-interop & WSTFSC07 IPv6 tests fail: Error launching test
+See: 
+
+https://jenkins.mw.lab.eng.bos.redhat.com/hudson/job/narayana-java6-ipv6-WSTX11-interop/1/
+https://jenkins.mw.lab.eng.bos.redhat.com/hudson/job/narayana-java6-ipv6-WSTFSC07-interop/2/
+
+This can be reproduced by taking a test node, such as vmg36, offline. These are the commands I ran to reproduce. However, you may need to change the wget command to clone an appropriate workspace. Notice the comment that tells you to remove a dependency from a pom.xml. The build will fail if you miss this step out.
+
+{code}
+ssh probinso@dev89.mw.lab.eng.bos.redhat.com
+ssh probinso@vmg36.mw.lab.eng.bos.redhat.com
+
+wget http://jenkins.mw.lab.eng.bos.redhat.com/hudson/job/narayana-java6-ipv6/ws/*zip*/narayana-java6-ipv6.zip
+unzip narayana-java6-ipv6.zip
+cd narayana-java6-ipv6
+
+
+export MAVEN_OPTS="-DproxySet=true -DproxyHost=proxy-01-ipv6.mw.lab.eng.bos.redhat.com -DproxyPort=3128"
+export IPV6_OPTS="-Djava.net.preferIPv4Stack=false -Djava.net.preferIPv6Addresses=true -Djboss.bind.address=[::1] -Djboss.bind.address.management=[::1] -Djboss.bind.address.unsecure=[::1]"
+export IPV6_OPTS="$IPV6_OPTS $MAVEN_OPTS"
+export WSTX_MODULES="WSTX11-interop"
+export ARQ_PROF=arqIPv6
+export PATH=/usr/lib/jvm/java-1.6.0/bin/:$PATH
+export JAVA_HOME=/usr/lib/jvm/java-1.6.0/
+export JBOSS_HOME=~/narayana-java6-ipv6/jboss-as/build/target/jboss-as-7.2.0.Alpha1-SNAPSHOT/
+
+
+#Now Remove rest-at javadoc dep from narayana-full/pom.xml
+./build.sh install -DskipTests=true $IPV6_OPTS -Dmaven.javadoc.skip=true
+
+cd jboss-as
+./build.sh install -DskipTests -Dts.smoke=false $IPV6_OPTS
+cp ./build/target/jboss-as-7.2.0.Alpha1-SNAPSHOT/docs/examples/configs/standalone-xts.xml ./build/target/jboss-as-7.2.0.Alpha1-SNAPSHOT/standalone/configuration/
+
+cd ..
+./build.sh -f XTS/localjunit/pom.xml --projects "$WSTX_MODULES" -P$ARQ_PROF "$@" $IPV6_OPTS clean install
+{code}

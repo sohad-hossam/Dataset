@@ -1,0 +1,2 @@
+Close and release nexus deployed artifacts from build script
+Currently we need to visit the nexus site during NRP, it would be nice to be able to execute these steps from the command line as part of the release process.

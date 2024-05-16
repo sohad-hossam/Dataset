@@ -1,0 +1,28 @@
+XTS WSTFSC07-interop failure
+junit test failure:
+{code}
+Running com.jboss.transaction.wstf.interop.Sc007Test
+Tests run: 15, Failures: 1, Errors: 1, Skipped: 0, Time elapsed: 326.369 sec <<< FAILURE!
+test3_10(com.jboss.transaction.wstf.interop.Sc007Test)  Time elapsed: 212.002 sec  <<< FAILURE!
+junit.framework.AssertionFailedError: Conversation did not complete successfully
+	at junit.framework.Assert.fail(Assert.java:57)
+	at junit.framework.Assert.assertTrue(Assert.java:22)
+	at junit.framework.TestCase.assertTrue(TestCase.java:192)
+	at com.jboss.transaction.wstf.interop.Sc007TestCase.test3_10(Sc007TestCase.java:474)
+	at com.jboss.transaction.wstf.interop.Sc007Test.test3_10(Sc007Test.java:176)
+
+test3_11(com.jboss.transaction.wstf.interop.Sc007Test)  Time elapsed: 1.608 sec  <<< ERROR!
+com.arjuna.wst.TransactionRolledBackException: null
+	at com.arjuna.wst11.stub.CompletionStub.commit(CompletionStub.java:65)
+	at com.jboss.transaction.wstf.interop.Sc007TestCase.test3_11(Sc007TestCase.java:495)
+	at com.jboss.transaction.wstf.interop.Sc007Test.test3_11(Sc007Test.java:181)
+
+
+Results :
+
+Failed tests: 
+  Sc007Test.test3_10:176 Conversation did not complete successfully
+
+Tests in error: 
+  Sc007Test.test3_11:181 » TransactionRolledBack
+{code}

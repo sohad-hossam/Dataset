@@ -1,0 +1,10 @@
+Incorrect warning messaging in ShadowingStore
+warn_objectstore_ShadowingStore_6 currently says ...
+
+"ShadowingStore::read_state() - no type name given for object state"
+
+... when in fact the else clause is triggered when the state isn't committed or uncommitted (typically when it's unknown and the state doesn't exist).
+
+I'm not sure when this warning message was added because it wasn't there in JBossTS 4.8 or 4.15.3.
+
+I'm going to fix this issue (the text). I'll create a separate issue because I think this should be info not warning.

@@ -1,0 +1,2 @@
+Convert tests to work on Windows
+Some of the tests cannot be ran on Windows which reduces our scope for testing and also leaves some hudson nodes idle.

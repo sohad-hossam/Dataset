@@ -1,0 +1,399 @@
+CMRIntegrationTest deployment failed because of Weld
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/758/PROFILE=MAIN,jdk=jdk7.latest,label=linux/
+
+{code}
+-------------------------------------------------------------------------------
+Test set: com.hp.mwtests.ts.jta.commitmarkable.integration.CMRIntegrationTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 16.077 sec <<< FAILURE!
+com.hp.mwtests.ts.jta.commitmarkable.integration.CMRIntegrationTest  Time elapsed: 16.075 sec  <<< ERROR!
+org.jboss.arquillian.container.spi.client.container.DeploymentException: Cannot deploy: test.war
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getActionResult(ServerDeploymentPlanResultFuture.java:134)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getResultFromNode(ServerDeploymentPlanResultFuture.java:123)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:85)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:42)
+	at org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.deploy(ServerDeploymentHelper.java:55)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:77)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:146)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:84)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:65)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:80)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:182)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:264)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:124)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray2(ReflectionUtils.java:208)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:159)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:87)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:153)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:95)
+{code}
+
+{code}
+Feb 24, 2015 6:54:39 PM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
+WARNING: Bundles path is deprecated and no longer used.
+Feb 24, 2015 6:54:39 PM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
+INFO: Starting container with: [/usr/local/jdk1.7.0_51/bin/java, -D[Standalone], -Xms64m, -Xmx512m, -XX:MaxPermSize=512m, -Djava.net.preferIPv4Stack=true, -server, -Xmx1024m, -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n, -ea, -Djboss.home.dir=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT, -Djboss.modules.system.pkgs=org.jboss.byteman, -Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/log/server.log, -Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/configuration/logging.properties, -jar, /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/jboss-modules.jar, -mp, /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/modules, org.jboss.as.standalone, -Djboss.home.dir=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT, -Djboss.server.base.dir=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone, -Djboss.server.log.dir=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/log, -Djboss.server.config.dir=/home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/configuration, -c=standalone-cmr.xml]
+Listening for transport dt_socket at address: 8787
+[0m18:54:40,441 INFO  [org.jboss.modules] (main) JBoss Modules version 1.4.1.Final
+[0m[0m18:54:41,291 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.4.Final
+[0m[33m18:54:41,487 WARN  [org.jboss.as.warn.fd-limit] (main) WFLYSRV0071: The operating system has limited the number of open files to 1024 for this process; a value of at least 4096 is recommended
+[0m[0m18:54:41,567 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: WildFly Full 9.0.0.Alpha2-SNAPSHOT (WildFly Core 1.0.0.Alpha19) starting
+[0m[0m18:54:44,597 INFO  [org.jboss.as.controller.management-deprecated] (ServerService Thread Pool -- 14) WFLYCTL0028: Attribute enabled is deprecated, and it might be removed in future version!
+[0m[0m18:54:44,837 INFO  [org.jboss.as.server] (Controller Boot Thread) WFLYSRV0039: Creating http management service using socket-binding (management-http)
+[0m[0m18:54:44,867 INFO  [org.xnio] (MSC service thread 1-1) XNIO version 3.3.0.Final
+[0m[0m18:54:44,886 INFO  [org.xnio.nio] (MSC service thread 1-1) XNIO NIO Implementation Version 3.3.0.Final
+[0m[0m18:54:44,928 INFO  [org.jboss.remoting] (MSC service thread 1-1) JBoss Remoting version 4.0.7.Final
+[0m[0m18:54:45,053 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 37) WFLYCLINF0001: Activating Infinispan subsystem.
+[0m[0m18:54:45,135 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 45) WFLYNAM0001: Activating Naming Subsystem
+[0m[0m18:54:45,130 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 43) WFLYJSF0007: Activated the following JSF Implementations: [main]
+[0m[0m18:54:45,226 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 51) WFLYSEC0002: Activating Security Subsystem
+[0m[0m18:54:45,281 INFO  [org.jboss.as.naming] (MSC service thread 1-2) WFLYNAM0003: Starting Naming Service
+[0m[0m18:54:45,296 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 32) WFLYJCA0004: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+[0m[33m18:54:45,214 WARN  [org.jboss.as.txn] (ServerService Thread Pool -- 52) WFLYTX0013: Node identifier property is set to the default value. Please make sure it is unique.
+[0m[0m18:54:45,957 INFO  [org.wildfly.extension.io] (ServerService Thread Pool -- 36) WFLYIO001: Worker 'default' has auto-configured to 2 core threads with 16 task threads based on your 1 available processors
+[0m[0m18:54:46,288 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 54) WFLYWS0002: Activating WebServices Extension
+[0m[0m18:54:46,312 INFO  [org.jboss.as.connector] (MSC service thread 1-2) WFLYJCA0009: Starting JCA Subsystem (IronJacamar 1.2.2.Final)
+[0m[0m18:54:46,577 INFO  [org.jboss.as.security] (MSC service thread 1-1) WFLYSEC0001: Current PicketBox version=4.9.0.Beta2
+[0m[0m18:54:46,600 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0018: Started Driver service with driver-name = h2
+[0m[0m18:54:46,610 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-2) WFLYMAIL0001: Bound mail session [java:jboss/mail/Default]
+[0m[0m18:54:48,054 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0001: Bound data source [java:jboss/datasources/ExampleDS]
+[0m[0m18:54:48,063 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0003: Undertow 1.2.0.Beta8 starting
+[0m[0m18:54:48,065 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 53) WFLYUT0003: Undertow 1.2.0.Beta8 starting
+[0m[0m18:54:48,112 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0012: Started server default-server.
+[0m[0m18:54:48,170 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0006: Undertow HTTP listener default listening on /127.0.0.1:8080
+[0m[0m18:54:48,172 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 53) WFLYUT0014: Creating file handler for path /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/welcome-content
+[0m[0m18:54:48,183 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0018: Host default-host starting
+[0m[0m18:54:48,733 INFO  [org.jboss.ws.common.management] (MSC service thread 1-2) JBWS022052: Starting JBoss Web Services - Stack CXF Server 5.0.0.Beta3
+[0m[0m18:54:49,074 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-1) WFLYDS0013: Started FileSystemDeploymentService for directory /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/deployments
+[0m[0m18:54:49,766 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0060: Http management interface listening on http://127.0.0.1:9990/management
+[0m[0m18:54:49,766 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0051: Admin console listening on http://127.0.0.1:9990
+[0m[0m18:54:49,767 INFO  [org.jboss.as] (Controller Boot Thread) WFLYSRV0025: WildFly Full 9.0.0.Alpha2-SNAPSHOT (WildFly Core 1.0.0.Alpha19) started in 10128ms - Started 203 of 380 services (210 services are lazy, passive or on-demand)
+[0m[0m18:54:50,870 INFO  [org.jboss.as.repository] (management-handler-thread - 4) WFLYDR0001: Content added at location /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha2-SNAPSHOT/standalone/data/content/be/d1c9cd47a4d9b1119731defb4991fec5b863c8/content
+[0m[0m18:54:50,895 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[33m18:54:51,851 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) WFLYSRV0018: Deployment "deployment.test.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[33m18:54:51,852 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) WFLYSRV0018: Deployment "deployment.test.war" is using a private module ("org.jboss.jboss-transaction-spi:main") which may be changed or removed in future versions without notice.
+[0m[0m18:54:51,905 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m18:54:51,995 INFO  [org.hibernate.validator.internal.util.Version] (MSC service thread 1-2) HV000001: Hibernate Validator 5.1.3.Final
+[0m[0m18:54:52,703 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m18:54:52,748 INFO  [org.jboss.weld.Version] (MSC service thread 1-2) WELD-000900: 2.2.9 (Final)
+[0m[0m18:54:52,868 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[31m18:54:54,097 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-2) MSC000001: Failed to start service jboss.deployment.unit."test.war".WeldStartService: org.jboss.msc.service.StartException in service jboss.deployment.unit."test.war".WeldStartService: Failed to start service
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1904) [jboss-msc-1.2.4.Final.jar:1.2.4.Final]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]
+Caused by: org.jboss.weld.exceptions.DefinitionException: Exception List with 1 exceptions:
+Exception 0 :
+javax.enterprise.event.ObserverException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at java.lang.Class.newInstance(Class.java:374)
+	at org.jboss.weld.security.NewInstanceAction.run(NewInstanceAction.java:33)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:40)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:78)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:97)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:79)
+	at org.jboss.weld.injection.ObserverMethodInvocationStrategy$2.notify(ObserverMethodInvocationStrategy.java:89)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:299)
+	at org.jboss.weld.event.ExtensionObserverMethodImpl.sendEvent(ExtensionObserverMethodImpl.java:121)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:284)
+	at org.jboss.weld.event.ObserverMethodImpl.notify(ObserverMethodImpl.java:262)
+	at org.jboss.weld.event.ObserverNotifier.notifySyncObservers(ObserverNotifier.java:217)
+	at org.jboss.weld.event.ObserverNotifier.notify(ObserverNotifier.java:204)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:120)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:114)
+	at org.jboss.weld.bootstrap.events.AbstractContainerEvent.fire(AbstractContainerEvent.java:54)
+	at org.jboss.weld.bootstrap.events.AbstractDefinitionContainerEvent.fire(AbstractDefinitionContainerEvent.java:42)
+	at org.jboss.weld.bootstrap.events.AbstractProcessInjectionTarget.fire(AbstractProcessInjectionTarget.java:33)
+	at org.jboss.weld.bootstrap.events.ContainerLifecycleEvents.fireProcessInjectionTarget(ContainerLifecycleEvents.java:249)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:138)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:128)
+	at org.jboss.weld.bootstrap.BeanDeployer.deploy(BeanDeployer.java:322)
+	at org.jboss.weld.bootstrap.BeanDeployment.deployBeans(BeanDeployment.java:273)
+	at org.jboss.weld.bootstrap.WeldStartup.deployBeans(WeldStartup.java:406)
+	at org.jboss.weld.bootstrap.WeldBootstrap.deployBeans(WeldBootstrap.java:83)
+	at org.jboss.as.weld.WeldStartService.start(WeldStartService.java:93)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1948)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1881)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.lang.LinkageError: loader constraint violation: loader (instance of <bootloader>) previously initiated loading for a different type with name "javax/sql/PooledConnection"
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2531)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2651)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2661)
+	at java.lang.Class.getMethods(Class.java:1467)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsAnnotatedClass(Utils.java:39)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsResource(Utils.java:63)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsComponent(Utils.java:85)
+	at org.jboss.resteasy.cdi.ResteasyCdiExtension.observeInjectionTarget(ResteasyCdiExtension.java:169)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:89)
+	... 26 more
+
+	at org.jboss.weld.bootstrap.events.AbstractDefinitionContainerEvent.fire(AbstractDefinitionContainerEvent.java:44)
+	at org.jboss.weld.bootstrap.events.AbstractProcessInjectionTarget.fire(AbstractProcessInjectionTarget.java:33)
+	at org.jboss.weld.bootstrap.events.ContainerLifecycleEvents.fireProcessInjectionTarget(ContainerLifecycleEvents.java:249)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:138)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:128)
+	at org.jboss.weld.bootstrap.BeanDeployer.deploy(BeanDeployer.java:322)
+	at org.jboss.weld.bootstrap.BeanDeployment.deployBeans(BeanDeployment.java:273)
+	at org.jboss.weld.bootstrap.WeldStartup.deployBeans(WeldStartup.java:406)
+	at org.jboss.weld.bootstrap.WeldBootstrap.deployBeans(WeldBootstrap.java:83)
+	at org.jboss.as.weld.WeldStartService.start(WeldStartService.java:93)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1948) [jboss-msc-1.2.4.Final.jar:1.2.4.Final]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1881) [jboss-msc-1.2.4.Final.jar:1.2.4.Final]
+	... 3 more
+
+[0m[31m18:54:54,181 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 4) WFLYCTL0013: Operation ("deploy") failed - address: ([("deployment" => "test.war")]) - failure description: {"WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"test.war\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.war\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DefinitionException: Exception List with 1 exceptions:
+Exception 0 :
+javax.enterprise.event.ObserverException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at java.lang.Class.newInstance(Class.java:374)
+	at org.jboss.weld.security.NewInstanceAction.run(NewInstanceAction.java:33)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:40)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:78)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:97)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:79)
+	at org.jboss.weld.injection.ObserverMethodInvocationStrategy$2.notify(ObserverMethodInvocationStrategy.java:89)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:299)
+	at org.jboss.weld.event.ExtensionObserverMethodImpl.sendEvent(ExtensionObserverMethodImpl.java:121)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:284)
+	at org.jboss.weld.event.ObserverMethodImpl.notify(ObserverMethodImpl.java:262)
+	at org.jboss.weld.event.ObserverNotifier.notifySyncObservers(ObserverNotifier.java:217)
+	at org.jboss.weld.event.ObserverNotifier.notify(ObserverNotifier.java:204)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:120)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:114)
+	at org.jboss.weld.bootstrap.events.AbstractContainerEvent.fire(AbstractContainerEvent.java:54)
+	at org.jboss.weld.bootstrap.events.AbstractDefinitionContainerEvent.fire(AbstractDefinitionContainerEvent.java:42)
+	at org.jboss.weld.bootstrap.events.AbstractProcessInjectionTarget.fire(AbstractProcessInjectionTarget.java:33)
+	at org.jboss.weld.bootstrap.events.ContainerLifecycleEvents.fireProcessInjectionTarget(ContainerLifecycleEvents.java:249)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:138)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:128)
+	at org.jboss.weld.bootstrap.BeanDeployer.deploy(BeanDeployer.java:322)
+	at org.jboss.weld.bootstrap.BeanDeployment.deployBeans(BeanDeployment.java:273)
+	at org.jboss.weld.bootstrap.WeldStartup.deployBeans(WeldStartup.java:406)
+	at org.jboss.weld.bootstrap.WeldBootstrap.deployBeans(WeldBootstrap.java:83)
+	at org.jboss.as.weld.WeldStartService.start(WeldStartService.java:93)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1948)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1881)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.lang.LinkageError: loader constraint violation: loader (instance of <bootloader>) previously initiated loading for a different type with name \"javax/sql/PooledConnection\"
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2531)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2651)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2661)
+	at java.lang.Class.getMethods(Class.java:1467)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsAnnotatedClass(Utils.java:39)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsResource(Utils.java:63)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsComponent(Utils.java:85)
+	at org.jboss.resteasy.cdi.ResteasyCdiExtension.observeInjectionTarget(ResteasyCdiExtension.java:169)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:89)
+	... 26 more
+"}}
+[0m[31m18:54:54,191 ERROR [org.jboss.as.server] (management-handler-thread - 4) WFLYSRV0021: Deploy of deployment "test.war" was rolled back with the following failure message: 
+{"WFLYCTL0080: Failed services" => {"jboss.deployment.unit.\"test.war\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.war\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DefinitionException: Exception List with 1 exceptions:
+Exception 0 :
+javax.enterprise.event.ObserverException
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+	at java.lang.Class.newInstance(Class.java:374)
+	at org.jboss.weld.security.NewInstanceAction.run(NewInstanceAction.java:33)
+	at java.security.AccessController.doPrivileged(Native Method)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:40)
+	at org.jboss.weld.injection.Exceptions.rethrowException(Exceptions.java:78)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:97)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:79)
+	at org.jboss.weld.injection.ObserverMethodInvocationStrategy$2.notify(ObserverMethodInvocationStrategy.java:89)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:299)
+	at org.jboss.weld.event.ExtensionObserverMethodImpl.sendEvent(ExtensionObserverMethodImpl.java:121)
+	at org.jboss.weld.event.ObserverMethodImpl.sendEvent(ObserverMethodImpl.java:284)
+	at org.jboss.weld.event.ObserverMethodImpl.notify(ObserverMethodImpl.java:262)
+	at org.jboss.weld.event.ObserverNotifier.notifySyncObservers(ObserverNotifier.java:217)
+	at org.jboss.weld.event.ObserverNotifier.notify(ObserverNotifier.java:204)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:120)
+	at org.jboss.weld.event.ObserverNotifier.fireEvent(ObserverNotifier.java:114)
+	at org.jboss.weld.bootstrap.events.AbstractContainerEvent.fire(AbstractContainerEvent.java:54)
+	at org.jboss.weld.bootstrap.events.AbstractDefinitionContainerEvent.fire(AbstractDefinitionContainerEvent.java:42)
+	at org.jboss.weld.bootstrap.events.AbstractProcessInjectionTarget.fire(AbstractProcessInjectionTarget.java:33)
+	at org.jboss.weld.bootstrap.events.ContainerLifecycleEvents.fireProcessInjectionTarget(ContainerLifecycleEvents.java:249)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:138)
+	at org.jboss.weld.bootstrap.AbstractBeanDeployer.fireBeanEvents(AbstractBeanDeployer.java:128)
+	at org.jboss.weld.bootstrap.BeanDeployer.deploy(BeanDeployer.java:322)
+	at org.jboss.weld.bootstrap.BeanDeployment.deployBeans(BeanDeployment.java:273)
+	at org.jboss.weld.bootstrap.WeldStartup.deployBeans(WeldStartup.java:406)
+	at org.jboss.weld.bootstrap.WeldBootstrap.deployBeans(WeldBootstrap.java:83)
+	at org.jboss.as.weld.WeldStartService.start(WeldStartService.java:93)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1948)
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1881)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.lang.LinkageError: loader constraint violation: loader (instance of <bootloader>) previously initiated loading for a different type with name \"javax/sql/PooledConnection\"
+	at java.lang.Class.getDeclaredMethods0(Native Method)
+	at java.lang.Class.privateGetDeclaredMethods(Class.java:2531)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2651)
+	at java.lang.Class.privateGetPublicMethods(Class.java:2661)
+	at java.lang.Class.getMethods(Class.java:1467)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsAnnotatedClass(Utils.java:39)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsResource(Utils.java:63)
+	at org.jboss.resteasy.cdi.Utils.isJaxrsComponent(Utils.java:85)
+	at org.jboss.resteasy.cdi.ResteasyCdiExtension.observeInjectionTarget(ResteasyCdiExtension.java:169)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.weld.injection.StaticMethodInjectionPoint.invoke(StaticMethodInjectionPoint.java:89)
+	... 26 more
+"}}
+[0m[0m18:54:54,221 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m18:54:54,294 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 91ms
+[0m[0m18:54:54,298 INFO  [org.jboss.as.controller] (management-handler-thread - 4) WFLYCTL0183: Service status report
+WFLYCTL0184:    New missing/unsatisfied dependencies:
+      service jboss.deployment.unit."test.war".WeldBootstrapService (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".WeldInstantiator, service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".WeldInstantiator, service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".WeldInstantiator, service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, WFLYCTL0208: ... and 7 more ] 
+      service jboss.deployment.unit."test.war".WeldStartService (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".WeldInstantiator, service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".WeldInstantiator, service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".WeldInstantiator, service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, WFLYCTL0208: ... and 6 more ] 
+      service jboss.deployment.unit."test.war".component."com.sun.faces.config.ConfigureListener".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."com.sun.faces.config.ConfigureListener".START] 
+      service jboss.deployment.unit."test.war".component."com.sun.faces.config.ConfigureListener".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."com.sun.faces.config.ConfigureListener".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."com.sun.faces.config.ConfigureListener".START] 
+      service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".START] 
+      service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".START] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.PermittedTaglibsTLV".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.PermittedTaglibsTLV".START] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.PermittedTaglibsTLV".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.PermittedTaglibsTLV".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.PermittedTaglibsTLV".START] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".START] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldTerminalListener".CREATE (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldTerminalListener".START] 
+      service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldTerminalListener".START (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService, service jboss.undertow.deployment.default-server.default-host./test, service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldTerminalListener".WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldTerminalListener".START] 
+      service jboss.deployment.unit."test.war".ee.ComponentRegistry (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService] 
+      service jboss.deployment.unit."test.war".jndiDependencyService (missing) dependents: [service jboss.deployment.unit."test.war".component."org.jboss.weld.servlet.WeldInitialListener".START, service jboss.deployment.unit."test.war".component."javax.servlet.jsp.jstl.tlv.ScriptFreeTLV".START, service jboss.deployment.unit."test.war".component."javax.faces.webapp.FacetTag".START, service jboss.deployment.unit."test.war".component."org.jboss.arquillian.protocol.servlet.runner.ServletTestRunner".START, WFLYCTL0208: ... and 4 more ] 
+      service jboss.server.global-request-controller.control-point."test.war".undertow (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService] 
+      service jboss.undertow.deployment.default-server.default-host./test (missing) dependents: [service jboss.deployment.unit."test.war".deploymentCompleteService] 
+      service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test] 
+      service jboss.undertow.deployment.default-server.default-host./test.codec (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService] 
+      service jboss.undertow.deployment.default-server.default-host./test.session (missing) dependents: [service jboss.undertow.deployment.default-server.default-host./test.UndertowDeploymentInfoService] 
+WFLYCTL0186:   Services which failed to start:      service jboss.deployment.unit."test.war".WeldStartService
+
+[0m[0m18:54:54,377 INFO  [org.jboss.as.server] (management-handler-thread - 2) WFLYSRV0211: Suspending server
+[0m[0m18:54:54,390 INFO  [org.jboss.as.server] (Thread-2) WFLYSRV0220: Server shutdown has been requested.
+[0m[0m18:54:54,398 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m18:54:54,406 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0019: Host default-host stopping
+[0m[0m18:54:54,480 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0019: Stopped Driver service with driver-name = h2
+[0m[0m18:54:54,501 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0008: Undertow HTTP listener default suspending
+[0m[0m18:54:54,501 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0007: Undertow HTTP listener default stopped, was bound to /127.0.0.1:8080
+[0m[0m18:54:54,797 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0004: Undertow 1.2.0.Beta8 stopping
+[0m[0m18:54:54,865 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0050: WildFly Full 9.0.0.Alpha2-SNAPSHOT (WildFly Core 1.0.0.Alpha19) stopped in 423ms
+[0m
+{code}

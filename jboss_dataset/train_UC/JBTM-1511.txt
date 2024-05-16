@@ -1,0 +1,4 @@
+Dynamic 1PC optimisation
+If the first N-1 participants in the intentions list return read-only, then we can call commitOnePhase on the last resource, bypassing prepare and writing of the log.
+
+Note: this has been on the todo list for years. Time to do it.

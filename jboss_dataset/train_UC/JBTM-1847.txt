@@ -1,0 +1,3 @@
+Update blacktie build to test with standalone-blacktie.xml
+when JBTM-1568 resolved, it can start jboss-as with the configuration standalone-blacktie.xml which has blacktie subsystem. It should not deploy the blacktie-stompconnect as it has been moved into wildfly codebase.
+also it needs to change initializeJBoss.xml to copy this configuration and replace with it.

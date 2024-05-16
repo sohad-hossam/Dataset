@@ -1,0 +1,22 @@
+Auto-merge in narayana.sh is not robust enough
+This can't be auto=merged:
+
+{code}
+<<<<<<< HEAD
+        <version.org.jboss.jbossts.jbossjts>5.0.0.M2</version.org.jboss.jbossts.jbossjts>
+        <version.org.jboss.jbossts.jbossjts-integration>5.0.0.M2</version.org.jboss.jbossts.jbossjts-integration>
+        <version.org.jboss.jbossts.jbossxts>5.0.0.M2</version.org.jboss.jbossts.jbossxts>
+        <version.org.jboss.jboss-vfs>3.2.0.Beta1</version.org.jboss.jboss-vfs>
+        <version.org.jboss.jbossts.narayana>5.0.0.M2</version.org.jboss.jbossts.narayana>
+=======
+        <version.org.jboss.jbossts.jbossjts>5.0.0.M3-SNAPSHOT</version.org.jboss.jbossts.jbossjts>
+        <version.org.jboss.jbossts.jbossjts-integration>5.0.0.M3-SNAPSHOT</version.org.jboss.jbossts.jbossjts-integration>
+        <version.org.jboss.jbossts.jbossxts>5.0.0.M3-SNAPSHOT</version.org.jboss.jbossts.jbossxts>
+        <version.org.jboss.jboss-vfs>3.1.0.Final</version.org.jboss.jboss-vfs>
+        <version.org.jboss.jbossts.narayana>5.0.0.M3-SNAPSHOT</version.org.jboss.jbossts.narayana>
+>>>>>>> Upgrade Narayana to 5.0.0.M3-SNAPSHOT
+{code}
+
+Our current strategy will take our version which results in the old version of jboss-vfs being used, which in turn causes a build failure in WildFly.
+
+Maybe we should remove the auto-merge and replace with a manual intervention when a conflict occurs?

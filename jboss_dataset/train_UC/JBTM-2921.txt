@@ -1,0 +1,4 @@
+RTS-AT: in case of one phase commit processing 'commit' link is invoked instead of 'commit-one-phase'
+For REST-AT transactions is defined that for two phase unaware participant when link 'commit-one-phase' is introduced then it is expected that in the case of processing one phase commit this link will be invoked on the participant (see https://github.com/jbosstm/documentation/blob/master/rts/docs/RESTAT-v2-latest.pdf)
+
+The current implementation does not consider the existence of this proposed link handler and calls always 'commit'.

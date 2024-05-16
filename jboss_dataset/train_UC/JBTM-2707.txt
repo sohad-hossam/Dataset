@@ -1,0 +1,2 @@
+Update README to reflect accurately which JDK versions we support
+We are using Java 1.8 features and the top level README needs to reflect tha.

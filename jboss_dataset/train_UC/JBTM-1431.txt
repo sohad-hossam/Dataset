@@ -1,0 +1,36 @@
+LastResourceRecord.shouldAdd allows insertion regardless of order and type info
+So looking at the code, LastResource is meant to be ordered last in the intentions list (check topLevelPrepare to see this). However, a quick look at the code in LastResourceRecord shows that there is a bug:
+
+public boolean shouldAdd (AbstractRecord a)
+    {
+        if (a.typeIs() == typeIs())
+        {
+            if (ALLOW_MULTIPLE_LAST_RESOURCES) {
+                if (!_disableMLRWarning
+                        || (_disableMLRWarning && !_issuedWarning)) {
+                    tsLogger.i18NLogger.warn_lastResource_multipleWarning(a.toString());
+                    _issuedWarning = true;
+                }
+
+                return true;
+            }
+            else {
+                tsLogger.i18NLogger.warn_lastResource_disallow(this.toString(), a.toString());
+
+                return false;
+            }
+        }
+        else
+        {
+            return true;  <------- Here is the bug!
+        }
+    }
+
+Basically if the record to be added is not a LastResourceRecord then it gets added immediately, ignoring any further checks on type, order etc. This is wrong.
+
+And looking back at the code from 6 years ago we see that this was much simpler:
+
+public boolean shouldAdd (AbstractRecord a)
+	{
+            return (a.typeIs() == typeIs()) ;
+	}

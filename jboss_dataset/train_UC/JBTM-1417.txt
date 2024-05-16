@@ -1,0 +1,9 @@
+TXDataMap used incorrectly in TXF REST-AT tests
+Should be:
+
+{code}
+    @Inject
+    TXDataMap<String, String> txDataMap;
+{code}
+
+Also need to check to see if this is done elsewhere.

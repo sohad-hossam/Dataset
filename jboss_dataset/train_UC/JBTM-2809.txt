@@ -1,0 +1,2 @@
+Include jboss-logging in the QA dependencies so it can be debugged easier
+Unless jboss-logging is included you can't see tracing on the console when debugging issues

@@ -1,0 +1,2 @@
+Recovery is not supported by the LRA implementation
+The LRA implementation is missing recovery support.

@@ -1,0 +1,57 @@
+Failure to parse default-jbossts-properties.xml on JBossAS boot
+To reproduce:
+
+# cd to 4.16.3 tag of narayana
+# Set version to 4.16.3.Final in the build.xml
+# ant -Dpublican=false -DskipTests=true
+# ant mvn-local-repository
+
+# Download JBossAS 7.1.1 from https://github.com/jbossas/jboss-as/zipball/7.1.1.Final
+# unzip
+# edit pom.xml and set jbossts version to 4.16.3.Final
+# mvn install -DskipTests=true
+# cd ./build/target/jboss-as-7.1.1.Final
+# sh bin/standalone.sh
+
+Observe boot error:
+
+
+{code}
+7:51:54,694 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 57) JBAS014612: Operation ("add") failed - address: ([("subsystem" => "transactions")
+ang.RuntimeException: java.lang.RuntimeException: unable to load properties from jar:file:/tmp/jboss-as-7.1.1.Final/build/target/jboss-as-7.1.1.Final/modules/org/jboss/jts/main/jbossjts-4.16.3.Final.jar!/default-jbossts-properties.xml
+        at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getNamedInstance(BeanPopulator.java:81)
+        at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getDefaultInstance(BeanPopulator.java:49)
+        at com.arjuna.ats.arjuna.common.arjPropertyManager.getCoreEnvironmentBean(arjPropertyManager.java:45)
+        at org.jboss.as.txn.service.CoreEnvironmentService.getValue(CoreEnvironmentService.java:53)
+        at org.jboss.as.txn.service.CoreEnvironmentService.setProcessImplementation(CoreEnvironmentService.java:102)
+        at org.jboss.as.txn.subsystem.TransactionSubsystemAdd.performCoreEnvironmentBootTime(TransactionSubsystemAdd.java:309)
+        at org.jboss.as.txn.subsystem.TransactionSubsystemAdd.performBoottime(TransactionSubsystemAdd.java:172)
+        at org.jboss.as.controller.AbstractBoottimeAddStepHandler.performRuntime(AbstractBoottimeAddStepHandler.java:57) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.as.controller.AbstractAddStepHandler$1.execute(AbstractAddStepHandler.java:50) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:385) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:272) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.as.controller.AbstractOperationContext.completeStep(AbstractOperationContext.java:200) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.as.controller.ParallelBootOperationStepHandler$ParallelBootTask.run(ParallelBootOperationStepHandler.java:311) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_30]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_30]
+        at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_30]
+        at org.jboss.threads.JBossThread.run(JBossThread.java:122) [jboss-threads-2.0.0.GA.jar:2.0.0.GA]
+Caused by: java.lang.RuntimeException: unable to load properties from jar:file:/tmp/jboss-as-7.1.1.Final/build/target/jboss-as-7.1.1.Final/modules/org/jboss/jts/main/jbossjts-4.16.3.Final.jar
+!/default-jbossts-properties.xml
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.getPropertiesFromFile(PropertiesFactory.java:110)
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.initDefaultProperties(PropertiesFactory.java:236)
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.getDefaultProperties(PropertiesFactory.java:66)
+        at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getNamedInstance(BeanPopulator.java:77)
+        at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getNamedInstance(BeanPopulator.java:77)
+        ... 16 more
+Caused by: java.lang.IllegalArgumentException: Invalid index 0; current element has only 0 attributes
+        at com.ctc.wstx.sr.AttributeCollector.throwIndex(AttributeCollector.java:1018)
+        at com.ctc.wstx.sr.AttributeCollector.getValue(AttributeCollector.java:355)
+        at com.ctc.wstx.sr.BasicStreamReader.getAttributeValue(BasicStreamReader.java:607)
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.loadFromXML(PropertiesFactory.java:188)
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.loadFromFile(PropertiesFactory.java:145)
+        at com.arjuna.common.util.propertyservice.PropertiesFactory.getPropertiesFromFile(PropertiesFactory.java:106)
+        ... 19 more
+{code}
+
+This looks to me like it was caused by [JBTM-1054]. I suspect there is an unexpected XML block present in jar:file:/tmp/jboss-as-7.1.1.Final/build/target/jboss-as-7.1.1.Final/modules/org/jboss/jts/main/jbossjts-4.16.3.Final.jar!/default-jbossts-properties.xml. For example one with a missing value. I've tried commenting out keys with empty values, but that didn't help. It's not clear to me from debugging the code, which element it is complaining about.

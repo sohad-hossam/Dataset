@@ -1,0 +1,3 @@
+On using hornetq object store native libraries are loaded automatically - it should be configurable
+Currently when HornetQ implementation of object store is used and native libraries (AIO) are available the native are used without user's explicit request.
+It was decided that user should have possibility to define whether the native libraries will be used or not.

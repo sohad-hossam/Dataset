@@ -1,0 +1,2 @@
+Add a default jbossts-properties.xml into the Tomcat uber jar
+There is no jbossts-properties.xml in tomcat-jta Uber jar

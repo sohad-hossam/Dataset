@@ -1,0 +1,4 @@
+== replaced with equals() in objects comparison where appropriate
+A recent bug in XTS recovery was caused by the use of == to compare Strings. String#equals(...) should have been used.
+
+We need to search the XTS codebase for other occurrences of this type of bug.

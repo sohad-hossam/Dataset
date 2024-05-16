@@ -1,0 +1,33 @@
+"no XTS application recovery module found" during XTS Recovery Tests
+See: http://172.17.131.2/view/Narayana+BlackTie/job/narayana/211/artifact/XTS/localjunit/crash-recovery-tests/target/surefire-reports/com.arjuna.qa.junit.TestATCrashDuringOnePhaseCommit-output.txt
+
+Notice the following log is displayed repeatedly until the test gives up waiting for recovery:
+
+{code}
+WARN  [com.arjuna.wsrecovery] (Periodic Recovery) ARJUNA046032: no XTS application recovery module found to help reactivate recovered WS-AT participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.0
+{code}
+
+This error comes from org.jboss.jbossts.xts.recovery.participant.at.XTSATRecoveryManagerImple#recoverParticipants(). In particular:
+
+{code}
+                if (!found) {
+                    // we failed to find a helper to convert a participant record so log a warning
+                    // but leave it in the table for next time
+                    RecoveryLogger.i18NLogger.warn_participant_at_XTSATRecoveryModule_4(participantRecoveryRecord.getId());
+                }
+{code}
+
+It looks like the code is unable to restore the participant from the log due to restoreParticipant(XTSATRecoveryModule module) returning false. There is ParticipantRecoveryRecord in the log as you can see it dumped to the console in the above log. Maybe there is a problem with that log, or maybe we are missing another log entry?
+
+This problem is intermittent, so it's unlikely that you will see this happen when you attach a debugger. However, we could attach a debugger to see what happens in the normal case and also to inspect the log to see if anything is missing in the failing case. But I have a cunning plan...
+
+h4.Cunning Plan
+We need to get a copy of the failing log, before recovery is attempted. We should then be able to use that log to reproduce the issue on our own machines. Steps to take:
+
+# Update BaseCrashTest to copy the contents of the tx-object-store to a unique folder location (So we can retrieve it later for a failed run). Make sure you create the folder structure under target/surefire-reports so that CI archives it off. Do the copy between controller.kill and controller.start. This way we get the log before the recovery manager has had chance to tamper with it.
+# Update the "narayana-JBTM-1522" job in CI to use your branch, containing the change above.
+# Configure the job to run @hourly until it fails with this problem.
+# Take a copy of the tx-object-store from the failing test and then put it in place on your AS8 build.
+# Boot the AS and confirm that the issue is reproduced.
+# You can now keep putting the tx-object-store back in place every time you need to reproduce the issue. 
+# Attach a debugger to find out what the problem is.

@@ -1,0 +1,10 @@
+JCAServerTransactionHeaderReader is placed under tests package which makes troubles for tooling
+The class {{JCAServerTransactionHeaderReader}} is placed under package {{com.hp.mwtests.ts.jta.jts.tools.}} which means is not available during runtime of tooling. As the header reader is used by {{com.arjuna.ats.arjuna.tools.osb.mbean.ObjStoreBrowser}} it brings situations where the record can't be loaded by tooling. The browser seems to be used by Expiry Scanner and that suffers by that fact.
+
+The WFLY start sequence contains info of not possible to load the reader when the object store contains some unfinished jca subordinate transaction.
+
+{code}
+INFO  [com.arjuna.ats.arjuna] (MSC service thread 1-4) ARJUNA012389: OSB: Error constructing record header reader: com.hp.mwtests.ts.jta.jts.tools.JCAServerTransactionHeaderReader from [Module "org.jboss.jts" from local module loader @6b419da (finder: local module finder @3b2da18f (roots: /home/ochaloup/Transactions/eap-tests-transactions/jbossts/target/jbossas-jbossts/modules,/home/ochaloup/jboss/jboss-eap-7.1.0.DR19/modules,/home/ochaloup/jboss/jboss-eap-7.1.0.DR19/modules/system/layers/base,/home/ochaloup/Transactions/eap-tests-transactions/jbossts/target/jbossas-jbossts/modules))]
+{code}
+
+The point is to move the jca reader under jts tooling package to be compiled and distributed in the {{jts}} jar.

@@ -1,0 +1,6 @@
+Move the jboss-as checking to BlackTie build part
+Currently only blacktie uses jboss-as version and requires it to be in sync with the application server. We should move this to that part of the build in order to not prevent other aspects of the build breaking when the version updates:
+
+Move the jboss-as.version from /pom.xml to /blacktie/pom.xml
+Move the checking of the jboss-as version from function jboss-as to function blacktie:
+https://github.com/jbosstm/narayana/blob/master/scripts/hudson/narayana.sh#L217

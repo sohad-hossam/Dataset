@@ -1,0 +1,2 @@
+JTS when you try to get a transaction (e.g. in after_completion) and the transaction is committed, you get a TRANSACTION_ROLLEDBACK rather than TRANSACTION_UNAVAILABLE
+As the subject says, it is incorrect to return rollback rather it should be unavailable which can be translated to a JTA javax.transaction.Status.STATUS_NO_TRANSACTION

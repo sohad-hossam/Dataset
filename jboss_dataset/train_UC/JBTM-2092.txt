@@ -1,0 +1,2 @@
+Increase the orphan detection safety interval
+It currently matches the recovery backoff interval, which means that an Xid can be spotted in phase 1 and rolled back in phase 2 without being checked with the recovery manager again.

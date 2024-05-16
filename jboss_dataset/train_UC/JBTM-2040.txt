@@ -1,0 +1,14 @@
+Remove some noisy logging that adds no value
+The following log lines appear _a lot_ when TRACE is enabled for 'com.arjuna'
+
+||Count||Message
+|656|2013-11-29 08:08:14,893 TRACE [com.arjuna.ats.jta] (EJB default - 1) BaseTransaction.getStatus
+|66|2013-11-28 11:42:00,005 TRACE [com.arjuna.ats.jta] (EJB default - 5) TransactionSynchronizationRegistryImple.getTransactionKey
+|66|2013-11-28 11:35:17,532 TRACE [com.arjuna.ats.jta] (ServerService Thread Pool -- 56) TransactionImpleManager.suspend
+|544|2013-11-28 11:35:15,926 TRACE [com.arjuna.ats.jta] (ServerService Thread Pool -- 52) TransactionSynchronizationRegistryImple.getTransactionStatus
+
+A total of almost 1,200 lines combined for those three messages after running a single transaction. This makes it a pain to read through the logs as you need to fight through pages of these statements.
+
+I don't think they provide any value in their current form. Can they either be removed or improved?
+
+See the attached log for an example.

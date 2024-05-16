@@ -1,0 +1,2 @@
+Privileged actions in XTS
+In some places we need to use PrivilegedAction in order to make XTS work with enabled security manager.

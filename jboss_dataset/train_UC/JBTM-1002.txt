@@ -1,0 +1,8 @@
+Default bridge semantics for @WSAT annotated services
+Default being, bridge WSAT to JTA.
+
+Also implement explicit configuration of the WSAT to JTA bridge, through the following annotation:
+
+{code}
+WSAT(BridgeType=BridgeType.JTA)
+{code}

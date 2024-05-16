@@ -1,0 +1,2 @@
+Enhancement to logging to output the status of prepare, commit and abort for each resource after they complete and the result of the transaction
+Presently the transaction manager only outputs logging when beginning to prepare, commit or abort. Additional logging that shows the result of each resource asked to prepare / commit / abort and the result of the transaction is necessary for the txprof tool to diagnose common transactional problems. The proposal is to add an additional line of trace logging to the End, doPrepare, doCommit and doAbort methods in BasicAction.java.

@@ -1,0 +1,2 @@
+Ensure that JTS can use the JDK ORB provided by WildFly
+None

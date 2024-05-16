@@ -1,0 +1,4 @@
+Make JDBCStore able to handle Java EE errors interfacing with a datasource in an app server
+Currently the handling is all expected to be JSE typed exceptions like an SQLexception. It seems that in an app server a variety of other exception types can be thrown not just limited to JNDI exceptions. It has been reported that IllegalStateException can be thrown when an app server is rebooting and the datasource is not available for lookup.
+
+Changing to handle all exceptions in JDBCImple_Driver.

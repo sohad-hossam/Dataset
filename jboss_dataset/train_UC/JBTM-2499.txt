@@ -1,0 +1,4 @@
+Race condition between BlackTie subsystem and Artemis starting up
+Occasionally TcpServer tries to lookup ConnectionFactory before Artemis has started that component.
+
+Solution is to delay the lookup until the subsystem is accessed which should work and at least will not bork the TcpServer thread and fail the entire subsystem until reboot.

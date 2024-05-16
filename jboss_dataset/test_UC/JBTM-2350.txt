@@ -1,0 +1,24 @@
+CDI Transactional interceptors are not thread safe. (previousUserTransactionAvailability)
+The problem is with availability of `UserTransaction`.
+
+Availability of UserTransaction is stored in `ServerVMClientUserTransaction.isAvailables` which is `ThreadLocal<Boolean>`.
+
+`TransactionalInterceptorRequired` when intercepting call, stores thread local value of `isAvailables` in `TransactionalInterceptorBase.previousUserTransactionAvailability` field of interceptor - which is of type boolean(not thread local).
+
+
+Here's a story:
+We have a bean - `beanA` - with single method annotated transactional - `beanA.transactional()`.
+This method is being called from two threads, where:
+ - Thread 1 is participating in BMT, therefore it's `ServerVMClientUserTransaction.isAvailables` value is true.
+ - Thread 2 is participating in CMT, therefore it's `ServerVMClientUserTransaction.isAvailables` value is false.
+Both threads call `beanA.transactional()` at the same time.
+
+What may happen:
+ 1. Thread 1 - enters method `beanA.transactional()`.
+     Interceptor sets previousUserTransactionAvailability to true.
+ 2. Thread 2 - enters method `beanA.transactional()`.
+     Interceptor sets previousUserTransactionAvailability to false.
+ 3. Thread 1 - exits method `beanA.transactional()`
+     Interceptor restores thread local value of `isAvailables` to false (leaked value from thread 2!)
+
+

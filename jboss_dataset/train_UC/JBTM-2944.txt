@@ -1,0 +1,21 @@
+LRA specification updates
+The reference implementation needs synchronising with some recent spec changes (NB I will link the spec change PR shortly over in the sandbox https://github.com/jbosstm/microprofile-sandbox):
+
+1. Allow the "pure java registration mechanism" (aka LRAManagement.java) to support asynchronous processing: i.e. make the completion methods return Future<Void> and monitor the future to report the status, hence we can remove the status() and forget() methods from the LRAParticipant.java interface thus making it much easier for developers to write LRA participants.
+
+2. Terminating an LRA MAY return the status of the LRA.
+
+3. Ensure that if a termination method (complete/compensate) returns FailedToComplete or FailedToCompensate then we log it and ignore this participant on future recovery passes.
+
+4 The query URLs are not RESTful. There are separate ones for asking for the LRAs in a particular state. The RESTful way is to provide a single endpoint which when combined with a query parameter will return just those LRAs that the client is interested in.
+ 
+5. There are separate URLs for querying the different states of an LRA. A more RESTful way is a single GET url which reports the status in the response body.
+
+6. Remove the interface method for starting an LRA
+{code}
+   URL startLRA(String clientID, Long timeout) throws GenericLRAException;
+{code}
+since it is superfluous - just use the one that takes a timeunit instead:
+{code}
+   URL startLRA(String clientID, Long timeout, TimeUnit unit) throws GenericLRAException;
+{code}

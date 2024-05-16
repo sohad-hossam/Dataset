@@ -1,0 +1,4 @@
+MySQL JDBCStore occasionally gets deadlock exception
+Occasionally in QA tests we see the MySQL CI job fail with messages about deadlocks. 
+
+From what I can see from http://stackoverflow.com/questions/2332768/how-to-avoid-mysql-deadlock-found-when-trying-to-get-lock-try-restarting-trans it can be because the where clauses are not ordered the same so a table lock can happen. Reordering the where clauses would hopefully fix this.

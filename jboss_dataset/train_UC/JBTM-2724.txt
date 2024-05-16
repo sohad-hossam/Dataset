@@ -1,0 +1,8 @@
+Blacktie should not override maven-assembly-plugin version from parent
+One of our PRs (http://albany.eng.hst.ams2.redhat.com/job/btny-pulls-narayana-catelyn/1089) ran on windows and failed due to a version issue with the maven-assembly-plugin. The blacktie/blacktie/pom.xml overrides the version set in the parent:
+{quote}
+                <!-- this is required for EL5 as the newer versions of the assembly plugin do not allow us to update the zip -->
+                <version>2.4</version>
+{quote}
+
+We should either retest without the version override or try to find another solution if the latest version of the plugin still has the same issue ([~zhfeng] are you aware of any alternative?).

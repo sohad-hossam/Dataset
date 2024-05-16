@@ -1,0 +1,4 @@
+out of memory when logging more messages than heap size (surefire issue)
+Running com.hp.mwtests.ts.jts.orbspecific.local.performance.Performance2 on JacORB with about 500000 transactions results in an OOM error because surefire keeps in logs in memory until the test has finished.
+
+In this particular test jacorb logs  messages at INFO level for each transaction resulting in excessive memory requirements. We can't make the heap too large because the default JVM is 32 bit. However, we could fix it by reducing the jacorb log level to WARN.

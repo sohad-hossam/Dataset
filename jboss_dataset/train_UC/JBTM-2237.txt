@@ -1,0 +1,2 @@
+Ensure that narayana-jts-idlj is uploaded to nexus as part of the release
+None

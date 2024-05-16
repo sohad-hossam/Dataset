@@ -1,0 +1,3 @@
+Race condition between recovery manager initialization and expiry scanner
+In a constructor of RecoveryManagerImple expiry scanner is started before initiating PeriodicRecovery. This causes a problem from time to time, because during the initiation of PeriodicRecovery (more exact XARecoveryModule) ExtendedResourceRecord is added to the RecordTypeManager. It has to be there during the expiry scan execution. Since expiry scanner works in a separate thread it works most of the time, but race condition still exists. Personally I couldn't reproduce the problem.
+Swapping these two actions should solve the problem.

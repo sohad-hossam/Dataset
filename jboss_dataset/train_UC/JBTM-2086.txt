@@ -1,0 +1,1139 @@
+Server not starting up: was ConfigurationException: Could not create the orb management function
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/412/PROFILE=BLACKTIE,jdk=jdk7.latest,label=linux32el6/
+
+{code}
+[0m[31m00:29:32,261 ERROR [org.jboss.as.server] (Controller Boot Thread) JBAS015956: Caught exception during boot: org.jboss.as.controller.persistence.ConfigurationPersistenceException: JBAS014676: Failed to parse configuration
+	at org.jboss.as.controller.persistence.XmlConfigurationPersister.load(XmlConfigurationPersister.java:112) [wildfly-controller-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.server.ServerService.boot(ServerService.java:331) [wildfly-server-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.controller.AbstractControllerService$1.run(AbstractControllerService.java:256) [wildfly-controller-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+Caused by: javax.xml.stream.XMLStreamException: ParseError at [row,col]:[174,13]
+Message: JBAS014789: Unexpected element '{urn:jboss:domain:ee:2.0}ejb-annotation-property-replacement' encountered
+	at org.jboss.as.controller.parsing.ParseUtils.unexpectedElement(ParseUtils.java:85) [wildfly-controller-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.ee.subsystem.EESubsystemParser20.readElement(EESubsystemParser20.java:110)
+	at org.jboss.as.ee.subsystem.EESubsystemParser20.readElement(EESubsystemParser20.java:45)
+	at org.jboss.staxmapper.XMLMapperImpl.processNested(XMLMapperImpl.java:110) [staxmapper-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.staxmapper.XMLExtendedStreamReaderImpl.handleAny(XMLExtendedStreamReaderImpl.java:69) [staxmapper-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.as.server.parsing.StandaloneXml.parseServerProfile(StandaloneXml.java:1131) [wildfly-server-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.server.parsing.StandaloneXml.readServerElement_1_4(StandaloneXml.java:458) [wildfly-server-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.server.parsing.StandaloneXml.readElement(StandaloneXml.java:145) [wildfly-server-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.as.server.parsing.StandaloneXml.readElement(StandaloneXml.java:107) [wildfly-server-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	at org.jboss.staxmapper.XMLMapperImpl.processNested(XMLMapperImpl.java:110) [staxmapper-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.staxmapper.XMLMapperImpl.parseDocument(XMLMapperImpl.java:69) [staxmapper-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.as.controller.persistence.XmlConfigurationPersister.load(XmlConfigurationPersister.java:104) [wildfly-controller-8.0.0.Final-SNAPSHOT.jar:8.0.0.Final-SNAPSHOT]
+	... 3 more
+{code}
+
+{code}
+test(org.jboss.narayana.blacktie.jatmibroker.core.transport.hybrid.TestConnection)  Time elapsed: 2.686 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.hybrid.TestConnection.setUp(TestConnection.java:29)
+
+Running org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 12.699 sec <<< FAILURE!
+test_tpcall_TPETIME(org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly)  Time elapsed: 2.644 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly.setUp(TestRollbackOnly.java:43)
+
+test_no_tpreturn(org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly)  Time elapsed: 2.512 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly.setUp(TestRollbackOnly.java:43)
+
+test_tprecv_TPEV_SVCFAIL(org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly)  Time elapsed: 2.511 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly.setUp(TestRollbackOnly.java:43)
+
+test_tpcall_TPESVCFAIL(org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly)  Time elapsed: 2.519 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly.setUp(TestRollbackOnly.java:43)
+
+test_tprecv_TPEV_DISCONIMM(org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly)  Time elapsed: 2.51 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.tx.TestRollbackOnly.setUp(TestRollbackOnly.java:43)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartOne
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.518 sec <<< FAILURE!
+test(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartOne)  Time elapsed: 2.518 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartOne.setUp(TestSpecQuickstartOne.java:38)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartTwo
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.51 sec <<< FAILURE!
+test(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartTwo)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestSpecQuickstartTwo.setUp(TestSpecQuickstartTwo.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPACall
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 5.033 sec <<< FAILURE!
+test_tpacall_x_octet_not_exist(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPACall)  Time elapsed: 2.519 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPACall.setUp(TestTPACall.java:33)
+
+test_tpacall(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPACall)  Time elapsed: 2.51 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPACall.setUp(TestTPACall.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc
+Tests run: 11, Failures: 0, Errors: 11, Skipped: 0, Time elapsed: 27.818 sec <<< FAILURE!
+test_tpalloc_x_c_type(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.567 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_common(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.513 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_c_type_subtype_required(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.547 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_octet_subtype_ignored(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_unknowntype(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.531 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_octet(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.517 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_zero(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.53 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_common_subtype_required(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_common_unknown_subtype(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.561 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_c_type_unknown_subtype(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.511 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+test_tpalloc_x_common_bigsubtype(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc)  Time elapsed: 2.517 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.impl.ConnectionImpl.<init>(ConnectionImpl.java:124)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.ConnectionFactory.getConnection(ConnectionFactory.java:65)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPAlloc.setUp(TestTPAlloc.java:37)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 12.593 sec <<< FAILURE!
+test_tpcall_x_octet(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall)  Time elapsed: 2.506 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall.setUp(TestTPCall.java:36)
+
+test_tpcall_x_c_type(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall)  Time elapsed: 2.515 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall.setUp(TestTPCall.java:36)
+
+test_tpcall_x_common(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall)  Time elapsed: 2.512 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall.setUp(TestTPCall.java:36)
+
+test_tpcall_unknown_service(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall)  Time elapsed: 2.542 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall.setUp(TestTPCall.java:36)
+
+test_tpcall_x_octet_after_delay(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall)  Time elapsed: 2.513 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCall.setUp(TestTPCall.java:36)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 7.587 sec <<< FAILURE!
+test_tpcancel_noreply(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel)  Time elapsed: 2.511 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel.setUp(TestTPCancel.java:33)
+
+test_tpcancel(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel)  Time elapsed: 2.513 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel.setUp(TestTPCancel.java:33)
+
+test_tpcancel_baddesc(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel)  Time elapsed: 2.562 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPCancel.setUp(TestTPCancel.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 7.572 sec <<< FAILURE!
+test_tpconnect(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect.setUp(TestTPConnect.java:38)
+
+test_tpconnect_double_connect(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect)  Time elapsed: 2.548 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect.setUp(TestTPConnect.java:38)
+
+test_tpconnect_nodata(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect)  Time elapsed: 2.51 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConnect.setUp(TestTPConnect.java:38)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConversation
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 5.022 sec <<< FAILURE!
+test_short_conversation(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConversation)  Time elapsed: 2.51 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConversation.setUp(TestTPConversation.java:39)
+
+test_conversation(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConversation)  Time elapsed: 2.511 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPConversation.setUp(TestTPConversation.java:39)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPDiscon
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.509 sec <<< FAILURE!
+test_tpdiscon(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPDiscon)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPDiscon.setUp(TestTPDiscon.java:34)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply
+Tests run: 6, Failures: 0, Errors: 6, Skipped: 0, Time elapsed: 15.088 sec <<< FAILURE!
+test_tpgetrply(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+test_tpgetrply_without_TPGETANY(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.519 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+test_tpgetrply_with_TPNOBLOCK(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+test_tpgetrply_baddesc(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.509 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+test_tpgetrply_without_TPNOBLOCK(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.518 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+test_tpgetrply_with_TPGETANY(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply)  Time elapsed: 2.525 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPGetRply.setUp(TestTPGetRply.java:35)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPRecv
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.508 sec <<< FAILURE!
+test_tprecv_sendonly(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPRecv)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPRecv.setUp(TestTPRecv.java:35)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 7.539 sec <<< FAILURE!
+test_tpreturn_opensession(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn.setUp(TestTPReturn.java:33)
+
+test_tpreturn_tpurcode(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn)  Time elapsed: 2.509 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn.setUp(TestTPReturn.java:33)
+
+test_tpreturn_nonbuffer(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn)  Time elapsed: 2.517 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPReturn.setUp(TestTPReturn.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend
+Tests run: 3, Failures: 0, Errors: 3, Skipped: 0, Time elapsed: 7.529 sec <<< FAILURE!
+test_tpsend_recvonly(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend)  Time elapsed: 2.506 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend.setUp(TestTPSend.java:35)
+
+test_tpsend_non_TPCONV_session(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend)  Time elapsed: 2.51 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend.setUp(TestTPSend.java:35)
+
+test_tpsend_tpsendonly(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend)  Time elapsed: 2.509 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPSend.setUp(TestTPSend.java:35)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPService
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.509 sec <<< FAILURE!
+test_tpservice_notpreturn(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPService)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTPService.setUp(TestTPService.java:35)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTimeToLive
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 2.512 sec <<< FAILURE!
+test_call_ttl(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTimeToLive)  Time elapsed: 2.511 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTimeToLive.setUp(TestTimeToLive.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTopic
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 5.018 sec <<< FAILURE!
+test_tpcall_topic(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTopic)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTopic.setUp(TestTopic.java:33)
+
+test_tpacall_topic(org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTopic)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.RunServer.serverinit(RunServer.java:60)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.TestTopic.setUp(TestTopic.java:33)
+
+Running org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase
+Tests run: 5, Failures: 0, Errors: 5, Skipped: 0, Time elapsed: 12.626 sec <<< FAILURE!
+testAdvertiseMatch(org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase.setUp(BlackTieServerTestCase.java:31)
+
+testUnadvertiseAdvertised(org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase)  Time elapsed: 2.508 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase.setUp(BlackTieServerTestCase.java:31)
+
+testUnadvertiseNewAdvertised(org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase)  Time elapsed: 2.515 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase.setUp(BlackTieServerTestCase.java:31)
+
+testAdvertiseAdvertised(org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase)  Time elapsed: 2.507 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase.setUp(BlackTieServerTestCase.java:31)
+
+testUnadvertiseNonAdvertised(org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase)  Time elapsed: 2.585 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServer.<init>(BlackTieServer.java:89)
+	at org.jboss.narayana.blacktie.jatmibroker.xatmi.server.BlackTieServerTestCase.setUp(BlackTieServerTestCase.java:31)
+{code}

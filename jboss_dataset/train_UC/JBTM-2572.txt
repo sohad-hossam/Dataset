@@ -1,0 +1,2 @@
+Enable code coverage for the rest of the Arquillian tests
+None

@@ -1,0 +1,2 @@
+Allow BasicXARecovery to be rescanned by periodic recovery
+Currently BasicXARecovery will only return it's configured XAResources for the first periodic recovery scan. It would be useful to allow it to return the same set in subsequent executions of periodic recovery.

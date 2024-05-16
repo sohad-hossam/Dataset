@@ -1,0 +1,7 @@
+JTS subordinate transaction could check Xid format during enlistment to allow it being edited
+When a subordinate transaction created by Narayana is imported in JTS it's capable to correctly handle only one XAResource being enlisted. When two or more resources are enlisted they all contain the same Xid. That Xid came from what {{TransactionImple}} defines (here is call which is never reached by such txn code: https://github.com/jbosstm/narayana/blob/a8f8df24d6531e6ba83cc3746ce05fc3a39e3bc9/ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/transaction/jts/TransactionImple.java#L1760)
+
+That behavior is fine when txn is imported from EIS but when is managed by Narayana it should not be problem to generate Xids for each XAResource unique.
+
+That behavior makes the issue when recovery should be part of handling. All the resources are "merged" under one record in object log store. That way can't be recovered correctly.
+This handling is "fixed" in JTA (see https://github.com/jbosstm/narayana/blob/a8f8df24d6531e6ba83cc3746ce05fc3a39e3bc9/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/transaction/arjunacore/subordinate/TransactionImple.java#L359) where format of xid is checked when enlistment happens. Such thing could be passed to JTS mode too.

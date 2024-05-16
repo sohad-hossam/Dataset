@@ -1,0 +1,2 @@
+Add jms module to narayana-* uber jars
+This would match transactional driver (jdbc)

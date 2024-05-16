@@ -1,0 +1,2 @@
+Remove ReentrantLock from StateManager
+Remove unused lock from StateManager, and add the access methods to LockManager instead

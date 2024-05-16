@@ -1,0 +1,92 @@
+org.jboss.jbossts.star.test.SpecTest#testHeuristic
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-EAP61-jdbcobjectstore/33/DB_TYPE=oracle,jdk=jdk6.latest,slave=linux/
+
+{code}
+-------------------------------------------------------------------------------
+Test set: org.jboss.jbossts.star.test.SpecTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 47.599 sec <<< FAILURE!
+testHeuristic(org.jboss.jbossts.star.test.SpecTest)  Time elapsed: 6.446 sec  <<< ERROR!
+org.jboss.jbossts.star.provider.HttpResponseException: java.net.SocketTimeoutException: Read timed out
+        at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:507)
+        at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:462)
+        at org.jboss.jbossts.star.util.TxSupport.commitTx(TxSupport.java:176)
+        at org.jboss.jbossts.star.test.SpecTest.testHeuristic(SpecTest.java:269)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+        at java.lang.reflect.Method.invoke(Method.java:597)
+        at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+        at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+        at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+        at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+        at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+        at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+        at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+        at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+        at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+        at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+        at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+        at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+        at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+        at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+        at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+        at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+        at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+        at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+        at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+        at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+        at java.lang.reflect.Method.invoke(Method.java:597)
+        at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+        at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+        at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:172)
+        at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:78)
+        at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:70)
+Caused by: java.net.SocketTimeoutException: Read timed out
+        at java.net.SocketInputStream.socketRead0(Native Method)
+        at java.net.SocketInputStream.read(SocketInputStream.java:129)
+        at java.io.BufferedInputStream.fill(BufferedInputStream.java:218)
+        at java.io.BufferedInputStream.read1(BufferedInputStream.java:258)
+        at java.io.BufferedInputStream.read(BufferedInputStream.java:317)
+        at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:690)
+        at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:633)
+        at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1195)
+        at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:379)
+        at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:473)
+        ... 33 more
+{code}
+
+{code}
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+Nov 11, 2013 5:28:56 PM com.sun.grizzly.Controller logVersion
+INFO: Starting Grizzly Framework 1.9.18-i - Mon Nov 11 17:28:56 GMT 2013
+Nov 11, 2013 5:29:00 PM com.sun.jersey.api.core.PackagesResourceConfig init
+INFO: Scanning for root resource and provider classes in the packages:
+  org.jboss.jbossts.star.service
+  org.jboss.jbossts.star.provider
+  org.jboss.jbossts.star.test
+Nov 11, 2013 5:29:00 PM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Root resource classes found:
+  class org.jboss.jbossts.star.test.BaseTest$TransactionalResource
+  class org.jboss.jbossts.star.service.Coordinator
+Nov 11, 2013 5:29:00 PM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Provider classes found:
+  class org.jboss.jbossts.star.provider.HttpResponseMapper
+  class org.jboss.jbossts.star.provider.NotFoundMapper
+  class org.jboss.jbossts.star.provider.TransactionStatusMapper
+  class org.jboss.jbossts.star.provider.TMUnavailableMapper
+Nov 11, 2013 5:29:00 PM com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+INFO: Initiating Jersey application, version 'Jersey: 1.5 01/14/2011 12:36 PM'
+17:29:02,706 {hread(0)} () [INFO ,arjuna    ] ARJUNA012163: Starting service com.arjuna.ats.arjuna.recovery.ActionStatusService on port 42379
+17:29:02,708 {hread(0)} () [INFO ,arjuna    ] ARJUNA012337: TransactionStatusManagerItem host: 127.0.0.1 port: 42379
+17:29:05,415 {hread(0)} () [INFO ,arjuna    ] ARJUNA012170: TransactionStatusManager started on port 42379 and host 127.0.0.1 with service com.arjuna.ats.arjuna.recovery.ActionStatusService
+17:29:09,234 {n Reaper} () [WARN ,arjuna    ] ARJUNA012117: TransactionReaper::check timeout for TX 0:ffffac118314:de42:528113d8:b in state  RUN
+17:29:09,235 {Worker 0} () [WARN ,arjuna    ] ARJUNA012121: TransactionReaper::doCancellations worker Thread[Transaction Reaper Worker 0,10,Grizzly] successfully canceled TX 0:ffffac118314:de42:528113d8:b
+17:29:35,502 {hread(2)} () [WARN ,arjuna    ] ARJUNA012073: BasicAction.End() - prepare phase of action-id 0:ffffac118314:de42:528113d8:33 failed.
+17:29:35,502 {hread(2)} () [WARN ,arjuna    ] ARJUNA012075: Action Aborting
+17:29:35,509 {hread(2)} () [WARN ,arjuna    ] ARJUNA012091: Top-level abort of action 0:ffffac118314:de42:528113d8:33 received TwoPhaseOutcome.FINISH_ERROR from com.arjuna.ats.arjuna.coordinator.AbstractRecord
+17:29:39,975 {hread(0)} () [WARN ,arjuna    ] ARJUNA012073: BasicAction.End() - prepare phase of action-id 0:ffffac118314:de42:528113d8:3d failed.
+17:29:39,976 {hread(0)} () [WARN ,arjuna    ] ARJUNA012075: Action Aborting
+17:29:39,982 {hread(0)} () [WARN ,arjuna    ] ARJUNA012091: Top-level abort of action 0:ffffac118314:de42:528113d8:3d received TwoPhaseOutcome.FINISH_ERROR from com.arjuna.ats.arjuna.coordinator.AbstractRecord
+{code}

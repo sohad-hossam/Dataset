@@ -1,0 +1,39 @@
+RecoveryHelpers may deregister from Recovery Manager during a scan interval
+This was uncovered invesigating:
+"Server startup is delayed if recovery starts before all resource plugins register"
+
+If the startup of JBoss is sufficiently slow, it is possible for a recovery run to already be in progress when a resource plugin is added. When this occurs, the startup will block until the recovery run has finished.
+
+It would be much better if starting a recovery run did not block AS startup.
+
+
+An example of this occurring on EAP 5 is:
+"main" prio=10 tid=0x00002aac680cc000 nid=0x5e67 waiting for monitor entry [0x00000000412cb000]
+   java.lang.Thread.State: BLOCKED (on object monitor)
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.addXAResourceRecoveryHelper(XARecoveryModule.java:85)
+	- waiting to lock <0x00002aab3e8b9d68> (a java.util.LinkedList)
+	at com.arjuna.ats.jbossatx.jta.TransactionManagerService.addXAResourceRecovery(TransactionManagerService.java:695)
+	at org.jboss.resource.connectionmanager.ManagedConnectionFactoryDeployment.startService(ManagedConnectionFactoryDeployment.java:500)
+	at org.jboss.system.ServiceMBeanSupport.jbossInternalStart(ServiceMBeanSupport.java:376)
+	at org.jboss.system.ServiceMBeanSupport.jbossInternalLifecycle(ServiceMBeanSupport.java:322)
+	at org.jboss.system.ServiceDynamicMBeanSupport.invoke(ServiceDynamicMBeanSupport.java:124)
+	at org.jboss.mx.server.RawDynamicInvoker.invoke(RawDynamicInvoker.java:164)
+	at org.jboss.mx.server.MBeanServerImpl.invoke(MBeanServerImpl.java:668)
+	at org.jboss.system.server.jmx.LazyMBeanServer.invoke(LazyMBeanServer.java:283)
+	at org.jboss.system.microcontainer.ServiceProxy.invoke(ServiceProxy.java:189)
+	at $Proxy43.start(Unknown Source)
+	at org.jboss.system.microcontainer.StartStopLifecycleAction.installAction(StartStopLifecycleAction.java:42)
+	at org.jboss.system.microcontainer.StartStopLifecycleAction.installAction(StartStopLifecycleAction.java:37)
+...
+
+
+"Thread-21" prio=10 tid=0x00002aacdd1f7000 nid=0x5ee3 runnable [0x000000004416a000]
+   java.lang.Thread.State: RUNNABLE
+...
+	at org.jboss.resource.adapter.jdbc.xa.XAManagedConnection.recover(XAManagedConnection.java:294)
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecovery(XARecoveryModule.java:773)
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.resourceInitiatedRecoveryForRecoveryHelpers(XARecoveryModule.java:712)
+	- locked <0x00002aab3e8b9d68> (a java.util.LinkedList)
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:201)
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:799)
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:412)

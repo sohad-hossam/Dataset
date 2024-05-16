@@ -1,0 +1,2 @@
+ObjectStoreTest.java assumes that Uids are returned in order which is not guaranteed
+The object store API does not make guarantees about the order

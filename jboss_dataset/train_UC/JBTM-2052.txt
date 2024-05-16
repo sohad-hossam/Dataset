@@ -1,0 +1,2 @@
+Deploy STM to Maven Central
+We should release the STM artifact to Maven central too moving forward

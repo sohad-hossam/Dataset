@@ -1,0 +1,2 @@
+Add suppressed exceptions for failures during prepare
+JBTM-2636 added support for adding suppressed exceptions for issues reported during commit. It would be useful to do the same for prepare exceptions.

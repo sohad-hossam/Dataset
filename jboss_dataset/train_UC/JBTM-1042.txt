@@ -1,0 +1,8 @@
+GC: No relationship between generic parameter and method argument (GC_UNRELATED_TYPES)
+1.XTS/recovery
+org.jboss.jbossts.xts.recovery.participant.at.XTSATRecoveryManagerImple Line 132
+com.arjuna.ats.arjuna.common.Uid is incompatible with expected argument type String in org.jboss.jbossts.xts.recovery.participant.at.XTSATRecoveryManagerImple.isParticipantPresent(Uid)
+
+2.XTS/recovery
+org.jboss.jbossts.xts.recovery.participant.ba.XTSBARecoveryManagerImple Line 128
+com.arjuna.ats.arjuna.common.Uid is incompatible with expected argument type String in org.jboss.jbossts.xts.recovery.participant.ba.XTSBARecoveryManagerImple.isParticipantPresent(Uid)

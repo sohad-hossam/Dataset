@@ -1,0 +1,18 @@
+WS-BA transaction context not propagated if JTA transaction present.
+With default-context-propagation enabled:
+
+What happens if the Client is running in a JTA transaction, then begins a WS-BA transaction before calling a WS-BA enabled service? I suspect, as it stands, we would start a WS-AT transaction as well. This will cause the JaxBaseHeaderContextProcessor to default to WS-AT as it appears first in the if-then-elseif block:
+
+{code}
+            final CoordinationContextType coordinationContext ;
+            if (atContext != null)
+            {
+                coordinationContext = atContext.getCoordinationContext() ;
+            }
+            else if (baContext != null)
+            {
+                coordinationContext = baContext.getCoordinationContext() ;
+            }
+{code}
+
+I'm not yet sure how we handle this case. We certainly need a test for it though. 

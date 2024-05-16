@@ -1,0 +1,43 @@
+Unexpected Fault type returned when participant cannot complete
+Scenario:
+
+* Client begins a BA
+* Client invokes a service that enlists a participant
+* Participant notifies the coordinator that it cannot complete
+* Client asks the coordinator to close the BA
+* The coordinator returns a Fault as the BA cannot be closed.
+* The fault message appears to be a regular SOAP fault rather than a '{http://schemas.arjuna.com/ws/2005/10/wsarjtx}Fault' which causes the message to be dropped and the client hangs waiting for the response.
+
+
+This is the stacktrace for the dropped message:
+{code}
+18:34:17,669 WARNING [org.apache.cxf.phase.PhaseInterceptorChain] (http-/127.0.0.1:8080-3) Interceptor for {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantSer
+vice#{http://schemas.arjuna.com/ws/2005/10/wsarjtx}FaultOperation has thrown exception, unwinding now: org.apache.cxf.interceptor.Fault: Unexpected element {http://schemas.xmlsoa
+p.org/soap/envelope/}Fault found.   Expected {http://schemas.arjuna.com/ws/2005/10/wsarjtx}Fault.
+        at org.apache.cxf.interceptor.DocLiteralInInterceptor.validatePart(DocLiteralInInterceptor.java:259) [cxf-rt-core-2.4.9.jar:2.4.9]
+        at org.apache.cxf.interceptor.DocLiteralInInterceptor.handleMessage(DocLiteralInInterceptor.java:201) [cxf-rt-core-2.4.9.jar:2.4.9]
+        at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:263) [cxf-api-2.4.9.jar:2.4.9]
+        at org.apache.cxf.transport.ChainInitiationObserver.onMessage(ChainInitiationObserver.java:121) [cxf-rt-core-2.4.9.jar:2.4.9]
+        at org.apache.cxf.transport.http.AbstractHTTPDestination.invoke(AbstractHTTPDestination.java:207) [cxf-rt-transports-http-2.4.9.jar:2.4.9]
+        at org.jboss.wsf.stack.cxf.RequestHandlerImpl.handleHttpRequest(RequestHandlerImpl.java:91)
+        at org.jboss.wsf.stack.cxf.transport.ServletHelper.callRequestHandler(ServletHelper.java:169)
+        at org.jboss.wsf.stack.cxf.CXFServletExt.invoke(CXFServletExt.java:87)
+        at org.apache.cxf.transport.servlet.AbstractHTTPServlet.handleRequest(AbstractHTTPServlet.java:185) [cxf-rt-transports-http-2.4.9.jar:2.4.9]
+        at org.apache.cxf.transport.servlet.AbstractHTTPServlet.doPost(AbstractHTTPServlet.java:108) [cxf-rt-transports-http-2.4.9.jar:2.4.9]
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:754) [jboss-servlet-api_3.0_spec-1.0.1.Final.jar:1.0.1.Final]
+        at org.jboss.wsf.stack.cxf.CXFServletExt.service(CXFServletExt.java:135)
+        at org.jboss.wsf.spi.deployment.WSFServlet.service(WSFServlet.java:140)
+        at javax.servlet.http.HttpServlet.service(HttpServlet.java:847) [jboss-servlet-api_3.0_spec-1.0.1.Final.jar:1.0.1.Final]
+        at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:329)
+        at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:248)
+        at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:275)
+        at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:161)
+        at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:155)
+        at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:102)
+        at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:109)
+        at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:372)
+        at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:877)
+        at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:679)
+        at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:931)
+        at java.lang.Thread.run(Thread.java:680) [classes.jar:1.6.0_35]
+{code}

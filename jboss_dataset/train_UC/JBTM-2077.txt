@@ -1,0 +1,2 @@
+byteman and jfree jars incorrectly reported as required at runtime in pom.xml
+The jars mentioned above are not required at runtime so should not be present as such in the pom.xml

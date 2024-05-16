@@ -1,0 +1,2 @@
+Change hornetq dependency to the journal only
+Currently we depend on hornetq-core. The later releases provide a hornetq-journal artifact that we use instead.

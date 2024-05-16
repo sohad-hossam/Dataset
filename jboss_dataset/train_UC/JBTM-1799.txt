@@ -1,0 +1,5 @@
+Move javadoc configuration to "release" profile, and remove extra install plugin config
+Several modules generate javadocs using the maven-javadoc-plugin.  This is not needed for every build, just for releases, so it could be moved to a "release" profile.
+The narayana-full module depends on the generated javadoc, so this module will also need to be moved to the release profile.
+
+-Also, there is currently extra configuration of the install plugin in several modules which doesn't appear to have any function.-

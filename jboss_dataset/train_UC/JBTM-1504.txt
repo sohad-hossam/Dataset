@@ -1,0 +1,2 @@
+Update TXFramework tests to use WSTXFeature
+None

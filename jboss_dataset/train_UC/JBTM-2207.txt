@@ -1,0 +1,2 @@
+Make default name null in order for quick lookup in BeanPopulator
+None

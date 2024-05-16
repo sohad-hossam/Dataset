@@ -1,0 +1,3 @@
+TestExternManageDestination::test_stored_message_schedule() hangs on Windows
+http://172.17.131.2/job/btny-pulls-narayana-windows2008/523/consoleText
+http://172.17.131.2/job/btny-pulls-narayana-windows2008/524/consoleText

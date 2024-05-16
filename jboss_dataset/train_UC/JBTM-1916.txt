@@ -1,0 +1,2 @@
+Create parallel CI job for pull requests
+None

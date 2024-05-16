@@ -1,0 +1,25 @@
+XATerminator.rollback does not invoke XAResource.rollback for failed resources when JTS is used
+I do experience an issue of not rollbacking failed XAResource when XATerminator.rollback is called on jca inflow transaction. This works wrong when JTS is used. For the same testcase when JTA is used all in-doubt XAResources are rolled back.
+
+The scenario is following:
+There is a a test RA which drives an inflow transaction to a MDB. MDB then works with two TestXAResources which are enlisted to the supplied transaction.
+
+# RAR is deployed
+# RAR opens a java socket where listens for message
+# MDB of TestResourceMessageListener is deployed
+# test client sends prepare command
+# test client sends commit command
+# first TestXAResource commits, second TestXAResource throws XAException.XAER_RMFAIL
+# test client receives error code XAER_RMFAIL
+# test client sends recover command
+# test client receives number of in-doubt xid - which is one
+# test client sends rollback command
+# XATerminator calls rollback on the in-doubt xid
+# expecting TestXAResource.rollback would be called
+
+After the XATerminator.rollback is invoked there is no call of rollback for the unfinished XAResource. I can see that abort phase is invoked [1] (see attached jboss eap server.log) but the real invocation of the XAResource.rollback does not happen (for the JTA transaction  it runs fine).
+
+[1]
+{code}
+2016-05-18 11:20:20,385 TRACE [com.arjuna.ats.jts] (default-threads- 1) ServerTransaction::doPhase2Abort (0:ffff7f000001:-728dfa93:573c33bc:24 )
+2016-05-18 11:20:55,416 TRACE [com.arjuna.ats.jts] (default-threads- 1) ArjunaTransactionImple::get_status for 0:ffff7f000001:-728dfa93:573c33bc:24 returning CosTransactions::StatusCommitted 

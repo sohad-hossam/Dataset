@@ -1,0 +1,39 @@
+Connection.isClosed throws NullPointerException or returns false after close
+The following snippet fails with a NullPointerException:
+
+{code}
+Connection c = ConnectionManager.create(dbUrl, properties);
+System.err.println("closed1=" + c.isClosed());
+c.close();
+System.err.println("closed2=" + c.isClosed());
+{code}
+
+output:
+
+{code}
+closed1=false
+java.lang.NullPointerException
+	at com.arjuna.ats.internal.jdbc.ConnectionImple.closeImpl(ConnectionImple.java:389)
+	at com.arjuna.ats.internal.jdbc.ConnectionImple.close(ConnectionImple.java:381)
+	at org.jboss.narayana.quickstarts.jta.Main.main(Main.java:140)
+{code}
+
+If it is modified to "use" the init the physical connect before closing, it will not throw an
+exception, but returns false for isClosed after the close:
+
+{code}
+Connection c = ConnectionManager.create(dbUrl, properties);
+System.err.println("closed1=" + c.isClosed());
+c.createStatement().close();
+System.err.println("closed2=" + c.isClosed());
+c.close();
+System.err.println("closed3=" + c.isClosed());
+{code}
+
+output:
+
+{code}
+closed1=false
+closed2=false
+closed3=false
+{code}

@@ -1,0 +1,12 @@
+Update readme.md to illustrate how to build individual profiles
+The following no longer works:
+
+./build.sh clean -P core
+
+giving:
+
+WARNING] The requested profile "core" could not be activated because it does not exist.
+
+This is fine because I recall a discussion on the forums recently where this change was discussed. However, I thought that there would still be an equivalent way of doing this, but looking at the latest readme does not indicate how.
+
+What I'm looking for are the equivalents of the old build profiles.

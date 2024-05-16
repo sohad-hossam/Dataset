@@ -1,0 +1,8 @@
+Leak when imported subordinate transactions are rolled back by reaper before remote reaper
+When using the EJB remoting transport that layers over the top of JCA it is possible for a race condition between the two reapers.
+
+Normally you have server 1 and server 2. Each of these insert the TwoPhaseCoordinator in their TransactionReaper. If the TransactionReaper in server 2 fires first then it will rollback the TPC.
+
+When server 1 Reaper EJB remoting transport fires it will try to rollback at server 2 also and it is this that should be safe to remove the transactionImple reference.
+
+At the time of reporting the reference is not removed though and so the reference to the TransactionImple is not removed.

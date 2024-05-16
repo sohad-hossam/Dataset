@@ -1,0 +1,2 @@
+Support JAX-RS unaware LRA participants
+The LRA proposal includes a Java based compensation registration API to support those applications that cannot directly expose JAX-RS endpoints for compensation activities. This JIRA adds a reference implementation of that API.

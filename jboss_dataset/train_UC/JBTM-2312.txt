@@ -1,0 +1,8 @@
+Wrong logging format of ARJUNA016005
+Logging format of warning warn_recovery_failedtorecover is strange or maybe better to say wrong. It looks:
+{code}
+WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016005: JTS XARecoveryModule.xaRecovery - failed to recover XAResource. status is $2 
+{code}
+
+This message came from XAResourceRecord.xaRecoverySecondPass and it's message warn_recovery_failedtorecover. The code with dolar sign seems to me a bit confusing.
+I think it would be better first not have the dolar sign there and second rather to print string representation of the error code.

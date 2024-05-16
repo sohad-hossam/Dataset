@@ -1,0 +1,4 @@
+Misbehaving XAResources may delay deployments
+Recovery scans can delay subsystem deployments because of contention on the lock XARecoveryModule#_xaResourceRecoveryHelpers:
+
+ XARecoveryModule#resourceInitiatedRecoveryForRecoveryHelpers takes the lock and then makes calls to the resource which can potentially hang transiently. Meanwhile, deployments which register recovery helpers are delayed whilst waiting for the lock to be released (in XARecoveryModule#addXAResourceRecoveryHelper).

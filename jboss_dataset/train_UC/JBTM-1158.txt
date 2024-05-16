@@ -1,0 +1,7 @@
+SubordinateTestCase failing on JDK7 in Narayana project on CI (not locally)
+Plenty of failed builds to choose from: http://172.17.131.2/view/Narayana+BlackTie/job/narayana-java7/
+
+ssh hudson@tenafly
+cd narayana
+. jdk7
+./build.sh test -Dtest=SubordinateTestCase -f ArjunaJTS/jtax/pom.xml

@@ -1,0 +1,4 @@
+Remove unused IDL files
+Back when the C++ and Java transaction implementations were written, we did have implementations of the CORBA persistence and concurrency control services in both languages. Over the years those implementations were removed, but the IDL files still remain.
+
+Need to check that there are no tests, qa or examples that still use them. But it should be relatively straightforward to remove them.

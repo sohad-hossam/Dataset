@@ -1,0 +1,4 @@
+Allow the safety interval for RecoveryXids to be configurable
+Currently it is hard coded to 10 seconds. It is possible that under load this could be possible to breach. Allow the setting to be configurable.
+
+Breaching the threshold does not pose data integrity issues as the scenario where it becomes an issue is when the transaction has completed during a recovery scan. It will result in calling rollback(xid1) on the RM but as that RM is guaranteed to have had commit(xid1) (or rollback) on it already during transaction completion the only impact is an unsightly stack trace.

@@ -1,0 +1,6 @@
+Support use of CDI interceptors on JAX-WS WS
+This causes ATTest to fail.
+
+The problems seems to be that ServiceRequestSoapHandler#getInstance returns a different instance to that which is invoked by the service. 
+
+This used to work, but an upgrade in CXF seems to have changed the behavior. 

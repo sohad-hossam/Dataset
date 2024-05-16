@@ -1,0 +1,2 @@
+Improve javadocs for STM
+None

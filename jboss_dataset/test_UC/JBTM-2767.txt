@@ -1,0 +1,26 @@
+Allow JTS JCA imported transactions to have clearHeuristic called on their participants
+If an XAResource throws a heuristic we can't forget it but we do clean up some transactional state meaning it will need reloading from disk (after the heuristic is cleared) before it can be meaningfully used again. In the state where it can't be meaningfully used we need to provide something to the caller.
+
+[1]
+{code}
+2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1) java.lang.NullPointerException2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)  
+ at com.arjuna.ats.internal.jta.transaction.jts.subordinate.jca.SubordinateAtomicTransaction.getXid(SubordinateAtomicTransaction.java:80)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at com.arjuna.ats.internal.jta.transaction.jts.subordinate.jca.TransactionImple.baseXid(TransactionImple.java:126)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)  at com.arjuna.ats.internal.jta.transaction.jts.jca.TransactionImporterImple.getImportedTransaction(TransactionImporterImple.java:135)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at com.arjuna.ats.internal.jta.transaction.jts.jca.XATerminatorImple.commit(XATerminatorImple.java:83)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.as.test.jbossts.crashrec.jca.rar.TestResourceTxnWorkUnit.run(Unknown Source)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.jca.core.workmanager.WorkWrapper.run(WorkWrapper.java:223)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.threads.QueueExecutor.runTask(QueueExecutor.java:808)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.threads.QueueExecutor.access$100(QueueExecutor.java:45)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.threads.QueueExecutor$Worker.run(QueueExecutor.java:828)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at java.lang.Thread.run(Thread.java:745)2016-10-05 16:19:23,537 ERROR [stderr] (default-threads - 1)
+  at org.jboss.threads.JBossThread.run(JBossThread.java:320)
+2016-10-05 16:19:23,538 ERROR [org.jboss.as.test.jbossts.crashrec.jca.rar.TestResourceTxnWorkUnit] (default-threads - 1) Unspecified sever exception: java.lang.NullPointerException at com.arjuna.ats.internal.jta.transaction.jts.subordinate.jca.TransactionImple.recover(TransactionImple.java:135)
+ at com.arjuna.ats.internal.jta.transaction.jts.jca.TransactionImporterImple.getImportedTransaction(TransactionImporterImple.java:141)
+ at com.arjuna.ats.internal.jta.transaction.jts.jca.XATerminatorImple.commit(XATerminatorImple.java:83) at org.jboss.as.test.jbossts.crashrec.jca.rar.TestResourceTxnWorkUnit.run(Unknown Source) at org.jboss.jca.core.workmanager.WorkWrapper.run(WorkWrapper.java:223)
+ at org.jboss.threads.SimpleDirectExecutor.execute(SimpleDirectExecutor.java:33) at org.jboss.threads.QueueExecutor.runTask(QueueExecutor.java:808)
+ at org.jboss.threads.QueueExecutor.access$100(QueueExecutor.java:45)
+ at org.jboss.threads.QueueExecutor$Worker.run(QueueExecutor.java:828)
+ at java.lang.Thread.run(Thread.java:745)
+ at org.jboss.threads.JBossThread.run(JBossThread.java:320)
+{code}

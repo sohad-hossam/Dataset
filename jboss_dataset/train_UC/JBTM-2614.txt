@@ -1,0 +1,13 @@
+JCA TransactionImporter should be thread safe
+I have a unit test that shows there's a race condition (first observed by [~dmlloyd]) in com.arjuna.ats.internal.jta.transaction.arjunacore.jca.TransactionImporterImple#importTransaction(javax.transaction.xa.Xid, int).
+
+If two threads call this method at the same time, two separate transaction objects may be created.  Here's the sequence of events:
+
+T1: call importTransaction for XID1
+T2: call importTransaction for XID1
+T1: getImportedTransaction returns null
+T2: getImportedTransaction returns null
+T1: create new transaction, add to map
+T2: create new transaction, add to map (overwriting T1's)
+
+There is nothing in the documentation to indicate that this is not a valid situation or that access to the TransactionImporter has to be single-threaded in any way.

@@ -1,0 +1,2 @@
+BlackTie XATMI session ID lock held during tpgetReply(TPGETANY) so can deadlock when message is received
+The lock is obtained before the receive but then the receive doesn't release the lock until after and so if a message is received in the middle tpgetreply is not notified.

@@ -1,0 +1,61 @@
+Object store not cleared before RTS bridge test
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/359/PROFILE=MAIN,jdk=jdk7.latest,label=linux/
+
+{code}
+-------------------------------------------------------------------------------
+Test set: org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase
+-------------------------------------------------------------------------------
+Tests run: 4, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 82.812 sec <<< FAILURE!
+testRollbackWithTwoParticipants(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase)  Time elapsed: 21.324 sec  <<< FAILURE!
+java.lang.AssertionError: expected:<1> but was:<2>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:743)
+	at org.junit.Assert.assertEquals(Assert.java:118)
+	at org.junit.Assert.assertEquals(Assert.java:555)
+	at org.junit.Assert.assertEquals(Assert.java:542)
+	at org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase.testRollbackWithTwoParticipants(InboundBridgeTestCase.java:130)
+{code}
+
+{code}
+[0m[0m18:54:51,520 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Beta2-SNAPSHOT "WildFly" started in 11195ms - Started 224 of 272 services (88 services are lazy, passive or on-demand)
+[0m[0m18:54:52,373 INFO  [org.jboss.as.repository] (management-handler-thread - 2) JBAS014900: Content added at location /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/content/8e/d3cb4eaa3ce7fa3b8ab7952ad55148f3bf8f5f/content
+[0m[0m18:54:52,396 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015876: Starting deployment of "rest-tx-bridge-test.war" (runtime-name: "rest-tx-bridge-test.war")
+[0m[33m18:54:52,647 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) JBAS018567: Deployment "deployment.rest-tx-bridge-test.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[33m18:54:52,648 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) JBAS018567: Deployment "deployment.rest-tx-bridge-test.war" is using a private module ("org.codehaus.jettison:main") which may be changed or removed in future versions without notice.
+[0m[0m18:54:53,274 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017534: Register web context: /rest-tx-bridge-test
+[0m[0m18:54:53,491 INFO  [org.jboss.as.server] (management-handler-thread - 2) JBAS018559: Deployed "rest-tx-bridge-test.war" (runtime-name : "rest-tx-bridge-test.war")
+[0m[0m18:54:59,179 INFO  [org.hibernate.validator.internal.util.Version] (default task-1) HV000001: Hibernate Validator 5.0.1.Final
+[0m[0m18:54:59,411 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-2) LoggingRestATResource.resetInvocations()
+[0m[0m18:54:59,802 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://localhost:8080/rest-tx-bridge-test/logging-participant-resource/terminator
+[0m[0m18:54:59,803 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8080/rest-at-participant/0:ffffac118321:70df91dd:529cd705:11
+[0m[0m18:55:00,048 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-8) LoggingRestATResource.terminateParticipant(txstatus=TransactionCommitted)
+[0m[0m18:55:00,111 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-5) LoggingXAResource.start
+[0m[0m18:55:00,122 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-12) LoggingXAResource.end
+[0m[0m18:55:00,122 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-12) LoggingXAResource.rollback
+[0m[0m18:55:00,126 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-13) LoggingRestATResource.terminateParticipant(txstatus=TransactionRolledBack)
+[0m[0m18:55:00,160 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-14) LoggingRestATResource.getInvocations()
+[0m[0m18:55:00,229 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: /rest-tx-bridge-test
+[0m[0m18:55:00,268 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment rest-tx-bridge-test.war (runtime-name: rest-tx-bridge-test.war) in 44ms
+[0mDec 02, 2013 6:55:00 PM org.jboss.arquillian.container.test.impl.client.container.ClientContainerController stop
+INFO: Manual stopping of a server instance
+[0m18:55:00,385 INFO  [org.jboss.as.repository] (management-handler-thread - 2) JBAS014901: Content removed from location /home/hudson/workspace/narayana/PROFILE/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/content/8e/d3cb4eaa3ce7fa3b8ab7952ad55148f3bf8f5f/content
+[0m[0m18:55:00,385 INFO  [org.jboss.as.server] (management-handler-thread - 2) JBAS018558: Undeployed "rest-tx-bridge-test.war" (runtime-name: "rest-tx-bridge-test.war")
+[0m[0m18:55:00,437 INFO  [org.jboss.as.messaging] (MSC service thread 1-1) JBAS011605: Unbound messaging object to jndi name java:jboss/DefaultJMSConnectionFactory
+[0m[0m18:55:00,437 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-1) JBAS010410: Unbound JCA ConnectionFactory [java:/JmsXA]
+[0m[0m18:55:00,456 INFO  [org.hornetq.ra] (ServerService Thread Pool -- 30) HQ151003: HornetQ resource adaptor stopped
+[0m[0m18:55:00,458 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: /rest-at-coordinator
+[0m[0m18:55:00,459 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: volatile-rest-at-participant
+[0m[0m18:55:00,459 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: rest-at-participant
+[0m[0m18:55:00,460 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: /hornetq-server
+[0m[0m18:55:00,461 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017521: Undertow HTTP listener default suspending
+[0m[0m18:55:00,462 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017520: Undertow HTTP listener default stopped, was bound to localhost.localdomain/127.0.0.1:8080
+[0m[0m18:55:00,463 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 29) JBAS011605: Unbound messaging object to jndi name java:/ConnectionFactory
+[0m[0m18:55:00,464 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 28) JBAS011605: Unbound messaging object to jndi name java:jboss/exported/jms/RemoteConnectionFactory
+[0m[0m18:55:00,465 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 30) JBAS011605: Unbound messaging object to jndi name java:jboss/exported/jms/ServletConnectionFactory
+[0m[0m18:55:00,483 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) JBAS010409: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m18:55:00,593 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017532: Host default-host stopping
+[0m[0m18:55:00,601 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) JBAS010418: Stopped Driver service with driver-name = h2
+[0m[0m18:55:00,614 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017506: Undertow 1.0.0.Beta25 stopping
+[0m[0m18:55:00,668 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 28) HQ221002: HornetQ Server version 2.4.0.Beta2 (Andromedian Flyer, 123) [137be765-5b82-11e3-b479-3d6d29870e33] stopped
+[0m[0m18:55:00,680 INFO  [org.jboss.as] (MSC service thread 1-2) JBAS015950: WildFly 8.0.0.Beta2-SNAPSHOT "WildFly" stopped in 134ms
+{code}

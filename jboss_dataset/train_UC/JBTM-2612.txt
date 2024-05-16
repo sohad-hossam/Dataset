@@ -1,0 +1,2 @@
+Deploy jdbc module to the Maven repository
+Currently jdbc module is not available in Maven repository. Therefore, jta uber jar is needed to get access to those classes. If we want to discourage uber jar usage, we should provide jdbc module through Maven.

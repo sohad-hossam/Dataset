@@ -1,0 +1,14 @@
+Static code analysis: potential lock collisions BaseTransactionManagerDelegate#findLock - interned string used as a lock
+_CID-17577_: Bad choice of lock object - Potential lock collisions
+
+at class {{BaseTransactionManagerDelegate}}[9] at method {{findLock}}.
+
+{quote}
+string_literal: The string literal "__LOCKS_MAP" is an interned string.
+  interned_string_lock: Locking on an interned string can cause unexpected locking collisions with third party code.
+  Instead of using "__LOCKS_MAP" as a lock, create a final field of type Object which is only used as a lock.
+{quote}
+
+Explanation at description of JBTM-2758
+
+[9] https://github.com/jbosstm/narayana/blob/master/ArjunaJTS/integration/src/main/java/com/arjuna/ats/jbossatx/BaseTransactionManagerDelegate.java#L350

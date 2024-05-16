@@ -1,0 +1,5 @@
+Make CompensatableActionImpl.WorkInfo class static
+If inner class does not require access to an enclosing instance there should be preffered to use inner static class.
+(21902 SIC: Inner class could be made static
+This class is an inner class, but does not use its embedded reference to the object which created it.)
+As reference I would mention Joshua Bloch: Effective Java, item 22.

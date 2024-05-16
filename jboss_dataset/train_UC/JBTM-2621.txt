@@ -1,0 +1,8 @@
+Tests that rely on the old perf benchmark harness need porting to use JMH
+The relevant tests are:
+
+com.hp.mwtests.ts.jts.orbspecific.local.performance.Performance1
+com.hp.mwtests.ts.jts.orbspecific.local.performance.Performance2
+com.hp.mwtests.ts.jts.orbspecific.local.performance.Performance3
+
+if there are no others then once ported the old performance benchmark harness can be removed. 

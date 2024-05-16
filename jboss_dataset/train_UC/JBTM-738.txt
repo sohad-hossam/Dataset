@@ -1,0 +1,6 @@
+Remove log4j.properties from jbossjts.jar
+The archive jbossjts.jar contains a log4j.properties file, which creates a transaction.log file.
+
+It can be disabled by specifying -Dlog4j.defaultInitOverride=true, but that is not always possible for some Ant tasks, like checkstyle. Hence an empty file is created.
+
+It would nice to have the logging configuration outside of the archive.

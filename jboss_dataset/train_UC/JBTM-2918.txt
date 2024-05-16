@@ -1,0 +1,2 @@
+Allow setting IsSameRMOverride as default
+When transactional driver was first written the IsSameRMOverride was not required as the default but with current databases it makes a sensible default. Provide a config option to easily set this as the default.

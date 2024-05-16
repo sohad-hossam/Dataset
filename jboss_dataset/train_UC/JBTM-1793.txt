@@ -1,0 +1,281 @@
+TransactionalImplTest#testClassLevelDefaultNeverExistingTX failed: Should have committed, but Rolled back
+http://172.17.131.2/job/narayana/TESTS=MAIN,jdk=jdk7.latest,label=linux/149/consoleText
+
+{code}
+Jun 21, 2013 2:19:14 AM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
+INFO: Starting container with: [/usr/local/jdk1.7.0_09/bin/java, -Xmx512m, -XX:MaxPermSize=128m, -ea, -Djboss.home.dir=/home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT, -Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/log/boot.log, -Dlogging.configuration=file:/home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/configuration/logging.properties, -Djboss.bundles.dir=/home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/bundles, -jar, /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/jboss-modules.jar, -mp, /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/modules, org.jboss.as.standalone, -server-config, standalone.xml]
+[0m02:19:15,148 INFO  [org.jboss.modules] (main) JBoss Modules version 1.2.2.Final
+[0m[0m02:19:15,396 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta1
+[0m[0m02:19:15,476 INFO  [org.jboss.as] (MSC service thread 1-6) JBAS015899: WildFly 8.0.0.Alpha2-SNAPSHOT "WildFly" starting
+[0m[0m02:19:16,476 INFO  [org.xnio] (MSC service thread 1-3) XNIO Version 3.1.0.CR3
+[0m[0m02:19:16,476 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015888: Creating http management service using socket-binding (management-http)
+[0m[0m02:19:16,484 INFO  [org.xnio.nio] (MSC service thread 1-3) XNIO NIO Implementation Version 3.1.0.CR3
+[0m[0m02:19:16,508 INFO  [org.jboss.remoting] (MSC service thread 1-3) JBoss Remoting version 4.0.0.Beta1
+[0m[0m02:19:16,535 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 31) JBAS010280: Activating Infinispan subsystem.
+[0m[0m02:19:16,555 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 37) JBAS012605: Activated the following JSF Implementations: [main]
+[0m[0m02:19:16,560 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 39) JBAS011800: Activating Naming Subsystem
+[0m[0m02:19:16,572 INFO  [org.jboss.as.connector.logging] (MSC service thread 1-8) JBAS010408: Starting JCA Subsystem (IronJacamar 1.0.17.Final)
+[0m[0m02:19:16,609 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 44) JBAS013171: Activating Security Subsystem
+[0m[0m02:19:16,635 INFO  [org.jboss.as.security] (MSC service thread 1-2) JBAS013170: Current PicketBox version=4.0.17.Final
+[0m[0m02:19:16,640 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017502: Undertow 1.0.0.Alpha20 starting
+[0m[0m02:19:16,641 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 47) JBAS017502: Undertow 1.0.0.Alpha20 starting
+[0m[0m02:19:16,652 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 26) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+[0m[0m02:19:16,655 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-3) JBAS010417: Started Driver service with driver-name = h2
+[0m[0m02:19:16,679 INFO  [org.jboss.as.naming] (MSC service thread 1-8) JBAS011802: Starting Naming Service
+[0m[0m02:19:16,684 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-6) JBAS015400: Bound mail session [java:jboss/mail/Default]
+[0m[0m02:19:16,692 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 48) JBAS015537: Activating WebServices Extension
+[0m[0m02:19:16,823 INFO  [org.jboss.ws.common.management] (MSC service thread 1-4) JBWS022052: Starting JBoss Web Services - Stack CXF Server 4.2.0.CR1
+[0m[0m02:19:16,827 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) Starting server server service: service jboss.undertow.server.default-server
+[0m[0m02:19:16,829 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-7) Starting host default-host
+[0m[0m02:19:16,835 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 47) JBAS017527: Creating file handler for path /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/welcome-content
+[0m[0m02:19:16,857 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017525: Started http handler io.undertow.server.handlers.resource.ResourceHandler@47447696.
+[0m[0m02:19:16,858 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017528: registering handler io.undertow.server.handlers.resource.ResourceHandler@47447696 under path '/'
+[0m[0m02:19:16,921 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017519: Undertow HTTP listener default listening on /127.0.0.1:8080
+[0m[0m02:19:17,172 INFO  [org.jboss.as.remoting] (MSC service thread 1-2) JBAS017100: Listening on 127.0.0.1:4447
+[0m[0m02:19:17,175 INFO  [org.jboss.as.remoting] (MSC service thread 1-6) JBAS017100: Listening on 127.0.0.1:9999
+[0m[0m02:19:17,194 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-1) JBAS015012: Started FileSystemDeploymentService for directory /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/deployments
+[0m[0m02:19:17,224 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+[0m[0m02:19:17,298 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+[0m[0m02:19:17,299 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+[0m[0m02:19:17,300 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Alpha2-SNAPSHOT "WildFly" started in 2632ms - Started 153 of 189 services (56 services are lazy, passive or on-demand)
+[0m[0m02:19:22,042 INFO  [org.jboss.as.repository] (management-handler-thread - 2) JBAS014900: Content added at location /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/data/content/b0/22dad7274eaabb804169f7f54f4c0893f7daed/content
+[0m[0m02:19:22,060 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-8) JBAS015876: Starting deployment of "arquillian-service" (runtime-name: "arquillian-service")
+[0m[33m02:19:22,358 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-8) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.as.jmx:main") which may be changed or removed in future versions without notice.
+[0m[33m02:19:22,360 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-8) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.as.server:main") which may be changed or removed in future versions without notice.
+[0m[33m02:19:22,361 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-8) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.jandex:main") which may be changed or removed in future versions without notice.
+[0m[33m02:19:22,362 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-8) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.wildfly.security.manager:main") which may be changed or removed in future versions without notice.
+[0m[33m02:19:22,395 WARN  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016012: Deployment deployment "arquillian-service" contains CDI annotations but beans.xml was not found.
+[0m[0m02:19:22,573 INFO  [org.jboss.as.server] (management-handler-thread - 2) JBAS018559: Deployed "arquillian-service" (runtime-name : "arquillian-service")
+[0m[0m02:19:23,064 INFO  [org.jboss.as.repository] (management-handler-thread - 2) JBAS014900: Content added at location /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/data/content/cf/871c5d90dff4380ef72017d6d6de75ee7ae8db/content
+[0m[0m02:19:23,067 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015876: Starting deployment of "test.jar" (runtime-name: "test.jar")
+[0m[33m02:19:23,116 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.test.jar" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[33m02:19:23,117 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.test.jar" is using a private module ("org.wildfly.security.manager:main") which may be changed or removed in future versions without notice.
+[0m[0m02:19:23,146 INFO  [org.jboss.weld.deployer] (MSC service thread 1-8) JBAS016002: Processing weld deployment test.jar
+[0m[0m02:19:23,155 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-8) JNDI bindings for session bean named TestSessionBean in deployment unit deployment "test.jar" are as follows:
+
+	java:global/test/TestSessionBean!com.hp.mwtests.ts.jta.cdi.transactional.TestSessionBean
+	java:app/test/TestSessionBean!com.hp.mwtests.ts.jta.cdi.transactional.TestSessionBean
+	java:module/TestSessionBean!com.hp.mwtests.ts.jta.cdi.transactional.TestSessionBean
+	java:global/test/TestSessionBean
+	java:app/test/TestSessionBean
+	java:module/TestSessionBean
+
+[0m[0m02:19:23,271 INFO  [org.jboss.weld.deployer] (MSC service thread 1-4) JBAS016005: Starting Services for CDI deployment: test.jar
+[0m[0m02:19:23,355 INFO  [org.jboss.weld.Version] (MSC service thread 1-4) WELD-000900 2.0.1 (Final)
+[0m[0m02:19:23,366 INFO  [org.jboss.as.arquillian] (MSC service thread 1-4) Arquillian deployment detected: ArquillianConfig[service=jboss.arquillian.config."test.jar",unit=test.jar,tests=[com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest]]
+[0m[0m02:19:23,368 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016008: Starting weld service for deployment test.jar
+[0m[0m02:19:23,931 INFO  [org.jboss.as.server] (management-handler-thread - 2) JBAS018559: Deployed "test.jar" (runtime-name : "test.jar")
+[0m[31m02:19:24,458 SEVERE [org.jboss.arquillian.protocol.jmx.JMXTestRunner] (pool-2-thread-1) Failed: com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest.testClassLevelDefaultNeverExistingTX: junit.framework.AssertionFailedError: Should have committed, but Rolled back
+	at junit.framework.Assert.fail(Assert.java:50) [arquillian-service:]
+	at com.hp.mwtests.ts.jta.cdi.transactional.AssertionParticipant.assertCommitted(AssertionParticipant.java:22) [test.jar:]
+	at com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest.testClassLevelDefaultNeverExistingTX(TransactionalImplTest.java:369) [test.jar:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45) [arquillian-service:]
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15) [arquillian-service:]
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$6$1.invoke(Arquillian.java:270) [arquillian-service:]
+	at org.jboss.arquillian.container.test.impl.execution.LocalTestExecuter.execute(LocalTestExecuter.java:60) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67) [arquillian-service:]
+	at org.jboss.arquillian.container.test.impl.execution.ContainerTestExecuter.execute(ContainerTestExecuter.java:38) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81) [arquillian-service:]
+	at org.jboss.arquillian.test.impl.TestContextHandler.createTestContext(TestContextHandler.java:89) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88) [arquillian-service:]
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88) [arquillian-service:]
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88) [arquillian-service:]
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135) [arquillian-service:]
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.test(EventTestRunnerAdaptor.java:111) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$6.evaluate(Arquillian.java:263) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$4.evaluate(Arquillian.java:226) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$5.evaluate(Arquillian.java:240) [arquillian-service:]
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263) [arquillian-service:]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68) [arquillian-service:]
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47) [arquillian-service:]
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231) [arquillian-service:]
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60) [arquillian-service:]
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229) [arquillian-service:]
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50) [arquillian-service:]
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:185) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199) [arquillian-service:]
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300) [arquillian-service:]
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147) [arquillian-service:]
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:157) [arquillian-service:]
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:136) [arquillian-service:]
+	at org.jboss.arquillian.junit.container.JUnitTestRunner.execute(JUnitTestRunner.java:65) [arquillian-service:]
+	at org.jboss.arquillian.protocol.jmx.JMXTestRunner.runTestMethodInternal(JMXTestRunner.java:129) [arquillian-service:]
+	at org.jboss.arquillian.protocol.jmx.JMXTestRunner.runTestMethod(JMXTestRunner.java:108) [arquillian-service:]
+	at org.jboss.as.arquillian.service.ArquillianService$ExtendedJMXTestRunner.runTestMethod(ArquillianService.java:212) [arquillian-service:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_09]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_09]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_09]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.StandardMBeanIntrospector.invokeM2(StandardMBeanIntrospector.java:111) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.StandardMBeanIntrospector.invokeM2(StandardMBeanIntrospector.java:45) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:235) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:250) [rt.jar:1.7.0_09]
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819) [rt.jar:1.7.0_09]
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:791) [rt.jar:1.7.0_09]
+	at org.jboss.as.jmx.PluggableMBeanServerImpl$TcclMBeanServer.invoke(PluggableMBeanServerImpl.java:528)
+	at org.jboss.as.jmx.PluggableMBeanServerImpl.invoke(PluggableMBeanServerImpl.java:264)
+	at org.jboss.remotingjmx.protocol.v2.ServerProxy$InvokeHandler.handle(ServerProxy.java:915)
+	at org.jboss.remotingjmx.protocol.v2.ServerCommon$MessageReciever$1.run(ServerCommon.java:152)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_09]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_09]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_09]
+
+[0mJun 21, 2013 2:19:24 AM org.jboss.arquillian.protocol.jmx.JMXMethodExecutor invoke
+SEVERE: Failed: com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest.testClassLevelDefaultNeverExistingTX
+junit.framework.AssertionFailedError: Should have committed, but Rolled back
+	at junit.framework.Assert.fail(Assert.java:50)
+	at com.hp.mwtests.ts.jta.cdi.transactional.AssertionParticipant.assertCommitted(AssertionParticipant.java:22)
+	at com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest.testClassLevelDefaultNeverExistingTX(TransactionalImplTest.java:369)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.jboss.arquillian.junit.Arquillian$6$1.invoke(Arquillian.java:270)
+	at org.jboss.arquillian.container.test.impl.execution.LocalTestExecuter.execute(LocalTestExecuter.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.execution.ContainerTestExecuter.execute(ContainerTestExecuter.java:38)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createTestContext(TestContextHandler.java:89)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.test(EventTestRunnerAdaptor.java:111)
+	at org.jboss.arquillian.junit.Arquillian$6.evaluate(Arquillian.java:263)
+	at org.jboss.arquillian.junit.Arquillian$4.evaluate(Arquillian.java:226)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$5.evaluate(Arquillian.java:240)
+	at org.junit.runners.ParentRunner.runLeaf(ParentRunner.java:263)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:68)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:47)
+	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:231)
+	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:60)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:229)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:50)
+	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:222)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:185)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:157)
+	at org.junit.runner.JUnitCore.run(JUnitCore.java:136)
+	at org.jboss.arquillian.junit.container.JUnitTestRunner.execute(JUnitTestRunner.java:65)
+	at org.jboss.arquillian.protocol.jmx.JMXTestRunner.runTestMethodInternal(JMXTestRunner.java:129)
+	at org.jboss.arquillian.protocol.jmx.JMXTestRunner.runTestMethod(JMXTestRunner.java:108)
+	at org.jboss.as.arquillian.service.ArquillianService$ExtendedJMXTestRunner.runTestMethod(ArquillianService.java:212)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at com.sun.jmx.mbeanserver.StandardMBeanIntrospector.invokeM2(StandardMBeanIntrospector.java:111)
+	at com.sun.jmx.mbeanserver.StandardMBeanIntrospector.invokeM2(StandardMBeanIntrospector.java:45)
+	at com.sun.jmx.mbeanserver.MBeanIntrospector.invokeM(MBeanIntrospector.java:235)
+	at com.sun.jmx.mbeanserver.PerInterface.invoke(PerInterface.java:138)
+	at com.sun.jmx.mbeanserver.MBeanSupport.invoke(MBeanSupport.java:250)
+	at com.sun.jmx.interceptor.DefaultMBeanServerInterceptor.invoke(DefaultMBeanServerInterceptor.java:819)
+	at com.sun.jmx.mbeanserver.JmxMBeanServer.invoke(JmxMBeanServer.java:791)
+	at org.jboss.as.jmx.PluggableMBeanServerImpl$TcclMBeanServer.invoke(PluggableMBeanServerImpl.java:528)
+	at org.jboss.as.jmx.PluggableMBeanServerImpl.invoke(PluggableMBeanServerImpl.java:264)
+	at org.jboss.remotingjmx.protocol.v2.ServerProxy$InvokeHandler.handle(ServerProxy.java:915)
+	at org.jboss.remotingjmx.protocol.v2.ServerCommon$MessageReciever$1.run(ServerCommon.java:152)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603)
+	at java.lang.Thread.run(Thread.java:722)
+
+[0m02:19:25,681 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016009: Stopping weld service for deployment test.jar
+[0m[0m02:19:25,700 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-3) JBAS015877: Stopped deployment test.jar (runtime-name: test.jar) in 31ms
+[0m[0m02:19:25,718 INFO  [org.jboss.as.repository] (management-handler-thread - 4) JBAS014901: Content removed from location /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/data/content/cf/871c5d90dff4380ef72017d6d6de75ee7ae8db/content
+[0m[0m02:19:25,719 INFO  [org.jboss.as.server] (management-handler-thread - 4) JBAS018558: Undeployed "test.jar" (runtime-name: "test.jar")
+[0m[0m02:19:25,744 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-7) JBAS015877: Stopped deployment arquillian-service (runtime-name: arquillian-service) in 9ms
+[0m[0m02:19:25,754 INFO  [org.jboss.as.repository] (management-handler-thread - 1) JBAS014901: Content removed from location /home/hudson/workspace/narayana/TESTS/MAIN/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Alpha2-SNAPSHOT/standalone/data/content/b0/22dad7274eaabb804169f7f54f4c0893f7daed/content
+[0m[0m02:19:25,755 INFO  [org.jboss.as.server] (management-handler-thread - 1) JBAS018558: Undeployed "arquillian-service" (runtime-name: "arquillian-service")
+[0m[0m02:19:25,771 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) JBAS017521: Undertow HTTP listener default suspending
+[0m[0m02:19:25,772 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) JBAS017520: Undertow HTTP listener default stopped, was bound to /127.0.0.1:8080
+[0m[0m02:19:25,780 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) Stopping host default-host
+[0m[0m02:19:25,782 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-4) JBAS010409: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m02:19:25,790 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017506: Undertow 1.0.0.Alpha20 stopping
+[0m[0m02:19:25,796 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-3) JBAS010418: Stopped Driver service with driver-name = h2
+[0m[0m02:19:25,812 INFO  [org.jboss.as] (MSC service thread 1-4) JBAS015950: WildFly 8.0.0.Alpha2-SNAPSHOT "WildFly" stopped in 32ms
+[0m
+{code}

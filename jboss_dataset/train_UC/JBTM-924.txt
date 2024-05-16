@@ -1,0 +1,3 @@
+recovery leaks xaresources
+XARecoveryModule._xidScans may grow without limit in cases where an xa recovery plugin is both a) returning new XAResources rather than validiating and reusing the previous one and b) the isSameRM implementation provided by the driver is unable to recognize the equivalence of two such XAResources.
+To prevent such leakage we should remove any scan entries that have not been updated recently, thus ensuring expiration of entries that are not refreshed by the refreshXidScansForEquivalentXAResourceImpl correlation mechanism.

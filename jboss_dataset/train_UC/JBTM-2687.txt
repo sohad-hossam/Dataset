@@ -1,0 +1,6 @@
+There are typos in DisabledContextPropagationTests and EnabledContextPropagationTests
+There are three times: 
+{code}parameters.add(new BasicNameValuePair("isTransaction", "ture"));{code}
+instead of 
+{code}parameters.add(new BasicNameValuePair("isTransaction", "true"));{code}
+which affect test behavior.

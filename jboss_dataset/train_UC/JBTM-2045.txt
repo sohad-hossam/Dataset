@@ -1,0 +1,23 @@
+ConfigurationException: Could not create the orb management function
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/360/
+
+{code}
+Running org.jboss.narayana.blacktie.jatmibroker.core.transport.hybrid.TestConnection
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.081 sec <<< FAILURE!
+test(org.jboss.narayana.blacktie.jatmibroker.core.transport.hybrid.TestConnection)  Time elapsed: 3.079 sec  <<< ERROR!
+org.jboss.narayana.blacktie.jatmibroker.core.conf.ConfigurationException: Could not create the orb management function
+	at org.jacorb.orb.iiop.ClientIIOPConnection.connect(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendMessage(Unknown Source)
+	at org.jacorb.orb.giop.GIOPConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.giop.ClientConnection.sendRequest(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke_internal(Unknown Source)
+	at org.jacorb.orb.Delegate.invoke(Unknown Source)
+	at org.jacorb.orb.Delegate.is_a(Unknown Source)
+	at org.omg.CORBA.portable.ObjectImpl._is_a(ObjectImpl.java:130)
+	at org.omg.CosNaming.NamingContextExtHelper.narrow(NamingContextExtHelper.java:73)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.<init>(OrbManagement.java:76)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.OrbManagement.getInstance(OrbManagement.java:42)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.TransportFactory.<init>(TransportFactory.java:47)
+	at org.jboss.narayana.blacktie.jatmibroker.core.transport.hybrid.TestConnection.setUp(TestConnection.java:29)
+{code}

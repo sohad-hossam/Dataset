@@ -1,0 +1,21 @@
+CrashRecovery05_2_Test002 failure
+There are a number of failures in the CrashRecovery05_1 and CrashRecovery05_2 test groups with a similar root cause:
+
+Tests that use AfterCrashServiceImpl01#check_oper and AfterCrashServiceImpl02#check_oper with JdkORB fail because they make invalid assumptions about the return value of RecoveryCoordinator#replay_completion. The OTS spec says "This (replay_completion) non-blocking operation returns the current status of the transaction" but the check_oper() test assumes that the return value represents the transaction status after all resources have been replayed and therefore returns the wrong result to the requesting client. The fix is to ask the resources for their status after the replay_completion attempt (but also waiting for the resource to have been replayed). I  tested the hypothesis by forcing a 200ms wait after issuing replay_completion on the RecoveryCoordinator object (but I will use a rendezvous for the actual fix).
+
+There is a second problem with the way these tests are coded since they ignore the fact that replay_completion reruns phase 2 on all resources whereas the test relies on it being done on only the requested resource). A test sequence is as follows:
+
+# client starts a transaction
+# asks service1 to create a resource1
+# asks service2 to create a resource2
+# client commits the transaction (one of which crashes during 2PC)
+# restart the server (hosting the services)
+# client asks service1 for the status of the first resource
+# service1 invokes replay_completion on the RecoveryCoordinator for resource1
+# this causes a recovery attempt on both resources
+# client asks service2 for the status of the second resource
+# service2 invokes replay_completion on the RecoveryCoordinator for resource2
+# but this will fail because the transaction was completed during steps 7 and 8 so the
+# transaction log no longer exists and the recovery attempt calls rollback on resource2
+
+The fix is to store the transaction Status with the resources and have the service ask the resources for the state (rather than the return value of the replay_completion request).

@@ -1,0 +1,4 @@
+tpcall get three seconds delay in the fooapp quickstart
+The apr_pollset_poll in HybridSocketEndpointQueue.cxx Line 392 is blocking and timing out after 3 second. It is the root cause for the tpcall delaying.
+
+So it should try to wake up the polling in non-conversation session while disconnect

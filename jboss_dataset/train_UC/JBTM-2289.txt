@@ -1,0 +1,39 @@
+TransactionalDriver QA_JTA tests fail on Oracle
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/685/PROFILE=QA_JTA,jdk=jdk7.latest,label=linux/
+
+{code}
+BUILD FAILED
+/home/hudson/workspace/narayana/PROFILE/QA_JTA/jdk/jdk7.latest/label/linux/qa/run-tests.xml:111: some tests failed
+
+Total time: 148 minutes 16 seconds
+Test Failures:
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test019 Fail (2m52.176s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test020 Fail (1m48.440s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test021 Fail (2m51.868s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test022 Fail (1m48.429s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test029 Fail (2m56.246s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test030 Fail (1m48.966s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test031 Fail (2m56.454s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test032 Fail (1m49.092s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test008 Fail (2m47.491s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test009 Fail (1m48.420s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test010 Fail (2m45.377s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test011 Fail (1m49.096s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test012 Fail (2m48.005s)
+jdbcresources01_oracle_thin_jndi JDBCResources01_abstract_Test013 Fail (1m48.328s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test019 Fail (2m51.740s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test020 Fail (1m48.531s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test021 Fail (2m51.655s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test022 Fail (1m48.485s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test029 Fail (2m56.792s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test030 Fail (1m48.883s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test031 Fail (2m56.524s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test032 Fail (1m48.943s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test008 Fail (2m45.500s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test009 Fail (1m48.318s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test010 Fail (2m47.985s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test011 Fail (1m48.492s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test012 Fail (2m45.681s)
+jdbcresources02_oracle_thin_jndi JDBCResources02_abstract_Test013 Fail (1m48.303s)
+Buildfile: /home/hudson/workspace/narayana/PROFILE/QA_JTA/jdk/jdk7.latest/label/linux/qa/run-tests.xml
+{code}

@@ -1,0 +1,2 @@
+If the JDBC store is unavailable it is possible for XAResources to be identified as orphans and rolled back
+During investigation of https://issues.jboss.org/browse/JBEAP-1750 it was discovered that there exists an issue in XARecoveryModule where if the object store transaction log check throws an exception during orphan detection then the record is treated as if it does not have a log.

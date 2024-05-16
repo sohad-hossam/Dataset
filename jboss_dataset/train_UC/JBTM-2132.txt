@@ -1,0 +1,2 @@
+CMR Resources do not process XA exceptions correctly
+When committing a Commit Markable Resource any XA exception is treated as a TwoPhaseOutcome.FINISH_ERROR and the TM then goes on to commit the remaining (two phase aware) resources. The correct behaviour is to check the XA error code and if appropriate rollback the remaining resources.

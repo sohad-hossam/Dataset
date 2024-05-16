@@ -1,0 +1,10 @@
+XTS Unit Test Failure: Invalid fault type enumeration: Error reading XMLStreamReader
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/247
+
+In particular see:
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/247/artifact/XTS/localjunit/unit/target/surefire-reports/com.arjuna.wsc.tests.arq.ActivationServiceExceptionTest-output.txt
+
+Lots of stacktraces, some of which are only warnings. 
+
+The First Groovy one is supposed to be benign. 

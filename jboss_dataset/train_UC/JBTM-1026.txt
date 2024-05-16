@@ -1,0 +1,6 @@
+Fail XTS crash-recovery test if there are any records present in the tx-object-store after test completes 
+We should assert in the @After method of BaseCrashTest that there are no records remaining under:
+
+$JBOSS_HOME/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/XTS/
+
+If any records are found, the test should be failed.

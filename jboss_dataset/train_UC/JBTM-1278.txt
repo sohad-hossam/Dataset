@@ -1,0 +1,2 @@
+Additional debug information required for transaction's Xid with Oracle
+It seems that Oracle is returning different XIDs each time (with the same content) which makes it difficult to debug if the same XID is in more than one scan. Additional debug information is required in Xid to make debugging easier. 

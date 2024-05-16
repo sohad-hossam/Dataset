@@ -1,0 +1,4 @@
+Move the XTS DisabledContextPropagationTests into separate module
+This should make the code for selecting which AS config to use, less complex.
+
+As these tests share a lot of code with the EnabledContextPropagationTests, we could make the new module depend on the 'unit' module.

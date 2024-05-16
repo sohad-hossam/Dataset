@@ -1,0 +1,42 @@
+XATMI Implementation failure
+Blacktie C++ XATMI Implementation failed.
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/PROFILE=BLACKTIE,jdk=jdk7.latest,label=linux64el5/311/
+
+{code}
+[ERROR] Failed to execute goal org.jboss.narayana.blacktie.plugins:blacktie-cpp-plugin:5.0.0.Final-SNAPSHOT:test (test) on project blacktie-xatmi: Failed to execute: Executing Ant script: /btcpp.build.xml [test]: Failed to execute. The following error occurred while executing this line:
+[ERROR] /tmp/plexus-ant-component4598655461389505914.build.xml:644: exec returned: 141
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :blacktie-xatmi
+UID        PID  PPID  C STIME TTY          TIME CMD
+hudson   17750 17748  0 Oct08 ?        00:09:45 sshd: hudson@notty
+hudson   18118 17750  0 Oct08 ?        00:00:00 bash -c cd '/home/hudson' && java  -jar slave.jar
+hudson   18207 18118  0 Oct08 ?        00:33:36 java -jar slave.jar
+hudson   22393 18207  0 08:43 ?        00:00:00 /bin/bash -xe /tmp/hudson6480575198197009551.sh
+hudson   22396 22393  0 08:43 ?        00:00:00 /bin/bash -xe /tmp/hudson6480575198197009551.sh
+hudson   24697 22396  0 08:54 ?        00:00:00 /bin/sh blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/bin/standalone.sh -c standalone-blacktie.xml -Djboss.bind.address=localhost -Djboss.bind.address.unsecure=localhost
+hudson   24759 24697 24 08:54 ?        00:05:17 /usr/local/jdk1.7.0_17/bin/java -D[Standalone] -server -XX:+UseCompressedOops -Xmx256m -XX:MaxPermSize=256m -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE -Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/log/server.log -Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/configuration/logging.properties -jar /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/jboss-modules.jar -mp /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/modules org.jboss.as.standalone -Djboss.home.dir=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT -Djboss.server.base.dir=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone -c standalone-blacktie.xml -Djboss.bind.address=localhost -Djboss.bind.address.unsecure=localhost
+hudson   28546 22396  0 09:16 ?        00:00:00 ps -f
+testsuite: no process killed
+server: no process killed
+client: no process killed
+cs: no process killed
+blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/bin/standalone.sh: line 251: 24759 Killed                  "/usr/local/jdk1.7.0_17/bin/java" -D"[Standalone]" -server -XX:+UseCompressedOops -Xmx256m -XX:MaxPermSize=256m -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE "-Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/log/server.log" "-Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/configuration/logging.properties" -jar "/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/jboss-modules.jar" -mp "/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/modules" org.jboss.as.standalone -Djboss.home.dir="/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT" -Djboss.server.base.dir="/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk7.latest/label/linux64el5/blacktie/wildfly-8.0.0.Beta2-SNAPSHOT/standalone" "-c" "standalone-blacktie.xml" "-Djboss.bind.address=localhost" "-Djboss.bind.address.unsecure=localhost"
+UID        PID  PPID  C STIME TTY          TIME CMD
+hudson   17750 17748  0 Oct08 ?        00:09:45 sshd: hudson@notty
+hudson   18118 17750  0 Oct08 ?        00:00:00 bash -c cd '/home/hudson' && java  -jar slave.jar
+hudson   18207 18118  0 Oct08 ?        00:33:36 java -jar slave.jar
+hudson   22393 18207  0 08:43 ?        00:00:00 /bin/bash -xe /tmp/hudson6480575198197009551.sh
+hudson   22396 22393  0 08:43 ?        00:00:00 /bin/bash -xe /tmp/hudson6480575198197009551.sh
+hudson   28557 22396  0 09:16 ?        00:00:00 ps -f
+Some tests failed: http://172.17.131.2/job/narayana/./PROFILE=BLACKTIE,jdk=jdk7.latest,label=linux64el5/311/
+Build step 'Execute shell' marked build as failure
+{code}

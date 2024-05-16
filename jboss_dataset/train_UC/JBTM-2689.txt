@@ -1,0 +1,3 @@
+narayana-osgi-jta integration test does not work with the karaf 4.x
+The aquillian-container-karaf-embedded only support the karaf 2.3.3 and we are using the shell command with 4.x
+Now we just  disable the integration test temperately.

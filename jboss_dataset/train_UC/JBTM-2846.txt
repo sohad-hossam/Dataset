@@ -1,0 +1,11 @@
+Thread-safety problem in BasicAction
+It is possible for multiple threads to have a given transaction association at the same time ({{com.arjuna.ats.arjuna.coordinator.BasicAction#_childThreads}}).  However, only inconsistent protection is provided for {{com.arjuna.ats.arjuna.coordinator.BasicAction#actionStatus}}.  In particular, the {{com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple#setRollbackOnly}} method directly calls {{com.arjuna.ats.arjuna.coordinator.BasicAction#preventCommit}}, which, without lock or atomicity, both reads and modifies {{actionStatus}}.  This will result in a poorly-defined outcome when threads concurrently call {{setRollbackOnly()}} and, say, {{rollback()}}.
+
+Other methods access {{actionStatus}} without regard to concurrently protection, including:
+* {{com.arjuna.ats.arjuna.coordinator.BasicAction#save_state}}
+* {{com.arjuna.ats.arjuna.coordinator.BasicAction#toString}}
+* {{com.arjuna.ats.arjuna.coordinator.BasicAction#restore_state}}
+
+Some methods appear to be assuming that other methods will acquire the instance monitor before calling them; as a matter of best practice, such methods should have {{assert Thread.holdsLock(this);}} at their beginning point.
+
+Other fields in the class should also be analyzed for unsafe access.

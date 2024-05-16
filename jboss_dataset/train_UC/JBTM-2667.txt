@@ -1,0 +1,9 @@
+JDBC Connection leak with Postgres
+When using Narayana's JDBC TransactionalDriver with a Postgres XA datasource, the connections are never closed.
+
+ The problem can be workarounded by adding a modifier :
+{code:java}
+ModifierFactory.putModifier ("postgresql native driver", -1, -1, PsqlConnectionModifier.class.getName());  
+{code}
+
+With a modifier, the close method is called on the XAConnection object, with no modifier it's called on the Connection object.

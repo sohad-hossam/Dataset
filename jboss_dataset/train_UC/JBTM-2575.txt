@@ -1,0 +1,7 @@
+When checking for orphaned subordinate transactions in the middle of a tree branches that are eligible for orphan detection will be rolled back
+There is a check in the subordinate orphan detection that not only checks for matching gtrid but also for matching subordinate name. This will not match correctly for an intermediary node. E.g.
+ a->b b->c
+
+When b scans c the xid it gets back will have subordinate name of c, b will look in its object store and match the subordinate on gtrid but the subordinate node ID in b subordinateatomicaction will be "b".
+
+This check is actually superfluous anyway. We already know that the Xid returned from c was for b because of transport level checks.

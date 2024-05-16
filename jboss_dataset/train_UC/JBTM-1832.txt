@@ -1,0 +1,4 @@
+Provide a configuration option to ORBBase to determine the value to set shutdown(wait_for_completion) to
+Currently com.arjuna.orbportability.internal.orbspecific.orb.implementations.ORBBase forces the value of shutdown(wait_for_completion) to false. Although this may be desired in normal operation, it appears to be causing certain tests to fail on CI machines in the pool. Changing this to true may impact existing users code, so we should support a configuration option for the value to use.
+
+This was first observed in JBTM-1829

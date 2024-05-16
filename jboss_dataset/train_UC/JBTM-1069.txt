@@ -1,0 +1,15 @@
+XTS recovery tests: Update to work with jboss-as 7.1.1.Final
+in particular, jboss-admin.sh was renamed to jboss-cli.sh:
+
+https://issues.jboss.org/browse/AS7-2310
+
+Workaround is to:
+
+{code}
+cp $JBOSS_HOME/bin/jboss-cli.sh $JBOSS_HOME/bin/jboss-admin.sh
+chmod +x $JBOSS_HOME/bin/jboss-admin.sh
+{code}
+
+Creating a symlink didn't seem to work. 
+
+Other problems may also exist.

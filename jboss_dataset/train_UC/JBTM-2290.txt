@@ -1,0 +1,23 @@
+Gawk and wget are not installed on Catelyn
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana-windows2008-catelyn/776/
+
+{code}
+From https://github.com/wildfly/wildfly
+ * branch            master     -> FETCH_HEAD
+ * [new branch]      master     -> upstream/master
+First, rewinding head to replay your work on top of it...
+Auto-merging pom.xml
+[detached HEAD a40514f] Upgrade Narayana to 5.0.4.Final-SNAPSHOT
+ Author: Tom Jenkinson <tom.jenkinson@redhat.com>
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+Committed: 0001 Upgrade Narayana to 5.0.4.Final-SNAPSHOT
+All done.
+'gawk' is not recognized as an internal or external command,
+operable program or batch file.
+"AS version is "
+Build step 'Execute Windows batch command' marked build as failure
+Archiving artifacts
+Sending e-mails to: gtrikler@redhat.com
+Warning: you have no plugins providing access control for builds, so falling back to legacy behavior of permitting any downstream builds to be triggered
+Finished: FAILURE
+{code}

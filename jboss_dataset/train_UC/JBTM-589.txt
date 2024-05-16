@@ -1,0 +1,2 @@
+Document static initializers
+Or remove them.

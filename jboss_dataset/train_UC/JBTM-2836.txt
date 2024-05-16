@@ -1,0 +1,9 @@
+Add suppressed exceptions for failures during prepare for XA spec non-compliant cases
+There was a request for include causing exceptions to list of suppressed ones when an error happens during 2PC prepare call. That was fixed by JBTM-2822.
+
+The fix left aside a branch of code under {{doPrepare}} method which handles cases when {{XAResourceRecord#topLevelPrepare}} ends in situation which is not compliant with XA specification (https://github.com/jbosstm/narayana/blob/5.5.0.Final/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/resources/arjunacore/XAResourceRecord.java#L280)
+
+Then there is taken code to
+https://github.com/jbosstm/narayana/blob/5.5.0.Final/ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/coordinator/BasicAction.java#L2742
+
+This enhancement follows the fix JBTM-2822 and saves deferred exception at that case as well.

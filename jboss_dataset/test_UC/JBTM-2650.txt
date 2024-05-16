@@ -1,0 +1,2 @@
+Remove typo from BAControler interface and its implementations
+Fix typos in BAControler, LocalBAControler, and RemoteBAControler names. Also variables when those classes are used also have typos.

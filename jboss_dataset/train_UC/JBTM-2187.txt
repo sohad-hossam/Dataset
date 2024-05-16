@@ -1,0 +1,368 @@
+Timer error on startup
+A community user has the following issue on startup:
+
+{quote}
+2014-06-04 09:43:03,710 INFO  [org.jboss.modules] (main) JBoss Modules version 1.3.0.Final
+2014-06-04 09:43:06,889 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Final
+2014-06-04 09:43:06,971 INFO  [org.jboss.as] (MSC service thread 1-6) JBAS015899: WildFly 8.0.0.Final "WildFly" starting
+2014-06-04 09:43:07,001 DEBUG [org.jboss.as.config] (MSC service thread 1-6) Configured system properties:
+	awt.toolkit = sun.awt.windows.WToolkit
+	file.encoding = Cp1252
+	file.encoding.pkg = sun.io
+	file.separator = \
+	java.awt.graphicsenv = sun.awt.Win32GraphicsEnvironment
+	java.awt.printerjob = sun.awt.windows.WPrinterJob
+	java.class.path = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\jboss-modules.jar
+	java.class.version = 51.0
+	java.endorsed.dirs = C:\Program Files\Java\jdk1.7.0\jre\lib\endorsed
+	java.ext.dirs = C:\Program Files\Java\jdk1.7.0\jre\lib\ext;C:\Windows\Sun\Java\lib\ext
+	java.home = C:\Program Files\Java\jdk1.7.0\jre
+	java.io.tmpdir = C:\Users\EPETRE~2\AppData\Local\Temp\
+	java.library.path = C:\Program Files\Java\jdk1.7.0\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\XEClient\bin;D:\app\epetremann\product\11.2.0\client_1\bin;C:\Perl64\site\bin;C:\Perl64\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Java\jdk1.6.0_30\bin;D:\Outils\instantclient_11_2;C:\Program Files\Common Files\SYSTEM\MSMAPI\1036;C:\Program Files\TortoiseSVN\bin;C:\XEClient\bin;D:\app\epetremann\product\11.2.0\client_1\bin;C:\Perl64\site\bin;C:\Perl64\bin;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\VSShell\Common7\IDE\;C:\Program Files (x86)\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files\Microsoft SQL Server\100\Tools\Binn\;C:\Program Files (x86)\Microsoft SQL Server\100\DTS\Binn\;C:\Program Files\Java\jdk1.6.0_30\bin;D:\Outils\instantclient_11_2;C:\Program Files\Common Files\SYSTEM\MSMAPI\1036;C:\Program Files\TortoiseSVN\bin;D:\Outils\apache-maven-2.2.1\bin;C:\NatStar\BIN;C:\NatStar\PRIV\TEST\DLL;C:\NatStar\GLOB\CLASSES\DLL;C:\Perl64\bin;D:\Projets\FUI\ressources\ide\grails-2.2.4\bin;.
+	java.net.preferIPv4Stack = true
+	java.runtime.name = Java(TM) SE Runtime Environment
+	java.runtime.version = 1.7.0-b147
+	java.specification.name = Java Platform API Specification
+	java.specification.vendor = Oracle Corporation
+	java.specification.version = 1.7
+	java.util.logging.manager = org.jboss.logmanager.LogManager
+	java.vendor = Oracle Corporation
+	java.vendor.url = http://java.oracle.com/
+	java.vendor.url.bug = http://bugreport.sun.com/bugreport/
+	java.version = 1.7.0
+	java.vm.info = mixed mode
+	java.vm.name = Java HotSpot(TM) 64-Bit Server VM
+	java.vm.specification.name = Java Virtual Machine Specification
+	java.vm.specification.vendor = Oracle Corporation
+	java.vm.specification.version = 1.7
+	java.vm.vendor = Oracle Corporation
+	java.vm.version = 21.0-b17
+	javax.management.builder.initial = org.jboss.as.jmx.PluggableMBeanServerBuilder
+	javax.xml.datatype.DatatypeFactory = __redirected.__DatatypeFactory
+	javax.xml.parsers.DocumentBuilderFactory = __redirected.__DocumentBuilderFactory
+	javax.xml.parsers.SAXParserFactory = __redirected.__SAXParserFactory
+	javax.xml.stream.XMLEventFactory = __redirected.__XMLEventFactory
+	javax.xml.stream.XMLInputFactory = __redirected.__XMLInputFactory
+	javax.xml.stream.XMLOutputFactory = __redirected.__XMLOutputFactory
+	javax.xml.transform.TransformerFactory = __redirected.__TransformerFactory
+	javax.xml.validation.SchemaFactory:http://www.w3.org/2001/XMLSchema = __redirected.__SchemaFactory
+	javax.xml.xpath.XPathFactory:http://java.sun.com/jaxp/xpath/dom = __redirected.__XPathFactory
+	jboss.bind.address = 127.0.0.1
+	jboss.bind.address.unsecure = 127.0.0.1
+	jboss.home.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final
+	jboss.host.name = lt-petremann
+	jboss.modules.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\modules
+	jboss.modules.system.pkgs = org.jboss.byteman
+	jboss.node.name = lt-petremann
+	jboss.qualified.host.name = lt-petremann
+	jboss.server.base.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone
+	jboss.server.config.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\configuration
+	jboss.server.data.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data
+	jboss.server.deploy.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data\content
+	jboss.server.log.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\log
+	jboss.server.name = lt-petremann
+	jboss.server.persist.config = true
+	jboss.server.temp.dir = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\tmp
+	line.separator = 
+
+	logging.configuration = file:D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\configuration/logging.properties
+	module.path = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\modules
+	org.jboss.boot.log.file = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\log\server.log
+	org.jboss.resolver.warning = true
+	org.xml.sax.driver = __redirected.__XMLReaderFactory
+	os.arch = amd64
+	os.name = Windows 7
+	os.version = 6.1
+	path.separator = ;
+	program.name = standalone.bat
+	sun.arch.data.model = 64
+	sun.boot.class.path = C:\Program Files\Java\jdk1.7.0\jre\lib\resources.jar;C:\Program Files\Java\jdk1.7.0\jre\lib\rt.jar;C:\Program Files\Java\jdk1.7.0\jre\lib\sunrsasign.jar;C:\Program Files\Java\jdk1.7.0\jre\lib\jsse.jar;C:\Program Files\Java\jdk1.7.0\jre\lib\jce.jar;C:\Program Files\Java\jdk1.7.0\jre\lib\charsets.jar;C:\Program Files\Java\jdk1.7.0\jre\classes
+	sun.boot.library.path = C:\Program Files\Java\jdk1.7.0\jre\bin
+	sun.cpu.endian = little
+	sun.cpu.isalist = amd64
+	sun.desktop = windows
+	sun.io.unicode.encoding = UnicodeLittle
+	sun.java.command = D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\jboss-modules.jar -mp D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\modules org.jboss.as.standalone -Djboss.home.dir=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final -Djboss.bind.address=127.0.0.1 -Djboss.bind.address.unsecure=127.0.0.1
+	sun.java.launcher = SUN_STANDARD
+	sun.jnu.encoding = Cp1252
+	sun.management.compiler = HotSpot 64-Bit Tiered Compilers
+	sun.os.patch.level = Service Pack 1
+	user.country = FR
+	user.dir = D:\Projets\_RD\BlackTieCobolIT\bin
+	user.home = C:\Users\epetremann
+	user.language = fr
+	user.name = epetremann
+	user.script = 
+	user.timezone = Europe/Paris
+	user.variant = 
+2014-06-04 09:43:07,003 DEBUG [org.jboss.as.config] (MSC service thread 1-6) VM Arguments: -XX:+UseCompressedOops -Dprogram.name=standalone.bat -Xms64M -Xmx512M -XX:MaxPermSize=256M -Djava.net.preferIPv4Stack=true -Djboss.modules.system.pkgs=org.jboss.byteman -Dorg.jboss.boot.log.file=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\log\server.log -Dlogging.configuration=file:D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\configuration/logging.properties 
+2014-06-04 09:43:16,246 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015888: Creating http management service using socket-binding (management-http)
+2014-06-04 09:43:16,273 INFO  [org.xnio] (MSC service thread 1-4) XNIO version 3.2.0.Final
+2014-06-04 09:43:16,281 INFO  [org.xnio.nio] (MSC service thread 1-4) XNIO NIO Implementation Version 3.2.0.Final
+2014-06-04 09:43:16,341 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 36) JBAS010280: Activating Infinispan subsystem.
+2014-06-04 09:43:16,342 INFO  [org.jboss.as.jacorb] (ServerService Thread Pool -- 37) JBAS016300: Activating JacORB Subsystem
+2014-06-04 09:43:16,348 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 52) JBAS013171: Activating Security Subsystem
+2014-06-04 09:43:16,350 INFO  [org.wildfly.extension.blacktie] (ServerService Thread Pool -- 59) Starting Blacktie Susbsystem
+2014-06-04 09:43:16,351 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 47) JBAS011800: Activating Naming Subsystem
+2014-06-04 09:43:16,363 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 56) JBAS015537: Activating WebServices Extension
+2014-06-04 09:43:16,365 INFO  [org.jboss.as.security] (MSC service thread 1-2) JBAS013170: Current PicketBox version=4.0.20.Final
+2014-06-04 09:43:16,390 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 43) JBAS012615: Activated the following JSF Implementations: [main]
+2014-06-04 09:43:16,397 INFO  [org.jboss.as.connector.logging] (MSC service thread 1-11) JBAS010408: Starting JCA Subsystem (IronJacamar 1.1.3.Final)
+2014-06-04 09:43:16,454 INFO  [org.jboss.as.naming] (MSC service thread 1-5) JBAS011802: Starting Naming Service
+2014-06-04 09:43:16,458 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-16) JBAS015400: Bound mail session [java:jboss/mail/Default]
+2014-06-04 09:43:16,666 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 31) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+2014-06-04 09:43:16,669 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-1) JBAS010417: Started Driver service with driver-name = h2
+2014-06-04 09:43:16,796 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) JBAS017502: Undertow 1.0.0.Final starting
+2014-06-04 09:43:16,800 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) JBAS017502: Undertow 1.0.0.Final starting
+2014-06-04 09:43:16,853 INFO  [org.wildfly.extension.blacktie] (MSC service thread 1-2) Starting StompConnect tcp://127.0.0.1:61613
+2014-06-04 09:43:16,875 INFO  [org.codehaus.stomp.tcp.TcpTransportServer] (MSC service thread 1-2) Listening for connections at: tcp://127.0.0.1:61613
+2014-06-04 09:43:16,876 INFO  [org.wildfly.extension.blacktie] (MSC service thread 1-2) Started StompConnect tcp://127.0.0.1:61613
+2014-06-04 09:43:16,909 WARN  [org.jboss.as.messaging] (MSC service thread 1-5) JBAS011600: AIO wasn't located on this platform, it will fall back to using pure Java NIO. If your platform is Linux, install LibAIO to enable the AIO journal
+2014-06-04 09:43:16,973 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221000: live server is starting with configuration HornetQ Configuration (clustered=false,backup=false,sharedStore=true,journalDirectory=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data\messagingjournal,bindingsDirectory=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data\messagingbindings,largeMessagesDirectory=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data\messaginglargemessages,pagingDirectory=D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\data\messagingpaging)
+2014-06-04 09:43:16,977 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221006: Waiting to obtain live lock
+2014-06-04 09:43:16,980 INFO  [org.jboss.remoting] (MSC service thread 1-4) JBoss Remoting version 4.0.0.Final
+2014-06-04 09:43:17,005 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221013: Using NIO Journal
+2014-06-04 09:43:17,061 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 55) JBAS017527: Creating file handler for path D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final/welcome-content
+2014-06-04 09:43:17,064 INFO  [io.netty.util.internal.PlatformDependent] (ServerService Thread Pool -- 60) Your platform does not provide complete low-level API for accessing direct buffers reliably. Unless explicitly requested, heap buffer will always be preferred to avoid potential system unstability.
+2014-06-04 09:43:17,071 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-10) JBAS017525: Started server default-server.
+2014-06-04 09:43:17,076 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-15) JBAS017531: Host default-host starting
+2014-06-04 09:43:17,085 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+2014-06-04 09:43:17,106 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-10) JBAS017519: Undertow HTTP listener default listening on 127.0.0.1/127.0.0.1:8080
+2014-06-04 09:43:17,108 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221043: Adding protocol support CORE
+2014-06-04 09:43:17,157 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-12) JBAS015012: Started FileSystemDeploymentService for directory D:\Projets\_RD\BlackTieCobolIT\bin\wildfly-8.0.0.Final\standalone\deployments
+2014-06-04 09:43:17,162 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015876: Starting deployment of "blacktie-admin-services-ear-5.0.0.Final.ear" (runtime-name: "blacktie-admin-services-ear-5.0.0.Final.ear")
+2014-06-04 09:43:17,196 INFO  [org.jboss.as.remoting] (MSC service thread 1-7) JBAS017100: Listening on 127.0.0.1:9999
+2014-06-04 09:43:17,319 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Deploying javax.ws.rs.core.Application: class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,320 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Deploying javax.ws.rs.core.Application: class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,326 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Deploying javax.ws.rs.core.Application: class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,384 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221043: Adding protocol support AMQP
+2014-06-04 09:43:17,389 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.DocumentProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,389 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221043: Adding protocol support STOMP
+2014-06-04 09:43:17,390 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.JaxrsFormProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,389 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.DocumentProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,393 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.JaxrsFormProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,389 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.DocumentProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,395 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,392 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,397 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.FormUrlEncodedProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,396 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.JaxrsFormProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,400 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBElementProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,399 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.FormUrlEncodedProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,404 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonCollectionProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,402 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.jbossts.star.provider.TransactionStatusMapper from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,406 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.DataSourceProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,404 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBElementProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,409 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonCollectionProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,408 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,407 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,413 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.SerializableProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,411 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.DataSourceProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,416 WARN  [jacorb.codeset] (MSC service thread 1-9) Warning - unknown codeset (Cp1252) - defaulting to ISO-8859-1
+2014-06-04 09:43:17,414 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.FormUrlEncodedProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,417 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.core.AcceptHeaderByFileSuffixFilter from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,417 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,421 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,419 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBElementProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,424 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding class resource org.jboss.narayana.rest.integration.VolatileParticipantResource from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,423 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.InputStreamProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,426 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.SerializableProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,424 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonCollectionProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,430 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.core.AcceptHeaderByFileSuffixFilter from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,428 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.XmlJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,432 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221034: Waiting to obtain live lock
+2014-06-04 09:43:17,432 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,430 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.DataSourceProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,434 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.InputStreamProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,433 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221035: Live Server Obtained live lock
+2014-06-04 09:43:17,433 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.MapProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,436 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.XmlJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,435 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.jbossts.star.provider.NotFoundMapper from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,439 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.MapProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,439 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.DefaultTextPlain from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,441 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.DefaultTextPlain from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,440 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlSeeAlsoProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,443 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,442 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,444 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.SerializableProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,446 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.narayana.rest.integration.HeuristicMapper from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,446 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,448 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,447 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.core.AcceptHeaderByFileSuffixFilter from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,450 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.StringTextStar from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,450 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.StringTextStar from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,452 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonElementProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,451 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,454 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.IIOImageProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,453 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonElementProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,456 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding class resource org.jboss.narayana.rest.integration.ParticipantResource from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,455 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.InputStreamProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,458 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,457 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.IIOImageProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,458 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.XmlJAXBContextFinder from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,461 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPFilter from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,461 INFO  [org.jboss.as.jacorb] (MSC service thread 1-9) JBAS016330: CORBA ORB Service started
+2014-06-04 09:43:17,460 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,463 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPDecodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,462 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.MapProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,466 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.CollectionProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,466 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPFilter from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,467 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.DefaultTextPlain from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,470 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPDecodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,471 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,472 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.CollectionProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,473 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.JAXBXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,475 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPInterceptor from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,475 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPInterceptor from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,477 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.FileProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,476 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.StringTextStar from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,480 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,478 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.FileProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,482 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonMapProvider from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,480 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonElementProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,484 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-15) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPEncodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.VolatileParticipantApplication
+2014-06-04 09:43:17,483 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,485 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.IIOImageProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,488 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonMapProvider from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,489 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlTypeProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,490 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-6) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPEncodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.ParticipantApplication
+2014-06-04 09:43:17,492 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.jbossts.star.provider.HttpResponseMapper from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,493 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPFilter from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,495 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPDecodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,496 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.jbossts.star.provider.TMUnavailableMapper from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,497 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.CollectionProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,498 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.AcceptEncodingGZIPInterceptor from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,500 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding class resource org.jboss.jbossts.star.service.Coordinator from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,501 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.FileProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,502 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JettisonXmlRootElementProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,503 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.providers.jaxb.json.JsonMapProvider from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,504 INFO  [org.jboss.resteasy.spi.ResteasyDeployment] (MSC service thread 1-4) Adding provider class org.jboss.resteasy.plugins.interceptors.encoding.GZIPEncodingInterceptor from Application class org.wildfly.extension.rts.jaxrs.CoordinatorApplication
+2014-06-04 09:43:17,638 INFO  [org.jboss.as.jacorb] (MSC service thread 1-13) JBAS016328: CORBA Naming Service started
+2014-06-04 09:43:17,665 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-4) JBAS017534: Registered web context: /rest-at-coordinator
+2014-06-04 09:43:17,665 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-6) JBAS017534: Registered web context: rest-at-participant
+2014-06-04 09:43:17,665 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-15) JBAS017534: Registered web context: volatile-rest-at-participant
+2014-06-04 09:43:18,284 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221020: Started Netty Acceptor version unknown 127.0.0.1:5445
+2014-06-04 09:43:18,329 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221020: Started Netty Acceptor version unknown 127.0.0.1:5455
+2014-06-04 09:43:18,331 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221007: Server is now live
+2014-06-04 09:43:18,332 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221001: HornetQ Server version 2.4.1.Final (Fast Hornet, 124) [5de4de80-e671-11e3-bd9e-7d17f38f2f22] 
+2014-06-04 09:43:18,354 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 60) JBAS011601: Bound messaging object to jndi name java:/ConnectionFactory
+2014-06-04 09:43:18,357 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 61) JBAS011601: Bound messaging object to jndi name java:jboss/exported/jms/RemoteConnectionFactory
+2014-06-04 09:43:18,428 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-13) JBAS010406: Registered connection factory java:/JmsXA
+2014-06-04 09:43:18,538 INFO  [org.hornetq.ra] (MSC service thread 1-13) HornetQ resource adaptor started
+2014-06-04 09:43:18,539 INFO  [org.jboss.as.connector.services.resourceadapters.ResourceAdapterActivatorService$ResourceAdapterActivator] (MSC service thread 1-13) IJ020002: Deployed: file://RaActivatorhornetq-ra
+2014-06-04 09:43:18,543 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-9) JBAS010401: Bound JCA ConnectionFactory [java:/JmsXA]
+2014-06-04 09:43:18,543 INFO  [org.jboss.as.messaging] (MSC service thread 1-8) JBAS011601: Bound messaging object to jndi name java:jboss/DefaultJMSConnectionFactory
+2014-06-04 09:43:18,665 INFO  [org.jboss.ws.common.management] (MSC service thread 1-5) JBWS022052: Starting JBoss Web Services - Stack CXF Server 4.2.3.Final
+2014-06-04 09:43:19,737 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015960: Class Path entry jaxb-api.jar in /D:/Projets/_RD/BlackTieCobolIT/bin/content/blacktie-admin-services-ear-5.0.0.Final.ear/lib/jaxb-xjc-2.0EA3.jar  does not point to a valid jar for a Class-Path reference.
+2014-06-04 09:43:19,738 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015960: Class Path entry jaxb-impl.jar in /D:/Projets/_RD/BlackTieCobolIT/bin/content/blacktie-admin-services-ear-5.0.0.Final.ear/lib/jaxb-xjc-2.0EA3.jar  does not point to a valid jar for a Class-Path reference.
+2014-06-04 09:43:19,739 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015960: Class Path entry jsr173_1.0_api.jar in /D:/Projets/_RD/BlackTieCobolIT/bin/content/blacktie-admin-services-ear-5.0.0.Final.ear/lib/jaxb-xjc-2.0EA3.jar  does not point to a valid jar for a Class-Path reference.
+2014-06-04 09:43:19,740 WARN  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015960: Class Path entry activation.jar in /D:/Projets/_RD/BlackTieCobolIT/bin/content/blacktie-admin-services-ear-5.0.0.Final.ear/lib/jaxb-xjc-2.0EA3.jar  does not point to a valid jar for a Class-Path reference.
+2014-06-04 09:43:19,749 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-12) JBAS015876: Starting deployment of "null" (runtime-name: "blacktie-admin-services-5.0.0.Final.jar")
+2014-06-04 09:43:20,108 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-10) JBAS018567: Deployment "deployment.blacktie-admin-services-ear-5.0.0.Final.ear.blacktie-admin-services-5.0.0.Final.jar" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+2014-06-04 09:43:20,111 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-8) JBAS018567: Deployment "deployment.blacktie-admin-services-ear-5.0.0.Final.ear" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+2014-06-04 09:43:20,125 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment blacktie-admin-services-ear-5.0.0.Final.ear
+2014-06-04 09:43:20,756 INFO  [org.hibernate.validator.internal.util.Version] (MSC service thread 1-1) HV000001: Hibernate Validator 5.0.3.Final
+2014-06-04 09:43:20,931 INFO  [org.jboss.weld.deployer] (MSC service thread 1-7) JBAS016002: Processing weld deployment blacktie-admin-services-5.0.0.Final.jar
+2014-06-04 09:43:20,937 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-7) JNDI bindings for session bean named QueueReaperBean in deployment unit subdeployment "blacktie-admin-services-5.0.0.Final.jar" of deployment "blacktie-admin-services-ear-5.0.0.Final.ear" are as follows:
+
+	java:global/blacktie-admin-services-ear-5.0.0.Final/blacktie-admin-services-5.0.0.Final/QueueReaperBean!org.jboss.narayana.blacktie.administration.QueueReaperBean
+	java:app/blacktie-admin-services-5.0.0.Final/QueueReaperBean!org.jboss.narayana.blacktie.administration.QueueReaperBean
+	java:module/QueueReaperBean!org.jboss.narayana.blacktie.administration.QueueReaperBean
+	java:global/blacktie-admin-services-ear-5.0.0.Final/blacktie-admin-services-5.0.0.Final/QueueReaperBean
+	java:app/blacktie-admin-services-5.0.0.Final/QueueReaperBean
+	java:module/QueueReaperBean
+
+2014-06-04 09:43:20,981 INFO  [org.jboss.weld.deployer] (MSC service thread 1-11) JBAS016005: Starting Services for CDI deployment: blacktie-admin-services-ear-5.0.0.Final.ear
+2014-06-04 09:43:21,039 INFO  [org.jboss.weld.Version] (MSC service thread 1-11) WELD-000900: 2.1.2 (Final)
+2014-06-04 09:43:21,052 INFO  [org.jboss.weld.deployer] (MSC service thread 1-13) JBAS016008: Starting weld service for deployment blacktie-admin-services-ear-5.0.0.Final.ear
+2014-06-04 09:43:21,186 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 61) HQ221003: trying to deploy queue jms.queue.BTR_BTDomainAdmin
+2014-06-04 09:43:21,211 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 61) JBAS011601: Bound messaging object to jndi name /queue/BTR_BTDomainAdmin
+2014-06-04 09:43:21,212 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 60) HQ221003: trying to deploy queue jms.queue.BTR_BTStompAdmin
+2014-06-04 09:43:21,216 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 60) JBAS011601: Bound messaging object to jndi name /queue/BTR_BTStompAdmin
+2014-06-04 09:43:21,225 INFO  [org.jboss.as.ejb3] (MSC service thread 1-9) JBAS014142: Started message driven bean 'BlacktieStompAdministrationService' with 'hornetq-ra.rar' resource adapter
+2014-06-04 09:43:21,226 INFO  [org.jboss.as.ejb3] (MSC service thread 1-15) JBAS014142: Started message driven bean 'BlacktieAdminServiceXATMI' with 'hornetq-ra.rar' resource adapter
+2014-06-04 09:43:21,267 INFO  [org.jboss.narayana.blacktie.administration.core.AdministrationProxy] (MSC service thread 1-15) onConstruct load btconfig.xml
+2014-06-04 09:43:21,582 INFO  [org.jboss.narayana.blacktie.administration.BlacktieAdminService] (MSC service thread 1-15) Admin Server Started
+2014-06-04 09:43:21,608 WARN  [org.jboss.weld.Validator] (MSC service thread 1-8) WELD-001471: Interceptor method start defined on class org.jboss.narayana.blacktie.administration.QueueReaperBean is not defined according to the specification. It should not throw java.lang.Exception, which is a checked exception.
+2014-06-04 09:43:21,766 INFO  [org.jboss.narayana.blacktie.administration.QueueReaperBean] (EJB default - 1) QueueReaper Started
+2014-06-04 09:43:21,797 INFO  [org.jboss.narayana.blacktie.administration.QueueReaperBean] (EJB default - 1) QeueueReaper cancel a timer
+2014-06-04 09:43:21,799 INFO  [org.jboss.narayana.blacktie.administration.QueueReaperBean] (EJB default - 1) QueueReaper create timer with 30000ms
+2014-06-04 09:43:21,813 ERROR [org.jboss.as.ejb3] (EJB default - 1) JBAS014120: Error invoking timeout for timer: [id=29b5597e-d94e-410a-b641-464046270eed timedObjectId=blacktie-admin-services-ear-5.0.0.Final.blacktie-admin-services-5.0.0.Final.QueueReaperBean auto-timer?:false persistent?:true timerService=org.jboss.as.ejb3.timerservice.TimerServiceImpl@40976d9a initialExpiration=Wed Jun 04 09:43:09 CEST 2014 intervalDuration(in milli sec)=0 nextExpiration=null timerState=CANCELED info=queue reaper: javax.ejb.NoSuchObjectLocalException: JBAS014469: Timer was canceled
+	at org.jboss.as.ejb3.timerservice.TimerImpl.assertTimerState(TimerImpl.java:462) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.timerservice.TimerImpl.getInfo(TimerImpl.java:237) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.narayana.blacktie.administration.QueueReaperBean.run(QueueReaperBean.java:90)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0]
+	at java.lang.reflect.Method.invoke(Method.java:601) [rt.jar:1.7.0]
+	at org.jboss.as.ee.component.ManagedReferenceMethodInterceptor.processInvocation(ManagedReferenceMethodInterceptor.java:52) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.WeavedInterceptor.processInvocation(WeavedInterceptor.java:53) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:61) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext$Invocation.proceed(InterceptorContext.java:407) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.doMethodInterception(Jsr299BindingsInterceptor.java:82) [wildfly-weld-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.weld.ejb.Jsr299BindingsInterceptor.processInvocation(Jsr299BindingsInterceptor.java:95) [wildfly-weld-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:61) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.WeavedInterceptor.processInvocation(WeavedInterceptor.java:53) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ee.component.interceptors.UserInterceptorFactory$1.processInvocation(UserInterceptorFactory.java:61) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.component.invocationmetrics.ExecutionTimeInterceptor.processInvocation(ExecutionTimeInterceptor.java:43) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext$Invocation.proceed(InterceptorContext.java:407) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.concurrency.ContainerManagedConcurrencyInterceptor.processInvocation(ContainerManagedConcurrencyInterceptor.java:104) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext$Invocation.proceed(InterceptorContext.java:407) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.weld.ejb.AbstractEJBRequestScopeActivationInterceptor.aroundInvoke(AbstractEJBRequestScopeActivationInterceptor.java:55)
+	at org.jboss.as.weld.ejb.EjbRequestScopeActivationInterceptor.processInvocation(EjbRequestScopeActivationInterceptor.java:83) [wildfly-weld-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ee.concurrent.ConcurrentContextInterceptor.processInvocation(ConcurrentContextInterceptor.java:45) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InitialInterceptor.processInvocation(InitialInterceptor.java:21) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ee.component.interceptors.ComponentDispatcherInterceptor.processInvocation(ComponentDispatcherInterceptor.java:53) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.component.singleton.SingletonComponentInstanceAssociationInterceptor.processInvocation(SingletonComponentInstanceAssociationInterceptor.java:52) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:273) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.required(CMTTxInterceptor.java:340) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.processInvocation(CMTTxInterceptor.java:239) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.CurrentInvocationContextInterceptor.processInvocation(CurrentInvocationContextInterceptor.java:41) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.ShutDownInterceptorFactory$1.processInvocation(ShutDownInterceptorFactory.java:64) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ee.component.NamespaceContextInterceptor.processInvocation(NamespaceContextInterceptor.java:50) [wildfly-ee-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.component.interceptors.AdditionalSetupInterceptor.processInvocation(AdditionalSetupInterceptor.java:55) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.ContextClassLoaderInterceptor.processInvocation(ContextClassLoaderInterceptor.java:64) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.run(InterceptorContext.java:326) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.wildfly.security.manager.WildFlySecurityManager.doChecked(WildFlySecurityManager.java:448) [wildfly-security-manager-1.0.0.Final.jar:1.0.0.Final]
+	at org.jboss.invocation.AccessCheckingInterceptor.processInvocation(AccessCheckingInterceptor.java:61) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.run(InterceptorContext.java:326) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.PrivilegedWithCombinerInterceptor.processInvocation(PrivilegedWithCombinerInterceptor.java:80) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:309) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.invocation.ChainedInterceptor.processInvocation(ChainedInterceptor.java:61) [jboss-invocation-1.2.1.Final.jar:1.2.1.Final]
+	at org.jboss.as.ejb3.timerservice.TimedObjectInvokerImpl.callTimeout(TimedObjectInvokerImpl.java:104) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.timerservice.TimedObjectInvokerImpl.callTimeout(TimedObjectInvokerImpl.java:114) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.timerservice.task.TimerTask.callTimeout(TimerTask.java:196) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at org.jboss.as.ejb3.timerservice.task.TimerTask.run(TimerTask.java:168) [wildfly-ejb3-8.0.0.Final.jar:8.0.0.Final]
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471) [rt.jar:1.7.0]
+	at java.util.concurrent.FutureTask$Sync.innerRun(FutureTask.java:334) [rt.jar:1.7.0]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:166) [rt.jar:1.7.0]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:122) [jboss-threads-2.1.1.Final.jar:2.1.1.Final]
+
+2014-06-04 09:43:21,900 INFO  [org.jboss.as.ejb3] (EJB default - 1) JBAS014121: Timer: [id=29b5597e-d94e-410a-b641-464046270eed timedObjectId=blacktie-admin-services-ear-5.0.0.Final.blacktie-admin-services-5.0.0.Final.QueueReaperBean auto-timer?:false persistent?:true timerService=org.jboss.as.ejb3.timerservice.TimerServiceImpl@40976d9a initialExpiration=Wed Jun 04 09:43:09 CEST 2014 intervalDuration(in milli sec)=0 nextExpiration=null timerState=CANCELED info=queue reaper will be retried
+2014-06-04 09:43:21,901 INFO  [org.jboss.as.ejb3] (EJB default - 1) JBAS014124: Timer is not active, skipping retry of timer: [id=29b5597e-d94e-410a-b641-464046270eed timedObjectId=blacktie-admin-services-ear-5.0.0.Final.blacktie-admin-services-5.0.0.Final.QueueReaperBean auto-timer?:false persistent?:true timerService=org.jboss.as.ejb3.timerservice.TimerServiceImpl@40976d9a initialExpiration=Wed Jun 04 09:43:09 CEST 2014 intervalDuration(in milli sec)=0 nextExpiration=null timerState=CANCELED info=queue reaper
+2014-06-04 09:43:21,902 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 32) JBAS018559: Deployed "blacktie-admin-services-ear-5.0.0.Final.ear" (runtime-name : "blacktie-admin-services-ear-5.0.0.Final.ear")
+2014-06-04 09:43:21,922 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+2014-06-04 09:43:21,923 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+2014-06-04 09:43:21,924 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Final "WildFly" started in 20202ms - Started 403 of 462 services (107 services are lazy, passive or on-demand)
+{quote}

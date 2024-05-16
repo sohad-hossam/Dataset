@@ -1,0 +1,10 @@
+Hang in getThreadId
+at java.util.WeakHashMap.expungeStaleEntries(WeakHashMap.java:341)
+	- locked <0x000000059f929538> (a java.lang.ref.ReferenceQueue)
+	at java.util.WeakHashMap.getTable(WeakHashMap.java:350)
+	at java.util.WeakHashMap.get(WeakHashMap.java:397)
+	at com.arjuna.ats.arjuna.utils.ThreadUtil.getThreadId(ThreadUtil.java:56)
+
+No other locking, seems WeakHashMap needs synchronized.
+https://docs.oracle.com/javase/7/docs/api/java/util/WeakHashMap.html
+https://issues.jboss.org/browse/JBRULES-541?_sscc=t

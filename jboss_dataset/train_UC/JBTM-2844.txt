@@ -1,0 +1,8 @@
+Compensations EAR archive test fails on JDK9
+EarArchiveTestLocal test fails with the following error:
+{code}
+javax.xml.ws.WebServiceException: java.nio.file.FileSystemNotFoundException
+	at org.jboss.narayana.compensations.integration.archive.EarArchiveTestLocal.<init>(EarArchiveTestLocal.java:44)
+Caused by: java.nio.file.FileSystemNotFoundException
+	at org.jboss.narayana.compensations.integration.archive.EarArchiveTestLocal.<init>(EarArchiveTestLocal.java:44)
+{code}

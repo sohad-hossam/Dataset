@@ -1,0 +1,2 @@
+ObjStoreBrowserTest.java can miss a recovery scan
+As the ObjStoreBrowserTest.java uses a socket to ask for recovery from a threaded recovery manager it is possible that the recovery manager is just completing a scan and so the state the test expects will not be satisfied.

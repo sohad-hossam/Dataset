@@ -1,0 +1,8 @@
+Remove deprecation warnings for org.apache.tools.ant.ProjectComponent
+If you run:
+
+./build.sh clean install -DskipTests | grep "ProjectComponent has been deprecated"
+
+You will see:
+
+[WARNING] /home/tom/projects/jbosstm/narayana/ArjunaJTS/orbportability/classes/com/arjuna/orbportability/common/ant/IDLBuildList.java:[84,9] project in org.apache.tools.ant.ProjectComponent has been deprecated

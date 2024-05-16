@@ -1,0 +1,9 @@
+IP: A parameter is dead upon entry to a method but overwritten (IP_PARAMETER_IS_DEAD_BUT_OVERWRITTEN)
+1.XTS/WSCF
+com.arjuna.mwlabs.wscf.model.sagas.arjunacore.ParticipantRecord Line 540
+The parameter toDelete to com.arjuna.mwlabs.wscf.model.sagas.arjunacore.ParticipantRecord.remove(AbstractRecord) is dead upon entry but overwritten
+
+2.XTS/WSCF
+com.arjuna.mwlabs.wscf.model.twophase.arjunacore.ParticipantRecord Line 523
+The parameter toDelete to com.arjuna.mwlabs.wscf.model.twophase.arjunacore.ParticipantRecord.remove(AbstractRecord) is dead upon entry but overwritten
+

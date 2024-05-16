@@ -1,0 +1,25 @@
+TX tests failed on the windows with 404 when connecting to /rest-tx/tx/transaction-manager
+{noformat}
+2013-08-16 12:04:48,399 [0x00002104] DEBUG (HttpClient               :263 ) - url: /rest-tx/tx/transaction-manager
+2013-08-16 12:04:48,400 [0x00002104] DEBUG (HttpClient               :114 ) - connected to TM on WIN-5GKPEREVUOO:8080 URI=/rest-tx/tx/transaction-manager
+2013-08-16 12:04:48,401 [0x00002104] DEBUG (HttpClient               :74  ) - connect to WIN-5GKPEREVUOO:8080 ok
+2013-08-16 12:04:48,402 [0x00002104] DEBUG (HttpClient               :99  ) - POST /rest-tx/tx/transaction-manager HTTP/1.1
+
+2013-08-16 12:04:48,402 [0x00002104] DEBUG (HttpClient               :99  ) - Host: WIN-5GKPEREVUOO:8080
+
+2013-08-16 12:04:48,402 [0x00002104] DEBUG (HttpClient               :99  ) - Content-Length: 13
+
+2013-08-16 12:04:48,402 [0x00002104] DEBUG (HttpClient               :99  ) - Content-Type: application/x-www-form-urlencoded
+2013-08-16 12:04:48,407 [0x00002104] DEBUG (HttpClient               :148 ) - timeout=-1000
+2013-08-16 12:04:48,407 [0x00002104] DEBUG (HttpClient               :158 ) - buf size is 4096
+2013-08-16 12:04:48,411 [0x00002104] DEBUG (HttpClient               :162 ) - receive 169 bytes
+2013-08-16 12:04:48,412 [0x00002104] DEBUG (HttpClient               :165 ) - HTTP/1.1 404 Not Found
+Connection: keep-alive
+Content-Length: 74
+Content-Type: text/html
+
+<html><head><title>Error</title></head><body>404 - Not Found</body></html>
+{noformat}
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/391
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/392
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/393

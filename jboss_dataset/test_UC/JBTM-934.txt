@@ -1,0 +1,2 @@
+Ensure that Narayana (trunk) can build a JTS that works with the JDK ORB
+The build should generated stubs for both orbs and should run the unit tests and QA tests (that use orbs) against both sets of stubs.

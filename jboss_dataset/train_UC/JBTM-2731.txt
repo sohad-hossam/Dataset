@@ -1,0 +1,2 @@
+Fix update_jira.py script
+WFLY project used to have an issue type with the typo ("Component  Upgrade" with double space). It seems to have been fixed, so typo should be removed from the script too.

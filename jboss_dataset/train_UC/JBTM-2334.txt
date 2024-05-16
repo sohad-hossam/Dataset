@@ -1,0 +1,4 @@
+Improve ease of use within Tomcat
+Initial requirements:
+# Implement a Narayana Tomcat module which provides an archive with all dependencies necessary for deployment on Tomcat: common, core, jta, jdbc, cdi, spi, jms (optional)
+# Implement Tomcat lifecycle listener to bootstrap TM and RM

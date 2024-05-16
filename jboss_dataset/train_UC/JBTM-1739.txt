@@ -1,0 +1,4 @@
+Remove owner field from TwoPhaseVolatileStore
+We associated states in TPVS with the creating (or using) thread. This really doesn't make sense, since locking can be done elsewhere if necessary and it's not a property that is required by the object store implementation or supported by other implementations.
+
+I can't recall why I did this in the first place, but possibly had another scenario in mind. But at the moment it's a restriction that does not make sense.

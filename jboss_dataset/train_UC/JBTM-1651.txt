@@ -1,0 +1,2 @@
+Node name length protection is incorrectly defined
+The value is set to 64, in reality this must be less that 28 to fit in the bqual with the EIS name and Uid.

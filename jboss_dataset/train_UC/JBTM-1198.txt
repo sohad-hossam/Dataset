@@ -1,0 +1,4 @@
+REST-AT does not expose transactions that only exist in the logs
+The (REST_AT) coordinator does not include transactions that only exist in the logs. Thus on restart after a crash it does not report their status, nor does it include them in requests for all transactions.
+
+Also the (REST_AT) spec provides a mechanism for participants to tell the coordinator that they are listening for termination requests on a different endpoint. If the associated transaction has gone (ie there is no log for it) then this method should return an error response. 

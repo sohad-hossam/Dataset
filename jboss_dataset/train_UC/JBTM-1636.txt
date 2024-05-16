@@ -1,0 +1,8 @@
+Enhance TRACE for getStatus
+The following
+
+{noformat}
+ TRACE [com.arjuna.ats.jta] (MSC service thread 1-14) TransactionImple.getStatus
+{noformat}
+
+statement would benefit from logging the actual return value sent to the caller

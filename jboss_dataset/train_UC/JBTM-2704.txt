@@ -1,0 +1,4 @@
+Compensations framework cannot instantiate bean from ear archive
+BeanManagerUtil is using CDI BeanManager to instantiate classes from the deployment to be used by the compensations framework. It works fine with war and jar archives, because all deployment classes are accessible for the root bean manager. However, ear archives have multiple bean managers and some classes cannot be accessed.
+Martin Kouba has provided a workaround for this on Weld forum by using weld-core to get the correct bean manager.
+It would be better to find a solution for this without adding a direct dependency on weld-core and instead injecting the correct bean manager once by the subsystem. However, if that is not possible, we should use the provided workaround.

@@ -1,0 +1,5 @@
+Recovery via the tooling MBeans incorrectly calls forget on XAResources
+The tooling MBeans for the log store provide a method for clearing heuristics (with the intention that the record is placed on the prepared list so that recovery can be attempted.
+
+In the case where the participant is an XAResource forget is called on the XAResource causing it to forget about the XA branch so that recovery is no longer possible.
+

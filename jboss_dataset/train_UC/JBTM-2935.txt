@@ -1,0 +1,2 @@
+Make LRA @Complete optional
+LRA compensators currently require both @Complete and @Compensate annotations to be present. The @Complete should be optional.

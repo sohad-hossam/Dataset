@@ -1,0 +1,2 @@
+Implement the REST-JDI specification
+https://community.jboss.org/wiki/CompensatingRESTfulTransactions/

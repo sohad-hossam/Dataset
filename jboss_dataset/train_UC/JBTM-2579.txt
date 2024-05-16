@@ -1,0 +1,4 @@
+Throw XAException in XATerminator::commit if a wrapped resource fails transiently
+It is possible for a resource that we are wrapping to return say XA_RETRY or XA_RMFAIL and therefore end up in the BasicAction failed list. However there is no error returned from commit in this circumstance as the recovery manager should ensure a consistent outcome.
+
+The reason this becomes a problem for JTA and XATerminator in particular is that as no error is returned a parent coordinator will assume the branch completed successfully. In the future when it calls XATerminator::recover though this branch will be returned and detected as an orphan.

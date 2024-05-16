@@ -1,0 +1,2 @@
+org.jboss.jbossts.qa.junit.testgroup.TestGroup_defaulttimeout FAILED
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch417-EAP61-java7/494/console

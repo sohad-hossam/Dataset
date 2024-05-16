@@ -1,0 +1,8 @@
+jtax subordinate transactions throw unnecessary heuristics
+The SubordinateTestCase is showing up cases where the JTAX version of subordinate transactions is throwing HeuristicCommit or HeuristicRollback in cases where this should not be necessary. For example 
+
+begin()
+setRollbackOnly()
+commit()
+
+throws RollbackExcpetion in the JTA version but a heuristic in the JTAX flavour. It would be better if the behaviour was consistent between the two.

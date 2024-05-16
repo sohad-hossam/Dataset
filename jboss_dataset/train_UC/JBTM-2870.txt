@@ -1,0 +1,9 @@
+Provide way of getting suppressed exceptions out of SubordinateTransaction
+We need to provide way how to pass suppressed exceptions of of the `SubordinateTransaction` to the caller.
+
+This request came from customer case and https://bugzilla.redhat.com/show_bug.cgi?id=1435549 as we need to provide exceptions thrown from transaction resource.
+
+The interface is used for controlling propagated transaction from one server to another in EAP/WFLY.
+
+Callers are is ejb3 subsystem in EAP 6.4/7.0 and WFTC in EAP 7.1.
+

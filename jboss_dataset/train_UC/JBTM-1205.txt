@@ -1,0 +1,36 @@
+Intermittent txbridge failure - seems to be crash recovery failure?
+http://172.17.131.2/job/narayana-java6/1252/
+
+[INFO] Surefire report directory: /home/hudson/workspace/narayana-java6/txbridge/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.jbossts.txbridge.tests.inbound.junit.InboundBasicTests
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 75.252 sec
+Running org.jboss.jbossts.txbridge.tests.inbound.junit.InboundCrashRecoveryTests
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 142.832 sec
+Running org.jboss.jbossts.txbridge.tests.outbound.junit.OutboundBasicTests
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 73.828 sec
+Running org.jboss.jbossts.txbridge.tests.outbound.junit.OutboundCrashRecoveryTests
+Tests run: 4, Failures: 0, Errors: 2, Skipped: 1, Time elapsed: 60.231 sec <<< FAILURE!
+
+Results :
+
+Tests in error: 
+  testCrashTwoLogs(org.jboss.jbossts.txbridge.tests.outbound.junit.OutboundCrashRecoveryTests): The server is already running! Managed containers does not support connecting to running server instances due to the possible harmful effect of connecting to the wrong server. Please stop server before running or change to another type of container.(..)
+  testCrashTwoLogs(org.jboss.jbossts.txbridge.tests.outbound.junit.OutboundCrashRecoveryTests): Deployment with name txbridge-outbound-tests-client could not be undeployed. Container jboss must be still running.
+
+Tests run: 17, Failures: 0, Errors: 2, Skipped: 1
+
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 6:05.578s
+[INFO] Finished at: Wed Jul 18 10:42:38 BST 2012
+[INFO] Final Memory: 22M/205M
+[INFO] ------------------------------------------------------------------------

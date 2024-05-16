@@ -1,0 +1,10 @@
+Run all Narayana tests on pure ipv6 nodes
+Bugs that only appear on an IPV6 node will currently slip through our pre-release QA as we don't have a node in Hudson that is configured to only have an IPV6 interface. One example of this is:
+
+https://issues.jboss.org/browse/JBPAPP-8906
+
+Need clones of:
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch416-java6/configure
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch416-java7/configure
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-java6/configure
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-java7/configure

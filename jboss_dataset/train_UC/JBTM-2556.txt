@@ -1,0 +1,6 @@
+Improve OSGi integration
+support configuration using ConfigAdmin
+track org.jboss.tm.XAResourceRecovery services for recovery
+
+In order to support correctly stopping / restarting / reconfiguring the transaction manager, we build our own class loader to load the core jars.
+This ensure that all static fields will be correctly reloaded when starting again after configuration change.

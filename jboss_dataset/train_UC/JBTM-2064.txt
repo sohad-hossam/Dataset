@@ -1,0 +1,4 @@
+Update Blacktie to use Wildfly 8.0.0.Final-SNAPSHOT
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/PROFILE=BLACKTIE,jdk=jdk7.latest,label=linux32el5/386/consoleText
+http://172.17.131.2/job/narayana-codeCoverage/93/
+It also effects the quickstart jobs

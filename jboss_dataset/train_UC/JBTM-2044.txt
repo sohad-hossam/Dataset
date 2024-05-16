@@ -1,0 +1,8 @@
+Wrong build rule for STM
+README.md states:
+
+STM - ./build.[sh|bat] -am -pl :core
+
+for building STM, which isn't right. It should be:
+
+STM - ./build.[sh|bat] -am -pl :stm

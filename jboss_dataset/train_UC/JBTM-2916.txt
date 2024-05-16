@@ -1,0 +1,4 @@
+Disable dynamic1PC for subordinate transactions
+If there are two resources in a BasicAction there is an optimization that will cause the second resource to commit during prepare if the first resource returns XARD_ONLY.
+
+This can cause data inconsistency in a transaction comprising of subordinates where the phase 2 decision is rollback.

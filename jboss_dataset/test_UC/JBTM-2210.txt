@@ -1,0 +1,23 @@
+Remove deprecation warnings for logging and junit
+INFO] Compiling 25 source files to /Users/marklittle/github/narayana/ArjunaCore/txoj/target/classes
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[50,32] org.jboss.logging.Cause in org.jboss.logging has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[48,6] org.jboss.logging.Message in org.jboss.logging has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[49,10] org.jboss.logging.LogMessage in org.jboss.logging has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[54,32] org.jboss.logging.Cause in org.jboss.logging has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[52,10] org.jboss.logging.Message in org.jboss.logging has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaCore/txoj/classes/com/arjuna/ats/txoj/logging/txojI18NLogger.java:[53,10] org.jboss.logging.LogMessage in org.jboss.logging has been deprecated
+
+[WARNING] COMPILATION WARNING : 
+[INFO] -------------------------------------------------------------
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/commitmarkable/integration/CMRIntegrationTest.java:[19,30] junit.framework.Assert in junit.framework has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/commitmarkable/integration/CMRIntegrationTest.java:[19,30] junit.framework.Assert in junit.framework has been deprecated
+[WARNING] The following options were not recognized by any processor: '[translationFilesPath]'
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/commitmarkable/integration/CMRIntegrationTest.java:[19,30] junit.framework.Assert in junit.framework has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/jca/SubordinateTxUnitTest.java:[66,40] SubordinateAtomicAction() in com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.jca.SubordinateAtomicAction has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/recovery/XARecoveryResourceUnitTest.java:[78,25] getXAResource() in com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryResourceImple has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/recovery/XARecoveryModuleUnitTest.java:[157,31] TransactionImple(int) in com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.jca.TransactionImple has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/subordinate/SubordinateTestCase.java:[51,16] TransactionImple(int) in com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.jca.TransactionImple has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/subordinate/SubordinateTxUnitTest.java:[105,11] doForget() in com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.TransactionImple has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/subordinate/SubordinateTxUnitTest.java:[126,12] doForget() in com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.SubordinateAtomicAction has been deprecated
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/recovery/XARecoveryModuleUnitTest.java: Some input files use unchecked or unsafe operations.
+[WARNING] /Users/marklittle/github/narayana/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/recovery/XARecoveryModuleUnitTest.java: Recompile with -Xlint:unchecked for details.

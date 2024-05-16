@@ -1,0 +1,2 @@
+Add privileged actions to XTS to make it work with security manager
+None

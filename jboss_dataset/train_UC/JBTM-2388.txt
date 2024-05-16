@@ -1,0 +1,2 @@
+Async transaction API for STM
+Add async begin, commit, rollback options. May be more generally useful, e.g., Vert.x, but place within STM for now. Refactor later if needed.

@@ -1,0 +1,22 @@
+TestGroup_txcore_recovery failure on DB2
+{code}
+ [junit] Running org.jboss.jbossts.qa.junit.testgroup.TestGroup_txcore_recovery
+ [junit] Tests run: 36, Failures: 1, Errors: 0, Time elapsed: 3,224.323 sec
+ [junit] Test org.jboss.jbossts.qa.junit.testgroup.TestGroup_txcore_recovery FAILED
+{code}
+
+Recovery_Crash_LockManager_Test008/server_0_output.txt
+{code}
+2016-06-25 03:12:45,296 out: 2016-06-25 03:12:45,290 [Periodic Recovery] WARN  com.arjuna.ats.txoj - ARJUNA015011: RecoveredTransactionalObject::findHoldingTransaction - exception
+2016-06-25 03:12:45,296 out: java.io.IOException: java.lang.NullPointerException
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:741)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.txoj.recovery.RecoveredTransactionalObject.findHoldingTransaction(RecoveredTransactionalObject.java:175)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.txoj.recovery.RecoveredTransactionalObject.replayPhase2(RecoveredTransactionalObject.java:88)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.txoj.recovery.TORecoveryModule.recoverObject(TORecoveryModule.java:232)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.txoj.recovery.TORecoveryModule.periodicWorkSecondPass(TORecoveryModule.java:183)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:793)
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:375)
+2016-06-25 03:12:45,296 out: Caused by: java.lang.NullPointerException
+2016-06-25 03:12:45,296 out: 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:706)
+2016-06-25 03:12:45,296 out: 	... 6 more
+{code}

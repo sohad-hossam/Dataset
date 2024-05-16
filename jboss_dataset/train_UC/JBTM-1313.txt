@@ -1,0 +1,5 @@
+Performance related work that involves other products should be in a separate repository  
+Any performance related activities done by the dev team that require installation of other transaction managers should done a repo that is separate from the main narayana repo. Currently this includes:
+
+- some changes to the jts quickstart 
+- the performance harness in qa/tests/product

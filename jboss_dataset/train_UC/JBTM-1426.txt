@@ -1,0 +1,46 @@
+ORA-01000: maximum open cursors exceeded during oracle JDBC object store test
+See: http://172.17.131.2/job/jbossts-EAP61-jdbcobjectstore/31
+
+{noformat}
+starting command: /usr/local/jdk1.6.0_37/bin/java -classpath dist/narayana-full-4.17.4.Final-SNAPSHOT/etc/:dist/narayana-full-4.17.4.Final-SNAPSHOT/lib/*:dist/narayana-full-4.17.4.Final-SNAPSHOT/lib/ext/*:dist/narayana-full-4.17.4.Final-SNAPSHOT/jacorb/lib/*:dist/narayana-full-4.17.4.Final-SNAPSHOT/jacorb/etc/:ext/fscontext.jar:ext/providerutil.jar:ext/jboss-profiler-jvmti.jar:ext/jboss-logging-spi.jar:tests/build/classes/:dbdrivers/selected_dbdriver/*:dbdrivers/DB2_v9.7/db2jcc.jar:dbdrivers/jConnect-6_0/classes/jconn3.jar:dbdrivers/mssql2005_sqljdbc_2.0/enu/sqljdbc4.jar:dbdrivers/mysql-connector-java-5.1.8-bin.jar:dbdrivers/oracle_10_2_0_4/ojdbc14.jar:dbdrivers/postgresql-8.3-605.jdbc4.jar:../build/extlib/emma.jar:../build/extlib/netty.jar -Dqa.debug=true -Djava.naming.provider.url=file:///tmp -Djava.naming.factory.initial=com.sun.jndi.fscontext.RefFSContextFactory -Dperformanceprofilestore.dir=config/perf_profiles/ -Djdbcprofilestore.dir=config/jdbc_profiles -Dmemorytestprofilestore.dir=config/memory_profiles/ -Dots.server.bindname=value_1 -DCoordinatorEnvironmentBean.maintainHeuristics=NO -DRecoveryEnvironmentBean.recoveryBackoffPeriod=5 -DCoreEnvironmentBean.timeoutFactor=2 -DCoordinatorEnvironmentBean.defaultTimeout=240 -Demma.coverage.out.file=./testoutput/txcore_lockrecord/LockRecord_Thread_Test028b/client_0-coverage.ec -DportOffsetId=1 -DObjectStoreBaseDir=/home/hudson/workspace/jbossts-EAP61-jdbcobjectstore/qa/testoutput/txcore_lockrecord/LockRecord_Thread_Test028b/client_0 -DRecoveryEnvironmentBean.recoveryListener=true -DObjectStoreEnvironmentBean.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=oracle.jdbc.pool.OracleDataSource;DriverType=thin;ServerName=tywin.buildnet.ncl.jboss.com;NetworkProtocol=tcp;DatabaseName=orcl;PortNumber=1521;User=dtf11;Password=dtf11 -DObjectStoreEnvironmentBean.tablePrefix=Action -DObjectStoreEnvironmentBean.stateStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.stateStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=oracle.jdbc.pool.OracleDataSource;DriverType=thin;ServerName=tywin.buildnet.ncl.jboss.com;NetworkProtocol=tcp;DatabaseName=orcl;PortNumber=1521;User=dtf11;Password=dtf11 -DObjectStoreEnvironmentBean.stateStore.tablePrefix=stateStore -DObjectStoreEnvironmentBean.communicationStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.communicationStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=oracle.jdbc.pool.OracleDataSource;DriverType=thin;ServerName=tywin.buildnet.ncl.jboss.com;NetworkProtocol=tcp;DatabaseName=orcl;PortNumber=1521;User=dtf11;Password=dtf11 -DObjectStoreEnvironmentBean.communicationStore.tablePrefix=Communication org.jboss.jbossts.qa.ArjunaCore.LockManager.client.WorkerClient003 -newlock 10 10 2 
+2013-01-11 06:42:48,696 err: log4j:WARN No appenders could be found for logger (org.jboss.logging).
+2013-01-11 06:42:48,696 err: log4j:WARN Please initialize the log4j system properly.
+2013-01-11 06:42:49,683 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,700 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,703 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,705 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,707 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,709 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,711 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,717 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,719 err: trying to get lock for 1000th time
+2013-01-11 06:42:49,721 err: trying to get lock for 1000th time
+2013-01-11 06:42:52,690 out: 2013-01-11 06:42:52,689 [Thread-1] WARN  com.arjuna.ats.arjuna - ARJUNA012258: JDBCImple:write_state caught exception
+2013-01-11 06:42:52,691 out: java.sql.SQLException: ORA-00604: error occurred at recursive SQL level 1
+2013-01-11 06:42:52,691 out: ORA-01000: maximum open cursors exceeded
+2013-01-11 06:42:52,691 out: ORA-00604: error occurred at recursive SQL level 1
+2013-01-11 06:42:52,691 out: ORA-01000: maximum open cursors exceeded
+2013-01-11 06:42:52,691 out: ORA-01000: maximum open cursors exceeded
+2013-01-11 06:42:52,691 out: 
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:112)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:331)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:288)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:745)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:219)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.T4CPreparedStatement.executeForRows(T4CPreparedStatement.java:970)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1190)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:3370)
+2013-01-11 06:42:52,691 out: 	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:3454)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.commit_state(JDBCImple_driver.java:104)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.commit_state(JDBCStore.java:124)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.internal.arjuna.abstractrecords.PersistenceRecord.topLevelCommit(PersistenceRecord.java:171)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2733)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2649)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Commit(BasicAction.java:1814)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1505)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:98)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+2013-01-11 06:42:52,691 out: 	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:147)
+2013-01-11 06:42:52,691 out: 	at org.jboss.jbossts.qa.ArjunaCore.LockManager.client.Worker003.run(Worker003.java:65)
+....
+{noformat}

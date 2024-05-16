@@ -1,0 +1,2 @@
+Release the narayana-osgi-jta bundle
+for KARAF-3749, they are looking for the narayana osgi jta bundle. I think we have not released it to the maven repos and it could add to the release process.

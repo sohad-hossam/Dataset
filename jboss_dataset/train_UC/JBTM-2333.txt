@@ -1,0 +1,8 @@
+Blacktie subsystem build fails, because of missing org.jacorb module
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/731/
+
+{code}
+[ERROR] Failed to execute goal org.wildfly.build:wildfly-feature-pack-build-maven-plugin:1.0.0.Alpha8:build (feature-pack-build) on project wildfly-blacktie-feature-pack: Execution feature-pack-build of goal org.wildfly.build:wildfly-feature-pack-build-maven-plugin:1.0.0.Alpha8:build failed: java.lang.RuntimeException: Some errors were encountered creating the feature pack
+[ERROR] Missing module ModuleIdentifier{name='org.jacorb', slot='main'}. Module was required by [ModuleIdentifier{name='org.wildfly.extension.blacktie', slot='main'}]
+[ERROR] -> [Help 1]
+{code}

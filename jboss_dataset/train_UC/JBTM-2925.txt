@@ -1,0 +1,5 @@
+TM jdbc driver list should be enriched with driver name for DB2 driver
+The list of the "supported" jdbc driver names should be enhanced with DB2 driver name which is {{IBM Data Server Driver for JDBC and SQLJ}}.
+
+In case the need to verify the connection metadata you can try to check small tool here
+https://github.com/ochaloup/jdbc-driver-load

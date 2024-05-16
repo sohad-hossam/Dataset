@@ -1,0 +1,2 @@
+BlackTie hanging on all windows builds during btadmin:  Transaction 0:ffff0a27a80e:-6a877d1b:555c3b97:8b has 1 heuristic participant(s)
+http://albany.eng.hst.ams2.redhat.com/view/Narayana/job/narayana-catelyn/918/consoleFull

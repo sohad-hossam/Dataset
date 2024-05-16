@@ -1,0 +1,4 @@
+Create separate assumed complete type for heuristic transactions
+Currently all JTS transaction records are moved to assumed complete store after 3 recovery tries. This is not good if the transaction has a heuristic outcome. It leads to the heuristic participant being rolled back, because recovery coordinator cannot see the log record after the move.
+
+Creating separate locations for such heuristic transactions and checking their status during replay_completion would solve the problem.

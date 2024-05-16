@@ -1,0 +1,3 @@
+TxBridge tests often fail with PermGen space OOM
+TxBridge tests often fail with PermGen space OutOfMemoryError. 
+Better memory setting in pom.xml seems to be helpful.

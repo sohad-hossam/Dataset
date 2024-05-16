@@ -1,0 +1,19 @@
+XTS Interop tests should use Shrinkwrap to create the interop11.war
+Currently we need to package the XTS test artifacts before the tests can be ran:
+
+{code}
+./build.sh -f XTS/localjunit/WSTX11-interop/pom.xml install
+./build.sh -f XTS/localjunit/WSTX11-interop/pom.xml test -Parq
+{code}
+
+This is because the maven built interop11.war is deployed as part of the Arquillian tests:
+
+https://github.com/jbosstm/narayana/blob/master/XTS/localjunit/WSTX11-interop/src/test/java/com/jboss/transaction/txinterop/interop/WarDeployment.java
+
+If Shrinkwrap was used to create the interop11.war artifact, we could simpley call the following line to run the tests:
+
+{code}
+mvn test -p arq
+{code}
+
+This is also a pre-requisit for having the tests run as part of a top level "mvn test".

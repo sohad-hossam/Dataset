@@ -1,0 +1,2 @@
+Upgrade Narayana to use WildFly 8.0.0.Alpha3-SNAPSHOT
+None

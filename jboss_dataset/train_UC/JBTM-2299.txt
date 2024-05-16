@@ -1,0 +1,2 @@
+Why does Blacktie have its own CosTransactions.idl?
+Shouldn't it use the one in ArjunaJTS?

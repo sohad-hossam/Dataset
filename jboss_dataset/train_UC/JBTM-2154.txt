@@ -1,0 +1,10 @@
+QA suite failure with db2
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-jdbcobjectstore/71/DB_TYPE=db2,jdk=jdk7.latest,slave=linux/
+
+Some known failures:
+txcore_lockrecord LockRecord_Test016
+txcore_lockrecord LockRecord_Test012
+txcore_lockrecord LockRecord_Test015
+jtsremote JTSRemote_TimeoutTest
+jtsremote JTSRemote_DistributedHammerTest1
+jtsremote JTSRemote_DistributedHammerTest2

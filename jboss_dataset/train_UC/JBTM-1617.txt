@@ -1,0 +1,28 @@
+When testing pull requests do a rebase to the merge point
+These instructions can go in the pull job config rather than narayana.sh I think as they do a full clean and that would be dangerous on a dev box
+
+# Clean up the local repo
+git rebase --abort
+rm -rf .git/rebase-apply
+git clean -f -d -x
+
+# Work out the branch point
+git branch -D 4.17
+git branch 4.17 origin/4.17
+git branch -D master
+git branch master origin/master
+myRev=`git rev-parse HEAD`
+ancestor417=`git merge-base $myRev 4.17`
+ancestorMaster=`git merge-base $myRev master`
+distanceFromMaster=`git log $ancestorMaster..$myRev | grep commit | wc | cut -c 1-7 | tr -d ' '`
+distanceFrom417=`git log $ancestor417..$myRev | grep commit | wc | cut -c 1-7 | tr -d ' '`
+if [ "$distanceFromMaster" -lt "$distanceFrom417" ]
+then
+   export BRANCHPOINT=master
+else
+   export BRANCHPOINT=4.17
+fi
+
+# Update the pull to head
+git pull --rebase --ff-only origin $BRANCHPOINT
+# if this fails ($? -ne 0) fail the build and tell the committer (commentOnPull) that they need to rebase

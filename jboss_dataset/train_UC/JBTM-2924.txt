@@ -1,0 +1,2 @@
+Add some more trace statement to make it clear which connection modifier is in use for the TransactionalDriver
+It is not clear which one is used and whether the override is in effect

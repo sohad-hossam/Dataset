@@ -1,0 +1,5 @@
+Narayana 5.0.0.Final Release Notes page broken
+Hi, we received following ticket: https://engineering.redhat.com/rt/Ticket/Display.html?id=275511
+
+Original text:
+I was attempting to look at the release notes for Narayana 5.0.0.Final and I am getting a Page Not Found error. http://docs.jboss.org/jbosstm/5.0.0.Final/guides/release_notes/index.html

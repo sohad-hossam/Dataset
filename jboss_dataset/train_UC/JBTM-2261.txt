@@ -1,0 +1,2 @@
+start services scripts missing execute flag
+Unix start transaction manager and recovery service scripts in bin directory are missing the execute bit.

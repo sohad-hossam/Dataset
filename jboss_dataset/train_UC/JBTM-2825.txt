@@ -1,0 +1,2 @@
+JTA XAResourceRecord does not record the type of heuristic
+When a JTA XAResource receives a heuristic outcome during commit it does not record the type of heuristic. This information is required by the tooling in order to determine whether it is worthwhile reattempting the commit (for mixed and hazard heuristics it is worthwhile).

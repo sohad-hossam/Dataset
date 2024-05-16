@@ -1,0 +1,5 @@
+IL: An apparent infinite recursive loop (IL_INFINITE_RECURSIVE_LOOP)
+1.XTS/WSAS
+com.arjuna.mw.wsas.completionstatus.Unknown Line 52
+There is an apparent infinite recursive loop in com.arjuna.mw.wsas.completionstatus.Unknown.equals(Object)
+

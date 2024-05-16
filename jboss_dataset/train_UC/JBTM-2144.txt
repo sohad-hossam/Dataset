@@ -1,0 +1,7 @@
+blacktie wildfly subsystem build failed with can not find "threads.xml"
+{code}
+ [java] java.lang.IllegalStateException: Could not find '[subsystem=../../../../../../jboss-as/build/src/main/resources/configuration/subsystems/threads.xml, supplement=null]'
+{code}
+
+the threads.xml has been removed in the wildfly commit
+https://github.com/wildfly/wildfly/commit/8caaf561bfc583314cbfee189d2b0f8f075420db#diff-8762a512e2f647f39cae6678929913e5

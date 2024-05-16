@@ -1,0 +1,4 @@
+Improve implementation of Parallel Prepare
+Considerations:
+1. Threading in AS - should be using JEE mechanism
+2. Can't parallelise the LastResource ;)

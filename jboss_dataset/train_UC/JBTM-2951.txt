@@ -1,0 +1,8 @@
+Application using LRAClient starts with multiple warnings
+When starting an application using {{LRAClient}} I get several warnings during startup
+
+{code}
+2017-10-30 08:25:34,521 WARN  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 5) RESTEASY002155: Provider class io.narayana.lra.filter.ClientLRARequestFilter is already registered.  2nd registration is being ignored.
+2017-10-30 08:25:34,521 WARN  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 5) RESTEASY002155: Provider class io.narayana.lra.filter.ClientLRAResponseFilter is already registered.  2nd registration is being ignored.
+2017-10-30 08:25:34,551 WARN  [org.jboss.resteasy.resteasy_jaxrs.i18n] (ServerService Thread Pool -- 5) RESTEASY002155: Provider class io.narayana.lra.filter.ServerLRAFilter is already registered.  2nd registration is being ignored.
+{code}

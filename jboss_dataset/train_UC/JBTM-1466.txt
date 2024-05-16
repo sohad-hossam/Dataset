@@ -1,0 +1,2 @@
+The REST-AT implementation needs its own abstract record type
+The REST-AT implementation is using a user-defined record type RecordType.USER_DEF_FIRST0 but it should be using its own predefined type.

@@ -1,0 +1,10 @@
+Make project names consistent in poms
+The project names used in the build are not consistent which makes it difficult for someone unfamiliar with the project to debug build issues.
+
+Some examples are provided:
+||Dir Name||Artifact ID||Project Name||Proposed Name||
+|/ArjunaJTA|narayana-jta-all|JBoss JTA everything|Narayana: ArjunaJTA|
+|/ArjunaJTS/narayana-jts-idlj|narayana-jts-idlj|JBossJTS packaged module with idlj stubs|Narayana: ArjunaJTS idlj|
+|/ArjunaJTS/orbportability|orbportability|JBossJTS orb portability|Narayana: ArjunaJTS orbportability|
+
+The project names can be changed without disrupting the way the build works, so these should be changed to match the dir and artifactId as much as possible.

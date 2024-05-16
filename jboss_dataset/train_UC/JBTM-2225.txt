@@ -1,0 +1,2 @@
+Provide a BeanManager lookup option for use outside of WildFly
+Currently the compensations API uses JNDI to lookup the CDI BeanManager. This only works inside an application server. An alternative needs to be provided for when using the API inside standalone Weld container.

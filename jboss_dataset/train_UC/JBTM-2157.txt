@@ -1,0 +1,2 @@
+Remove need to set WILDFLY_MASTER_VERSION in narayana.sh
+We should be able to infer this from the jboss-as/pom.xml

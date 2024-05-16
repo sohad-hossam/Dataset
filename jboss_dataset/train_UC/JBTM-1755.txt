@@ -1,0 +1,10 @@
+Spurious warning messages?
+[WARNING] The following patterns were never triggered in this artifact inclusion filter:
+o  'org.jboss.narayana.jts:narayana-jts-idlj'
+
+[WARNING] The following patterns were never triggered in this artifact exclusion filter:
+o  '*:javadoc'
+o  '**'
+
+[WARNING] The following patterns were never triggered in this artifact inclusion filter:
+o  'org.jboss.narayana.arjunacore:arjunacore-services'

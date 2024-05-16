@@ -1,0 +1,30 @@
+Create a script in scripts/hudson to that hudson can call to build narayana
+We need a script in script/hudson to build Narayana.
+
+This idea is seeded from the blacktie project, so check how the script side of things works in there.
+
+Path variables such as JAVA_HOME and ANT should be configured outside the script, see:
+http://albany/view/Narayana+BlackTie/job/blacktie-linux32/configure
+
+For more information.
+
+As a starter for 10 this is the configuration in the current Job:
+
+# THIS IS REQUIRED SO THAT THE BUILD CAN FIND jconsole.jar
+./build.sh install
+cd qa
+sed -i TaskImpl.properties -e "s#^COMMAND_LINE_0=.*#COMMAND_LINE_0=/usr/local/jdk1.6.0_26/bin/java#"
+/usr/local/apache-ant-1.7.1/bin/ant -Ddriver.url=file:///home/hudson/dbdrivers get.drivers dist
+/usr/local/apache-ant-1.7.1/bin/ant -f run-tests.xml ci-tests
+
+
+The script should also execute the following XTS tests:
+The script should use AS 7.1.1.Final. The script can download this from: http://172.17.131.2/userContent/jboss-as-7.1.1.Final.zip
+Make sure the poms for the following tests reference the correct version of arquillian* to match this version of AS7
+1. WSTX11 interop
+2. XTS Unit tests
+3. XTS crash rec tests 
+   Run simplifylogs: java -cp target/classes/ com.arjuna.qa.simplifylogs.SimplifyLogs ./target/log/ ./target/log-simplified
+   (configure the build to archive <XTS_CRASH_REC_ROOT>/target/log/ target/log/simplified)
+
+(Findbugs and bmcheck will obviously be ran by ./build.sh install at the start - and findbugs should not fail the build if it finds bugs, although bmcheck can)

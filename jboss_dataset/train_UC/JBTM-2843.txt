@@ -1,0 +1,32 @@
+BlackTie builds failing (including release quickstarts)
+There are some builds failing consistently:
+
+Main build:
+http://narayanaci1.eng.hst.ams2.redhat.com/job/narayana/58/PROFILE=BLACKTIE,jdk=jdk8.latest,label=linux/console
+Hanging here:
+{quote}
+jboss.naming.context.java.JmsXA: javax.naming.NameNotFoundException: JmsXA -- service jboss.naming.context.java.JmsXA
+	at org.jboss.as.naming.ServiceBasedNamingStore.lookup(ServiceBasedNamingStore.java:106)
+	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:207)
+	at org.jboss.as.naming.InitialContext$DefaultInitialContext.lookup(InitialContext.java:235)
+	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:193)
+	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:189)
+	at javax.naming.InitialContext.lookup(InitialContext.java:417)
+	at javax.naming.InitialContext.lookup(InitialContext.java:417)
+	at org.codehaus.stomp.jms.StompConnect.createXAConnectionFactory(StompConnect.java:195)
+	at org.codehaus.stomp.jms.StompConnect.getXAConnectionFactory(StompConnect.java:84)
+	at org.codehaus.stomp.jms.StompConnect.assignProtocolConverter(StompConnect.java:64)
+	at org.codehaus.stomp.tcp.TcpTransportServer.run(TcpTransportServer.java:82)
+	at java.lang.Thread.run(Thread.java:745)
+{quote}
+
+Release quickstarts:
+http://narayanaci1.eng.hst.ams2.redhat.com/job/release-narayana-quickstarts/13/console
+(similar error and shows
+{quote}
+     [exec]         "Services that were unable to start:" => ["jboss.concurrent.ee.context.service.default"],
+     [exec]         "Services that may be the cause:" => [
+     [exec]             "jboss.iiop-openjdk.naming-service",
+     [exec]             "jboss.iiop-openjdk.orb-service"
+{quote}
+)

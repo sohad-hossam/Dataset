@@ -1,0 +1,4 @@
+When an orb is recreated the JacOrbRCServiceInit class uses a cached poa rather than a new poa linked to the new orb reference
+See the upstream BZ for more details. Effectively you can't start/stop/start the JacOrbRCServiceInit within WildFly.
+
+There are a couple of tweaks needed to achieve this. I will link a pull request but I will add some comments and delete this comment when I have the pull request finalized.

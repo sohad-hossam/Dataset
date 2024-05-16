@@ -1,0 +1,2 @@
+Migrate Mark Little's TransactionalVert.x work to narayana
+Migrate Mark's TransactionalVert.x repo (https://github.com/nmcl/TransactionalVert.x) to the narayana repo and port to Vert.x 3 in the process.

@@ -1,0 +1,13 @@
+New JTS record types are not showing up in the tooling
+When a JTS transaction record has participants of type CosTransactions/XAResourceRecord which are in the same object store then the tooling should create MBeans to represent them as participants of the JTS record.
+
+I have marked the type to enhancement since JTS participants do show up in the tooling (using records that are in-lined with records of type /StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple). Note that the tooling implementation does not look at records of type CosTransactions/XAResourceRecord (the only potentially useful information for the user here is the Xid and I will leave that until someone asks for it).
+
+What is missing is instrumentation for new types:
+
+{code}
+    AssumedCompleteHeuristicTransaction
+    AssumedCompleteHeuristicServerTransaction
+    AssumedCompleteTransaction
+    AssumedCompleteServerTransaction
+{code}

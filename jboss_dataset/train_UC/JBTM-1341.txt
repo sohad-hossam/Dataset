@@ -1,0 +1,2 @@
+Reject setting node identifier on CoreEnvironmentBean unless it can be successfully used by TxControl
+It is too easy to miss the warning message.

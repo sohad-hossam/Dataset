@@ -1,0 +1,9 @@
+narayana-rebase doesn't work on mac
+./scripts/hudson/narayana-rebase.sh:
+
+{quote}
+git log $ancestorMaster..$myRev | grep commit | wc | cut -c 1-7 | tr -d ' '
+git log $ancestor417..$myRev | grep commit | wc | cut -c 1-7 | tr -d ' '
+{quote}
+
+The files from wc are columns wide on Mac rather than 7 on Linux. You could put 1-8 and hope there weren't too many words but its dangerous. Probably an if-then-else required.

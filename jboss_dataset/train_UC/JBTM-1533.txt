@@ -1,0 +1,27 @@
+Create a pre-release script
+To encompass these steps of the Narayana release process:
+
+{code}
+BRANCH=<4.17|master>
+CURRENT=<Version number of the release (e.g. 5.0.0.M2)>
+NEXT=<Version number of the next release (e.g. 5.0.0.M3)>
+ 
+ 
+for  REPO in documentation quickstart narayana
+do
+ 
+git clone git@github.com:jbosstm/$REPO.git
+cd $REPO
+git checkout $BRANCH
+ 
+find . -name \*.java -o -name \*.xml -o -name \*.properties -o -name \*.ent -o -name \INSTALL -o -name \README | grep -v ".svn" | grep -v ".git" | grep -v target | grep -v .idea | xargs sed -i "s/$CURRENT-SNAPSHOT/$CURRENT/g"
+git commit -am "Updated to $CURRENT"
+git tag $CURRENT
+ 
+find . -name \*.java -o -name \*.xml -o -name \*.properties -o -name \*.ent -o -name \INSTALL -o -name \README | grep -v ".svn" | grep -v ".git" | grep -v target | grep -v .idea | xargs sed -i "s/$CURRENT/$NEXT-SNAPSHOT/g"
+git commit -am "Updated to $NEXT-SNAPSHOT"
+git push origin $BRANCH --tags
+cd ..
+ 
+done
+{code}

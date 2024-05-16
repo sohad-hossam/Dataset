@@ -1,0 +1,5 @@
+Missing wsdl resources in WS-C and WS-T jars in maven build
+Maven build of WS-C and WS-T modules does not copy wsdl resources into:
+org\oasis_open\docs\ws_tx\wscoor\_2006\_06\wsdl
+org\oasis_open\docs\ws_tx\wsat\_2006\_06\wsdl
+org\oasis_open\docs\ws_tx\wsba\_2006\_06\wsdl

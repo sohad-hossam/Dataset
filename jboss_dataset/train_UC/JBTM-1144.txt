@@ -1,0 +1,2 @@
+Create TX context mapped datastore
+A Map that stores data against the participant. This allows data to be stored and retrieved at different parts of the transactions lifecycle, potentially in different threads. 

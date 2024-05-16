@@ -1,0 +1,24 @@
+LRA coordinator REST endpoint is ambiguous if no Accept header is defined and for noContent is http status 204
+If you a status check from the lra coordinator then you will receive this warning if the client does not define {{Accept}} header.
+
+{code}
+WARN  [org.jboss.resteasy.resteasy_jaxrs.i18n] (default task-3) RESTEASY002142: Multiple resource methods match request "GET /lra-coordinator/0_ffff0a00000a_-1f8fb539_5a0025fe_f". Selecting one. Matching methods: [public javax.ws.rs.core.Response io.narayana.lra.coordinator.api.Coordinator.getLRAStatus(java.lang.String) throws javax.ws.rs.NotFoundException, public io.narayana.lra.coordinator.domain.model.LRAStatus io.narayana.lra.coordinator.api.Coordinator.getDetailedLRAStatus(java.lang.String) throws javax.ws.rs.NotFoundException]
+{code}
+
+The reason is that the methods {{getLRAStatus}} and {{getDetailedLRAStatus}} are bound to the same rest path {{@Path("\{LraId\}")}} and differs only in {{@Produces}} tag - {{@Produces(MediaType.TEXT_PLAIN)}} vs {{@Produces(MediaType.APPLICATION_JSON)}}.
+
+If client does not specify the {{Accept}} http header then I think is expected to get text plain. That works this way now but because of the ambiguity it's not guaranteed.
+
+I was thinking to use JAX-RS header manual validation - {{@HeaderParam("accept")}} but the both methods work a bit differently in case of active LRA which was not asked to finish. I'm not sure how to merge them. {{getLRAStatus}} returns code {{204}} while {{getDetailedLRAStatus}} returns code {{200}} and the {{202}} is then part of the the json body.
+
+{code}
+HTTP/1.1 200 OK
+Connection: keep-alive
+Content-Type: application/json
+Content-Length: 359
+Date: Mon, 06 Nov 2017 09:14:44 GMT
+
+{"lraId":"http://localhost:8080/lra-coordinator/0_ffff0a00000a_-1f8fb539_5a0025fe_f","clientId":"abc","httpStatus":202,"responseData":null,"status":null,"encodedResponseData":null,"completing":false,"recovering":false,"compensating":false,"compensated":false,"failedToCompensate":false,"failedToComplete":false,"topLevel":true,"completed":false,"active":true}
+{code}
+
+Here could be seen another discrepancy that json returns http status {{202}} (https://github.com/jbosstm/narayana/blob/5.7.1.Final/rts/lra/lra-coordinator/src/main/java/io/narayana/lra/coordinator/domain/model/Transaction.java#L557) (as said above the real http return status is {{200}}). The the code in the coordinator seems to count to return code {{Response.noContent()}} which is {{204}} but the comments refers to {{202}}.

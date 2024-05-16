@@ -1,0 +1,4 @@
+Blacktie wildfly config files need updating
+Arquillian deployements fail because the wildfly config files are out of date (batch -> batch-jberet). An example is:
+
+http://albany.eng.hst.ams2.redhat.com/view/Narayana/job/narayana/PROFILE=BLACKTIE,jdk=jdk8.latest,label=linux64el6/935/console

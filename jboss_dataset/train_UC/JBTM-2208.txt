@@ -1,0 +1,2 @@
+Deprecate unused method from ActionManager
+Removed unused method from ActionManager, and thereby a System.currentTimeMillis call

@@ -1,0 +1,2 @@
+Update all Maven plugins
+I've noticed many of our maven plugins are getting out of date. Running old plugins can dramatically slow down the build and has caused memory leaks in the past. 

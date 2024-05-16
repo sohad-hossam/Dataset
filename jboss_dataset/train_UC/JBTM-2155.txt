@@ -1,0 +1,2 @@
+JBossAS server is still running after building on the windows
+The server is still running as the script checks the port 9999 but it is not available with the lastest wildfly which is removing the naive console.  

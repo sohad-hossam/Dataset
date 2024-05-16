@@ -1,0 +1,2 @@
+CMR recovery fails if Sybase connection is down
+If CMR recovery gets an exception removing old xids if the connection to the database is down it keeps retrying in a perpetual loop.

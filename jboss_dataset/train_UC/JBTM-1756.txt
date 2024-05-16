@@ -1,0 +1,2 @@
+JDK ORB.idl does not include Current yet rt.jar does
+OTS Current should inherit from CORBA::Current but the definition of that isn't in the JDK orb.idl.

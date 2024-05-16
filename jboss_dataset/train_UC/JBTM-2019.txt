@@ -1,0 +1,79 @@
+org.jboss.jbossts.star.test.SpecTest#testSpec6 failed
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-EAP61/1842
+
+{code}
+-------------------------------------------------------------------------------
+Test set: org.jboss.jbossts.star.test.SpecTest
+-------------------------------------------------------------------------------
+Tests run: 14, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 34.054 sec <<< FAILURE!
+testSpec6(org.jboss.jbossts.star.test.SpecTest)  Time elapsed: 5.569 sec  <<< FAILURE!
+junit.framework.ComparisonFailure: null expected:<[]> but was:<[txstatus=TransactionCommitted]>
+	at junit.framework.Assert.assertEquals(Assert.java:81)
+	at junit.framework.Assert.assertEquals(Assert.java:87)
+	at org.jboss.jbossts.star.test.SpecTest.testSpec6(SpecTest.java:353)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+	at org.junit.internal.runners.statements.InvokeMethod.evaluate(InvokeMethod.java:20)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:73)
+	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:46)
+	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:180)
+	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:41)
+	at org.junit.runners.ParentRunner$1.evaluate(ParentRunner.java:173)
+	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:28)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:220)
+	at org.apache.maven.surefire.junit4.JUnit4TestSet.execute(JUnit4TestSet.java:53)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:123)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:104)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+	at java.lang.reflect.Method.invoke(Method.java:597)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:164)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:110)
+	at org.apache.maven.surefire.booter.SurefireStarter.invokeProvider(SurefireStarter.java:172)
+	at org.apache.maven.surefire.booter.SurefireStarter.runSuitesInProcessWhenForked(SurefireStarter.java:78)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:70)
+{code}
+
+{code}
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+Nov 11, 2013 1:03:19 PM com.sun.grizzly.Controller logVersion
+INFO: Starting Grizzly Framework 1.9.18-i - Mon Nov 11 13:03:19 GMT 2013
+Nov 11, 2013 1:03:21 PM com.sun.jersey.api.core.PackagesResourceConfig init
+INFO: Scanning for root resource and provider classes in the packages:
+  org.jboss.jbossts.star.service
+  org.jboss.jbossts.star.provider
+  org.jboss.jbossts.star.test
+Nov 11, 2013 1:03:21 PM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Root resource classes found:
+  class org.jboss.jbossts.star.service.Coordinator
+  class org.jboss.jbossts.star.test.BaseTest$TransactionalResource
+Nov 11, 2013 1:03:21 PM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Provider classes found:
+  class org.jboss.jbossts.star.provider.TransactionStatusMapper
+  class org.jboss.jbossts.star.provider.TMUnavailableMapper
+  class org.jboss.jbossts.star.provider.NotFoundMapper
+  class org.jboss.jbossts.star.provider.HttpResponseMapper
+Nov 11, 2013 1:03:21 PM com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+INFO: Initiating Jersey application, version 'Jersey: 1.5 01/14/2011 12:36 PM'
+13:03:22,375 {hread(0)} () [INFO ,arjuna    ] ARJUNA012163: Starting service com.arjuna.ats.arjuna.recovery.ActionStatusService on port 34375
+13:03:22,378 {hread(0)} () [INFO ,arjuna    ] ARJUNA012337: TransactionStatusManagerItem host: 127.0.0.1 port: 34375
+13:03:24,389 {hread(0)} () [INFO ,arjuna    ] ARJUNA012170: TransactionStatusManager started on port 34375 and host 127.0.0.1 with service com.arjuna.ats.arjuna.recovery.ActionStatusService
+13:03:26,935 {n Reaper} () [WARN ,arjuna    ] ARJUNA012117: TransactionReaper::check timeout for TX 0:ffffac118314:c27e:5280d597:b in state  RUN
+13:03:26,935 {Worker 0} () [WARN ,arjuna    ] ARJUNA012121: TransactionReaper::doCancellations worker Thread[Transaction Reaper Worker 0,10,Grizzly] successfully canceled TX 0:ffffac118314:c27e:5280d597:b
+13:03:46,581 {hread(0)} () [WARN ,arjuna    ] ARJUNA012073: BasicAction.End() - prepare phase of action-id 0:ffffac118314:c27e:5280d597:33 failed.
+13:03:46,581 {hread(0)} () [WARN ,arjuna    ] ARJUNA012075: Action Aborting
+13:03:46,588 {hread(0)} () [WARN ,arjuna    ] ARJUNA012091: Top-level abort of action 0:ffffac118314:c27e:5280d597:33 received TwoPhaseOutcome.FINISH_ERROR from com.arjuna.ats.arjuna.coordinator.AbstractRecord
+13:03:49,773 {hread(2)} () [WARN ,arjuna    ] ARJUNA012073: BasicAction.End() - prepare phase of action-id 0:ffffac118314:c27e:5280d597:3d failed.
+13:03:49,773 {hread(2)} () [WARN ,arjuna    ] ARJUNA012075: Action Aborting
+13:03:49,780 {hread(2)} () [WARN ,arjuna    ] ARJUNA012091: Top-level abort of action 0:ffffac118314:c27e:5280d597:3d received TwoPhaseOutcome.FINISH_ERROR from com.arjuna.ats.arjuna.coordinator.AbstractRecord
+{code}

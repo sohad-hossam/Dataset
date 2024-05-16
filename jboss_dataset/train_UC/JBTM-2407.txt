@@ -1,0 +1,4 @@
+Remove CDIExtensionProcessor in the XTS subsytem
+WFLY-1370 removes the need for the CDIExtensionProcessor in the XTS subsytem.
+
+There is currently a hack in CDIExtensionProcessor in 5_BRANCH. This MUST be removed if WFLY-1370 is not merged in time for release. Hence I have marked this as critical.

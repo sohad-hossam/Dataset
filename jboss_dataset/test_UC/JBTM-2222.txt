@@ -1,0 +1,2 @@
+Rename TXFramework -> Compensations
+TXFramework now just focuses on Compensating transactions. The ACID transaction improvements have been moved into XTS and REST components. Therefore, we should drop the TXFramework name in favour of "Compensations" or "Compensating Transactions".

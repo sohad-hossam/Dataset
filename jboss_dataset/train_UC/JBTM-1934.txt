@@ -1,0 +1,14 @@
+BlackTie attempting to stop the messagelistener connection - invalid according to JMS
+12:06:42,851 ERROR [org.codehaus.stomp.jms.StompSubscription] (Thread-10 (HornetQ-client-global-threads-11543367)) Could not stop the connection: javax.jms.IllegalStateException: HQ129006: It is illegal to call this method from within a Message Listener: javax.jms.IllegalStateException: HQ129006: It is illegal to call this method from within a Message Listener
+	at org.hornetq.jms.client.ThreadAwareContext.assertNotMessageListenerThread(ThreadAwareContext.java:137)
+	at org.hornetq.jms.client.HornetQConnection.stop(HornetQConnection.java:311)
+	at org.codehaus.stomp.jms.StompSession.stop(StompSession.java:373) [wildfly-blacktie-8.0.0.Beta1-SNAPSHOT.jar:8.0.0.Beta1-SNAPSHOT]
+	at org.codehaus.stomp.jms.StompSubscription.onMessage(StompSubscription.java:75) [wildfly-blacktie-8.0.0.Beta1-SNAPSHOT.jar:8.0.0.Beta1-SNAPSHOT]
+	at org.hornetq.jms.client.JMSMessageListenerWrapper.onMessage(JMSMessageListenerWrapper.java:104)
+	at org.hornetq.core.client.impl.ClientConsumerImpl.callOnMessage(ClientConsumerImpl.java:1117)
+	at org.hornetq.core.client.impl.ClientConsumerImpl.access$500(ClientConsumerImpl.java:57)
+	at org.hornetq.core.client.impl.ClientConsumerImpl$Runner.run(ClientConsumerImpl.java:1252)
+	at org.hornetq.utils.OrderedExecutorFactory$OrderedExecutor$1.run(OrderedExecutorFactory.java:106)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_03]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_03]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_03]

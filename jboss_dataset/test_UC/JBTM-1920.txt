@@ -1,0 +1,70 @@
+Blacktie TestTransactions test failed: REST-AT stricter?
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/255/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux32el5/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/255/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux32el6/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/255/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux64el5/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/255/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux64el6/consoleText
+
+{code}
+Test Results:
+     [exec] Run:  14   Failures: 10   Errors: 0
+     [exec] 
+     [exec] 
+     [exec] 1) test: TestTransactions::test_basic (F) line: 90 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTxAvoid.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 2) test: TestTransactions::test_transactions (F) line: 94 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 3) test: TestTransactions::test_protocol (F) line: 125 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 4) test: TestTransactions::test_info (F) line: 165 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 5) test: TestTransactions::test_timeout1 (F) line: 217 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 6) test: TestTransactions::test_timeout2 (F) line: 261 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 7) test: TestTransactions::test_rollback (F) line: 285 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 8) test: TestTransactions::test_hhazard (F) line: 317 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 9) test: TestTransactions::test_RM (F) line: 345 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+     [exec] 
+     [exec] 
+     [exec] 10) test: TestTransactions::test_recovery (F) line: 486 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] equality assertion failed
+     [exec] - Expected: 0
+     [exec] - Actual  : -6
+{code}

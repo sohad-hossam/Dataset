@@ -1,0 +1,2 @@
+Benchmark performance difference between JacORB and JDK ORB
+JBTM-934 added support for the JDK orb to JTS. IOR sizes can range in size from 512 bytes to entirely unbounded, with the ORB being able to add arbitrary data within specific portions. Since the IOR is packed into transaction logs and if the IOR sizes are significantly different we may find that transaction throughput has been improved or degraded. We should run some benchmarks to see what the impact is.

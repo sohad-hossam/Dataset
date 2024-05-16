@@ -1,0 +1,2 @@
+BRP doesn't release "XTS/docs/administration_and_development_guide"
+The XTS docs where split in half. One half for product, the other for project. This was not reflected in BRP.

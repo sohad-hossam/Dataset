@@ -1,0 +1,4 @@
+Add logging to help clarify if a TX is rolling back due to OCC conflict
+Currently if a transaction including an STM object aborts due to an OCC violation then nothing is logged to assist a user with understanding the reason for the rollback.
+
+I am wondering whether this should be a TRACE or even WARN to match what would happen with other (say XA) resource managers.

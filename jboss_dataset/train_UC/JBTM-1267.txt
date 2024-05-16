@@ -1,0 +1,4 @@
+JBossAS7ServerKillProcessor should wait for defunct java process to disappear
+It's possible that this is what is causing JBTM-1259 as Arquillian may be detecting the defunct process. 
+
+Remember to apply the fix to the Kill Procesor in TXBridge too.

@@ -1,0 +1,6 @@
+Update BlackTie build process to work with latest version of WildFly build process
+wildfly-config-assembly seem to not be available any more, thus Blacktie subsystem fails to build.
+
+http://172.17.131.2/view/Status/job/narayana/552/
+
+Also, there is a relatively new error message during start up: https://community.jboss.org/message/879861?et=watches.email.thread#879861 it doesn't seem to affect the behaviour but it would be worth trying to remove the issue.

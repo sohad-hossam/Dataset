@@ -1,0 +1,6 @@
+Arquillian server startup timeout should be configurable in tests
+Arquillian configuration for tests which lays in _arquillian.xml_ currently does not permit changing timeou for server startup. Default timeout for server startup is 60 seconds. If server is not up and running till that time Arquillian stops the serve process and {{LifecycleException}} is thrown informing that server was not started.
+
+If tests (like txbridge or xts) are run with container which uses _jdbc object store_ and connection to database is slow. It could happen that 60 seconds is not enough for serve being started and tests start to fail. The easy solution is to wait a bit more for server would be started.
+
+Then add configuration property {{startupTimeoutInSeconds}} to {{arquillian.xml}} files which are configured to start jboss/wildfly server and let user to configure the option.

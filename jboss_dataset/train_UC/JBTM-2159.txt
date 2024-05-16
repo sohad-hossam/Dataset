@@ -1,0 +1,31 @@
+It is possible for the CommitMarkableResource recovery manager to attempt to activate an AtomicAction while it is being committed which can cause filenotfoundstacktrace and NullPointerException
+Basically:
+
+1. App thread creates AA
+2. AA UID is seen in phase1 recovery thread by CommitMarkableResourceRecoveryModule
+3. App thread commits AA
+4. App thread deletes AA UID
+5. Recovery thread tries to activate AA with UID in CommitMarkableResourceRecoveryModule but it gets exceptions as shown here: 
+12:23:07 [0m[33m12:23:07,915 WARN  [com.arjuna.ats.arjuna] (Periodic Recovery) Could not query objectstore: : java.io.IOException: java.lang.NullPointerException
+12:23:07 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:732) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 	at com.arjuna.ats.internal.jta.recovery.arjunacore.RecoverConnectableAtomicAction.<init>(RecoverConnectableAtomicAction.java:52) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 	at com.arjuna.ats.internal.jta.recovery.arjunacore.CommitMarkableResourceRecordRecoveryModule.periodicWorkFirstPass(CommitMarkableResourceRecordRecoveryModule.java:379) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:743) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 Caused by: java.lang.NullPointerException
+12:23:07 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:697) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+12:23:07 	... 4 more
+12:23:07 
+15:16:36 [0m[33m15:16:36,247 WARN  [com.arjuna.ats.arjuna] (Periodic Recovery) Could not query objectstore: : com.arjuna.ats.arjuna.exceptions.ObjectStoreException: ShadowingStore::read_state error: java.io.FileNotFoundException: /tmp/activemq-soak/ibm-mq-testsuite/src/test/config/activemq/install/target/jboss-eap/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/0_ffff0a106418_-2b02421b_534ffd61_4c1764 (No such file or directory)
+15:16:36 	at com.arjuna.ats.internal.arjuna.objectstore.ShadowingStore.read_state(ShadowingStore.java:412) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	at com.arjuna.ats.internal.arjuna.objectstore.FileSystemStore.read_committed(FileSystemStore.java:98) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	at com.arjuna.ats.internal.jta.recovery.arjunacore.RecoverConnectableAtomicAction.<init>(RecoverConnectableAtomicAction.java:48) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	at com.arjuna.ats.internal.jta.recovery.arjunacore.CommitMarkableResourceRecordRecoveryModule.periodicWorkFirstPass(CommitMarkableResourceRecordRecoveryModule.java:379) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:743) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 Caused by: java.io.FileNotFoundException: /tmp/activemq-soak/ibm-mq-testsuite/src/test/config/activemq/install/target/jboss-eap/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/0_ffff0a106418_-2b02421b_534ffd61_4c1764 (No such file or directory)
+15:16:36 	at java.io.FileInputStream.open(Native Method) [rt.jar:1.7.0_51]
+15:16:36 	at java.io.FileInputStream.<init>(FileInputStream.java:146) [rt.jar:1.7.0_51]
+15:16:36 	at com.arjuna.ats.internal.arjuna.objectstore.ShadowingStore.read_state(ShadowingStore.java:406) [jbossjts-jacorb-4.17.18.Final-redhat-1.jar:4.17.18.Final-redhat-1]
+15:16:36 	... 5 more
+15:16:36 

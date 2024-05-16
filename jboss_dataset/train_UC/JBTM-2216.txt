@@ -1,0 +1,23 @@
+Extraneous warning message observed in XARecoveryModule.xaRecoverySecondPass if the first pass has already failed
+When using AMQ failover protocol, the Narayana recovery process generates the following exception:
+{noformat}
+10:19:36,053 INFO  [org.apache.activemq.transport.failover.FailoverTransport] (ActiveMQ Task-1) Successfully connected to tcp://ragga:61616?trace=true
+10:21:46,139 INFO  [org.apache.activemq.transport.failover.FailoverTransport] (ActiveMQ Task-1) Successfully connected to tcp://ragga:61616?trace=true
+10:21:46,139 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016027: Local XARecoveryModule.xaRecovery got XA exception XAException.XAER_RMERR: javax.transaction.xa.XAException: Failover transport not connected: unconnected
+	at org.apache.activemq.TransactionContext.recover(TransactionContext.java:656)
+	at org.apache.activemq.ra.LocalAndXATransaction.recover(LocalAndXATransaction.java:135)
+	at org.jboss.jca.core.tx.jbossts.XAResourceWrapperImpl.recover(XAResourceWrapperImpl.java:177)
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoveryFirstPass(XARecoveryModule.java:548) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkFirstPass(XARecoveryModule.java:187) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:743) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+
+10:21:56,165 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016008: Local XARecoveryModule.xaRecovery - caught exception: java.lang.NullPointerException
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:619) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:431) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:212) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [jbossjts-jacorb-4.17.21.Final-redhat-1.jar:4.17.21.Final-redhat-1]
+{noformat}
+
+Although the first message may be expected if the resource manager throws an exception in XAResource::recover(), the second message does not add any further assistance in resolving the issue and should be removed as noise.

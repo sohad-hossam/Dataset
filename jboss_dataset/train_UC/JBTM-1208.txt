@@ -1,0 +1,2 @@
+Improve XTS Recovery Tests' BaseCrashTest to log contents of TxObjectStore if not empty
+checkTxObjectStore(File objectStore) is invoked to check if the object store is empty after a test completes. If it is not empty, we have a problem. To help debug these problems, we should log the directory structure to the console. We should also log the contents of the recovery records.

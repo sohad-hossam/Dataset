@@ -1,0 +1,95 @@
+Activity cancelled by coordinator in CloseTest
+{code}
+-------------------------------------------------------------------------------
+Test set: com.arjuna.wstx.tests.arq.ba.CloseTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 5.866 sec <<< FAILURE!
+testClose(com.arjuna.wstx.tests.arq.ba.CloseTest)  Time elapsed: 2.375 sec  <<< ERROR!
+com.arjuna.wst.TransactionRolledBackException: null
+	at com.arjuna.wst11.stub.BusinessActivityTerminatorStub.close(BusinessActivityTerminatorStub.java:95)
+	at com.arjuna.mwlabs.wst11.ba.remote.UserBusinessActivityImple.close(UserBusinessActivityImple.java:157)
+	at com.arjuna.wstx.tests.arq.ba.CloseTest.testClose(CloseTest.java:64)
+{code}
+
+{code}
+[0m18:45:37,613 INFO  [org.jboss.as.repository] (management-handler-thread - 8) WFLYDR0001: Content added at location /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/standalone/data/content/2a/0685005c0b26622b16a38150f088bad88f5ed8/content
+[0m[0m18:45:37,616 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[33m18:45:37,860 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) WFLYSRV0018: Deployment "deployment.test.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[0m18:45:37,927 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0003: Processing weld deployment test.war
+[0m[0m18:45:37,941 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0006: Starting Services for CDI deployment: test.war
+[0m[0m18:45:37,946 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0009: Starting weld service for deployment test.war
+[0m[0m18:45:38,228 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0021: Registered web context: /test
+[0m[0m18:45:38,406 INFO  [org.jboss.as.server] (management-handler-thread - 8) WFLYSRV0010: Deployed "test.war" (runtime-name : "test.war")
+[0m[0m18:45:38,418 INFO  [stdout] (Thread-0) TransformListener() : handling connection on port 9091
+[0m[0m18:45:38,492 INFO  [stdout] (Thread-0) retransforming org.jboss.jbossts.xts.bytemanSupport.participantCompletion.ParticipantCompletionCoordinatorRules
+[0m[0m18:45:38,492 INFO  [stdout] (Thread-0) retransforming com.arjuna.wst11.messaging.engines.ParticipantCompletionCoordinatorEngine
+[0m[0m18:45:38,493 INFO  [stdout] (Thread-0) retransforming com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:38,495 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : possible trigger for rule create counter in class org.jboss.jbossts.xts.bytemanSupport.participantCompletion.ParticipantCompletionCoordinatorRules
+[0m[0m18:45:38,496 INFO  [stdout] (Thread-0) RuleTriggerMethodAdapter.injectTriggerPoint : inserting trigger into org.jboss.jbossts.xts.bytemanSupport.participantCompletion.ParticipantCompletionCoordinatorRules.setParticipantCount(java.lang.Integer) void for rule create counter
+[0m[0m18:45:38,497 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : inserted trigger for create counter in class org.jboss.jbossts.xts.bytemanSupport.participantCompletion.ParticipantCompletionCoordinatorRules
+[0m[0m18:45:38,514 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : possible trigger for rule complete called in class com.arjuna.wst11.messaging.engines.ParticipantCompletionCoordinatorEngine
+[0m[0m18:45:38,517 INFO  [stdout] (Thread-0) RuleTriggerMethodAdapter.injectTriggerPoint : inserting trigger into com.arjuna.wst11.messaging.engines.ParticipantCompletionCoordinatorEngine.completed(org.oasis_open.docs.ws_tx.wsba._2006._06.NotificationType,org.jboss.ws.api.addressing.MAP,com.arjuna.webservices11.wsarj.ArjunaContext) void for rule complete called
+[0m[0m18:45:38,536 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : inserted trigger for complete called in class com.arjuna.wst11.messaging.engines.ParticipantCompletionCoordinatorEngine
+[0m[0m18:45:38,552 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : possible trigger for rule cancel called in class com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:38,554 INFO  [stdout] (Thread-0) RuleTriggerMethodAdapter.injectTriggerPoint : inserting trigger into com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl.cancelOperation(com.arjuna.schemas.ws._2005._10.wsarjtx.NotificationType) void for rule cancel called
+[0m[0m18:45:38,556 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : inserted trigger for cancel called in class com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:38,558 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : possible trigger for rule close called in class com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:38,559 INFO  [stdout] (Thread-0) RuleTriggerMethodAdapter.injectTriggerPoint : inserting trigger into com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl.closeOperation(com.arjuna.schemas.ws._2005._10.wsarjtx.NotificationType) void for rule close called
+[0m[0m18:45:38,560 INFO  [stdout] (Thread-0) org.jboss.byteman.agent.Transformer : inserted trigger for close called in class com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:39,123 INFO  [stdout] (default task-16) Rule.execute called for create counter_3
+[0m[0m18:45:39,124 INFO  [stdout] (default task-16) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:39,124 INFO  [stdout] (default task-16) calling activated() for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:39,124 INFO  [stdout] (default task-16) Default helper activated
+[0m[0m18:45:39,124 INFO  [stdout] (default task-16) calling installed(create counter) for helper classorg.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:39,125 INFO  [stdout] (default task-16) Installed rule using default helper : create counter
+[0m[0m18:45:39,135 INFO  [stdout] (default task-16) create counter execute
+[0m[0m18:45:39,135 INFO  [stdout] (default task-16) rule.debug{create counter} : participant_completion.counter.create: 1
+[0m[0m18:45:39,158 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}ActivationService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wscoor/_2006/_06/wsdl/wscoor-activation-binding.wsdl
+[0m[0m18:45:39,205 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}ActivationService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wscoor/_2006/_06/wsdl/wscoor-activation-binding.wsdl
+[0m[0m18:45:39,282 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}RegistrationService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wscoor/_2006/_06/wsdl/wscoor-registration-binding.wsdl
+[0m[33m18:45:40,131 WARN  [com.arjuna.wst] (default task-16) ARJUNA043225: Could not save recovery state for non-serializable WS-BA participant 1235
+[0m[0m18:45:40,188 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsba/_2006/_06/wsdl/wsba-participant-completion-coordinator-binding.wsdl
+[0m[0m18:45:41,372 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Timer-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsba/_2006/_06/wsdl/wsba-participant-completion-coordinator-binding.wsdl
+[0m[0m18:45:42,052 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}RegistrationService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wscoor/_2006/_06/wsdl/wscoor-registration-binding.wsdl
+[0m[0m18:45:42,090 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (default task-16) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/com/arjuna/schemas/ws/_2005/_10/wsarjtx/wsdl/wsarjtx-termination-coordinator-binding.wsdl
+[0m[0m18:45:42,409 INFO  [stdout] (default-workqueue-2) Rule.execute called for close called_6
+[0m[0m18:45:42,410 INFO  [stdout] (default-workqueue-2) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,411 INFO  [stdout] (default-workqueue-2) calling installed(close called) for helper classorg.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,411 INFO  [stdout] (default-workqueue-2) Installed rule using default helper : close called
+[0m[0m18:45:42,411 INFO  [stdout] (default-workqueue-2) close called execute
+[0m[0m18:45:42,412 INFO  [stdout] (default-workqueue-2) rule.debug{close called} : participant_completion.close.waiting
+[0m[0m18:45:42,412 INFO  [stdout] (TaskWorker-2) Rule.execute called for complete called_4
+[0m[0m18:45:42,413 INFO  [stdout] (TaskWorker-2) HelperManager.install for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,413 INFO  [stdout] (TaskWorker-2) calling installed(complete called) for helper classorg.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,413 INFO  [stdout] (TaskWorker-2) Installed rule using default helper : complete called
+[0m[0m18:45:42,413 INFO  [stdout] (TaskWorker-2) complete called execute
+[0m[0m18:45:42,414 INFO  [stdout] (TaskWorker-2) rule.debug{complete called} : participant_completion.counter.decrement
+[0m[0m18:45:42,414 INFO  [stdout] (TaskWorker-2) rule.debug{complete called} : participant_completion.called.waking
+[0m[0m18:45:42,414 INFO  [stdout] (default-workqueue-2) rule.debug{close called} : participant_completion.close.woken
+[0m[0m18:45:42,415 INFO  [stdout] (TaskWorker-2) rule.debug{complete called} : participant_completion.called.donewake
+[0m[33m18:45:42,415 WARN  [com.arjuna.mw.wstx] (TaskWorker-2) ARJUNA045062: Coordinator cancelled the activity
+[0m[0m18:45:42,428 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-2) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantService from WSDL: jar:file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/com/arjuna/schemas/ws/_2005/_10/wsarjtx/wsdl/wsarjtx-termination-participant-binding.wsdl
+[0m[0m18:45:42,439 INFO  [stdout] (TaskWorker-1) Rule.execute called for complete called_4
+[0m[0m18:45:42,441 INFO  [stdout] (TaskWorker-1) complete called execute
+[0m[0m18:45:42,496 INFO  [stdout] (Thread-0) TransformListener() : handling connection on port 9091
+[0m[0m18:45:42,598 INFO  [stdout] (Thread-0) retransforming org.jboss.jbossts.xts.bytemanSupport.participantCompletion.ParticipantCompletionCoordinatorRules
+[0m[0m18:45:42,599 INFO  [stdout] (Thread-0) retransforming com.arjuna.wst11.messaging.engines.ParticipantCompletionCoordinatorEngine
+[0m[0m18:45:42,599 INFO  [stdout] (Thread-0) retransforming com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+[0m[0m18:45:42,815 INFO  [stdout] (Thread-0) HelperManager.uninstall for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,816 INFO  [stdout] (Thread-0) calling uninstalled(create counter) for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,816 INFO  [stdout] (Thread-0) Uninstalled rule using default helper : create counter
+[0m[0m18:45:42,817 INFO  [stdout] (Thread-0) HelperManager.uninstall for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,817 INFO  [stdout] (Thread-0) calling uninstalled(complete called) for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,818 INFO  [stdout] (Thread-0) Uninstalled rule using default helper : complete called
+[0m[0m18:45:42,818 INFO  [stdout] (Thread-0) HelperManager.uninstall for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,819 INFO  [stdout] (Thread-0) calling uninstalled(close called) for helper class org.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,819 INFO  [stdout] (Thread-0) Uninstalled rule using default helper : close called
+[0m[0m18:45:42,819 INFO  [stdout] (Thread-0) calling deactivated() for helper classorg.jboss.byteman.rule.helper.Helper
+[0m[0m18:45:42,820 INFO  [stdout] (Thread-0) Default helper deactivated
+[0m[0m18:45:42,830 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0022: Unregistered web context: /test
+[0m[0m18:45:42,845 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m18:45:42,855 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 26ms
+[0m[0m18:45:42,942 INFO  [org.jboss.as.repository] (management-handler-thread - 7) WFLYDR0002: Content removed from location /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/standalone/data/content/2a/0685005c0b26622b16a38150f088bad88f5ed8/content
+[0m[0m18:45:42,942 INFO  [org.jboss.as.server] (management-handler-thread - 7) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0m
+{code}

@@ -1,0 +1,2 @@
+TransactionalInterceptorBase doesn't implement Serializable
+See: WFLY-1929

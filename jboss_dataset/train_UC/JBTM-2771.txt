@@ -1,0 +1,2 @@
+JTS XAResources that throw XA_RETRY or XAER_RMFAIL cannot be retried
+There is a flag that is persisted _committed which defines if a commit was attempted on an XAResource. In the case where the XAR returned XARETRY for example, we would have consulted that flag and not reattempted the commit.

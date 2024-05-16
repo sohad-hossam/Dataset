@@ -1,0 +1,16 @@
+Merge XTS JUnit and Arquillian tests
+When migrating the XTS tests to Arquillian, we wanted to make sure that the old tests where still functional whilst the Arquillian counterparts stabilized. As a result we now have two classes for each test. The Arquillian test delegates each @Test method to the corresponding @Test in the old suite.
+
+For example: 
+
+We have the actual test in:
+
+./XTS/localjunit/WSTX/src/main/java/com/arjuna/wst11/tests/arq/ba/MultiClose.java
+
+And then a Arquillian JUnit test which just calls the test methods above is here: 
+
+./XTS/localjunit/WSTX/src/test/java/com/arjuna/wst11/tests/arq/ba/MultiCloseTest.java
+
+To resolve this issue, we should remove the tests under './XTS/localjunit/WSTX/src/main/java' and merge the test methods into Arquillian test. At the end of this process "./XTS/localjunit/WSTX/src/main" should be empty (and thus removed).
+
+This applies to most, if not all suites under "./XTS/localjunit/".

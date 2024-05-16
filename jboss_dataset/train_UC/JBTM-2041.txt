@@ -1,0 +1,7 @@
+Blacktie distribution bin path permissions too restrictive
+Download and unpack the distribution. The permissions on the bin folder are too restrictive (it also causes problems with the quickstarts):
+
+[mmusgrov@localhost blacktie-5.0.0.CR2-SNAPSHOT]$ ls -l
+total 5876
+d---------. 2 mmusgrov mmusgrov    4096 Nov 20 15:25 bin
+

@@ -1,0 +1,4 @@
+narayana-codeCoverage CI job is not producing any output
+The job config fails to produce the report if we don't run any qa tests during a build. See the following job for example:
+
+http://albany.eng.hst.ams2.redhat.com/job/narayana-codeCoverage/194/consoleFull

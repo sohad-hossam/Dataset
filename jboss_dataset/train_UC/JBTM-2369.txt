@@ -1,0 +1,6 @@
+Include output of the hardware used when reporting benchmark results
+Anything we can get from the OS would be useful. If we can't get vendor and spec automatically we will need to identify these manually and maybe have a document somewhere that we can link to in the results.
+
+e.g. ran on haverstraw, haverstraw spec is http://narayana.io/perfmachinespecs/haverstraw.html
+
+Or something like that.

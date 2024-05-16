@@ -1,0 +1,4 @@
+Expose timed delivery feature of hornetq in btenqueue
+It would be good to be able to specify a delivery time for the message (either relative or absolute) in the btenqueue.
+
+on #jbossts it was discussed and apparently HornetQ does support this so it just needs to be exposed to the blacktie interface.

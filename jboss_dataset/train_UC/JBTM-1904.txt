@@ -1,0 +1,4 @@
+develop the blacktie subsystem in a separate repo
+investigate a way to develop a subsystem in a separate repo to the wildfly one and drop it into an unzipped wildfly for instance.
+
+I don't think we will get the subsystem merged into wildfly unless we do some drastic work we can't afford at the moment like to reimplement with XNIO.

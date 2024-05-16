@@ -1,0 +1,26 @@
+Transaction .equals() methods do not comply with specification
+The JTA specification has this to say about Transaction.equals():
+
+{quote}
+The transaction manager must implement the Transaction object's {{equals}} method to allow comparison between the target object and another Transaction object. The {{equals}} method should return {{true}} if the target object and the parameter object both refer to the same global transaction.
+
+For example, the application server may need to compare two Transaction objects when trying to reuse a resource that is already enlisted with a transaction. This can be done using the {{equals}} method.
+
+{code}
+Transaction txObj = TransactionManager.getTransaction();
+Transaction someOtherTxObj = ..
+..
+boolean isSame = txObj.equals(someOtherTxObj);
+{code}
+
+In addition, the transaction manager must implement the Transaction object's {{hashCode}} method so that if two Transaction objects are equal, they have the same hash code. However, the converse is not necessarily true. Two Transaction objects with the same hash code are not necessarily equal.
+{quote}
+
+There are several transaction implementation classes in Narayana including:
+* {{com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.jca.TransactionImple}}
+* {{com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.TransactionImple}}
+* {{com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple}}
+
+Sometimes it comes to pass that, for whatever reason, importing a transaction might return a transaction instance of a different type than what was previously returned.  In this case the flaw in the {{equals}} method is clear: it compares the types for effective equality before it compares the UID, causing two transactions of different types which refer to the same global transaction to be non-equal, which causes integrity checks in the remote JTA code to fail.
+
+I'll provide a PR that fixes the issue which you can use if you want.

@@ -1,0 +1,4 @@
+Update openjdk-orb library to 8.0.4.Final
+openjdk-orb library needs updating to 8.0.4.Final which reverts a change made in 8.0.2.Final that allowed runner threads to finish before shutdown.
+
+Tomek I cannot find any reference to why you reverted the change - do you have one?

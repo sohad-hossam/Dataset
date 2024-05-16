@@ -1,0 +1,4 @@
+Raise a JTA HeuristicMixed if a one phase commit XAResource raises RMFAIL
+If a one phase commit is performed on an XAResource and it raises RMFAIL we have no way to know whether the resource committed or rolled back. We currently do not raise an exception in this scenario as an interpretation of the XA spec allows us to.
+
+We have had community feedback that this has an issue for user applications and having consulted with the rest of our community and no negative comments received we will modify the behavior so that this scenario results in the closest exception that JTA allows HeuristicMixed.

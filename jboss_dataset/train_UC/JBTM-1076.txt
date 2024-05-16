@@ -1,0 +1,23 @@
+Uid serialization violates java serialization spec
+According to the Java serialization spec each private writeObject method should call either defaultWriteObject or writeFields method. This is missing in com.arjuna.ats.arjuna.common.Uid#writeObject() method. Similar issue also affects the readObject method of the Uid class.
+
+See the spec:
+http://docs.oracle.com/javase/6/docs/platform/serialization/spec/output.html#861
+
+
+I've identified this bug when I tried to use RecoveryStoreProxy from the client side against AS7 via JMX. The invocation of allTypes or remove_committed methods failed due to:
+{noformat}
+Caused by: java.io.NotActiveException: Fields were never written
+	at org.jboss.marshalling.river.RiverObjectOutputStream.finish(RiverObjectOutputStream.java:175)
+	at org.jboss.marshalling.river.RiverMarshaller.doWriteSerializableObject(RiverMarshaller.java:1009)
+	at org.jboss.marshalling.river.RiverMarshaller.doWriteObject(RiverMarshaller.java:885)
+	at org.jboss.marshalling.AbstractObjectOutput.writeObject(AbstractObjectOutput.java:62)
+	at org.jboss.marshalling.AbstractMarshaller.writeObject(AbstractMarshaller.java:119)
+	at org.jboss.remotingjmx.protocol.v1.ClientConnection$TheConnection$15.write(ClientConnection.java:1181)
+	at org.jboss.remotingjmx.protocol.v1.Common.write(Common.java:179)
+	at org.jboss.remotingjmx.protocol.v1.ClientConnection$TheConnection.invoke(ClientConnection.java:1163)
+	at javax.management.MBeanServerInvocationHandler.invoke(MBeanServerInvocationHandler.java:288)
+	... 92 more
+Caused by: an exception which occurred:
+	in object com.arjuna.ats.arjuna.common.Uid@0
+{noformat}

@@ -1,0 +1,4 @@
+Update the build process to build a binary distribution of Narayana during normal install phase
+./build.sh install (or just ./build.sh - install is the default) should build the release zip.
+
+We have removed the JavaDocs from the dist as these are available online (including previous versions) and this is consistent with not including the docs either.

@@ -1,0 +1,4 @@
+jacoco failures
+http://albany.eng.hst.ams2.redhat.com/job/narayana-codeCoverage/240/console
+
+The qa build is attempting to instrument java classes.

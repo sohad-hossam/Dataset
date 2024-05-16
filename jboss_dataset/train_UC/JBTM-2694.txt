@@ -1,0 +1,5 @@
+Use InVM connector factory for JMS integration tests
+Port 61616 doesn't work reliably on Windows boxes:
+http://stackoverflow.com/questions/11700233/activemq-cant-run-due-to-address-already-in-use-error
+
+Move tests to using InVM connector

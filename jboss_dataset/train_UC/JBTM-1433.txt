@@ -1,0 +1,92 @@
+Strange XA recovery behaviour - after sucessful commit is recovery called second
+Hi,
+
+I've hit problem for functionality of XA recovery. This was found because of CI job running against master (http://hudson.qa.jboss.com/hudson/job/jbossts-crashrec-tests-postgresql91-master-ci/)
+After change of TM for the 5.0.0.M2 this started to occur.
+
+This problem is not just for postgresql but on all DBs tested by CI runs (oracle, db2.97, sybase).
+
+*What is tested and what's happening*
+Test halts server at commit phase (used byteman) before commit is done.
+The test enlists the resource of DB to transaction and then it enlists one XA resource created just for testing purposes for us having 2 participants in the transaction.
+After some debugging I think (but I'm not sure) that when server starts after halt the recovery runs fine. Commit is provided (or at least the DB record is updated sucessfully). But after that narayana tries to run some second round of recovery and in spite of the fact that the transaction was successfully committed (and it seems to be deleted from object store) it tries to do recovery on this transaction once more and the resource manager returns exception because it does not know that id already. 
+I think that the problem is starting with message:
+{code}
+15:25:28,570 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016008: Local XARecoveryModule.xaRecovery - caught exception: java.lang.NullPointerException
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:598) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:413) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:193) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+{code}
+
+
+More from log:
+{code}
+15:25:28,386 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) BasicAction::doCommit (XAResourceRecord < resource:XAResourceWrapperImpl@11455a2[xaResource=org.jboss.jca.adapters.jdbc.xa.XAManagedConnection@212b9 pad=false overrideRmValue=null productName=PostgreSQL productVersion=9.1.4 jndiName=java:jboss/xa-datasources/VerificationDS], txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS >, heuristic: TwoPhaseOutcome.FINISH_OK, product: PostgreSQL/9.1.4, jndiName: java:jboss/xa-datasources/CrashRecoveryDS com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@13c2797 >)
+15:25:28,386 TRACE [com.arjuna.ats.jta] (Periodic Recovery) XAResourceRecord.topLevelCommit for XAResourceRecord < resource:XAResourceWrapperImpl@11455a2[xaResource=org.jboss.jca.adapters.jdbc.xa.XAManagedConnection@212b9 pad=false overrideRmValue=null productName=PostgreSQL productVersion=9.1.4 jndiName=java:jboss/xa-datasources/VerificationDS], txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS >, heuristic: TwoPhaseOutcome.FINISH_OK, product: PostgreSQL/9.1.4, jndiName: java:jboss/xa-datasources/CrashRecoveryDS com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@13c2797 >
+15:25:28,568 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) BasicAction::updateState() for action-id 0:ffff7f000001:3d6777ab:50f804c8:2b
+15:25:28,568 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.remove_committed(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction)
+15:25:28,568 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.remove_state(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_ORIGINAL)
+15:25:28,568 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_SHADOW)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, 10)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_ORIGINAL)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, 11)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.currentState(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction) - returning StateStatus.OS_COMMITTED
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_ORIGINAL)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, 11)
+15:25:28,569 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.openAndLock(/home/ochaloup/Transactions/eap-tests-transactions/integration/jbossts/target/jbossas-jbossts/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/0_ffff7f000001_3d6777ab_50f804c8_2b, FileLock.F_WRLCK, false)
+15:25:28,570 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.closeAndUnlock(/home/ochaloup/Transactions/eap-tests-transactions/integration/jbossts/target/jbossas-jbossts/standalone/data/tx-object-store/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/0_ffff7f000001_3d6777ab_50f804c8_2b, null, null)
+15:25:28,570 DEBUG [com.arjuna.ats.arjuna] (Periodic Recovery) RecoverAtomicAction.replayPhase2( 0:ffff7f000001:3d6777ab:50f804c8:2b )  finished
+15:25:28,570 DEBUG [com.arjuna.ats.arjuna] (Periodic Recovery)  
+15:25:28,570 DEBUG [com.arjuna.ats.txoj] (Periodic Recovery) TORecoveryModule - second pass
+15:25:28,570 DEBUG [com.arjuna.ats.arjuna] (Periodic Recovery)  
+15:25:28,570 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Local XARecoveryModule - second pass
+15:25:28,570 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Local XARecoveryModule.transactionInitiatedRecovery completed
+15:25:28,570 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016008: Local XARecoveryModule.xaRecovery - caught exception: java.lang.NullPointerException
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:598) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:413) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:193) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [narayana-jts-jacorb-5.0.0.M2-SNAPSHOT.jar:5.0.0.M2-SNAPSHOT (revision: 1fa9d41e685713c7323222a0bb83e41ec1fd3d31)]
+
+15:25:28,571 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Have 1 Xids to recover on this pass.
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) StateManager::StateManager( 2, 0 )
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) BasicAction::BasicAction()
+15:25:28,572 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Checking whether Xid < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS > exists in ObjectStore.
+15:25:28,572 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Looking for 0:ffff7f000001:3d6777ab:50f804c8:2b and /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_SHADOW)
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, 10)
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, StateType.OS_ORIGINAL)
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) FileSystemStore.genPathName(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction, 11)
+15:25:28,572 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) ShadowingStore.currentState(0:ffff7f000001:3d6777ab:50f804c8:2b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction) - returning StateStatus.OS_UNKNOWN
+15:25:28,572 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) No record found for < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS >
+15:25:28,573 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) XAResourceOrphanFilter com.arjuna.ats.internal.jta.recovery.arjunacore.JTATransactionLogXAResourceOrphanFilter voted ABSTAIN
+15:25:28,573 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) node name of < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS > is 1
+15:25:28,573 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) XAResourceOrphanFilter com.arjuna.ats.internal.jta.recovery.arjunacore.JTANodeNameXAResourceOrphanFilter voted ROLLBACK
+15:25:28,573 INFO  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016013: Rolling back < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:34, subordinatenodename=null, eis_name=java:jboss/xa-datasources/CrashRecoveryDS >
+15:25:28,746 ERROR [stderr] (Periodic Recovery) org.postgresql.xa.PGXAException: Error rolling back prepared transaction
+15:25:28,746 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.xa.PGXAConnection.rollback(PGXAConnection.java:416)
+15:25:28,746 ERROR [stderr] (Periodic Recovery) 	at org.jboss.jca.adapters.jdbc.xa.XAManagedConnection.rollback(XAManagedConnection.java:342)
+15:25:28,747 ERROR [stderr] (Periodic Recovery) 	at org.jboss.jca.core.tx.jbossts.XAResourceWrapperImpl.rollback(XAResourceWrapperImpl.java:174)
+15:25:28,747 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.handleOrphan(XARecoveryModule.java:734)
+15:25:28,747 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:640)
+15:25:28,747 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:413)
+15:25:28,747 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:193)
+15:25:28,748 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789)
+15:25:28,748 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371)
+15:25:28,748 ERROR [stderr] (Periodic Recovery) Caused by: org.postgresql.util.PSQLException: ERROR: prepared transaction with identifier "131077_AAAAAAAAAAAAAP//fwAAAT1nd6tQ+ATIAAAAKzE=_AAAAAAAAAAAAAP//fwAAAT1nd6tQ+ATIAAAANAAAAAEAAAAA" does not exist
+15:25:28,748 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.core.v3.QueryExecutorImpl.receiveErrorResponse(QueryExecutorImpl.java:2101)
+15:25:28,749 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.core.v3.QueryExecutorImpl.processResults(QueryExecutorImpl.java:1834)
+15:25:28,749 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.core.v3.QueryExecutorImpl.execute(QueryExecutorImpl.java:255)
+15:25:28,749 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.jdbc2.AbstractJdbc2Statement.execute(AbstractJdbc2Statement.java:510)
+15:25:28,749 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeWithFlags(AbstractJdbc2Statement.java:372)
+15:25:28,749 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.jdbc2.AbstractJdbc2Statement.executeUpdate(AbstractJdbc2Statement.java:300)
+15:25:28,750 ERROR [stderr] (Periodic Recovery) 	at org.postgresql.xa.PGXAConnection.rollback(PGXAConnection.java:406)
+15:25:28,750 ERROR [stderr] (Periodic Recovery) 	... 8 more
+15:25:28,750 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Have 0 Xids to recover on this pass.
+15:25:28,750 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Have 1 Xids to recover on this pass.
+15:25:28,750 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) StateManager::StateManager( 2, 0 )
+15:25:28,750 TRACE [com.arjuna.ats.arjuna] (Periodic Recovery) BasicAction::BasicAction()
+15:25:28,750 DEBUG [com.arjuna.ats.jta] (Periodic Recovery) Checking whether Xid < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000001:3d6777ab:50f804c8:2b, node_name=1, branch_uid=0:ffff7f000001:3d6777ab:50f804c8:2e, subordinatenodename=null, eis_name=unknown eis name > exists in ObjectStore.
+{code}

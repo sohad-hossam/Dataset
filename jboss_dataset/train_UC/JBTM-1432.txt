@@ -1,0 +1,12 @@
+Provide information about the uid of the transaction that you are aborting
+I came across the following investigating a support case:
+https://community.jboss.org/wiki/TxMultipleThreads
+This article is excellent, however it highlighted to me a slight deficiency in the "The transaction is not active!" log statement.
+
+I think we should put the uid of the transaction in this statement too, this can then be cross referenced against the statement: "Abort of action id -3f57cb74:c9a4:499eb149:a92 invoked while multiple threads active within it."
+
+It would look something like: "The transaction is not active! Uid is -3f57cb74:c9a4:499eb149:a92"
+
+This means that without turning on tracing you can be sure that your XAR was not wedged because you can see the business logic at least attempting to complete the transaction. It will also be useful to help a customer determine a suitable timeout value as often the logging is accompanied by timestamps so it will be quite straight forward to work out how much longer to add to the timeouts.
+
+As I mentioned, this information *is* available today, but you have to enable tracing on the logging which is not always acceptable in a production environment.

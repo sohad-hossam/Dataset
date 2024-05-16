@@ -1,0 +1,31 @@
+Can not set the right jbossts properties file when running the commitmarkable test under the codeCoverage
+currently the ArjunaJTA/jta commitmarkable tests fails when running under the codeCoverage. The root cause is that the jbossts properties file does not set to the "commitmarkableresourcejbossts-properties.xml".
+
+The surefire-plugin config the system property com.arjuna.ats.arjuna.common.propertiesFile with "jbossts-properties.xml" in the codeCoverage profile
+https://github.com/jbosstm/narayana/blob/master/pom.xml#L645
+
+So the https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/commitmarkable/TestCommitMarkableResourceBase.java#L64
+{code}
+resetPropertiesFile = System
+	.getProperty("com.arjuna.ats.arjuna.common.propertiesFile");
+if (resetPropertiesFile == null) {
+	System.setProperty("com.arjuna.ats.arjuna.common.propertiesFile",
+		"commitmarkableresourcejbossts-properties.xml");
+}
+{code}
+
+the resetPropertiesFile does not be null and the if check statement is false, so the System.setProperty(...) can not run and the property is still the jbossts-properties.xml.
+
+the resetPropertiesFile could be used to revert to the origin value in the tearDown()
+https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/commitmarkable/TestCommitMarkableResourceBase.java#L79
+{code}
+if (resetPropertiesFile != null) {
+	System.setProperty("com.arjuna.ats.arjuna.common.propertiesFile",
+		resetPropertiesFile);
+} else {
+	System.clearProperty("com.arjuna.ats.arjuna.common.propertiesFile");
+}
+{code}
+
+This failure does not happen in the default profile as the surefire-plugin does not set this system property in the profile.
+

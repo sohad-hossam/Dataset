@@ -1,0 +1,3 @@
+ThreadUtil getThreadId(Thread) ignores argument
+During investigation of https://developer.jboss.org/thread/269784?start=15&tstart=0 it was observed that the ThreadUtil implementation does not use the Thread argument and simply uses a ThreadLocal:
+https://github.com/jbosstm/narayana/blob/master/ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/utils/ThreadUtil.java#L51

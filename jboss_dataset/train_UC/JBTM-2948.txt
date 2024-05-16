@@ -1,0 +1,53 @@
+NullPointer exception when beforeCompletion callback fails to prepare
+In case of before completion fails to be processed it happens to be called a handler of {{preventCompletion}}. There is potential issue of receiving {{NullPointerException}} as rollback is called and there was not created lists (heuristic one in particular) as {{prepare}} was not processed.
+
+This situation could happen in case of trouble of WS-AT XTS of volatile participant.
+
+Let's look at the stack trace talk.
+
+First this is a failure of the beforeCompletion
+
+{code}
+TRACE [com.arjuna.ats.jta] (executor-2) TransactionImple.getStatus: javax.transaction.Status.STATUS_ACTIVE
+WARN  [com.arjuna.ws.wscf] (executor-1) ARJUNA044067: SynchronizationRecord.beforeCompletion caught exception: com.arjuna.mw.wsas.exceptions.SystemException: com.arjuna.wst.stub.SystemCommunicationException
+	at com.arjuna.mwlabs.wst.at.participants.VolatileTwoPhaseCommitParticipant.beforeCompletion(VolatileTwoPhaseCommitParticipant.java:98)
+	at com.arjuna.mwlabs.wscf.model.twophase.arjunacore.SynchronizationRecord.beforeCompletion(SynchronizationRecord.java:77)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.beforeCompletion(TwoPhaseCoordinator.java:371)
+	at com.arjuna.mwlabs.wscf.model.twophase.arjunacore.subordinate.SubordinateATCoordinator.prepareVolatile(SubordinateATCoordinator.java:147)
+	at org.jboss.jbossts.xts.bridge.at.BridgeWrapper.prepareVolatile(BridgeWrapper.java:200)
+	at org.jboss.jbossts.txbridge.outbound.BridgeSynchronization.beforeCompletion(BridgeSynchronization.java:57)
+	at com.arjuna.ats.internal.jta.resources.arjunacore.SynchronizationImple.beforeCompletion(SynchronizationImple.java:76)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.beforeCompletion(TwoPhaseCoordinator.java:371)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:91)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1200)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:89)
+	at org.jboss.tm.usertx.client.ServerVMClientUserTransaction.commit(ServerVMClientUserTransaction.java:193)
+
+TRACE [com.arjuna.ats.arjuna] (executor-1) BasicAction::preventCommit( BasicAction: 0:ffffa70a35d8:6cd5ba87:59e51f1b:1d status: ActionStatus.RUNNING)
+WARN  [com.arjuna.ats.arjuna] (executor-1) ARJUNA012125: TwoPhaseCoordinator.beforeCompletion - failed for SynchronizationImple< 0:ffffa70a35d8:6cd5ba87:59e51f1b:22, org.jboss.jbossts.txbridge.outbound.BridgeSynchronization@5b29778 >: java.lang.RuntimeException: BridgeWrapper.prepareVolatile() returned false
+{code}
+
+as that failure happens we can see the later {{NullPointer}}
+
+{code}
+WARN  [com.arjuna.ats.arjuna] (executor-1) ARJUNA012089: Top-level abort of action 0:ffffa70a35d8:6cd5ba87:59e51f1b:1d received heuristic decision: TwoPhaseOutcome.HEURISTIC_HAZARD
+WARN  [com.arjuna.ats.jta] (executor-1) ARJUNA016045: attempted rollback of < formatId=131077, gtrid_length=37, bqual_length=36, tx_uid=0:ffffa70a35d8:6cd5ba87:59e51f1b:1c, node_name=csarTst03, branch_uid=0:ffffa70a35d8:6cd5ba87:59e51f1b:1f, subordinatenodename=null, eis_name=unknown eis name > (org.jboss.jbossts.txbridge.outbound.BridgeXAResource@3d67708e) failed with exception code -: java.lang.NullPointerException
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:3031)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2979)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Abort(BasicAction.java:1961)
+	at com.arjuna.mwlabs.wscf.model.twophase.arjunacore.subordinate.SubordinateATCoordinator.rollback(SubordinateATCoordinator.java:240)
+	at org.jboss.jbossts.xts.bridge.at.BridgeWrapper.rollback(BridgeWrapper.java:246)
+	at org.jboss.jbossts.txbridge.outbound.BridgeXAResource.rollback(BridgeXAResource.java:251)
+	at com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord.topLevelAbort(XAResourceRecord.java:369)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:3000)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2979)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.Abort(BasicAction.java:1658)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:99)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1200)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:89)
+	at org.jboss.tm.usertx.client.ServerVMClientUserTransaction.commit(ServerVMClientUserTransaction.java:193)
+{code}

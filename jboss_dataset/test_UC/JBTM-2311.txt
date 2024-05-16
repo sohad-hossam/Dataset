@@ -1,0 +1,13 @@
+Remove compiler warnings in CDI and STM related to: org.jboss.logging.annotations.MessageLogger
+{code}
+WARNING] Cannot find annotation method 'projectCode()' in type 'org.jboss.logging.annotations.MessageLogger': class file for org.jboss.logging.annotations.MessageLogger not found
+[WARNING] Cannot find annotation method 'id()' in type 'org.jboss.logging.annotations.Message': class file for org.jboss.logging.annotations.Message not found
+[WARNING] Cannot find annotation method 'value()' in type 'org.jboss.logging.annotations.Message'
+[WARNING] Cannot find annotation method 'format()' in type 'org.jboss.logging.annotations.Message'
+[WARNING] /c:/Users/tom/projects/jbosstm/narayana/ArjunaJTA/cdi/classes/com/arjuna/ats/jta/cdi/transactional/TransactionalInterceptorBase.java: unknown enum constant org.jboss.logging.annotations.Message.
+Format.MESSAGE_FORMAT
+  reason: class file for org.jboss.logging.annotations.Message$Format not found
+[WARNING] Cannot find annotation method 'level()' in type 'org.jboss.logging.annotations.LogMessage': class file for org.jboss.logging.annotations.LogMessage not found
+[WARNING] /c:/Users/tom/projects/jbosstm/narayana/ArjunaJTA/cdi/classes/com/arjuna/ats/jta/cdi/transactional/TransactionalInterceptorBase.java: unknown enum constant org.jboss.logging.Logger.Level.WARN
+  reason: class file for org.jboss.logging.Logger not found
+{code}

@@ -1,0 +1,5 @@
+BlackTie quickstarts don't build on Linux due to missing tao and expat imports
+I have created this job to identify issues like this in future:
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-quickstarts/
+
+The generate-executables file was not regularly tested on Linux and had got out of date when we moved to RTS as the transaction manager.

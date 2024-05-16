@@ -1,0 +1,12 @@
+BlackTie core does not compile on Fedora 25
+BlackTie core no longer compiles after upgrading to Fedora 25 (from Fedora 23). The error is in the STL:
+{code}
+       [cc] /home/mmusgrov/work/source/forks/narayana/master/blacktie/core/src/main/cpp/ThreadLocalStorage.cxx:52:87: error: no matching function for call to 'make_pair(apr_os_thread_t&, apr_pool_t*&)'
+       [cc]            tls_pools.insert(std::make_pair<apr_os_thread_t, apr_pool_t*>(os_th,tls_pool));
+{code}
+
+The fix is to let the library infer the types of the pair being inserted, ie:
+
+{code}
+tls_pools.insert(std::make_pair(os_th,tls_pool));
+{code}

@@ -1,0 +1,2 @@
+Inherited annotations
+More of an open question at this point: should the annotations be @Inherited? Needs careful thought and time I don't have at this point ;)

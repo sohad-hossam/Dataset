@@ -1,0 +1,298 @@
+Blacktie administration services test deployment fails
+{code}
+ T E S T S
+-------------------------------------------------------
+Running AdvertiseUnadvertiseTest
+[0m20:38:01,608 INFO  [org.jboss.as.repository] (management-handler-thread - 1) WFLYDR0001: Content added at location /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone/data/content/65/36deb9697994d21be752edb6296e8d3ea4456f/content
+[0m[0m20:38:01,662 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0027: Starting deployment of "test.war" (runtime-name: "test.war")
+[0m[31m20:38:02,983 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 1) WFLYCTL0013: Operation ("deploy") failed - address: ([("deployment" => "test.war")]) - failure description: {"WFLYCTL0180: Services with missing/unavailable dependencies" => undefined}
+[0m[0m20:38:02,999 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 12ms
+[0m[31m20:38:03,036 ERROR [org.jboss.as.server] (management-handler-thread - 1) WFLYSRV0021: Deploy of deployment "test.war" was rolled back with the following failure message: {"WFLYCTL0180: Services with missing/unavailable dependencies" => undefined}
+[0m[0m20:38:03,037 INFO  [org.jboss.as.controller] (management-handler-thread - 1) WFLYCTL0183: Service status report
+WFLYCTL0186:   Services which failed to start:      service jboss.undertow.listener.https: org.jboss.msc.service.StartException in service jboss.undertow.listener.https: Failed to start service
+
+[0mTests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 7.32 sec <<< FAILURE! - in AdvertiseUnadvertiseTest
+AdvertiseUnadvertiseTest  Time elapsed: 7.319 sec  <<< ERROR!
+org.jboss.arquillian.container.spi.client.container.DeploymentException: Cannot deploy: test.war
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:83)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:144)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:92)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:73)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:87)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:201)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:422)
+	at org.jboss.arquillian.junit.Arquillian.access$200(Arquillian.java:54)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:218)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:166)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+Caused by: java.lang.Exception: {"WFLYCTL0180: Services with missing/unavailable dependencies" => undefined}
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getActionResult(ServerDeploymentPlanResultFuture.java:134)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getResultFromNode(ServerDeploymentPlanResultFuture.java:123)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:85)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:42)
+	at org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.deploy(ServerDeploymentHelper.java:55)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:77)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:144)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:92)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:73)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:497)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:145)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:116)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:87)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:201)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:422)
+	at org.jboss.arquillian.junit.Arquillian.access$200(Arquillian.java:54)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:218)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:309)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:166)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:283)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeWithRerun(JUnit4Provider.java:173)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:153)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:128)
+	at org.apache.maven.surefire.booter.ForkedBooter.invokeProviderInSameClassLoader(ForkedBooter.java:203)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:155)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:103)
+
+
+Results :
+
+Tests in error: 
+  AdvertiseUnadvertiseTest.AdvertiseUnadvertiseTest » Deployment Cannot deploy: ...
+
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0
+
+[INFO] ------------------------------------------------------------------------
+[INFO] Reactor Summary:
+[INFO] 
+[INFO] Blacktie C++ Plugin ................................ SUCCESS [ 16.490 s]
+[INFO] BlackTie all files ................................. SUCCESS [  2.660 s]
+[INFO] Blacktie Defaults and Dependencies ................. SUCCESS [  0.096 s]
+[INFO] Blacktie C Defaults and Dependencies ............... SUCCESS [  7.708 s]
+[INFO] Blacktie Java JNI Tests ............................ SUCCESS [  3.153 s]
+[INFO] Blacktie Schemas ................................... SUCCESS [  2.247 s]
+[INFO] BlackTie Messaging (via JMS) ....................... SUCCESS [  5.733 s]
+[INFO] Blacktie Java XATMI Implementation ................. SUCCESS [05:37 min]
+[INFO] Blacktie Java NBF Implementation ................... SUCCESS [  4.431 s]
+[INFO] Blacktie Administration Services ................... FAILURE [ 52.390 s]
+[INFO] Blacktie Administration Services EAR ............... SKIPPED
+[INFO] Blacktie Core C++ Implementation ................... SKIPPED
+[INFO] Blacktie Codec C++ Implementation .................. SKIPPED
+[INFO] Blacktie C++ REST Transport ........................ SKIPPED
+[INFO] Blacktie Utilities ................................. SKIPPED
+[INFO] Blacktie C++ TX Client Library ..................... SKIPPED
+[INFO] Blacktie C++ Hybrid Transport ...................... SKIPPED
+[INFO] Blacktie C++ XATMI Implementation .................. SKIPPED
+[INFO] Blacktie C++ Queue Client .......................... SKIPPED
+[INFO] Blacktie NBF ....................................... SKIPPED
+[INFO] BlackTie Admin CLI Tool ............................ SKIPPED
+[INFO] Blacktie Server Code Generation .................... SKIPPED
+[INFO] Blacktie Java/C C/Java XATMI Tests ................. SKIPPED
+[INFO] Blacktie Distribution .............................. SKIPPED
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 07:36 min
+[INFO] Finished at: 2016-06-24T20:38:03+01:00
+[INFO] Final Memory: 60M/144M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.apache.maven.plugins:maven-surefire-plugin:2.18.1:test (default-test) on project blacktie-admin-services: There are test failures.
+[ERROR] 
+[ERROR] Please refer to /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/blacktie-admin-services/target/surefire-reports for the individual test results.
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :blacktie-admin-services
+UID        PID  PPID  C STIME TTY          TIME CMD
+hudson    8757  8755  0 Apr12 ?        00:22:38 sshd: hudson@notty
+hudson    8835  8757  0 Apr12 ?        00:00:00 bash -c cd "/home/hudson" && java  -jar slave.jar
+hudson    8852  8835  0 Apr12 ?        01:03:45 java -jar slave.jar
+hudson    9476 32418  0 Apr12 ?        00:00:18 /usr/local/jdk1.8.0_60/jre/bin/java -Dnames=.* -Dadditional.elements=-DObjectStoreEnvironmentBean.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.communicationStore.tablePrefix=Communication -DObjectStoreEnvironmentBean.communicationStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.stateStore.tablePrefix=stateStore -DObjectStoreEnvironmentBean.stateStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.tablePrefix=Action -DObjectStoreEnvironmentBean.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -DObjectStoreEnvironmentBean.stateStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -DObjectStoreEnvironmentBean.communicationStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -Dtest.timeout= -classpath /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/ext/junit.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/tests/build/jbossts-jts-qa.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/jbossjts.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-commons.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-journal.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-native.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-beanutils.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-collections.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-logging.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/dom4j.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/guava.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/hamcrest-core.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/ironjacamar-spec-api.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-connector-api_1.5_spec.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-logging-annotations.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-logging-processor.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-loggin
+hudson   14629     1  0 Apr08 ?        00:00:00 /bin/bash -xe /tmp/hudson1493082877525066780.sh
+hudson   14655 14629  0 Apr08 ?        00:00:00 /bin/bash -xe /tmp/hudson1493082877525066780.sh
+hudson   19882  8852  0 20:07 ?        00:00:00 /bin/bash -xe /tmp/hudson3887036970646544553.sh
+hudson   19887 19882  0 20:07 ?        00:00:00 /bin/bash -xe /tmp/hudson3887036970646544553.sh
+hudson   21590 19887  0 20:30 ?        00:00:00 /bin/sh blacktie/wildfly-10.1.0.Final-SNAPSHOT/bin/standalone.sh -c standalone-blacktie.xml -Djboss.bind.address=localhost -Djboss.bind.address.unsecure=localhost -Djboss.bind.address.management=localhost
+hudson   21646 21590  6 20:30 ?        00:00:30 /usr/local/jdk1.8.0_60//bin/java -D[Standalone] -server -Xmx256m -XX:MaxPermSize=256m -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE -Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone/log/server.log -Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone/configuration/logging.properties -jar /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/jboss-modules.jar -mp /home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/modules org.jboss.as.standalone -Djboss.home.dir=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT -Djboss.server.base.dir=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone -c standalone-blacktie.xml -Djboss.bind.address=localhost -Djboss.bind.address.unsecure=localhost -Djboss.bind.address.management=localhost
+hudson   22528 19887  0 20:38 ?        00:00:00 ps -f
+hudson   32418 14655  0 Apr12 ?        00:00:41 /usr/local/jdk1.8.0_60//jre/bin/java -classpath /home/hudson/apache-ant-1.8.2/lib/ant-launcher.jar -Dant.home=/home/hudson/apache-ant-1.8.2 -Dant.library.dir=/home/hudson/apache-ant-1.8.2/lib org.apache.tools.ant.launch.Launcher -cp  -f run-tests.xml ci-jts-tests -Dprofile=db2 -Dcode.coverage=false
+blacktie/wildfly-10.1.0.Final-SNAPSHOT/bin/standalone.sh: line 307: 21646 Killed                  "/usr/local/jdk1.8.0_60//bin/java" -D"[Standalone]" -server -Xmx256m -XX:MaxPermSize=256m -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE -agentlib:jdwp=transport=dt_socket,address=8787,server=y,suspend=n -DOrbPortabilityEnvironmentBean.resolveService=NAME_SERVICE "-Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone/log/server.log" "-Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone/configuration/logging.properties" -jar "/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/jboss-modules.jar" -mp "/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/modules" org.jboss.as.standalone -Djboss.home.dir="/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT" -Djboss.server.base.dir="/home/hudson/workspace/narayana/PROFILE/BLACKTIE/jdk/jdk8.latest/label/linux64el5/blacktie/wildfly-10.1.0.Final-SNAPSHOT/standalone" '-c' 'standalone-blacktie.xml' '-Djboss.bind.address=localhost' '-Djboss.bind.address.unsecure=localhost' '-Djboss.bind.address.management=localhost'
+pkill: 2508 - Operation not permitted
+pkill: 1841 - Operation not permitted
+pkill: 3071 - Operation not permitted
+pkill: 1413 - Operation not permitted
+pkill: 1497 - Operation not permitted
+pkill: 1502 - Operation not permitted
+pkill: 1503 - Operation not permitted
+pkill: 1596 - Operation not permitted
+pkill: 2221 - Operation not permitted
+UID        PID  PPID  C STIME TTY          TIME CMD
+hudson    8757  8755  0 Apr12 ?        00:22:38 sshd: hudson@notty
+hudson    8835  8757  0 Apr12 ?        00:00:00 bash -c cd "/home/hudson" && java  -jar slave.jar
+hudson    8852  8835  0 Apr12 ?        01:03:45 java -jar slave.jar
+hudson    9476 32418  0 Apr12 ?        00:00:18 /usr/local/jdk1.8.0_60/jre/bin/java -Dnames=.* -Dadditional.elements=-DObjectStoreEnvironmentBean.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.communicationStore.tablePrefix=Communication -DObjectStoreEnvironmentBean.communicationStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.stateStore.tablePrefix=stateStore -DObjectStoreEnvironmentBean.stateStore.objectStoreType=com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore -DObjectStoreEnvironmentBean.tablePrefix=Action -DObjectStoreEnvironmentBean.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -DObjectStoreEnvironmentBean.stateStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -DObjectStoreEnvironmentBean.communicationStore.jdbcAccess=com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess;ClassName=com.ibm.db2.jcc.DB2DataSource;DatabaseName=BTDB1;User=db2;Password=db2;ServerName=tywin.eng.hst.ams2.redhat.com;PortNumber=50001;DriverType=4 -Dtest.timeout= -classpath /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/ext/junit.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/tests/build/jbossts-jts-qa.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/jbossjts.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-commons.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-journal.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/artemis-native.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-beanutils.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-collections.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/commons-logging.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/dom4j.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/guava.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/hamcrest-core.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/ironjacamar-spec-api.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-connector-api_1.5_spec.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-logging-annotations.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-logging-processor.jar:/home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/db2/jdk/jdk8.latest/slave/linux/qa/dist/narayana-full-5.3.3.Final-SNAPSHOT/lib/ext/jboss-loggin
+hudson   14629     1  0 Apr08 ?        00:00:00 /bin/bash -xe /tmp/hudson1493082877525066780.sh
+hudson   14655 14629  0 Apr08 ?        00:00:00 /bin/bash -xe /tmp/hudson1493082877525066780.sh
+hudson   19882  8852  0 20:07 ?        00:00:00 /bin/bash -xe /tmp/hudson3887036970646544553.sh
+hudson   19887 19882  0 20:07 ?        00:00:00 /bin/bash -xe /tmp/hudson3887036970646544553.sh
+hudson   22539 19887  0 20:38 ?        00:00:00 ps -f
+hudson   32418 14655  0 Apr12 ?        00:00:41 /usr/local/jdk1.8.0_60//jre/bin/java -classpath /home/hudson/apache-ant-1.8.2/lib/ant-launcher.jar -Dant.home=/home/hudson/apache-ant-1.8.2 -Dant.library.dir=/home/hudson/apache-ant-1.8.2/lib org.apache.tools.ant.launch.Launcher -cp  -f run-tests.xml ci-jts-tests -Dprofile=db2 -Dcode.coverage=false
+Some tests failed: http://albany.eng.hst.ams2.redhat.com/job/narayana/PROFILE=BLACKTIE,jdk=jdk8.latest,label=linux64el5/1101/
+{code}

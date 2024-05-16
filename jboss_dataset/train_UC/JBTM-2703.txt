@@ -1,0 +1,19 @@
+When a transaction is committed at the same instance as a resource adapter/remote EJB calls XAT::recover() then you can get an NPE
+{code}
+INFO  [com.arjuna.ats.arjuna] ObjectStore record was deleted during restoration, users should not deleted records manually: <SNIP>/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/SubordinateAtomicAction/JCA<SNIP>: java.io.FileNotFoundException: <SNIP>/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction/SubordinateAtomicAction/JCA/<SNIP> (No such file or directory)
+ERROR [stderr] java.io.IOException: java.lang.NullPointerException
+ERROR [stderr] 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:732)
+ERROR [stderr] 	at com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.jca.SubordinateAtomicAction.<init>(SubordinateAtomicAction.java:82)
+ERROR [stderr] 	at com.arjuna.ats.internal.jta.transaction.arjunacore.jca.XATerminatorImple.doRecover(XATerminatorImple.java:393)
+ERROR [stderr] 	at org.jboss.as.ejb3.remote.EJBRemoteTransactionsRepository.getXidsToRecoverForParentNode(EJBRemoteTransactionsRepository.java:178)
+ERROR [stderr] 	at org.jboss.as.ejb3.remote.protocol.versiontwo.TransactionRecoverMessageHandler$TxRecoveryTask.run(TransactionRecoverMessageHandler.java:96)
+ERROR [stderr] 	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+ERROR [stderr] 	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+ERROR [stderr] 	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+ERROR [stderr] 	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+ERROR [stderr] 	at java.lang.Thread.run(Thread.java:745)
+ERROR [stderr] 	at org.jboss.threads.JBossThread.run(JBossThread.java:122)
+ERROR [stderr] Caused by: java.lang.NullPointerException
+ERROR [stderr] 	at com.arjuna.ats.arjuna.StateManager.unpackHeader(StateManager.java:697)
+ERROR [stderr] 	... 10 more
+{code}

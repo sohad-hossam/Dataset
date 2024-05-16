@@ -1,0 +1,2 @@
+REST-AT coordinator does not handle commit correctly for transactions marked rollback only
+The REST-AT coordinator does not automatically roll back a transaction marked  TransactionRollbackOnly if asked to commit.

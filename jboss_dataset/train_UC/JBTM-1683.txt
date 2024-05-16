@@ -1,0 +1,17 @@
+btadmin tests on windows failed with "Could not start the server"
+http://172.17.131.2/job/blacktie-windows2008-taconic/272
+
+{code}
+Failed tests: 
+  testResumeResumeDomain(org.jboss.narayana.blacktie.btadmin.ResumeDomainTest): Command was not successful
+  testResumeDomainWithArg(org.jboss.narayana.blacktie.btadmin.ResumeDomainTest): Could not start the server
+  testShutdownWithId(org.jboss.narayana.blacktie.btadmin.ShutdownTest): Could not start the server
+  testShutdownWithoutId(org.jboss.narayana.blacktie.btadmin.ShutdownTest): Could not start the server
+  testShutdownWithInvalidId(org.jboss.narayana.blacktie.btadmin.ShutdownTest): Could not start the server
+  testStartup(org.jboss.narayana.blacktie.btadmin.StartupTest): Command was unsuccessful
+  testUnadvertiseWithoutServer(org.jboss.narayana.blacktie.btadmin.UnadvertiseTest): Could not start the server
+  testUnadvertiseNoArgs(org.jboss.narayana.blacktie.btadmin.UnadvertiseTest): Could not start the server
+  testAdvertiseNotAdvertised(org.jboss.narayana.blacktie.btadmin.UnadvertiseTest): Could not start the server
+  testUnadvertise(org.jboss.narayana.blacktie.btadmin.UnadvertiseTest): Could not start the server
+  testUnadvertiseWithoutService(org.jboss.narayana.blacktie.btadmin.UnadvertiseTest): Could not start the server
+{code}

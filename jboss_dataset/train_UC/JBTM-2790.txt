@@ -1,0 +1,2 @@
+Blacktie btadmin ResumeDomainTest failure
+It looks like the ResumeDomainTest.setUp() sends the "pauseDomain' command but can not receive the response from the jboss-as server.

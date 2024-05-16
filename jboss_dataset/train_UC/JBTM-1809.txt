@@ -1,0 +1,6 @@
+At trace logging to facilitate discovery of the transaction hierarchy
+In a distributed JTS transaction there is insufficient information in the logs to facilitate the construction of the transaction hierarchy.
+
+For example when a transaction propagates between 3 servers the logs on server 3 do not indicate which of the two other servers has the parent transaction. This feature is required by the [https://community.jboss.org/wiki/TransactionMonitoringAndVisualization] tool.
+
+A possible solution is to print out the TM node identifier and the CORBA request id in the CORBA Client and Server Request Interceptors (in methods send_request and receive_request_service_contexts respectively).

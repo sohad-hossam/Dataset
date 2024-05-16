@@ -1,0 +1,18 @@
+Some REST-AT artefacts are not installed
+See: http://172.17.131.2/view/Narayana+BlackTie/job/narayana/TESTS=MAIN,jdk=jdk7.latest,label=linux/76/console
+
+{code}
+[ERROR] Failed to execute goal on project wildfly-rts: Could not resolve dependencies for project org.wildfly:wildfly-rts:jar:8.0.0.Alpha2-SNAPSHOT: Failed to collect dependencies for [org.jboss.narayana.rts:restat-integration:jar:5.0.0.M4-SNAPSHOT (compile), org.jboss.narayana.rts:restat-api:jar:5.0.0.M4-SNAPSHOT (compile), org.jboss.narayana.rts:restat-util:jar:5.0.0.M4-SNAPSHOT (compile), org.wildfly:wildfly-undertow:jar:8.0.0.Alpha2-SNAPSHOT (compile), org.jboss.resteasy:jaxrs-api:jar:3.0-beta-4 (compile), org.jboss.resteasy:resteasy-jaxrs:jar:3.0-beta-4 (compile), org.jboss.resteasy:resteasy-jaxb-provider:jar:3.0-beta-4 (compile), org.jboss.resteasy:resteasy-jettison-provider:jar:3.0-beta-4 (compile), org.jboss.logging:jboss-logging:jar:3.1.3.GA (compile), org.jboss.logging:jboss-logging-processor:jar:1.1.0.Final (provided), org.wildfly:wildfly-controller:jar:8.0.0.Alpha2-SNAPSHOT (compile), org.wildfly:wildfly-server:jar:8.0.0.Alpha2-SNAPSHOT (compile), org.wildfly:wildfly-subsystem-test:pom:8.0.0.Alpha2-SNAPSHOT (test), org.wildfly:wildfly-build-config:jar:8.0.0.Alpha2-SNAPSHOT (compile)]: Failed to read artifact descriptor for org.jboss.narayana.rts:restat-integration:jar:5.0.0.M4-SNAPSHOT: Failure to find org.jboss.narayana.rts:rest-tx:pom:5.0.0.M4-SNAPSHOT in http://repository.jboss.org/nexus/content/groups/public/ was cached in the local repository, resolution will not be reattempted until the update interval of jboss-public-repository-group has elapsed or updates are forced -> [Help 1]
+{code}
+
+To reproduce:
+
+{code}
+rm -rf ~/.m2/repository/org/jboss/narayana
+./build.sh clean install -Prelease,all
+tree rm -rf ~/.m2/repository/org/jboss/narayana
+{code}
+
+Observe that artefacts required in above are missing.
+
+To fix, look at XTS/byteman_support/pom.xml for an example of what we do to put the artefacts in the .m2 dir when the release profile is enabled. You need to do two things. replace the release profile and configure the maven-deploy-plugin. The latter ensures that these artefacts are deployed to Nexus when we do a release.

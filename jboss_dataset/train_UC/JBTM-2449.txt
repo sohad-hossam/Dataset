@@ -1,0 +1,4 @@
+SPI class ServerVMClientUserTransaction should be Serializable and Referenceable
+This SPI class implements UserTransaction but does not follow the JNDI conventions. The JTA specification (section 3.1) says:
+
+bq. The implementation of the UserTransaction object must be both javax.naming.Referenceable and java.io.Serializable , so that the object can be stored in all JNDI naming contexts.

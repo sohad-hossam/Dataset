@@ -1,0 +1,5 @@
+Fix findbugs issues in rts modules
+The relevant issues can be seen by running:
+
+bq. mvn clean install -DskipTests
+bq. mvn site -DskipTests -Pfindbugs -f rts/pom.xml

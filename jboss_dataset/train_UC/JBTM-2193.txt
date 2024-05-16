@@ -1,0 +1,191 @@
+NullPointerException in ThreadedTransactionTest
+http://172.17.131.2/view/Status/job/narayana/544/PROFILE=XTS,jdk=jdk7.latest,label=linux/
+
+{code}
+-------------------------------------------------------------------------------
+Test set: com.arjuna.wstx.tests.arq.basic.ThreadedTransactionTest
+-------------------------------------------------------------------------------
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 3.34 sec <<< FAILURE!
+testThreadedTransaction(com.arjuna.wstx.tests.arq.basic.ThreadedTransactionTest)  Time elapsed: 2.414 sec  <<< ERROR!
+com.arjuna.wst.SystemException: null
+	at com.arjuna.wst11.stub.CompletionStub.commit(CompletionStub.java:74)
+	at com.arjuna.mwlabs.wst11.at.remote.UserTransactionImple.commitWithoutAck(UserTransactionImple.java:345)
+	at com.arjuna.mwlabs.wst11.at.remote.UserTransactionImple.commit(UserTransactionImple.java:111)
+	at com.arjuna.wstx.tests.arq.basic.ThreadedObject.run(ThreadedTransactionTest.java:35)
+{code}
+
+{code}
+[0m[0m19:52:32,130 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-105) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,133 INFO  [stdout] (Thread-107) 
+[0m[0m19:52:32,133 INFO  [stdout] (Thread-107) Thread Thread[Thread-107,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3ae
+[0m[0m19:52:32,145 INFO  [stdout] (Thread-110) 
+[0m[0m19:52:32,145 INFO  [stdout] (Thread-110) Thread Thread[Thread-110,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3b1
+[0m[0m19:52:32,147 INFO  [stdout] (Thread-111) 
+[0m[0m19:52:32,147 INFO  [stdout] (Thread-111) Thread Thread[Thread-111,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3b4
+[0m[0m19:52:32,148 INFO  [stdout] (Thread-112) 
+[0m[0m19:52:32,148 INFO  [stdout] (Thread-112) Thread Thread[Thread-112,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3b7
+[0m[0m19:52:32,150 INFO  [stdout] (Thread-109) 
+[0m[0m19:52:32,150 INFO  [stdout] (Thread-109) Thread Thread[Thread-109,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3ba
+[0m[0m19:52:32,152 INFO  [stdout] (Thread-108) 
+[0m[0m19:52:32,152 INFO  [stdout] (Thread-108) Thread Thread[Thread-108,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3bd
+[0m[0m19:52:32,169 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-104) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,184 INFO  [stdout] (Thread-106) Thread Thread[Thread-106,5,main] started AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3a8
+[0m[33m19:52:32,187 WARNING [org.apache.cxf.ws.addressing.impl.InternalContextUtils] (default task-10) SERVER_TRANSPORT_REBASE_FAILURE_MSG: java.lang.NullPointerException
+	at io.undertow.servlet.spec.HttpServletRequestImpl.getRemotePort(HttpServletRequestImpl.java:869)
+	at org.apache.cxf.transport.http.HttpServletRequestSnapshot.<init>(HttpServletRequestSnapshot.java:91)
+	at org.apache.cxf.transport.http.AbstractHTTPDestination$1.cacheInput(AbstractHTTPDestination.java:285)
+	at org.apache.cxf.ws.addressing.impl.InternalContextUtils.rebaseResponse(InternalContextUtils.java:305)
+	at org.apache.cxf.ws.addressing.impl.MAPAggregatorImpl.mediate(MAPAggregatorImpl.java:485)
+	at org.apache.cxf.ws.addressing.impl.MAPAggregatorImpl.handleMessage(MAPAggregatorImpl.java:143)
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:272) [cxf-api-2.7.11.jar:2.7.11]
+	at org.apache.cxf.transport.ChainInitiationObserver.onMessage(ChainInitiationObserver.java:121) [cxf-api-2.7.11.jar:2.7.11]
+	at org.apache.cxf.transport.http.AbstractHTTPDestination.invoke(AbstractHTTPDestination.java:241)
+	at org.jboss.wsf.stack.cxf.RequestHandlerImpl.handleHttpRequest(RequestHandlerImpl.java:97)
+	at org.jboss.wsf.stack.cxf.transport.ServletHelper.callRequestHandler(ServletHelper.java:131)
+	at org.jboss.wsf.stack.cxf.CXFServletExt.invoke(CXFServletExt.java:88)
+	at org.apache.cxf.transport.servlet.AbstractHTTPServlet.handleRequest(AbstractHTTPServlet.java:286)
+	at org.apache.cxf.transport.servlet.AbstractHTTPServlet.doPost(AbstractHTTPServlet.java:206)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at org.jboss.wsf.stack.cxf.CXFServletExt.service(CXFServletExt.java:136)
+	at org.jboss.wsf.spi.deployment.WSFServlet.service(WSFServlet.java:140)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:85)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:61)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:131)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:56)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:61)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:58)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:70)
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:76)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:240)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:227)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:73)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:146)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:195)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:733)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]
+
+[0m[0m19:52:32,267 INFO  [stdout] (Thread-106) 
+[0m[0m19:52:32,267 INFO  [stdout] (Thread-106) Thread Thread[Thread-106,5,main] committing AtomicTransactionIdentifier: urn:0:ffffac118321:55af0266:539600d8:3a8
+[0m[0m19:52:32,279 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-103) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,309 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-106) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,338 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-108) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,363 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-109) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,412 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-112) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,464 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-111) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,510 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-110) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[0m19:52:32,681 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Thread-107) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-coordinator-binding.wsdl
+[0m[33m19:52:32,890 WARNING [org.apache.cxf.phase.PhaseInterceptorChain] (default task-10) Interceptor for {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService#{http://docs.oasis-open.org/ws-tx/wsat/2006/06}CommitOperation has thrown exception, unwinding now: java.lang.NullPointerException
+	at io.undertow.servlet.spec.HttpServletRequestImpl.getRemotePort(HttpServletRequestImpl.java:869)
+	at org.apache.cxf.transport.http.HttpServletRequestSnapshot.<init>(HttpServletRequestSnapshot.java:91)
+	at org.apache.cxf.transport.http.AbstractHTTPDestination$1.cacheInput(AbstractHTTPDestination.java:285)
+	at org.apache.cxf.interceptor.OneWayProcessorInterceptor.handleMessage(OneWayProcessorInterceptor.java:95) [cxf-api-2.7.11.jar:2.7.11]
+	at org.apache.cxf.phase.PhaseInterceptorChain.doIntercept(PhaseInterceptorChain.java:272) [cxf-api-2.7.11.jar:2.7.11]
+	at org.apache.cxf.transport.ChainInitiationObserver.onMessage(ChainInitiationObserver.java:121) [cxf-api-2.7.11.jar:2.7.11]
+	at org.apache.cxf.transport.http.AbstractHTTPDestination.invoke(AbstractHTTPDestination.java:241)
+	at org.jboss.wsf.stack.cxf.RequestHandlerImpl.handleHttpRequest(RequestHandlerImpl.java:97)
+	at org.jboss.wsf.stack.cxf.transport.ServletHelper.callRequestHandler(ServletHelper.java:131)
+	at org.jboss.wsf.stack.cxf.CXFServletExt.invoke(CXFServletExt.java:88)
+	at org.apache.cxf.transport.servlet.AbstractHTTPServlet.handleRequest(AbstractHTTPServlet.java:286)
+	at org.apache.cxf.transport.servlet.AbstractHTTPServlet.doPost(AbstractHTTPServlet.java:206)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:707) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at org.jboss.wsf.stack.cxf.CXFServletExt.service(CXFServletExt.java:136)
+	at org.jboss.wsf.spi.deployment.WSFServlet.service(WSFServlet.java:140)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:85)
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:61)
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:131)
+	at io.undertow.servlet.handlers.security.ServletAuthenticationCallHandler.handleRequest(ServletAuthenticationCallHandler.java:56)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45)
+	at io.undertow.servlet.handlers.security.ServletConfidentialityConstraintHandler.handleRequest(ServletConfidentialityConstraintHandler.java:61)
+	at io.undertow.security.handlers.AuthenticationMechanismsHandler.handleRequest(AuthenticationMechanismsHandler.java:58)
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:70)
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:76)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:43)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:240)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:227)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:73)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:146)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:195)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:733)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_51]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_51]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_51]
+
+[0m[31m19:52:32,910 ERROR [stderr] (Thread-105) com.arjuna.wst.SystemException
+[0m[31m19:52:32,911 ERROR [stderr] (Thread-105) 	at com.arjuna.wst11.stub.CompletionStub.commit(CompletionStub.java:74)
+[0m[31m19:52:32,911 ERROR [stderr] (Thread-105) 	at com.arjuna.mwlabs.wst11.at.remote.UserTransactionImple.commitWithoutAck(UserTransactionImple.java:345)
+[0m[31m19:52:32,911 ERROR [stderr] (Thread-105) 	at com.arjuna.mwlabs.wst11.at.remote.UserTransactionImple.commit(UserTransactionImple.java:111)
+[0m[31m19:52:32,911 ERROR [stderr] (Thread-105) 	at com.arjuna.wstx.tests.arq.basic.ThreadedObject.run(ThreadedTransactionTest.java:35)
+[0m[0m19:52:32,932 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-4) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:32,944 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-5) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:32,965 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:32,994 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-6) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,036 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-3) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,068 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,096 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,102 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-6) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,288 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-7) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsat/_2006/_06/wsdl/wsat-completion-initiator-binding.wsdl
+[0m[0m19:52:33,359 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) WFLYUT0022: Unregistered web context: /test
+[0m[0m19:52:33,364 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) WFLYWELD0010: Stopping weld service for deployment test.war
+[0m[0m19:52:33,372 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) WFLYSRV0028: Stopped deployment test.war (runtime-name: test.war) in 13ms
+[0m[0m19:52:33,483 INFO  [org.jboss.as.repository] (management-handler-thread - 5) WFLYDR0002: Content removed from location /home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/standalone/data/content/3f/30c166ab2fe4bd1b3e4943a92c591d956009ad/content
+[0m[0m19:52:33,484 INFO  [org.jboss.as.server] (management-handler-thread - 5) WFLYSRV0009: Undeployed "test.war" (runtime-name: "test.war")
+[0m[0m19:52:33,509 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) WFLYUT0022: Unregistered web context: /rest-tx
+[0m[0m19:52:33,510 INFO  [org.jboss.as.messaging] (MSC service thread 1-2) WFLYMSG0006: Unbound messaging object to jndi name java:jboss/DefaultJMSConnectionFactory
+[0m[0m19:52:33,510 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-2) WFLYJCA0011: Unbound JCA ConnectionFactory [java:/JmsXA]
+[0m[0m19:52:33,530 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-1) ARJUNA033007: InboundBridgeRecoveryManager stopping
+[0m[0m19:52:33,530 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-1) ARJUNA033014: OutboundBridgeRecoveryManager stopping
+[0m[0m19:52:33,534 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) WFLYJCA0010: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m19:52:33,562 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) WFLYJCA0019: Stopped Driver service with driver-name = h2
+[0m[0m19:52:33,564 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 69) WFLYMSG0006: Unbound messaging object to jndi name java:/jms/queue/ExpiryQueue
+[0m[0m19:52:33,588 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) WFLYSRV0028: Stopped deployment restat-web-5.0.3.Final-SNAPSHOT.war (runtime-name: restat-web-5.0.3.Final-SNAPSHOT.war) in 40ms
+[0m[0m19:52:33,605 INFO  [org.hornetq.ra] (ServerService Thread Pool -- 73) HQ151003: HornetQ resource adaptor stopped
+[0m[0m19:52:33,684 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 73) HQ221002: HornetQ Server version 2.4.1.Final (Fast Hornet, 124) [1a8e9050-f005-11e3-b090-91e16d11e70b] stopped
+[0m[33m19:52:38,841 WARN  [org.hornetq.jms.server] (Periodic Recovery) HQ122015: Can not connect to XARecoveryConfig [transportConfiguration = [TransportConfiguration(name=481089b1-f006-11e3-ac21-c5d0306286da, factory=org-hornetq-core-remoting-impl-invm-InVMConnectorFactory) ?server-id=0], discoveryConfiguration = null, username=null, password=****] on auto-generated resource recovery: HornetQNotConnectedException[errorType=NOT_CONNECTED message=HQ119007: Cannot connect to server(s). Tried with all available servers.]
+	at org.hornetq.core.client.impl.ServerLocatorImpl.createSessionFactory(ServerLocatorImpl.java:905) [hornetq-core-client-2.4.1.Final.jar:]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.connect(HornetQXAResourceWrapper.java:377) [hornetq-jms-server-2.4.1.Final.jar:]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.getDelegate(HornetQXAResourceWrapper.java:286) [hornetq-jms-server-2.4.1.Final.jar:]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.recover(HornetQXAResourceWrapper.java:74) [hornetq-jms-server-2.4.1.Final.jar:]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:740) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:431) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:212) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+
+[0m[33m19:52:38,843 WARN  [org.hornetq.jms.server] (Periodic Recovery) HQ122008: XA Recovery can not connect to any hornetq server on recovery [XARecoveryConfig [transportConfiguration = [TransportConfiguration(name=481089b1-f006-11e3-ac21-c5d0306286da, factory=org-hornetq-core-remoting-impl-invm-InVMConnectorFactory) ?server-id=0], discoveryConfiguration = null, username=null, password=****]]
+[0m[33m19:52:38,845 WARN  [com.arjuna.ats.jta] (Periodic Recovery) ARJUNA016027: Local XARecoveryModule.xaRecovery got XA exception XAException.XAER_RMERR: javax.transaction.xa.XAException: Error trying to connect to any providers for xa recovery
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.getDelegate(HornetQXAResourceWrapper.java:313) [hornetq-jms-server-2.4.1.Final.jar:]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.recover(HornetQXAResourceWrapper.java:74) [hornetq-jms-server-2.4.1.Final.jar:]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:740) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:431) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:212) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+Caused by: HornetQNotConnectedException[errorType=NOT_CONNECTED message=null]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.connect(HornetQXAResourceWrapper.java:426) [hornetq-jms-server-2.4.1.Final.jar:]
+	at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.getDelegate(HornetQXAResourceWrapper.java:286) [hornetq-jms-server-2.4.1.Final.jar:]
+	... 6 more
+
+[0m[0m19:52:38,887 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Periodic Recovery) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionParticipantService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsba/_2006/_06/wsdl/wsba-participant-completion-participant-binding.wsdl
+[0m[0m19:53:05,337 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (Timer-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorService from WSDL: jar:file:/home/hudson/workspace/narayana@2/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-9.0.0.Alpha1-SNAPSHOT/modules/system/layers/base/org/jboss/xts/main/jbossxts-5.0.3.Final-SNAPSHOT.jar!/org/oasis_open/docs/ws_tx/wsba/_2006/_06/wsdl/wsba-participant-completion-coordinator-binding.wsdl
+[0m[33m19:53:09,123 WARN  [com.arjuna.wsrecovery] (Periodic Recovery) ARJUNA046043: exception reactivating recovered WS-BA participant 1235: java.lang.Exception: ARJUNA043222: participant 1235 has no saved recovery state to recover
+	at org.jboss.jbossts.xts.recovery.participant.ba.BAParticipantRecoveryRecord.restoreParticipant(BAParticipantRecoveryRecord.java:155) [jbossxts-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at org.jboss.jbossts.xts.recovery.participant.ba.XTSBARecoveryManagerImple.recoverParticipants(XTSBARecoveryManagerImple.java:208) [jbossxts-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at org.jboss.jbossts.xts.recovery.participant.ba.BAParticipantRecoveryModule.processParticipantsStatus(BAParticipantRecoveryModule.java:265) [jbossxts-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at org.jboss.jbossts.xts.recovery.participant.ba.BAParticipantRecoveryModule.periodicWorkSecondPass(BAParticipantRecoveryModule.java:137) [jbossxts-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371) [narayana-jts-jacorb-5.0.3.Final-SNAPSHOT.jar:5.0.3.Final-SNAPSHOT (revision: 3680a)]
+
+[0m[0m19:53:09,125 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) WFLYWS0004: Stopping service jboss.ws.endpoint-publish.ws-t11-client
+{code}

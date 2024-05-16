@@ -1,0 +1,4 @@
+Integrate STM with vert.x
+Finish the work started last year. Actor+transaction model.
+
+Due to the typical way vert.x works (one thread per task, unique classloader instance etc.), shared state is typically not a concern even between threads. STM still useful to ensure atomic updates in the presence of failures, or sharing via message passing. However, with our STM implementation, persistent instances can be shared between threads or processes in different address spaces if needed.

@@ -1,0 +1,2 @@
+Don't save/restore transients in STM proxy
+None

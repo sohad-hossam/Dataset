@@ -1,0 +1,4 @@
+ CrashRecovery02_2_Test01 failure
+The root cause of the failure is that StatusChecker#getStatus gets a different exception when trying to obtain the transaction status. With JacORB it gets OBJECT_NOT_EXIST but with JdkORB orb it gets CORBA.BAD_OPERATION. In the former case we assume that the original transaction is dead and get a fresh one to do recovery on. In the later case we log the error and abort the replay attempt.
+
+The recommended fix is to mark the original as dead when we get CORBA.BAD_OPERATION when doing the status lookup.

@@ -1,0 +1,2 @@
+ArjunaJTA/cdi tests are configured for Byteman despite not using it
+See byteman references in ArjunaJTA/cdi/pom.xml

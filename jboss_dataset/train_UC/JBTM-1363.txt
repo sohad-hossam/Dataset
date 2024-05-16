@@ -1,0 +1,2 @@
+All Narayana QA build steps are displayed in one line in narayana/README.md
+Narayana QA build steps should be displayed in separate lines in narayana/README.md file. Currently they are displayed in one line.

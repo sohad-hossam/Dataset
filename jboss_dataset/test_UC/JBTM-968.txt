@@ -1,0 +1,10 @@
+Review the project structure of XTS
+The structure of the XTS project needs reviewing. Things to look out for:
+
+# Check for ant build scripts and delete/mavenize as appropriate
+# Ensure all source directories follow the default maven structure
+# Move unit tests into the sub component that they test
+# Ensure consistent with the rest of the Narayana project
+# Ensure all readme files are up-to-date
+# Search for version numbers and check they are up-to-date. For example, some readme files state compatibility with certain (old) version of JBoss AS.
+# General review 

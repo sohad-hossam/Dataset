@@ -1,0 +1,2 @@
+Reduce recoveryPeriod to 10secs for all XTS crash recovery tests
+This reduces how long the tests take to run. Any lower than 10secs could result in unwanted behaviour

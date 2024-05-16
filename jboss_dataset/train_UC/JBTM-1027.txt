@@ -1,0 +1,8 @@
+Create a script to simplify XTS crash-recovery logs
+Currently the crash-recovery logs are very cumbersome to check. I propose we create a post-processing script that:
+
+* Replaces transaction and participant IDs with uniq integers.
+* Remove duplicate messages, keeping the last occurance
+* Spilt log into clear before and after crash sections
+* Add a title to log file, stating the name of the test
+* Add a link to the original log file

@@ -1,0 +1,10 @@
+Remove version numbers from all but parent pom
+We have a lot of version numbers scattered throughout our poms. Most of which should be in the root pom. This task is to hunt them all down and move the versions into the root.
+
+I think this finds them:
+
+{code}
+grep -r "<version>" **/*/pom.xml
+{code}
+
+Not sure if it gets them all.

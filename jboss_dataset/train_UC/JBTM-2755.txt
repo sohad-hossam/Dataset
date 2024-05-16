@@ -1,0 +1,2 @@
+Allow btadmin to load servers from 127.0.0.1
+This means that when we add new nodes we don't have to add to the test each time

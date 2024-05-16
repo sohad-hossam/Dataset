@@ -1,0 +1,2 @@
+STM does not support primitive arrays
+STM objects marked with @Transactional do not support primitive type arrays

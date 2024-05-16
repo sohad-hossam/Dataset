@@ -1,0 +1,27 @@
+ Write log message in ExpiredTransactionScanner when an entry is moved
+When the ExpiredTransactionScanner moves a record, there is no log entry about what it has done. It should be more verbose i.e. a WARN message
+
+
+public class ExpiredTransactionScanner implements ExpiryScanner
+.. ..
+         public boolean moveEntry (Uid newUid) throws ObjectStoreException
+         {
+.. ..
+                 if (!moved) {
+                 tsLogger.i18NLogger.info_recovery_ExpiredTransactionStatusManagerScanner_3(newUid);
+             }
+                 else
+                     res = _recoveryStore.remove_committed(newUid, _typeName);
+
+             }
+
+
+Request to add WARN log entry to else block 
+
+      if (!moved) {
+                tsLogger.i18NLogger.info_recovery_ExpiredTransactionStatusManagerScanner_3(newUid);
+            }
+                else
+                  res = _recoveryStore.remove_committed(newUid, _typeName);
+                  tsLogger.arjLoggerI18N.warn(""ExpiredTransactionScanner - log " + newUid + " is assumed complete and will be moved.").
+            }

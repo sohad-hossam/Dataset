@@ -1,0 +1,2 @@
+QA suite failure: TestGroup_txcore_recovery (JDBC store)
+http://albany.eng.hst.ams2.redhat.com/view/Narayana/job/narayana-jdbcobjectstore/191/DB_TYPE=db2,jdk=jdk8.latest,slave=linux/consoleFull

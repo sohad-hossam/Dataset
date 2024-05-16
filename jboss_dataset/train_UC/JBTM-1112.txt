@@ -1,0 +1,7 @@
+update narayana.sh to build jboss-as from git:/jbosstm/jboss-as
+currently we use jboss-as-7.1.1.Final which will always contain JBossTS 4.16.2. Therefore the tests will always run against 4.16.2 of JBossTS and not the new version of the code that this script intends to test. so it need to build jboss-as.
+
+#make sure you have built narayana and have a SNAPSHOT (which you currently are)
+git clone git://github.com/jbosstm/jboss-as.git
+git checkout 5_BRANCH (for github master, for backporting you will need to use 4_16_BRANCH)
+build jboss-as

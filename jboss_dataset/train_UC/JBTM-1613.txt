@@ -1,0 +1,2 @@
+Allow deserializer(s) to be plugged in during recovery of XAResourceRecord in JTS mode
+Unlike the JTA mode recovery where the XAResourceRecord allows SerializableXAResourceDeserializer(s) to deserialize the XAResource, the JTS mode XAResourceRecord has no such provision. This can lead to problems with deserialization of the XAResource since the transaction management code won't typically know the classloader to use while deserializing.

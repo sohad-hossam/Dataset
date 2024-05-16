@@ -1,0 +1,2 @@
+Update pre-release.sh to update the version of Narayana in the performance repo
+Currently the version number in the performance repo is a manual step

@@ -1,0 +1,5 @@
+All QA Tests are failing
+See:
+
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch417-EAP61-ipv6-dualstack/83/
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch417-EAP61-ipv6-dualstack/84/

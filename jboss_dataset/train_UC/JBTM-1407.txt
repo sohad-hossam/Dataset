@@ -1,0 +1,4 @@
+Have a build option that builds JTS only against JacORB or IDLJ, but not both.
+This boils down to supporting two new profiles:
+./build.sh -P jts-jacorb
+./build.sh -P jts-idlj

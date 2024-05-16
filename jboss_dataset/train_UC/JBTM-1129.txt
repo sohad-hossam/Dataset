@@ -1,0 +1,2 @@
+atsintegration tests intermittent failure
+http://albany/view/XTS%20recovery/job/jbossts-branch416-xts-recovery-java6/20/

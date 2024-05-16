@@ -1,0 +1,2 @@
+@TxManagement injection does not work for private fields
+None

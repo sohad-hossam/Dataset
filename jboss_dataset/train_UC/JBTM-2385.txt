@@ -1,0 +1,4 @@
+The new thread association listener does not handle the Arjuna behaviour that TM::resume(null) == TM::suspend for us
+AtomicAction treats a null resume as a suspend. The code for the listener does not appear aware of this special behaviour.
+
+PR to come shortly to help explain (including comment in AA so you can see where the behaviour is defined).

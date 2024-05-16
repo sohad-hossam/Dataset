@@ -1,0 +1,4 @@
+Orphan detection may attempt to rollback orphan if resource fails to return values
+If the XAR returns a Xid from recover(FIRST_PASS) to XARM but then goes offline for a cycle we may attempt to rollback the Xid thinking it is stale. If the XAR returns an XAE at that point we should clear the _xidScans so we pick it up next time.
+
+However, there is a filter that checks for transaction state (JTATransactionLogXAResourceOrphanFilter) which would detect a transaction log and ignore this Xid so adding this protection would only be considered belt-and-braces.

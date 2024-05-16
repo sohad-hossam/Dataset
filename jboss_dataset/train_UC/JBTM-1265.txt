@@ -1,0 +1,4 @@
+QA build does not cause build fail when tests fail
+http://172.17.131.2/job/btny-pulls-narayana/122/console
+
+Grep for FAILED

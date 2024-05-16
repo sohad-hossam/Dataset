@@ -1,0 +1,14 @@
+TestATSubordinateCrashDuringPrepare fails: Assumes participant log remved before TX log
+See: http://172.17.131.2/view/XTS%20recovery/job/jbossts-branch416-xts-recovery-java6/36/
+
+In the trace logs you can see:
+
+{code}
+removed transaction 0:ffffac118308:6a060f8e:4f92446a:15
+rollback returned for subordinate coordinator BasicAction: 0:ffffac118308:6a060f8e:4f92446a:15 status: ActionStatus.ABORTED
+aborted sent for Participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.1
+aborted received for Coordinator engine D0:ffffac118308:6a060f8e:4f92446a:1c
+aborted received for Coordinator engine D0:ffffac118308:6a060f8e:4f92446a:1c
+{code}
+
+Here you will notice that the transaction is removed before the last participant record is removed. There is a bug in ATSubordinateCrashDuringPrepare.txt and BASubordinateCrashDuringComplete.txt that will only shutdown the VM if the transaction log is the last to be removed.

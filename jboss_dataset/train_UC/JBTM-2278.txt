@@ -1,0 +1,12 @@
+Allow the transaction manager suspend operation to succeed for JTS mode
+It is not possible to perform TransactionManager::suspend operation during an afterCompletion call when the server is configured for JTS and has JacORB configured with interposition interceptors. This is because the transaction has not been used on the thread yet and when OTSManager.current() operation finds the PropagationContext in PICurrent to tries to recreate the hierarchy and ArjunaTransactionImple register_resource detects the transaction is no longer active so throws an Inactive exception causing suspend to fail.
+
+SystemException is a valid response code from suspend but it would be desirable to try to avoid this when the transaction is local to the Synchronization.
+
+Allowing suspend means this code would work:
+
+public afterCompletion(status) {
+tm.suspend()
+tm.begin()
+tm.commit()
+}

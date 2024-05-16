@@ -1,0 +1,4 @@
+Automatically add the "org.jboss.xts" dependency for XTS applications
+At deployment time we should automatically add the org.jboss.xts dependency for applications that need it.
+
+We should be able to detect deployments that use XTS annotations (i.e those provided by the Compensations API) through Jandex. I'm not sure how we would detect those that don't use annotations; something to investigate.

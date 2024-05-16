@@ -1,0 +1,2 @@
+Annotations on interfaces?
+Currently we only track annotations on implementing classes not interfaces. Annotating interfaces poses potential issues, e.g., with multiple inheritance, so I'm not even sure if we'd want to support it anyway.

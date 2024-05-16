@@ -1,0 +1,5 @@
+Uid comparison fails for max uid
+The largest Uid (Uid.MAX_UID) is defined to have the string form 7fffffff:7fffffff:7fffffff:7fffffff:7fffffff
+The first 2 components are hex values corresponding to Integer.MAX_INT but these two fields end up being converted into 2 longs to populate the field long[] hostAddr hostAddr. Consequently most Uids will end up being greater than MAX_UID (which causes problems when trying to order last resources last in the intentions list.
+
+The fix is to use "7fffffffffffffff:7fffffffffffffff:7fffffff:7fffffff:7fffffff" for MAX_UID

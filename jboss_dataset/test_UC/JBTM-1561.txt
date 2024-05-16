@@ -1,0 +1,2 @@
+Do not force the definition of services in the blacktie-admin-services
+It is inconvenient to have to specify the list of services in the blacktie-admin-services. Although it is still necessary to configure the queue security on the hornetq server itself if the defaults are not acceptable, in the common case of acceptable default queue/topic permissions it would be best to not have to update the btconfig.xml in the admin service to allow new servers/services to be added easily.

@@ -1,0 +1,62 @@
+BlackTie does not build on CentOS 7
+[hudson@sansa ~]$ uname -a
+Linux sansa.buildnet.ncl.jboss.com 3.10.0-123.6.3.el7.x86_64 #1 SMP Wed Aug 6 21:12:36 UTC 2014 x86_64 x86_64 x86_64 GNU/Linux
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-jdbcobjectstore/DB_TYPE=mysql,jdk=jdk7.latest,slave=linux/101/console
+
+{quote}
+test-compile:
+    [mkdir] Created dir: /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/target/cpp-test-classes
+     [copy] Copying 6 files to /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/target/cpp-test-classes
+       [cc] 11 total files to be compiled.
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘virtual void TestAtmiBrokerXml::tearDown()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:34:39: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION_DIR=.");
+       [cc]                                        ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:35:34: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION=");
+       [cc]                                   ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘void TestAtmiBrokerXml::test_env()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:41:45: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION_DIR=xmltest");
+       [cc]                                              ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:42:41: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION=xmltest");
+       [cc]                                          ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘void TestAtmiBrokerXml::test_define_adminservice()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:155:47: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION_DIR=wrongtest");
+       [cc]                                                ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘void TestAtmiBrokerXml::test_same_service()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:167:46: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION_DIR=sametest");
+       [cc]                                               ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘void TestAtmiBrokerXml::test_invalid_xml()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:179:56: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]          putenv("BLACKTIE_CONFIGURATION_DIR=invalidtest");
+       [cc]                                                         ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx: In member function ‘void TestAtmiBrokerXml::test_no_config()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestAtmiBrokerXml.cxx:191:56: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]          putenv("BLACKTIE_CONFIGURATION_DIR=noexisttest");
+       [cc]                                                         ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSymbolLoader.cxx: In member function ‘virtual void TestSymbolLoader::setUp()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSymbolLoader.cxx:35:39: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION=linux");
+       [cc]                                        ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSymbolLoader.cxx: In member function ‘virtual void TestSymbolLoader::tearDown()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSymbolLoader.cxx:42:34: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION=");
+       [cc]                                   ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSynchronizableObject.cxx: In function ‘void* activateWaiter(apr_thread_t*, void*)’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSynchronizableObject.cxx:31:9: warning: unused variable ‘ret’ [-Wunused-variable]
+       [cc]      int ret = waiter->svc();
+       [cc]          ^
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSynchronizableObject.cxx: In member function ‘virtual void TestSynchronizableObject::setUp()’:
+       [cc] /home/hudson/workspace/narayana-jdbcobjectstore/DB_TYPE/mysql/jdk/jdk7.latest/slave/linux/blacktie/core/src/test/cpp/TestSynchronizableObject.cxx:76:6: warning: unused variable ‘argc’ [-Wunused-variable]
+       [cc]   int argc = 0;
+       [cc]       ^
+       [cc] Starting link
+       [cc] /lib64/libaprutil-1.so.0: undefined reference to `apr_pool_pre_cleanup_register'
+       [cc] collect2: error: ld returned 1 exit status
+{quote}
+

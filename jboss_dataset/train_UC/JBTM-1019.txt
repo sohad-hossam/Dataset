@@ -1,0 +1,2 @@
+Add build profiles for core jta jts xts to maven build
+None

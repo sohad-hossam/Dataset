@@ -1,0 +1,2 @@
+OptionalJaxWSTxInboundBridgeHandler does not handle multi-threaded requests
+None

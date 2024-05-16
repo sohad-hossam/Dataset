@@ -1,0 +1,6 @@
+Add a CI job for testing jboss-transaction-spi
+We need a CI job to test that narayana works with the latest jboss-transaction-spi and this should include PRs as well as master.
+
+In addition, the two projects duplicate tests so the the duplicates need removing from narayana (but only after we have added this CI testing).
+
+Note that  jboss-transaction-spi has a test dependency on the last released stable version of narayana so that dependency would need to changed to the version of our current SNAPSHOT for these new proposed CI jobs to be useful.

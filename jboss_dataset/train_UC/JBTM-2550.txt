@@ -1,0 +1,6 @@
+If a class cannot be deserialized safely, try to fallback and use the XARecoveryModule to locate an appropriate XAResource
+This exception happens with using the IBM MQ rar in the wildfly.
+
+com.ibm.mq.connector.xa.XARWrapper is the serialize object.  when the RecoveryManager tries to restore_state from the object record, it will load the class and threw CNFE as it can not access the XARWrapper classe in the RAR
+
+We can catch this exception and try to get from the helpers.

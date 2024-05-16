@@ -1,0 +1,6 @@
+TXFramework Code Tidy
+Apply AS7 code style to .java
+format .xml
+Check all copyright headers present
+check no tabs
+Remove version numbers from pom

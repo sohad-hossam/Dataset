@@ -1,0 +1,2 @@
+@Compensational not working correctly with @Stereotype wrt. Exception handling
+None

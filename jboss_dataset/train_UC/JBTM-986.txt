@@ -1,0 +1,23 @@
+Automatically setup the client side handler chain
+When invoking a WS-AT or WS-BA Web service, the client side handler has to be added to the client stub to manage transaction context propagation. The code required to do this is as follows:
+
+{code}
+BindingProvider bindingProvider = (BindingProvider) client;
+List<Handler> handlers = new ArrayList<Handler>(1);
+handlers.add(new JaxWSHeaderContextProcessor());
+bindingProvider.getBinding().setHandlerChain(handlers);
+{code}
+
+This is not very user friendly.
+
+This could be done using a JAX-WS feature passed to the Client-side port.
+
+We also need to support client stubs created using @WebServiceRef. Here's some examples of its use:
+
+http://anonsvn.jboss.org/repos/jbossws/shared-testsuite/trunk/testsuite/src/test/java/org/jboss/test/ws/jaxws/samples/webserviceref/
+http://anonsvn.jboss.org/repos/jbossws/shared-testsuite/trunk/testsuite/src/test/resources/jaxws/samples/webserviceref/
+http://anonsvn.jboss.org/repos/jbossws/shared-testsuite/trunk/testsuite/src/test/ant-import/build-samples-jaxws.xml
+
+The feature should be "enabled" by default providing the feature is enabled in the XTS server config.
+
+The quickstarts also need updated to use this.

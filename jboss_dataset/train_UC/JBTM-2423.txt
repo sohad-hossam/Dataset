@@ -1,0 +1,19 @@
+ORBRunner uses the orb after run() returns
+ORBRunner.java starts an orb using orb().run() but then performs operations on the orb after the run() method returns. According to the CORBA spec this is invalid:
+{quote}
+Once an ORB has shutdown, only object reference management operations(duplicate,
+release and is_nil) may be invoked on the ORB or any object reference obtained
+from it.
+{quote}
+Note that when the orb.run() method returns the orb has shutdown because, for the run method, the spec states:
+
+{quote}
+This operation will block until the ORB has completed the shutdown process,
+{quote}
+
+This issue has arisen because of a change made to our fork of the jdk orb: in the jdk orb shutdown method we join with all the orb runners. This results in deadlock:
+
+# com.arjuna.orbportability.ORB.shutdown is a synchronized method and it calls shutdown on the jdk orb;
+# shutdown on the jdk orb notifies the ORBRunner thread which now tries to call back into a synchronized method of com.arjuna.orbportability.ORB but is blocked because the monitor is held
+# at this point the jdk orb shutdown would normally then return allowing the 
+the ORBRunner thread to make progress but a recent change now means that the jdk orb shutdown method performs a join() on the various ORBRunner threads

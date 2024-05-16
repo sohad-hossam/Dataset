@@ -1,0 +1,4 @@
+Provide local-only alternative for Compensating Transactions API
+Currently the compensating transactions uses WS-BA under the covers, regardless of wether a distribute transaction is required. This was done as it covered both the local-only and distributed case.
+
+However, this approach has a significant performance problem for cases where distributed transactions are not required. Therefore the developer should be able to chose a more lightweight local-only implementation that uses the Sagas model directly, rather than via the WS-BA implementation.

@@ -1,0 +1,4 @@
+Three minor findbugs issues in JTA cdi module
+[INFO] Incorrect lazy initialization of static field com.arjuna.ats.jta.cdi.TransactionContext.transactionManager in com.arjuna.ats.jta.cdi.TransactionContext.getTransactionManager() ["com.arjuna.ats.jta.cdi.TransactionContext"] At TransactionContext.java:[lines 44-159]
+[INFO] Incorrect lazy initialization of static field com.arjuna.ats.jta.cdi.TransactionContext.transactionSynchronizationRegistry in com.arjuna.ats.jta.cdi.TransactionContext.getTransactionSynchronizationRegistry() ["com.arjuna.ats.jta.cdi.TransactionContext"] At TransactionContext.java:[lines 44-159]
+[INFO] Class com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorBase defines non-transient non-serializable instance field beanManager ["com.arjuna.ats.jta.cdi.transactional.TransactionalInterceptorBase"] At TransactionalInterceptorBase.java:[lines 45-170]

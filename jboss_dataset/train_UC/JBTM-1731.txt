@@ -1,0 +1,10 @@
+Narayana release process doesn't rev all versions in BT quickstarts
+The following files still contain 5.0.0.M3-SNAPSHOT:
+
+
+./blacktie/messaging/basic/client.c 
+./blacktie/xatmi/queues/makefile
+./blacktie/test/blacktie-linux.sh
+./blacktie/test/blacktie-vc9x32.bat   
+
+Need to update the $NARAYANA_SRC/scripts/pre-release.sh script to change these. Look for the lines that start "find . -name".

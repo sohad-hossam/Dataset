@@ -1,0 +1,2 @@
+Add a test to show RMERR handling
+We had a question about why the log was now left when an XAR throws a HEURB. It was because if the forget fails we now remember the log.

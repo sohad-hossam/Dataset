@@ -1,0 +1,6 @@
+Arquillian DeploymentException: Cannot deploy: test.war
+See:
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/48/TESTS=XTS,jdk=jdk7.latest,label=linux/console
+
+Looks like a general issue with our usage of Arquillian. It seems to be happening consistently, so should be easy to reproduce. It's just started happening and I don't think we have made any changes that could of caused it, therefore I suspect it's due to some change in WildFly.

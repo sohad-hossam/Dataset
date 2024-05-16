@@ -1,0 +1,2 @@
+Recreation of deleted persistent STM instance fails silently
+Container.recreate appears to silently catch failure and return new empty object.

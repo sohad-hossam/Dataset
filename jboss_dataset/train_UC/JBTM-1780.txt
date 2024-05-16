@@ -1,0 +1,2 @@
+Missing test for failures during the REST-AT volatile prepare phase
+There is code in the test participant (org.jboss.jbossts.star.test.BaseTest TransactionalResource#synchronizations) to fail the volatile prepare phase but org.jboss.jbossts.star.test.OptionalSpecTest does not exercise it).

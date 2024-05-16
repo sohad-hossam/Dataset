@@ -1,0 +1,4 @@
+UR: Uninitialized read of field in constructor (UR_UNINIT_READ)
+1.ArjunaCore/txoj
+com.arjuna.ats.internal.txoj.abstractrecords.LockRecord Line 62
+Uninitialized read of readOnly in new com.arjuna.ats.internal.txoj.abstractrecords.LockRecord(LockManager, boolean, BasicAction)

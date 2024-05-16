@@ -1,0 +1,5 @@
+JTA 1.2 @TransactionScoped Context doesn't call @Predestroy on TransactionScoped Beans
+{{TransactionContext}} should store the {{Contextual}} and {{CreationalContext}} instances for each bean instance it creates so that it can destroy the beans on scope destruction.
+
+One possible implementation would be to register a {{Synchronization}} through {{TransactionSynchronizationRegistry#registerInterposedSynchronization}} which will destroy the beans when {{Synchronization#beforeCompletion()}} is called.
+

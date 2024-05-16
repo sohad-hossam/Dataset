@@ -1,0 +1,10 @@
+asyncAfterSynchronization throw exception when transaction abort
+*The problem:*
+There's two problems about asyncAfterSynchronization(com.arjuna.ats.arjuna.coordinator.asyncAfterSynchronization=true) option:
+* If we want asyncAfterSynchronization, we must set asyncBeforeSynchronization
+* When tx abort, and we have asyncAfterSynchronization option, there's exception
+
+*Root cause:* {{TwoPhaseCoordinator.synchronizationCompletionService}} and {{TwoPhaseCoordinator.runningSynchronizations}} only inited in {{asyncBeforeSynchronization}}
+
+*Solution:*
+Also init  {{TwoPhaseCoordinator.synchronizationCompletionService}} and {{TwoPhaseCoordinator.runningSynchronizations}} in asyncAfterSynchronization

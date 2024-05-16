@@ -1,0 +1,24 @@
+When the JDBC object store is used, if a connection is not available to the DS then the recovery manager thread can abort
+This is because when we cannot obtain a connection we are throwing a FatalError that is not normally caught, I suggest we throw an ObjectStoreException that can be handled by the caller and the thread can proceed normally.
+
+When this happens if someone tries to deregister between scans they will not be notified.
+
+12:59:30,584 ERROR [stderr] (Periodic Recovery) Exception in thread "Periodic Recovery" com.arjuna.ats.arjuna.exceptions.FatalError: com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DataSourceJDBCAccess@721d5ac3 : javax.naming.NameNotFoundException: Error looking up datasources/jdbc-store, service service jboss.naming.context.java.jboss.datasources.jdbc-store is not started
+12:59:30,585 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DataSourceJDBCAccess.getConnection(DataSourceJDBCAccess.java:55)
+12:59:30,586 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.allObjUids(JDBCImple_driver.java:316)
+12:59:30,587 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.allObjUids(JDBCStore.java:179)
+12:59:30,587 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.allObjUids(JDBCStore.java:119)
+12:59:30,588 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkFirstPass(XARecoveryModule.java:152)
+12:59:30,588 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:743)
+12:59:30,589 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371)
+12:59:30,590 ERROR [stderr] (Periodic Recovery) Caused by: javax.naming.NameNotFoundException: Error looking up datasources/jdbc-store, service service jboss.naming.context.java.jboss.datasources.jdbc-store is not started
+12:59:30,591 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.ServiceBasedNamingStore.lookup(ServiceBasedNamingStore.java:132)
+12:59:30,591 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.ServiceBasedNamingStore.lookup(ServiceBasedNamingStore.java:80)
+12:59:30,592 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:197)
+12:59:30,592 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:174)
+12:59:30,592 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.InitialContext.lookup(InitialContext.java:122)
+12:59:30,593 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:183)
+12:59:30,593 ERROR [stderr] (Periodic Recovery) 	at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:179)
+12:59:30,593 ERROR [stderr] (Periodic Recovery) 	at javax.naming.InitialContext.lookup(InitialContext.java:411)
+12:59:30,593 ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DataSourceJDBCAccess.getConnection(DataSourceJDBCAccess.java:53)
+12:59:30,594 ERROR [stderr] (Periodic Recovery) 	... 6 more

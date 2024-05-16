@@ -1,0 +1,4 @@
+Unify all XTS/localjunit tests 
+All the XTS/localjunit tests run with Arquillian and should have a consistent configuration. Therefore we should be able to put all the config in the XTS/localjunit/pom.xml. However, the crash recovery tests in particular have a there own properties and Arquillian config. 
+
+Also, the test don't have a consistent arquillian.xml. We should try to make this consistent too

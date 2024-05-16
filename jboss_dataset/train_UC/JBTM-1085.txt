@@ -1,0 +1,10 @@
+TestBACrashDuringCommit fail on XTS crash recovery 
+Failed tests: 
+  MultiParticipantParticipantCompletionParticipantCloseTest(com.arjuna.qa.junit.TestBACrashDuringCommit)
+
+It looks like time issue.
+1. narayana-java6
+MultiParticipantParticipantCompletionParticipantCloseTest(com.arjuna.qa.junit.TestBACrashDuringCommit)  Time elapsed: 116.377 sec  <<< ERROR!
+java.io.IOException: Cannot run program "/home/hudson/workspace/narayana-java6/jboss-as-7.1.1.Final/bin/jboss-cli.sh": java.io.IOException: error=24, Too many open files
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:460)
+	at java.lang.Runtime.exec(Runtime.java:593)

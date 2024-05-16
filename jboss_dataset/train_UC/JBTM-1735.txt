@@ -1,0 +1,10 @@
+Support volatile store in StateManager
+Comment in StateManager from *years* ago:
+
+/*
+ * Currently we should never get here! However, since Arjuna
+ * supports a volatile (in memory) object store we will also
+ * eventually, probably through a set of native methods.
+*/
+
+We've had volatile (in memory) support for quite a while. Used for testing purposed currently, but also now for STM.

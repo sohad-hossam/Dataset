@@ -1,0 +1,919 @@
+Unsatisfied dependencies for type TXDataMap with qualifiers @Default
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/319/PROFILE=XTS,jdk=jdk7.latest,label=linux/
+
+{code}
+Running org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 33.812 sec <<< FAILURE!
+org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedTest  Time elapsed: 33.809 sec  <<< ERROR!
+org.jboss.arquillian.container.spi.client.container.DeploymentException: Cannot deploy: test.jar
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:83)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:146)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:80)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:182)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.Exception: {"JBAS014671: Failed services" => {"jboss.deployment.unit.\"test.jar\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.jar\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type TXDataMap<String, Integer> with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap
+  at org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap(BABridgedService.java:0)
+"}}
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getActionResult(ServerDeploymentPlanResultFuture.java:134)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getResultFromNode(ServerDeploymentPlanResultFuture.java:123)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:85)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:42)
+	at org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.deploy(ServerDeploymentHelper.java:55)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:77)
+	... 96 more
+
+org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedTest  Time elapsed: 33.812 sec  <<< ERROR!
+java.lang.RuntimeException: Failed to remove Byteman script
+	at org.jboss.jbossts.xts.bytemanSupport.BMScript.remove(BMScript.java:34)
+	at org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedTest.removeBytemanScript(BABridgedTest.java:83)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:36)
+	at org.jboss.arquillian.junit.Arquillian$StatementLifecycleExecutor.invoke(Arquillian.java:351)
+	at org.jboss.arquillian.container.test.impl.execution.ClientBeforeAfterLifecycleEventExecuter.execute(ClientBeforeAfterLifecycleEventExecuter.java:99)
+	at org.jboss.arquillian.container.test.impl.execution.ClientBeforeAfterLifecycleEventExecuter.on(ClientBeforeAfterLifecycleEventExecuter.java:65)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.afterClass(EventTestRunnerAdaptor.java:87)
+	at org.jboss.arquillian.junit.Arquillian$3$1.evaluate(Arquillian.java:204)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.Exception: The remote byteman agent reported an error:
+ERROR failed to find loaded rule with name create counter
+ERROR failed to find loaded rule with name complete called
+ERROR failed to find loaded rule with name close called
+ERROR failed to find loaded rule with name cancel called
+ERROR No rule scripts to remove
+
+	at org.jboss.byteman.agent.submit.Submit$Comm.readResponse(Submit.java:956)
+	at org.jboss.byteman.agent.submit.Submit.submitRequest(Submit.java:780)
+	at org.jboss.byteman.agent.submit.Submit.deleteScripts(Submit.java:688)
+	at org.jboss.byteman.agent.submit.Submit.deleteRulesFromResources(Submit.java:661)
+	at org.jboss.jbossts.xts.bytemanSupport.BMScript.remove(BMScript.java:32)
+	... 54 more
+
+Running org.jboss.narayana.txframework.functional.ws.ba.coordinatorCompletion.BACoordinatorCompletionTest
+Tests run: 1, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 35.666 sec <<< FAILURE!
+org.jboss.narayana.txframework.functional.ws.ba.coordinatorCompletion.BACoordinatorCompletionTest  Time elapsed: 35.661 sec  <<< ERROR!
+org.jboss.arquillian.container.spi.client.container.DeploymentException: Cannot deploy: test.jar
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:83)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:146)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:80)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:182)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.Exception: {"JBAS014671: Failed services" => {"jboss.deployment.unit.\"test.jar\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.jar\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type TXDataMap<String, String> with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.coordinatorCompletion.BACoordinatorCompletionService.txDataMap
+  at org.jboss.narayana.txframework.functional.ws.ba.coordinatorCompletion.BACoordinatorCompletionService.txDataMap(BACoordinatorCompletionService.java:0)
+"}}
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getActionResult(ServerDeploymentPlanResultFuture.java:134)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getResultFromNode(ServerDeploymentPlanResultFuture.java:123)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:85)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:42)
+	at org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.deploy(ServerDeploymentHelper.java:55)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:77)
+	... 96 more
+
+Running org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest
+Tests run: 2, Failures: 0, Errors: 2, Skipped: 0, Time elapsed: 30.62 sec <<< FAILURE!
+org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest  Time elapsed: 30.619 sec  <<< ERROR!
+org.jboss.arquillian.container.spi.client.container.DeploymentException: Cannot deploy: test.jar
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:83)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:64)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deploy(ArchiveDeployer.java:46)
+	at org.jboss.as.arquillian.container.CommonDeployableContainer.deploy(CommonDeployableContainer.java:146)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:161)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$3.call(ContainerDeployController.java:128)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.executeOperation(ContainerDeployController.java:271)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deploy(ContainerDeployController.java:127)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.container.impl.client.container.DeploymentExceptionHandler.verifyExpectedExceptionDuringDeploy(DeploymentExceptionHandler.java:50)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createDeploymentContext(ContainerDeploymentContextHandler.java:78)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.container.impl.client.ContainerDeploymentContextHandler.createContainerContext(ContainerDeploymentContextHandler.java:57)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:95)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController$1.perform(ContainerDeployController.java:80)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachDeployment(ContainerDeployController.java:263)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.forEachManagedDeployment(ContainerDeployController.java:239)
+	at org.jboss.arquillian.container.impl.client.container.ContainerDeployController.deployManaged(ContainerDeployController.java:79)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.core.impl.EventImpl.fire(EventImpl.java:67)
+	at org.jboss.arquillian.container.test.impl.client.ContainerEventController.execute(ContainerEventController.java:101)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.beforeClass(EventTestRunnerAdaptor.java:80)
+	at org.jboss.arquillian.junit.Arquillian$2.evaluate(Arquillian.java:182)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.Exception: {"JBAS014671: Failed services" => {"jboss.deployment.unit.\"test.jar\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.jar\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type WSBATxControl with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionService.txControl
+  at org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionService.txControl(BAParticipantCompletionService.java:0)
+"}}
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getActionResult(ServerDeploymentPlanResultFuture.java:134)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.getResultFromNode(ServerDeploymentPlanResultFuture.java:123)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:85)
+	at org.jboss.as.controller.client.helpers.standalone.impl.ServerDeploymentPlanResultFuture.get(ServerDeploymentPlanResultFuture.java:42)
+	at org.jboss.as.controller.client.helpers.standalone.ServerDeploymentHelper.deploy(ServerDeploymentHelper.java:55)
+	at org.jboss.as.arquillian.container.ArchiveDeployer.deployInternal(ArchiveDeployer.java:77)
+	... 96 more
+
+org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest  Time elapsed: 30.62 sec  <<< ERROR!
+java.lang.RuntimeException: Failed to remove Byteman script
+	at org.jboss.jbossts.xts.bytemanSupport.BMScript.remove(BMScript.java:34)
+	at org.jboss.narayana.txframework.functional.ws.ba.participantCompletion.BAParticipantCompletionTest.removeBytemanScript(BAParticipantCompletionTest.java:87)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:45)
+	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:42)
+	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:36)
+	at org.jboss.arquillian.junit.Arquillian$StatementLifecycleExecutor.invoke(Arquillian.java:351)
+	at org.jboss.arquillian.container.test.impl.execution.ClientBeforeAfterLifecycleEventExecuter.execute(ClientBeforeAfterLifecycleEventExecuter.java:99)
+	at org.jboss.arquillian.container.test.impl.execution.ClientBeforeAfterLifecycleEventExecuter.on(ClientBeforeAfterLifecycleEventExecuter.java:65)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.invokeObservers(EventContextImpl.java:99)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:81)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createClassContext(TestContextHandler.java:75)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.test.impl.TestContextHandler.createSuiteContext(TestContextHandler.java:60)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.jboss.arquillian.core.impl.ObserverImpl.invoke(ObserverImpl.java:94)
+	at org.jboss.arquillian.core.impl.EventContextImpl.proceed(EventContextImpl.java:88)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:135)
+	at org.jboss.arquillian.core.impl.ManagerImpl.fire(ManagerImpl.java:115)
+	at org.jboss.arquillian.test.impl.EventTestRunnerAdaptor.afterClass(EventTestRunnerAdaptor.java:87)
+	at org.jboss.arquillian.junit.Arquillian$3$1.evaluate(Arquillian.java:204)
+	at org.jboss.arquillian.junit.Arquillian.multiExecute(Arquillian.java:314)
+	at org.jboss.arquillian.junit.Arquillian.access$100(Arquillian.java:46)
+	at org.jboss.arquillian.junit.Arquillian$3.evaluate(Arquillian.java:199)
+	at org.junit.runners.ParentRunner.run(ParentRunner.java:300)
+	at org.jboss.arquillian.junit.Arquillian.run(Arquillian.java:147)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+Caused by: java.lang.Exception: The remote byteman agent reported an error:
+ERROR failed to find loaded rule with name create counter
+ERROR failed to find loaded rule with name complete called
+ERROR failed to find loaded rule with name close called
+ERROR failed to find loaded rule with name cancel called
+ERROR No rule scripts to remove
+
+	at org.jboss.byteman.agent.submit.Submit$Comm.readResponse(Submit.java:956)
+	at org.jboss.byteman.agent.submit.Submit.submitRequest(Submit.java:780)
+	at org.jboss.byteman.agent.submit.Submit.deleteScripts(Submit.java:688)
+	at org.jboss.byteman.agent.submit.Submit.deleteRulesFromResources(Submit.java:661)
+	at org.jboss.jbossts.xts.bytemanSupport.BMScript.remove(BMScript.java:32)
+	... 54 more
+{code}
+
+{code}
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+Oct 29, 2013 7:42:21 PM org.jboss.as.arquillian.container.managed.ManagedDeployableContainer startInternal
+INFO: Starting container with: [/usr/local/jdk1.7.0_45/bin/java, -server, -Dorg.jboss.byteman.verbose, -Djboss.modules.system.pkgs=org.jboss.byteman, -Dorg.jboss.byteman.transform.all, -javaagent:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/./txframework/target/lib/byteman.jar=listener:true, -Xms64m, -Xmx1024m, -XX:MaxPermSize=512m, -Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n, -ea, -Djboss.home.dir=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT, -Dorg.jboss.boot.log.file=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/log/server.log, -Dlogging.configuration=file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/configuration/logging.properties, -Djboss.bundles.dir=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/bundles, -jar, /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/jboss-modules.jar, -mp, /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/modules, org.jboss.as.standalone, -server-config, standalone-xts.xml]
+TransformListener() : accepting requests on localhost:9091
+Listening for transport dt_socket at address: 8787
+[0m19:42:24,401 INFO  [org.jboss.modules] (main) JBoss Modules version 1.3.0.Final
+[0m[0m19:42:25,367 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.0.Beta2
+[0m[0m19:42:25,630 INFO  [org.jboss.as] (MSC service thread 1-2) JBAS015899: WildFly 8.0.0.Beta2-SNAPSHOT "WildFly" starting
+[0m[0m19:42:28,783 INFO  [org.xnio] (MSC service thread 1-2) XNIO version 3.1.0.CR7
+[0m[0m19:42:28,794 INFO  [org.xnio.nio] (MSC service thread 1-2) XNIO NIO Implementation Version 3.1.0.CR7
+[0m[0m19:42:28,819 INFO  [org.jboss.remoting] (MSC service thread 1-2) JBoss Remoting version 4.0.0.Beta1
+[0m[0m19:42:28,895 INFO  [org.jboss.as.server] (Controller Boot Thread) JBAS015888: Creating http management service using socket-binding (management-http)
+[0m[0m19:42:29,183 INFO  [org.jboss.as.jsf] (ServerService Thread Pool -- 42) JBAS012615: Activated the following JSF Implementations: [main]
+[0m[0m19:42:29,599 INFO  [org.jboss.as.webservices] (ServerService Thread Pool -- 55) JBAS015537: Activating WebServices Extension
+[0m[0m19:42:29,618 INFO  [org.jboss.as.security] (ServerService Thread Pool -- 51) JBAS013171: Activating Security Subsystem
+[0m[0m19:42:29,661 INFO  [org.jboss.as.naming] (ServerService Thread Pool -- 46) JBAS011800: Activating Naming Subsystem
+[0m[0m19:42:29,681 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 35) JBAS010280: Activating Infinispan subsystem.
+[0m[0m19:42:29,694 INFO  [org.jboss.as.jacorb] (ServerService Thread Pool -- 36) JBAS016300: Activating JacORB Subsystem
+[0m[0m19:42:29,894 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 54) JBAS017502: Undertow 1.0.0.Beta20 starting
+[0m[0m19:42:30,134 INFO  [org.wildfly.extension.undertow] (ServerService Thread Pool -- 54) JBAS017527: Creating file handler for path /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/welcome-content
+[0m[0m19:42:30,677 INFO  [org.jboss.as.security] (MSC service thread 1-1) JBAS013170: Current PicketBox version=4.0.19.Final
+[0m[0m19:42:30,811 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017502: Undertow 1.0.0.Beta20 starting
+[0m[0m19:42:31,004 INFO  [org.jboss.as.connector.logging] (MSC service thread 1-2) JBAS010408: Starting JCA Subsystem (IronJacamar 1.1.1.Final)
+[0m[0m19:42:31,146 INFO  [org.jboss.as.connector.subsystems.datasources] (ServerService Thread Pool -- 30) JBAS010403: Deploying JDBC-compliant driver class org.h2.Driver (version 1.3)
+[0m[0m19:42:31,319 INFO  [org.jboss.as.naming] (MSC service thread 1-1) JBAS011802: Starting Naming Service
+[0m[0m19:42:31,320 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-1) JBAS010417: Started Driver service with driver-name = h2
+[0m[0m19:42:31,781 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017525: Started server default-server.
+[0m[0m19:42:31,834 INFO  [org.jboss.as.jacorb] (MSC service thread 1-1) JBAS016330: CORBA ORB Service started
+[0m[0m19:42:31,917 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017531: Host default-host starting
+[0m[0m19:42:31,927 INFO  [org.jboss.as.mail.extension] (MSC service thread 1-1) JBAS015400: Bound mail session [java:jboss/mail/Default]
+[0m[0m19:42:32,239 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017519: Undertow HTTP listener default listening on /127.0.0.1:8080
+[0m[0m19:42:32,682 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "restat-web-5.0.0.M9-SNAPSHOT.war" (runtime-name: "restat-web-5.0.0.M9-SNAPSHOT.war")
+[0m[0m19:42:32,693 INFO  [org.jboss.as.server.deployment.scanner] (MSC service thread 1-1) JBAS015012: Started FileSystemDeploymentService for directory /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/deployments
+[0m[0m19:42:32,883 INFO  [org.jboss.ws.common.management] (MSC service thread 1-2) JBWS022052: Starting JBoss Web Services - Stack CXF Server 4.2.2.Final
+[0m[0m19:42:32,963 INFO  [org.jboss.as.jacorb] (MSC service thread 1-1) JBAS016328: CORBA Naming Service started
+[0m[0m19:42:33,187 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint-publish.ws-t11-participant
+[0m[0m19:42:33,226 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221000: live server is starting with configuration HornetQ Configuration (clustered=false,backup=false,sharedStore=true,journalDirectory=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/messagingjournal,bindingsDirectory=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/messagingbindings,largeMessagesDirectory=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/messaginglargemessages,pagingDirectory=/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/messagingpaging)
+[0m[0m19:42:33,228 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221006: Waiting to obtain live lock
+[0m[0m19:42:33,290 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221012: Using AIO Journal
+[0m[0m19:42:33,322 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ224067: Adding protocol support CORE
+[0m[0m19:42:33,329 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ224067: Adding protocol support AMQP
+[0m[0m19:42:33,333 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ224067: Adding protocol support STOMP
+[0m[0m19:42:33,336 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ224067: Adding protocol support STOMP_WS
+[0m[0m19:42:33,355 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint-publish.ws-c11
+[0m[0m19:42:33,506 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=ActivationService
+ address=http://localhost:8080/ws-c11/ActivationService
+ implementor=com.arjuna.webservices11.wscoor.sei.ActivationPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wscoor/2006/06}ActivationService
+ portName={http://docs.oasis-open.org/ws-tx/wscoor/2006/06}ActivationPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:33,508 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=RegistrationService
+ address=http://localhost:8080/ws-c11/RegistrationService
+ implementor=com.arjuna.webservices11.wscoor.sei.RegistrationPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wscoor/2006/06}RegistrationService
+ portName={http://docs.oasis-open.org/ws-tx/wscoor/2006/06}RegistrationPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:33,866 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-1) JBWS024061: Adding service endpoint metadata: id=ParticipantService
+ address=http://localhost:8080/ws-t11-participant/ParticipantService
+ implementor=com.arjuna.webservices11.wsat.sei.ParticipantPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}ParticipantService
+ portName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}ParticipantPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:33,868 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-1) JBWS024061: Adding service endpoint metadata: id=BusinessAgreementWithParticipantCompletionParticipantService
+ address=http://localhost:8080/ws-t11-participant/BusinessAgreementWithParticipantCompletionParticipantService
+ implementor=com.arjuna.webservices11.wsba.sei.BusinessAgreementWithParticipantCompletionParticipantPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionParticipantService
+ portName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionParticipantPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:33,870 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-1) JBWS024061: Adding service endpoint metadata: id=BusinessAgreementWithCoordinatorCompletionParticipantService
+ address=http://localhost:8080/ws-t11-participant/BusinessAgreementWithCoordinatorCompletionParticipantService
+ implementor=com.arjuna.webservices11.wsba.sei.BusinessAgreementWithCoordinatorCompletionParticipantPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionParticipantService
+ portName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionParticipantPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:34,223 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}ParticipantService from class com.arjuna.webservices11.wsat.sei.ParticipantPortTypeImpl
+[0m[0m19:42:34,268 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}ActivationService from class com.arjuna.webservices11.wscoor.sei.ActivationPortTypeImpl
+[0m[0m19:42:35,027 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221034: Waiting to obtain live lock
+[0m[0m19:42:35,027 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221035: Live Server Obtained live lock
+[0m[0m19:42:36,044 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-c11/ActivationService
+[0m[0m19:42:36,550 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-c11.deployment/ActivationService.wsdl
+[0m[0m19:42:36,551 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wscoor/2006/06}RegistrationService from class com.arjuna.webservices11.wscoor.sei.RegistrationPortTypeImpl
+[0m[0m19:42:36,654 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-c11/RegistrationService
+[0m[0m19:42:36,719 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-c11.deployment/RegistrationService.wsdl
+[0m[0m19:42:36,772 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017534: Register web context: /ws-c11
+[0m[0m19:42:36,773 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint-publish.ws-t11-coordinator
+[0m[0m19:42:36,778 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=BusinessAgreementWithCoordinatorCompletionCoordinatorService
+ address=http://localhost:8080/ws-t11-coordinator/BusinessAgreementWithCoordinatorCompletionCoordinatorService
+ implementor=com.arjuna.webservices11.wsba.sei.BusinessAgreementWithCoordinatorCompletionCoordinatorPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionCoordinatorService
+ portName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionCoordinatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,780 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=CoordinatorService
+ address=http://localhost:8080/ws-t11-coordinator/CoordinatorService
+ implementor=com.arjuna.webservices11.wsat.sei.CoordinatorPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CoordinatorService
+ portName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CoordinatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,781 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=CompletionCoordinatorRPCService
+ address=http://localhost:8080/ws-t11-coordinator/CompletionCoordinatorRPCService
+ implementor=com.arjuna.webservices11.wsat.sei.CompletionCoordinatorRPCPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorRPCService
+ portName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorRPCPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,782 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=TerminationCoordinatorRPCService
+ address=http://localhost:8080/ws-t11-coordinator/TerminationCoordinatorRPCService
+ implementor=com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorRPCPortTypeImpl
+ serviceName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorRPCPortTypeImplService
+ portName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorRPCPortTypePort
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,784 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=TerminationCoordinatorService
+ address=http://localhost:8080/ws-t11-coordinator/TerminationCoordinatorService
+ implementor=com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorPortTypeImpl
+ serviceName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorService
+ portName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,785 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=BusinessAgreementWithParticipantCompletionCoordinatorService
+ address=http://localhost:8080/ws-t11-coordinator/BusinessAgreementWithParticipantCompletionCoordinatorService
+ implementor=com.arjuna.webservices11.wsba.sei.BusinessAgreementWithParticipantCompletionCoordinatorPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorService
+ portName={http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,786 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=CompletionCoordinatorService
+ address=http://localhost:8080/ws-t11-coordinator/CompletionCoordinatorService
+ implementor=com.arjuna.webservices11.wsat.sei.CompletionCoordinatorPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService
+ portName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:36,803 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionCoordinatorService from class com.arjuna.webservices11.wsba.sei.BusinessAgreementWithCoordinatorCompletionCoordinatorPortTypeImpl
+[0m[0m19:42:36,834 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-1) Setting the server's publish address to be http://localhost:8080/ws-t11-participant/ParticipantService
+[0m[0m19:42:36,921 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-1) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-participant.deployment/ParticipantService.wsdl
+[0m[0m19:42:36,932 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionParticipantService from class com.arjuna.webservices11.wsba.sei.BusinessAgreementWithParticipantCompletionParticipantPortTypeImpl
+[0m[0m19:42:37,139 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/BusinessAgreementWithCoordinatorCompletionCoordinatorService
+[0m[0m19:42:37,357 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-1) Setting the server's publish address to be http://localhost:8080/ws-t11-participant/BusinessAgreementWithParticipantCompletionParticipantService
+[0m[0m19:42:37,520 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/BusinessAgreementWithCoordinatorCompletionCoordinatorService.wsdl
+[0m[0m19:42:37,539 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CoordinatorService from class com.arjuna.webservices11.wsat.sei.CoordinatorPortTypeImpl
+[0m[0m19:42:37,625 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-1) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-participant.deployment/BusinessAgreementWithParticipantCompletionParticipantService.wsdl
+[0m[0m19:42:37,627 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithCoordinatorCompletionParticipantService from class org.oasis_open.docs.ws_tx.wsba._2006._06.BusinessAgreementWithCoordinatorCompletionParticipantPortType
+[0m[0m19:42:37,686 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-1) Setting the server's publish address to be http://localhost:8080/ws-t11-participant/BusinessAgreementWithCoordinatorCompletionParticipantService
+[0m[0m19:42:37,721 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-1) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-participant.deployment/BusinessAgreementWithCoordinatorCompletionParticipantService.wsdl
+[0m[0m19:42:37,852 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017534: Register web context: /ws-t11-participant
+[0m[0m19:42:37,852 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint-publish.ws-t11-client
+[0m[0m19:42:37,855 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-1) JBWS024061: Adding service endpoint metadata: id=CompletionInitiatorService
+ address=http://localhost:8080/ws-t11-client/CompletionInitiatorService
+ implementor=com.arjuna.webservices11.wsat.sei.CompletionInitiatorPortTypeImpl
+ serviceName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService
+ portName={http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:37,857 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-1) JBWS024061: Adding service endpoint metadata: id=TerminationParticipantService
+ address=http://localhost:8080/ws-t11-client/TerminationParticipantService
+ implementor=com.arjuna.webservices11.wsarjtx.sei.TerminationParticipantPortTypeImpl
+ serviceName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantService
+ portName={http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantPortType
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+[0m[0m19:42:37,902 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/CoordinatorService
+[0m[0m19:42:37,917 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-1) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionInitiatorService from class com.arjuna.webservices11.wsat.sei.CompletionInitiatorPortTypeImpl
+[0m[0m19:42:37,946 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/CoordinatorService.wsdl
+[0m[0m19:42:37,948 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorRPCService from class com.arjuna.webservices11.wsat.sei.CompletionCoordinatorRPCPortTypeImpl
+[0m[0m19:42:38,026 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221020: Started Netty Acceptor version 3.6.6.Final-90e1eb2 org.hornetq.default.servlet:5445 for CORE protocol
+[0m[0m19:42:38,058 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/CompletionCoordinatorRPCService
+[0m[0m19:42:38,072 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-1) Setting the server's publish address to be http://localhost:8080/ws-t11-client/CompletionInitiatorService
+[0m[0m19:42:38,107 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/CompletionCoordinatorRPCService.wsdl
+[0m[0m19:42:38,108 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorRPCPortTypeImplService from class com.arjuna.webservices11.wsarjtx.sei.TerminationCoordinatorRPCPortTypeImpl
+[0m[0m19:42:38,128 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-1) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-client.deployment/CompletionInitiatorService.wsdl
+[0m[0m19:42:38,130 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-1) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantService from class com.arjuna.schemas.ws._2005._10.wsarjtx.TerminationParticipantPortType
+[0m[0m19:42:38,171 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/TerminationCoordinatorRPCService
+[0m[0m19:42:38,221 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/TerminationCoordinatorRPCPortTypeImplService.wsdl
+[0m[0m19:42:38,223 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationCoordinatorService from class com.arjuna.schemas.ws._2005._10.wsarjtx.TerminationCoordinatorPortType
+[0m[0m19:42:38,246 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-1) Setting the server's publish address to be http://localhost:8080/ws-t11-client/TerminationParticipantService
+[0m[0m19:42:38,319 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-1) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-client.deployment/TerminationParticipantService.wsdl
+[0m[0m19:42:38,321 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017534: Register web context: /ws-t11-client
+[0m[0m19:42:38,349 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/TerminationCoordinatorService
+[0m[0m19:42:38,352 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221020: Started Netty Acceptor version 3.6.6.Final-90e1eb2 127.0.0.1:5455 for CORE protocol
+[0m[0m19:42:38,388 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/TerminationCoordinatorService.wsdl
+[0m[0m19:42:38,389 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsba/2006/06}BusinessAgreementWithParticipantCompletionCoordinatorService from class com.arjuna.webservices11.wsba.sei.BusinessAgreementWithParticipantCompletionCoordinatorPortTypeImpl
+[0m[0m19:42:38,430 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/BusinessAgreementWithParticipantCompletionCoordinatorService
+[0m[0m19:42:38,494 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/BusinessAgreementWithParticipantCompletionCoordinatorService.wsdl
+[0m[0m19:42:38,495 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://docs.oasis-open.org/ws-tx/wsat/2006/06}CompletionCoordinatorService from class com.arjuna.webservices11.wsat.sei.CompletionCoordinatorPortTypeImpl
+[0m[0m19:42:38,513 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/ws-t11-coordinator/CompletionCoordinatorService
+[0m[0m19:42:38,529 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/ws-t11-coordinator.deployment/CompletionCoordinatorService.wsdl
+[0m[0m19:42:38,532 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221020: Started Netty Acceptor version 3.6.6.Final-90e1eb2 127.0.0.1:5445 for CORE protocol
+[0m[0m19:42:38,535 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017534: Register web context: /ws-t11-coordinator
+[0m[0m19:42:38,553 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221007: Server is now live
+[0m[0m19:42:38,553 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 58) HQ221001: HornetQ Server version 2.4.0.Beta2 (Andromedian Flyer, 123) [72b2f4ee-40d1-11e3-9fec-39ccca37f0a4] 
+[0m[0m19:42:38,884 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-c11.deployment".ActivationService
+[0m[0m19:42:38,891 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-c11.deployment".RegistrationService
+[0m[0m19:42:38,892 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-participant.deployment".BusinessAgreementWithParticipantCompletionParticipantService
+[0m[0m19:42:38,893 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-participant.deployment".BusinessAgreementWithCoordinatorCompletionParticipantService
+[0m[0m19:42:38,894 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-participant.deployment".ParticipantService
+[0m[0m19:42:38,895 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-client.deployment".CompletionInitiatorService
+[0m[0m19:42:38,896 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-client.deployment".TerminationParticipantService
+[0m[33m19:42:38,943 WARN  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017507: Secure listener for protocol: 'HTTP/1.1' not found! Using non secure port!
+[0m[0m19:42:39,105 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".TerminationCoordinatorRPCService
+[0m[0m19:42:39,106 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".TerminationCoordinatorService
+[0m[0m19:42:39,107 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".CoordinatorService
+[0m[0m19:42:39,108 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".BusinessAgreementWithParticipantCompletionCoordinatorService
+[0m[0m19:42:39,109 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".BusinessAgreementWithCoordinatorCompletionCoordinatorService
+[0m[0m19:42:39,110 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".CompletionCoordinatorService
+[0m[0m19:42:39,111 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015539: Starting service jboss.ws.endpoint."ws-t11-coordinator.deployment".CompletionCoordinatorRPCService
+[0m[0m19:42:39,329 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 58) JBAS011601: Bound messaging object to jndi name java:jboss/exported/jms/ServletConnectionFactory
+[0m[0m19:42:39,330 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 58) JBAS011601: Bound messaging object to jndi name java:/ConnectionFactory
+[0m[0m19:42:39,337 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017534: Register web context: /hornetq-server
+[0m[0m19:42:39,340 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-2) ARJUNA033013: OutboundBridgeRecoveryManager starting
+[0m[0m19:42:39,342 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-2) ARJUNA033006: InboundBridgeRecoveryManager starting
+[0m[0m19:42:39,343 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-2) JBAS010400: Bound data source [java:jboss/datasources/ExampleDS]
+[0m[0m19:42:39,407 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-2) JBAS010406: Registered connection factory java:/JmsXA
+[0m[0m19:42:39,453 INFO  [org.jboss.as.remoting] (MSC service thread 1-1) JBAS017100: Listening on 127.0.0.1:9999
+[0m[0m19:42:39,486 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 59) JBAS011601: Bound messaging object to jndi name java:jboss/exported/jms/RemoteConnectionFactory
+[0m[33m19:42:39,631 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) JBAS018567: Deployment "deployment.restat-web-5.0.0.M9-SNAPSHOT.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[33m19:42:39,632 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-1) JBAS018567: Deployment "deployment.restat-web-5.0.0.M9-SNAPSHOT.war" is using a private module ("org.jboss.jts:main") which may be changed or removed in future versions without notice.
+[0m[0m19:42:39,881 INFO  [org.hornetq.ra] (MSC service thread 1-2) HornetQ resource adaptor started
+[0m[0m19:42:39,882 INFO  [org.jboss.as.connector.services.resourceadapters.ResourceAdapterActivatorService$ResourceAdapterActivator] (MSC service thread 1-2) IJ020002: Deployed: file://RaActivatorhornetq-ra
+[0m[0m19:42:39,885 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-2) JBAS010401: Bound JCA ConnectionFactory [java:/JmsXA]
+[0m[0m19:42:39,885 INFO  [org.jboss.as.messaging] (MSC service thread 1-2) JBAS011601: Bound messaging object to jndi name java:jboss/DefaultJMSConnectionFactory
+[0m[0m19:42:40,433 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017534: Register web context: /rest-tx
+[0m[0m19:42:40,802 INFO  [org.jboss.as.server] (ServerService Thread Pool -- 31) JBAS018559: Deployed "restat-web-5.0.0.M9-SNAPSHOT.war" (runtime-name : "restat-web-5.0.0.M9-SNAPSHOT.war")
+[0m[0m19:42:40,936 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015961: Http management interface listening on http://127.0.0.1:9990/management
+[0m[0m19:42:40,937 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015951: Admin console listening on http://127.0.0.1:9990
+[0m[0m19:42:40,937 INFO  [org.jboss.as] (Controller Boot Thread) JBAS015874: WildFly 8.0.0.Beta2-SNAPSHOT "WildFly" started in 17721ms - Started 304 of 340 services (75 services are lazy, passive or on-demand)
+[0m[0m19:42:42,674 INFO  [org.jboss.as.repository] (management-handler-thread - 3) JBAS014900: Content added at location /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/content/3f/321f2e40a51fedb1b1cafb6ee64a96f54d2cac/content
+[0m[0m19:42:42,680 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "arquillian-service" (runtime-name: "arquillian-service")
+[0m[33m19:42:43,005 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.as.jmx:main") which may be changed or removed in future versions without notice.
+[0m[33m19:42:43,005 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.as.server:main") which may be changed or removed in future versions without notice.
+[0m[33m19:42:43,005 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.jboss.jandex:main") which may be changed or removed in future versions without notice.
+[0m[33m19:42:43,006 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.arquillian-service" is using a private module ("org.wildfly.security.manager:main") which may be changed or removed in future versions without notice.
+[0m[33m19:42:43,055 WARN  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016012: Deployment deployment "arquillian-service" contains CDI annotations but beans.xml was not found.
+[0m[0m19:42:43,257 INFO  [org.jboss.as.server] (management-handler-thread - 3) JBAS018559: Deployed "arquillian-service" (runtime-name : "arquillian-service")
+[0m[0m19:42:48,215 INFO  [org.jboss.as.repository] (management-handler-thread - 3) JBAS014900: Content added at location /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/content/46/9f2e75823f8dd29a7858070ef97081ac5e0589/content
+[0m[0m19:42:48,219 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-1) JBAS015876: Starting deployment of "test.jar" (runtime-name: "test.jar")
+[0m[0m19:42:48,287 INFO  [org.jboss.as.jpa] (MSC service thread 1-1) JBAS011401: Read persistence.xml for bistro
+[0m[33m19:42:48,357 WARN  [org.jboss.as.dependency.private] (MSC service thread 1-2) JBAS018567: Deployment "deployment.test.jar" is using a private module ("org.wildfly.security.manager:main") which may be changed or removed in future versions without notice.
+[0m[0m19:42:48,875 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 25) JBAS011409: Starting Persistence Unit (phase 1 of 2) Service 'test.jar#bistro'
+[0m[0m19:42:48,905 INFO  [org.hibernate.jpa.internal.util.LogHelper] (ServerService Thread Pool -- 25) HHH000204: Processing PersistenceUnitInfo [
+	name: bistro
+	...]
+[0m[0m19:42:48,986 INFO  [org.hibernate.Version] (ServerService Thread Pool -- 25) HHH000412: Hibernate Core {4.3.0.Beta4}
+[0m[0m19:42:48,988 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 25) HHH000206: hibernate.properties not found
+[0m[0m19:42:48,989 INFO  [org.hibernate.cfg.Environment] (ServerService Thread Pool -- 25) HHH000021: Bytecode provider name : javassist
+[0m[0m19:42:49,624 INFO  [org.jboss.weld.deployer] (MSC service thread 1-1) JBAS016002: Processing weld deployment test.jar
+[0m[0m19:42:49,744 INFO  [org.hibernate.validator.internal.util.Version] (MSC service thread 1-1) HV000001: Hibernate Validator 5.0.1.Final
+[0m[0m19:42:49,912 INFO  [org.jboss.as.ejb3.deployment.processors.EjbJndiBindingsDeploymentUnitProcessor] (MSC service thread 1-1) JNDI bindings for session bean named BABridgedService in deployment unit deployment "test.jar" are as follows:
+
+	java:global/test/BABridgedService!org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged
+	java:app/test/BABridgedService!org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged
+	java:module/BABridgedService!org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged
+	java:jboss/exported/test/BABridgedService!org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged
+
+[0m[0m19:42:50,355 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016005: Starting Services for CDI deployment: test.jar
+[0m[0m19:42:50,402 INFO  [org.jboss.weld.Version] (MSC service thread 1-2) WELD-000900: 2.1.0 (Final)
+[0m[0m19:42:50,432 INFO  [org.jboss.ws.cxf.metadata] (MSC service thread 1-2) JBWS024061: Adding service endpoint metadata: id=BABridgedService
+ address=http://localhost:8080/test/BABridgedService/BABridged
+ implementor=org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService
+ serviceName={http://www.jboss.com/functional/ba/bridged/}BABridgedService
+ portName={http://www.jboss.com/functional/ba/bridged/}BABridgedService
+ annotationWsdlLocation=null
+ wsdlLocationOverride=null
+ mtomEnabled=false
+ handlers=[com.arjuna.mw.wst11.service.JaxWSHeaderContextProcessor]
+[0m[0m19:42:50,449 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (MSC service thread 1-2) Creating Service {http://www.jboss.com/functional/ba/bridged/}BABridgedService from class org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService
+[0m[0m19:42:50,542 INFO  [org.apache.cxf.endpoint.ServerImpl] (MSC service thread 1-2) Setting the server's publish address to be http://localhost:8080/test/BABridgedService/BABridged
+[0m[0m19:42:50,588 INFO  [org.jboss.ws.cxf.deployment] (MSC service thread 1-2) JBWS024074: WSDL published to: file:/home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/wsdl/test.jar/BABridgedService.wsdl
+[0m[0m19:42:50,594 INFO  [org.jboss.as.arquillian] (MSC service thread 1-1) Arquillian deployment detected: ArquillianConfig[service=jboss.arquillian.config."test.jar",unit=test.jar,tests=[org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedTest]]
+[0m[0m19:42:50,620 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016008: Starting weld service for deployment test.jar
+[0m[0m19:42:50,630 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015539: Starting service jboss.ws.endpoint."test.jar".BABridgedService
+[0m[0m19:42:50,821 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 29) JBAS011409: Starting Persistence Unit (phase 2 of 2) Service 'test.jar#bistro'
+[0m[0m19:42:51,222 INFO  [org.hibernate.annotations.common.Version] (ServerService Thread Pool -- 29) HCANN000001: Hibernate Commons Annotations {4.0.4.Final}
+[0m[0m19:42:51,506 INFO  [org.hibernate.dialect.Dialect] (ServerService Thread Pool -- 29) HHH000400: Using dialect: org.hibernate.dialect.H2Dialect
+[0m[33m19:42:51,516 WARN  [org.hibernate.dialect.H2Dialect] (ServerService Thread Pool -- 29) HHH000431: Unable to determine H2 database version, certain features may not work
+[0m[0m19:42:51,937 INFO  [org.hibernate.hql.internal.ast.ASTQueryTranslatorFactory] (ServerService Thread Pool -- 29) HHH000397: Using ASTQueryTranslatorFactory
+[0m[0m19:42:52,305 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 29) HHH000227: Running hbm2ddl schema export
+[0m[0m19:42:52,314 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 29) HHH000230: Schema export complete
+[0m[31m19:42:53,483 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-2) MSC000001: Failed to start service jboss.deployment.unit."test.jar".WeldStartService: org.jboss.msc.service.StartException in service jboss.deployment.unit."test.jar".WeldStartService: Failed to start service
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1900) [jboss-msc-1.2.0.Beta2.jar:1.2.0.Beta2]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type TXDataMap<String, Integer> with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap
+  at org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap(BABridgedService.java:0)
+
+	at org.jboss.weld.bootstrap.Validator.validateInjectionPointForDeploymentProblems(Validator.java:361)
+	at org.jboss.weld.bootstrap.Validator.validateInjectionPoint(Validator.java:282)
+	at org.jboss.weld.bootstrap.Validator.validateGeneralBean(Validator.java:133)
+	at org.jboss.weld.bootstrap.Validator.validateRIBean(Validator.java:164)
+	at org.jboss.weld.bootstrap.Validator.validateBean(Validator.java:507)
+	at org.jboss.weld.bootstrap.ConcurrentValidator$1.doWork(ConcurrentValidator.java:68)
+	at org.jboss.weld.bootstrap.ConcurrentValidator$1.doWork(ConcurrentValidator.java:66)
+	at org.jboss.weld.executor.IterativeWorkerTaskFactory$1.call(IterativeWorkerTaskFactory.java:60)
+	at org.jboss.weld.executor.IterativeWorkerTaskFactory$1.call(IterativeWorkerTaskFactory.java:53)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262) [rt.jar:1.7.0_45]
+	... 3 more
+
+[0m[31m19:42:53,491 ERROR [org.jboss.as.controller.management-operation] (management-handler-thread - 3) JBAS014613: Operation ("deploy") failed - address: ([("deployment" => "test.jar")]) - failure description: {"JBAS014671: Failed services" => {"jboss.deployment.unit.\"test.jar\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.jar\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type TXDataMap<String, Integer> with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap
+  at org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap(BABridgedService.java:0)
+"}}
+[0m[31m19:42:53,494 ERROR [org.jboss.as.server] (management-handler-thread - 3) JBAS015870: Deploy of deployment "test.jar" was rolled back with the following failure message: 
+{"JBAS014671: Failed services" => {"jboss.deployment.unit.\"test.jar\".WeldStartService" => "org.jboss.msc.service.StartException in service jboss.deployment.unit.\"test.jar\".WeldStartService: Failed to start service
+    Caused by: org.jboss.weld.exceptions.DeploymentException: WELD-001408: Unsatisfied dependencies for type TXDataMap<String, Integer> with qualifiers @Default
+  at injection point [BackedAnnotatedField] @Inject private org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap
+  at org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService.txDataMap(BABridgedService.java:0)
+"}}
+[0m[0m19:42:53,504 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015540: Stopping service jboss.ws.endpoint."test.jar".BABridgedService
+[0m[0m19:42:53,513 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 29) JBAS011410: Stopping Persistence Unit (phase 2 of 2) Service 'test.jar#bistro'
+[0m[0m19:42:53,516 INFO  [org.infinispan.factories.GlobalComponentRegistry] (ServerService Thread Pool -- 29) ISPN000128: Infinispan version: Infinispan 'Infinium' 6.0.0.CR1
+[0m[0m19:42:53,815 INFO  [org.infinispan.jmx.CacheJmxRegistration] (ServerService Thread Pool -- 29) ISPN000031: MBeans were successfully registered to the platform MBean server.
+[0m[0m19:42:53,820 INFO  [org.jboss.as.clustering.infinispan] (ServerService Thread Pool -- 29) JBAS010281: Started local-query cache from hibernate container
+[0m[0m19:42:53,825 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 29) HHH000227: Running hbm2ddl schema export
+[0m[0m19:42:53,828 INFO  [org.hibernate.tool.hbm2ddl.SchemaExport] (ServerService Thread Pool -- 29) HHH000230: Schema export complete
+[0m[0m19:42:53,829 INFO  [org.jboss.weld.deployer] (MSC service thread 1-2) JBAS016009: Stopping weld service for deployment test.jar
+[0m[0m19:42:53,926 INFO  [org.jboss.as.jpa] (ServerService Thread Pool -- 25) JBAS011410: Stopping Persistence Unit (phase 1 of 2) Service 'test.jar#bistro'
+[0m[0m19:42:53,936 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment test.jar (runtime-name: test.jar) in 440ms
+[0m[0m19:42:53,939 INFO  [org.jboss.as.clustering.infinispan] (MSC service thread 1-1) JBAS010282: Stopped local-query cache from hibernate container
+[0m[0m19:42:53,944 INFO  [org.jboss.as.controller] (management-handler-thread - 3) JBAS014774: Service status report
+JBAS014775:    New missing/unsatisfied dependencies:
+      service jboss.deployment.unit."test.jar".WeldBootstrapService (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInterceptorBindingsService, service jboss.deployment.unit."test.jar".CdiValidatorFactoryService, service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInstantiator, service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService, JBAS014799: ... and 2 more ] 
+      service jboss.deployment.unit."test.jar".WeldStartService (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInterceptorBindingsService, service jboss.deployment.unit."test.jar".CdiValidatorFactoryService, service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInstantiator] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.CREATE (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.START (missing) dependents: [service jboss.deployment.unit."test.jar".moduleDeploymentRuntimeInformationStart, service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService, service jboss.deployment.unit."test.jar".deploymentCompleteService, service jboss.undertow.deployment.default-host./test] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.VIEW."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged".REMOTE (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.VIEW."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService".SERVICE_ENDPOINT (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInstantiator (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInterceptorBindingsService (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInstantiator] 
+      service jboss.deployment.unit."test.jar".component.BABridgedService.ejb.non-functional-timerservice (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".ee.ComponentRegistry (missing) dependents: [service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService] 
+      service jboss.deployment.unit."test.jar".jndiDependencyService (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.deployment.unit."test.jar".moduleDeploymentRuntimeInformation (missing) dependents: [service jboss.deployment.unit."test.jar".moduleDeploymentRuntimeInformationStart, service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.naming.context.java.comp.test.test.BABridgedService (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.naming.context.java.comp.test.test.BABridgedService.env."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService".em (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START] 
+      service jboss.persistenceunit."test.jar#bistro" (missing) dependents: [service jboss.deployment.unit."test.jar".component.BABridgedService.START, service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService, service jboss.deployment.unit."test.jar".deploymentCompleteService, service jboss.undertow.deployment.default-host./test] 
+      service jboss.undertow.deployment.default-host./test (missing) dependents: [service jboss.deployment.unit."test.jar".deploymentCompleteService] 
+      service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService (missing) dependents: [service jboss.undertow.deployment.default-host./test] 
+JBAS014777:   Services which failed to start:      service jboss.deployment.unit."test.jar".WeldStartService
+
+[0m[0m19:42:53,961 INFO  [stdout] (Thread-0) TransformListener() : handling connection on port 9091
+[0m[0m19:42:54,035 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment arquillian-service (runtime-name: arquillian-service) in 6ms
+[0m[0m19:42:54,147 INFO  [org.jboss.as.repository] (management-handler-thread - 1) JBAS014901: Content removed from location /home/hudson/workspace/narayana/PROFILE/XTS/jdk/jdk7.latest/label/linux/jboss-as/build/target/wildfly-8.0.0.Beta2-SNAPSHOT/standalone/data/content/3f/321f2e40a51fedb1b1cafb6ee64a96f54d2cac/content
+[0m[0m19:42:54,148 INFO  [org.jboss.as.server] (management-handler-thread - 1) JBAS018558: Undeployed "arquillian-service" (runtime-name: "arquillian-service")
+[0m[0m19:42:54,151 INFO  [org.jboss.as.controller] (management-handler-thread - 1) JBAS014774: Service status report
+JBAS014776:    Newly corrected services:
+      service jboss.deployment.unit."test.jar".WeldBootstrapService (no longer required)
+      service jboss.deployment.unit."test.jar".WeldStartService (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.CREATE (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.START (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.VIEW."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridged".REMOTE (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.VIEW."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService".SERVICE_ENDPOINT (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInstantiator (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.WeldInterceptorBindingsService (no longer required)
+      service jboss.deployment.unit."test.jar".component.BABridgedService.ejb.non-functional-timerservice (no longer required)
+      service jboss.deployment.unit."test.jar".ee.ComponentRegistry (no longer required)
+      service jboss.deployment.unit."test.jar".jndiDependencyService (no longer required)
+      service jboss.deployment.unit."test.jar".moduleDeploymentRuntimeInformation (no longer required)
+      service jboss.naming.context.java.comp.test.test.BABridgedService (no longer required)
+      service jboss.naming.context.java.comp.test.test.BABridgedService.env."org.jboss.narayana.txframework.functional.ws.ba.bridged.BABridgedService".em (no longer required)
+      service jboss.persistenceunit."test.jar#bistro" (no longer required)
+      service jboss.undertow.deployment.default-host./test (no longer required)
+      service jboss.undertow.deployment.default-host./test.UndertowDeploymentInfoService (no longer required)
+
+[0m[0m19:42:54,173 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017535: Unregister web context: /rest-tx
+[0m[0m19:42:54,213 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-participant.deployment".BusinessAgreementWithParticipantCompletionParticipantService
+[0m[0m19:42:54,214 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".BusinessAgreementWithCoordinatorCompletionCoordinatorService
+[0m[0m19:42:54,214 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-client.deployment".CompletionInitiatorService
+[0m[0m19:42:54,215 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".TerminationCoordinatorRPCService
+[0m[0m19:42:54,216 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".CompletionCoordinatorService
+[0m[0m19:42:54,217 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".TerminationCoordinatorService
+[0m[0m19:42:54,217 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".CoordinatorService
+[0m[0m19:42:54,218 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".BusinessAgreementWithParticipantCompletionCoordinatorService
+[0m[0m19:42:54,218 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-participant.deployment".ParticipantService
+[0m[0m19:42:54,219 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-client.deployment".TerminationParticipantService
+[0m[0m19:42:54,220 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-coordinator.deployment".CompletionCoordinatorRPCService
+[0m[0m19:42:54,220 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-c11.deployment".ActivationService
+[0m[0m19:42:54,221 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-c11.deployment".RegistrationService
+[0m[0m19:42:54,222 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint."ws-t11-participant.deployment".BusinessAgreementWithCoordinatorCompletionParticipantService
+[0m[0m19:42:54,223 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017535: Unregister web context: /hornetq-server
+[0m[0m19:42:54,331 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-1) ARJUNA033014: OutboundBridgeRecoveryManager stopping
+[0m[0m19:42:54,331 INFO  [org.jboss.jbossts.txbridge] (MSC service thread 1-1) ARJUNA033007: InboundBridgeRecoveryManager stopping
+[0m[0m19:42:54,346 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015540: Stopping service jboss.ws.endpoint-publish.ws-t11-client
+[0m[0m19:42:54,346 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: /ws-t11-client
+[0m[0m19:42:54,374 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 24) JBAS011605: Unbound messaging object to jndi name java:jboss/exported/jms/RemoteConnectionFactory
+[0m[0m19:42:54,397 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint-publish.ws-t11-coordinator
+[0m[0m19:42:54,397 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017535: Unregister web context: /ws-t11-coordinator
+[0m[0m19:42:54,404 INFO  [org.jboss.as.webservices] (MSC service thread 1-1) JBAS015540: Stopping service jboss.ws.endpoint-publish.ws-t11-participant
+[0m[0m19:42:54,404 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-1) JBAS017535: Unregister web context: /ws-t11-participant
+[0m[0m19:42:54,404 INFO  [org.jboss.as.webservices] (MSC service thread 1-2) JBAS015540: Stopping service jboss.ws.endpoint-publish.ws-c11
+[0m[0m19:42:54,405 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017535: Unregister web context: /ws-c11
+[0m[0m19:42:54,454 INFO  [org.jboss.as.messaging] (ServerService Thread Pool -- 22) JBAS011605: Unbound messaging object to jndi name java:/ConnectionFactory
+[0m[0m19:42:54,475 INFO  [org.jboss.as.messaging] (MSC service thread 1-1) JBAS011605: Unbound messaging object to jndi name java:jboss/DefaultJMSConnectionFactory
+[0m[0m19:42:54,476 INFO  [org.jboss.as.connector.subsystems.datasources] (MSC service thread 1-1) JBAS010409: Unbound data source [java:jboss/datasources/ExampleDS]
+[0m[0m19:42:54,479 INFO  [org.jboss.as.connector.deployment] (MSC service thread 1-2) JBAS010410: Unbound JCA ConnectionFactory [java:/JmsXA]
+[0m[0m19:42:54,480 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017532: Host default-host stopping
+[0m[0m19:42:54,483 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017521: Undertow HTTP listener default suspending
+[0m[0m19:42:54,484 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017520: Undertow HTTP listener default stopped, was bound to localhost.localdomain/127.0.0.1:8080
+[0m[0m19:42:54,495 INFO  [org.wildfly.extension.undertow] (MSC service thread 1-2) JBAS017506: Undertow 1.0.0.Beta20 stopping
+[0m[0m19:42:54,500 INFO  [org.jboss.as.server.deployment] (MSC service thread 1-2) JBAS015877: Stopped deployment restat-web-5.0.0.M9-SNAPSHOT.war (runtime-name: restat-web-5.0.0.M9-SNAPSHOT.war) in 83ms
+[0m[0m19:42:54,524 INFO  [org.hornetq.ra] (ServerService Thread Pool -- 21) HQ151003: HornetQ resource adaptor stopped
+[0m[0m19:42:54,929 INFO  [org.jboss.as.connector.deployers.jdbc] (MSC service thread 1-2) JBAS010418: Stopped Driver service with driver-name = h2
+[0m[0m19:42:54,997 INFO  [org.hornetq.core.server] (ServerService Thread Pool -- 21) HQ221002: HornetQ Server version 2.4.0.Beta2 (Andromedian Flyer, 123) [72b2f4ee-40d1-11e3-9fec-39ccca37f0a4] stopped
+[0m[0m19:42:55,029 INFO  [org.jboss.as] (MSC service thread 1-2) JBAS015950: WildFly 8.0.0.Beta2-SNAPSHOT "WildFly" stopped in 612ms
+[0m
+{code}

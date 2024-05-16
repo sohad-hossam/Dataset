@@ -1,0 +1,2 @@
+Retain a log if a forget call on a resource fails
+When we clear a heuristic from XAResourceRecord we call forget on the resource and then delete the record even if the forget operation fails. The preferred behaviour is to retain the record if the forget fails so that it can be reported via our tooling and so that we still have the option of later retrying the forget operation (also via the tooling).

@@ -1,0 +1,15 @@
+Improve Container API
+RecoverableContainer<Sample> theContainer = new RecoverableContainer<Sample>();
+Sample obj1 = theContainer.create(new SampleLockable(10));
+Sample obj2 = theContainer.create(new SampleLockable(10));
+
+// todo make it easier to create and share objects.
+
+  Make sharing of objects like this the default even for pessimistic. Just pass back the
+  same instance in that case. Also hide getUidForHandle by simply passing the obj instance.fr
+
+
+Sample obj3 = theContainer.duplicate(obj1);
+Sample obj4 = theContainer.duplicate(obj2);
+
+but for duplicate to work, we'd need to create a new instance of SampleLockable, so it needs to have a default constructor. And even then, it needs to be transactional.

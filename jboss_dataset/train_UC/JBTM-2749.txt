@@ -1,0 +1,2 @@
+Add an SPI method to lookup imported transactions by Xid
+When EJB remoting sees an incoming transaction it needs to determine whether it is one that the TM already knows about and should just resume it or if it needs to start a new subordinate transaction for it on this node.

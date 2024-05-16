@@ -1,0 +1,10 @@
+Byteman tests fail when running with the IBM JVM
+Byteman instrumentation does not work with the IBM J9 JVM:- it fails with errors like the following:
+
+{code}
+*** java.lang.instrument ASSERTION FAILED ***: "jvmtierror == JVMTI_ERROR_NOT_AVAILABLE" at JPLISAgent.c line: 1009
+Exception in thread "Attachment 59984" Agent failed to start!
+JVMJ9TI064E Agent initialization function Agent_OnAttach failed for library instrument, return code 102
+{code}
+
+I will implement a workaround by disabling byteman when testing with this JVM.

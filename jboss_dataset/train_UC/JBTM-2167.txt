@@ -1,0 +1,37 @@
+JDBC Object Store Deadlock potential with MySQL
+{code}
+WARN  com.arjuna.ats.arjuna - ARJUNA012258: JDBCImple:write_state caught exception
+2014-07-06 05:06:00,067 out: com.mysql.jdbc.exceptions.jdbc4.MySQLTransactionRollbackException: Deadlock found when trying to get lock; try restarting transaction
+2014-07-06 05:06:00,067 out: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+2014-07-06 05:06:00,067 out: 	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57)
+2014-07-06 05:06:00,067 out: 	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+2014-07-06 05:06:00,067 out: 	at java.lang.reflect.Constructor.newInstance(Constructor.java:526)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.Util.handleNewInstance(Util.java:406)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.Util.getInstance(Util.java:381)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:1045)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.SQLError.createSQLException(SQLError.java:956)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3536)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.MysqlIO.checkErrorPacket(MysqlIO.java:3468)
+2014-07-06 05:06:00,067 out: 	at com.mysql.jdbc.MysqlIO.sendCommand(MysqlIO.java:1957)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.MysqlIO.sqlQueryDirect(MysqlIO.java:2107)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.ConnectionImpl.execSQL(ConnectionImpl.java:2648)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.PreparedStatement.executeInternal(PreparedStatement.java:2086)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2371)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2289)
+2014-07-06 05:06:00,068 out: 	at com.mysql.jdbc.PreparedStatement.executeUpdate(PreparedStatement.java:2274)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.write_state(JDBCImple_driver.java:587)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.write_committed(JDBCStore.java:158)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.prepare(BasicAction.java:2282)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1515)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:96)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+2014-07-06 05:06:00,068 out: 	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:147)
+2014-07-06 05:06:00,068 out: 	at org.jboss.jbossts.qa.ArjunaCore.LockManager.client.Worker001.run(Worker001.java:67)
+{code}
+
+crashrecovery08 CrashRecovery08_Test32 Fail (0m44.850s)
+crashrecovery08 CrashRecovery08_Test04 Fail (0m37.253s)
+txcore_lockrecord LockRecord_Thread_Test048a Fail (0m46.514s)
+txcore_lockrecord LockRecord_Thread_Test022b Fail (0m8.687s)
+txcore_lockrecord LockRecord_Thread_Test010a Fail (0m10.751s)
+txcore_lockrecord LockRecord_Thread_Test047b Fail

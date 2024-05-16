@@ -1,0 +1,2 @@
+JBoss AS 7.1.1 Final XA datasources memory leak
+None

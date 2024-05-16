@@ -1,0 +1,8 @@
+Update Narayana release script
+Following changes are needed for Narayana release script:
+* Documentation was completely changed by JBTM-2281, thus links have to be changed
+* New API bundle was introduced with JBTM-2286. It should be used instead of separate JTA, JTS, XTS, RTS archives
+* Upload download links to the new web page via github
+* Replace extracted versions of documentations on the web page
+* Update narayana release process doc
+* Update webpage update readme

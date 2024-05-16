@@ -1,0 +1,7 @@
+Implement getContainer on Container class
+Currently it's a null-op ...
+
+public static final Container<?> getContainer (Object proxy)
+    {
+        return null;
+    }

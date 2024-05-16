@@ -1,0 +1,15 @@
+MultiParticipantParticipantCompletionParticipantCloseTest fails:  jboss-as not killed
+This XTS recovery test is failing due to the AS not stopping in time. It then causes subsiquent tests to fail as the AS is still running.
+
+See job: http://albany/view/Narayana+BlackTie/job/narayana-java6/1161
+
+{code}
+Results :
+
+Failed tests: 
+  MultiParticipantParticipantCompletionParticipantCloseTest(com.arjuna.qa.junit.TestBACrashDuringCommit)
+
+Tests in error: 
+  MultiParticipantParticipantCompletionParticipantCloseTest(com.arjuna.qa.junit.TestBACrashDuringCommit): jboss-as not killed
+  MultiParticipantParticipantCompletionParticipantCloseAndExitTest(com.arjuna.qa.junit.TestBACrashDuringCommit): The server is already running! Managed containers does not support connecting to running server 
+{code}

@@ -1,0 +1,2 @@
+Allow sharing of states between address spaces for STM applications and add some tests.
+Support ObjectModel.MULTIPLE in the containers.

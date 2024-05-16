@@ -1,0 +1,10 @@
+JacORBGenericRecoveryCreatorUnitTest fails as implname property has not been set
+Moving the class seems to have made the test fail due to the following warning:
+
+144 [main] ERROR jacorb.poa - Cannot create a persistent poa. The implname property has not been set.
+Jul 02, 2013 9:46:53 PM com.arjuna.ats.internal.jts.orbspecific.jacorb.recoverycoordinators.JacOrbRCServiceInit getRCPOA
+WARN: ARJUNA022081: Failed to create poa for recoverycoordinators
+org.omg.PortableServer.POAPackage.InvalidPolicy: IDL:omg.org/PortableServer/POA/InvalidPolicy:1.0
+	at org.jacorb.poa.POA.create_POA(Unknown Source)
+
+I have looked in the code and there is an @BeforeClass @AfterClass pair ArjunaJTS/jts/tests/classes/com/hp/mwtests/ts/jts/orbspecific/recovery/RecoveryEnablementUnitTest.java which set this property. This does not operate as the author expected. The property is indeed set before TestBase has chance to initialize the orb, however the class is not unloaded by JUnit until after the run, hence why the order of when JacORBGenericRecoveryCreatorUnitTest is ran is important. Presumably before it was being run after RecoveryEnablementUnitTest, whereas now it is before.

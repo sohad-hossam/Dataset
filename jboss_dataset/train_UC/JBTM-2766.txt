@@ -1,0 +1,2 @@
+Allow Transactional Driver to be used with commons-dbcp in Tomcat
+Transactional driver does not provide connection pooling but commons-dbcp (as used in Tomcat) does. We should test it and provide a demonstration and blog post of its usage.

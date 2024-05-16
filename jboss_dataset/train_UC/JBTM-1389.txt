@@ -1,0 +1,2 @@
+BAParticipantCompletionTest hangs on tests that don't send 'completed' message
+None

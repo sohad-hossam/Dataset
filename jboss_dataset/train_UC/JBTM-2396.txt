@@ -1,0 +1,32 @@
+Investigate whether OCC implementation is unexpectedly checking locks during @WriteLock methods rather than delaying to commit time
+While checking out the STM work I tried to observe the difference between the OCC and PCC variants of the framework. During my testing I was not able to distinguish a difference between the two implementations.
+
+Consider the following test:
+
+{code}
+// gonna confess here, I am using two containers as I thought it might separate better but I don't actually think this is required to use the two containers to get the separation as the two transactions should I create should be doing that?
+       Container<Atomic> theContainer1 = new Container<Atomic>();
+       Container<Atomic> theContainer2 = new Container<Atomic>();
+
+       // Setting up the two references to the STM object
+       final Atomic obj1 = theContainer1.create(new ExampleSTM());
+       final Atomic obj2 = theContainer2.clone(new ExampleSTM(), obj1);
+
+       // Creating a transaction and calling the @WriteLock method set() on it but don't commit the tx
+       AtomicAction a = new AtomicAction();
+       a.begin();
+       obj1.set(1234); // Don't commit this yet - I want to check that a conflicting set() doesn't get the lockexception until commit()
+
+       // Setting up a second independent transaction and calling the @WriteLock method set() on it again
+       AtomicAction.suspend();
+       AtomicAction b = new AtomicAction();
+       b.begin();
+       // Now, in my understanding calling this method should only throw a LockException for pessimistic locking, but with the current implementation the Lock throws a conflict now
+       obj2.set(12345); // This throws an exception even for @Optimisitic
+
+       // the rest of the test commits the two txs, but IMO as I am using @Optimistic I should not have got the LockException on the second set() so the test failed 
+{code}
+
+Whether the Atomic interface is annotated with either @Optimisitic (or ommitted/default @Pessimisitc) the second @WriteLock set(int) call results in a lockexception being thrown. This is contrary to my expectations for OCC where I would expect to observe the set() being allowed but validation to be performed during commit and the commit to fail.
+
+From my reading of  STM/src/main/java/org/jboss/stm/internal/reflect/InvocationHandler.java I can see that this class (nor any of the other main classes) uses the OptimisticLock (which appears to suppress lock conflicts). I can see it uses OptimisticLockRecord which may do the validation correctly but my test fails because the second set(int) is allowed.

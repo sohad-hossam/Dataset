@@ -1,0 +1,2 @@
+Exclude org.omg.CORBA classes from narayana-jts-idlj uber jar
+Looks to be due to a new dependency not excluded from the uber jar

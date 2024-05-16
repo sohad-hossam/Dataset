@@ -1,0 +1,6 @@
+TransactionManagerService stop does not run orb and oa shutdown hooks
+The transaction manager service that we use for integration with app servers in JTS mode (com.arjuna.ats.jbossatx.jts.TransactionManagerService()) does not run any of our orb shutdown hooks in its stop method. The reason for this is that we use an orb supplied by the app server which we do not wrap so none of the shutdown hooks in our wrappers get called. In particular the JavaIdlRCShutdown hook isn't called so it is not possible to restart the RecoveryService (see JavaIdlRCServiceInit) with the consequence that the wildfly reload management operation fails.
+
+In summary, the scope of the fix is:
+* ensure that our (orb portablility layer) shutdown hooks are called when the TM service is stopped
+* ensure that we do not shutdown an externally supplied orb

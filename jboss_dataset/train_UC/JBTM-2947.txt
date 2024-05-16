@@ -1,0 +1,2 @@
+LRA client API is still using the old spec
+The LRA end call in the client API is still expecting the response to contain are array of strings returned by each participant during the termination phase. The spec has since been updated and instead just the current status of the LRA is returned.

@@ -1,0 +1,4 @@
+Parallel prepare implementation does not handle LRCO correctly
+We implement LRCO by putting the 1PC aware resources at the end of the prepared list. Prepare is implemented by preparing each record in the prepared list and then stopping if any prepare fails. This means that if any 2PC aware resource fails then the 1PC resources are not get asked to prepare/commit.
+
+The parallel prepare implementation prepares all participants in separate threads which is wrong - it should prepare 2PC aware participants first and if they vote commit should the 1PC resources be asked to commit.

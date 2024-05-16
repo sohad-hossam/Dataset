@@ -1,0 +1,2 @@
+Update to Maven 3.1.1
+WildFly has updated its build system to 3.1.0. As we have a subsystem that inherits from their parent it is causing a build failure. We should upgrade to 3.1.0 to match their expectations.

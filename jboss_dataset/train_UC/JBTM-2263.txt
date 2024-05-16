@@ -1,0 +1,10 @@
+Schema validation error for RTS webservice web.xml
+When I cleaned the IDE I noticed some schema validation errors on the file:
+rts/at/webservice/src/main/webapp/WEB-INF/web.xml
+
+Generally summarised as:
+{quote}
+cvc-complex-type.2.4.a: Invalid content was found starting with element 'display-name'. One of '{"http://java.sun.com/xml/ns/javaee":module-name, "http://java.sun.com/xml/ns/javaee":distributable, "http://java.sun.com/xml/ns/javaee":context-param, "http://java.sun.com/xml/ns/javaee":filter, "http://java.sun.com/xml/ns/javaee":filter-mapping, "http://java.sun.com/xml/ns/javaee":listener, "http://java.sun.com/xml/ns/javaee":servlet, "http://java.sun.com/xml/ns/javaee":servlet-mapping, "http://java.sun.com/xml/ns/javaee":session-config, "http://java.sun.com/xml/ns/javaee":mime-mapping, "http://java.sun.com/xml/ns/javaee":welcome-file-list, "http://java.sun.com/xml/ns/javaee":error-page, "http://java.sun.com/xml/ns/javaee":jsp-config, "http://java.sun.com/xml/ns/javaee":security-constraint, "http://java.sun.com/xml/ns/javaee":login-config, "http://java.sun.com/xml/ns/javaee":security-role, "http://java.sun.com/xml/ns/javaee":message-destination, "http://java.sun.com/xml/ns/javaee":locale-encoding-mapping-list, "http://java.sun.com/xml/ns/javaee":absolute-ordering}' is expected.
+{quote}
+
+I have a PR that would be good for you to take a quick look at...

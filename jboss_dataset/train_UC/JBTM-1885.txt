@@ -1,0 +1,17 @@
+RTS InboundBridgeTestCase failures
+{noformat}
+Results :
+
+Failed tests:   testRollbackWithTwoParticipants(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase): expected:<0> but was:<1>
+  testCommit(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase): expected:<0> but was:<1>
+  testRollback(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase): expected:<0> but was:<1>
+
+Tests in error: 
+  testRollbackWithTwoParticipants(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase): Unexpected status. Expected 200 got 500
+  testRollback(org.jboss.narayana.rest.bridge.inbound.test.integration.InboundBridgeTestCase): Unexpected status. Expected 200 got 500
+
+{noformat}
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/227/TESTS=MAIN,jdk=jdk7.latest,label=linux/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/233/TESTS=MAIN,jdk=jdk7.latest,label=linux/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/234/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux64el5/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/235/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux32el5/consoleText

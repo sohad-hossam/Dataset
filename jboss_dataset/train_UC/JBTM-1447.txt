@@ -1,0 +1,47 @@
+Create WebserviceFeature for TXBridge
+h2. Create:
+
+* JTAOverWSATFeature
+* Configuration option on the XTS Subsytem (defaultContextPropagation)
+
+h2. Semantics:
+
+h4. JTAOverWSATFeature absent, defaultContextPropagation disabled
+This is the current OOTB experience for EAP 5&6. No handlers are activated automatically. The developer has to add them manually for all ports. When the developer does add the handlers, the MustUnderstand attribute of the WS-TX context is set to true.
+
+h4. JTAOverWSATFeature absent, defaultContextPropagation enabled (Default OOTB)
+All Web service requests that are made in the context of a JTA transaction will be bridged to WS-AT and the WS-AT context added to the request soap header. MustUnderstand is set to false.
+
+h4. JTAOverWSATFeature enabled, defaultContextPropagation disabled
+All Web service requests, for this port, that are made in the context of a JTA transaction will be bridged to WS-AT and the WS-AT context added to the request soap header. MustUnderstand is set to true.
+
+h5. JTAOverWSATFeature disabled, defaultContextPropagation enabled
+All Web service requests, for this port, don't bridge JTA.
+
+
+h2. Implementation
+The XTS Subsystem reads its config on boot. It carries out one of the following actions depending on what it finds:
+
+# <defaultContextPropagation enabled=”true” /> (default OOTB config)
+Add the Bridge handler initialized to be enabled by default then do [JBTM-986] after. Ensure that the Bridge handler is invoked before the WSTX handler.
+
+# <defaultContextPropagation enabled=”false” />
+Add the Bridge handler initialized to be disabled by default then do [JBTM-986] after. Ensure that the Bridge handler is invoked before the WSTX handler.
+
+# Config absent.
+Error. Fail config parse.
+
+
+h5. Bridge handler
+Two handlers that delegate to the existing TXBridge handler:
+
+# Disabled by default. Only invokes the TXBridge handler if the JTAOverWSATFeature is present and enabled.
+# Enabled by default. Always invokes the TXBridge handler unless the JTAOverWSATFeature is present and disabled.
+
+If the bridge detects the JTAOverWSATFeature, but no WSTXFeature, it adds the WSTXFeature to the invocation context (setting WSTXFeature.enabled = JTAOverWSATFeature.enabled). This is needed by the WSTX handler and prevents the developer from having to add both.
+
+
+h5. Backwards compatibility
+Existing applications (written before this feature was released) will be specifying Handler chains manually via the binding provider. Therefore we need to tolerate the situation where these handlers are added twice. Once for by this feature and again by the developer.
+
+In particular the handlers added by this feature and [JBTM-986] should do nothing if the com.arjuna.mw.wst11.client.JaxWSHeaderContextProcessor handler is already in the handler chain. We could achieve this by adding this handler in the post handler chain. We could then look for an existing WSTX header and do nothing if we find it. This is just a suggestion, there may be a better way to achieve this behaviour.

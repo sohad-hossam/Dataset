@@ -1,0 +1,11 @@
+Too verbose startup?
+At startup of the most basic example we see ...
+
+Dec 17, 2014 8:23:50 PM com.arjuna.ats.arjuna.recovery.TransactionStatusManager addService
+INFO: ARJUNA012163: Starting service com.arjuna.ats.arjuna.recovery.ActionStatusService on port 52185
+Dec 17, 2014 8:23:50 PM com.arjuna.ats.internal.arjuna.recovery.TransactionStatusManagerItem <init>
+INFO: ARJUNA012337: TransactionStatusManagerItem host: 127.0.0.1 port: 52185
+Dec 17, 2014 8:23:50 PM com.arjuna.ats.arjuna.recovery.TransactionStatusManager start
+INFO: ARJUNA012170: TransactionStatusManager started on port 52185 and host 127.0.0.1 with service com.arjuna.ats.arjuna.recovery.ActionStatusService
+
+There's a separate conversation to be had about whether the INFO should be there (DEBUG maybe?) but ignoring those why do we print the other lines at all?

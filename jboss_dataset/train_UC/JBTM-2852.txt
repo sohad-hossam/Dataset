@@ -1,0 +1,7 @@
+Transaction integration failures with CDI
+There are failures in integration of transaction and cdi because of introducing of new wildfly transaction client.
+
+The new client does not verify transaction availability where JTA-CDI requires IllegalStateException.
+
+Related test case could be
+https://github.com/scottmarlow/wildfly/commit/34385c25a2b0126eafe791914ef8ea5feda25d3c

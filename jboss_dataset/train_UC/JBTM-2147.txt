@@ -1,0 +1,30 @@
+afterCompletion may be called before transaction _completes_ if reaper fires for a transaction and XAResource::end throws RuntimeException
+EDITED BY TOM (to remove the report about the transaction not being disassociated):
+If the reaper calls cancel on a transaction that is wedged, the transaction stays in 'aborting' state but it notifes Synchronizations that the tx has ended contrary to the spec.
+This can be reproduced as follows: 
+* A TX is started and both a DB (last)resource and horntq (XA) resource get enlisted. The tx takes a long time and times out. 
+* Arjuna reaper thread notices the time out and starts a worker thread to cancel the TX. 
+* Before the worker thread can 'abort' the hornetq XA resource, the arjuna worker thread is interruped (txReaperCancelWaitPeriod expires) by arjuna
+* Since the worker thread is interruped, the hornetq XA resource throws an 'HornetQInterruptedException'
+* This unexpected exception causes arjuna to notify registered javax/transaction/Synchronization's (and return DB connection to the pool), without ending the Tx. 
+
+
+ORIGINAL DESCRIPTION:
+We have noticed that arjuna leaks transactions when something 'unexpected' happens during tx aborting. The transaction stays in 'aborting' state while it does notify TxLIsteners that the tx has ended. 
+
+
+This can be reproduced as follows: 
+* A TX is started and both a DB (last)resource and horntq (XA) resource get enlisted. The tx takes a long time and times out. 
+* Arjuna reaper thread notices the time out and starts a worker thread to cancel the TX. 
+* Before the worker thread can 'abort' the hornetq XA resource, the arjuna worker thread is interruped (txReaperCancelWaitPeriod expires) by arjuna
+* Since the worker thread is interruped, the hornetq XA resource throws an 'HornetQInterruptedException'
+* This unexpected exception causes arjuna to notify registered javax/transaction/Synchronization's (and return DB connection to the pool), without ending the Tx. 
+
+From then on, jboss logs are full of: 
+
+Trying to start a new transaction when old is not complete: Old: < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff40bab98c:1f71a485:5335ece7:3625a31, node_name=1, branch_uid=0:ffff40bab98c:1f71a485:5335ece7:3625bbc, subordinatenodename=null, eis_name=java:/XAOracleDS >, New < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff40bab98c:1f71a485:5335ece7:3641efc, node_name=1, branch_uid=0:ffff40bab98c:1f71a485:5335ece7:36420a1, subordinatenodename=null, eis_name=java:/XAOracleDS >, Flags 0
+
+
+Although the root cause is a misbehaving hornetq resource, I think arjuna should be a bit more resilient. 
+
+More background in https://access.redhat.com/support/cases/01061583/

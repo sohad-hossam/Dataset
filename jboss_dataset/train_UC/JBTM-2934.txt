@@ -1,0 +1,4 @@
+LRA nested and parent coordinators should optimise calls when in a single VM
+LRA nested and parent coordinators use JAX-RS requests to driver the LRA protocol. When the two coordinators are in the same JVM direct jave method calls should be used.
+
+The need for this enhancement is to support running on OpenShift. A secondary benefit is performance.

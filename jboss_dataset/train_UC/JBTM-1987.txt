@@ -1,0 +1,4 @@
+OptionalJaxWSTxInboundBridgeHandler should not expect transaction context to be available when handling outbount message
+wsat-jta-multi_hop fails intermittently because OptionalJaxWSTxInboundBridgeHandler does not always delegate outbound message handling.
+
+Only check for the active transaction when incoming message comes. Then create a delegate and look for it during the outgoing message handling. 

@@ -1,0 +1,23 @@
+CMRIntegrationTest failed with can not start the container
+http://albany.eng.hst.ams2.redhat.com/job/btny-pulls-narayana-jdk8/PROFILE=MAIN,jdk=jdk8.latest,label=linux/1220/artifact/ArjunaJTA/jta/target/surefire-reports/com.hp.mwtests.ts.jta.commitmarkable.integration.CMRIntegrationTest-output.txt
+
+{code}
+Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=512m; support was removed in 8.0
+Sep 24, 2015 8:54:59 AM org.xnio.Xnio <clinit>
+INFO: XNIO version 3.3.1.Final
+Sep 24, 2015 8:55:00 AM org.xnio.nio.NioXnio <clinit>
+INFO: XNIO NIO Implementation Version 3.3.1.Final
+Sep 24, 2015 8:55:00 AM org.jboss.remoting3.EndpointImpl <clinit>
+INFO: JBoss Remoting version 4.0.9.Final
+[0m08:55:01,492 INFO  [org.jboss.modules] (main) JBoss Modules version 1.4.4.Final
+[0m[0m08:55:02,403 INFO  [org.jboss.msc] (main) JBoss MSC version 1.2.6.Final
+[0m[0m08:55:02,728 INFO  [org.jboss.as] (MSC service thread 1-2) WFLYSRV0049: WildFly Core 2.0.0.CR4 "Kenny" starting
+[0m[0m08:55:06,434 INFO  [org.jboss.as.controller.management-deprecated] (ServerService Thread Pool -- 17) WFLYCTL0028: Attribute 'enabled' in the resource at address '/subsystem=datasources/data-source=ExampleDS' is deprecated, and may be removed in future version. See the attribute description in the output of the read-resource-description operation to learn more about the deprecation.
+[0m[31m08:55:06,456 ERROR [org.jboss.as.controller.management-operation] (ServerService Thread Pool -- 20) WFLYCTL0013: Operation ("add") failed - address: ([
+    ("subsystem" => "messaging-activemq"),
+    ("server" => "default"),
+    ("http-connector" => "http-connector")
+]) - failure description: "WFLYCTL0155: endpoint may not be null"
+{code}
+
+I think we need to avoid to using the static ArjunaJTA/jta/src/test/resources/standalone-cmr.xml and try to clone the jboss-as/standalone/configuration/standalone-full.xml with adding the cmr configs.

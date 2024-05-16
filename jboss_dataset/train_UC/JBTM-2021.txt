@@ -1,0 +1,122 @@
+Make sure that REST-AT bridge recovery tests clear object store after execution
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/338/PROFILE=MAIN,jdk=jdk7.latest,label=linux/
+
+Currently REST-AT bridge recovery tests clear object store before their execution. However, as in provided URL, there is a possibility that there are some junk in it which can be harmful for the upcoming tests. As in the URL, regular REST-AT bridge test's resource received additional request from the coordinator. It happened because both recovery and regular tests use same resources (i.e. same URLs).
+
+See two terminateParticipant(txstatus=TransactionCommitted) invocations at the bottom.
+{code}
+[0m[0m00:51:57,834 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-2) LoggingRestATResource.resetInvocations()
+[0m[33m00:51:58,440 WARN  [org.jboss.narayana.rest.integration.RecoveryManager] (default task-5) Inbound bridge is not available.: org.jboss.narayana.rest.integration.api.ParticipantException: Inbound bridge is not available.
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeParticipant.startBridge(InboundBridgeParticipant.java:137) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeParticipant.rollback(InboundBridgeParticipant.java:122) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.RecoveryManager.recreateParticipantInformation(RecoveryManager.java:184) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.RecoveryManager.recoverParticipants(RecoveryManager.java:133) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.RecoveryManager.registerDeserializer(RecoveryManager.java:54) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.ParticipantsManagerImpl.registerDeserializer(ParticipantsManagerImpl.java:73) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeManager.<init>(InboundBridgeManager.java:64) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeManager.getInstance(InboundBridgeManager.java:52) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeFilter.startBridge(InboundBridgeFilter.java:83) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeFilter.filter(InboundBridgeFilter.java:63) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:248) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:234) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:221) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:356) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:179) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:220) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:87) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:59) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at org.wildfly.extension.undertow.security.SecurityContextAssociationHandler.handleRequest(SecurityContextAssociationHandler.java:81)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:113) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.AuthenticationCallHandler.handleRequest(AuthenticationCallHandler.java:52) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:65) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:70) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:218) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:205) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:69) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:134) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:138) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:622) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+
+[0m[0m00:51:58,485 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-5) LoggingXAResource.start
+[0m[0m00:51:58,502 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-10) LoggingXAResource.end
+[0m[0m00:51:58,502 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-10) LoggingXAResource.prepare
+[0m[0m00:51:58,510 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://localhost:8080/rest-tx-bridge-test/logging-participant-resource/terminator
+[0m[0m00:51:58,510 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8080/rest-at-participant/0:ffffac118321:b4a8:52817b30:17
+[0m[31m00:51:58,514 ERROR [io.undertow.request] (default task-11) Servlet request failed HttpServerExchange{ PUT /rest-at-participant/0:ffffac118321:b4a8:52817b30:17}: org.jboss.resteasy.spi.UnhandledException: org.jboss.narayana.rest.integration.api.ParticipantException: Inbound bridge is not available.
+	at org.jboss.resteasy.core.ExceptionHandler.handleApplicationException(ExceptionHandler.java:76) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ExceptionHandler.handleException(ExceptionHandler.java:212) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.writeException(SynchronousDispatcher.java:149) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:372) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:179) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:220) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Final.jar:1.0.0.Final]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:87) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:59) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:113) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.AuthenticationCallHandler.handleRequest(AuthenticationCallHandler.java:52) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:65) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:70) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:218) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:205) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:69) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:134) [undertow-servlet-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:138) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:622) [undertow-core-1.0.0.Beta20.jar:1.0.0.Beta20]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+Caused by: org.jboss.narayana.rest.integration.api.ParticipantException: Inbound bridge is not available.
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeParticipant.startBridge(InboundBridgeParticipant.java:137) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.bridge.inbound.InboundBridgeParticipant.commit(InboundBridgeParticipant.java:83) [restat-bridge-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.ParticipantResource.commit(ParticipantResource.java:211) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at org.jboss.narayana.rest.integration.ParticipantResource.terminate(ParticipantResource.java:118) [restat-integration-5.0.0.CR2-SNAPSHOT.jar:]
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method) [rt.jar:1.7.0_45]
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57) [rt.jar:1.7.0_45]
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) [rt.jar:1.7.0_45]
+	at java.lang.reflect.Method.invoke(Method.java:606) [rt.jar:1.7.0_45]
+	at org.jboss.resteasy.core.MethodInjectorImpl.invoke(MethodInjectorImpl.java:137) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invokeOnTarget(ResourceMethodInvoker.java:280) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:234) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodInvoker.invoke(ResourceMethodInvoker.java:221) [resteasy-jaxrs-3.0.5.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:356) [resteasy-jaxrs-3.0.5.Final.jar:]
+	... 24 more
+
+[0m[31m00:51:58,519 ERROR [io.undertow.request] (default task-11) Blocking request failed HttpServerExchange{ PUT /rest-at-participant/0:ffffac118321:b4a8:52817b30:17}: java.lang.NullPointerException
+	at io.undertow.servlet.handlers.ServletDebugPageHandler.escapeBodyText(ServletDebugPageHandler.java:102)
+	at io.undertow.servlet.handlers.ServletDebugPageHandler.writeLabel(ServletDebugPageHandler.java:95)
+	at io.undertow.servlet.handlers.ServletDebugPageHandler.handleRequest(ServletDebugPageHandler.java:78)
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:240)
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:205)
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:69)
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:134)
+	at io.undertow.server.Connectors.executeRootHandler(Connectors.java:138)
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:622)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_45]
+	at java.lang.Thread.run(Thread.java:744) [rt.jar:1.7.0_45]
+
+[0m[0m00:51:58,534 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-12) LoggingRestATResource.terminateParticipant(txstatus=TransactionCommitted)
+[0m[0m00:51:58,650 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-13) LoggingRestATResource.terminateParticipant(txstatus=TransactionPrepared)
+[0m[0m00:51:58,699 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-14) LoggingRestATResource.terminateParticipant(txstatus=TransactionCommitted)
+[0m[0m00:51:58,702 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingXAResource] (default task-15) LoggingXAResource.commit
+[0m[0m00:51:58,734 INFO  [org.jboss.narayana.rest.bridge.inbound.test.common.LoggingRestATResource] (default task-16) LoggingRestATResource.getInvocations()
+{code}
+
+To fix it, just invoke clearObjectStore() at the beginning of org.jboss.narayana.rest.bridge.inbound.test.integration.AbstractTestCase#stopContainer()

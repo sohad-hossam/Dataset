@@ -1,0 +1,4 @@
+Consider changing some TXOJ warning messages to info or debug
+Some warning messages in, say, LockManager for when lock conflicts occur should probably be reassigned as info, since we a) always fail safe, and b) return a status that indicates a lock conflict has happened.
+
+Hasn't been much of an issue to date, but the increase of multicore and Vert.x use could show these up a lot more.

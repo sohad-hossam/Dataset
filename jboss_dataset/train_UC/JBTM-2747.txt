@@ -1,0 +1,2 @@
+Modify the SimpleIsolatedServers example such that it does not need the "transport" to maintain its own map of transactions
+The previous example relied upon the "transport" piece maintaining a list of root transactions it had seen. It is actually possible to use the existing list from the TransactionImple

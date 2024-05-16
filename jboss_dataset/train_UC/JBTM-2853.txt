@@ -1,0 +1,8 @@
+Transaction bridging for WS not working because of switch to new wfly transaction client
+Transaction bridging (WS transaction <-> global container transaction) does not work currently as container is impacted by switch from transaction spi (https://github.com/jbosstm/jboss-transaction-spi) to wildfly transaction client (https://github.com/wildfly/wildfly-transaction-client).
+
+The cause code change could be checked here
+https://github.com/wildfly/wildfly/commit/5eb816e0b58da3e99bfee81715ba27b65e8c75fc
+
+Narayana needs to be enhanced to use the new transaction client to import transaction and bridge the ws to container transaction that way. The similar thing will probably need to be done for opposite side.
+Container integration code in jboss container needs to be changed in way to provide the transaction context to Narayana.

@@ -1,0 +1,8 @@
+LRA logging is wrong in pointing to tsLogger and using System.out
+The LRA module uses inconsistent way of logging. Some parts uses the {{com.arjuna.ats.arjuna.logging}} which is wrong as it should define its own logger category to use in LRA. Other ones uses {{System.out|err}} for printing log information.
+
+Up to that there should be more consistency and more informative for user.
+* There are hidden reasons of some failures in some places. 
+* The error messages get from the URL queries are unclear in some cases, e.g.
+  {{not present: null: Cannont connect to an LRA coordinator: Connection refused}}
+  (what does means {{not present}} and why {{null}}? this is a bit misguiding info which is not necessary to be part of the error message)

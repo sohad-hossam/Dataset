@@ -1,0 +1,12 @@
+Don't mandate a property file where possible
+I noticed this originally when doing the Android port, but now again when doing vert.x: at some point over the years we appear to have moved to a model where the properties file must be present (e.g., in class path or CWD) or we exit. I'm not sure why we do this given that every property has a default value anyway.
+
+For example:
+
+java.lang.ExceptionInInitializerError: null
+	at com.arjuna.common.util.propertyservice.PropertiesFactory.getPropertiesFromFile(PropertiesFactory.java:93)
+	at com.arjuna.common.util.propertyservice.PropertiesFactory.initDefaultProperties(PropertiesFactory.java:236)
+	at com.arjuna.common.util.propertyservice.PropertiesFactory.getDefaultProperties(PropertiesFactory.java:66)
+	at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getNamedInstance(BeanPopulator.java:77)
+	at com.arjuna.common.internal.util.propertyservice.BeanPopulator.getDefaultInstance(BeanPopulator.java:49)
+	at com.arjuna.ats.txoj.common.txojPropertyManager.getTxojEnvironmentBean(txojPropertyManager.java:48)

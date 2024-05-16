@@ -1,0 +1,2 @@
+Refactor the dependency on hornetq-core objectstore
+Arjuna Core has a an unwanted dependency on HornetQ Core. It should only have a dependency on the separated HornetQ Journaling Store. (HORNETQ-274)

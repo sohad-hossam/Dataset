@@ -1,0 +1,2 @@
+Let NarayanaJtaServletContextListener be deployed without need for web.xml change
+Currently you need a web.xml with the listener in it but if you annotate the class with javax.servlet.annotation.WebListener it will deploy automatically.

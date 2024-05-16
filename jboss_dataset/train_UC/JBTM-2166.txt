@@ -1,0 +1,4 @@
+narayana-jts-all is not stored in .m2 repository, when built with narayana.sh
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/508/
+
+My assumption is that it was caused by this commit, since it is the last one which modified narayana.sh: https://github.com/jbosstm/narayana/commit/947f384645151d5b9b0d9985aebc2d96ef555a7a

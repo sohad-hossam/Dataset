@@ -1,0 +1,39 @@
+ BASubordinateCrashDuringComplete.txt byteman script causes a NPE exception to be thrown
+Comment by Amos, which was correct:
+
+{quote}
+For tracing SubordinateCoordinatorCompletionParticipantStub compensate throw exceptions,
+there are 3 rules in BASubordinateCrashDuringComplete script.
+
+RULE trace subordinate participant stub compensate with no coordinator
+CLASS com.arjuna.wst11.stub.SubordinateCoordinatorCompletionParticipantStub
+METHOD compensate
+AT THROW 3
+...
+
+RULE trace subordinate participant stub compensate with unactivated coordinator
+CLASS com.arjuna.wst11.stub.SubordinateCoordinatorCompletionParticipantStub
+METHOD compensate
+AT THROW 4
+...
+
+RULE trace subordinate participant stub compensate with system exception from coordinator
+CLASS com.arjuna.wst11.stub.SubordinateCoordinatorCompletionParticipantStub
+METHOD compensate
+AT THROW 5
+...
+
+for SubordinateCoordinatorCompletionParticipantStub.java
+public void compensate() throws FaultedException, WrongStateException, SystemException {...}
+
+I read from byteman document which has the following describes about AT THROW:
+An AT THROW specifier identifies a throw operation within the trigger method as the trigger point. The throw operation may be qualified by a, possibly package-qualified, typename identifying the lexical type of the thrown exception. If a count N is supplied then the location specifies the Nth textual occurrence of a throw. If the keyword ALL is specified in place of a count then the rule will be triggered at all matching occurrences of a throw.
+
+I'm not sure about the textual occurrence of a throw. For this compensate method,
+AT THROW 3  => FaultedException
+AT THROW 4  => WrongStateException
+AT THROW 5  => SystemException
+
+is it right ? but the last throw rule causes NPE when the first booting jboss to run the test.
+I try to changes every AT THROW rule reducing one occurrence, and the test works fine.
+{quote}

@@ -1,0 +1,4 @@
+cyclic dependency on AS7
+Since the 4.15 release is intended for use in AS7 we should use that to get dependency versions rather than the older AS6 as in 4.14.
+
+Unfortunately the AS is still under development and does not have e.g. JacORB yet, so this is may take a while to complete.

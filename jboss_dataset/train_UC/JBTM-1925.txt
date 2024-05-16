@@ -1,0 +1,24 @@
+Enable remote debugger in JBossAS/WildFly for all tests
+We need to enable the debugger in all arquillian.xml files. To do this:
+
+1. Add this to each arquillian.xml: 
+ {code}
+        <configuration>
+            <property name="javaVmArguments">${server.jvm.args}</property>
+            ....
+        </configuration>
+{code}
+
+2. Update the server.jvm.args in each maven profile for running the Arquillian tests:
+
+{code}
+<server.jvm.args>..... ${jvm.args.debug}</server.jvm.args>
+{code}
+
+Look at the XTS/localjunit/pom.xml for an example. You will notice that not all Arquillian profiles configure the server.jvm.args. In which case you will need to add the config to match the others.
+
+3. Add this property to the root pom,xml:
+
+{code}
+ <jvm.args.debug>-Xrunjdwp:transport=dt_socket,address=8787,server=y,suspend=n</jvm.args.debug>
+{code}

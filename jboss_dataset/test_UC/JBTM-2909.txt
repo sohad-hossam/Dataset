@@ -1,0 +1,2 @@
+Use interposed sync for Transactional Driver close connection call
+HHH registers as an interposed sync so we need to so we can close after it.

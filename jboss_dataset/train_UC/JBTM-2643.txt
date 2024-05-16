@@ -1,0 +1,2 @@
+"number-of-application-rollbacks" statistic counted multiple times during single rollback
+During transaction timeout, "number-of-application-rollbacks" stat is incremented twice. As a result, "number-of-application-rollbacks" can be higher then "number-of-aborted-transactions".

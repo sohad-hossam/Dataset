@@ -1,0 +1,2 @@
+Consider state override annotation.
+The State annotation is not really needed  since only things annotated with the NotState annotation are ignored and everything else will be saved. Maybe we need a class-level annotation that basically says "all member state must have an annotation to indicate State or NotState"?

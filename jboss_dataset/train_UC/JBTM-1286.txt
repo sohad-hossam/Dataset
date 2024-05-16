@@ -1,0 +1,6 @@
+Update TXFramework tests to catch application Exception
+See: http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-narayana-java7/16/
+
+It looks like an update to JBossWS now means that the application exception thrown by the Web service is re-thrown by the client stub. In the past a SOAPException was thrown.
+
+The tests need to be updated to expect the new exception.

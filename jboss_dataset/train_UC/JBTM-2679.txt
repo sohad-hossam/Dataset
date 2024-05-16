@@ -1,0 +1,4 @@
+Artifact of narayana-full does not contain bits of jbossxts.jar
+Zip file {{narayana-full-$VERSION-bin.zip}} under directory {{narayana-full/target}} which is created from the built artifacts does not contains bits of {{jbossxts.jar}}. The artifact for xts with the filename {{jbossxts.jar}} is available but contains the same bits as it's counterpart {{-api}} jar file.
+
+Created assembly plugin jira: https://issues.apache.org/jira/browse/MASSEMBLY-809

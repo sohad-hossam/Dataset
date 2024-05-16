@@ -1,0 +1,2 @@
+Track JBossWS 4.2.0.Alpha1
+Waiting for Alessio to release JBossWS 4.2.0.Alpha1 and have the component upgrade merged into AS master.

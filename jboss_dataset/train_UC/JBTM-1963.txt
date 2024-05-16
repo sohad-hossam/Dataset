@@ -1,0 +1,6 @@
+Automatically added TXBridge handler should be optional
+XTS subsystem automatically adds XTS and TXBridge handlers if the deployment has a class annotated with @WebService and @Transactional. However, TXBridge handler required the WS-AT transaction to be available for every request. If the transaction is not present, it fails to handle the message with com.arjuna.wst.UnknownTransactionException.
+
+The problem arises when @Transactional annotation has a type such as SUPPORTED, in which case WS-AT transaction should not be mandatory.
+
+We could write a wrapper for the current handler, which will delegate the call only if the transaction is available.

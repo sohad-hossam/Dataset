@@ -1,0 +1,4 @@
+REST-AT recovery failure
+See linked forum post:
+
+Start two serves A and B with the coordinator running on A and a participant on server B. Crash server B just before commit. When server B comes back up the coordinator fails to recover the transaction and returns 404 when asked about the transaction.

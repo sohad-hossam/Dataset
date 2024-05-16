@@ -1,0 +1,7 @@
+Improve XTS recovery tests to not use a checked-in byteman.jar
+Notice the checked in version here: /XTS/localjunit/crash-recovery-tests/src/test/resources/lib/byteman.jar
+
+This is problematic as it falls outside of our dependency management done via maven. This could also be the cause of our intermittent Byteman issues as the jar could be very old.
+
+We need to understand why this is needed and find an alternative that uses the byteman dependency specified in the maven dependencies. Shinkwrap resolvers may be an option. Or we could use a maven plugin to get the jar at build time, based on the version specified in the maven dependencies. We do the latter here: https://github.com/jbosstm/jboss-as/blob/5_BRANCH/testsuite/integration/xts/pom.xml#L73
+

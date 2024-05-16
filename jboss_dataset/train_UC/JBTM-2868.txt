@@ -1,0 +1,3 @@
+CoordinationContextHelper needs additional privileged blocks if Security Manager is enabled
+CoordinationContextHelper needs additional privileged blocks when running with Security Manager enabled. JBTM-2519 has enclosed setContextClassLoader with a privileged block, but getContextClassLoader needs the privileged block too, see the attached PR.
+

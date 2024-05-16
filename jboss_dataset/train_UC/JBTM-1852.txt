@@ -1,0 +1,2 @@
+Rollback local participant and remove log entry if transaction is not active during recovery.
+Recovery is not working properly in REST-AT multiplexor. Problem happens if both coordinator and participant crashes straight after the participant is prepared but before the coordinator gets the vote. After both parties are recovered, coordinator does not know about the transaction. Therefore, participant has to be rolled back. However, multiplexor keeps participant active.

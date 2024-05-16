@@ -1,0 +1,2 @@
+Removal of RecoveryHelpers fails silently if no scan is in progress
+There is some code in XARecoveryModule#removeXAResourceRecoveryHelper that defers removal of recovery helpers if a scan is in progress but skips the removal otherwise. 

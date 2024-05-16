@@ -1,0 +1,16 @@
+no matching injection point in ArjunaCore/arjuna/test/byteman-scripts/reaper.txt 
+{noformat}
+[INFO] Checking 3 byteman scripts in /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper 3" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 65 against method check() void
+org.jboss.byteman.rule.exception.TypeWarningException: no matching injection point for method check() void
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper 3" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 65
+org.jboss.byteman.rule.exception.TypeWarningException: failed to find any matching trigger method in class com.arjuna.ats.arjuna.coordinator.TransactionReaper
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper 4" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 79 against method check() void
+org.jboss.byteman.rule.exception.TypeWarningException: no matching injection point for method check() void
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper 4" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 79
+org.jboss.byteman.rule.exception.TypeWarningException: failed to find any matching trigger method in class com.arjuna.ats.arjuna.coordinator.TransactionReaper
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper worker 4" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 186 against method doCancellations() void
+org.jboss.byteman.rule.exception.TypeWarningException: no matching injection point for method doCancellations() void
+[WARNING] WARNING : Warning type checking rule "pause transaction reaper worker 4" loaded from /home/zhfeng/src/zhfeng/narayana/ArjunaCore/arjuna/target/test-classes/reaper.txt line 186
+org.jboss.byteman.rule.exception.TypeWarningException: failed to find any matching trigger method in class com.arjuna.ats.arjuna.coordinator.TransactionReaper
+{noformat}

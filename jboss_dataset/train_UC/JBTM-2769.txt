@@ -1,0 +1,19 @@
+CMR resource calls xa_forget on local resources
+{code}
+2016-10-06 17:50:17,105 WARN  [com.arjuna.ats.arjuna] (Periodic Recovery) ARJUNA012290: failed to recover Transaction 0:ffff7f000001:6351fff9:57f67185:2a: java.lang.NullPointerException
+	at com.arjuna.ats.internal.jta.resources.arjunacore.CommitMarkableResourceRecord.forgetHeuristic(CommitMarkableResourceRecord.java:544)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doForget(BasicAction.java:3603)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.forgetHeuristics(BasicAction.java:1347)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Abort(BasicAction.java:1991)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2852)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Commit(BasicAction.java:1871)
+	at com.arjuna.ats.arjuna.recovery.RecoverAtomicAction.replayPhase2(RecoverAtomicAction.java:71)
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.doRecoverTransaction(AtomicActionRecoveryModule.java:152)
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.processTransactionsStatus(AtomicActionRecoveryModule.java:253)
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.periodicWorkSecondPass(AtomicActionRecoveryModule.java:109)
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:811)
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:377)
+{code}
+
+
+A local resource will have no concept of the forget and indeed the app server has an implementation that throws an exception if you call it.

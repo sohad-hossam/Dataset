@@ -1,0 +1,7 @@
+JDBC object store closes connections after resultset/statements which is incorrect order
+As reported by IronJacamar team we should treat the JDBC resources as a stack.
+
+Specific case reported:
+https://github.com/jbosstm/narayana/blob/5.2.1.Final/ArjunaCore/arjuna/classes/com/arjuna/ats/internal/arjuna/objectstore/jdbc/JDBCImple_driver.java#L347
+https://github.com/jbosstm/narayana/blob/5.2.1.Final/ArjunaCore/arjuna/classes/com/arjuna/ats/internal/arjuna/objectstore/jdbc/JDBCImple_driver.java#L352
+https://gist.github.com/maeste/835073a1e8ea6e38b9bd

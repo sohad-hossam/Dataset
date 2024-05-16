@@ -1,0 +1,43 @@
+Participant's terminator resource cannot be found in TXF REST-AT tests
+http://172.17.131.2/job/btny-pulls-narayana/781
+http://172.17.131.2/job/btny-pulls-narayana/784
+
+{code}
+[0m[33m13:17:34,469 WARN  [org.jboss.resteasy.core.ExceptionHandler] (default task-7) failed to execute: javax.ws.rs.NotFoundException: Could not find resource for full path: http://localhost:8080/test/2/0_ffffac118307_1f9721a3_51cadbd7_19/1/terminator
+	at org.jboss.resteasy.core.registry.SegmentNode.match(SegmentNode.java:111) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.core.registry.RootNode.match(RootNode.java:43) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.core.registry.RootClassNode.match(RootClassNode.java:48) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.core.ResourceMethodRegistry.getResourceInvoker(ResourceMethodRegistry.java:444) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.getInvoker(SynchronousDispatcher.java:234) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.core.SynchronousDispatcher.invoke(SynchronousDispatcher.java:171) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.ServletContainerDispatcher.service(ServletContainerDispatcher.java:220) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:56) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher.service(HttpServletDispatcher.java:51) [resteasy-jaxrs-3.0.1.Final.jar:]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:790) [jboss-servlet-api_3.1_spec-1.0.0.Beta1.jar:1.0.0.Beta1]
+	at io.undertow.servlet.handlers.ServletHandler.handleRequest(ServletHandler.java:87) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:130) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.websockets.jsr.JsrWebSocketFilter.doFilter(JsrWebSocketFilter.java:138) [undertow-websockets-jsr-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.core.ManagedFilter.doFilter(ManagedFilter.java:56) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.FilterHandler$FilterChainImpl.doFilter(FilterHandler.java:132) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.FilterHandler.handleRequest(FilterHandler.java:85) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.security.ServletSecurityRoleHandler.handleRequest(ServletSecurityRoleHandler.java:56) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.ServletDispatchingHandler.handleRequest(ServletDispatchingHandler.java:36) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at org.wildfly.extension.undertow.security.SecurityContextAssociationHandler.handleRequest(SecurityContextAssociationHandler.java:78)
+	at io.undertow.servlet.handlers.security.SSLInformationAssociationHandler.handleRequest(SSLInformationAssociationHandler.java:115) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.security.handlers.AuthenticationCallHandler.handleRequest(AuthenticationCallHandler.java:52) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.security.handlers.AbstractConfidentialityHandler.handleRequest(AbstractConfidentialityHandler.java:45) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.security.CachedAuthenticatedSessionHandler.handleRequest(CachedAuthenticatedSessionHandler.java:65) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.security.handlers.SecurityInitialHandler.handleRequest(SecurityInitialHandler.java:70) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at org.wildfly.extension.undertow.security.SecurityContextCreationHandler.handleRequest(SecurityContextCreationHandler.java:54)
+	at io.undertow.server.handlers.PredicateHandler.handleRequest(PredicateHandler.java:25) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.ServletInitialHandler.handleFirstRequest(ServletInitialHandler.java:131) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.ServletInitialHandler.dispatchRequest(ServletInitialHandler.java:118) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.ServletInitialHandler.access$000(ServletInitialHandler.java:47) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.servlet.handlers.ServletInitialHandler$1.handleRequest(ServletInitialHandler.java:94) [undertow-servlet-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.server.HttpHandlers.executeRootHandler(HttpHandlers.java:36) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at io.undertow.server.HttpServerExchange$1.run(HttpServerExchange.java:629) [undertow-core-1.0.0.Alpha22.jar:1.0.0.Alpha22]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1110) [rt.jar:1.7.0_09]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:603) [rt.jar:1.7.0_09]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_09]
+{code}

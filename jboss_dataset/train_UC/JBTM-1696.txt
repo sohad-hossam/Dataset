@@ -1,0 +1,2 @@
+arjunacore: artifactId is "arjunacore-all" but the name of the project is "ArjunaCore everything"
+arjunacore: artifactId is "arjunacore-all" but the name of the project is "ArjunaCore everything". it doesn't seem like a big issue, but when you are trying to track down a build failure, and you see the project name, it doesn't help you figure out where the failing code is.

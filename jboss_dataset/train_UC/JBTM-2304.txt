@@ -1,0 +1,13 @@
+Cannot compile TestModule.idl using IBM stub compiler (JDK8)
+{quote}
+org.jboss.jbossts.qa.idl.compile.init:
+[idl-compiler] Parsing...
+[idl-compiler] Processing for ibmorb '/home/hudson/workspace/narayana-ibm-jdk/qa/dist/../../ArjunaJTS/idl/src/test/idl/TestModule.idl'
+
+BUILD FAILED
+/home/hudson/workspace/narayana-ibm-jdk/qa/build.xml:123: The following error occurred while executing this line:
+/home/hudson/workspace/narayana-ibm-jdk/qa/tests/build-jts.xml:229: Failed to compile '/home/hudson/workspace/narayana-ibm-jdk/qa/dist/../../ArjunaJTS/idl/src/test/idl/TestModule.idl' file
+
+Total time: 2 seconds
+qa build failed
+{quote}

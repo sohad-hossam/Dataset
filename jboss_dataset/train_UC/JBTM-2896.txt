@@ -1,0 +1,19 @@
+Invalid warning when committing STM optimistic records
+There is some code in OptimisticLockRecord#topLevelCommit that generates an invalid warning
+
+bq. WARN: ARJUNA015051: OptimisticLockRecord.topLevelCommit state check failed for org.jboss.stm.internal.proxy.OptimisticLockManagerProxy@7f058cfa will force rollback.
+
+when in fact there is no rollback. The offending code is:
+
+{code}
+    public int topLevelCommit ()
+    {       
+        boolean stateOK = checkState();
+        
+        if (stateOK)
+        {
+            txojLogger.i18NLogger.warn_OptimisticLockRecord_2((LockManager) value());
+        }
+{code}
+
+The condition was intended to be if (!stateOK)

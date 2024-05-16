@@ -1,0 +1,38 @@
+TXFramework participant completion tests: close overtaking completed
+http://172.17.131.2/job/narayana-pulls/74/
+
+[INFO] Surefire report directory: /home/hudson/workspace/narayana-pulls/./txframework/target/surefire-reports
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.narayana.txframework.functional.ATBridgeTest
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 18.818 sec
+Running org.jboss.narayana.txframework.functional.ATStatefullTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.815 sec
+Running org.jboss.narayana.txframework.functional.ATTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 16.677 sec
+Running org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest
+Tests run: 5, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 17.067 sec
+Running org.jboss.narayana.txframework.functional.BAParticipantCompletionTest
+Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 25.616 sec <<< FAILURE!
+Running org.jboss.narayana.txframework.functional.JAXWSHandlerAnnotatonTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.923 sec
+Running org.jboss.narayana.txframework.functional.rest.at.simpleEJB.ClientTXInterceptorTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 11.831 sec
+Running org.jboss.narayana.txframework.functional.rest.at.simpleEJB.IndirectTXManagementTest
+Tests run: 4, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 14.118 sec
+Running org.jboss.narayana.txframework.impl.handlers.wsat.WSATDurable2PCParticipantTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.081 sec
+Running org.jboss.narayana.txframework.impl.handlers.wsat.WSATVolatile2PCParticipantTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.09 sec
+Running org.jboss.narayana.txframework.impl.handlers.wsba.WSBACoordinatorCompletionParticipantTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.102 sec
+Running org.jboss.narayana.txframework.impl.handlers.wsba.WSBAParticipantCompletionParticipantTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.082 sec
+
+Results :
+
+Tests in error:
+
+Tests run: 29, Failures: 0, Errors: 1, Skipped: 0 

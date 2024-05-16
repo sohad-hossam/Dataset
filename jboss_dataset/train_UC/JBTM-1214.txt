@@ -1,0 +1,2 @@
+rename narayana-jts to narayana-jts-jacorb
+For consistency with narayana-jts-idlj we should append jacorb to the name of the narayana-jts jar  

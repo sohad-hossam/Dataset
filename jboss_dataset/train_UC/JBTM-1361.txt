@@ -1,0 +1,2 @@
+REST-AT optional spec items are missing javadoc descriptions
+The latest draft of the REST-AT spec (draft 8) introduces some new optional methods such as Coordinator.getTransactionStatistics, Coordinator.getTransactionManagerInfo etc. These new methods are missing javadoc annotations.

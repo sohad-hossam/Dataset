@@ -1,0 +1,5 @@
+Cannot start managed container after JMX upgrade
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/TESTS=MAIN,jdk=jdk7.latest,label=linux/264/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/264/TESTS=XTS,jdk=jdk7.latest,label=linux/consoleText
+
+Based on [~paul.robinson] research, this was caused by https://github.com/wildfly/wildfly/commit/c400b512be5fae6c02ef0a11886ac7701835b550

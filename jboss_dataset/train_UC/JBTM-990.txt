@@ -1,0 +1,13 @@
+com.arjuna.ats.internal.jta.transaction.jts.BaseTransaction catches and throws a NullPointerException instead of checking if it is null first
+com.arjuna.ats.internal.jta.transaction.jts.BaseTransaction has the following:
+
+try
+{
+  return theTransaction.getStatus();
+}
+catch (NullPointerException ex)
+{
+  return javax.transaction.Status.STATUS_NO_TRANSACTION;
+}
+
+This mean's that anyone trying to debug a NPE with an exception breakpoint will constantly hit this, as well as being much slower than a simple null check.  

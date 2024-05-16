@@ -1,0 +1,2 @@
+REST-AT participant support framework should support synchronizations
+JBTM-1365 introduced an interface for simplifying participant registration into a REST-AT transaction by providing a callback for prepare/commit/rollback support. Please can we also have a similar mechanism for synchronizations.

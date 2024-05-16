@@ -1,0 +1,2 @@
+Enhance trace logging in CommitMarkableResourceRecord to be talkactive as XAResourceRecord
+Enhance trace logging of CommitMarkableResourceRecord to be more talkactive and that would make debugging/investigation easier.

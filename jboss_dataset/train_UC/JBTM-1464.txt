@@ -1,0 +1,2 @@
+Some performance tests are missing the timing code.
+The TXOJ performance tests are supposed to get the start time before running and then the end time after completion, printing out the difference. It seems that in several of them, the end time is no longer obtained and nothing is printed out either, i.e., no elapsed time is given. This makes these tests pretty useless as performance tests. Rather than remove the tests, the elapsed time check should be put back.

@@ -1,0 +1,34 @@
+Narayana fails to build on a codebase not checked out of SCM
+To reproduce:
+
+* go Here: https://github.com/jbosstm/narayana/releases/4.17.4.Final
+* Download and extract the zip
+* run: './build.sh clean install -DskipTests'
+* Observe:
+
+{code}
+[ERROR] Failed to execute goal org.codehaus.mojo:buildnumber-maven-plugin:1.0:create (default) on project arjunacore: Cannot get the revision information from the scm repository :
+[ERROR] Exception while executing SCM command. UnsupportedOperationException
+[ERROR] -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+[ERROR] 
+[ERROR] After correcting the problems, you can resume the build with the command
+[ERROR]   mvn <goals> -rf :arjunacore
+{code}
+
+Alternatively, it works if you do this:
+
+{code}
+git clone git@github.com:jbosstm/narayana.git
+git checkout 4.17.4.Final
+./build.sh clean install -DskipTests
+{code}
+
+It seems to be because the maven plugin is expecting the code to be checked out of SCM. We need to make the build tolerant of this scenario.
+
+NOTE: it also happens for the 4.17.5.Final zip.

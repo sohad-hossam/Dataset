@@ -1,0 +1,8 @@
+Review the logging in XTS when participants throw Exceptions in phase 2 methods
+To experiment:
+
+1. Take the JDF WS-AT and WS-BA quickstarts.
+2. Update the server logging to TRACE for the 'arjuna' catagory.
+3. Observe what happens when the declared exceptions (and RuntimeException) are thrown from each of the phase two methods on the participants (close, compensate, commit, rollback). 
+3.1 We are interested in what logging is produced (and at what log level) and what behaviour it has on the application (does it hang, is an exception returned to the client, or something else).
+

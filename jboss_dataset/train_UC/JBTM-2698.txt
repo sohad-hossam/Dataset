@@ -1,0 +1,10 @@
+GitHub projects don't include the license file
+hi
+Not available LICENSE file in source directory structure
+Please. Added license and copyright notice.
+the fedora pakaging guideline is very strictly precise about this problem
+https://fedoraproject.org/wiki/Packaging:LicensingGuidelines?rd=Packaging/LicensingGuidelines#License_Text
+Thanks
+Regards
+
+p.s. reported also @ https://github.com/jbosstm/jboss-transaction-spi/issues/9

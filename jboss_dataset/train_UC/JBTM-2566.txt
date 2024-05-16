@@ -1,0 +1,2 @@
+ObjectStoreIterator can silently fail if there is an ObjectStoreException in the CTOR
+Detected during https://issues.jboss.org/browse/JBTM-2565 and worked around in CMR but it should  be reviewed for the tooling use cases.

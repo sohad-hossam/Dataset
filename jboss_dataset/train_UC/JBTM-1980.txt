@@ -1,0 +1,157 @@
+QA test suite failure on HQStore: CrashRecovery12_Test03
+http://172.17.131.2/job/narayana-hqstore-jacorb/28/ shows a failure with extra trace logging
+
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-hqstore-jacorb/20/TESTS=QA_JTS_JACORB,jdk=jdk7.latest,label=linux/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-hqstore-jacorb/19/TESTS=QA_JTS_JACORB,jdk=jdk7.latest,label=linux/consoleText
+
+client0_output.txt
+{code}
+starting command: /usr/local/jdk1.7.0_17/bin/java -classpath dist/narayana-full-5.0.0.M6-SNAPSHOT/etc/:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/etc/:ext/fscontext.jar:ext/providerutil.jar:ext/jboss-profiler-jvmti.jar:ext/jboss-logging-spi.jar:tests/build/classes/:dbdrivers/selected_dbdriver/*:dbdrivers/DB2_v9.7/db2jcc.jar:dbdrivers/jConnect-6_0/classes/jconn3.jar:dbdrivers/mssql2005_sqljdbc_2.0/enu/sqljdbc4.jar:dbdrivers/mysql-connector-java-5.1.8-bin.jar:dbdrivers/oracle_10_2_0_4/ojdbc14.jar:dbdrivers/postgresql-8.3-605.jdbc4.jar:ext/netty.jar -Dqa.debug=true -Djava.naming.provider.url=file:///tmp -Djava.naming.factory.initial=com.sun.jndi.fscontext.RefFSContextFactory -Dperformanceprofilestore.dir=config/perf_profiles/ -Djdbcprofilestore.dir=config/jdbc_profiles -Dmemorytestprofilestore.dir=config/memory_profiles/ -Dots.server.bindname=value_1 -DCoordinatorEnvironmentBean.maintainHeuristics=NO -DRecoveryEnvironmentBean.recoveryBackoffPeriod=5 -DCoreEnvironmentBean.timeoutFactor=2 -DCoordinatorEnvironmentBean.defaultTimeout=240 -DCoordinatorEnvironmentBean.dynamic1PC=false -Demma.coverage.out.file=./testoutput/crashrecovery12/CrashRecovery12_Test03/client0-coverage.ec -DportOffsetId=1 -DObjectStoreBaseDir=/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/testoutput/crashrecovery12/CrashRecovery12_Test03/store -DRecoveryEnvironmentBean.recoveryListener=true org.jboss.jbossts.qa.junit.ExecutionWrapper org.jboss.jbossts.qa.CrashRecovery12Clients.Client01 commit CR12_03.log 
+2013-10-09 19:02:52,857 out: using ports 4731 and 4732
+2013-10-09 19:02:53,095 err: log4j:WARN No appenders could be found for logger (org.jboss.logging).
+2013-10-09 19:02:53,095 err: log4j:WARN Please initialize the log4j system properly.
+2013-10-09 19:02:53,154 err: SLF4J: Class path contains multiple SLF4J bindings.
+2013-10-09 19:02:53,154 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/slf4j-simple.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:53,154 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/slf4j-jdk14-1.5.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:53,154 err: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-10-09 19:02:53,161 err: 5 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:53,161 err: 5 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:53,165 err: 9 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:53,181 err: 25 [main] INFO jacorb.orb.print_version - 
+2013-10-09 19:02:53,181 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:53,181 err: 	JacORB V 2.3.1 (JBoss patch01), www.jacorb.org
+2013-10-09 19:02:53,181 err: 	(C) The JacORB project 29-Jul-2009
+2013-10-09 19:02:53,182 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:53,234 err: 77 [main] INFO jacorb.orb - Property "jacorb.hashtable_class" is set to: java.util.Hashtable
+2013-10-09 19:02:53,251 err: 95 [main] INFO jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 1 IOR Interceptors
+2013-10-09 19:02:53,485 err: 329 [main] WARN jacorb.orb.iiop - could not create server socket port: 4731 host: null
+2013-10-09 19:02:53,486 err: java.net.BindException: Address already in use
+2013-10-09 19:02:53,486 err: 	at java.net.PlainSocketImpl.socketBind(Native Method)
+2013-10-09 19:02:53,486 err: 	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
+2013-10-09 19:02:53,486 err: 	at java.net.ServerSocket.bind(ServerSocket.java:376)
+2013-10-09 19:02:53,487 err: 	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+2013-10-09 19:02:53,487 err: 	at org.jacorb.orb.factory.DefaultServerSocketFactory.createServerSocket(Unknown Source)
+2013-10-09 19:02:53,487 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.createServerSocket(Unknown Source)
+2013-10-09 19:02:53,487 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.init(Unknown Source)
+2013-10-09 19:02:53,487 err: 	at org.jacorb.orb.iiop.IIOPListener.configure(Unknown Source)
+2013-10-09 19:02:53,487 err: 	at org.jacorb.orb.etf.FactoriesBase.newInstance(Unknown Source)
+2013-10-09 19:02:53,488 err: 	at org.jacorb.orb.etf.FactoriesBase.create_listener(Unknown Source)
+2013-10-09 19:02:53,488 err: 	at org.jacorb.orb.BasicAdapter.configure(Unknown Source)
+2013-10-09 19:02:53,488 err: 	at org.jacorb.orb.ORB.getRootPOA(Unknown Source)
+2013-10-09 19:02:53,488 err: 	at org.jacorb.orb.ORB.resolve_initial_references(Unknown Source)
+2013-10-09 19:02:53,488 err: 	at com.arjuna.orbportability.internal.orbspecific.oa.implementations.POABase.init(POABase.java:58)
+2013-10-09 19:02:53,489 err: 	at com.arjuna.orbportability.oa.core.OA.init(OA.java:85)
+2013-10-09 19:02:53,489 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:192)
+2013-10-09 19:02:53,489 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:84)
+2013-10-09 19:02:53,489 err: 	at org.jboss.jbossts.qa.Utils.OAInterface.initializeOA(OAInterface.java:46)
+2013-10-09 19:02:53,489 err: 	at org.jboss.jbossts.qa.junit.ExecutionWrapper.main(ExecutionWrapper.java:137)
+2013-10-09 19:02:53,490 out: 2013-10-09 19:02:53,490 [main] WARN  com.arjuna.orbportability - ARJUNA021003: caught org.omg.CORBA.INITIALIZE whilst initialising Object Adapter. Check another ORB/service is not active on same port.
+2013-10-09 19:02:53,490 err: 334 [main] INFO jacorb.orb - prepare ORB for shutdown...
+2013-10-09 19:02:53,490 err: 334 [main] INFO jacorb.orb - ORB going down...
+2013-10-09 19:02:53,492 err: 335 [main] INFO jacorb.orb - ORB shutdown complete
+2013-10-09 19:02:53,492 err: 336 [POADestructor] INFO jacorb.poa - POA RootPOA destroyed
+2013-10-09 19:02:55,521 err: 2343 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:55,522 err: 2343 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:55,522 err: 2345 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:55,522 err: 2346 [main] INFO jacorb.orb.print_version - 
+2013-10-09 19:02:55,522 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:55,522 err: 	JacORB V 2.3.1 (JBoss patch01), www.jacorb.org
+2013-10-09 19:02:55,522 err: 	(C) The JacORB project 29-Jul-2009
+2013-10-09 19:02:55,522 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:55,522 err: 2347 [main] INFO jacorb.orb - Property "jacorb.hashtable_class" is set to: java.util.Hashtable
+2013-10-09 19:02:55,522 err: 2347 [main] INFO jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 1 IOR Interceptors
+2013-10-09 19:02:55,525 out: 2013-10-09 19:02:55,524 [main] WARN  com.arjuna.orbportability - ARJUNA021003: caught org.omg.CORBA.INITIALIZE whilst initialising Object Adapter. Check another ORB/service is not active on same port.
+2013-10-09 19:02:55,526 err: 2367 [main] WARN jacorb.orb.iiop - could not create server socket port: 4731 host: null
+2013-10-09 19:02:55,526 err: java.net.BindException: Address already in use
+2013-10-09 19:02:55,527 err: 	at java.net.PlainSocketImpl.socketBind(Native Method)
+2013-10-09 19:02:55,527 err: 	at java.net.AbstractPlainSocketImpl.bind(AbstractPlainSocketImpl.java:376)
+2013-10-09 19:02:55,527 err: 	at java.net.ServerSocket.bind(ServerSocket.java:376)
+2013-10-09 19:02:55,527 err: 	at java.net.ServerSocket.<init>(ServerSocket.java:237)
+2013-10-09 19:02:55,527 err: 	at org.jacorb.orb.factory.DefaultServerSocketFactory.createServerSocket(Unknown Source)
+2013-10-09 19:02:55,527 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.createServerSocket(Unknown Source)
+2013-10-09 19:02:55,527 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.init(Unknown Source)
+2013-10-09 19:02:55,527 err: 	at org.jacorb.orb.iiop.IIOPListener.configure(Unknown Source)
+2013-10-09 19:02:55,527 err: 	at org.jacorb.orb.etf.FactoriesBase.newInstance(Unknown Source)
+2013-10-09 19:02:55,528 err: 	at org.jacorb.orb.etf.FactoriesBase.create_listener(Unknown Source)
+2013-10-09 19:02:55,528 err: 	at org.jacorb.orb.BasicAdapter.configure(Unknown Source)
+2013-10-09 19:02:55,528 err: 	at org.jacorb.orb.ORB.getRootPOA(Unknown Source)
+2013-10-09 19:02:55,528 err: 	at org.jacorb.orb.ORB.resolve_initial_references(Unknown Source)
+2013-10-09 19:02:55,528 err: 	at com.arjuna.orbportability.internal.orbspecific.oa.implementations.POABase.init(POABase.java:58)
+2013-10-09 19:02:55,528 err: 	at com.arjuna.orbportability.oa.core.OA.init(OA.java:85)
+2013-10-09 19:02:55,528 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:192)
+2013-10-09 19:02:55,528 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:84)
+2013-10-09 19:02:55,528 err: 	at org.jboss.jbossts.qa.Utils.OAInterface.initializeOA(OAInterface.java:46)
+2013-10-09 19:02:55,528 err: 	at org.jboss.jbossts.qa.junit.ExecutionWrapper.main(ExecutionWrapper.java:144)
+2013-10-09 19:02:55,529 err: Exception in thread "main" org.omg.CORBA.INITIALIZE: Could not create server socket (4731): java.net.BindException: Address already in use  vmcid: 0x0  minor code: 0  completed: No
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.createServerSocket(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.iiop.IIOPListener$Acceptor.init(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.iiop.IIOPListener.configure(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.etf.FactoriesBase.newInstance(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.etf.FactoriesBase.create_listener(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.BasicAdapter.configure(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.ORB.getRootPOA(Unknown Source)
+2013-10-09 19:02:55,529 err: 	at org.jacorb.orb.ORB.resolve_initial_references(Unknown Source)
+2013-10-09 19:02:55,530 err: 	at com.arjuna.orbportability.internal.orbspecific.oa.implementations.POABase.init(POABase.java:58)
+2013-10-09 19:02:55,530 err: 	at com.arjuna.orbportability.oa.core.OA.init(OA.java:85)
+2013-10-09 19:02:55,530 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:192)
+2013-10-09 19:02:55,530 err: 	at com.arjuna.orbportability.OA.initPOA(OA.java:84)
+2013-10-09 19:02:55,530 err: 	at org.jboss.jbossts.qa.Utils.OAInterface.initializeOA(OAInterface.java:46)
+2013-10-09 19:02:55,530 err: 	at org.jboss.jbossts.qa.junit.ExecutionWrapper.main(ExecutionWrapper.java:144)
+{code}
+
+outcome0_output.txt
+{code}
+starting command: /usr/local/jdk1.7.0_17/bin/java -classpath dist/narayana-full-5.0.0.M6-SNAPSHOT/etc/:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/etc/:ext/fscontext.jar:ext/providerutil.jar:ext/jboss-profiler-jvmti.jar:ext/jboss-logging-spi.jar:tests/build/classes/:dbdrivers/selected_dbdriver/*:dbdrivers/DB2_v9.7/db2jcc.jar:dbdrivers/jConnect-6_0/classes/jconn3.jar:dbdrivers/mssql2005_sqljdbc_2.0/enu/sqljdbc4.jar:dbdrivers/mysql-connector-java-5.1.8-bin.jar:dbdrivers/oracle_10_2_0_4/ojdbc14.jar:dbdrivers/postgresql-8.3-605.jdbc4.jar:ext/netty.jar -Dqa.debug=true -Djava.naming.provider.url=file:///tmp -Djava.naming.factory.initial=com.sun.jndi.fscontext.RefFSContextFactory -Dperformanceprofilestore.dir=config/perf_profiles/ -Djdbcprofilestore.dir=config/jdbc_profiles -Dmemorytestprofilestore.dir=config/memory_profiles/ -Dots.server.bindname=value_1 -DCoordinatorEnvironmentBean.maintainHeuristics=NO -DRecoveryEnvironmentBean.recoveryBackoffPeriod=5 -DCoreEnvironmentBean.timeoutFactor=2 -DCoordinatorEnvironmentBean.defaultTimeout=240 -DCoordinatorEnvironmentBean.dynamic1PC=false -Demma.coverage.out.file=./testoutput/crashrecovery12/CrashRecovery12_Test03/outcome0-coverage.ec -DportOffsetId=1 -DObjectStoreBaseDir=/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/testoutput/crashrecovery12/CrashRecovery12_Test03/store -DRecoveryEnvironmentBean.recoveryListener=true org.jboss.jbossts.qa.junit.ExecutionWrapper org.jboss.jbossts.qa.CrashRecovery12Outcomes.Outcome01 CR12_03.log yes 
+2013-10-09 19:02:52,842 out: using ports 4731 and 4732
+2013-10-09 19:02:53,106 err: log4j:WARN No appenders could be found for logger (org.jboss.logging).
+2013-10-09 19:02:53,106 err: log4j:WARN Please initialize the log4j system properly.
+2013-10-09 19:02:53,168 err: SLF4J: Class path contains multiple SLF4J bindings.
+2013-10-09 19:02:53,168 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/slf4j-simple.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:53,168 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/slf4j-jdk14-1.5.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:53,168 err: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-10-09 19:02:53,183 err: 12 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:53,183 err: 12 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:53,185 err: 14 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:53,202 err: 31 [main] INFO jacorb.orb.print_version - 
+2013-10-09 19:02:53,202 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:53,202 err: 	JacORB V 2.3.1 (JBoss patch01), www.jacorb.org
+2013-10-09 19:02:53,202 err: 	(C) The JacORB project 29-Jul-2009
+2013-10-09 19:02:53,202 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:53,263 err: 92 [main] INFO jacorb.orb - Property "jacorb.hashtable_class" is set to: java.util.Hashtable
+2013-10-09 19:02:53,290 err: 119 [main] INFO jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 1 IOR Interceptors
+2013-10-09 19:02:53,504 err: 330 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:53,504 err: 330 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:53,504 err: 331 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:53,504 err: 331 [main] INFO jacorb.orb.singleton - created ORBSingleton
+2013-10-09 19:02:53,572 err: 401 [Thread-3] INFO jacorb.orb - ORB run
+2013-10-09 19:02:53,988 out: Using timeout delay factor of 2
+2013-10-09 19:03:49,017 out: Failed
+{code}
+
+setup0_output.txt
+{code}
+performing command: /usr/local/jdk1.7.0_17/bin/java -classpath dist/narayana-full-5.0.0.M6-SNAPSHOT/etc/:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/*:dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/etc/:ext/fscontext.jar:ext/providerutil.jar:ext/jboss-profiler-jvmti.jar:ext/jboss-logging-spi.jar:tests/build/classes/:dbdrivers/selected_dbdriver/*:dbdrivers/DB2_v9.7/db2jcc.jar:dbdrivers/jConnect-6_0/classes/jconn3.jar:dbdrivers/mssql2005_sqljdbc_2.0/enu/sqljdbc4.jar:dbdrivers/mysql-connector-java-5.1.8-bin.jar:dbdrivers/oracle_10_2_0_4/ojdbc14.jar:dbdrivers/postgresql-8.3-605.jdbc4.jar:ext/netty.jar -Dqa.debug=true -Djava.naming.provider.url=file:///tmp -Djava.naming.factory.initial=com.sun.jndi.fscontext.RefFSContextFactory -Dperformanceprofilestore.dir=config/perf_profiles/ -Djdbcprofilestore.dir=config/jdbc_profiles -Dmemorytestprofilestore.dir=config/memory_profiles/ -Dots.server.bindname=value_1 -DCoordinatorEnvironmentBean.maintainHeuristics=NO -DRecoveryEnvironmentBean.recoveryBackoffPeriod=5 -DCoreEnvironmentBean.timeoutFactor=2 -DCoordinatorEnvironmentBean.defaultTimeout=240 -DCoordinatorEnvironmentBean.dynamic1PC=false -Demma.coverage.out.file=./testoutput/crashrecovery12/CrashRecovery12_Test03/setup0-coverage.ec -DportOffsetId=0 -DObjectStoreBaseDir=/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/testoutput/crashrecovery12/CrashRecovery12_Test03/setup0 -DRecoveryEnvironmentBean.recoveryListener=true org.jboss.jbossts.qa.junit.ExecutionWrapper org.jboss.jbossts.qa.CrashRecovery12Setups.Setup01 CR12_01.log 
+2013-10-09 19:02:50,878 out: using ports 4711 and 4712
+2013-10-09 19:02:51,019 err: log4j:WARN No appenders could be found for logger (org.jboss.logging).
+2013-10-09 19:02:51,020 err: log4j:WARN Please initialize the log4j system properly.
+2013-10-09 19:02:51,086 err: SLF4J: Class path contains multiple SLF4J bindings.
+2013-10-09 19:02:51,086 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/lib/ext/slf4j-simple.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:51,086 err: SLF4J: Found binding in [jar:file:/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/dist/narayana-full-5.0.0.M6-SNAPSHOT/jacorb/lib/slf4j-jdk14-1.5.6.jar!/org/slf4j/impl/StaticLoggerBinder.class]
+2013-10-09 19:02:51,086 err: SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+2013-10-09 19:02:51,102 err: 5 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:51,102 err: 6 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:51,102 err: 11 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:51,121 err: 32 [main] INFO jacorb.orb.print_version - 
+2013-10-09 19:02:51,121 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:51,121 err: 	JacORB V 2.3.1 (JBoss patch01), www.jacorb.org
+2013-10-09 19:02:51,122 err: 	(C) The JacORB project 29-Jul-2009
+2013-10-09 19:02:51,122 err: 	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+2013-10-09 19:02:51,193 err: 103 [main] INFO jacorb.orb - Property "jacorb.hashtable_class" is set to: java.util.Hashtable
+2013-10-09 19:02:51,231 err: 127 [main] INFO jacorb.orb.interceptors - InterceptorManager started with 1 Server Interceptors, 1 Client Interceptors and 1 IOR Interceptors
+2013-10-09 19:02:51,446 err: 323 [main] INFO jacorb.config - base configuration loaded from classpath orb.properties
+2013-10-09 19:02:51,447 err: 323 [main] WARN jacorb.config - File e:/JacORB_CONFIG_FEATURE/etc/jacorb.properties for configuration jacorb not found
+2013-10-09 19:02:51,447 err: 325 [main] INFO jacorb.config - configuration jacorb loaded from classpath
+2013-10-09 19:02:51,447 err: 325 [main] INFO jacorb.orb.singleton - created ORBSingleton
+2013-10-09 19:02:51,481 err: 392 [Thread-3] INFO jacorb.orb - ORB run
+2013-10-09 19:02:51,890 out: Passed
+{code}

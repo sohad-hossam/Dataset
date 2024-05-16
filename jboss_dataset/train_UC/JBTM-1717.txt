@@ -1,0 +1,6 @@
+Compensations API tests hit by ParticipantCompletion Race condition
+This issue is documented here: JBTM-1429
+
+This issue is to fix the tests so they tollerate this issue. This can be solved easily using Byteman, in the same way as we solve it for other tests.
+
+In the documentation for JBTM-1429, we state that this issue is unlikely to happen in a distributed environment. This is true, however, the Compensations API is designed to work local-only as well as distributed over WS-BA. See JBTM-1718 for the real fix to this issue.

@@ -1,0 +1,4 @@
+Add a jdbc object store implementation for later revisions of MySQL driver
+commit 44553931 updated the MySQl driver to 5.1.28.
+
+In this revision of the driver, it is reporting as mysql, not mysql_ab. It should be possible to duplicate our mysql_ab_driver to mysql_driver in order to catch both cases.

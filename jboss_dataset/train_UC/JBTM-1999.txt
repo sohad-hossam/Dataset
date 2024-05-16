@@ -1,0 +1,17 @@
+Include the BlackTie subsystem in the BlackTie zip
+The subsystem is not in the zip so is not available in a binary distribution.
+
+The following jobs would need updating:
+Unzip from BlackTie zip needs to be removed
+http://172.17.131.2/job/release-btny-narayana-quickstarts-taconic/configure
+http://172.17.131.2/job/narayana-quickstarts/configure
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-quickstarts-windows2008-taconic/configure
+
+Don't archive
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/configure
+http://172.17.131.2/view/Narayana+BlackTie-release/job/release-narayana-AS-PR/configure
+http://172.17.131.2/view/Narayana+BlackTie-release/job/release-narayana-current-inwildfly-AS800-tracker/configure
+
+The README.md in BlackTie should be updated with brief instructions of what to copy where.
+
+quickstart/blacktie/test/initializeBlacktie.zip would need to do this work for the quickstarts

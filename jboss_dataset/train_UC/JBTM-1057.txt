@@ -1,0 +1,10 @@
+Port TXBridge demo tests to quickstarts/txbridge/demo 
+Currently the TXBridge demo tests are only in the 4.16 branch. Here they live in the JBossTS project and pull in built artefacts for, txbridge-demo-service.jar, txbridge-demo-client.war and xts-demo.ear. 
+
+see here: https://svn.jboss.org/repos/labs/labs/jbosstm/branches/JBOSSTS_4_16/txbridge/demo-test/src/test/java/org/jboss/jbossts/txbridge/demotest/TxBridgeDemoTest.java
+
+The TXBridge demo has been moved, in trunk, to the quickstarts project. Therefore the built artefact of the XTS demo will not be available. We need to figure out a way of pulling this in. Maybe we could pull in the XTS demo as a maven artefact? Alternately, we could remove the dependency on the XTS demo by re-creating the Restaurant service in the TXBridge demo. 
+
+Also, it doesn't seem right, that built txbridge-demo artefacts are required. Wouldn't it be better for shrinkwrap to create these?
+
+The reason why these artefacts where used in 4.16, was to fit in with the existing layout and build system. In trunk we are using maven throughout and can make more disruptive changes, so we should try and get this test right.

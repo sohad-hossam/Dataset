@@ -1,0 +1,2 @@
+Remove static block from com.arjuna.common.util.ConfigurationInfo
+Could do guard loading of build time properties behind an "initialized" variable and then call that from each getter and thereby not require the static initialization.

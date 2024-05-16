@@ -1,0 +1,2 @@
+TXFramework functional tests should ensure transaction is complete in finally block
+None

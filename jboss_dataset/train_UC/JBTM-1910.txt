@@ -1,0 +1,2 @@
+Be consistent with printSummary
+Ignoring QA, only REST-AT sets printSummary to YES.

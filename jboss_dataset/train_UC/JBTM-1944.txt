@@ -1,0 +1,10 @@
+Merge blacktie and narayana scripts
+There are still two sets of scripts for building narayana and blacktie
+
+build.*
+blacktie/build.*
+
+scripts/hudson/narayana.*
+blacktie/scripts/hudson/blacktie-*
+
+Merge them to simplify

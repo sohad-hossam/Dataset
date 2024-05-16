@@ -1,0 +1,7 @@
+provide way for Synchronization.afterCompletion callee to know if the Reaper thread is calling
+When the Synchronization.afterCompletion is invoked for EE JPA containers, knowledge of whether the current thread is the Reaper thread (cancelling the transaction from a background thread).
+
+The fix to this jira will help with handling the [JPA 2.1 container concurrency requirements|http://java.net/projects/jpa-spec/lists/jsr338-experts/archive/2013-03/message/38].
+
+Please implement the solution makes the most sense to you, as this will introduce an additional dependency between other systems and JBossTM/JBossTS that depend on the solution, that will likely be around for a long time.
+

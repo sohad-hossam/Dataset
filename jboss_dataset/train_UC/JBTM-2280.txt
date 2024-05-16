@@ -1,0 +1,11 @@
+alternative to JNDI
+So far four (4) different people have tried and failed to get JBoss Transactions working in a Ceylon environment (i.e. JBoss Modules, essentially). The basic problem is that the TM has a totally spurious dependence on JNDI as the source of its transactional resources. Since JCA is neither defined nor available outside a Java EE environment, this forces anyone trying to use the TM outside of the application server to write their own nasty code depending on some really internal-looking APIs that basically sets up a JNDI-bound proxied datasource where both the TM and the application can find it. In principle this is sorta-straightforward (except for the internal-looking APIs). However, it means that most of the code in `ceylon.transaction` is actually about connection management and setting up JNDI-bound datasources.
+
+Sadly it turns out that, in the context of JBoss Modules, even just getting a JNDI server on the right classloader has proved to be a task so difficult that four reasonably competent developers including myself and other folks who are much better programmers than me have failed at it. I'm sure it's remotely _possible_, and I'm sure that if I weren't using JBoss Modules it would be quite easy. But I'm also sure that it simply shouldn't be necessary. JNDI has nothing to do with transactions and is a distraction here. JNDI is this totally stringly-typed rubbish thing designed in the Clinton era as an abstraction of LDAP by folks who had never heard that Java has static types. Yeah, sure, it continues its zombie existence at the heart of the EE standards, even after we remembered that Java has static types in EE 6, but it just has no place in modern APIs. Other libraries like Hibernate, Spring, etc always offer alternative approaches with no dependence to JNDI.
+
+IMO, what the TM _should_ do is offer an API that lets me hand it an instance of `XADataSource` (it doesn't care where that comes from) and hands my back an instance of `DataSource` that I can use to obtain transaction-bound connections. There is no reason, AFAICT, to involve JNDI in this at all.
+
+    XADataSource xads = youJustDontNeedToCare();
+    DataSource ds = narayana.registerDataSource(xads);
+
+Or something like that. Of course I'm sure I'm missing some subtleties here.

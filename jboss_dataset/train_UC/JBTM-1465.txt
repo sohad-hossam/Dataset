@@ -1,0 +1,2 @@
+Performance tests using JDBCStore
+Some of the core and txoj performance tests appear to be running against the JDBC object store rather than the default file store. It's possible that this change has been put in place to test the updated JDBC object store, but it should not be the default. It's also possible that it is simply a bug, or inheriting some configuration update from earlier tests. The performance tests should be returned to work against the default file implementation and if necessary new jdbc specific tests added.

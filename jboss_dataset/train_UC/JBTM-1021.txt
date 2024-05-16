@@ -1,0 +1,6 @@
+JTS ExtendedResourceRecord cannot cope with a LastResourceRecord operating in 2PC mode
+ERR calls prepare, which calls LRR prepare which calls XARR commit_one_phase, which cleans up the CORBA servant.
+
+ERR then calls doSave which fails as the remote servant is cleaned up but can cope with this
+
+ERR then calls commit but gets an OBJECT_NOT_EXIST which ERR lumps in with SystemException and the ServerTopLevelAction returns this as a error, it should detect this case and allow 2PC to complete normally

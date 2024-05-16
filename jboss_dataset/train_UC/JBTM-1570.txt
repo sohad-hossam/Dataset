@@ -1,0 +1,6 @@
+Allow both Non-XA and XA servers
+For our application we have a mixture of XA and non-XA servers, for performance and probably due to the fact that Informix (our main DB) only lets one datasource be used in XA mode.
+
+Unfortunately the blacktie servers do an implicit tx_open, so if you have any XA data sources defined these get used and Informix thinks its in XA mode.
+
+I currently have a workaround for this which is to have a duplicate btconfig.xml with the XA sources removed and the servers which are NonXA get passed this in the -c of the server args.  Seems to work nice, but would be good not to have to do that.

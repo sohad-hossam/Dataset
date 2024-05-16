@@ -1,0 +1,13 @@
+Arquillian failures due to version mismatches
+We were getting failures with the current versions of Arquillian WildFly Managed Container Adapter and Arquillian Core when using the current wildfly master branch. This was because we were using incompatible versions which I have just fixed (commit dab8736):
+
+bq.   Arquillian WildFly Managed Container Adapter 1.0.0.Alpha5 is built with Arquillian Core - 1.1.7.Final
+
+But the osgi  tests need to run with karaf and the most recent arquillian osgi karaf container was built with Arquillian Core 1.1.2.Final. So I will fix it by updating the osgi pom to use that version of arquillian core:
+
+bq. 2.1.0.CR15 is built with Arquillian Core - 1.1.2.Final and ShrinkWrap - 1.1.2
+
+The version compatibility details are: [WildFly Managed Container Adapter |  http://arquillian.org/modules/wildfly-arquillian-wildfly-managed-container-adapter/] and [arquillian osgi karaf container |http://arquillian.org/modules/arquillian-osgi-karaf-embedded-container-adapter]  
+
+
+

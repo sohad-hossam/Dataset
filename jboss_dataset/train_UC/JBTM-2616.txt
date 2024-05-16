@@ -1,0 +1,3 @@
+Implement JMS integration classes
+Both Spring and Spring Boot requires ConnectionFactory, Connection, Session implementation which should handle the transaction related tasks when using JMS e.g. enlisting xa resources, registering synchronizations etc.
+This should be somethings similar to the ConnectionManager and ConnectionImple used by the transactional driver.

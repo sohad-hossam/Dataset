@@ -1,0 +1,2 @@
+Add username and password to JmsXAResourceRecoveryHelper
+In some scenarios user name and password might be needed during the recovery of JMS resources. For those cases JmsXAResourceRecoveryHelper should be able to take username and password as an argument and use them when creating connections.

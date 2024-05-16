@@ -1,0 +1,7 @@
+Expose TransactionListenerRegistry via the SPI
+TransactionListenerRegistry is for clients to register for transaction related events and is implemented by the TransactionManager but the SPI does not allow the user to discover the interface which means they have to write unpleasant code like:
+{code}
+(TransactionListenerRegistry) getTransactionManager();
+{code}
+
+So we need a method in the SPI to get and set an instance of the interface. The setter will be for the container to set it and the getter is for clients to register interest in the events

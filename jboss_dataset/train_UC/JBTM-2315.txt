@@ -1,0 +1,11 @@
+A checked CORBA narrow call in ExtendedResourceRecord failed on JDK orb
+Wildfly recovery testing on the JDK orb blows (see the attached stack trace for details)  up in ExtendedResourceRecord when we narrow a resource (using OTSAbstractRecordHelper.narrow (theResource). The reason we don't think it happens with JacORB is that they have an optimization that avoids the remote call for is_a whereas JDK orb does not have the optimisation. I built a version of narayana that replaces the narrow call with an unchecked_narrow and this fixes the recovery issue.
+
+A little bit of implementation detail: JacORB loads the stub for the object being narrowed and calls its _ids method. If any of those ids match the target type then it avoids the remote call. Our guess is that this local search succeeds (but it's a guess).
+
+On the other hand, looking at the code for the JBoss repackaging of the OpenJDK ORB (org.jboss.openjdk-orb): it first checks locally (StubAdapter.getTypeIds) and then falls back to doing the RPC call (getClientRequestDispatcher). The stack trace (see attachment) shows that it goes through the latter path.
+
+After consultation with Mark, our OTS expert, he is of the opinion that the CORBA spec isn't prescriptive about how narrow and is_a are supposed to work. So as long as the right answer is returned, why should we be concerned?
+
+As a parallel task we should investigate why the local check for the OpenJDK ORB doesn't work. Maybe it's an issue for them to fix?
+

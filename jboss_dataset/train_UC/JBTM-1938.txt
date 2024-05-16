@@ -1,0 +1,4 @@
+Caching of datasource for JDBC store incompatible with WildFly :reload operation
+The JDBC object store makes a performance optimization to cache the datasource it obtains connections from. Unfortunately this is not compatible with WildFly :reload (see linked bugzilla for stack trace).
+
+Without further performance constraints I have moved to obtaining a reference each time. If there are performance issues we might need to provide a way for the subsystem to invalidate the cached reference when :reload is called.

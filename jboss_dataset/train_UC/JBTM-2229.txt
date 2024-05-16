@@ -1,0 +1,4 @@
+Issue with issue recovering AA with CMR, recovers OK but via orphan detection
+The issue is with the CMR recovery module when it needs to update the underlying AA to modify it with the correct value from the CMR XIDS table.
+
+If this AA  does not have Serializable XARs, it will lead to the Xid being removed from XARM during getNewXAResource (via restore_state of the XARR). When the later AARM tries to recover the AA, it means a corresponding XAR for the XID cannot be located in the XARM by the XARR and an error message is reported.

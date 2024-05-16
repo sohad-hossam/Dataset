@@ -1,0 +1,10 @@
+Prevent JTS bottom-up recovery from rolling back prepared inflowed JCA transactions
+There exists a defect that if a recovering JVM does the following steps:
+
+doRecoveryScan()
+waitForOrphanInterval()
+doRecoveryScan()
+
+*Before* XATerminator::recover is called in the root coordinator then bottom-up recovery will be told there is NoTransaction which is infers as a rollback.
+
+I saw two options, one was to have TransactionCacheItem try to peek in the objectstore for ServerTransaction/JCA classes. The alternative is to add a new recovery module that can load the ServerTransaction/JCA classes periodically so the transaction won't be lost.

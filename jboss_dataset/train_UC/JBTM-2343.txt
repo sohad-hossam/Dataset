@@ -1,0 +1,2 @@
+Add a new Observer SPI for tracking transaction state association changes
+We need a new interface to enable users to track thread-to-transaction association changes. See related JBTM-2342 for details

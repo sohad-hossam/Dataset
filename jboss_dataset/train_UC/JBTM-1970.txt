@@ -1,0 +1,5 @@
+SPI additions for enlisting XA resources
+Two additional items are required:
+
+* org.jboss.tm.ConnectableLastResource shouldn't extend LastResource in order to make it a mix-in interface that can be used for XA resources too;
+* promotion of com.arjuna.ats.jta.resources.StartXAResource to the SPI.

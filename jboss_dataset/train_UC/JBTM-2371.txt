@@ -1,0 +1,7 @@
+Error while creating coverage report
+http://albany.eng.hst.ams2.redhat.com/job/narayana-codeCoverage/185/console
+
+[jacoco:report] Loading execution data file /home/hudson/workspace/narayana-codeCoverage/qa/testoutput/jacoco-qa.exec
+
+BUILD FAILED
+/home/hudson/workspace/narayana-codeCoverage/qa/run-tests.xml:544: Error while creating report

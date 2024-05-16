@@ -1,0 +1,2 @@
+Create a separate student/incubator repo
+Some student projects, such as fileio, are unlikely to every be supported or maintained. Having them in the main repo causes confusion. We should have a separate student project repo where they can live until we decide to move them into the main repo. Maybe have this as a generic incubator for more than student projects?

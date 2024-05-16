@@ -1,0 +1,2 @@
+Allow the user to provide a reference to an XADataSource for Transactional Driver
+Certain environments have class loader constraints that do not let the direct recoverable connection load the users configured XADataSource. It is therefore necessary to provide an implementation that can be passed by reference.

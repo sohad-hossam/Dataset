@@ -1,0 +1,2 @@
+Use servlet protocol in xts arquillian tests
+https://issues.jboss.org/browse/WFLY-5949 was caused by using jmx protocol instead of servlet in arquillian tests. Therefore, to make sure this doesn't happen in other tests, we should set servlet as a default protocol in all arquillian tests.

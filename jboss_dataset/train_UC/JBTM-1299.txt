@@ -1,0 +1,2 @@
+Narayana artifacts are difficult to find after a build
+The new build system leaves the installable jars in their respective module target directories. It is not obvious which jars are which so it would be nice if we can provide, near the top of the top level README, a brief description of the purpose and location of each target produced by the build. 

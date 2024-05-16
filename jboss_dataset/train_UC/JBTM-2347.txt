@@ -1,0 +1,4 @@
+Make JMH perf benchmark failure threshold configurable
+The PERF profile for PR testing (added in JBTM-2337) fails a job if the performance of any test degrades by more than 10%. The threshold needs to be configurable.
+
+Additionally change test com.hp.mwtests.ts.arjuna.performance.Performance1 so that it does at least some work (the test is so trivial that it's possibly prone to anomalous timings).

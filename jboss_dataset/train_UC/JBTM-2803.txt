@@ -1,0 +1,2 @@
+compareHierarchies traceln's wrong elements
+If compareHierarchies is called (only done in trace iirc) then the right elements are compared but if they are not equal the wrong elements are compared IOOBE are possible.

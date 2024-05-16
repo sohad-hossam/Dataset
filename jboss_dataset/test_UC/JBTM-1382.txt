@@ -1,0 +1,2 @@
+QA build does not archive test group summary files
+The QA test suite consists of a number of test groups. The build produces a summary file showing the status of each sub test within a group (these are called TEST-<test group>.txt and stored in the qa directory). We currently archive the qa/testoutput directory but it would be useful to also archive these summary text files. Note that we cannot rely on Jenkins to do this for us since the jts remote test group is executed twice (once for each orb) and the files from the first run are overwritten.

@@ -1,0 +1,18 @@
+The deprecated api  in the wildfly-blacktie has been removed in the wildfly-core
+It looks like the deprecated api has been removed in the wildfly-core upgrading to 2.0.0.Beta5.
+http://albany.eng.hst.ams2.redhat.com/job/narayana-catelyn/989/console
+http://albany.eng.hst.ams2.redhat.com/job/narayana/922/
+
+{code}
+Caused by: java.lang.NoSuchMethodError: org.jboss.as.controller.registry.ManagementResourceRegistration.registerOperationHandler(Ljava/lang/String;Lorg/jboss/as/controller/OperationStepHandler;Lorg/jboss/as/controller/descriptions/DescriptionProvider;ZLorg/jboss/as/controller/registry/OperationEntry$EntryType;)V
+	at org.wildfly.extension.blacktie.BlacktieSubsystemExtension.initialize(BlacktieSubsystemExtension.java:80)
+	at org.jboss.as.controller.extension.ExtensionAddHandler.initializeExtension(ExtensionAddHandler.java:131) [wildfly-controller-2.0.0.Beta5.jar:2.0.0.Beta5]
+	at org.jboss.as.controller.extension.ExtensionAddHandler.initializeExtension(ExtensionAddHandler.java:104) [wildfly-controller-2.0.0.Beta5.jar:2.0.0.Beta5]
+	at org.jboss.as.controller.extension.ParallelExtensionAddHandler$ExtensionInitializeTask.call(ParallelExtensionAddHandler.java:144) [wildfly-controller-2.0.0.Beta5.jar:2.0.0.Beta5]
+	at org.jboss.as.controller.extension.ParallelExtensionAddHandler$ExtensionInitializeTask.call(ParallelExtensionAddHandler.java:127) [wildfly-controller-2.0.0.Beta5.jar:2.0.0.Beta5]
+	at java.util.concurrent.FutureTask.run(FutureTask.java:266) [rt.jar:1.8.0_45]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [rt.jar:1.8.0_45]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [rt.jar:1.8.0_45]
+	at java.lang.Thread.run(Thread.java:745) [rt.jar:1.8.0_45]
+	at org.jboss.threads.JBossThread.run(JBossThread.java:320) [jboss-threads-2.2.1.Final.jar:2.2.1.Final]
+{code}

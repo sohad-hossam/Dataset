@@ -1,0 +1,6 @@
+Support BridgeType.NONE for @WSAT annotated services
+Allow the WSAT to JTA bridge to be disabled through the following annotation:
+
+{code}
+WSAT(BridgeType=BridgeType.NONE)
+{code}

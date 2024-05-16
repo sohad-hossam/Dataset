@@ -1,0 +1,6 @@
+Setting SettingVolatile store still creates an ObjectStore directory on the disk 
+Even when configuring {code:java} arjPropertyManager.getObjectStoreEnvironmentBean().setObjectStoreType(VolatileStore.class.getName()) {code} an "ObjectStore" directory is created on the disk. After discussing with JTM team this doesn't cause any real problem in the sense that nothing is written to the disk, but this is annoying and might create confusion between the users.
+
+A workaround would be to add the following configuration together with the previously mentioned one:
+
+{code:java} BeanPopulator.getNamedInstance(ObjectStoreEnvironmentBean.class, "communicationStore").setObjectStoreType(VolatileStore.class.getName()) {code}

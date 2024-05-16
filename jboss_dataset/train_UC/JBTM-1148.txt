@@ -1,0 +1,2 @@
+Create a tree view of the object store (hidden under an advanced option) in the tooling
+None

@@ -1,0 +1,15 @@
+TxSupport helper getContent() and openConnection() leaves I/O streams open
+When there are large number of transactions in progress, the following exception is thrown:
+
+Caused by: org.jboss.jbossts.star.provider.HttpResponseException: java.net.SocketException: No buffer space available (maximum connections reached?): connect
+    at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:261)
+    at org.jboss.jbossts.star.util.TxSupport.startTx(TxSupport.java:179)
+...............................
+Caused by: java.net.SocketException: No buffer space available (maximum connections reached?): connect
+    at java.net.PlainSocketImpl.socketConnect(Native Method)
+    at java.net.PlainSocketImpl.doConnect(PlainSocketImpl.java:351)
+    at java.net.PlainSocketImpl.connectToAddress(PlainSocketImpl.java:213)
+    at java.net.PlainSocketImpl.connect(PlainSocketImpl.java:200)
+    at java.net.SocksSocketImpl.connect(SocksSocketImpl.java:366)
+    at java.net.Socket.connect(Socket.java:529)
+    at java.net.Socket.connect(Socket.java:478)

@@ -1,0 +1,2 @@
+Remove TXFramework SOAPHandler as JBossWS now supports CDI Interceptors
+None

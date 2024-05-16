@@ -1,0 +1,4 @@
+LogStoreRecoveryTest failure
+http://172.17.131.2/job/jbossts-branch417-EAP61-java6/1500/
+
+Jonathan root caused the issue as being due to the byteman script "RULE done log purge" signalling the "RULE LogStore.purged" and then setting the flag "LogStore done purge". But the rule that checks the flag "LogStore done purge" runs before the flag is set. The fix is to set the flag and then do the signal.

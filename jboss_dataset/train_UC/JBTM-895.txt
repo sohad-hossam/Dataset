@@ -1,0 +1,25 @@
+Expose an API that allows JTA to be controlled in a distributed manner
+This feature is requested by the Remoting team.
+
+Options are:
+ClientUserTransaction requires no additional implementation work. The same hooks that supported the earlier implementations of this can be used for the new one too.
+
+ 
+
+Transaction context inflow support falls into two parts: whole transaction (gtrid) interposition and branch only (bqual) interposition.
+
+ 
+
+For whole transaction interposition, a new subordinate transaction context is created on each node receiving an inflow. Synchronizations are handled purely locally. The JCA inflow API can be used, albeit with semantics which IMO are not spec compliant.  This model would be relatively simple to implement on the transaction manager side, as the existing recovery architecture will mostly still apply. IMO it's of limited utility for users though, as resource managers will see independent transactions and not do any transaction branch coupling. That impacts both functionality and performance.
+
+ 
+
+For branch only transaction interposition, subordinate nodes maintain the inflowed gtrid but create new branches within an allocated portion of the bqual state space. This requires information about the allocation of bqual space to be communicated, either by explicit parameter passing for the general case or by encoding in the Xid for the jboss->jboss inflow case. It affords the opportunity for branch coupling in resource managers used by more than one node in the same transaction, but leads to more complicated recovery needs. Specifically recovery can no longer be driven off consideration of the gtrid ownership alone, but must also consider bqual ownership. This naturally requires that the bqual value actually contain node ownership information, which will require a new encoding. On the other hand we probably need one anyhow to communicate delegation of the bqual state space on links where we're working with 3rd party implementations and thus constrained to the JCA api rather than one that could carry additional parameters.  For links where we do control both ends, we need additional methods to support afterCompletion as a separate phase. BeforeCompletion is already available as a separate step on subordinate transactions, although it may need to be even finer grained to allow for JTA 1.1 TSR sync interposition semantics to be transaction global rather than node local.
+
+ 
+
+In both models the communication is entirely top down - the coordinator does not exist as a network endpoint as in JTS, as persistent ids are not supported by the remoting transport. This constrains recovery to use the XA recovery scan model rather than the JTS replayCompletion one. One consequence of this is that parent nodes will require to maintain a list of all possible subordinates and have a recovery module plugin for them, but that's probably not an undue burden for most deployment scenarios.  Another consequence is that it's probably going to be better to build it as distributed hooks into JBossJTA rather than a pluggable transport layer for JBossJTS. That should also offer better performance as resource records will get inlined to the tx rather than be separate ostore entries.
+
+
+
+It is important that the transport should not be required to persist additional data about the transaction state in order to ensure the best performance. Any state that must be retained should be coupled to existing persistence points such as Serializable XAResources intermediaries.

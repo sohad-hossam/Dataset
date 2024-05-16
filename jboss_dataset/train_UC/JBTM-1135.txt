@@ -1,0 +1,41 @@
+TestATSubordinateCrashDuringPrepare fails: Resend to rollback participant not handled correctly
+See failed jobs here: 
+
+http://172.17.131.2/view/XTS%20recovery/job/jbossts-branch416-xts-recovery-java6/61
+http://172.17.131.2/view/XTS recovery/job/narayana-xts-recovery-java6/83
+
+After looking at the trace output here:
+
+http://172.17.131.2/view/XTS%20recovery/job/jbossts-branch416-xts-recovery-java6/61/artifact/XTS/sar/crash-recovery-tests/target/log/ATSubordinateCrashDuringPrepare.subordinate.MultiParticipantPrepareAndCommitTest/*view*/
+
+You will see a message re-send:
+
+{code}
+rollback received for Participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.1
+rollback received for Participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.1
+{code}
+
+This seems to cause the rule "trace delete participant and exit JVM" to be invoked twice:
+
+{code}
+21:17:52,893 INFO  [stdout] (TaskWorker-1) rule.debug{trace receive Participant rollback} : rollback received for Participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.1
+21:17:52,896 INFO  [stdout] (TaskWorker-1) Rule.execute called for trace delete participant and exit JVM_10
+21:17:52,897 INFO  [stdout] (TaskWorker-1) HelperManager.install for helper classorg.jboss.byteman.rule.helper.Helper
+21:17:52,899 INFO  [stdout] (TaskWorker-1) calling installed(trace delete participant and exit JVM) for helper classorg.jboss.byteman.rule.helper.Helper
+21:17:52,901 INFO  [stdout] (TaskWorker-1) Installed rule using default helper : trace delete participant and exit JVM
+21:17:52,903 INFO  [stdout] (TaskWorker-1) trace delete participant and exit JVM execute
+21:17:52,904 INFO  [stdout] (TaskWorker-1) Rule.execute called for trace send Participant aborted_21
+21:17:52,906 INFO  [stdout] (TaskWorker-1) HelperManager.install for helper classorg.jboss.byteman.rule.helper.Helper
+21:17:52,907 INFO  [stdout] (TaskWorker-1) calling installed(trace send Participant aborted) for helper classorg.jboss.byteman.rule.helper.Helper
+21:17:52,909 INFO  [stdout] (TaskWorker-1) Installed rule using default helper : trace send Participant aborted
+21:17:52,911 INFO  [stdout] (TaskWorker-1) trace send Participant aborted execute
+21:17:52,912 INFO  [stdout] (TaskWorker-1) rule.debug{trace send Participant aborted} : aborted sent for Participant org.jboss.jbossts.xts.servicetests.DurableTestParticipant.1
+21:17:52,915 INFO  [stdout] (TaskWorker-3) Rule.execute called for trace delete participant and exit JVM_10
+21:17:52,918 INFO  [stdout] (TaskWorker-3) trace delete participant and exit JVM execute
+{code}
+
+This is because "XTSATRecoveryManagerImple.deleteParticipantRecoveryRecord" is invoked for both rollback messages.
+
+Is this valid behaviour for XTS when dealing with message replays? If so, this Byteman script and any other susceptible to this issue need updating to only check for individual participant record removals. 
+
+We could complete the test when three or more participant records are removed, however, that would produce a false positive in the case where one participant record is not deleted and another is attempted for a second time.

@@ -1,0 +1,6 @@
+JavaIDL test wrongly excluded?
+In the JTS pom.xml within the IDLJ excludes section there is:
+
+<exclude>**/JavaIdlRecoveryUnitTest.java</exclude>
+
+Surely we shouldn't be excluding JavaIdl tests in the JavaIdl run? Should this refer to the JacORB tests instead?

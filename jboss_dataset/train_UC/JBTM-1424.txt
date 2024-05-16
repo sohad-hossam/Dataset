@@ -1,0 +1,2 @@
+Remove static block from org.jboss.jbossts.xts.environment.XTSPropertyManager
+Where it catches an exception in the static block and then just uses system properties. I would say that behavior would be better encapsulated in XTSPropertiesFactory.getDefaultProperties itself (thereby removing another static block and making XTSPropertiesFactory.getDefaultProperties more stable).

@@ -1,0 +1,4 @@
+Allow callback server to open on a random port and override from the system property
+currently the client can only use the port defined for <SOCKETSERVER> in the btconfig.xml and multi clients can not run together.
+
+we need to allow callback server to  open the random port when <SOCKETSERVER PORT="0"> or a range <SOCKETSERVER "12340-12350"> and they could be overridden by socketserver_port and socketserver_host environment variables. 

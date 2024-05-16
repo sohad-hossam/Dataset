@@ -1,0 +1,12 @@
+Moving txn datastore to machine with different default encoding can cause in-doubt participants not being recovered
+Narayana uses system default encoding when encode and decode data for object store. This could be a trouble if user uses non-ASCII characters for node identifier and object store is meanwhile moved between machines with different default encodings.
+
+I've currently revealed two cases which could cause a trouble:
+
+* node id set as {{...}} _(there is needed to use some characters which are encoded in UTF-8 as more bytes characters)_ will let container being started for encoding ISO-8859-1 and won't be started for encoding UTF-8. That's when configuration moved from ISO-8859-1 machine to UTF-8 machine when the another machine will be expected to finish recovery of some failed txn the second machine fails to start. (sure, workaround is to set jvm default encoding via parameter {{-Dfile.encoding}})
+* node id set to {{kulaťoučký}}, whole eap installation moved from one machine with ISO-8859-1 to machine with default encoding set to UTF-8. Txn object store is copied too for second machine finishing in-doubt transaction by recovery. The second machine won't finish transactions which depends on node identifer check (bottom-up recovery) as node id will be decoded differently than it was understood at the first machine.
+
+This issue was found by using static code analysis and reacts to report message
+{code}
+21994 Dm: Dubious method used In org.jboss.narayana.osgi.jta.internal.ObjStoreBrowserImpl.ObjStoreBrowserImpl (com.arjuna.ats.arjuna.tools.osb.mbean.ObjStoreBrowser): Found a call to a method which will perform a byte to String (or String to byte) conversion, and will assume that the default platform encoding is suitable)
+{code}

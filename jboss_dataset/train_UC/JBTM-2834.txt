@@ -1,0 +1,2 @@
+Delete a tx participant - XAResource#forget(xid) is not called for JTS
+Deleting specific participant (introduced by EAP7-594) is not working correctly in DR10. Method forget on a XAResource is not called. It seems to be regression compared to DR9.

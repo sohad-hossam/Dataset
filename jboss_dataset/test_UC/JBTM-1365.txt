@@ -1,0 +1,14 @@
+Deploy REST-AT support as a JBossAS subsystem and module
+Currently a user of REST-AT needs to deploy the coordinator and also create a new module for the REST-AT client support. It would be a lot easier for developers if this was already deployed as part of AS7.
+
+I think the way to do this is to create a sub-system for the coordinator (like what we do for the XTS coordinator) and a module for the REST-AT libraries (again, similar to XTS).
+
+The subsystem would need to:
+
+* Bootstrap the coordinator. Currently bootstrapping occurs when the coordinator war is deployed. As there will be no war, the subsystem needs to take care of this bootstrapping.
+* Deploy the coordinator endpoint.
+
+The module would need to contain the REST-AT coordinator code and the client libraries.
+
+h3. Open Issues
+Need to check with the AS team to see if we add a new Subsystem or make do with an existing one. We can't start this work until this is resolved.

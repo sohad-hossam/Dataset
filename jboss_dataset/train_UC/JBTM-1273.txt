@@ -1,0 +1,2 @@
+QA Test Failure: TestGroup_crashrecovery12 
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-narayana-java7/2/console

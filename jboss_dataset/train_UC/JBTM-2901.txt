@@ -1,0 +1,2 @@
+XARecoveryModule second pass shouldn't be executed if the state is not BETWEEN_PASSES
+None

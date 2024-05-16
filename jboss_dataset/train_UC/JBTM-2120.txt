@@ -1,0 +1,2 @@
+Add a deferred exceptions to the rollback exception if the first resource throws a heuristic rollback
+Pull https://github.com/jbosstm/narayana/pull/598 added deferred throwables in case the XAR::end fails during commit. It doesn't handle the case of the HEURISTIC_ROLLBACK of a first resource where Narayana rolls back the remaining participants and then clears the failed/heuristic lists (and marks the txn as rolled back).

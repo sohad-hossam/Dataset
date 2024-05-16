@@ -1,0 +1,2 @@
+Tidy up the JTS IDL
+The IDL hasn't been updated for over a decade and has preprocessor directives in there that are probably no longer needed, unless we want to be backwardly compatible for ORBs that are no longer produced.

@@ -1,0 +1,2 @@
+wildfly-blacktie does not contain jars in the release
+it does not copy the artifact into the module folder as it looks like missing the "copy-module-artifacts="true" in the server-provisioning.xml 

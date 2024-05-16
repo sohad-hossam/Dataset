@@ -1,0 +1,2 @@
+Remove deprecated Reasteasy API from RTS
+Deprecated Resteasy 2 APIs are being removed by 3.1.0. We need to upgrade the version and update our code to use new APIs. 

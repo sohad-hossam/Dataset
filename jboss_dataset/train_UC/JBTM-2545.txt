@@ -1,0 +1,4 @@
+Use consistent naming scheme for ORB jbossts-properties files in the repo
+This simplifies testing makes the tests more consistent. The overall effect on the user is that the default filenames are clearer rather than assuming jacorb.
+
+Plus the fact that narayana-jacorb module has narayana-idlj file in (which is an error IMO) - and the converse is also true.

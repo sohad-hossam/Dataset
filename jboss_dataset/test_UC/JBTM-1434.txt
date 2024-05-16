@@ -1,0 +1,2 @@
+During CI Only install artifacts to local .m2 repo that will be uploaded to Nexus during release 
+Apply JBTM-1307 and JBTM-1306 to master.

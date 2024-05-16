@@ -1,0 +1,75 @@
+JdbcObjectStore is not closing connection
+maeste: it looks like a bug on our side, can you raise a Jira for us please (maybe with your stack trace)?
+<tomjenkinson> maeste:  thanks for fixing WFLY-1460 :)
+<jbossbot> jira [WFLY-1460] WildFly server fails to start with transactions configured to be run with JDBCObject store [Open (Unresolved) Bug, Major, Stefano Maestri] https://issues.jboss.org/browse/WFLY-1460
+<tomjenkinson> maeste: it looks like the same thread is not used more than once?
+<tomjenkinson> maeste: the connection was being held on the thread you see
+<tomjenkinson> maeste: I assume that new threads are created constantly and not recycled now in WildFly?
+<maeste> tomjenkinson: yup should be
+<tomjenkinson> maeste: if there was a thread pool you would not have seen this
+<maeste> tomjenkinson: hmmm is on shotdown
+<maeste> tomjenkinson: on thread pool removing so
+<maeste> tomjenkinson: BTW I've just configure jdbcstore No operation executed, and so I suppose no write on DB, and I get this stacktrace when I shutdown WildFly
+<tomjenkinson> maeste: we can close the connections more timely it is ok, I don't know what the performance impact of connection.close with each object store update though
+<tomjenkinson> maeste: when you say "this stacktrace" you mean the gist you pasted before?
+<maeste> tomjenkinson: can't you close connection on shutdown? Well I'm fine to call a new convenient method on service shutdown if it's doable
+<maeste> tomjenkinson: yup
+<tomjenkinson> maeste: we are allocating one connection per thread
+* clebert (~clebert@redhat/jboss/clebert) has joined #jbossts
+<tomjenkinson> maeste: would shutdown be called on the transaction manager before LeakConnectionDetecter is triggered?
+<tomjenkinson> maeste: if so that sounds like the best idea
+<maeste> tomjenkinson: yup
+* Jaikiran (~jaikiran@redhat/jboss/Jaikiran) has joined #jbossts
+<tomjenkinson> maeste: ok, so we can do that, we can store the references that each thread creates in a global map too, then in shutdown close them all
+<tomjenkinson> maeste: then hook that into the transaction subsystem
+
+
+
+Stack trace
+
+16:40:23,273 ERROR [org.jboss.jca.core.connectionmanager.pool.mcp.LeakDumperManagedConnectionPool] (MSC service thread 1-2) IJ000616: Leak detected in pool: ExampleDS: java.lang.Throwable: ALLOCATION LEAK
+	at org.jboss.jca.core.connectionmanager.pool.mcp.LeakDumperManagedConnectionPool.getConnection(LeakDumperManagedConnectionPool.java:90) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.core.connectionmanager.pool.AbstractPool.getSimpleConnection(AbstractPool.java:452) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.core.connectionmanager.pool.AbstractPool.getConnection(AbstractPool.java:420) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.getManagedConnection(AbstractConnectionManager.java:379) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.getManagedConnection(AbstractConnectionManager.java:352) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.core.connectionmanager.AbstractConnectionManager.allocateConnection(AbstractConnectionManager.java:513) [ironjacamar-core-impl-1.1.0.Final.jar:1.1.0.Final]
+	at org.jboss.jca.adapters.jdbc.WrapperDataSource.getConnection(WrapperDataSource.java:142) [ironjacamar-jdbc-1.1.0.Final.jar:1.1.0.Final]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DataSourceJDBCAccess.getConnection(DataSourceJDBCAccess.java:50) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver$1.initialValue(JDBCImple_driver.java:632) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver$1.initialValue(JDBCImple_driver.java:627) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at java.lang.ThreadLocal.setInitialValue(ThreadLocal.java:160) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.ThreadLocal.get(ThreadLocal.java:150) [rt.jar:1.7.0_09-icedtea]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.initialise(JDBCImple_driver.java:639) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.<init>(JDBCStore.java:267) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [rt.jar:1.7.0_09-icedtea]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [rt.jar:1.7.0_09-icedtea]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525) [rt.jar:1.7.0_09-icedtea]
+	at com.arjuna.ats.internal.arjuna.common.ClassloadingUtility.loadAndInstantiateClass(ClassloadingUtility.java:131) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.objectstore.StoreManager.initStore(StoreManager.java:165) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.objectstore.StoreManager.setupStore(StoreManager.java:136) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.objectstore.StoreManager.getTxOJStore(StoreManager.java:197) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.txoj.recovery.TORecoveryModule.<init>(TORecoveryModule.java:73) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [rt.jar:1.7.0_09-icedtea]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [rt.jar:1.7.0_09-icedtea]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:525) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.Class.newInstance0(Class.java:374) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.Class.newInstance(Class.java:327) [rt.jar:1.7.0_09-icedtea]
+	at com.arjuna.ats.internal.arjuna.common.ClassloadingUtility.loadAndInstantiateClass(ClassloadingUtility.java:137) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.common.ClassloadingUtility.loadAndInstantiateClassesWithInit(ClassloadingUtility.java:194) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.common.RecoveryEnvironmentBean.getRecoveryModules(RecoveryEnvironmentBean.java:444) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.loadModules(PeriodicRecovery.java:861) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.<init>(PeriodicRecovery.java:121) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.internal.arjuna.recovery.RecoveryManagerImple.<init>(RecoveryManagerImple.java:113) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.recovery.RecoveryManager.<init>(RecoveryManager.java:460) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.recovery.RecoveryManager.manager(RecoveryManager.java:130) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.arjuna.recovery.RecoveryManager.manager(RecoveryManager.java:110) [narayana-jts-jacorb-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at com.arjuna.ats.jbossatx.jta.RecoveryManagerService.create(RecoveryManagerService.java:54) [narayana-jts-integration-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+	at org.jboss.as.txn.service.ArjunaRecoveryManagerService.start(ArjunaRecoveryManagerService.java:113) [wildfly-transactions-8.0.0.Alpha4-SNAPSHOT.jar:8.0.0.Alpha4-SNAPSHOT]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1944) [jboss-msc-1.2.0.Beta2.jar:1.2.0.Beta2]
+	at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1877) [jboss-msc-1.2.0.Beta2.jar:1.2.0.Beta2]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145) [rt.jar:1.7.0_09-icedtea]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615) [rt.jar:1.7.0_09-icedtea]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_09-icedtea]

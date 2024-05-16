@@ -1,0 +1,11 @@
+XTS crash recovery tests fail on IBM JDK
+The XTS crash recovery tests fail on IBM JDK. This seem to be a problem of Arquillian settings.
+
+What I do:
+- switch to IBM JDK (JAVA_HOME + PATH)
+- export JBOSS_HOME=/home/ochaloup/jboss/jboss-eap-*
+- cd XTS/localjunit/crash-recovery-tests
+ - mvn test -Pxts.integration.tests.profile  -Parq -Dtest=com.arjuna.qa.junit.TestATCrashDuringOnePhaseCommit
+
+What I get - tests fail with error:
+The server is already running! Managed containers do not support connecting to running server instances due to the possible harmful effect of connecting to the wrong server. Please stop server before running or change to another type of container. 

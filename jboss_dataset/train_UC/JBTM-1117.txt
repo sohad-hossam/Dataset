@@ -1,0 +1,2 @@
+Remove RHQ plugin
+None

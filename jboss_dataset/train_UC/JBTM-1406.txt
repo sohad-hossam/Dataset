@@ -1,0 +1,21 @@
+Database shutdown warning on Raspberry Pi
+Exception in thread "Thread-6" java.lang.RuntimeException: org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-168]
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver$1.initialValue(JDBCImple_driver.java:552)
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver$1.initialValue(JDBCImple_driver.java:545)
+	at java.lang.ThreadLocal.setInitialValue(ThreadLocal.java:160)
+	at java.lang.ThreadLocal.get(ThreadLocal.java:150)
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.remove_state(JDBCImple_driver.java:384)
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.remove_committed(JDBCStore.java:155)
+	at com.arjuna.ats.internal.arjuna.recovery.TransactionStatusManagerItem.removeThis(TransactionStatusManagerItem.java:166)
+	at com.arjuna.ats.arjuna.recovery.TransactionStatusManager.shutdown(TransactionStatusManager.java:152)
+	at com.arjuna.ats.arjuna.coordinator.TxControl$Shutdown.run(TxControl.java:63)
+Caused by: org.h2.jdbc.JdbcSQLException: Database is already closed (to disable automatic closing at VM shutdown, add ";DB_CLOSE_ON_EXIT=FALSE" to the db URL) [90121-168]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:329)
+	at org.h2.message.DbException.get(DbException.java:169)
+	at org.h2.message.DbException.get(DbException.java:146)
+	at org.h2.message.DbException.get(DbException.java:135)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1384)
+	at org.h2.jdbc.JdbcConnection.checkClosed(JdbcConnection.java:1359)
+	at org.h2.jdbc.JdbcConnection.setAutoCommit(JdbcConnection.java:403)
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DynamicDataSourceJDBCAccess.getConnection(DynamicDataSourceJDBCAccess.java:53)
+	at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver$1.initialValue(JDBCImple_driver.java:550)

@@ -1,0 +1,15 @@
+XARecoveryModuleHelpersUnitTest hang
+The test checks that recovery helpers can be removed at the correct stages during recovery scans. The CI job http://albany.eng.hst.ams2.redhat.com/job/narayana-codeCoverage/196 shows the hang.
+
+The junit test thread:
+- starts 2 threads that will remove a recovery helper
+- triggers xaRecoveryModule.periodicWorkFirstPass()
+- triggers xaRecoveryModule.periodicWorkSecondPass()
+- joins with remover threads
+
+The jstack output shows:
+- the two threads in the process of removing a recovery helper and are waiting for the first pass to finish;
+- the junit test thread is waiting to join with these two threads;
+
+Since both recovery passes must have completed it looks like the remover threads weren't notified when the first pass completed. 
+

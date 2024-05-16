@@ -1,0 +1,2 @@
+Failing .Narayana qa testcase crashrecovery12 method CrashRecovery12_Test03 when journal object store is used
+When using journal object store (amq) then we experience failues of test {{crashrecovery12 CrashRecovery12_Test03}}.

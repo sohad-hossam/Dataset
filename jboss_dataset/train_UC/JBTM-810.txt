@@ -1,0 +1,2 @@
+Set the default configuration to use socketless communication betweeen the transaction manager and recovery manager for JTA
+The configuration is a function of *EnvironmentBean.java and the jbossjtaproperties.xml

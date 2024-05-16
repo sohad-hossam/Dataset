@@ -1,0 +1,2 @@
+activemq artimes journal changes the package name
+activemq-artimes upgrades from 1.0.0 to 1.1.0-wildfly-6 and the journal package name also changes.

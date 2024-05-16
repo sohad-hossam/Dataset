@@ -1,0 +1,23 @@
+JCA committed inflow transaction is not moved to assumed completed category for JTS
+We have test which checks whether EIS is capable to finish transaction after JVM crash.
+The scenario is following:
+- 2 test XA resources are enlisted
+- EIS RAR XATerminator calls prepare and commit
+- JVM crash occurs at the start of the first XAResource.commit call
+- app server is restarted
+- doRecoveryScan()/waitForOrphanInterval/doRecoveryScan()
+- both (mock) XAResources are not rolled-back
+- EIS XATerminator.commit is called
+- doRecoveryScan()/waitForOrphanInterval/doRecoveryScan()
+- both (mock) XAResources are committed
+
+but the committed tx is not removed from log:
+{code}
+jvmCrashAfterPrepareJTS(org.jboss.as.test.jbossts.crashrec.jca.test.JcaInflowTransactionTestCase)  Time elapsed: 125.532 sec  <<< FAILURE!
+java.lang.AssertionError: After commiting txn there should be no one in the txn log expected:<0> but was:<1>
+	at org.junit.Assert.fail(Assert.java:88)
+	at org.junit.Assert.failNotEquals(Assert.java:834)
+	at org.junit.Assert.assertEquals(Assert.java:645)
+	at org.jboss.as.test.jbossts.crashrec.jca.test.JcaInflowTransactionTestCase.jvmCrashAfterPrepareJTS(JcaInflowTransactionTestCase.java:763)
+{code}
+

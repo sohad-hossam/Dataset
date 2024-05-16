@@ -1,0 +1,21 @@
+Source directory names of the rest-tx modules need improving
+The source directory names of the REST modules is confusing and does not accurately reflect what they are for. Currently we  have:
+{noformat}
+rest-tx
+  tx
+  integration
+  util
+  webservice
+{noformat}
+which I'd like to rationalize to:
+{noformat}
+rts (RESTful Transaction Service)
+  at (Atomic Transactions)
+    tx (the JAX-RS service that implements the spec)
+    integration (simple API for writing Java based participants)
+    util (various utility methods for making it easy to conform to the spec)  
+    webservice (bundles tx as a deployable war)
+{noformat}
+(and later on we'll add jdi at the same level as at).
+
+

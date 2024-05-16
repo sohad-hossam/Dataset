@@ -1,0 +1,24 @@
+EIS can't recover inflowed transaction when heuristic outcome happens and tooling is used to reset the participant to prepared
+For "a normal" transaction which is started and managed by transaction manager heuristic state is expected to be solved this way
+
+# prepare phase successfully finishes, participant make a heuristic decision (ie. rollbacks) which causes that TM receives a XAException with error code as e.g. XA_RMERR or XA_HEURRB. 
+# transaction is marked to have heuristic result and manual intervention is necessary
+# user calls {{recover}} for participant at such state and its state is changed to _prepared_
+# replay of commit is called for the participant which causes to get commit called once again for the {{XAResource}} and participant record is removed from TM object store
+
+This workflow does not work for inflow transaction where EIS is expected to order the TM to commit (as TM stands in position of subordinate transaction manager). The expected procedure should be
+
+# EIS propagates EIS TX to Narayana
+# enlisting XAR in Narayana subordinate TX
+# committing EIS TX
+## It commits Narayana subordinate TX
+# XAR in Narayana TX returns RMERR
+# Narayana returns XA_HEURMIX
+# calling the Narayana tooling op {{recover}} to move the heuristic back to prepared
+# EIS should not forget its TX where Narayana TX is a subordinate as we returned a heursitic so its not allowed to forget it yet
+# EIS should call Narayana via XATerminator::recover()
+## getting back an Xid that matches to Narayana subordinate TX
+# EIS should try again to complete this Xid it sees fit according to its own recovery log, e.g. e.g. call XATerminator::commit(xid)
+(_in the real world once an XAR had rolled back it would be unlikely to ever be able to commit again so it would be a bit synthetic to allow it commit so it would be up to you how you decide to complete the TX_)
+
+The issue is that {{recover}} operation returns the state of participant to _prepared_ but EIS commit call (({{XATerminator.commit}}) does cause {{XAResource.commit}} being invoked and participant log being removed from the TM object store.

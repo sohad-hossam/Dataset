@@ -1,0 +1,15 @@
+Journal failures in CI test suite on JDKORB
+The first CI job link includes:
+
+  CurrentTests01_Test036
+
+  jtsremote JTSRemote_ImplicitPropagationTest
+crashrecovery02_2 CrashRecovery02_2 - all of them
+crashrecovery05_1 CrashRecovery05_1 Tests 1, 6, 7, 8, 9, 10
+
+crashrecovery12 CrashRecovery12_Test03 (55 failures - about half of them)
+
+The second CI job link includes:
+
+JTSRemote_ImplicitPropagationTest failure
+CrashRecovery02_2_Test46 hang

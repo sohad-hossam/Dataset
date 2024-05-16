@@ -1,0 +1,19 @@
+TXFramework Code Tidy Part 2
+Remove annotations and properties that are not used.
+
+Remove System.out and System.err. For example:
+{code}
+15:08:58,561 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) ServiceRequestSoapHandler.getHeaders()
+15:08:58,561 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) ServiceRequestSoapHandler.handleInboundMessage()
+15:08:58,562 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) ServiceRequestSoapHandler.getHeaders()
+15:08:58,562 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) ServiceRequestSoapHandler.handleOutboundMessage()
+15:08:58,562 INFO  [stdout] (http-localhost-127.0.0.1-8080-1) ServiceRequestSoapHandler.close()
+{code}
+
+Add logging
+
+Refactor WSBA Handlers into one (Wrap the registration and completion into an object that switches based on participant type)
+
+Remove Statefull tests
+
+Consider making handlers statefull

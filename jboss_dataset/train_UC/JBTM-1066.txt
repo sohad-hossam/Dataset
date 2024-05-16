@@ -1,0 +1,2 @@
+TxSupport helper method getTransactions() returns 1 when there are no transactions
+TxSupport.getTransactions() returns a List of size 1 when there were 0 transactions

@@ -1,0 +1,7 @@
+JTS before_completion in SynchronizationImple swallows and hides exceptions
+In [SynchronizationImple|https://github.com/jbosstm/narayana/blob/781ace284d840805282e037e9c10c8de6f2de472/ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/resources/jts/orbspecific/SynchronizationImple.java#L93], if the user's synchronization fails, the exception is swallowed and never logged.  Instead a descriptionless {{UNKNOWN}} is thrown.
+
+The exception should at least be logged to aid in troubleshooting.
+
+Later in the same file, {{after_completion}} is using {{e.printStackTrace()}} to log the stack, which is also less than ideal.
+

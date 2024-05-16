@@ -1,0 +1,5 @@
+CompensationContext is destroyed once the first handler is invoked
+https://github.com/jbosstm/narayana/blob/master/compensations/src/main/java/org/jboss/narayana/compensations/impl/ParticipantImpl.java#L95
+https://github.com/jbosstm/narayana/blob/master/compensations/src/main/java/org/jboss/narayana/compensations/impl/ParticipantImpl.java#L118
+
+If there are two handlers (compensation or confirmation), which need to access the same compensation scoped object, only the first one will succeed. Once the first handler is invoked from the ParticipantImpl, CompensationScope is destroyed.

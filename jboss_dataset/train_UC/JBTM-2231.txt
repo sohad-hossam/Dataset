@@ -1,0 +1,13 @@
+Detailed TRACE logging for Synchronization
+Provide TRACE logging of Synchronization interactions.
+
+* Adding Synchronization through registerSynchronization
+* Adding Synchronization through registerInterposedSynchronization
+* Call of beforeCompletion
+* Call of afterCompletion
+
+Each TRACE statement needs
+
+* Class name
+* Identity hash code
+* toString

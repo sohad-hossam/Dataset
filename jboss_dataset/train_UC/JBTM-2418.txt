@@ -1,0 +1,2 @@
+NPE in BaseTransactionManagerDelegate commit
+BaseTransactionManagerDelegate#commit should throw IllegalStateException if there is no transaction present. 

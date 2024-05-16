@@ -1,0 +1,5 @@
+Automate NRP
+There are a number of steps on NRP that could be automated using Jira API.
+
+Lets try to do that:
+https://community.jboss.org/wiki/NarayanaReleaseProcess

@@ -1,0 +1,10 @@
+Close a number of stream processors that are currently not closed
+There are a couple of warnings about streams that are not correctly closed. Currently these will be closed by the finalize method of the class.
+
+Changes required in:
+	modified:   ArjunaCore/arjuna/tests/classes/com/hp/mwtests/ts/arjuna/file/FileLockingUnitTest.java
+	modified:   ArjunaJTA/jta/tests/classes/com/hp/mwtests/ts/jta/recovery/XARRTestResource.java
+	modified:   ArjunaJTS/jts/tests/classes/com/hp/mwtests/ts/jts/utils/TaskMonitor.java
+	modified:   ArjunaJTS/orbportability/classes/com/arjuna/orbportability/Services.java
+	modified:   qa/tests/src/org/jboss/jbossts/qa/CrashRecovery12Outcomes/Outcome01.java
+	modified:   qa/tests/src/org/jboss/jbossts/qa/junit/TaskImpl.java

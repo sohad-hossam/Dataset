@@ -1,0 +1,12 @@
+org.jboss.jbossts.jts:jbossjts-jacorb:jar:4.17.5.Final-SNAPSHOT artefact is missing
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-EAP61/1802
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-EAP61/1803
+
+{code}
+Downloading: http://repository.jboss.org/nexus/content/groups/public/org/jboss/jbossts/jts/jbossjts-jacorb/4.17.5.Final-SNAPSHOT/maven-metadata.xml
+
+Downloading: http://repository.jboss.org/nexus/content/groups/public/org/jboss/jbossts/jts/jbossjts-jacorb/4.17.5.Final-SNAPSHOT/jbossjts-jacorb-4.17.5.Final-SNAPSHOT.pom
+
+[WARNING] The POM for org.jboss.jbossts.jts:jbossjts-jacorb:jar:4.17.5.Final-SNAPSHOT is missing, no dependency information available
+Downloading: http://repository.jboss.org/nexus/content/groups/public/org/jboss/jbossts/jts/jbossjts-jacorb/4.17.5.Final-SNAPSHOT/jbossjts-jacorb-4.17.5.Final-SNAPSHOT.jar
+{code}

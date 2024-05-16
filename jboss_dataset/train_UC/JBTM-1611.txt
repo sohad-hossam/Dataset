@@ -1,0 +1,20 @@
+Failing qa testcase org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery09,10,12 with jacorb and HornetQ object store enabled
+During testing EAP 6.1.0.ER3 I'm hitting problem on QA tests of narayana project for branch 4.17 when running qa tests with jacorb and hornetq object store (happening for NIO and AIO).
+
+Tests which are failing:
+org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery09
+- CrashRecovery09_Test01
+- CrashRecovery09_Test03
+- CrashRecovery09_Test05
+org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery10
+- CrashRecovery10_Test01
+- CrashRecovery10_Test03
+- CrashRecovery10_Test05
+org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery12
+- CrashRecovery12_Test03
+- CrashRecovery12_Test06
+
+Detailed log could be found in job:
+https://jenkins.mw.lab.eng.bos.redhat.com/hudson/job/eap-61-jbossts-qa-test-hqobjectstore-nio/13/artifact/archive.zip
+
+I was trying to get more info on the test CrashRecovery09 but I can say just that the value honlder has value 0 instead of 1 on org.jboss.jbossts.qa.CrashRecovery09Clients.Client01a (line 84).

@@ -1,0 +1,29 @@
+Call xa_end on duplicate XAResource as per JTA 1.2 specification
+JTA 1.2 changed requirement:
+
+"A transaction manager is, however, required to implicitly ensure the association of any associated XAResource is ended, via the appropriate XAResource.end call, immediately prior to completion;"
+
+The change is that it no longer is confined to any associated ** resource **, but now specifies any associated ** XAResource **
+
+What is happening at the moment for two difference instance of an XAR but where isSameRM is true:
+Resource1 start  TMNOFLAGS
+DuplicateResource1 start  TMJOIN
+Resource2 start  TMNOFLAGS
+Resource1 end  TMSUCCESS
+Resource1 prepare
+Resource2 end  TMSUCCESS
+Resource2 prepare
+Resource1 commit
+Resource2 commit
+
+Post https://java.net/jira/browse/JTA_SPEC-3 this should be:
+Resource1 start  TMNOFLAGS
+DuplicateResource1 start  TMJOIN
+Resource2 start  TMNOFLAGS
+Resource1 end  TMSUCCESS
+DuplicateResource1 end  TMSUCCESS
+Resource1 prepare
+Resource2 end  TMSUCCESS
+Resource2 prepare
+Resource1 commit
+Resource2 commit

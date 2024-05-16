@@ -1,0 +1,4 @@
+Support plain old JAX-WS services in TXFramework 
+Currently the TXFramework only supports JAX-WS services that are implemented as EJBs. This is because the TXFramework relies heavily on CDI. Plain old JAX-WS services don't seem to be considered by the CDI implementation.
+
+Need to find out of this is due to a limitation in JBossWS, or whether I missed something when coding up my service.

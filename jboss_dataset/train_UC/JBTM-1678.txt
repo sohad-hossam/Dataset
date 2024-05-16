@@ -1,0 +1,4 @@
+JTA 1.2 @Transactional for compensations
+Essentially offer comparable features for Compensations as those defined for JTA in the @Transactional section of the JTA spec.
+
+We can re-use the code and tests from our JTA 1.2 implementation. It may be possible to extend those impls, otherwise it's a copy-and-paste.

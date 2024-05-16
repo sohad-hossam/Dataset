@@ -1,0 +1,6 @@
+JTS for not putting transaction to heuristic state during recovery for XAException.XAER_NOTA
+JTS moves transaction to heuristic state when participant during recovery returns {{XAExeption.XAER_NOTA}} error code. This is a bit pointless as this particular error code does not mean that there was some trouble with RM but that RM just already does not know about the transaction branch. For recovery it means that the branch was committed/rolled-back either before recovery started or in some previous recovery run (where probably something crashed).
+
+We can assumed the transaction was completed and ignore the {{XAER_NOTA}} (in case of recovery). This behaviour is already present in JTA.
+
+This came from EAP issue: JBEAP-13023 where you can find more on the reproducing.

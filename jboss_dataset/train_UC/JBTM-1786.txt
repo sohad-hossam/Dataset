@@ -1,0 +1,6 @@
+Change to TMFAIL for an ABORT on a non-prepared TX
+An ABORT on a non-prepared TX should be calling end with TMFAIL.
+It's more efficient in that the RM can return an RB* code immediately and short circuit the rollback internally if it likes.  More importantly though the RM is less likely to object that it's still running tx activity on another thread and the concurrent TMSUCCESS therefore makes no sense to it.
+
+Also the XAResourceRecord.topLevelAbort code should immediately continue on to calling rollback on the resource despite the failed end(). 
+

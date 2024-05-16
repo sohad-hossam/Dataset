@@ -1,0 +1,19 @@
+Cannot create jacoco report
+{quote}
+[jacoco:coverage] Enhancing junit with coverage
+    [junit] Running org.jboss.jbossts.qa.junit.testgroup.TestGroup_jdbcresources02_pgsql_jndi
+    [junit] Tests run: 30, Failures: 0, Errors: 0, Time elapsed: 412.658 sec
+
+ci-tests:
+
+BUILD SUCCESSFUL
+Total time: 447 minutes 53 seconds
+generating test coverage report
+Buildfile: /home/hudson/workspace/narayana-codeCoverage/qa/run-tests.xml
+
+jacoco-report:
+[jacoco:report] Loading execution data file /home/hudson/workspace/narayana-codeCoverage/qa/testoutput/jacoco-qa.exec
+
+BUILD FAILED
+/home/hudson/workspace/narayana-codeCoverage/qa/run-tests.xml:544: Error while creating report
+{quote}

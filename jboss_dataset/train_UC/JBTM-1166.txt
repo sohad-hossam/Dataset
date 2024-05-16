@@ -1,0 +1,2 @@
+Remove dependency on AS6 component matrix in the REST module
+The REST module still contains a dependency on the AS6 component matrix. Update the pom to use jboss-javaee-6.0 for dependency management.

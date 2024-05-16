@@ -1,0 +1,2 @@
+Update TXFramework branch of JBossAS to use re-factored XTS subsytem
+None

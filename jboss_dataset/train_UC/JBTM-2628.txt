@@ -1,0 +1,2 @@
+QA testsuite logging does not use log4j
+The qa testsuite does not add log4j.jar to the classpath so we default to the jdk logger with the result that we do not get the desired log line formatting (such as including the thread name).

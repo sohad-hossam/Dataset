@@ -1,0 +1,2 @@
+Use tests jar for common module test classes instead of using build-helper plugin
+The build-helper-maven-plugin is currently used in several places to add test classes from the common module to the classpath.  A better way to do this is to package up the common test classes in a jar, and then add the jar as a test dependency to the module(s) where they are needed.

@@ -1,0 +1,2 @@
+Place a copy of getpids in ext directory
+We offer getpids as an implementation option for ExecProcessId and refer people to download it from the original site. Should keep a cached copy locally just in case it vanishes. Make sure licence is clearly displayed.

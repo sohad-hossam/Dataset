@@ -1,0 +1,2 @@
+Determine why 4 locks acquired in LockManager.propagate
+None

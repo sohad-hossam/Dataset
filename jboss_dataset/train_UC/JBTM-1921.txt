@@ -1,0 +1,2 @@
+@Provider annotation is missing on org.jboss.narayana.rest.bridge.inbound.EJBExceptionMapper
+None

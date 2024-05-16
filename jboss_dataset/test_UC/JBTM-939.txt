@@ -1,0 +1,5 @@
+Fix intermittant qa suite failure: org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery02_2
+Assuming failure in test rather than failed test:
+
+>>>>> org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery02_2
+>>>>>      [junit] Tests run: 50, Failures: 1, Errors: 0, Time elapsed:

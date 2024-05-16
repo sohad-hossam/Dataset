@@ -1,0 +1,2 @@
+Create an OSGi bundle activator
+JBTM-669 has a draft implementation you can look at.

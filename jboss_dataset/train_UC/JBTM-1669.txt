@@ -1,0 +1,33 @@
+Remove tanukisoftware wrapper dependency from EAP6 profile
+Currently we have tanuki in these components:
+
+{code}
+ArjunaCore/arjuna/services/pom.xml
+ArjunaJTS/narayana-jts-idlj/pom.xml
+ArjunaJTS/narayana-jts-jacorb/pom.xml
+pom.xml
+{code}
+
+{code}
+    <dependency>
+      <groupId>tanukisoft</groupId>
+      <artifactId>wrapper</artifactId>
+      <version>${version.tanukisoft}</version>
+    </dependency>
+{code}
+
+We need to remove these dependencies from eap6 profile according to comments from Fernando:
+
+{quote}
+We do not ship  tanukiwrapper with the AS (the windows on is an exceptional case and for different reasons).
+
+It is not in the AS7 dependencies, and it will be hard for Support to
+properly rebuild TS in the field.
+{quote}
+
+btw, there are two classes we need to remove from eap6 profile which depends on tanuki wrapper:
+
+{code}
+ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/services/recovery/RecoveryManagerService.java
+ArjunaJTS/jts/services/classes/com/arjuna/ats/jts/services/transactionserver/TransactionServerService.java
+{code}

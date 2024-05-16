@@ -1,0 +1,2 @@
+Add suspend and resume methods to RecoveryManagerService application server integration code
+Recovery manager service in WildFly needs to be able to suspend and resume recovery manager service.

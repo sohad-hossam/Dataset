@@ -1,0 +1,11 @@
+Tooling can create two mbeans for a CMR record
+The ObjStoreBrowser.probe() operation creates MBeans corresponding to object store records. CMR records move between AtomicAction (AA) and AtomicActionConnectable (AAC). When running QA EAP tests on JDK8 a test fails because it detects the creation of two MBeans for each one - this is an error because:
+
+- the record is moved between the locations so there should only ever be one bean representation of it;
+- it causes two nodes with the same id (we use the record uid for the node id) to be added to the transaction subsystem management model
+
+The problem is happening because the probe routine first creates new beans for new records and then destroys beans for records that are no longer present. This means that there is a small window where we have 2 beans for the same uid.
+
+The fix is to do the bean remove before adding new beans for new records.
+
+It is unclear why the bug only happens on JDK8.

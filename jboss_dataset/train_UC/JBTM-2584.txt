@@ -1,0 +1,34 @@
+Failed commit during one-phase commit optimization only logs warning and lets EJB invocation succeed
+I have an entity manager (Oracle XA datasource) and a JCA resource adapter supporting LocalTransaction in one transaction.
+
+Following scenario:
+- An entity with values equal to those in the database is merged
+- The commit() of the local-tx resource fails and throws a ResourceException
+
+All that happens is a warning being logged:
+
+{noformat}
+00:34:47,619 WARN  [com.arjuna.ats.jta] (default task-24) ARJUNA016039: onePhaseCommit on < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff7f000101:25752588:566c9884:209, node_name=1, branch_uid=0:ffff7f000101:25752588:566c9884:211, subordinatenodename=null, eis_name=java:/FileDataSource > (LocalXAResourceImpl@41ac4d[connectionListener=d5fa3f connectionManager=1e7041 warned=false currentXid=null productName=Generic JCA productVersion=1.0 jndiName=java:/FileDataSource]) failed with exception XAException.XA_RBROLLBACK: org.jboss.jca.core.spi.transaction.local.LocalXAException: IJ001156: Could not commit local transaction
+	at org.jboss.jca.core.tx.jbossts.LocalXAResourceImpl.commit(LocalXAResourceImpl.java:180) [ironjacamar-core-impl-1.1.9.Final.jar:1.1.9.Final]
+	at com.arjuna.ats.internal.jta.resources.arjunacore.XAOnePhaseResource.commit(XAOnePhaseResource.java:113)
+	at com.arjuna.ats.internal.arjuna.abstractrecords.LastResourceRecord.topLevelPrepare(LastResourceRecord.java:152)
+	at com.arjuna.ats.arjuna.coordinator.AbstractRecord.topLevelOnePhaseCommit(AbstractRecord.java:428)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.onePhaseCommit(BasicAction.java:2317)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.prepare(BasicAction.java:2110)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1481)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:96)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1166)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.endTransaction(CMTTxInterceptor.java:93) [wildfly-ejb3-8.2.1.Final.jar:8.2.1.Final]
+{noformat}
+
+and the EJB invocation succeeds.
+
+I would expect the EJB to receive a RollbackException since the commit failed with XAException.XA_RBROLLBACK.
+
+Debugging BasicAction.prepare(), I can see that because the outcome of prepare is TwoPhaseOutcome.PREPARE_READONLY, one phase commit optimization is applied and onePhaseCommit() is called where the outcome TwoPhaseOutcome.ONE_PHASE_ERROR isn't considered an error as far as I understand.
+Then TwoPhaseOutcome.PREPARE_ONE_PHASE_COMMITTED is returned from BasicAction.prepare().
+
+I would never expect the EJB invocation to succeed if any participant in the transaction fails to commit.

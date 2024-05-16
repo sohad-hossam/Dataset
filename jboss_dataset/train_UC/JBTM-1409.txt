@@ -1,0 +1,23 @@
+Make the build less verbose - specifically the tests
+Normally the build is fairly succinct around junit tests. However, when we hit jbossatx everything seems to become a lot more verbose than it needs to be. Consider making these tests silent (redirect error/output to a file, as happens with the other tests).
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.arjuna.ats.internal.jbossatx.jta.TestXAResourceRecordWrapperImpl
+Jan 1, 2013 9:32:58 PM com.arjuna.ats.arjuna.coordinator.TxControl <clinit>
+WARN: ARJUNA012130: Name of XA node not defined. Using Arjuna:54417
+Jan 1, 2013 9:32:59 PM com.arjuna.ats.arjuna.recovery.TransactionStatusManager addService
+INFO: ARJUNA012163: Starting service com.arjuna.ats.arjuna.recovery.ActionStatusService on port 54418
+Jan 1, 2013 9:32:59 PM com.arjuna.ats.internal.arjuna.recovery.TransactionStatusManagerItem <init>
+INFO: ARJUNA012337: TransactionStatusManagerItem host: 127.0.0.1 port: 54418
+Jan 1, 2013 9:32:59 PM com.arjuna.ats.arjuna.recovery.TransactionStatusManager start
+INFO: ARJUNA012170: TransactionStatusManager started on port 54418 and host 127.0.0.1 with service com.arjuna.ats.arjuna.recovery.ActionStatusService
+1 == 1?
+2 == 3?
+Tests run: 2, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.536 sec
+Running com.arjuna.ats.jta.distributed.SimpleIsolatedServers
+Jan 1, 2013 9:32:59 PM com.arjuna.ats.jbossatx.jta.RecoveryManagerService create
+INFO: ARJUNA032010: JBossTS Recovery Service (tag: unknown) - JBoss Inc.
+Jan 1, 2013 9:32:59 PM com.arjuna.ats.internal.arjuna.recovery.RecActivatorLoader startRecoveryActivators
+INFO: ARJUNA012324: Start RecoveryActivators

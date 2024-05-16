@@ -1,0 +1,13 @@
+Consider using a common code style throughout Narayana
+I think we should consider using a common code style throughout the TS project. The benefits of doing this are as follows:
+
+# You can automate code formatting. This is a real productivity boost as you can type away, thinking about your code, rather than the style. When you hit save, or trigger it directly, the code is formatted.
+## This is not possible without a project wide code style as you too frequently re-format code that needs to stay in someone else's personal style. You can't commit this changed code as; a) it may annoy the "owner" and b) it results in a change that can't be diffed (every line may be changed). 
+# We get consistency over the whole project, making it easier to read code written by others.
+# We have to do this anyway for code we maintain inside the JBossAS project as the project refuses to build if it doesn't adhere to their style.
+
+Personally, I like the style I've used for the last 10 years. I find it harder to read code that is not in this style. Hence I can understand why people may object to changing their style. However, this is  the very reason why a common style is beneficial. You can get used to a new style and once you do, the entire project will be styled in the way that you are used to. Providing the style is sensible, I would much rather use a style consistent across the projects I work on. I'm happy for that style to be different to my current style.
+
+As I stated above JBossAS mandates a style at build time. I don't particularly like the style (braces should occupy their own line, IMO) but I'm happy to go with this one if it becomes the Narayana standard style.
+
+I think we should also break the build for violations. This should prevent mistakes making their way into SVN. 

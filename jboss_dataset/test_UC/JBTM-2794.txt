@@ -1,0 +1,2 @@
+Javadoc compensations framework
+Compensations framework internal classes do not have javadocs. They should be documented to make maintenance easier in the future.

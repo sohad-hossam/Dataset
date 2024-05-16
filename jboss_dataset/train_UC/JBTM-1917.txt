@@ -1,0 +1,6 @@
+XTS*RecoveryManager.getRecoveryManager() can return null if application deployed before XTS starts
+The problem is that there is currently no way of specifying that an application depends on XTS. Therefore it's possible that when the server starts, that the application can be deployed before XTS is started, thus a call to XTSBARecoveryManager.getRecoveryManager() or XTSATRecoveryManager.getRecoveryManager() will return null.
+
+The workaround is to poll for the RecoveryManager until it is not null. 
+
+The fix is to have the RecoveryManager injected into the application via a Deployment Unit Processor that has a dependency on the XTS service. 

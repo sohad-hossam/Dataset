@@ -1,0 +1,11 @@
+Compiliation failure for BlackTie on Fedora 18
+test-compile:
+    [mkdir] Created dir: /home/tom/projects/jbosstm/narayana/blacktie/core/target/cpp-test-classes
+     [copy] Copying 5 files to /home/tom/projects/jbosstm/narayana/blacktie/core/target/cpp-test-classes
+       [cc] 12 total files to be compiled.
+       [cc] Starting link
+       [cc] /usr/bin/ld: warning: libexpat.so.1, needed by /lib64/libaprutil-1.so.0, may conflict with libexpat.so.0
+       [cc] /usr/bin/ld: warning: libexpat.so.1, needed by /lib64/libaprutil-1.so.0, may conflict with libexpat.so.0
+       [cc] cpp-test-classes/TestSynchronizableObject.o:(.data.rel.ro._ZTV6Waiter[_ZTV6Waiter]+0x70): undefined reference to `ACE_Event_Handler::handle_signal(int, siginfo_t*, ucontext*)'
+       [cc] /lib64/libaprutil-1.so.0: undefined reference to `apr_pool_pre_cleanup_register'
+       [cc] collect2: error: ld returned 1 exit status

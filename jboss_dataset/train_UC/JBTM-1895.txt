@@ -1,0 +1,53 @@
+restat-bridge:jar is not uploaded during release
+Marking which jars are uploaded to Nexus during release is a two step process (unfortunately). You need to add both of the following bits of XML to the pom associated with the jar. 
+
+The following ensures that the artefact is installed in the local maven repo when we do CI. This allows us to test the same set of artefacts that will be released. We needed this as we were finding out too late (after release) that we had dependencies on internal artefacts that we did not want to release.
+{code}
+      <profile>
+          <id>release</id>
+          <build>
+              <plugins>
+                <plugin>
+                  <groupId>org.apache.maven.plugins</groupId>
+                  <artifactId>maven-install-plugin</artifactId>
+                  <executions>
+                    <execution>
+                      <id>default-install</id>
+                      <phase>install</phase>
+                    </execution>
+                  </executions>
+                  <inherited>false</inherited>
+                </plugin>
+              </plugins>
+          </build>
+      </profile>
+{code}
+
+The following ensures that the artefact is uploaded to Nexus when the release is done.
+{code}
+      <plugin>
+        <inherited>false</inherited>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <configuration>
+          <skip>false</skip>
+        </configuration>
+      </plugin>
+{code}
+
+We could probably move both plugins into the release profile as this is now enabled in build-release-packages.xml when we do the release. 
+
+I've checked the current code base for all occurrences of this error and no more exist. In-case you are interested, I used the following, rather crude script:
+
+{code}
+#!/bin/bash
+
+RELEASE_PROFILES=$(find . -name pom.xml | xargs grep "<id>release</id>" | awk -F ':' '{ print $1 }')
+
+for POM in $RELEASE_PROFILES; do
+	FOUND=$(grep maven-deploy-plugin $POM)
+	if [ "$FOUND" == "" ]; then
+		echo $POM
+	fi
+done
+{code}

@@ -1,0 +1,2 @@
+Create a docker image with JTS transaction manager and recovery manager
+Should help with a) using docker and b) providing transactions-as-a-service.

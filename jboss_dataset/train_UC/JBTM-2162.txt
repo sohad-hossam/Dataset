@@ -1,0 +1,4 @@
+Change CMR commit failure message
+If a transaction containing an XA and a CMR resource is committed and the CMR resource fails the commit then the warning message mentions onePhaseCommit. Even though the CMR is in reality a one phase resource the message can be confusing. 
+
+Please change the message to something more generic.

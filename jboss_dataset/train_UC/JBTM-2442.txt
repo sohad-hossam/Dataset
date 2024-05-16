@@ -1,0 +1,2 @@
+Update to use activemq-messaging subsystem in the standalone-blacktie.xml
+currently the wildfly 10.0.0.Alpha4 changes to use the activemq-messaging and the default resource adapter of the MDB changed.

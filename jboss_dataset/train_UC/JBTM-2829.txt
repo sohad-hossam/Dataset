@@ -1,0 +1,2 @@
+Avoid null pointer exception when comparing JDBC connections
+Spring Boot extension for the transactional driver doesn't know database URL and uses provided XADataSource to create connection. However, ConnectionImpl expects URL, username and password to not be null https://github.com/jbosstm/narayana/blob/5.5.0.Final/ArjunaJTA/jdbc/classes/com/arjuna/ats/internal/jdbc/ConnectionManager.java#L91. As a result NullPointerException is thrown if connection is reused.

@@ -1,0 +1,24 @@
+InvalidTerminationStateException in multi-hop TXBridge senario
+The following exception appears on the client when running the "Multi-hop TXBridge Quickstart", currently located at: https://github.com/paulrobinson/quickstart-1/tree/master-JBTM-1321_Create_a_Multi-hop_TXBridge_Quickstart/TXBridge/wsat-jta-multi_hop
+
+Run through the instructions in the README.md to reproduce this issue.
+
+{code}
+12:12:48,666 INFO  [stdout] (http-localhost/127.0.0.1:8080-1) [CLIENT] Booking successful, about to commit the JTA transaction. This will also cause the bridged WS-AT transaction to commit
+12:12:48,665 ERROR [org.jboss.as.txn] (http-localhost/127.0.0.1:8080-3) JBAS010150: Unable to roll back active transaction: com.arjuna.ats.jta.exceptions.InvalidTerminationStateException
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.subordinate.TransactionImple.rollbackAndDisassociate(TransactionImple.java:358) [jbossjts-4.16.6.Final.jar:]
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.rollback(BaseTransaction.java:134) [jbossjts-4.16.6.Final.jar:]
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.rollback(BaseTransactionManagerDelegate.java:114)
+	at org.jboss.as.txn.deployment.TransactionRollbackSetupAction.checkTransactionStatus(TransactionRollbackSetupAction.java:102)
+	at org.jboss.as.txn.deployment.TransactionRollbackSetupAction.teardown(TransactionRollbackSetupAction.java:44)
+	at org.jboss.as.web.ThreadSetupBindingListener.unbind(ThreadSetupBindingListener.java:61) [jboss-as-web-7.2.0.Alpha1-SNAPSHOT.jar:7.2.0.Alpha1-SNAPSHOT]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:184) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:97) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:102) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:336) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.coyote.http11.Http11Processor.process(Http11Processor.java:856) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.coyote.http11.Http11Protocol$Http11ConnectionHandler.process(Http11Protocol.java:652) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at org.apache.tomcat.util.net.JIoEndpoint$Worker.run(JIoEndpoint.java:919) [jbossweb-7.2.0.Alpha2.jar:7.2.0.Alpha2]
+	at java.lang.Thread.run(Thread.java:680) [classes.jar:1.6.0_33]
+{code}
+

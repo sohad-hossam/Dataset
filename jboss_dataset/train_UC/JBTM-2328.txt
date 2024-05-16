@@ -1,0 +1,4 @@
+Deprecate the HeuristicInformation interface
+There exists and HeuristicInformation interface (https://github.com/jbosstm/narayana/blob/master/ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/coordinator/HeuristicInformation.java) which was intended to allow an AbstractRecord implementor to provide additional details about the heuristic state of the record as well as provide access to tooling to clear the state of the heuristic within the (potentially remove) resource manager.
+
+This has been decoupled from the tooling for many iterations (the ability to resolve the heuristic appears as though it was never wired up) and though Mike is updating the tooling to access the additional context of the heuristic state we do not propose to continue with this as the recommendation of resolving heuristics.

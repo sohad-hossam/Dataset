@@ -1,0 +1,15 @@
+SimpleIsolatedServers CI test failures
+Various failures in SimpleIsolatedServers tests:
+
+testTransactionReaperIsCleanedUp failed with
+    java.lang.IllegalStateException: ARJUNA016063: The transaction is not active!
+
+testTwoPhaseXAResourceOrphan
+testOnePhaseXAResourceOrphan
+testOnePhaseSubordinateOrphan
+testRecovery
+    java.lang.AssertionError: Servers were not aborted
+
+testOnePhaseCommit 
+  java.lang.NullPointerException 
+        at com.arjuna.ats.jbossatx.jta.RecoveryManagerService.stop(RecoveryManagerService.java:73)

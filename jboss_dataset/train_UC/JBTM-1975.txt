@@ -1,0 +1,2 @@
+LogBrowser tool hangs on exit when browsing the HornetqJournalStore 
+Using the LogBrowser tool to look at log records in the HornetqJournalStore hangs on shutdown. Debugging reveals org.hornetq.core.journal.impl.TimedBuffer waiting to aquire a semaphore (spinLimiter) in its run loop - I could not determine which thread (see attached jstack dump) owns the sepaphore

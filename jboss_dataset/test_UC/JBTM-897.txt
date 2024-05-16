@@ -1,0 +1,2 @@
+Remove release notes from binary releases
+We will use the release notes in Jira, the links are already updated on Magnolia

@@ -1,0 +1,2 @@
+Build times out because of not enough PermGen space
+http://172.17.131.2/job/jbossts-narayana-java7/93. This build timed out and surefire log says that it ran out of PermGen space

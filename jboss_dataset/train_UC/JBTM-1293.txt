@@ -1,0 +1,28 @@
+ATBridgeTest#testSimple counter isn't incremented
+See:
+
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-narayana-java7/21/artifact/txframework/target/surefire-reports/org.jboss.narayana.txframework.functional.ATBridgeTest-output.txt
+
+{code}
+    @Test
+    public void testSimple() throws Exception
+    {
+        ut.begin();
+        client.incrementCounter(1);
+        ut.commit();
+
+        ut.begin();
+        int counter = client.getCounter();
+        ut.commit();
+
+        Assert.assertEquals(1, counter);
+    }
+{code}
+
+Even though the first transaction should have committed an update to the counter, it is still set to zero in the second transaction. 
+
+This happens intermittently (once so far). It also happened on Beacon which is notorious for test failures caused by things going slowly. I would suspect that the bridged JTA transaction in the first transaction hasn't quite finished the commit when the second transaction is begun.
+
+If the WS-AT coordinator sends an async commit to the participants and an async committed to the client, then this problem could happen if the client's 'committed' is received before the participant's 'commit' message.
+
+To verify this we need to check that the coordinator sends an async (@OneWay) commit message to the participant. In which case the simplest solution is to add a 3sec delay between the two transactions. We should also look for other tests that may be affected.

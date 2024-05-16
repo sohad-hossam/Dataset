@@ -1,0 +1,26 @@
+Fix intermittant qa suite failure: org.jboss.jbossts.qa.junit.testgroup.TestGroup_jtsremote
+Assuming failure in test, rather than failed test
+
+I have saved a build with the error:
+http://albany/view/Narayana+BlackTie/job/narayana-java6/1159/
+
+The logs are browseable:
+http://albany/view/Narayana+BlackTie/job/narayana-java6/1159/artifact/qa/TEST-org.jboss.jbossts.qa.junit.testgroup.TestGroup_jtsremote.txt
+http://albany/view/Narayana+BlackTie/job/narayana-java6/1159/artifact/qa/testoutput/jtsremote/JTSRemote_DistributedHammerTest3/
+
+For some reason the client gets a timeout:
+http://albany/view/Narayana+BlackTie/job/narayana-java6/1159/artifact/qa/testoutput/jtsremote/JTSRemote_DistributedHammerTest3/client_0_output.txt
+
+2012-04-12 16:00:00,662 err: object is deactivated
+2012-04-12 16:01:00,003 out: 2012-04-12 16:01:00,003 [Transaction Reaper] WARN  com.arjuna.ats.arjuna - ARJUNA012117: TransactionReaper::check timeout for TX 0:ffffac118314:be94:4f86edc3:a11 in state  RUN
+2012-04-12 16:01:00,005 err: 2012-04-12 16:01:00.005 FINE trying is_a remotely
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012095: Abort of action id 0:ffffac118314:be94:4f86edc3:a11 invoked while multiple threads active within it.
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012108: CheckedAction::check - atomic action 0:ffffac118314:be94:4f86edc3:a11 aborting with 1 threads active!
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012098: Abort of action id 0:ffffac118314:be94:4f86edc3:a11 invoked while child actions active
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012099: Aborting child: 0:ffffac118314:be94:4f86edc3:a33
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012095: Abort of action id 0:ffffac118314:be94:4f86edc3:a33 invoked while multiple threads active within it.
+2012-04-12 16:01:00,005 out: 2012-04-12 16:01:00,004 [Transaction Reaper Worker 0] WARN  com.arjuna.ats.arjuna - ARJUNA012108: CheckedAction::check - atomic action 0:ffffac118314:be94:4f86edc3:a33 aborting with 1 threads active!
+
+After that the test goes a bit strange and has a 6 minute pause:
+2012-04-12 16:01:00,515 err: object is deactivated
+2012-04-12 16:07:13,782 err: 2012-04-12 16:07:13.782 FINE Transport to 172.17.131.20:39996: stream closed on read  < 0

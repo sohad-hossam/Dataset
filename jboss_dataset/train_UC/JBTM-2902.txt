@@ -1,0 +1,2 @@
+Transactional driver connections do not handle empty credentials correctly
+Transactional driver connections only check for null credentials. If they are empty strings they are used as actual username and password, which is incorrect.

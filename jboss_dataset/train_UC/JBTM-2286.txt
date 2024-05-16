@@ -1,0 +1,6 @@
+Create a zip with all javadocs included
+Currently javadocs are split by component. It would be convenient to produce a single bundle of javadocs of all project as well for ease of publishing on the site.
+
+What we are proposing is to produce a single Javadoc artifact for the Narayana project which has all the public API stuff (ignoring **/internal/**). Same as what you get with the JSE or JEE javadocs. A single link for users to see all public Narayana javadoc.
+
+Each component will create its own JavaDocs as normal but a single uber zip would also be produced and this is what would be published on the site.

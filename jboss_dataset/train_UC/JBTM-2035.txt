@@ -1,0 +1,341 @@
+TestGroup_otsserver tests hang
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-hqstore-jacorb/26/TESTS=QA_JTS_JACORB,jdk=jdk7.latest,label=linux
+
+{code}
+./scripts/hudson/narayana.sh: line 448: [: =: unary operator expected
+Buildfile: /home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa/run-tests.xml
+
+junit-jts-testsuite:
+     [echo] Running junit test group currenttests01 from basedir=/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa
+    [junit] Running org.jboss.jbossts.qa.junit.testgroup.TestGroup_currenttests01
+    [junit] Tests run: 36, Failures: 36, Errors: 0, Time elapsed: 185.98 sec
+    [junit] Test org.jboss.jbossts.qa.junit.testgroup.TestGroup_currenttests01 FAILED
+     [echo] Running junit test group otsserver from basedir=/home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/qa
+    [junit] Running org.jboss.jbossts.qa.junit.testgroup.TestGroup_otsserver
+    [junit] 2013-11-22 14:57:37
+    [junit] Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.45-b08 mixed mode):
+    [junit] 
+    [junit] "Attach Listener" daemon prio=10 tid=0x00007f6fdc001000 nid=0x74f0 runnable [0x0000000000000000]
+    [junit]    java.lang.Thread.State: RUNNABLE
+    [junit] 
+    [junit] "Thread-0" prio=10 tid=0x00007f6ff81ec800 nid=0x748b in Object.wait() [0x00007f6ffc826000]
+    [junit]    java.lang.Thread.State: WAITING (on object monitor)
+    [junit] 	at java.lang.Object.wait(Native Method)
+    [junit] 	- waiting on <0x000000009fb70578> (a java.lang.Object)
+    [junit] 	at java.lang.Object.wait(Object.java:503)
+    [junit] 	at org.jboss.jbossts.qa.junit.TaskReaper.check(TaskReaper.java:197)
+    [junit] 	- locked <0x000000009fb70578> (a java.lang.Object)
+    [junit] 	at org.jboss.jbossts.qa.junit.TaskReaper$TaskReaperThread.run(TaskReaper.java:335)
+    [junit] 
+    [junit] "Service Thread" daemon prio=10 tid=0x00007f6ff808e800 nid=0x7487 runnable [0x0000000000000000]
+    [junit]    java.lang.Thread.State: RUNNABLE
+    [junit] 
+    [junit] "C2 CompilerThread1" daemon prio=10 tid=0x00007f6ff808c000 nid=0x7486 waiting on condition [0x0000000000000000]
+    [junit]    java.lang.Thread.State: RUNNABLE
+    [junit] 
+    [junit] "C2 CompilerThread0" daemon prio=10 tid=0x00007f6ff8089800 nid=0x7485 waiting on condition [0x0000000000000000]
+    [junit]    java.lang.Thread.State: RUNNABLE
+    [junit] 
+    [junit] "Signal Dispatcher" daemon prio=10 tid=0x00007f6ff807f800 nid=0x7484 waiting on condition [0x0000000000000000]
+    [junit]    java.lang.Thread.State: RUNNABLE
+    [junit] 
+    [junit] "Finalizer" daemon prio=10 tid=0x00007f6ff8068000 nid=0x7483 in Object.wait() [0x00007f6ffcf8c000]
+    [junit]    java.lang.Thread.State: WAITING (on object monitor)
+    [junit] 	at java.lang.Object.wait(Native Method)
+    [junit] 	- waiting on <0x000000009f605568> (a java.lang.ref.ReferenceQueue$Lock)
+    [junit] 	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:135)
+    [junit] 	- locked <0x000000009f605568> (a java.lang.ref.ReferenceQueue$Lock)
+    [junit] 	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+    [junit] 	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:189)
+    [junit] 
+    [junit] "Reference Handler" daemon prio=10 tid=0x00007f6ff8064000 nid=0x7482 in Object.wait() [0x00007f6ffd08d000]
+    [junit]    java.lang.Thread.State: WAITING (on object monitor)
+    [junit] 	at java.lang.Object.wait(Native Method)
+    [junit] 	- waiting on <0x000000009f6050f0> (a java.lang.ref.Reference$Lock)
+    [junit] 	at java.lang.Object.wait(Object.java:503)
+    [junit] 	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:133)
+    [junit] 	- locked <0x000000009f6050f0> (a java.lang.ref.Reference$Lock)
+    [junit] 
+    [junit] "main" prio=10 tid=0x00007f6ff800c000 nid=0x747f in Object.wait() [0x00007f70000b0000]
+    [junit]    java.lang.Thread.State: WAITING (on object monitor)
+    [junit] 	at java.lang.Object.wait(Native Method)
+    [junit] 	- waiting on <0x000000009fd43380> (a java.util.concurrent.atomic.AtomicBoolean)
+    [junit] 	at java.lang.Object.wait(Object.java:503)
+    [junit] 	at org.jboss.jbossts.qa.junit.TaskImpl$TaskReaderThread.blockingWaitForReady(TaskImpl.java:697)
+    [junit] 	- locked <0x000000009fd43380> (a java.util.concurrent.atomic.AtomicBoolean)
+    [junit] 	at org.jboss.jbossts.qa.junit.TaskImpl.start(TaskImpl.java:382)
+    [junit] 	at org.jboss.jbossts.qa.junit.testgroup.TestGroup_otsserver.setUp(TestGroup_otsserver.java:40)
+    [junit] 	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    [junit] 	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+    [junit] 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+    [junit] 	at java.lang.reflect.Method.invoke(Method.java:606)
+    [junit] 	at org.junit.runners.model.FrameworkMethod$1.runReflectiveCall(FrameworkMethod.java:44)
+    [junit] 	at org.junit.internal.runners.model.ReflectiveCallable.run(ReflectiveCallable.java:15)
+    [junit] 	at org.junit.runners.model.FrameworkMethod.invokeExplosively(FrameworkMethod.java:41)
+    [junit] 	at org.junit.internal.runners.statements.RunBefores.evaluate(RunBefores.java:27)
+    [junit] 	at org.junit.internal.runners.statements.RunAfters.evaluate(RunAfters.java:31)
+    [junit] 	at org.jboss.jbossts.qa.junit.QATestNameRule$1.evaluate(QATestNameRule.java:89)
+    [junit] 	at org.junit.rules.TestWatchman$1.evaluate(TestWatchman.java:48)
+    [junit] 	at org.junit.runners.BlockJUnit4ClassRunner.runNotIgnored(BlockJUnit4ClassRunner.java:79)
+    [junit] 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:71)
+    [junit] 	at org.junit.runners.BlockJUnit4ClassRunner.runChild(BlockJUnit4ClassRunner.java:49)
+    [junit] 	at org.junit.runners.ParentRunner$3.run(ParentRunner.java:193)
+    [junit] 	at org.junit.runners.ParentRunner$1.schedule(ParentRunner.java:52)
+    [junit] 	at org.junit.runners.ParentRunner.runChildren(ParentRunner.java:191)
+    [junit] 	at org.junit.runners.ParentRunner.access$000(ParentRunner.java:42)
+    [junit] 	at org.junit.runners.ParentRunner$2.evaluate(ParentRunner.java:184)
+    [junit] 	at org.junit.runners.ParentRunner.run(ParentRunner.java:236)
+    [junit] 	at junit.framework.JUnit4TestAdapter.run(JUnit4TestAdapter.java:39)
+    [junit] 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.run(JUnitTestRunner.java:518)
+    [junit] 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.launch(JUnitTestRunner.java:1052)
+    [junit] 	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTestRunner.main(JUnitTestRunner.java:906)
+    [junit] 
+    [junit] "VM Thread" prio=10 tid=0x00007f6ff8062000 nid=0x7481 runnable 
+    [junit] 
+    [junit] "VM Periodic Task Thread" prio=10 tid=0x00007f6ff8099800 nid=0x7488 waiting on condition 
+    [junit] 
+    [junit] JNI global references: 214
+    [junit] 
+    [junit] Heap
+    [junit]  def new generation   total 28096K, used 11576K [0x000000009f600000, 0x00000000a1470000, 0x00000000bde00000)
+    [junit]   eden space 25024K,  46% used [0x000000009f600000, 0x00000000a014e210, 0x00000000a0e70000)
+    [junit]   from space 3072K,   0% used [0x00000000a0e70000, 0x00000000a0e70000, 0x00000000a1170000)
+    [junit]   to   space 3072K,   0% used [0x00000000a1170000, 0x00000000a1170000, 0x00000000a1470000)
+    [junit]  tenured generation   total 62464K, used 0K [0x00000000bde00000, 0x00000000c1b00000, 0x00000000fae00000)
+    [junit]    the space 62464K,   0% used [0x00000000bde00000, 0x00000000bde00000, 0x00000000bde00200, 0x00000000c1b00000)
+    [junit]  compacting perm gen  total 21248K, used 5147K [0x00000000fae00000, 0x00000000fc2c0000, 0x0000000100000000)
+    [junit]    the space 21248K,  24% used [0x00000000fae00000, 0x00000000fb306c88, 0x00000000fb306e00, 0x00000000fc2c0000)
+    [junit] No shared spaces configured.
+    [junit] 
+2013-11-22 14:57:44
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (24.45-b08 mixed mode):
+
+"Attach Listener" daemon prio=10 tid=0x00007f59a8001000 nid=0x7505 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Thread-3" daemon prio=10 tid=0x00007f59c42d3800 nid=0x7480 in Object.wait() [0x00007f59c0522000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.tools.ant.taskdefs.StreamPumper.waitForInput(StreamPumper.java:229)
+	- locked <0x00000000a05cfa98> (a org.apache.tools.ant.taskdefs.StreamPumper)
+	at org.apache.tools.ant.taskdefs.StreamPumper.run(StreamPumper.java:126)
+	at java.lang.Thread.run(Thread.java:744)
+
+"Thread-2" daemon prio=10 tid=0x00007f59c42c8000 nid=0x747e in Object.wait() [0x00007f59c0421000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	at org.apache.tools.ant.taskdefs.StreamPumper.waitForInput(StreamPumper.java:229)
+	- locked <0x00000000a05cf848> (a org.apache.tools.ant.taskdefs.StreamPumper)
+	at org.apache.tools.ant.taskdefs.StreamPumper.run(StreamPumper.java:126)
+	at java.lang.Thread.run(Thread.java:744)
+
+"process reaper" daemon prio=10 tid=0x00007f59c42cb000 nid=0x6ce9 runnable [0x00007f59c055b000]
+   java.lang.Thread.State: RUNNABLE
+	at java.lang.UNIXProcess.waitForProcessExit(Native Method)
+	at java.lang.UNIXProcess.access$200(UNIXProcess.java:54)
+	at java.lang.UNIXProcess$3.run(UNIXProcess.java:174)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+
+"Service Thread" daemon prio=10 tid=0x00007f59c408b000 nid=0x6ce6 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" daemon prio=10 tid=0x00007f59c4088000 nid=0x6ce5 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" daemon prio=10 tid=0x00007f59c4086000 nid=0x6ce4 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" daemon prio=10 tid=0x00007f59c407b800 nid=0x6ce3 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" daemon prio=10 tid=0x00007f59c4064800 nid=0x6ce2 in Object.wait() [0x00007f59c0ffe000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000a11708c8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:135)
+	- locked <0x00000000a11708c8> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:151)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:189)
+
+"Reference Handler" daemon prio=10 tid=0x00007f59c4060800 nid=0x6ce1 in Object.wait() [0x00007f59c8150000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000a1170960> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:503)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:133)
+	- locked <0x00000000a1170960> (a java.lang.ref.Reference$Lock)
+
+"main" prio=10 tid=0x00007f59c4008800 nid=0x6cdf in Object.wait() [0x00007f59cb173000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000000a05c9460> (a java.lang.UNIXProcess)
+	at java.lang.Object.wait(Object.java:503)
+	at java.lang.UNIXProcess.waitFor(UNIXProcess.java:210)
+	- locked <0x00000000a05c9460> (a java.lang.UNIXProcess)
+	at org.apache.tools.ant.taskdefs.Execute.waitFor(Execute.java:586)
+	at org.apache.tools.ant.taskdefs.Execute.execute(Execute.java:516)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTask.executeAsForked(JUnitTask.java:1061)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTask.execute(JUnitTask.java:851)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTask.executeOrQueue(JUnitTask.java:1899)
+	at org.apache.tools.ant.taskdefs.optional.junit.JUnitTask.execute(JUnitTask.java:800)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:291)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.taskdefs.Sequential.execute(Sequential.java:68)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:291)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.taskdefs.MacroInstance.execute(MacroInstance.java:398)
+	at org.apache.tools.ant.UnknownElement.execute(UnknownElement.java:291)
+	at sun.reflect.GeneratedMethodAccessor4.invoke(Unknown Source)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:606)
+	at org.apache.tools.ant.dispatch.DispatchUtils.execute(DispatchUtils.java:106)
+	at org.apache.tools.ant.Task.perform(Task.java:348)
+	at org.apache.tools.ant.Target.execute(Target.java:390)
+	at org.apache.tools.ant.Target.performTasks(Target.java:411)
+	at org.apache.tools.ant.Project.executeSortedTargets(Project.java:1399)
+	at org.apache.tools.ant.Project.executeTarget(Project.java:1368)
+	at org.apache.tools.ant.helper.DefaultExecutor.executeTargets(DefaultExecutor.java:41)
+	at org.apache.tools.ant.Project.executeTargets(Project.java:1251)
+	at org.apache.tools.ant.Main.runBuild(Main.java:809)
+	at org.apache.tools.ant.Main.startAnt(Main.java:217)
+	at org.apache.tools.ant.launch.Launcher.run(Launcher.java:280)
+	at org.apache.tools.ant.launch.Launcher.main(Launcher.java:109)
+
+"VM Thread" prio=10 tid=0x00007f59c405e000 nid=0x6ce0 runnable 
+
+"VM Periodic Task Thread" prio=10 tid=0x00007f59c4095800 nid=0x6ce7 waiting on condition 
+
+JNI global references: 145
+
+Heap
+ def new generation   total 28096K, used 22233K [0x000000009f600000, 0x00000000a1470000, 0x00000000bde00000)
+  eden space 25024K,  76% used [0x000000009f600000, 0x00000000a08b6648, 0x00000000a0e70000)
+  from space 3072K, 100% used [0x00000000a1170000, 0x00000000a1470000, 0x00000000a1470000)
+  to   space 3072K,   0% used [0x00000000a0e70000, 0x00000000a0e70000, 0x00000000a1170000)
+ tenured generation   total 62464K, used 951K [0x00000000bde00000, 0x00000000c1b00000, 0x00000000fae00000)
+   the space 62464K,   1% used [0x00000000bde00000, 0x00000000bdeede50, 0x00000000bdeee000, 0x00000000c1b00000)
+ compacting perm gen  total 21248K, used 7678K [0x00000000fae00000, 0x00000000fc2c0000, 0x0000000100000000)
+   the space 21248K,  36% used [0x00000000fae00000, 0x00000000fb57fa90, 0x00000000fb57fc00, 0x00000000fc2c0000)
+No shared spaces configured.
+
+Build was aborted
+Aborted by anonymous
+Archiving artifacts
+/tmp/hudson9123738406354260460.sh: line 27: 26811 Terminated              ./scripts/hudson/narayana.sh $SKIP_VALGRIND
+ERROR: Failed to archive artifacts: **/target/*surefire-reports*/**,qa/*.zip,XTS/localjunit/crash-recovery-tests/target/log/*,jboss-as/build/target/wildfly-*/**,rts/at/webservice/target/restat-web-*.war,jboss-as/dist/target/wildfly-*.zip,**/*.tgz
+hudson.util.IOException2: hudson.util.IOException2: Failed to extract /home/hudson/workspace/narayana-hqstore-jacorb/TESTS/QA_JTS_JACORB/jdk/jdk7.latest/label/linux/transfer of 1046 files
+	at hudson.FilePath.readFromTar(FilePath.java:2047)
+	at hudson.FilePath.copyRecursiveTo(FilePath.java:1959)
+	at jenkins.model.StandardArtifactManager.archive(StandardArtifactManager.java:57)
+	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:140)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:781)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:753)
+	at hudson.model.Build$BuildExecution.post2(Build.java:183)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:706)
+	at hudson.model.Run.execute(Run.java:1690)
+	at hudson.matrix.MatrixRun.run(MatrixRun.java:146)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:230)
+Caused by: java.io.IOException
+	at hudson.remoting.FastPipedInputStream.read(FastPipedInputStream.java:175)
+	at hudson.util.HeadBufferingStream.read(HeadBufferingStream.java:61)
+	at com.jcraft.jzlib.InflaterInputStream.fill(InflaterInputStream.java:175)
+	at com.jcraft.jzlib.InflaterInputStream.read(InflaterInputStream.java:106)
+	at org.apache.tools.tar.TarBuffer.readBlock(TarBuffer.java:257)
+	at org.apache.tools.tar.TarBuffer.readRecord(TarBuffer.java:223)
+	at hudson.org.apache.tools.tar.TarInputStream.read(TarInputStream.java:345)
+	at java.io.FilterInputStream.read(FilterInputStream.java:107)
+	at org.apache.commons.io.IOUtils.copyLarge(IOUtils.java:1025)
+	at org.apache.commons.io.IOUtils.copy(IOUtils.java:999)
+	at hudson.util.IOUtils.copy(IOUtils.java:37)
+	at hudson.FilePath.readFromTar(FilePath.java:2037)
+	... 12 more
+
+	at hudson.FilePath.copyRecursiveTo(FilePath.java:1966)
+	at jenkins.model.StandardArtifactManager.archive(StandardArtifactManager.java:57)
+	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:140)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:781)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:753)
+	at hudson.model.Build$BuildExecution.post2(Build.java:183)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:706)
+	at hudson.model.Run.execute(Run.java:1690)
+	at hudson.matrix.MatrixRun.run(MatrixRun.java:146)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:230)
+Caused by: java.util.concurrent.ExecutionException: java.io.IOException: Pipe is already closed
+	at hudson.remoting.Channel$3.adapt(Channel.java:747)
+	at hudson.remoting.Channel$3.adapt(Channel.java:742)
+	at hudson.remoting.FutureAdapter.get(FutureAdapter.java:59)
+	at hudson.FilePath.copyRecursiveTo(FilePath.java:1962)
+	... 11 more
+Caused by: java.io.IOException: Pipe is already closed
+	at hudson.remoting.PipeWindow.checkDeath(PipeWindow.java:108)
+	at hudson.remoting.PipeWindow$Real.get(PipeWindow.java:203)
+	at hudson.remoting.ProxyOutputStream._write(ProxyOutputStream.java:135)
+	at hudson.remoting.ProxyOutputStream.write(ProxyOutputStream.java:103)
+	at java.io.BufferedOutputStream.flushBuffer(BufferedOutputStream.java:82)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:126)
+	at com.jcraft.jzlib.DeflaterOutputStream.deflate(DeflaterOutputStream.java:144)
+	at com.jcraft.jzlib.DeflaterOutputStream.write(DeflaterOutputStream.java:102)
+	at java.io.BufferedOutputStream.write(BufferedOutputStream.java:122)
+	at org.apache.tools.tar.TarBuffer.writeBlock(TarBuffer.java:410)
+	at org.apache.tools.tar.TarBuffer.writeRecord(TarBuffer.java:351)
+	at hudson.org.apache.tools.tar.TarOutputStream.writeEOFRecord(TarOutputStream.java:356)
+	at hudson.org.apache.tools.tar.TarOutputStream.finish(TarOutputStream.java:137)
+	at hudson.org.apache.tools.tar.TarOutputStream.close(TarOutputStream.java:149)
+	at hudson.util.io.TarArchiver.close(TarArchiver.java:126)
+	at hudson.FilePath.writeToTar(FilePath.java:2013)
+	at hudson.FilePath.access$1000(FilePath.java:175)
+	at hudson.FilePath$38.invoke(FilePath.java:1952)
+	at hudson.FilePath$38.invoke(FilePath.java:1948)
+	at hudson.FilePath$FileCallableWrapper.call(FilePath.java:2420)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:118)
+	at hudson.remoting.UserRequest.perform(UserRequest.java:48)
+	at hudson.remoting.Request$2.run(Request.java:326)
+	at hudson.remoting.InterceptingExecutorService$1.call(InterceptingExecutorService.java:72)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1145)
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:615)
+	at java.lang.Thread.run(Thread.java:744)
+Caused by: java.io.IOException: Pipe is already closed
+	at hudson.remoting.FastPipedOutputStream.write(FastPipedOutputStream.java:147)
+	at hudson.remoting.FastPipedOutputStream.write(FastPipedOutputStream.java:131)
+	at hudson.remoting.ProxyOutputStream$Chunk$1.run(ProxyOutputStream.java:250)
+	at hudson.remoting.PipeWriter$1.run(PipeWriter.java:158)
+	at java.util.concurrent.Executors$RunnableAdapter.call(Executors.java:471)
+	at java.util.concurrent.FutureTask.run(FutureTask.java:262)
+	at hudson.remoting.SingleLaneExecutorService$1.run(SingleLaneExecutorService.java:111)
+	... 5 more
+Caused by: hudson.remoting.FastPipedInputStream$ClosedBy: The pipe was closed at...
+	at hudson.remoting.FastPipedInputStream.close(FastPipedInputStream.java:112)
+	at java.io.FilterInputStream.close(FilterInputStream.java:181)
+	at com.jcraft.jzlib.InflaterInputStream.close(InflaterInputStream.java:168)
+	at org.apache.tools.tar.TarBuffer.close(TarBuffer.java:456)
+	at hudson.org.apache.tools.tar.TarInputStream.close(TarInputStream.java:110)
+	at hudson.FilePath.readFromTar(FilePath.java:2054)
+	at hudson.FilePath.copyRecursiveTo(FilePath.java:1959)
+	at jenkins.model.StandardArtifactManager.archive(StandardArtifactManager.java:57)
+	at hudson.tasks.ArtifactArchiver.perform(ArtifactArchiver.java:140)
+	at hudson.tasks.BuildStepMonitor$1.perform(BuildStepMonitor.java:20)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.perform(AbstractBuild.java:781)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.performAllBuildSteps(AbstractBuild.java:753)
+	at hudson.model.Build$BuildExecution.post2(Build.java:183)
+	at hudson.model.AbstractBuild$AbstractBuildExecution.post(AbstractBuild.java:706)
+	at hudson.model.Run.execute(Run.java:1690)
+	at hudson.matrix.MatrixRun.run(MatrixRun.java:146)
+	at hudson.model.ResourceController.execute(ResourceController.java:88)
+	at hudson.model.Executor.run(Executor.java:230)
+Finished: ABORTED
+{code}

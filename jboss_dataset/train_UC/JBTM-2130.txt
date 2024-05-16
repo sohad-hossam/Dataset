@@ -1,0 +1,2 @@
+All JDBC object store qa tests fail
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-jdbcobjectstore/66/

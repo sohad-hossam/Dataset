@@ -1,0 +1,4 @@
+Services do not enlist RMs if the client begins a transaction 
+If a client starts a transaction and makes a service call then service does not enlist the RMs into the transaction.
+
+When the service creates an HttpControl instance for the incoming transaction it needs to repopulate the _enlistUrl and _endUrl by calling HttpControl::headRequest(). 

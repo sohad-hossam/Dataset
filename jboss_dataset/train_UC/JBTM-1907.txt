@@ -1,0 +1,2 @@
+com.arjuna.ats.internal.arjuna.utils.UuidProcessId.getpid is slow
+the getPid() method uses a synchronized block that is hit on every call, which can causes a lot of unnecessary contention. I'm not sure why the pid cannot just be initialized in the constructor? Or failing that a volatile var + double checked locking would be faster.

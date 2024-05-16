@@ -1,0 +1,2 @@
+Add missing ArjunaJTS/jtax and ArjunaJTA/jdbc report to code-coverage
+I can't see the transactional driver or JTAx stuff in the code-coverage report and I also don't think its worth aggregating in the performance test harness into the coverage numbers.

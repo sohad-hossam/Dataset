@@ -1,0 +1,2 @@
+Implement possible new compensations api
+Implement mock api from the meeting in order to be able to have a discussion about it on the forum.

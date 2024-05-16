@@ -1,0 +1,2 @@
+Document compensations API
+There is no documentation for compensations API in our docs. Most of the things are covered in the quickstarts and blog, but adding something to the docs would be good too.

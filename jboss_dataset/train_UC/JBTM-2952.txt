@@ -1,0 +1,4 @@
+LRA rest cdi checker should not demand @Status
+The LRA cdi checker expects the `@Status` annotation being compulsory for LRA annotated class. That is not true and `@Status` is not required.
+
+In addition it would be good to consider check for async completion (usage of `@Suspended`) where `@Status` is in contrary expected.

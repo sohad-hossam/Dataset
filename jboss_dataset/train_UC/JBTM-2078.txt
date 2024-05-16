@@ -1,0 +1,12 @@
+BlackTie doesn't build on Fedora 20 64bit
+generate-exe:
+libnames not specified or empty.
+libnames not specified or empty.
+       [cc] 1 total files to be compiled.
+       [cc] /home/tom/projects/jbosstm/narayana/blacktie/btadmin/src/test/cpp/cs.cxx: In function ‘int main(int, char**)’:
+       [cc] /home/tom/projects/jbosstm/narayana/blacktie/btadmin/src/test/cpp/cs.cxx:31:39: warning: deprecated conversion from string constant to ‘char*’ [-Wwrite-strings]
+       [cc]   putenv("BLACKTIE_CONFIGURATION=linux");
+       [cc]                                        ^
+       [cc] Starting link
+       [cc] /lib64/libaprutil-1.so.0: undefined reference to `apr_pool_pre_cleanup_register'
+       [cc] collect2: error: ld returned 1 exit status

@@ -1,0 +1,4 @@
+Downgrade maven assembly plugin to 2.4 in BlackTie
+Currently the 2.5.5 maven assembly plugin does not work on EL5.
+
+The workaround is to downgrade to 2.4

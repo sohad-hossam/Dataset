@@ -1,0 +1,2 @@
+Deploy REST-AT artifacts to the jboss nexus
+We have had a community member asking for the rest module artifacts to be available via the jboss repo 

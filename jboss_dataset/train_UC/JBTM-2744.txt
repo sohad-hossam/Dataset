@@ -1,0 +1,7 @@
+Warning message show with the mdb BlacktieStompAdministrationService and BlacktieAdminServiceXATMI
+The warning message are
+{code}
+00:06:48,719 WARN  [org.jboss.as.ejb3] (ServerService Thread Pool -- 69) WFLYEJB0485: Transaction type NEVER is unspecified for the onMessage method of the BlacktieStompAdministrationService message-driven bean. It will be handled as NOT_SUPPORTED.
+00:06:48,721 WARN  [org.jboss.as.ejb3] (ServerService Thread Pool -- 67) WFLYEJB0485: Transaction type NEVER is unspecified for the onMessage method of the BlacktieAdminServiceXATMI message-driven bean. It will be handled as NOT_SUPPORTED.
+
+{code}

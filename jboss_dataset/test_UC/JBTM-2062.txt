@@ -1,0 +1,2 @@
+Add support for ceylon 
+I need an interface to start and stop the transaction service. The start method should check to see if there is a JNDI provider present and, if so, make sure that our standard interfaces are bound to that provider (UserTransaction, JTATransactionManager and TransactionSynchronizationRegistry). Also, behind the scenes, it should register TransactionDriver with java.sql.DriverManager and bind any required datasources into the JNDI tree.

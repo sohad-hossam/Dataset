@@ -1,0 +1,10 @@
+CI failure: estSocketServer::testServer (F) line: 88 /home/hudson/workspace/btny-pulls-narayana/blacktie/core/src/test/cpp/TestSocketServer.cxx
+http://172.17.131.2/job/btny-pulls-narayana/1074/console
+
+Please investigate Amos:
+
+1) test: TestSocketServer::testServer (F) line: 88 /home/hudson/workspace/btny-pulls-narayana/blacktie/core/src/test/cpp/TestSocketServer.cxx
+     [exec] assertion failed
+     [exec] - Expression: _w12pq_u
+
+I have marked the build as keep forever

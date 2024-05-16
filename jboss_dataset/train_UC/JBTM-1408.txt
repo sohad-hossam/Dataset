@@ -1,0 +1,20 @@
+TXFramework: XTS Handler not added to HandlerChain
+Tests in error: 
+  testSimple(org.jboss.narayana.txframework.functional.ATBridgeTest): Could not serialize object: TestResult[status=FAILED,time=1212ms]
+  testClientDrivenRollback(org.jboss.narayana.txframework.functional.ATBridgeTest): Could not serialize object: TestResult[status=FAILED,time=331ms]
+  testSimple(org.jboss.narayana.txframework.functional.ATTest): Could not serialize object: TestResult[status=FAILED,time=1735ms]
+  testMultiInvoke(org.jboss.narayana.txframework.functional.ATTest): Could not serialize object: TestResult[status=FAILED,time=431ms]
+  testClientDrivenRollback(org.jboss.narayana.txframework.functional.ATTest)
+  testParticipantDrivenRollback(org.jboss.narayana.txframework.functional.ATTest): Unexpected exception, expected<com.arjuna.wst.TransactionRolledBackException> but was<java.lang.Exception>
+  testApplicationException(org.jboss.narayana.txframework.functional.ATTest)
+  testSimple(org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest): Could not serialize object: TestResult[status=FAILED,time=1050ms]
+  testMultiInvoke(org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest): Could not serialize object: TestResult[status=FAILED,time=449ms]
+  testClientDrivenCancel(org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest)
+  testApplicationException(org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest)
+  testCannotComplete(org.jboss.narayana.txframework.functional.BACoordinatorCompletionTest): Unexpected exception, expected<com.arjuna.wst.TransactionRolledBackException> but was<java.lang.Exception>
+  testAutoComplete(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest): Could not serialize object: TestResult[status=FAILED,time=2534ms]
+  testManualComplete(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest): Could not serialize object: TestResult[status=FAILED,time=501ms]
+  testMultiInvoke(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest)
+  testClientDrivenCompensate(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest)
+  testApplicationException(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest)
+  testCannotComplete(org.jboss.narayana.txframework.functional.BAParticipantCompletionTest): Unexpected exception, expected<com.arjuna.wst.TransactionRolledBackException> but was<java.lang.RuntimeException>

@@ -1,0 +1,25 @@
+TransactionScopedTest failed
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running com.hp.mwtests.ts.jta.cdi.transactionScoped.TransactionScopedTest
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 11.881 sec <<< FAILURE!
+testTxAssociationChangeConcurrently(com.hp.mwtests.ts.jta.cdi.transactionScoped.TransactionScopedTest)  Time elapsed: 0.394 sec  <<< ERROR!
+java.lang.Exception: Concurrent testTxAssociationChange failed with exception
+	at java.util.TreeMap.rotateLeft(TreeMap.java:2060)
+	at java.util.TreeMap.fixAfterInsertion(TreeMap.java:2127)
+	at java.util.TreeMap.put(TreeMap.java:574)
+	at java.util.TreeSet.add(TreeSet.java:255)
+	at com.hp.mwtests.ts.jta.cdi.transactionScoped.TransactionScopedTest.addTimestamp(TransactionScopedTest.java:88)
+	at com.hp.mwtests.ts.jta.cdi.transactionScoped.TransactionScopedTest.testTxAssociationChange(TransactionScopedTest.java:104)
+	at com.hp.mwtests.ts.jta.cdi.transactionScoped.TransactionScopedTest.access$000(TransactionScopedTest.java:54)
+
+Running com.hp.mwtests.ts.jta.cdi.transactional.TransactionalImplTest
+Tests run: 26, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.783 sec
+
+Results :
+
+Tests in error: 
+  TransactionScopedTest.testTxAssociationChangeConcurrently:179  Concurrent test...
+
+Tests run: 28, Failures: 0, Errors: 1, Skipped: 0

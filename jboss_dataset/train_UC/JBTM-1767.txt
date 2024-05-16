@@ -1,0 +1,16 @@
+restat-api failures with emma: Tests run: 30, Failures: 11, Errors: 2
+Failed tests:   test1PCAbort(org.jboss.jbossts.star.test.CoordinatorTest): expected:<v[2]> but was:<v[1]>
+  test2PC(org.jboss.jbossts.star.test.CoordinatorTest): expected:<v[2]> but was:<v[1]>
+  testEnlistVolatileParticipant(org.jboss.jbossts.star.test.OptionalSpecTest): null expected:<[0]> but was:<[4]>
+  testRecoveryURLTwoPhaseAwareWithoutNotification(org.jboss.jbossts.star.test.SpecTest): null expected:<Transaction[RolledBack]> but was:<Transaction[Active]>
+  testRecoveryURLTwoPhaseAwareWithNotification(org.jboss.jbossts.star.test.SpecTest): null expected:<Transaction[Committed]> but was:<Transaction[Active]>
+  testRecoveryURLTwoPhaseUnawareWithoutNotification(org.jboss.jbossts.star.test.SpecTest): null expected:<Transaction[RolledBack]> but was:<Transaction[Active]>
+  testRecoveryURLTwoPhaseUnawareWithNotification(org.jboss.jbossts.star.test.SpecTest): null expected:<Transaction[Committed]> but was:<Transaction[Active]>
+  testHeuristic(org.jboss.jbossts.star.test.SpecTest): null expected:<txstatus=Transaction[HeuristicMixed]> but was:<txstatus=Transaction[RolledBack]>
+  testHeuristicWithForget(org.jboss.jbossts.star.test.SpecTest): null expected:<txstatus=Transaction[HeuristicRollb]ack> but was:<txstatus=Transaction[RolledB]ack>
+  testSpec6(org.jboss.jbossts.star.test.SpecTest): null expected:<txstatus=Transaction[RolledBack]> but was:<txstatus=Transaction[Committed]>
+  testCannotEnlistDuring2PC(org.jboss.jbossts.star.test.SpecTest): expected:<500> but was:<412>
+
+Tests in error: 
+  testTransactionStatistics(org.jboss.jbossts.star.test.OptionalSpecTest): org.jboss.jbossts.star.util.media.txstatusext.TransactionManagerElement cannot be cast to org.jboss.jbossts.star.util.media.txstatusext.TransactionStatisticsElement
+  testParticipantStatus(org.jboss.jbossts.star.test.SpecTest): Unexpected status. Expected 200 got 404

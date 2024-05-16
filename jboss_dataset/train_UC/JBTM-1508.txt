@@ -1,0 +1,6 @@
+DisabledContextPropagationTest fails when standalone.xml content is updated by jboss-as
+Currently we copy across a modified version of standalone-xts.xml. The problem is that this file needs to be kept in sync with the original. 
+
+The main problem is that these tests will fail every time an upstream change is made to standalone-xts.xml.
+
+This problem is related with com.arjuna.wstx.tests.arq.ba.DisabledContextPropagationTest, com.arjuna.wstx.tests.arq.basic.DisabledContextPropagationTest, and org.jboss.jbossts.txbridge.tests.outbound.junit.DisabledContextPropagationTests

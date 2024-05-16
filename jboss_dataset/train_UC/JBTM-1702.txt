@@ -1,0 +1,39 @@
+one-phase optimization: XAException by XAResource swallowed and bean invocation falsely a success
+We provide our own XAResource implementation for our database product,
+in our unit testsuite we do also test common error conditions.
+
+The error condition we test here is, that XAResource.end() throws an XAException with an XA_RBCOMMFAIL error code, this error code (by definition and also in our implementation) indicates an unilateral transaction rollback.
+
+The expected behavior is, that when the TransactionManager invokes end() during it's commit procedure and sees an exception, that the transaction is considered as rolled-back and the bean client receives an exception, indicating the transaction failure.
+
+The observed behavior is, that the bean client completes the bean method invocation successfully. Of course the transaction was rolled back by the database server and the subsequent bean invocations don't work correctly, because data assumed to be stored was actually not stored.
+
+This error occurs if and only if the one-phase optimization is used, i.e. if
+exactly one XAResource instance is enlisted with the TransactionManager.
+If we enlist 2+ XAResource instances, then the one-phase optimization can't be used and the observed behavior is as expected, i.e. the bean client gets an exception, that the transaction could not be completed successfully.
+
+The broken logic is contained in here (also see a complete stack trace below):
+
+com.arjuna.ats.arjuna.coordinator.BasicAction.onePhaseCommit(BasicAction.java:2310) --> l.2339-2360: actionStatus = ActionStatus.COMMITTED
+
+Here the outcome was TwoPhaseOutcome.FINISH_ERROR but is mapped to ActionStatus.COMMITTED, this is clearly wrong for all XA_RB* error codes.
+
+FIX suggestion: If there are cases, where this mapping is required, then instead of one FINISH_ERROR return value, two return values should be introduced, so that at least all XA_RB* error codes can be mapped properly to a transaction failure.
+
+This is the complete stacktrace of our exception (logged immediately prior before it was thrown):
+
+About to throw 1: com.versant.odbms.VersantXAException: Detach error: Network error on database [jpadb1@localhost].
+ com.versant.odbms.VersantXAException: Detach error: Network error on database [jpadb1@localhost].
+   at com.versant.odbms.XAResourceImpl.getResult(XAResourceImpl.java:553)
+   at com.versant.odbms.XAResourceBase.detach(XAResourceBase.java:54)
+   at com.versant.odbms.XAResourceImpl.end(XAResourceImpl.java:278)
+   at com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord.topLevelOnePhaseCommit(XAResourceRecord.java:597)   --> returns TwoPhaseOutcome.FINISH_ERROR (l.734)
+   at com.arjuna.ats.arjuna.coordinator.BasicAction.onePhaseCommit(BasicAction.java:2310) --> l.2339-2360: actionStatus = ActionStatus.COMMITTED
+   at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1475)  --> returns ActionStatus.COMMITTED
+   at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:98)    --> returns ActionStatus.COMMITTED
+   at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)  --> returns ActionStatus.COMMITTED
+   at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.commitAndDisassociate(TransactionImple.java:1165)   --> l.1169 break, no exception
+   at com.arjuna.ats.internal.jta.transaction.arjunacore.BaseTransaction.commit(BaseTransaction.java:126)
+   at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+   at org.jboss.as.ejb3.tx.CMTTxInterceptor.endTransaction(CMTTxInterceptor.java:92)
+

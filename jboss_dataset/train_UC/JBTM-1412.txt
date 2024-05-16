@@ -1,0 +1,31 @@
+testRecoverInflightTransaction failure (and others)
+At least three failures, but due to the verbosity of the build at this point it is hard for me to say the cause of the other two failures.
+
+
+[main] TestResource (1000)      XA_START   [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:5, subordinatenodename=null, eis_name=unknown eis name >] Flags=0
+[main] TestResource (2000)      XA_START   [< formatId=131077, gtrid_length=32, bqual_length=64, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:7d0:50e50664:5, subordinatenodename=2000, eis_name=unknown eis name >] Flags=0
+[main] ProxyXAResource (1000:2000) XA_START   [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:9, subordinatenodename=null, eis_name=ProxyXAResource: 1000 2000 >]
+[main] TestResource (1000)      XA_END     [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:5, subordinatenodename=null, eis_name=unknown eis name >] Flags=67108864
+[main] TestResource (1000)      XA_PREPARE [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:5, subordinatenodename=null, eis_name=unknown eis name >]
+[main] ProxyXAResource (1000:2000) XA_END     [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:9, subordinatenodename=null, eis_name=ProxyXAResource: 1000 2000 >]
+[main] ProxyXAResource (1000:2000) XA_PREPARE [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:9, subordinatenodename=null, eis_name=ProxyXAResource: 1000 2000 >]
+[main] TestResource (2000)      XA_END     [< formatId=131077, gtrid_length=32, bqual_length=64, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:7d0:50e50664:5, subordinatenodename=2000, eis_name=unknown eis name >] Flags=67108864
+[main] TestResource (2000)      XA_PREPARE [< formatId=131077, gtrid_length=32, bqual_length=64, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:7d0:50e50664:5, subordinatenodename=2000, eis_name=unknown eis name >]
+[main] ProxyXAResource (1000:2000) XA_PREPARED
+[main] TestResource (1000)      XA_COMMIT  [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:5, subordinatenodename=null, eis_name=unknown eis name >]
+[main] ProxyXAResource (1000:2000) XA_COMMIT  [< formatId=131077, gtrid_length=32, bqual_length=36, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:3e8:50e505c6:9, subordinatenodename=null, eis_name=ProxyXAResource: 1000 2000 >]
+[main] TestResource (2000)      XA_COMMIT  [< formatId=131077, gtrid_length=32, bqual_length=64, tx_uid=0:ffff7f000101:3e8:50e505c6:4, node_name=1000, branch_uid=0:ffff7f000101:7d0:50e50664:5, subordinatenodename=2000, eis_name=unknown eis name >]
+[main] ProxyXAResource (1000:2000) XA_COMMITED
+Jan 03, 2013 4:17:52 AM com.arjuna.ats.jbossatx.jta.RecoveryManagerService stop
+INFO: ARJUNA032014: Stopping transaction recovery manager
+Jan 03, 2013 4:17:52 AM com.arjuna.ats.jbossatx.jta.RecoveryManagerService stop
+INFO: ARJUNA032014: Stopping transaction recovery manager
+Jan 03, 2013 4:17:52 AM com.arjuna.ats.jbossatx.jta.RecoveryManagerService stop
+INFO: ARJUNA032014: Stopping transaction recovery manager
+Tests run: 16, Failures: 3, Errors: 0, Skipped: 0, Time elapsed: 4,065.677 sec <<< FAILURE!
+
+Results :
+
+Failed tests:   testRecoverInflightTransaction(com.arjuna.ats.jta.distributed.SimpleIsolatedServers): Servers were not aborted
+  testRecovery(com.arjuna.ats.jta.distributed.SimpleIsolatedServers): Servers were not aborted
+  testOnePhaseCommit(com.arjuna.ats.jta.distributed.SimpleIsolatedServers): 3

@@ -1,0 +1,8 @@
+TXFramework ATTest fails because of unhandled TransactionRolledBackException
+See: http://172.17.131.2/job/jbossts-narayana-java7/98
+
+{noformat}
+Tests in error: 
+  testSimple(org.jboss.narayana.txframework.functional.ATTest)
+  testMultiInvoke(org.jboss.narayana.txframework.functional.ATTest)
+{noformat}

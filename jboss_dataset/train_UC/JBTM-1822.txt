@@ -1,0 +1,457 @@
+BT_ASSERT(nrecs < nrecs1) failed in TestTransactions::test_recovery
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana/166/TESTS=BLACKTIE,jdk=jdk7.latest,label=linux64el6/consoleText
+
+{code}
+     [exec] .2013-07-02 15:57:39,717 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_recovery begin (cleared 4 records)
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:mallocfr newSuperblock at 0x416C1A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] 2013-07-02 15:57:39,931 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a37%3a1372777039%3a852157
+     [exec] 2013-07-02 15:57:39,984 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a39%3a1372777040%3a637713
+     [exec] 2013-07-02 15:57:40,036 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a42%3a1372777046%3a10751
+     [exec] 2013-07-02 15:57:40,089 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a44%3a1372777046%3a814097
+     [exec] 2013-07-02 15:57:40,144 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_recovery begin 0 records
+     [exec] --28817:1:mallocfr newSuperblock at 0x416D1A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] --28817:1:mallocfr newSuperblock at 0x416E1A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] 2013-07-02 15:57:40,475 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_recovery commiting after generating a recovery condition
+     [exec] 2013-07-02 15:57:40,860 [0xcc17700] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions recovery_cb1 called 1 times
+     [exec] 2013-07-02 15:57:40,881 [0xcc17700] INFO  (TxHttpTxManager          :415 ) - closing connection to TM
+     [exec] 2013-07-02 15:57:40,958 [0xcc17700] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions recovery_cb1 called 2 times
+     [exec] 2013-07-02 15:57:40,977 [0xcc17700] INFO  (TxHttpTxManager          :415 ) - closing connection to TM
+     [exec] --28817:1:mallocfr newSuperblock at 0x416F1A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] 2013-07-02 15:57:41,070 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_recovery committed 1 records
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] 2013-07-02 15:57:44,014 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:57:44,017 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:0:0_ffffac118307_-4f6b5ee7_51d2e875_b2 address: 0xe10adb0
+     [exec] 2013-07-02 15:57:44,023 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:57:44,026 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:25:0_ffffac118307_-4f6b5ee7_51d2e875_9e102:0:42:1372777046:10751 address: 0xe613640
+     [exec] 2013-07-02 15:57:44,033 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:57:44,036 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_94102:0:37:1372777039:852157 address: 0xb6899f0
+     [exec] 2013-07-02 15:57:44,042 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:57:44,045 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_97102:0:39:1372777040:637713 address: 0xe761c60
+     [exec] 2013-07-02 15:57:44,052 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:57:44,055 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_a1102:0:44:1372777046:814097 address: 0xe632830
+     [exec] 2013-07-02 15:57:44,081 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_recovery passed
+     [exec] 2013-07-02 15:57:44,130 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery begin 1 records
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:mallocfr newSuperblock at 0x41701A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] 2013-07-02 15:57:44,354 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a37%3a1372777039%3a852157
+     [exec] 2013-07-02 15:57:44,408 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a39%3a1372777040%3a637713
+     [exec] 2013-07-02 15:57:44,461 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a42%3a1372777046%3a10751
+     [exec] 2013-07-02 15:57:44,514 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a44%3a1372777046%3a814097
+     [exec] 2013-07-02 15:57:44,568 [0x4037ce0] WARN  (TxHttpTxManager          :210 ) - TM failed recovery request: 404 for participant 131077%3a102%3a0%3a47%3a1372777060%3a383693
+     [exec] --28817:1:mallocfr newSuperblock at 0x41711A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] 2013-07-02 15:57:44,578 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery sleeping for 179 seconds
+     [exec] 2013-07-02 15:57:54,583 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery sleeping for 169 seconds
+     [exec] 2013-07-02 15:58:04,587 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery sleeping for 159 seconds
+     [exec] 2013-07-02 15:58:14,592 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery sleeping for 149 seconds
+[0m15:58:15,523 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8888/xid/131077%3a102%3a0%3a47%3a1372777060%3a383693/terminate
+[0m     [exec] 2013-07-02 15:58:15,581 [0xcc17700] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions recovery_cb2 called 1 times
+[0m15:58:15,698 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8888/xid/131077%3a102%3a0%3a39%3a1372777040%3a637713/terminate
+[0m     [exec] 2013-07-02 15:58:15,654 [0x4037ce0] INFO  (AtmiBrokerLogc           :66  ) - TestTransactions::test_run_recovery 1 recs after recovery
+[0m15:58:15,701 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8888/xid/131077%3a102%3a0%3a37%3a1372777039%3a852157/terminate
+[0m[0m15:58:15,702 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8888/xid/131077%3a102%3a0%3a42%3a1372777046%3a10751/terminate
+[0m[0m15:58:15,704 INFO  [org.jboss.jbossts.star.resource.RESTRecord] (Periodic Recovery) restore_state http://127.0.0.1:8888/xid/131077%3a102%3a0%3a44%3a1372777046%3a814097/terminate
+[0m     [exec] --28817:1:mallocfr newSuperblock at 0x411D4C000 (pszB  196576) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:mallocfr reclaimSuperblock at 0x413861000 (pszB  131040) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] F2013-07-02 15:58:18,897 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:58:18,902 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:25:0_ffffac118307_-4f6b5ee7_51d2e875_9e102:0:42:1372777046:10751 address: 0xe9c3c10
+     [exec] 2013-07-02 15:58:18,912 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:58:18,917 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_94102:0:37:1372777039:852157 address: 0xbe9cd70
+     [exec] 2013-07-02 15:58:18,927 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:58:18,931 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_97102:0:39:1372777040:637713 address: 0xbeb9fb0
+     [exec] 2013-07-02 15:58:18,942 [0x4037ce0] WARN  (XAResourceManager        :125 ) - There are still incomplete branches
+     [exec] 2013-07-02 15:58:18,946 [0x4037ce0] WARN  (XAResourceManager        :129 ) - Deleting branch 131077:36:26:0_ffffac118307_-4f6b5ee7_51d2e875_a1102:0:44:1372777046:814097 address: 0xbeed050
+     [exec] --28817:1:mallocfr newSuperblock at 0x41721A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] --28817:1:mallocfr newSuperblock at 0x41731A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] --28817:1:mallocfr newSuperblock at 0x41741A000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] --28817:1:mallocfr newSuperblock at 0x41751A000 (pszB  294880) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:mallocfr reclaimSuperblock at 0x411D4C000 (pszB  196576) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:mallocfr newSuperblock at 0x417562000 (pszB 1048544)  owner VALGRIND/exectxt
+     [exec] --28817:1:mallocfr newSuperblock at 0x417662000 (pszB  438240) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:mallocfr reclaimSuperblock at 0x41751A000 (pszB  294880) unsplittable owner VALGRIND/ttaux
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:mallocfr newSuperblock at 0xEE26000 (pszB 4194272)  owner CLIENT/client
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): pre-thread_wrapper
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): entry
+     [exec] --28817:1:syswrap- thread_wrapper(tid=2): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=2): not last one standing
+     [exec] .
+     [exec] 
+     [exec] 
+     [exec] !!!FAILURES!!!
+     [exec] Test Results:
+     [exec] Run:  14   Failures: 1   Errors: 0
+     [exec] 
+     [exec] 
+     [exec] 1) test: TestTransactions::test_recovery (F) line: 548 /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/src/test/cpp/TestTransactions.cxx
+     [exec] assertion failed
+     [exec] - Expression: _w12pq_u
+     [exec] 
+     [exec] 
+     [exec] --28817:1:syswrap- thread_wrapper(tid=1): exit
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=1): post-thread_wrapper
+     [exec] --28817:1:syswrap- run_a_thread_NORETURN(tid=1): last one standing
+     [exec] --28817:1:main     entering VG_(shutdown_actions_NORETURN)
+     [exec] --28817:1:aspacem  <<< SHOW_SEGMENTS: Memory layout at client shutdown (239 segments, 52 segnames)
+     [exec] --28817:1:aspacem  ( 0) /usr/lib64/valgrind/memcheck-amd64-linux
+     [exec] --28817:1:aspacem  ( 1) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/testsuite
+     [exec] --28817:1:aspacem  ( 2) /lib64/ld-2.12.so
+     [exec] --28817:1:aspacem  ( 3) /tmp/vgdb-pipe-shared-mem-vgdb-28817-by-???-on-???
+     [exec] --28817:1:aspacem  ( 4) /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+     [exec] --28817:1:aspacem  ( 5) /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+     [exec] --28817:1:aspacem  ( 6) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libACE.so.6.0.1
+     [exec] --28817:1:aspacem  ( 7) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO.so.2.0.1
+     [exec] --28817:1:aspacem  ( 8) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_AnyTypeCode.so.2.0.1
+     [exec] --28817:1:aspacem  ( 9) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_CodecFactory.so.2.0.1
+     [exec] --28817:1:aspacem  (10) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_CosNaming.so.2.0.1
+     [exec] --28817:1:aspacem  (11) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_IDL_BE.so.2.0.1
+     [exec] --28817:1:aspacem  (12) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_IDL_FE.so.2.0.1
+     [exec] --28817:1:aspacem  (13) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_IORInterceptor.so.2.0.1
+     [exec] --28817:1:aspacem  (14) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_ObjRefTemplate.so.2.0.1
+     [exec] --28817:1:aspacem  (15) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_PI.so.2.0.1
+     [exec] --28817:1:aspacem  (16) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_PI_Server.so.2.0.1
+     [exec] --28817:1:aspacem  (17) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_PortableServer.so.2.0.1
+     [exec] --28817:1:aspacem  (18) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libTAO_Valuetype.so.2.0.1
+     [exec] --28817:1:aspacem  (19) /usr/lib64/gconv/gconv-modules.cache
+     [exec] --28817:1:aspacem  (20) /usr/lib64/libapr-1.so.0.3.9
+     [exec] --28817:1:aspacem  (21) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libblacktie-codec.so
+     [exec] --28817:1:aspacem  (22) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libblacktie-core.so
+     [exec] --28817:1:aspacem  (23) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libblacktie-idl-tao.so
+     [exec] --28817:1:aspacem  (24) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libblacktie-transport.so
+     [exec] --28817:1:aspacem  (25) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libexpat.so.0
+     [exec] --28817:1:aspacem  (26) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/liblog4cxx.so
+     [exec] --28817:1:aspacem  (27) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libprotobuf-lite.so.7
+     [exec] --28817:1:aspacem  (28) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libprotobuf.so.7
+     [exec] --28817:1:aspacem  (29) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libprotoc.so.7
+     [exec] --28817:1:aspacem  (30) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/runtime/lib/libxerces-c-3.0.so
+     [exec] --28817:1:aspacem  (31) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/test/lib/libblacktie-tx-test-utilities.so
+     [exec] --28817:1:aspacem  (32) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/cxx/test/lib/libcppunit-1.12.so.0
+     [exec] --28817:1:aspacem  (33) /home/hudson/workspace/narayana/TESTS/BLACKTIE/jdk/jdk7.latest/label/linux64el6/blacktie/tx/target/debug/shared/libblacktie-tx.so
+     [exec] --28817:1:aspacem  (34) /usr/lib64/libstdc++.so.6.0.13
+     [exec] --28817:1:aspacem  (35) /lib64/libpthread-2.12.so
+     [exec] --28817:1:aspacem  (36) /lib64/librt-2.12.so
+     [exec] --28817:1:aspacem  (37) /lib64/libgcc_s-4.4.7-20120601.so.1
+     [exec] --28817:1:aspacem  (38) /lib64/libc-2.12.so
+     [exec] --28817:1:aspacem  (39) /lib64/libdl-2.12.so
+     [exec] --28817:1:aspacem  (40) /lib64/libm-2.12.so
+     [exec] --28817:1:aspacem  (41) /lib64/libuuid.so.1.3.0
+     [exec] --28817:1:aspacem  (42) /lib64/libcrypt-2.12.so
+     [exec] --28817:1:aspacem  (43) /usr/lib64/libaprutil-1.so.0.3.9
+     [exec] --28817:1:aspacem  (44) /lib64/libnsl-2.12.so
+     [exec] --28817:1:aspacem  (45) /lib64/libfreebl3.so
+     [exec] --28817:1:aspacem  (46) /lib64/libexpat.so.1.5.2
+     [exec] --28817:1:aspacem  (47) /lib64/libdb-4.7.so
+     [exec] --28817:1:aspacem  (48) /usr/lib64/gconv/UTF-16.so
+     [exec] --28817:1:aspacem  (49) /usr/lib64/gconv/ISO8859-1.so
+     [exec] --28817:1:aspacem  (51) /lib64/libnss_files-2.12.so
+     [exec] --28817:1:aspacem    0: RSVN 0000000000-00003fffff 4194304 ----- SmFixed
+     [exec] --28817:1:aspacem    1: file 0000400000-000042cfff  184320 r-xT- d=0xfd00 i=2373687 o=0       (1)
+     [exec] --28817:1:aspacem    2: RSVN 000042d000-000062bfff 2093056 ----- SmFixed
+     [exec] --28817:1:aspacem    3: file 000062c000-000062dfff    8192 rw--- d=0xfd00 i=2373687 o=180224  (1)
+     [exec] --28817:1:aspacem    4: RSVN 000062e000-0003ffffff     57m ----- SmFixed
+     [exec] --28817:1:aspacem    5: file 0004000000-000401ffff  131072 r-xT- d=0xfd00 i=4981072 o=0       (2)
+     [exec] --28817:1:aspacem    6: anon 0004020000-0004026fff   28672 rw---
+     [exec] --28817:1:aspacem    7:      0004027000-000402afff   16384
+     [exec] --28817:1:aspacem    8: anon 000402b000-000403afff   65536 rw---
+     [exec] --28817:1:aspacem    9: file 000403b000-0004041fff   28672 r---- d=0xfd00 i=394016  o=0       (19)
+     [exec] --28817:1:aspacem   10:      0004042000-000421efff 1953792
+     [exec] --28817:1:aspacem   11: file 000421f000-000421ffff    4096 r---- d=0xfd00 i=4981072 o=126976  (2)
+     [exec] --28817:1:aspacem   12: file 0004220000-0004220fff    4096 rw--- d=0xfd00 i=4981072 o=131072  (2)
+     [exec] --28817:1:aspacem   13: anon 0004221000-0004221fff    4096 rw---
+     [exec] --28817:1:aspacem   14: anon 0004222000-0004222fff    4096 rwx--
+     [exec] --28817:1:aspacem   15: RSVN 0004223000-0004a21fff 8384512 ----- SmLower
+     [exec] --28817:1:aspacem   16: file 0004a22000-0004a22fff    4096 r-xT- d=0xfd00 i=266265  o=0       (4)
+     [exec] --28817:1:aspacem   17: file 0004a23000-0004c21fff 2093056 ----- d=0xfd00 i=266265  o=4096    (4)
+     [exec] --28817:1:aspacem   18: file 0004c22000-0004c22fff    4096 rw--- d=0xfd00 i=266265  o=0       (4)
+     [exec] --28817:1:aspacem   19: file 0004c23000-0004c2efff   49152 r-xT- d=0xfd00 i=266277  o=0       (5)
+     [exec] --28817:1:aspacem   20: file 0004c2f000-0004e2dfff 2093056 ----- d=0xfd00 i=266277  o=49152   (5)
+     [exec] --28817:1:aspacem   21: file 0004e2e000-0004e2efff    4096 rw--- d=0xfd00 i=266277  o=45056   (5)
+     [exec] --28817:1:aspacem   22: file 0004e2f000-0004fa8fff 1548288 r-xT- d=0xfd00 i=5124752 o=0       (6)
+     [exec] --28817:1:aspacem   23: file 0004fa9000-00051a7fff 2093056 ----- d=0xfd00 i=5124752 o=1548288 (6)
+     [exec] --28817:1:aspacem   24: file 00051a8000-00051bdfff   90112 rw--- d=0xfd00 i=5124752 o=1544192 (6)
+     [exec] --28817:1:aspacem   25: anon 00051be000-00051befff    4096 rw---
+     [exec] --28817:1:aspacem   26: file 00051bf000-0005312fff 1392640 r-xT- d=0xfd00 i=5124749 o=0       (7)
+     [exec] --28817:1:aspacem   27: file 0005313000-0005511fff 2093056 ----- d=0xfd00 i=5124749 o=1392640 (7)
+     [exec] --28817:1:aspacem   28: file 0005512000-0005524fff   77824 rw--- d=0xfd00 i=5124749 o=1388544 (7)
+     [exec] --28817:1:aspacem   29: file 0005525000-00055cdfff  692224 r-xT- d=0xfd00 i=5124760 o=0       (8)
+     [exec] --28817:1:aspacem   30: file 00055ce000-00057ccfff 2093056 ----- d=0xfd00 i=5124760 o=692224  (8)
+     [exec] --28817:1:aspacem   31: file 00057cd000-00057d5fff   36864 rw--- d=0xfd00 i=5124760 o=688128  (8)
+     [exec] --28817:1:aspacem   32: anon 00057d6000-00057d8fff   12288 rw---
+     [exec] --28817:1:aspacem   33: file 00057d9000-00057ecfff   81920 r-xT- d=0xfd00 i=5124741 o=0       (9)
+     [exec] --28817:1:aspacem   34: file 00057ed000-00059ecfff 2097152 ----- d=0xfd00 i=5124741 o=81920   (9)
+     [exec] --28817:1:aspacem   35: file 00059ed000-00059effff   12288 rw--- d=0xfd00 i=5124741 o=81920   (9)
+     [exec] --28817:1:aspacem   36: file 00059f0000-0005a1dfff  188416 r-xT- d=0xfd00 i=5124762 o=0       (10)
+     [exec] --28817:1:aspacem   37: file 0005a1e000-0005c1cfff 2093056 ----- d=0xfd00 i=5124762 o=188416  (10)
+     [exec] --28817:1:aspacem   38: file 0005c1d000-0005c1ffff   12288 rw--- d=0xfd00 i=5124762 o=184320  (10)
+     [exec] --28817:1:aspacem   39: anon 0005c20000-0005c20fff    4096 rw---
+     [exec] --28817:1:aspacem   40: file 0005c21000-0005ee9fff 2920448 r-xT- d=0xfd00 i=5124764 o=0       (11)
+     [exec] --28817:1:aspacem   41: file 0005eea000-00060e9fff 2097152 ----- d=0xfd00 i=5124764 o=2920448 (11)
+     [exec] --28817:1:aspacem   42: file 00060ea000-0006164fff  503808 rw--- d=0xfd00 i=5124764 o=2920448 (11)
+     [exec] --28817:1:aspacem   43: anon 0006165000-0006168fff   16384 rw---
+     [exec] --28817:1:aspacem   44: file 0006169000-000625dfff 1003520 r-xT- d=0xfd00 i=5124761 o=0       (12)
+     [exec] --28817:1:aspacem   45: file 000625e000-000645cfff 2093056 ----- d=0xfd00 i=5124761 o=1003520 (12)
+     [exec] --28817:1:aspacem   46: file 000645d000-0006485fff  167936 rw--- d=0xfd00 i=5124761 o=999424  (12)
+     [exec] --28817:1:aspacem   47: anon 0006486000-0006487fff    8192 rw---
+     [exec] --28817:1:aspacem   48: file 0006488000-0006495fff   57344 r-xT- d=0xfd00 i=5124743 o=0       (13)
+     [exec] --28817:1:aspacem   49: file 0006496000-0006694fff 2093056 ----- d=0xfd00 i=5124743 o=57344   (13)
+     [exec] --28817:1:aspacem   50: file 0006695000-0006697fff   12288 rw--- d=0xfd00 i=5124743 o=53248   (13)
+     [exec] --28817:1:aspacem   51: file 0006698000-00066abfff   81920 r-xT- d=0xfd00 i=5124755 o=0       (14)
+     [exec] --28817:1:aspacem   52: file 00066ac000-00068abfff 2097152 ----- d=0xfd00 i=5124755 o=81920   (14)
+     [exec] --28817:1:aspacem   53: file 00068ac000-00068aefff   12288 rw--- d=0xfd00 i=5124755 o=81920   (14)
+     [exec] --28817:1:aspacem   54: file 00068af000-00068ebfff  249856 r-xT- d=0xfd00 i=5124740 o=0       (15)
+     [exec] --28817:1:aspacem   55: file 00068ec000-0006aeafff 2093056 ----- d=0xfd00 i=5124740 o=249856  (15)
+     [exec] --28817:1:aspacem   56: file 0006aeb000-0006af4fff   40960 rw--- d=0xfd00 i=5124740 o=245760  (15)
+     [exec] --28817:1:aspacem   57: file 0006af5000-0006b0afff   90112 r-xT- d=0xfd00 i=5124763 o=0       (16)
+     [exec] --28817:1:aspacem   58: file 0006b0b000-0006d0afff 2097152 ----- d=0xfd00 i=5124763 o=90112   (16)
+     [exec] --28817:1:aspacem   59: file 0006d0b000-0006d0efff   16384 rw--- d=0xfd00 i=5124763 o=90112   (16)
+     [exec] --28817:1:aspacem   60: file 0006d0f000-0006df0fff  925696 r-xT- d=0xfd00 i=5124754 o=0       (17)
+     [exec] --28817:1:aspacem   61: file 0006df1000-0006feffff 2093056 ----- d=0xfd00 i=5124754 o=925696  (17)
+     [exec] --28817:1:aspacem   62: file 0006ff0000-000700afff  110592 rw--- d=0xfd00 i=5124754 o=921600  (17)
+     [exec] --28817:1:aspacem   63: anon 000700b000-000700bfff    4096 rw---
+     [exec] --28817:1:aspacem   64: file 000700c000-0007022fff   94208 r-xT- d=0xfd00 i=5124756 o=0       (18)
+     [exec] --28817:1:aspacem   65: file 0007023000-0007221fff 2093056 ----- d=0xfd00 i=5124756 o=94208   (18)
+     [exec] --28817:1:aspacem   66: file 0007222000-0007223fff    8192 rw--- d=0xfd00 i=5124756 o=90112   (18)
+     [exec] --28817:1:aspacem   67: file 0007224000-000724efff  176128 r-xT- d=0xfd00 i=264773  o=0       (20)
+     [exec] --28817:1:aspacem   68: file 000724f000-000744dfff 2093056 ----- d=0xfd00 i=264773  o=176128  (20)
+     [exec] --28817:1:aspacem   69: file 000744e000-000744ffff    8192 rw--- d=0xfd00 i=264773  o=172032  (20)
+     [exec] --28817:1:aspacem   70: file 0007450000-000746bfff  114688 r-xT- d=0xfd00 i=5124725 o=0       (21)
+     [exec] --28817:1:aspacem   71: file 000746c000-000766afff 2093056 ----- d=0xfd00 i=5124725 o=114688  (21)
+     [exec] --28817:1:aspacem   72: file 000766b000-000766cfff    8192 rw--- d=0xfd00 i=5124725 o=110592  (21)
+     [exec] --28817:1:aspacem   73: file 000766d000-00076cffff  405504 r-xT- d=0xfd00 i=5124726 o=0       (22)
+     [exec] --28817:1:aspacem   74: file 00076d0000-00078cefff 2093056 ----- d=0xfd00 i=5124726 o=405504  (22)
+     [exec] --28817:1:aspacem   75: file 00078cf000-00078d3fff   20480 rw--- d=0xfd00 i=5124726 o=401408  (22)
+     [exec] --28817:1:aspacem   76: file 00078d4000-0007a15fff 1318912 r-xT- d=0xfd00 i=5124727 o=0       (23)
+     [exec] --28817:1:aspacem   77: file 0007a16000-0007c14fff 2093056 ----- d=0xfd00 i=5124727 o=1318912 (23)
+     [exec] --28817:1:aspacem   78: file 0007c15000-0007c2afff   90112 rw--- d=0xfd00 i=5124727 o=1314816 (23)
+     [exec] --28817:1:aspacem   79: file 0007c2b000-0007c48fff  122880 r-xT- d=0xfd00 i=5124728 o=0       (24)
+     [exec] --28817:1:aspacem   80: file 0007c49000-0007e48fff 2097152 ----- d=0xfd00 i=5124728 o=122880  (24)
+     [exec] --28817:1:aspacem   81: file 0007e49000-0007e4afff    8192 rw--- d=0xfd00 i=5124728 o=122880  (24)
+     [exec] --28817:1:aspacem   82: file 0007e4b000-00080b7fff 2543616 r-xT- d=0xfd00 i=5124723 o=0       (26)
+     [exec] --28817:1:aspacem   83: file 00080b8000-00082b6fff 2093056 ----- d=0xfd00 i=5124723 o=2543616 (26)
+     [exec] --28817:1:aspacem   84: file 00082b7000-00082e8fff  204800 rw--- d=0xfd00 i=5124723 o=2539520 (26)
+     [exec] --28817:1:aspacem   85: anon 00082e9000-00082eafff    8192 rw---
+     [exec] --28817:1:aspacem   86: file 00082eb000-000830cfff  139264 r-xT- d=0xfd00 i=5124736 o=0       (27)
+     [exec] --28817:1:aspacem   87: file 000830d000-000850bfff 2093056 ----- d=0xfd00 i=5124736 o=139264  (27)
+     [exec] --28817:1:aspacem   88: file 000850c000-000850dfff    8192 rw--- d=0xfd00 i=5124736 o=135168  (27)
+     [exec] --28817:1:aspacem   89: file 000850e000-0008602fff 1003520 r-xT- d=0xfd00 i=5124730 o=0       (28)
+     [exec] --28817:1:aspacem   90: file 0008603000-0008802fff 2097152 ----- d=0xfd00 i=5124730 o=1003520 (28)
+     [exec] --28817:1:aspacem   91: file 0008803000-0008808fff   24576 rw--- d=0xfd00 i=5124730 o=1003520 (28)
+     [exec] --28817:1:aspacem   92: file 0008809000-00088b4fff  704512 r-xT- d=0xfd00 i=5124734 o=0       (29)
+     [exec] --28817:1:aspacem   93: file 00088b5000-0008ab4fff 2097152 ----- d=0xfd00 i=5124734 o=704512  (29)
+     [exec] --28817:1:aspacem   94: file 0008ab5000-0008ab7fff   12288 rw--- d=0xfd00 i=5124734 o=704512  (29)
+     [exec] --28817:1:aspacem   95: file 0008ab8000-0008e1dfff 3563520 r-xT- d=0xfd00 i=5124738 o=0       (30)
+     [exec] --28817:1:aspacem   96: file 0008e1e000-0008f1cfff 1044480 ----- d=0xfd00 i=5124738 o=3563520 (30)
+     [exec] --28817:1:aspacem   97: file 0008f1d000-0008fb4fff  622592 rw--- d=0xfd00 i=5124738 o=3559424 (30)
+     [exec] --28817:1:aspacem   98: file 0008fb5000-0008fbcfff   32768 r-xT- d=0xfd00 i=4466708 o=0       (31)
+     [exec] --28817:1:aspacem   99: file 0008fbd000-00091bbfff 2093056 ----- d=0xfd00 i=4466708 o=32768   (31)
+     [exec] --28817:1:aspacem  100: file 00091bc000-00091bcfff    4096 rw--- d=0xfd00 i=4466708 o=28672   (31)
+     [exec] --28817:1:aspacem  101: file 00091bd000-0009239fff  512000 r-xT- d=0xfd00 i=4203423 o=0       (33)
+     [exec] --28817:1:aspacem  102: file 000923a000-0009439fff 2097152 ----- d=0xfd00 i=4203423 o=512000  (33)
+     [exec] --28817:1:aspacem  103: file 000943a000-000943dfff   16384 rw--- d=0xfd00 i=4203423 o=512000  (33)
+     [exec] --28817:1:aspacem  104: file 000943e000-0009525fff  950272 r-xT- d=0xfd00 i=263028  o=0       (34)
+     [exec] --28817:1:aspacem  105: file 0009526000-0009725fff 2097152 ----- d=0xfd00 i=263028  o=950272  (34)
+     [exec] --28817:1:aspacem  106: file 0009726000-000972cfff   28672 r---- d=0xfd00 i=263028  o=950272  (34)
+     [exec] --28817:1:aspacem  107: file 000972d000-000972efff    8192 rw--- d=0xfd00 i=263028  o=978944  (34)
+     [exec] --28817:1:aspacem  108: anon 000972f000-0009743fff   86016 rw---
+     [exec] --28817:1:aspacem  109: file 0009744000-000975afff   94208 r-xT- d=0xfd00 i=4980773 o=0       (35)
+     [exec] --28817:1:aspacem  110: file 000975b000-000995afff 2097152 ----- d=0xfd00 i=4980773 o=94208   (35)
+     [exec] --28817:1:aspacem  111: file 000995b000-000995bfff    4096 r---- d=0xfd00 i=4980773 o=94208   (35)
+     [exec] --28817:1:aspacem  112: file 000995c000-000995cfff    4096 rw--- d=0xfd00 i=4980773 o=98304   (35)
+     [exec] --28817:1:aspacem  113: anon 000995d000-0009960fff   16384 rw---
+     [exec] --28817:1:aspacem  114: file 0009961000-0009967fff   28672 r-xT- d=0xfd00 i=4980777 o=0       (36)
+     [exec] --28817:1:aspacem  115: file 0009968000-0009b66fff 2093056 ----- d=0xfd00 i=4980777 o=28672   (36)
+     [exec] --28817:1:aspacem  116: file 0009b67000-0009b67fff    4096 r---- d=0xfd00 i=4980777 o=24576   (36)
+     [exec] --28817:1:aspacem  117: file 0009b68000-0009b68fff    4096 rw--- d=0xfd00 i=4980777 o=28672   (36)
+     [exec] --28817:1:aspacem  118: file 0009b69000-0009b7efff   90112 r-xT- d=0xfd00 i=4981070 o=0       (37)
+     [exec] --28817:1:aspacem  119: file 0009b7f000-0009d7dfff 2093056 ----- d=0xfd00 i=4981070 o=90112   (37)
+     [exec] --28817:1:aspacem  120: file 0009d7e000-0009d7efff    4096 rw--- d=0xfd00 i=4981070 o=86016   (37)
+     [exec] --28817:1:aspacem  121: file 0009d7f000-0009f08fff 1613824 r-xT- d=0xfd00 i=4980749 o=0       (38)
+     [exec] --28817:1:aspacem  122: file 0009f09000-000a107fff 2093056 ----- d=0xfd00 i=4980749 o=1613824 (38)
+     [exec] --28817:1:aspacem  123: file 000a108000-000a10bfff   16384 r---- d=0xfd00 i=4980749 o=1609728 (38)
+     [exec] --28817:1:aspacem  124: file 000a10c000-000a10cfff    4096 rw--- d=0xfd00 i=4980749 o=1626112 (38)
+     [exec] --28817:1:aspacem  125: anon 000a10d000-000a111fff   20480 rw---
+     [exec] --28817:1:aspacem  126: file 000a112000-000a113fff    8192 r-xT- d=0xfd00 i=4980755 o=0       (39)
+     [exec] --28817:1:aspacem  127: file 000a114000-000a313fff 2097152 ----- d=0xfd00 i=4980755 o=8192    (39)
+     [exec] --28817:1:aspacem  128: file 000a314000-000a314fff    4096 r---- d=0xfd00 i=4980755 o=8192    (39)
+     [exec] --28817:1:aspacem  129: file 000a315000-000a315fff    4096 rw--- d=0xfd00 i=4980755 o=12288   (39)
+     [exec] --28817:1:aspacem  130: file 000a316000-000a398fff  536576 r-xT- d=0xfd00 i=4980757 o=0       (40)
+     [exec] --28817:1:aspacem  131: file 000a399000-000a597fff 2093056 ----- d=0xfd00 i=4980757 o=536576  (40)
+     [exec] --28817:1:aspacem  132: file 000a598000-000a598fff    4096 r---- d=0xfd00 i=4980757 o=532480  (40)
+     [exec] --28817:1:aspacem  133: file 000a599000-000a599fff    4096 rw--- d=0xfd00 i=4980757 o=536576  (40)
+     [exec] --28817:1:aspacem  134: file 000a59a000-000a59dfff   16384 r-xT- d=0xfd00 i=4980923 o=0       (41)
+     [exec] --28817:1:aspacem  135: file 000a59e000-000a79cfff 2093056 ----- d=0xfd00 i=4980923 o=16384   (41)
+     [exec] --28817:1:aspacem  136: file 000a79d000-000a79dfff    4096 rw--- d=0xfd00 i=4980923 o=12288   (41)
+     [exec] --28817:1:aspacem  137: file 000a79e000-000a7a4fff   28672 r-xT- d=0xfd00 i=4980753 o=0       (42)
+     [exec] --28817:1:aspacem  138: file 000a7a5000-000a9a4fff 2097152 ----- d=0xfd00 i=4980753 o=28672   (42)
+     [exec] --28817:1:aspacem  139: file 000a9a5000-000a9a5fff    4096 r---- d=0xfd00 i=4980753 o=28672   (42)
+     [exec] --28817:1:aspacem  140: file 000a9a6000-000a9a6fff    4096 rw--- d=0xfd00 i=4980753 o=32768   (42)
+     [exec] --28817:1:aspacem  141: anon 000a9a7000-000a9d4fff  188416 rw---
+     [exec] --28817:1:aspacem  142: file 000a9d5000-000a9f7fff  143360 r-xT- d=0xfd00 i=264775  o=0       (43)
+     [exec] --28817:1:aspacem  143: file 000a9f8000-000abf6fff 2093056 ----- d=0xfd00 i=264775  o=143360  (43)
+     [exec] --28817:1:aspacem  144: file 000abf7000-000abf8fff    8192 rw--- d=0xfd00 i=264775  o=139264  (43)
+     [exec] --28817:1:aspacem  145: file 000abf9000-000ac0efff   90112 r-xT- d=0xfd00 i=4980759 o=0       (44)
+     [exec] --28817:1:aspacem  146: file 000ac0f000-000ae0dfff 2093056 ----- d=0xfd00 i=4980759 o=90112   (44)
+     [exec] --28817:1:aspacem  147: file 000ae0e000-000ae0efff    4096 r---- d=0xfd00 i=4980759 o=86016   (44)
+     [exec] --28817:1:aspacem  148: file 000ae0f000-000ae0ffff    4096 rw--- d=0xfd00 i=4980759 o=90112   (44)
+     [exec] --28817:1:aspacem  149: anon 000ae10000-000ae11fff    8192 rw---
+     [exec] --28817:1:aspacem  150: file 000ae12000-000ae6efff  380928 r-xT- d=0xfd00 i=4980741 o=0       (45)
+     [exec] --28817:1:aspacem  151: file 000ae6f000-000b06dfff 2093056 ----- d=0xfd00 i=4980741 o=380928  (45)
+     [exec] --28817:1:aspacem  152: file 000b06e000-000b06efff    4096 r---- d=0xfd00 i=4980741 o=376832  (45)
+     [exec] --28817:1:aspacem  153: file 000b06f000-000b06ffff    4096 rw--- d=0xfd00 i=4980741 o=380928  (45)
+     [exec] --28817:1:aspacem  154: anon 000b070000-000b073fff   16384 rw---
+     [exec] --28817:1:aspacem  155: file 000b074000-000b099fff  155648 r-xT- d=0xfd00 i=4980935 o=0       (46)
+     [exec] --28817:1:aspacem  156: file 000b09a000-000b298fff 2093056 ----- d=0xfd00 i=4980935 o=155648  (46)
+     [exec] --28817:1:aspacem  157: file 000b299000-000b29bfff   12288 rw--- d=0xfd00 i=4980935 o=151552  (46)
+     [exec] --28817:1:aspacem  158: file 000b29c000-000b40afff 1503232 r-xT- d=0xfd00 i=4981090 o=0       (47)
+     [exec] --28817:1:aspacem  159: file 000b40b000-000b609fff 2093056 ----- d=0xfd00 i=4981090 o=1503232 (47)
+     [exec] --28817:1:aspacem  160: file 000b60a000-000b60ffff   24576 rw--- d=0xfd00 i=4981090 o=1499136 (47)
+     [exec] --28817:1:aspacem  161: anon 000b610000-000ba0ffff 4194304 rwx-H
+     [exec] --28817:1:aspacem  162: file 000ba10000-000ba11fff    8192 r-xT- d=0xfd00 i=394002  o=0       (48)
+     [exec] --28817:1:aspacem  163: file 000ba12000-000bc11fff 2097152 ----- d=0xfd00 i=394002  o=8192    (48)
+     [exec] --28817:1:aspacem  164: file 000bc12000-000bc12fff    4096 r---- d=0xfd00 i=394002  o=8192    (48)
+     [exec] --28817:1:aspacem  165: file 000bc13000-000bc13fff    4096 rw--- d=0xfd00 i=394002  o=12288   (48)
+     [exec] --28817:1:aspacem  166: file 000bc14000-000bc14fff    4096 r-xT- d=0xfd00 i=393951  o=0       (49)
+     [exec] --28817:1:aspacem  167: file 000bc15000-000be14fff 2097152 ----- d=0xfd00 i=393951  o=4096    (49)
+     [exec] --28817:1:aspacem  168: file 000be15000-000be15fff    4096 r---- d=0xfd00 i=393951  o=4096    (49)
+     [exec] --28817:1:aspacem  169: file 000be16000-000be16fff    4096 rw--- d=0xfd00 i=393951  o=8192    (49)
+     [exec] --28817:1:aspacem  170: anon 000be17000-000c216fff 4194304 rwx-H
+     [exec] --28817:1:aspacem  171: anon 000c217000-000c217fff    4096 -----
+     [exec] --28817:1:aspacem  172: anon 000c218000-000cc17fff     10m rw---
+     [exec] --28817:1:aspacem  173: anon 000cc18000-000d017fff 4194304 rwx-H
+     [exec] --28817:1:aspacem  174: file 000d018000-000d023fff   49152 r-xT- d=0xfd00 i=4980765 o=0       (51)
+     [exec] --28817:1:aspacem  175: file 000d024000-000d223fff 2097152 ----- d=0xfd00 i=4980765 o=49152   (51)
+     [exec] --28817:1:aspacem  176: file 000d224000-000d224fff    4096 r---- d=0xfd00 i=4980765 o=49152   (51)
+     [exec] --28817:1:aspacem  177: file 000d225000-000d225fff    4096 rw--- d=0xfd00 i=4980765 o=53248   (51)
+     [exec] --28817:1:aspacem  178: anon 000d226000-000f225fff     32m rwx-H
+     [exec] --28817:1:aspacem  179:      000f226000-0037ffffff    653m
+     [exec] --28817:1:aspacem  180: FILE 0038000000-0038048fff  299008 r-x-- d=0xfd00 i=266214  o=2097152 (0)
+     [exec] --28817:1:aspacem  181: file 0038049000-0038049fff    4096 r-xT- d=0xfd00 i=266214  o=2396160 (0)
+     [exec] --28817:1:aspacem  182: FILE 003804a000-003833cfff 3092480 r-x-- d=0xfd00 i=266214  o=2400256 (0)
+     [exec] --28817:1:aspacem  183:      003833d000-003853cfff 2097152
+     [exec] --28817:1:aspacem  184: FILE 003853d000-003853ffff   12288 rw--- d=0xfd00 i=266214  o=5492736 (0)
+     [exec] --28817:1:aspacem  185: ANON 0038540000-003aeecfff     41m rw---
+     [exec] --28817:1:aspacem  186:      003aeed000-0401ffffff  15473m
+     [exec] --28817:1:aspacem  187: RSVN 0402000000-0402000fff    4096 ----- SmFixed
+     [exec] --28817:1:aspacem  188: ANON 0402001000-0408dfefff    109m rwx--
+     [exec] --28817:1:aspacem  189: ANON 0408dff000-0408e00fff    8192 -----
+     [exec] --28817:1:aspacem  190: ANON 0408e01000-0408f00fff 1048576 rwx--
+     [exec] --28817:1:aspacem  191: ANON 0408f01000-0408f02fff    8192 -----
+     [exec] --28817:1:aspacem  192: FILE 0408f03000-0408f03fff    4096 rw--- d=0xfd00 i=4732077 o=0       (3)
+     [exec] --28817:1:aspacem  193: ANON 0408f04000-0409849fff 9723904 rwx--
+     [exec] --28817:1:aspacem  194:      040984a000-040984bfff    8192
+     [exec] --28817:1:aspacem  195: ANON 040984c000-040ce4efff     54m rwx--
+     [exec] --28817:1:aspacem  196:      040ce4f000-040ce50fff    8192
+     [exec] --28817:1:aspacem  197: ANON 040ce51000-040d426fff 6119424 rwx--
+     [exec] --28817:1:aspacem  198:      040d427000-040d427fff    4096
+     [exec] --28817:1:aspacem  199: ANON 040d428000-040d817fff 4128768 rwx--
+     [exec] --28817:1:aspacem  200:      040d818000-040d818fff    4096
+     [exec] --28817:1:aspacem  201: ANON 040d819000-040e5f1fff     13m rwx--
+     [exec] --28817:1:aspacem  202:      040e5f2000-040e5f2fff    4096
+     [exec] --28817:1:aspacem  203: ANON 040e5f3000-040eb3efff 5554176 rwx--
+     [exec] --28817:1:aspacem  204: ANON 040eb3f000-040eb40fff    8192 -----
+     [exec] --28817:1:aspacem  205: ANON 040eb41000-040ec40fff 1048576 rwx--
+     [exec] --28817:1:aspacem  206: ANON 040ec41000-040ec42fff    8192 -----
+     [exec] --28817:1:aspacem  207: ANON 040ec43000-04117ddfff     43m rwx--
+     [exec] --28817:1:aspacem  208:      04117de000-04117dffff    8192
+     [exec] --28817:1:aspacem  209: ANON 04117e0000-0411d87fff 5931008 rwx--
+     [exec] --28817:1:aspacem  210:      0411d88000-0411d88fff    4096
+     [exec] --28817:1:aspacem  211: ANON 0411d89000-041353cfff     23m rwx--
+     [exec] --28817:1:aspacem  212:      041353d000-0413540fff   16384
+     [exec] --28817:1:aspacem  213: ANON 0413541000-0413640fff 1048576 rwx--
+     [exec] --28817:1:aspacem  214:      0413641000-0413644fff   16384
+     [exec] --28817:1:aspacem  215: ANON 0413645000-0413750fff 1097728 rwx--
+     [exec] --28817:1:aspacem  216:      0413751000-0413754fff   16384
+     [exec] --28817:1:aspacem  217: ANON 0413755000-0413860fff 1097728 rwx--
+     [exec] --28817:1:aspacem  218:      0413861000-0413880fff  131072
+     [exec] --28817:1:aspacem  219: ANON 0413881000-0417519fff     60m rwx--
+     [exec] --28817:1:aspacem  220:      041751a000-0417561fff  294912
+     [exec] --28817:1:aspacem  221: ANON 0417562000-04176ccfff 1486848 rwx--
+     [exec] --28817:1:aspacem  222:      04176cd000-07fe600fff  15983m
+     [exec] --28817:1:aspacem  223: RSVN 07fe601000-07feff8fff      9m ----- SmUpper
+     [exec] --28817:1:aspacem  224: anon 07feff9000-07ff000fff   32768 rwx--
+     [exec] --28817:1:aspacem  225:      07ff001000-07ffffffff     15m
+     [exec] --28817:1:aspacem  226: RSVN 0800000000-37079fffff 192634m ----- SmFixed
+     [exec] --28817:1:aspacem  227: file 3707a00000-3707a4afff  307200 r-xT- d=0xfd00 i=4466710 o=0       (32)
+     [exec] --28817:1:aspacem  228: file 3707a4b000-3707c49fff 2093056 ----- d=0xfd00 i=4466710 o=307200  (32)
+     [exec] --28817:1:aspacem  229: file 3707c4a000-3707c4cfff   12288 rw--- d=0xfd00 i=4466710 o=303104  (32)
+     [exec] --28817:1:aspacem  230: RSVN 3707c4d000-370cdfffff     81m ----- SmFixed
+     [exec] --28817:1:aspacem  231: file 370ce00000-370ce1ffff  131072 r-xT- d=0xfd00 i=5124766 o=0       (25)
+     [exec] --28817:1:aspacem  232: file 370ce20000-370d01efff 2093056 ----- d=0xfd00 i=5124766 o=131072  (25)
+     [exec] --28817:1:aspacem  233: file 370d01f000-370d021fff   12288 rw--- d=0xfd00 i=5124766 o=126976  (25)
+     [exec] --28817:1:aspacem  234: RSVN 370d022000-7fffc6b43fff 130850g ----- SmFixed
+     [exec] --28817:1:aspacem  235: ANON 7fffc6b44000-7fffc6b58fff   86016 rw---
+     [exec] --28817:1:aspacem  236: RSVN 7fffc6b59000-ffffffffff5fffff  16383e ----- SmFixed
+     [exec] --28817:1:aspacem  237: ANON ffffffffff600000-ffffffffff600fff    4096 r-x--
+     [exec] --28817:1:aspacem  238: RSVN ffffffffff601000-ffffffffffffffff      9m ----- SmFixed
+     [exec] --28817:1:aspacem  >>>
+     [exec] --28817:1:mallocfr newSuperblock at 0x413861000 (pszB   65504)  owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x0) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:mallocfr deferred_reclaimSuperblock at 0x413861000 (pszB   65504)  (prev 0x413861000) owner VALGRIND/demangle
+     [exec] --28817:1:gdbsrv   VG core calling VG_(gdbserver_exit) tid 1 will exit
+     [exec] --28817:1:gdbsrv   not connected
+     [exec] --28817:1:gdbsrv   remote_finish (reason orderly_finish) 4092 -1
+     [exec] --28817:1:gdbsrv   unlinking
+     [exec]     /tmp/vgdb-pipe-from-vgdb-to-28817-by-???-on-???
+     [exec]     /tmp/vgdb-pipe-to-vgdb-from-28817-by-???-on-???
+     [exec]     /tmp/vgdb-pipe-shared-mem-vgdb-28817-by-???-on-???
+     [exec] --28817:1:core_os  VG_(terminate_NORETURN)(tid=1)
+{code}

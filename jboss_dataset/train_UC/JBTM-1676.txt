@@ -1,0 +1,2 @@
+Integrate Compensations API with WS-BA
+The current implementation of the Compensations API is using WS-BA under the covers, so it should be relatively straight forward to use WS-BA to distribute the transaction.

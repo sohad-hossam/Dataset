@@ -1,0 +1,4 @@
+LRA participant complete/compensate endpoints should be allowed to return a 202 Accepted HTTP status
+The compensate and complete participant endpoints are allowed to return `202 Accepted` if they cannot complete the operation immediately in which case they should either return a status URL in the HTTP Location Header of the response or the resource class should contain a method annotated with @Status.
+
+Recovery should then periodically probe the status and clean up once the status indicates that the participant has completed or compensated.

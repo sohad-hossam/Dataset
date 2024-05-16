@@ -1,0 +1,4 @@
+Move from JBoss-AS to Wildfly
+h2. Changed:
+git repo name
+build/target/jboss-as-8.0.0.Alpha1 -> build/target/wildfly-8.0.0.Alpha1

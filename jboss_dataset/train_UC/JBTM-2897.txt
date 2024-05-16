@@ -1,0 +1,5 @@
+Calling TransactionImple to register synchronization with null parameter causes NullPointerException being thrown when trace logging is enabled
+If trace logging is enabled then call on {{com.arjuna.ats.internal.jta.transaction.jts.TransactionImple#registerSynchronization}} is done with {{null}} in parameter then {{NullPointerException}} is thrown but {{SystemException}} should be thrown in such case.
+
+https://github.com/jbosstm/narayana/blob/930bd7f17f1b0cc2b8529eaa2ae1fcacf9582ac5/ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/transaction/jts/TransactionImple.java#L452
+

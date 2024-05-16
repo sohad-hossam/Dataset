@@ -1,0 +1,2 @@
+None of the Narayana or JBossTS downloads contain the quickstarts
+The source and binary release bundles do not contain the quickstarts.

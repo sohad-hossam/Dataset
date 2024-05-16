@@ -1,0 +1,6 @@
+Restore commit method to AtomicAction
+At some point someone deprecated the commit method in AtomicAction and left the following comment:
+
+@deprecated Only used by tests
+
+This is wrong. Just because we don't use the commit method in the code does not mean it is invalid in the scope of the public API. The commit method without the boolean parameter is a helper method to simplify calling the other commit with true all of the time. This was added years ago based on feedback from the OTS Current implementation, which had (in C++) a default boolean=true parameter in its signature.

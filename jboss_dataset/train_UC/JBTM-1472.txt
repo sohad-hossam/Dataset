@@ -1,0 +1,21 @@
+Initial version of Compensations API
+We essentially provide a JTA-like implementation for using compensations. We would support distribution over Web services and REST via WS-BA and REST-JDI. This is similar in how we do distributed ACID transactions today; the application is developed against the JTA, but through configuration we enable distributed transactions over a particular transport (remoting, IIOP, WS).
+
+It would be good to have some subset of functionality that worked on a raw VM (i.e. no appserver). This would hopefully broaden the market.
+
+This first piece of work is to do some initial research and support an API with potentially a subset of features of the final API.
+
+Tasks:
+
+# Investigate existing WS-BA APIs
+## Try code examples if possible
+# Produce an initial list of features that should be covered by the API
+# Create a simple implementation backed by WS-BA.
+
+Implementation work, to complete this issue:
+
+# Manage lifecycle of transaction via the @Compensatable annotation
+# Allow Compensation and Completion handlers to be registered via annotations
+# Mechanism for allowing application to mark the transaction as CompensateOnly
+# Merge into Narayana code base
+# OOTB support in WildFly

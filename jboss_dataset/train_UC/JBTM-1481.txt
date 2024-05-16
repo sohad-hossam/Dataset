@@ -1,0 +1,26 @@
+Transaction::commit on an transaction that the reaper has tried to rollback but has a wedged resource will not raise an exception
+If you are getting a wedged resource. What then happens is that we interrupt the original reaper thread that is calling XAResource::rollback on the wedged resource which because you are using JacORB and have an in progress call will generate a null pointer exception when the thread is interrupted (you can see this in my attached log file, it prints a stack trace where the logging didn't do so before) which generates a org.omg.CORBA.TRANSACTION_ROLLEDBACK exception.
+
+
+The problem is that after the reaper tries to rollback the transaction but stalls on a wedged resource, it is then possible for the app thread to unwedged and to do a JTA::commit() and not get an exception. Debugging through the code, it doesn't pose data integrity issues on the transaction as what is happening is that internally we are checking the status of the transaction:
+./ArjunaJTS/jts/classes/com/arjuna/ats/internal/jts/orbspecific/coordinator/ArjunaTransactionImple.java:340
+And because the transaction is not RUNNING or ABORT_ONLY, we are:
+./ArjunaJTS/jts/classes/com/arjuna/ats/internal/jts/orbspecific/coordinator/ArjunaTransactionImple.java:398:
+throw new INVALID_TRANSACTION(0, CompletionStatus.COMPLETED_NO)
+
+Which is all good so far but then ends up in:
+./ArjunaJTS/jtax/classes/com/arjuna/ats/internal/jta/transaction/jts/TransactionImple.java:1425
+            catch (INVALID_TRANSACTION e6)
+            {
+                /*
+                 * In JTS/OTS we can indicate that something was terminated by another thread.
+                 * JTA doesn't really prevent this, but ...
+                 */
+               
+                //throw new IllegalStateException(
+                //        jtaLogger.loggerI18N.getString("com.arjuna.ats.internal.jta.transaction.jts.invalidtx2"));
+            }
+
+Where it appears at some point we would have thrown an exception but decided to make the call that this was not valid anymore.
+
+As I say, it doesn't pose data integrity implications to the specific transaction, but if your app thread unwedges and you then make a decision on the outcome of the transaction (send email, acknowledge success) then it would break the business rules of that application.

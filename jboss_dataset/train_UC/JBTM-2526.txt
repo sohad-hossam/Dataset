@@ -1,0 +1,3 @@
+Create pre-release checking script
+Write script to do tests, deprecation, and blockers checking before executing the release.
+There are example bash scripts for deprecation and tests checking already, but they should be merged into one and be configurable.

@@ -1,0 +1,35 @@
+Test does not close FileInputStream
+{code}
+public XARRTestResource(String xarrHelper, File file) throws IOException {
+        this.xarrHelper = xarrHelper;
+        this.file = file;
+        DataInputStream fis = new DataInputStream(new FileInputStream(file));
+        final int formatId = fis.readInt();
+        final int gtrid_length = fis.readInt();
+        final byte[] gtrid = new byte[gtrid_length];
+        fis.read(gtrid, 0, gtrid_length);
+        final int bqual_length = fis.readInt();
+        final byte[] bqual = new byte[bqual_length];
+        fis.read(bqual, 0, bqual_length);
+        xids.put(file, new Xid() {
+
+            @Override
+            public byte[] getGlobalTransactionId() {
+                return gtrid;
+            }
+
+            @Override
+            public int getFormatId() {
+                return formatId;
+            }
+
+            @Override
+            public byte[] getBranchQualifier() {
+                return bqual;
+            }
+        });
+        fis.close();
+    }
+{code}
+
+Spotted while working on JBTM-2614 backport

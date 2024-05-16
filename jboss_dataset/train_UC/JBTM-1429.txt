@@ -1,0 +1,5 @@
+Document the PartcipantCompletion race condition
+* Add logging to WARN when it happens
+* Add explanation of why and when it happens to XTS docs and how to spot if you have it
+* Blog about it
+* Link to the docs in the quickstart

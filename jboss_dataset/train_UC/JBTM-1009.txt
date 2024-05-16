@@ -1,0 +1,7 @@
+Ensure that the Object Store header for action records is the first item to be packed
+Clone of https://issues.jboss.org/browse/JBTM-1008 but targeted at trunk:
+
+Some action classes call super.save_state after save their own state which results in the record header being packed at arbitrary locations within the record. Ideally the tooling (ObjStoreBrowser) would like to read the header without having to know the specific class responsible for the record.
+
+The equivalent fix for 4.16.0.Final was a quick fix to force offending classes to save/restore the parent classes state before the specific state. A more versatile solution is desirable for trunk, for example change the extension point (for saving state) from say save_state to save_state_impl and provide a final implementation of save_state in StateManager that calls out the classes implementation of save_state_impl after packing the header.
+

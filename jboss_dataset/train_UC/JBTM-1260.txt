@@ -1,0 +1,10 @@
+atsintegration SimpleIsolatedServers testSimultaneousRecover error 4
+http://172.17.131.2/view/Narayana+BlackTie/job/jbossts-branch417-EAP61-java6/1356/
+
+
+Running com.arjuna.ats.jta.distributed.SimpleIsolatedServers
+Tests run: 16, Failures: 1, Errors: 0, Skipped: 0, Time elapsed: 34.634 sec <<< FAILURE!
+
+Results :
+
+Failed tests:   testSimultaneousRecover(com.arjuna.ats.jta.distributed.SimpleIsolatedServers): 4

@@ -1,0 +1,33 @@
+Annotation support for transaction bridging
+h2.Vision
+The grand plan for this feature is to support near transparent bridging, end-to-end irrespective of what transport and component technology is used. The only caveat being that the transport and component technologies support a compatible transaction model. The basic case would be to always bridge when possible and for this scenario the absolute bare-minimum number of annotations should be used. More specific bridging requirements should be specified through annotations. 
+
+h2.Example
+This example shows what is considered the default scenario. It requires very few annotations. 
+
+# Some client code (A JSF managed bean, for example) has a client to Service1 injected.
+# The managed bean begins a transaction somehow.
+# Service1 uses WSPolicy to state that it requires a WSAT transaction to be in place.
+# Somehow (maybe during injection or when CXF handles the PolicyAssertion) the injected client stub for Service1 has the TXBridge and XTS interceptors configured.
+# The managed bean invokes a method on Service1.
+# The JTA transaction is bridged to a WS-AT transaction and the Web service request is made. 
+# Service1 specified by an annotation that it requires a transaction (this was how the WS-Policy assertion was placed in the WSDL) and thus the XTS and TXBridge interceptors are inserted.
+# The incoming WS-AT context is detected and bridged onto a JTA transaction.
+# Service1 updates a DB and the associated XAResource is enlisted with the JTA transaction.
+# Service1 then invokes the client of Service2.
+# Service2 does not specify that it requires a WS-AT transaction, via a WS-Policy assertion. Therefore the client to Service2 must be annotated to specify that it requires WS-AT transaction out-flow.
+# When invoking a method on the Service2 client it is detected that a WS-AT transaction is already in-place and this is used, rather than bridging again from JTA back to WS-AT.
+
+Similar behaviour should occur for REST and JTS transactions also. 
+
+h2.Advanced features
+This section describes some of the more advanced features that could be supported. As these features deviate from the default scenario, they are all specified via annotations.
+
+h1. Specific "bridged from" protocol
+In the default scenario the transaction protocol bridged from is inferred by the transaction context present when the service is invoked. As a result any supported transaction will enact bridging. Some services may need to limit the types of transactions they bridge from. For example, only enable bridging if a WS-BA transaction is in place prior to service invocation. 
+
+h1. Specific "bridged to" protocol
+The default is to always bridge to JTA for incoming bridging. However, this could be inefficient if a Web service always invokes another Web service, both requiring WS-AT. There may be other situations where bridging to JTA is not appropriate.
+
+h1. Disable bridging
+The service may wish to prevent bridging altogether. For example if no transactional work needs to be done within a different type of transaction.

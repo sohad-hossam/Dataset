@@ -1,0 +1,4 @@
+Simplify XTS JBossAS7ServerKillProcessor by making linux only
+We've had many problems with JBossAS7ServerKillProcessor and it's turned into quite a complex beast. By making it linux only, we can stop using the jboss-cli.sh which has been causing IPv6 issues. Also we can run linux shell commands which tend to be simpler.
+
+The tests only run on Linux anyway, as there are other Linux only tests.

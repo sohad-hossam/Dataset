@@ -1,0 +1,6 @@
+Blackie subsystem build fails because of missing org.apache.cxf:cxf-rt-security
+http://172.17.131.2/view/Status/job/narayana/631/
+
+{code}
+[ERROR] Failed to execute goal org.wildfly.build:wildfly-server-provisioning-maven-plugin:1.0.0.Alpha2:build (server-provisioning) on project wildfly-blacktie-build: Execution server-provisioning of goal org.wildfly.build:wildfly-server-provisioning-maven-plugin:1.0.0.Alpha2:build failed: java.lang.RuntimeException: java.lang.RuntimeException: Failed to process feature pack /home/hudson/.m2/repository/org/wildfly/wildfly-feature-pack/9.0.0.Alpha1-SNAPSHOT/wildfly-feature-pack-9.0.0.Alpha1-SNAPSHOT.zip modules: Could not resolve module resource artifact ${org.apache.cxf:cxf-rt-ws-security?jandex} for feature pack /home/hudson/.m2/repository/org/wildfly/wildfly-feature-pack/9.0.0.Alpha1-SNAPSHOT/wildfly-feature-pack-9.0.0.Alpha1-SNAPSHOT.zip -> 
+{code}

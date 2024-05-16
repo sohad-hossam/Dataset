@@ -1,0 +1,2 @@
+"number-of-heuristics" statistic is inaccurate
+When a JTA transaction is ended (commit or rollback) the heuristic count is always incremented regardless of whether or not there was a heuristic and therefore does not accurately reflect the number of participants that actually reported heuristic outcomes.

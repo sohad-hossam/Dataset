@@ -1,0 +1,11 @@
+JCA recovery race condition
+Evidenced in SimpleIsolatedServers::testSimultaneousRecovery
+
+Basically XATerminatorImple -> SAA::activate() -> XAResourceRecord::restore_state() -> getNewXAResource() -> XARecoveryModule::getNewXAResource()
+
+At this point _xidScans may be none-null but still only partial from the first scan: periodicWorkSecondPass -> bottomUpRecovery -> resourceInitiatedRecoveryForRecoveryHelpers -> xaRecovery 
+
+if (_xidScans == null)
+				_xidScans = new Hashtable<XAResource,RecoveryXids>();
+
+What I am not sure of is whether we should synchronize bottomUpRecovery and getNewXAResource as that would stop this race condition. Gonna give that a whirl.

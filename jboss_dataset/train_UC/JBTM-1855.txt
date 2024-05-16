@@ -1,0 +1,18 @@
+No unit tests for queue with RTS transport
+There are currently no tests that use RTS for C++ queue tests. You can tell this as TXN_CFG is not specific in the btconfig.xml.
+
+When TXN_CFG is manually added to the btconfig.xml the tests actually fail with error:
+
+15:15:44,584 ERROR [jacorb.orb] (StompConnect Transport: tcp:///127.0.0.1:49804) Exception while converting string to object: java.lang.IllegalArgumentException: Invalid or unreadable URL/IOR: <?xml version="1.0" encoding="UTF-8" standalone="yes"?><coordinator><status>TransactionActive</status><created>1970-01-01T01:00:00.060+01:00</created><timeout>300</timeout><txnURI>http://127.0.0.1:8080/rest-tx/tx/transaction-manager/0_ffff7f000001_107d759d_51e9352b_7a3</txnURI><terminatorURI>http://127.0.0.1:8080/rest-tx/tx/transaction-manager/0_ffff7f000001_107d759d_51e9352b_7a3/terminator</terminatorURI><durableParticipantEnlistmentURI>http://127.0.0.1:8080/rest-tx/tx/transaction-manager/0_ffff7f000001_107d759d_51e9352b_7a3</durableParticipantEnlistmentURI><volatileParticipantEnlistmentURI>http://127.0.0.1:8080/rest-tx/tx/transaction-manager/0_ffff7f000001_107d759d_51e9352b_7a3/volatile-participant</volatileParticipantEnlistmentURI></coordinator>
+        at org.jacorb.orb.ParsedIOR.parse(ParsedIOR.java:484) [jacorb-2.3.2.jbossorg-4.jar:]
+        at org.jacorb.orb.ParsedIOR.parse(ParsedIOR.java:486) [jacorb-2.3.2.jbossorg-4.jar:]
+        at org.jacorb.orb.ParsedIOR.<init>(ParsedIOR.java:225) [jacorb-2.3.2.jbossorg-4.jar:]
+        at org.jacorb.orb.ORB.string_to_object(ORB.java:1961) [jacorb-2.3.2.jbossorg-4.jar:]
+        at org.codehaus.stomp.jms.ProtocolConverter.createControlWrapper(ProtocolConverter.java:110) [blacktie-stompconnect-5.0.0.M4-SNAPSHOT.jar:]
+        at org.codehaus.stomp.jms.ProtocolConverter.controlToTx(ProtocolConverter.java:98) [blacktie-stompconnect-5.0.0.M4-SNAPSHOT.jar:]
+        at org.codehaus.stomp.jms.ProtocolConverter.onStompReceive(ProtocolConverter.java:310) [blacktie-stompconnect-5.0.0.M4-SNAPSHOT.jar:]
+        at org.codehaus.stomp.jms.ProtocolConverter.onStompFrame(ProtocolConverter.java:172) [blacktie-stompconnect-5.0.0.M4-SNAPSHOT.jar:]
+        at org.codehaus.stomp.tcp.TcpTransport.run(TcpTransport.java:103) [blacktie-stompconnect-5.0.0.M4-SNAPSHOT.jar:]
+        at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_06-icedtea]
+
+

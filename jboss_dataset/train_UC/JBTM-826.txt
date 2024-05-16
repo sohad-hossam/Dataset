@@ -1,0 +1,10 @@
+emma transformed code is illegal and causes the JVM to throw spurious errors when code is retransformed by an agent
+When emma is used to add coverage collection code to the TS build classes it occasionally has  to generate a new <clinit> class for an instrumented class. emma helpfully tags the method with the SYNTHETIC attribute, assuming that this means the method should be ignored by bytecode transformers and other code analysis tools. In fact this attribute is used internally by the Javac comple and JVM for its own purposes and should not be used as a marker by bytecode manipulation tools (see the relevant thread on the Javac mailing list for a definitive resolution of this point).
+
+As a consequence of this mistake the JVM can fail during retransformation of a class file with a spurious error even if the classbytes are not actually modified by the transformer. This manifests in Byteman when a class containing the SYNTHETIC <clinit> method is transformed to inject rules and then subsequently transformed again when the rules are unloaded. The original transform at rule inject time works fine because the bytecode loaded from disk and the modified bytecode returned by the Byteman agent both associate the SYNTHETIC attribute with the <clinit> method (Byteman does not change this erroneously attributed property). However, at the second retransform the JVM blows up with a 'modified method attributes' error.
+
+When the JVM  passes Byteman the bytecode for retransformation it is returned unchanged because the relevant rules have been unloaded. However, when the JVM checks this it compares it against bytecode derived from the internal class pointer which omits the SYNTHETIC attribute on the <clinit> method.
+
+The fix is to ensure that emmma does not attach the SYNTHETIC attribute to any generated <clinit> method. Strictly it shoud not do so for any method but patchign jst this part of the code will be sufficient.
+
+Since emma is not being actively updated this patch is being applied to the JBossTS internal version of emma whose source is in the JBossTS workspace. An issue needs to be raised against the main emma code  base.

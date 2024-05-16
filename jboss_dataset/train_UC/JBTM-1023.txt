@@ -1,0 +1,3 @@
+JTA when putResource is called on a transaction that has been committed, the call is allowed to proceed. This is against the spec.
+In the case where it is called (e.g. in after_completion) it should get an IllegalStateException
+  http://jcp.org/aboutJava/communityprocess/maintenance/jsr907/907ChangeLog.html#putResource

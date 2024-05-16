@@ -1,0 +1,4 @@
+Make 2PC response body optional
+If commit response body is empty but status=200, transaction should still be committed successfully.
+
+See: RESTRecord.doCommit

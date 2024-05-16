@@ -1,0 +1,9 @@
+Errors during reading the object store state may result in incorrect presumed abort semantics being activated
+In the method getOsStatus the error handling ignores various errors that may occur and proceeds to return ActionStatus.ABORTED
+
+Method is defined here:
+https://github.com/jbosstm/narayana/blob/5.2.13.Final/ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/recovery/ActionStatusService.java#L245
+
+The method is intended such that if we get a successful access to the ObjectStore but can’t find any states corresponding to the Uid (vector size is 0) then we can return aborted due to presumed abort. 
+
+Currently if we have a failure during lookup we may also have vector size of 0 but that doesn’t mean the transaction has aborted; it just means we had a failure and should retry later.

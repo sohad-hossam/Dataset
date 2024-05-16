@@ -1,0 +1,9 @@
+Cache store can get an NPE as work is written to outside of _workList lock
+{code}
+java.lang.NullPointerException
+	at com.arjuna.ats.internal.arjuna.objectstore.AsyncStore.getState(CacheStore.java:579)
+	at com.arjuna.ats.internal.arjuna.objectstore.CacheStore.read_state(CacheStore.java:130)
+	at com.arjuna.ats.internal.arjuna.objectstore.FileSystemStore.read_state_internal(FileSystemStore.java:331)
+	at com.arjuna.ats.internal.arjuna.objectstore.FileSystemStore.read_committed(FileSystemStore.java:103)
+	at com.hp.mwtests.ts.arjuna.objectstore.ThreadWriter.run(CachedTest.java:69)
+{code}

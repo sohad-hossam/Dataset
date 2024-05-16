@@ -1,0 +1,2 @@
+Add tests for enlisting RESTAT participants for a rollback only transaction
+Add tests for enlisting volatile and durable participants into a transaction whose status is rollback only 

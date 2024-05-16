@@ -1,0 +1,2 @@
+AtomicObject3.java hammer test hard to debug
+As the test outputs to console with println and has many many threads it is too hard to debug. Use log4j.

@@ -1,0 +1,4 @@
+StAX is not available on Android
+StAX is not available. Since we use it for property configuration, the system fails to run unmodified. There is an equivalent implementation (XmlPullParser) but it is likely other JBoss projects will suffer from this issue.
+
+See http://www.ibm.com/developerworks/library/x-android/ for more details.

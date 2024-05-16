@@ -1,0 +1,2 @@
+NPE in LockManager/LockConflictManager during setlock
+ReentrantLock was not always set when passed through the LockConflictManager.

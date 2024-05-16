@@ -1,0 +1,25 @@
+version tags missed for all the sub-components
+Hi Tom, the problem I've found is that all the dependencies of its own components are lack of version section. For example:
+
+{code}
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.jbossts</groupId>
+      <artifactId>common</artifactId>
+    </dependency>
+  </dependencies>
+{code}
+
+Should be:
+
+{code}
+  <dependencies>
+    <dependency>
+      <groupId>org.jboss.jbossts</groupId>
+      <artifactId>common</artifactId>
+      <version>${project.version}</version>
+    </dependency>
+  </dependencies>
+{code}
+
+Could you please help to add these tags? Thanks!

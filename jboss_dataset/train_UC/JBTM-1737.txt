@@ -1,0 +1,4 @@
+Set different sub-root for persistent lock store or we delete persistent object states
+BasicPersistentLockStore saves lock states in the object store so they can be shared between address spaces. In the past this relied on creating its own object store with a different root. With the refactoring of object stores that occurred a couple of years ago, this got overlooked and was using the exact same object store root, with the exact same state Uid as related TXOJ instances. This meant that lock states could overwrite object states and deleting lock states could delete object states.
+
+Use a sub-root in the object store for uniqueness.

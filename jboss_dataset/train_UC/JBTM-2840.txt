@@ -1,0 +1,2 @@
+Add new suppressed exception test
+Show that initCause messages in the XAException can be read and show how integration code could access them.

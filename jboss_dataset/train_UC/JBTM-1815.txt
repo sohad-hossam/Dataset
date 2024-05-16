@@ -1,0 +1,43 @@
+jatmibroker-xatmi compilation error
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-codeCoverage/40
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-codeCoverage/41
+
+{code}
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Blacktie Java XATMI Implementation 5.0.0.M4-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ blacktie-jatmibroker-xatmi ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.4.3:resources (default-resources) @ blacktie-jatmibroker-xatmi ---
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ blacktie-jatmibroker-xatmi ---
+[INFO] Compiling 58 source files to /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/target/classes
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaSenderImpl.java:[26,17] error: package AtmiBroker does not exist
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaSenderImpl.java:[27,17] error: package AtmiBroker does not exist
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaSenderImpl.java:[31,12] error: cannot find symbol
+[ERROR]  class CorbaSenderImpl
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[41,17] error: package AtmiBroker does not exist
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[43,39] error: cannot find symbol
+[ERROR]  class EndpointQueuePOA
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/TransportImpl.java:[192,15] error: incompatible types
+[ERROR]     CorbaReceiverImpl
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaSenderImpl.java:[37,21] error: cannot find symbol
+[ERROR]  class CorbaSenderImpl
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[84,43] error: method activate_object in interface POAOperations cannot be applied to given types;
+[ERROR]  actual argument CorbaReceiverImpl cannot be converted to Servant by method invocation conversion
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[87,56] error: method servant_to_reference in interface POAOperations cannot be applied to given types;
+[ERROR]  actual argument CorbaReceiverImpl cannot be converted to Servant by method invocation conversion
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[89,22] error: package AtmiBroker does not exist
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[89,64] error: package AtmiBroker does not exist
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[142,8] error: cannot find symbol
+[ERROR]  class CorbaReceiverImpl
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[157,24] error: cannot find symbol
+[ERROR]  class CorbaReceiverImpl
+/home/hudson/workspace/narayana-codeCoverage/blacktie/jatmibroker-xatmi/src/main/java/org/jboss/narayana/blacktie/jatmibroker/core/transport/hybrid/CorbaReceiverImpl.java:[236,12] error: cannot find symbol
+{code}

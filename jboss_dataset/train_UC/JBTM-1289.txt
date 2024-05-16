@@ -1,0 +1,9 @@
+XTS participant completion tests should use a rendezvous to delay close until participant has completed
+The problem is that the participant's notification of completion (sent to the coord) is asynchronous. This can be overtaken by the client's "close" message, resulting in the coordinator cancelling the activity, due to not all participants being completed.
+
+The hack is to add a delay before the client calls 'close'. We have that on the tests in TS, as a stop gap. I am reluctant to apply this hack to the AS test suite as it's embarrassing and likely to be rejected ;-)
+
+This issue is to resolve the problem properly. Maybe by using a Byteman Rendezvous. Alternatively there may be some XTS feature that we can use to poll the coordinator. Or maybe we can add it, as the client API is not standardized.
+
+This issue is not urgent for the TS tests as the hack seems to be holding out at present. However, we do occasionally see this issue on the XTS AS integration testsuite, which increases the priority.
+

@@ -1,0 +1,2 @@
+Downgrade the version of WildFly to last released version
+This would be useful in cases like https://developer.jboss.org/message/961052#961052 where the snapshot is not in nexus.

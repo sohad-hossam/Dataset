@@ -1,0 +1,6 @@
+Update the XTS WSTX11 interop tests to use Arquillian
+These tests are built with ant. They are ran by deploying them as a war to a single JBoss instance which deploys the services needed by the test. This war also exposes a web interface that on request runs the tests and relays the results in the http response.
+
+This process is automated by using ant to deploy the war and then making the http request and validating the response. See here in code for scripts: "XTS/localjunit/run-interop-tests.xml"
+
+By using Arquillian we should be able to remove the ant script servlet, and web page then have Arquillian deploy the services and run the tests directly in the container.

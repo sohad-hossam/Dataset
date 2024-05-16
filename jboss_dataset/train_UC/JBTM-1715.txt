@@ -1,0 +1,15 @@
+NPE when using CompensationManager within an in-flowed WS-BA transaction
+The following error occurs if an injected CompensationManager is invoked within the scope of a compensation-based transaction that was in-flowed via a WS-BA transaction.
+
+{quote}
+16:17:09,879 ERROR [org.jboss.as.ejb3.invocation] (default task-18) JBAS014134: EJB Invocation failed on component TestServiceService for method public void org.jboss.narayana.compensations.functiona[617/9100]
+ted.TestServiceService.saveDataCancelOnFailure(java.lang.Boolean): javax.ejb.EJBException: java.lang.NullPointerException
+        at org.jboss.as.ejb3.tx.CMTTxInterceptor.handleExceptionInOurTx(CMTTxInterceptor.java:166) [wildfly-ejb3-8.0.0.Alpha2-SNAPSHOT.jar:8.0.0.Alpha2-SNAPSHOT]
+        at org.jboss.as.ejb3.tx.CMTTxInterceptor.invokeInOurTx(CMTTxInterceptor.java:251) [wildfly-ejb3-8.0.0.Alpha2-SNAPSHOT.jar:8.0.0.Alpha2-SNAPSHOT]
+        at org.jboss.as.ejb3.tx.CMTTxInterceptor.required(CMTTxInterceptor.java:316) [wildfly-ejb3-8.0.0.Alpha2-SNAPSHOT.jar:8.0.0.Alpha2-SNAPSHOT]
+        at org.jboss.as.ejb3.tx.CMTTxInterceptor.processInvocation(CMTTxInterceptor.java:215) [wildfly-ejb3-8.0.0.Alpha2-SNAPSHOT.jar:8.0.0.Alpha2-SNAPSHOT]
+        at org.jboss.invocation.InterceptorContext.proceed(InterceptorContext.java:289)
+        at org.jboss.as.ejb3.component.interceptors.CurrentInvocationContextInterceptor.processInvocation(CurrentInvocationContextInterceptor.java:41) [wildfly-ejb3-8.0.0.Alpha2-SNAPSHOT.jar:8.0.0.Alpha2-SNAPS
+HOT]
+
+{quote}

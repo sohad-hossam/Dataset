@@ -1,0 +1,2 @@
+Extend compensations BAControler to allow enlistment of handlers by instance
+Currently BAControler allows enlistment of handler only by class. It later creates instances using those classes when finishing the compensating transaction. Because of that it should be easy to allow enlisting of instances. This would allow using labdas when implementing handlers. Also instance could carry some extra information needed to compensate the transaction.

@@ -1,0 +1,2 @@
+Blacktie c++ tx client build build failure
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/797/

@@ -1,0 +1,2 @@
+RESTAT does not expose recovery URIs after a crash
+The RESTAT coordinator creates a participant-recovery URI during participant enlistment. This URI should exist for as long as the participant participates in the transaction including during recovery time. After a coordinator crash GET requests return 404 instead of returning the participant resource URI

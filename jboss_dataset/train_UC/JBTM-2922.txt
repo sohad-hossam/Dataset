@@ -1,0 +1,2 @@
+Don't call ENDRSCAN if periodic recovery will do this anyway
+Some XAResource implementations may decide to close the connection during ENDRSCAN. To facilitate interop with them we can ensure that out of bounds calls to scan the XAR leave the connection open if a full recovery scan is in flight. Doing this means that the AARM can get the XAR from the XARM module but still call commit during its phase2

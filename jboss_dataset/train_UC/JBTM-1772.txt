@@ -1,0 +1,40 @@
+Cannot build with emma as dependency on adinn.jar?
+When trying to build STM with emma as per 1766 instructions, I get the following build time error:
+
+/Users/marklittle/github/narayana/tools/maven/bin/mvn -s tools/maven/conf/settings.xml -Dorson.jar.location=/Users/marklittle/github/narayana/ext/ -Demma.jar.location=/Users/marklittle/github/narayana/ext/emma.jar clean install   -PcodeCoverage -pl STM
+[INFO] Scanning for projects...
+[INFO]                                                                         
+[INFO] ------------------------------------------------------------------------
+[INFO] Building Narayana: STM 5.0.0.M4-SNAPSHOT
+[INFO] ------------------------------------------------------------------------
+[INFO] 
+[INFO] --- maven-clean-plugin:2.5:clean (default-clean) @ core ---
+[INFO] 
+[INFO] --- maven-resources-plugin:2.5:resources (default-resources) @ core ---
+[debug] execute contextualize
+[INFO] Using 'UTF-8' encoding to copy filtered resources.
+[INFO] skip non existing resourceDirectory /Users/marklittle/github/narayana/STM/src/main/resources
+[INFO] 
+[INFO] --- maven-compiler-plugin:2.3.2:compile (default-compile) @ core ---
+[INFO] Compiling 40 source files to /Users/marklittle/github/narayana/STM/target/classes
+[INFO] 
+[INFO] --- emma-maven-plugin:1.0-alpha-3:instrument (default) @ core ---
+Downloading: http://repository.jboss.org/nexus/content/groups/public/emma/emma/2.0.12224-adinn/emma-2.0.12224-adinn.pom
+Downloading: http://repo.maven.apache.org/maven2/emma/emma/2.0.12224-adinn/emma-2.0.12224-adinn.pom
+[WARNING] The POM for emma:emma:jar:2.0.12224-adinn is missing, no dependency information available
+Downloading: http://repository.jboss.org/nexus/content/groups/public/emma/emma/2.0.12224-adinn/emma-2.0.12224-adinn.jar
+Downloading: http://repo.maven.apache.org/maven2/emma/emma/2.0.12224-adinn/emma-2.0.12224-adinn.jar
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time: 4.095s
+[INFO] Finished at: Sun Jun 09 15:31:51 BST 2013
+[INFO] Final Memory: 23M/207M
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.codehaus.mojo:emma-maven-plugin:1.0-alpha-3:instrument (default) on project core: Execution default of goal org.codehaus.mojo:emma-maven-plugin:1.0-alpha-3:instrument failed: Plugin org.codehaus.mojo:emma-maven-plugin:1.0-alpha-3 or one of its dependencies could not be resolved: Could not find artifact emma:emma:jar:2.0.12224-adinn in jboss-public-repository-group (http://repository.jboss.org/nexus/content/groups/public/) -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/PluginResolutionException

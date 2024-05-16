@@ -1,0 +1,6 @@
+Merge the individual emma code coverage reports
+Currently each module will generate its own code coverage report. It would be useful if we can try to work out how to get Emma to either merge the reports or potentially we can see if we can change the location of where emma generates its reports (currently the target folder of each module) to a common location and see if that will will merge the reports automatically.
+
+The benefit of this is that certain modules do not contain complete code coverage unit tests and so we appear to have low coverage in some areas but when taken in context with the rest of the project this coverage would be much higher.
+
+We should also attempt to get the qa/ runs to generate emma coverage data.

@@ -1,0 +1,2 @@
+Xids that relate to an CMR that has been recovered are rolledback even if the CMR committed
+During recovery the CMR orphan detection checks to make sure that there is not an indoubt transaction that pertains to the CMR before deciding if an Xid is an orphan. Actually the check should also see if the transaction committed.

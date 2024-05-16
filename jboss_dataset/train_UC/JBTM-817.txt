@@ -1,0 +1,16 @@
+Automate execution of XTS crash recovery tests
+The XTS codebase includes crash recovery tests in the sar/tests subtree which currently need to be executed manually. This needs to be changed so that the current tests can be run automatically via  Hudson. After this has been completed it should then be possible to extend the test suite to exercise scenarios not yet covered by the current range  of tests.
+
+The tests themselves employ a  web service client and several web services which are deployed to the app server with the test code. The behaviour of the client and web services can be scripted so this single deployment is capable of exercising all the scenarios which are required in order to lead up to a crash. However, automation is not straightforward for several reasons:
+
+Execution of the tests requires starting up an app server twice, the first time so that it can be crashed at a specific point during execution then a second time so that recovery processing can be checked. The JBossTS codebase includes some utilities which can be used to help manage startup and shutdown of the JBoss AS instance.
+
+Crashing of the app server and tracing of execution during the first and second runs requires the use of the Byteman agent and Byteman rules. Suitable Byteman rule scripts exist for all the current tests, However, trace output is currently written to a file and the output is verified by eyeball. Timing variations mean that this output does not always have a fixed format. Also, validation requires checking that identifiers printed during the first and second run match up. It would be worth investigating an alternative way of collecting and validating this trace information e.g. using the dtest package contributed to Byteman by Jonathan Halliday. dtest has been used to test similar scenarios in the JBossTS JTA - XTS bridge code (the latter is in the  txbridge source tree).
+
+Timing variations also mean that execution of recovery code may needs to be manipulated using Byteman rules in order to ensure that the circumstances specified in the test scenario are actually met. This can involve introducing delays or dropping messages to ensure that events are handled in a specific order. The existing Bbyteman scripts include rules to achieve this where needed by the current tests. However, once again, this complicates automation of the trace validation process since it requires some of  the traced operations to be discounted until an occurrence which has been engineered is identified.
+
+In the longer run the tests will need  to be extended in two dimensions.
+
+Firstly, the current test locates the client, web services and transaction coordinator in one application server. The client, web services and transaction coordinator need to be tested when they are deployed in different app servers in various possible combinations and the correct handling of a crash by one or more of these app servers needs to be validated.
+
+Secondly, the current tests only test normal recovery situations. It will also be necessary to simulate failures in the recovery process, either by scripting  the web service behaviour or by injecting faults using Byteman rules.

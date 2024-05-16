@@ -1,0 +1,39 @@
+ConnectionImple/RecoverableConnection leak in ConnectionManager because of the pooling
+This is indirectly related to JBTM-529.
+
+Suppose you are using JBossTS JTA within your webapp, configured using Spring and using the DynamicClass mechanism to get connections.
+Suppose you're doing connection pooling under JBossTS: that is, the DynamicClass implementation is pooling XA connections from the actual XADataSource provided by the DBMS JDBC driver. This is a different approach from the one described in JBTM-529 and we switched to this one because of the problems encountered with JBTM-529, thinking that it could be a more correct approach.
+
+In this scenario, the client application code is doing the following:
+- start a transaction
+- request a new JDBC connection: this can be done either by using the DriverManager or by using Spring SimpleDriverDataSource; JBossTS JTA TransactionalDriver actually creates a new ConnectionImple, which asks the DynamicClass implementation to get a new XAConnection and gets a physical JDBC connection from that XAConnection; because of the XAConnection pooling provided by the DynamicClass implementation, this XAConnection might be a new one or a reused one, but I think this is not relevant to the problem
+- do what you have to do with the connection
+- close the connection: this causes the invocation of ConnectionImple.close
+- do other things within the transaction
+- commit the transaction
+
+Now, what I see is this: com.arjuna.ats.internal.jdbc.ConnectionImple.close() does the following check:
+
+if (!_recoveryConnection.inuse())
+{
+	ConnectionManager.remove(this); // finalize?
+}
+
+The problem is that since the transaction is still active, _recoveryConnection.inuse() returns true, because it checks for the XAResource associated with it: in the case of DirectRecoverableConnection, this is done when com.arjuna.ats.internal.jdbc.DirectRecoverableConnection.reset() is invoked, that is when the RecoverableConnection is closed, and so when the transaction terminates.
+
+The ultimate effect is that the ConnectionImple is never removed from the caching map of ConnectionManager, because it should have been when the connection was closed, BUT at that time it was not because its RecoverableConnection was in use.
+
+What we're actually seeing in our application is that com.arjuna.ats.internal.jdbc.ConnectionManager._connections grows indefinitely. This causes a memory leak and severe performance problems, also because the test for cache hits in ConnectionManager is made using a linear iteration over the map (this could be improved a lot).
+
+The workaround is to disable connection pooling within the transaction by using the patch from JBTM-529 (but also please see my last comment, too!).
+
+To fix the problem I think that some approaches could be followed:
+- the easiest one is to remove the old connections without any associated transaction when iterating over _connections: that is, if I'm checking a connection conn which has tx1 == null, I could remove conn from _connections; in this way I'm sure that sooner or later a ConnectionImple, which hasn't been removed from that map previously, will be when another connection is requested
+- implement com.arjuna.ats.internal.jdbc.ConnectionImple.equals(Object) and hashCode() so that the call to _connections.put(conn, conn) will "replace any old (closed) connection which had the same connection information", as the inline documentation says; this is not true right now, because equality is based on identity; this might be the less invasive solution, but I don't know how easy it would be to do and if there may be regressions in other areas
+- provide a mechanism to invoke com.arjuna.ats.internal.jdbc.ConnectionManager.remove(ConnectionImple) for all the ConnectionImple objects bound to a transaction when this is completed (committed or rolled back)
+
+In any case, a smarter use of _connections would be useful for performance (using a Transaction=>ConnectionImple mapping, for instance...).
+
+I would also consider the complete removal of in-transaction connection pooling: after all, every production use of JBossTS JTA will certainly use some sort of connection pooling by its own, so the benefits of using another level of pooling could be negligible. Even worse, performance could be compromised if the search for the hit in the pool is not efficient.
+
+PLEASE NOTE: this problem has been observed in our production environment, using JBossTS JTA 4.6.1_GA. I did some browsing of JBossTS JTA 4.11.0_Final and although some little changes (like the use of a HashSet instead of a Hashtable) it seems to me that the problem is still there. I couldn't do further investigation for now, but I will do soon.

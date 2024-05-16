@@ -1,0 +1,3 @@
+The coordinator does not flush its cache of transactions as they timeout eventually resulting in OOM
+When transactions timeout (when the client abandons them or errors out) the org.jboss.jbossts.star.service.Coordinator holds references to the 
+org.jboss.jbossts.star.resource.Transaction in the transactions Map. So eventually the Coordinator goes OOM.

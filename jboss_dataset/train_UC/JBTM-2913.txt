@@ -1,0 +1,4 @@
+Make the SPI a true dependency of standalone narayana-jta pom.xml
+This means that users can simply import the narayana-jta dependency rather than both it and the SPI.
+
+It is useful when being consumed by jbpm for example.

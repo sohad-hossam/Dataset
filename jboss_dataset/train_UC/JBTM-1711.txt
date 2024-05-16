@@ -1,0 +1,4 @@
+@CompensationScoped fails in CompensationHandler et al
+Beans annotated with @CompensationScoped are injected correctly in the application. However, the scope fails to be created for CompensationHandler, ConfirmationHandler and TransactionLoggedHandler implementations. This is because they are invoked by XTS, not the application and thus Weld is not active on the thread.
+
+The solution is to create the instance of the handlers using the BeanManager (this ensures Weld is active) and then set the ThreadContextClassLoader to the same as the one used by the application. This ensures that the application's Weld context is used when the handler is invoked.

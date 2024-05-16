@@ -1,0 +1,2 @@
+Provide an async commit feature hanging off UserTransactionImple
+Equivalent of https://github.com/capedwarf/capedwarf-blue/blob/master/datastore/src/main/java/org/jboss/capedwarf/datastore/JBossTransaction.java#L257

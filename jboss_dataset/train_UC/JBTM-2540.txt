@@ -1,0 +1,19 @@
+Can't build BlackTie subsystem since update to WFLY 10 CR4-SNAPSHOT
+{code}
+[INFO] ------------------------------------------------------------------------                                                                                                                                                              
+[INFO] Reactor Summary:                                                                                                                                                                                                                      
+[INFO]                                                                                                                                                                                                                                       
+[INFO] WildFly: Blacktie Subsystem Parent ................ SUCCESS [0.932s]                                                                                                                                                                  
+[INFO] WildFly: Blacktie Subsystem ....................... SUCCESS [3.568s]                                                                                                                                                                  
+[INFO] WildFly: Blacktie Feature Pack .................... SUCCESS [0.725s]                                                                                                                                                                  
+[INFO] WildFly: Blacktie Subsystem Build ................. FAILURE [4.928s]                                                                                                                                                                  
+[INFO] ------------------------------------------------------------------------                                                                                                                                                              
+[INFO] BUILD FAILURE                                                                                                                                                                                                                         
+[INFO] ------------------------------------------------------------------------                                                                                                                                                              
+[INFO] Total time: 10.345s                                                                                                                                                                                                                   
+[INFO] Finished at: Wed Oct 21 16:40:05 BST 2015                                                                                                                                                                                             
+[INFO] Final Memory: 51M/234M                                                                                                                                                                                                                
+[INFO] ------------------------------------------------------------------------                                                                                                                                                              
+[ERROR] Failed to execute goal org.wildfly.build:wildfly-server-provisioning-maven-plugin:1.1.0.CR1:build (server-provisioning) on project wildfly-blacktie-build: Execution server-provisioning of goal org.wildfly.build:wildfly-server-pro
+visioning-maven-plugin:1.1.0.CR1:build failed: java.lang.RuntimeException: java.lang.NullPointerException -> [Help 1]                                                                                                                        
+{code}

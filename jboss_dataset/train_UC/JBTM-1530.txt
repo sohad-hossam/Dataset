@@ -1,0 +1,2 @@
+Create a test to show the difference between JTS and JTA afterCompletion TransactionManager::getStatus responses
+None

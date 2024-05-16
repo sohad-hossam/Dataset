@@ -1,0 +1,13 @@
+Use a global environment variable in CI for version numbers of Narayana and WildFly
+We have "8.0.0.Alpha2-SNAPSHOT" scattered over many jobs. This is a pain to change every time we have a new release of Wildfly. We also have the same issue with jboss-as-7.2.0.Final.
+
+We should use global env variables instead. See the following for how to do it. Notice that I have already added one for Narayana.
+
+http://172.17.131.2/configure
+
+Call the variables:
+
+WILDFLY_MASTER_VERSION=8.0.0.Alpha2-SNAPSHOT
+JBOSS_7_2_VERSION=7.2.0.Final
+
+Ask paul to update the sanity check job before this is done. This will blacklist the usage of hardcoded wildfly/jboss version numbers. It will make it a lot easier to find all the places it is used.

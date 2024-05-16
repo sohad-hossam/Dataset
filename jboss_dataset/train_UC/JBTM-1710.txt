@@ -1,0 +1,4 @@
+CDI @Inject doesn't work in CompensationHandler et al
+org.jboss.narayana.compensations.impl.Participant uses class.newInstance to create the handler instance. This means that Weld does not handle the @Inject annotation. 
+
+Creating the instance via the BeanManager solves this problem.

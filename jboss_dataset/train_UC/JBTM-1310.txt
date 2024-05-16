@@ -1,0 +1,2 @@
+Store JTS participant records with their parent transaction
+In JTA mode participant records are stored together with their owning transaction but this does not happen in JTS mode even when the parent transaction is local. This results in extra log writes thus impacting throughput.

@@ -1,0 +1,2 @@
+Check that narayana builds and runs using the Java SE 9 compiler
+Get the latest build from https://jdk9.java.net/download/ and check for any issues.

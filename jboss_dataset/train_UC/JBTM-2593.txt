@@ -1,0 +1,4 @@
+Suggest making this read_state INFO not WARN
+I'm not sure why it was added or why it's a warning. Maybe should be info or debug?
+
+read_state operation, ShadowingStore_6

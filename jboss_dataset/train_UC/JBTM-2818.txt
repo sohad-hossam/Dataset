@@ -1,0 +1,2 @@
+Document tooling operation for deleting participants
+The operation for deleting participants via the WildFly cli needs adding to our documentation.

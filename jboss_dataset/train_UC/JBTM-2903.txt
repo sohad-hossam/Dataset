@@ -1,0 +1,142 @@
+Improve JMS integration to be able to control connections more smartly
+Currently JMS integration opens a connection on getXAResources call and closes it on TMENDSCAN call. With a latest changes to XARecoveryModule, this connection management doesn't work any more, because connection might be closed before the commit call and result in a failure.
+
+{code}
+2017-05-29 08:38:35.000 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Periodic recovery second pass at Mon, 29 May 2017 08:38:35
+2017-05-29 08:38:35.000 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : AtomicActionRecoveryModule second pass
+2017-05-29 08:38:35.008 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : InputObjectState::InputObjectState()
+2017-05-29 08:38:35.008 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : OutputObjectState::OutputObjectState()
+2017-05-29 08:38:35.041 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : transaction type is /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction uid is 0:ffffac110004:857c:592bddb6:b
+ ActionStatus is ActionStatus.COMMITTED in flight is false
+2017-05-29 08:38:35.047 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : StateManager::StateManager( 0:ffffac110004:857c:592bddb6:b )
+2017-05-29 08:38:35.047 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::BasicAction(0:ffffac110004:857c:592bddb6:b)
+2017-05-29 08:38:35.048 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::activate() for action-id 0:ffffac110004:857c:592bddb6:b
+2017-05-29 08:38:35.058 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : InputObjectState::InputObjectState(0:ffffac110004:857c:592bddb6:b, StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction)
+2017-05-29 08:38:35.059 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::restore_state ()
+2017-05-29 08:38:35.063 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : StateManager.unpackHeader for object-id 0:ffffac110004:857c:592bddb6:b birth-date 1496047096477
+2017-05-29 08:38:35.065 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Unpacked a 171 record
+2017-05-29 08:38:35.067 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : StateManager::StateManager( 0:0:0:0:0 )
+2017-05-29 08:38:35.067 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : AbstractRecord::AbstractRecord () - crash recovery constructor
+2017-05-29 08:38:35.072 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change BETWEEN_PASSES->SECOND_PASS
+
+2017-05-29 08:38:35.073 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule - second pass
+2017-05-29 08:38:35.075 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule.transactionInitiatedRecovery completed
+2017-05-29 08:38:35.075 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule.resourceInitiatedRecovery completed
+2017-05-29 08:38:35.076 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change SECOND_PASS->IDLE
+
+2017-05-29 08:38:35.077 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change IDLE->FIRST_PASS
+
+2017-05-29 08:38:35.077 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule - first pass
+2017-05-29 08:38:35.078 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : InputObjectState::InputObjectState()
+2017-05-29 08:38:35.078 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : OutputObjectState::OutputObjectState()
+2017-05-29 08:38:35.094  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : connect
+2017-05-29 08:38:35.104 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : xarecovery of org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596
+2017-05-29 08:38:35.105  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : recover 16777216
+2017-05-29 08:38:35.111 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Found 2 xids in doubt
+2017-05-29 08:38:35.111 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Recovered: < 131077, 29, 36, 0000000000-1-1-84170400-119-1018943-39700001149, 0000000000-1-1-84170400-119-1018943-39700001600000000 >
+2017-05-29 08:38:35.112 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Recovered: < 131077, 29, 36, 0000000000-1-1-84170400-1231248943-35-740001149, 0000000000-1-1-84170400-1231248943-35-740001600000000 >
+2017-05-29 08:38:35.114 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids new recoveryXids org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115114
+2017-05-29 08:38:35.116 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids _whenFirstSeen put nextScan org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115114 === < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:899b:592bd946:b, node_name=1, branch_uid=0:ffffac110004:899b:592bd946:10, subordinatenodename=null, eis_name=0 >
+2017-05-29 08:38:35.116 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids _whenFirstSeen put nextScan org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115114 === < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:10, subordinatenodename=null, eis_name=0 >
+2017-05-29 08:38:35.118  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : recover 8388608
+2017-05-29 08:38:35.118  INFO 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : disconnect
+2017-05-29 08:38:35.119 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change FIRST_PASS->IDLE
+
+2017-05-29 08:38:35.122  WARN 1 --- [riodic Recovery] com.arjuna.ats.jta                       : ARJUNA016037: Could not find new XAResource to use for recovering non-serializable XAResource XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:c, subordinatenodename=null, eis_name=0 >, heuristic: TwoPhaseOutcome.FINISH_OK com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@3e8225ee >
+2017-05-29 08:38:35.122 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecordList::insert(RecordList: empty) : appending /StateManager/AbstractRecord/XAResourceRecord for 0:ffffac110004:857c:592bddb6:d
+2017-05-29 08:38:35.123 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Unpacked a 171 record
+2017-05-29 08:38:35.124 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : StateManager::StateManager( 0:0:0:0:0 )
+2017-05-29 08:38:35.124 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : AbstractRecord::AbstractRecord () - crash recovery constructor
+2017-05-29 08:38:35.126 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecordList::insert(RecordList: 0:ffffac110004:857c:592bddb6:d) : appending /StateManager/AbstractRecord/XAResourceRecord for 0:ffffac110004:857c:592bddb6:11
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Unpacked a 463 record
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : HeuristicList - Unpacked heuristic list size of 0
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Restored action status of ActionStatus.COMMITTING 6
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Restored action type Top-level 0
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    :  Restored heuristic decision of TwoPhaseOutcome.PREPARE_OK 0
+2017-05-29 08:38:35.127 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoverAtomicAction.replayPhase2 recovering 0:ffffac110004:857c:592bddb6:b ActionStatus is ActionStatus.COMMITTED
+2017-05-29 08:38:35.127 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::phase2Commit() for action-id 0:ffffac110004:857c:592bddb6:b
+2017-05-29 08:38:35.130 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::doCommit (XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:c, subordinatenodename=null, eis_name=0 >, heuristic: TwoPhaseOutcome.FINISH_OK com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@3e8225ee >)
+2017-05-29 08:38:35.131 TRACE 1 --- [riodic Recovery] com.arjuna.ats.jta                       : XAResourceRecord.topLevelCommit for XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:c, subordinatenodename=null, eis_name=0 >, heuristic: TwoPhaseOutcome.FINISH_OK com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@3e8225ee >, record id=0:ffffac110004:857c:592bddb6:d
+2017-05-29 08:38:35.131 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change IDLE->FIRST_PASS
+
+2017-05-29 08:38:35.131 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule - first pass
+2017-05-29 08:38:35.131 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : InputObjectState::InputObjectState()
+2017-05-29 08:38:35.131 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : OutputObjectState::OutputObjectState()
+2017-05-29 08:38:35.141  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : connect
+2017-05-29 08:38:35.146 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : xarecovery of org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596
+2017-05-29 08:38:35.147  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : recover 16777216
+2017-05-29 08:38:35.149 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Found 2 xids in doubt
+2017-05-29 08:38:35.150 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Recovered: < 131077, 29, 36, 0000000000-1-1-84170400-119-1018943-39700001149, 0000000000-1-1-84170400-119-1018943-39700001600000000 >
+2017-05-29 08:38:35.150 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Recovered: < 131077, 29, 36, 0000000000-1-1-84170400-1231248943-35-740001149, 0000000000-1-1-84170400-1231248943-35-740001600000000 >
+2017-05-29 08:38:35.151 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids updateIfEquivalentRM1 org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115150
+2017-05-29 08:38:35.151  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : recover 8388608
+2017-05-29 08:38:35.151  INFO 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : disconnect
+2017-05-29 08:38:35.152 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change FIRST_PASS->IDLE
+
+2017-05-29 08:38:35.154  WARN 1 --- [riodic Recovery] com.arjuna.ats.jta                       : ARJUNA016038: No XAResource to recover < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:c, subordinatenodename=null, eis_name=0 >
+2017-05-29 08:38:35.155 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction.doCommit for 0:ffffac110004:857c:592bddb6:b received TwoPhaseOutcome.FINISH_ERROR from class com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord
+2017-05-29 08:38:35.155 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecordList::insert(RecordList: empty) : appending /StateManager/AbstractRecord/XAResourceRecord for 0:ffffac110004:857c:592bddb6:d
+2017-05-29 08:38:35.155 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::doCommit() result for action-id (0:ffffac110004:857c:592bddb6:b) on record id: (0:ffffac110004:857c:592bddb6:d) is (TwoPhaseOutcome.FINISH_ERROR) node id: (1)
+2017-05-29 08:38:35.156 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::doCommit (XAResourceRecord < resource:org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:10, subordinatenodename=null, eis_name=0 >, heuristic: TwoPhaseOutcome.FINISH_OK com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@5ee9973f >)
+2017-05-29 08:38:35.157 TRACE 1 --- [riodic Recovery] com.arjuna.ats.jta                       : XAResourceRecord.topLevelCommit for XAResourceRecord < resource:org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596, txid:< formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:10, subordinatenodename=null, eis_name=0 >, heuristic: TwoPhaseOutcome.FINISH_OK com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@5ee9973f >, record id=0:ffffac110004:857c:592bddb6:11
+2017-05-29 08:38:35.165  WARN 1 --- [riodic Recovery] com.arjuna.ats.jta                       : ARJUNA016036: commit on < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffffac110004:857c:592bddb6:b, node_name=1, branch_uid=0:ffffac110004:857c:592bddb6:10, subordinatenodename=null, eis_name=0 > (org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596) failed with exception $-
+
+java.lang.IllegalStateException: Connection has not been opened
+	at org.springframework.util.Assert.state(Assert.java:70) ~[spring-core-4.3.9.BUILD-SNAPSHOT.jar!/:4.3.9.BUILD-SNAPSHOT]
+	at org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper.getDelegate(DataSourceXAResourceRecoveryHelper.java:188) ~[spring-boot-1.5.4.BUILD-SNAPSHOT.jar!/:1.5.4.BUILD-SNAPSHOT]
+	at org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper.commit(DataSourceXAResourceRecoveryHelper.java:159) ~[spring-boot-1.5.4.BUILD-SNAPSHOT.jar!/:1.5.4.BUILD-SNAPSHOT]
+	at com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord.topLevelCommit(XAResourceRecord.java:473) ~[jta-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2892) ~[arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doCommit(BasicAction.java:2808) ~[arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Commit(BasicAction.java:1873) ~[arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.arjuna.recovery.RecoverAtomicAction.replayPhase2(RecoverAtomicAction.java:71) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.doRecoverTransaction(AtomicActionRecoveryModule.java:152) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.processTransactionsStatus(AtomicActionRecoveryModule.java:253) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.AtomicActionRecoveryModule.periodicWorkSecondPass(AtomicActionRecoveryModule.java:109) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:811) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:377) [arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+
+2017-05-29 08:38:35.165 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction.doCommit for 0:ffffac110004:857c:592bddb6:b received TwoPhaseOutcome.FINISH_ERROR from class com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord
+2017-05-29 08:38:35.165 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecordList::insert(RecordList: 0:ffffac110004:857c:592bddb6:d) : appending /StateManager/AbstractRecord/XAResourceRecord for 0:ffffac110004:857c:592bddb6:11
+2017-05-29 08:38:35.168 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::doCommit() result for action-id (0:ffffac110004:857c:592bddb6:b) on record id: (0:ffffac110004:857c:592bddb6:11) is (TwoPhaseOutcome.FINISH_ERROR) node id: (1)
+2017-05-29 08:38:35.168 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::updateState() for action-id 0:ffffac110004:857c:592bddb6:b
+2017-05-29 08:38:35.168 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : OutputObjectState::OutputObjectState(0:ffffac110004:857c:592bddb6:b, /StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction)
+2017-05-29 08:38:35.168 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::save_state ()
+2017-05-29 08:38:35.170 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : StateManager.packHeader for object-id 0:ffffac110004:857c:592bddb6:b birth-date 1496047115170
+2017-05-29 08:38:35.170 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::save_state - next record to pack is a 171 record /StateManager/AbstractRecord/XAResourceRecord should save it? = true
+2017-05-29 08:38:35.170 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Packing a 171 record
+2017-05-29 08:38:35.170 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : BasicAction::save_state - next record to pack is a 171 record /StateManager/AbstractRecord/XAResourceRecord should save it? = true
+2017-05-29 08:38:35.171 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Packing a 171 record
+2017-05-29 08:38:35.171 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Packing a NONE_RECORD
+2017-05-29 08:38:35.172 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Packing action status of ActionStatus.COMMITTED
+2017-05-29 08:38:35.193 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoverAtomicAction.replayPhase2( 0:ffffac110004:857c:592bddb6:b )  finished
+2017-05-29 08:38:35.194 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Moving to the next recovery module
+2017-05-29 08:38:35.195 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change IDLE->SECOND_PASS
+
+2017-05-29 08:38:35.196 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule - second pass
+2017-05-29 08:38:35.197 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule.transactionInitiatedRecovery completed
+2017-05-29 08:38:35.198 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : xarecovery second pass of org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596
+2017-05-29 08:38:35.199 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids _whenFirstSeen toRecover no org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115114 === 1496047115199
+2017-05-29 08:38:35.200 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids _whenFirstSeen toRecover no org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115114 === 1496047115199
+2017-05-29 08:38:35.200 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Have 0 Xids to recover on this pass.
+2017-05-29 08:38:35.200  WARN 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : recover 8388608
+2017-05-29 08:38:35.201  INFO 1 --- [riodic Recovery] b.j.n.DataSourceXAResourceRecoveryHelper : disconnect
+2017-05-29 08:38:35.203  WARN 1 --- [riodic Recovery] com.arjuna.ats.jta                       : ARJUNA016009: Caught:
+
+java.lang.NullPointerException: null
+	at org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper.disconnect(DataSourceXAResourceRecoveryHelper.java:131) ~[spring-boot-1.5.4.BUILD-SNAPSHOT.jar!/:1.5.4.BUILD-SNAPSHOT]
+	at org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper.recover(DataSourceXAResourceRecoveryHelper.java:123) ~[spring-boot-1.5.4.BUILD-SNAPSHOT.jar!/:1.5.4.BUILD-SNAPSHOT]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:791) ~[jta-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:481) ~[jta-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:232) ~[jta-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:811) ~[arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:377) ~[arjuna-5.6.0.Final-SNAPSHOT.jar!/:5.6.0.Final-SNAPSHOT]
+
+2017-05-29 08:38:35.203 TRACE 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : RecoveryXids isStale Check org.springframework.boot.jta.narayana.DataSourceXAResourceRecoveryHelper@756c6596 1496047115150 1496047115203 false
+2017-05-29 08:38:35.203 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.jta                       : Local XARecoveryModule.resourceInitiatedRecovery completed
+2017-05-29 08:38:35.203 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : XARecoveryModule state change SECOND_PASS->IDLE
+
+2017-05-29 08:38:35.203 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : Moving to the next recovery module
+2017-05-29 08:38:35.204 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : PeriodicRecovery: background thread Status <== INACTIVE
+2017-05-29 08:38:35.204 DEBUG 1 --- [riodic Recovery] com.arjuna.ats.arjuna                    : PeriodicRecovery: background thread backing off
+{code}

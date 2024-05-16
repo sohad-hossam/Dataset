@@ -1,0 +1,48 @@
+Deadlock in ThreadActionTest
+{code}
+Found one Java-level deadlock:
+=============================
+"Thread-3":
+  waiting to lock monitor 0x0000000019599b88 (object 0x000000009e484cb0, a com.arjuna.ats.arjuna.AtomicAction),
+  which is held by "Thread-2"
+"Thread-2":
+  waiting for ownable synchronizer 0x000000009debea20, (a java.util.concurrent.locks.ReentrantLock$NonfairSync),
+  which is held by "Thread-3"
+Java stack information for the threads listed above:
+===================================================
+"Thread-3":
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.add(BasicAction.java:297)
+	- waiting to lock <0x000000009e484cb0> (a com.arjuna.ats.arjuna.AtomicAction)
+	at com.arjuna.ats.arjuna.StateManager.modified(StateManager.java:896)
+	- locked <0x000000009debe740> (a com.hp.mwtests.ts.txoj.common.resources.AtomicObject)
+	at com.arjuna.ats.txoj.LockManager.setlock(LockManager.java:487)
+	- locked <0x000000009e05fba8> (a java.lang.Object)
+	at com.arjuna.ats.txoj.LockManager.setlock(LockManager.java:329)
+	at com.hp.mwtests.ts.txoj.common.resources.AtomicObject.incr(AtomicObject.java:139)
+	at com.hp.mwtests.ts.txoj.common.resources.BasicThreadedObject.run(BasicThreadedObject.java:79)
+"Thread-2":
+	at sun.misc.Unsafe.park(Native Method)
+	- parking to wait for  <0x000000009debea20> (a java.util.concurrent.locks.ReentrantLock$NonfairSync)
+	at java.util.concurrent.locks.LockSupport.park(LockSupport.java:186)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.parkAndCheckInterrupt(AbstractQueuedSynchronizer.java:834)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquireQueued(AbstractQueuedSynchronizer.java:867)
+	at java.util.concurrent.locks.AbstractQueuedSynchronizer.acquire(AbstractQueuedSynchronizer.java:1197)
+	at java.util.concurrent.locks.ReentrantLock$NonfairSync.lock(ReentrantLock.java:214)
+	at java.util.concurrent.locks.ReentrantLock.lock(ReentrantLock.java:290)
+	at com.arjuna.ats.arjuna.StateManager.lockMutex(StateManager.java:1317)
+	at com.arjuna.ats.txoj.LockManager.doRelease(LockManager.java:756)
+	at com.arjuna.ats.txoj.LockManager.releaseAll(LockManager.java:288)
+	at com.arjuna.ats.internal.txoj.abstractrecords.LockRecord.nestedAbort(LockRecord.java:106)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2941)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2918)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.Abort(BasicAction.java:1632)
+	- locked <0x000000009e484cb0> (a com.arjuna.ats.arjuna.AtomicAction)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.checkChildren(BasicAction.java:3354)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1460)
+	- locked <0x000000009e4039c8> (a com.arjuna.ats.arjuna.AtomicAction)
+	at com.arjuna.ats.arjuna.coordinator.TwoPhaseCoordinator.end(TwoPhaseCoordinator.java:96)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:162)
+	at com.arjuna.ats.arjuna.AtomicAction.commit(AtomicAction.java:147)
+	at com.hp.mwtests.ts.txoj.common.resources.BasicThreadedObject.run(BasicThreadedObject.java:90)
+Found 1 deadlock.
+{code}

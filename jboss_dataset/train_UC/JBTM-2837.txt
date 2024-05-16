@@ -1,0 +1,83 @@
+Server being stuck during shudown when transaction probe op is called
+I do experience server to be stuck (in intermittent way) during shutdown. I need to use afterwards {{kill -9}} to stop it.
+
+From my investigation it seems that it's caused by fact that {{jboss-cli}} operation {{:probe}} does cause {{XARecoveryModule.periodicWorkFirstPass}} being called
+https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/recovery/arjunacore/XARecoveryModule.java#L272
+
+That way {{scanState}} is left at value ScanStates.BETWEEN_PASSES [1]
+https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/recovery/arjunacore/XARecoveryModule.java#L195
+
+Now when shutdown of container is being run (you can check attached {{server.log}})
+the periodic recovery is stopped and the {{scanState}} is left as it is. At that point
+call of {{XARecoveryModule#removeXAResourceRecoveryHelper}} causes thread waits for state {{IDLE}} ifinintely. https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/recovery/arjunacore/XARecoveryModule.java#L110
+
+You can consult thread dump from time when server gets stuck {{stacktrace1.log}}.
+
+[1]
+{code}
+Thread [management-handler-thread - 5] (Suspended (breakpoint at line 149 in XARecoveryModule))	
+	owns: XARecoveryModule  (id=219)	
+	owns: AtomicAction  (id=844)	
+	owns: ObjStoreBrowser  (id=845)	
+	XARecoveryModule.periodicWorkFirstPass() line: 149	
+	XARecoveryModule.getNewXAResource(Xid) line: 272	
+	XARecoveryModule.getNewXAResource(XAResourceRecord) line: 310	
+	XAResourceRecord.getNewXAResource() line: 1303	
+	XAResourceRecord.restore_state(InputObjectState, int) line: 1054	
+	AtomicAction(BasicAction).restore_state(InputObjectState, int) line: 1180	
+	AtomicAction(BasicAction).activate(String) line: 488	
+	AtomicAction(BasicAction).activate() line: 451	
+	ActionBean$GenericAtomicActionWrapper.activate() line: 391	
+	ActionBean.createWrapper(UidWrapper, boolean) line: 107	
+	ActionBean.<init>(UidWrapper) line: 93	
+	NativeConstructorAccessorImpl.newInstance0(Constructor<?>, Object[]) line: not available [native method]	
+	NativeConstructorAccessorImpl.newInstance(Object[]) line: 62	
+	DelegatingConstructorAccessorImpl.newInstance(Object[]) line: 45	
+	Constructor<T>.newInstance(Object...) line: 423	
+	UidWrapper.createMBean() line: 196	
+	ObjStoreBrowser.createBean(Uid, String) line: 481	
+	ObjStoreBrowser.probe() line: 435	
+	NativeMethodAccessorImpl.invoke0(Method, Object, Object[]) line: not available [native method]	
+	NativeMethodAccessorImpl.invoke(Object, Object[]) line: 62	
+	DelegatingMethodAccessorImpl.invoke(Object, Object[]) line: 43	
+	Method.invoke(Object, Object...) line: 498	
+	Trampoline.invoke(Method, Object, Object[]) line: 71	
+	NativeMethodAccessorImpl.invoke0(Method, Object, Object[]) line: not available [native method]	
+	NativeMethodAccessorImpl.invoke(Object, Object[]) line: 62	
+	DelegatingMethodAccessorImpl.invoke(Object, Object[]) line: 43	
+	Method.invoke(Object, Object...) line: 498	
+	MethodUtil.invoke(Method, Object, Object[]) line: 275	
+	StandardMBeanIntrospector.invokeM2(Method, Object, Object[], Object) line: 112	
+	StandardMBeanIntrospector.invokeM2(Object, Object, Object[], Object) line: 46	
+	StandardMBeanIntrospector(MBeanIntrospector<M>).invokeM(M, Object, Object[], Object) line: 237	
+	PerInterface<M>.invoke(Object, String, Object[], String[], Object) line: 138	
+	StandardMBeanSupport(MBeanSupport<M>).invoke(String, Object[], String[]) line: 252	
+	DefaultMBeanServerInterceptor.invoke(ObjectName, String, Object[], String[]) line: 819	
+	JmxMBeanServer.invoke(ObjectName, String, Object[], String[]) line: 801	
+	PluggableMBeanServerImpl$TcclMBeanServer.invoke(ObjectName, String, Object[], String[]) line: 1512	
+	PluggableMBeanServerImpl.invoke(ObjectName, String, Object[], String[]) line: 731	
+	LogStoreProbeHandler.probeTransactions(MBeanServer, boolean) line: 157	
+	LogStoreProbeHandler.execute(OperationContext, ModelNode) line: 186	
+	OperationContextImpl(AbstractOperationContext).executeStep(AbstractOperationContext$Step) line: 921	
+	OperationContextImpl(AbstractOperationContext).processStages() line: 664	
+	OperationContextImpl(AbstractOperationContext).executeOperation() line: 383	
+	OperationContextImpl.executeOperation() line: 1390	
+	ModelControllerImpl.internalExecute(ModelNode, OperationMessageHandler, ModelController$OperationTransactionControl, OperationAttachments, OperationStepHandler, boolean, boolean) line: 419	
+	ModelControllerImpl.lambda$execute$1(Operation, OperationMessageHandler, ModelController$OperationTransactionControl) line: 240	
+	277244299.run() line: not available	
+	SecurityIdentity.runAs(PrivilegedAction<T>) line: 193	
+	ModelControllerImpl.execute(Operation, OperationMessageHandler, ModelController$OperationTransactionControl) line: 240	
+	ModelControllerClientOperationHandler$ExecuteRequestHandler.doExecute(ModelNode, int, ManagementRequestContext<Void>, CompletedCallback) line: 217	
+	ModelControllerClientOperationHandler$ExecuteRequestHandler.access$400(ModelControllerClientOperationHandler$ExecuteRequestHandler, ModelNode, int, ManagementRequestContext, ModelControllerClientOperationHandler$CompletedCallback) line: 137	
+	ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run() line: 161	
+	ModelControllerClientOperationHandler$ExecuteRequestHandler$1$1.run() line: 157	
+	SecurityIdentity.runAs(PrivilegedExceptionAction<T>) line: 212	
+	AccessAuditContext.doAs(SecurityIdentity, InetAddress, PrivilegedExceptionAction<T>) line: 185	
+	ModelControllerClientOperationHandler$ExecuteRequestHandler$1.execute(ManagementRequestContext<Void>) line: 157	
+	ManagementRequestContextImpl$1.doExecute() line: 70	
+	ManagementRequestContextImpl$1(ManagementRequestContextImpl$AsyncTaskRunner).run() line: 160	
+	ThreadPoolExecutor.runWorker(ThreadPoolExecutor$Worker) line: 1142	
+	ThreadPoolExecutor$Worker.run() line: 617	
+	JBossThread(Thread).run() line: 745	
+	JBossThread.run() line: 320
+{code}

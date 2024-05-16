@@ -1,0 +1,6 @@
+Add a forget operation to the tooling
+The tooling provides two features for dealing with heuristic participants:
+* a recover command that will move it back into the prepared state if the admin thinks a second prepare attempt is likely to succeed;
+* a delete operation if the admin thinks it safe to do so;
+ 
+In the case of XA resources we also need a forget operation which will trigger the resource adaptor to clean up its end instead of relying on the admin to use tooling provided by the RA to clean up.

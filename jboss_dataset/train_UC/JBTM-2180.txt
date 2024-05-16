@@ -1,0 +1,4 @@
+Determine whether or not we should use a specific collections framework
+We use many of the inbuilt collections implementations (such as Hashtable) which are well known to be suboptimal in certain cases. Should we use a separate collections framework, e.g., https://github.com/goldmansachs/gs-collections
+
+There are pros and cons of doing this. But first we need to determine whether it really makes sense from a performance perspective.

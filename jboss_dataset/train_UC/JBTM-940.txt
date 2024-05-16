@@ -1,0 +1,6 @@
+Fix intermittant qa quite failure: org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery05_2
+Assuming failure in test, rather than failed test:
+
+jbossts-trunk-java6 - Build # 925 - Still Failing!
+[junit] Test 
+org.jboss.jbossts.qa.junit.testgroup.TestGroup_crashrecovery05_2 FAILED

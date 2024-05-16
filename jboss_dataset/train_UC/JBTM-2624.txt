@@ -1,0 +1,12 @@
+Introduce the administrator tool in the Narayana JTA OSGi integrated with the Karaf
+{quote}
+We have several management ways in Karaf :
+  * mbeans (no need to rewrap them)
+  * shell commands
+  * a servlet for the felix web console (used by the community)
+  * a hawtio plugin (used by fuse)
+
+The first two are the most important imho.
+{quote}
+
+the manual interventions that may be needed if the heuristic fails to rollback / commit the transactions.

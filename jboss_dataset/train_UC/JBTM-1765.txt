@@ -1,0 +1,2 @@
+Reinstate patched version of emma used in previous versions of JBoss Transactions
+At some point in the upgrade of the build system the version of Emma that is being used was altered to be the standard Emma distribution as Maven must have changed the way it handled scoping when overriding dependencies. The most logical solution (as it was unintentional to alter the version of Emma) is to reinstate the patched version used in previous versions.

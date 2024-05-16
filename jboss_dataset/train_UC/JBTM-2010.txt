@@ -1,0 +1,11 @@
+Scalability Enhancements for BlackTie
+At the moment we are using traditional IO techniques which means there is a single thread and connection per service on the C++ side and a single thread per server per service on the WildFly side.
+
+For example:
+10 servers with 10 services = 10 threads on the client side, 100 threads on the wildfly side
+
+We should look to use AIO on the Java side and apr pollset on the C++ side to reduce the number of threads. This will not reduce the physical number of connections but should allow the server to scale much higher.
+
+1. use AIO for StompConnect, 
+2. add a configurably sized connection polling pool to BlackTie C++,
+3. use a common pool for servicedispatchers, so for example if 10 services with a size of 10 would normally mean 100 threads, we can say 10 services, size of 10, share 10 threads.

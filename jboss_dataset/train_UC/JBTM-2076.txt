@@ -1,0 +1,14 @@
+Add security manager's permission checking in com.arjuna.webservices11.ServiceRegistry#getRegistry
+Permissions checking in public static methods is needed for Common Criteria certification.
+
+Add something similar to this at the beginning of the method:
+{code}
+public static ServiceRegistry getRegistry()
+{
+    SecurityManager sm = System.getSecurityManager();
+    if (sm != null) {
+        sm.checkPermission(new RuntimePermission(ServiceRegistry.class.getName() + ".getRegistry"));
+    }
+    return REGISTRY ;
+}
+{code}

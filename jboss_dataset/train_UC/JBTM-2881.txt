@@ -1,0 +1,4 @@
+STM InvocationHandler swallows application exceptions
+The STM implementation intercepts calls on transactional objects (ones that implement interfaces marked with the @Transactional annotation). If the application object throws a business exception it is wrapped in an java.lang.reflect.InvocationTargetException and this is raised. Application code is written to anticipate business exceptions but not java.lang.reflect.InvocationTargetException. 
+
+The fix is throw the wrapped business exception instead.

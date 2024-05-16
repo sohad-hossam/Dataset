@@ -1,0 +1,16 @@
+Cannot browse logs with the LogBrowser tool
+I tried browsing some logs using the command:
+{noformat}
+java -Dcom.arjuna.ats.arjuna.common.ObjectStoreEnvironmentBean.objectStoreDir=<path to logs> com.arjuna.ats.arjuna.tools.log.LogBrowser
+{noformat}
+This gives an interactive command line. I then had a go at listing some logs using:
+{noformat}
+-> select AtomicAction
+-> ls
+{noformat}
+
+The tool does not find any logs even though there are entries in the directory:
+{code}
+<path_ to_logs>/ShadowNoFileLockStore/defaultStore/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction
+{code}
+The problem is that the LogBrowser.listLogs operation uses the the type (AtomicAction) as the parameter to the call StoreManager.getRecoveryStore().allObjUids(type, buff)) but the actual type of an AtomicAction log is "/StateManager/BasicAction/TwoPhaseCoordinator/AtomicAction";

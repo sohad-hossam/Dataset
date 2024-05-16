@@ -1,0 +1,4 @@
+RCN: Nullcheck of value previously dereferenced (RCN_REDUNDANT_NULLCHECK_WOULD_HAVE_BEEN_A_NPE)
+1.ArjunaCore/txoj
+com.arjuna.ats.internal.txoj.abstractrecords.CadaverLockRecord  Line 68
+Nullcheck of lm at line 79 of value previously dereferenced in new com.arjuna.ats.internal.txoj.abstractrecords.CadaverLockRecord(LockStore, LockManager, BasicAction)

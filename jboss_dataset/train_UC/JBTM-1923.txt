@@ -1,0 +1,4 @@
+JTA quick start guide link on website incorrect
+on http://www.jboss.org/jbosstm/documentation/5_0_0_M4
+
+for jta quick start guide the link, instead of quick_start_guide is only quick_start

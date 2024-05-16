@@ -1,0 +1,10 @@
+large tx timeouts are bugged
+When CoordinatorEnvironmentBean.defaultTimeout approaches Integer.MAX_VALUE, the calculation in ReaperElement.<ctor> wraps, resulting in an immediate tx timeout
+
+_absoluteTimeoutMills = (timeout * 1000) + System.currentTimeMillis();
+
+should be
+
+_absoluteTimeoutMills = (timeout * 1000L) + System.currentTimeMillis();
+
+in order to avoid -ve i.e. times in the past when timeout is large.

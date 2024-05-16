@@ -1,0 +1,2 @@
+Support VolatileStore.allObjUids 
+This method is used by REST-AT and would be a useful addition for baselining the performance of the coordinator for comparison with non transactional and empty transaction requests.

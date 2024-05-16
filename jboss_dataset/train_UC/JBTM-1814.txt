@@ -1,0 +1,2 @@
+Clean up idlj building
+We shouldn't be building JacORB if someone only wants the idlj build. Plus we should ensure that JacORB specific tests do not run if we do not build JacORB (and vice versa).

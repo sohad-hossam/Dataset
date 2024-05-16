@@ -1,0 +1,2 @@
+Compensation handler interceptors should not throw exception, if there is no transaction
+@TXCompensate, @TXConfirm, and @TxLogged interceptors throw exception, if there is not transaction. However, transaction availability check is also done by @Compensatable interceptor.

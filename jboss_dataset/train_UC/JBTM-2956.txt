@@ -1,0 +1,2 @@
+Add a simple pooling datasource wrapper
+Due to move to containerized databases we see that some of the databases can be somewhat constrained with transient connection failures. We can alleviate that slightly with a simple pooling wrapper.

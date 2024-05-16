@@ -1,0 +1,6 @@
+Change support of MariaDB JBDC object store to 1.2.3
+1.2.2: https://github.com/MariaDB/mariadb-connector-j/blob/1.2.2/src/main/java/org/mariadb/jdbc/MySQLDatabaseMetaData.java#L491
+1.2.3: https://github.com/MariaDB/mariadb-connector-j/blob/1.2.3/src/main/java/org/mariadb/jdbc/MySQLDatabaseMetaData.java#L64
+The algorithm we use changes "-" to "_", trims after the space and lower cases:
+https://github.com/jbosstm/narayana/blob/master/ArjunaCore/arjuna/classes/com/arjuna/ats/internal/arjuna/objectstore/jdbc/JDBCStore.java#L234
+The change was part of https://mariadb.atlassian.net/browse/CONJ-192

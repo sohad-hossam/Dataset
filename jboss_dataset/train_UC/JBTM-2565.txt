@@ -1,0 +1,32 @@
+ConnectableResourceRecordRecoveryModule uses tooling iterator which does not report errors and can fail in WildFly
+It happens to me that when using jdbc object store for transactions with driver loaded as a module then if I start server and stopped it right after the start is finished I can see error [1] and server stay stuck. I need to run {{kill -9}} to server finish.
+
+This seems to be connected with recovery processing. If I start server and not stopping it immediately after it was started then I do not experience this problem.
+But if leave server to run for some time and I decide to stop server at time when periodic recovery is in process (e.g. checking {{server.log}} activity by {{tail -F standalone/log/server.log}} then I experience the same problem.
+
+[1]
+{code}
+WARN  [com.arjuna.ats.arjuna] (Periodic Recovery) ARJUNA012251: allObjUids caught exception: java.lang.IllegalStateException
+  at org.jboss.msc.value.InjectedValue.getValue(InjectedValue.java:47)
+  at org.jboss.as.naming.service.DefaultNamespaceContextSelectorService$1.getContext(DefaultNamespaceContextSelectorService.java:56)
+  at org.jboss.as.naming.InitialContext$DefaultInitialContext.findContext(InitialContext.java:187)
+  at org.jboss.as.naming.InitialContext$DefaultInitialContext.lookup(InitialContext.java:233)
+  at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:193)
+  at org.jboss.as.naming.NamingContext.lookup(NamingContext.java:189)
+  at javax.naming.InitialContext.lookup(InitialContext.java:417)
+  at javax.naming.InitialContext.lookup(InitialContext.java:417)
+  at com.arjuna.ats.internal.arjuna.objectstore.jdbc.accessors.DataSourceJDBCAccess.getConnection(DataSourceJDBCAccess.java:53)
+  at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCImple_driver.allObjUids(JDBCImple_driver.java:345)
+  at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.allObjUids(JDBCStore.java:166)
+  at com.arjuna.ats.internal.arjuna.objectstore.jdbc.JDBCStore.allObjUids(JDBCStore.java:122)
+  at com.arjuna.ats.arjuna.objectstore.ObjectStoreIterator.<init>(ObjectStoreIterator.java:53)
+  at com.arjuna.ats.internal.jta.recovery.arjunacore.CommitMarkableResourceRecordRecoveryModule.periodicWorkFirstPass(CommitMarkableResourceRecordRecoveryModule.java:390)
+  at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:747)
+  at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:375)
+
+ERROR [stderr] (Periodic Recovery) Exception in thread "Periodic Recovery" java.lang.NullPointerException
+ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.arjuna.recovery.TransactionStatusConnectionManager.getTransactionStatus(TransactionStatusConnectionManager.java:92)
+ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.jta.recovery.arjunacore.CommitMarkableResourceRecordRecoveryModule.periodicWorkFirstPass(CommitMarkableResourceRecordRecoveryModule.java:399)
+ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:747)
+ERROR [stderr] (Periodic Recovery) 	at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:375)
+{code}

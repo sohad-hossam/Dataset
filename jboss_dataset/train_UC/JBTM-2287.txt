@@ -1,0 +1,95 @@
+JTS mode sends an erroneous xa_end to resource manager if prepare() returns RMFAIL
+The scenario is as follows (and works fine with JTA, see below):
+
+Two XAResources in the same transaction, with xid1 and xid2, respectively.
+(For better readability, log file excerpts are referenced and provided at the end of the description.)
+
+start xid1
+start xid2
+end xid1, tmsuccess
+prepare xid1 -> XAException.XAER_RMFAIL; provoked, txn is indeed prepared in our test case
+end xid1, tmfail -> against XA protocol, however silently ignored by us 
+[error1 printed in log file]
+end xid2, tmfail
+rollback xid2 
+[error2 printed in log file]
+[JTS: periodic, but fruitless recovery attempts]
+
+as an effect, the transaction branch is never recovered and the dead transaction hangs around forever in the database; it looks like, as if the JTS recovery component forgot to early about that transaction, so does not do any rollback/commit decision for the reported to-be-recovered transaction
+
+with JTA the call sequence is as follows:
+
+start xid1
+start xid2
+end xid1, tmsuccess
+prepare xid1 -> XAException.XAER_RMFAIL; provoked, txn is indeed prepared in our test case
+rollback xid1   //this races with recovery module, but in any case, will be rolled back
+end xid2, tmfail
+rollback xid2
+[JTA: periodic, successfull recovery]
+
+With JTA, rollback might even be triggered twice (second invocation ignored by us)
+
+here the log file excerpts, Xids printed with own toString() impl, because of JBTM-2284)
+
+[JTA: periodic, successfull recovery]
+10:48:20,646 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:48:20,646 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131077-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.113.21.-21.110.84.100.126.76.0.0.0.41.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.113.21.-21.110.84.100.126.76.0.0.0.42.0.0.0.0.0.0.0.0
+10:48:23,689 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Rolled back xid < formatId=131077, gtrid_length=29, bqual_length=36, tx_uid=0:ffff0a6a3229:7115eb6e:54647e4c:29, node_name=1, branch_uid=0:ffff0a6a3229:7115eb6e:54647e4c:2a, subordinatenodename=null, eis_name=unknown eis name >
+
+[JTS: periodic, but fruitless recovery attempts]
+09:59:49,664 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+09:59:49,665 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+09:59:58,022 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+09:59:58,022 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:06,067 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:06,067 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:14,184 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:14,184 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:22,275 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:22,275 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:30,329 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:30,329 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:38,377 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:38,377 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:46,493 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:46,493 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+10:00:54,545 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Found 1 XA transactions to recover.
+10:00:54,545 INFO  [com.versant.odbms.XARecoveryResource] (Periodic Recovery) Versant JPA: Xid to recover: 131072-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.70.49-0.0.0.0.0.0.0.0.0.0.-1.-1.10.106.50.41.-50.-61.50.100.84.100.114.-11.0.0.0.72.0.0.0.0.0.0.0.0
+
+[error1]
+09:59:46,904 WARN  [com.arjuna.ats.jts] (EJB default - 4) ARJUNA022223: ExtendedResourceRecord.topLevelAbort caught exception: org.omg.CORBA.UNKNOWN: Server-side Exception: null
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method) [rt.jar:1.7.0_25]
+	at sun.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:57) [rt.jar:1.7.0_25]
+	at sun.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45) [rt.jar:1.7.0_25]
+	at java.lang.reflect.Constructor.newInstance(Constructor.java:526) [rt.jar:1.7.0_25]
+	at org.jacorb.orb.SystemExceptionHelper.read(SystemExceptionHelper.java:223) [jacorb-2.3.2.redhat-6.jar:2.3.2.redhat-6]
+	at org.jacorb.orb.ReplyReceiver.getReply(ReplyReceiver.java:319) [jacorb-2.3.2.redhat-6.jar:2.3.2.redhat-6]
+	at org.jacorb.orb.Delegate.invoke_internal(Delegate.java:1090) [jacorb-2.3.2.redhat-6.jar:2.3.2.redhat-6]
+	at org.jacorb.orb.Delegate.invoke(Delegate.java:957) [jacorb-2.3.2.redhat-6.jar:2.3.2.redhat-6]
+	at org.omg.CORBA.portable.ObjectImpl._invoke(ObjectImpl.java:80) [jacorb-2.3.2.redhat-6.jar:2.3.2.redhat-6]
+	at com.arjuna.ArjunaOTS._ArjunaSubtranAwareResourceStub.rollback(_ArjunaSubtranAwareResourceStub.java:75)
+	at com.arjuna.ats.internal.jts.resources.ExtendedResourceRecord.topLevelAbort(ExtendedResourceRecord.java:445)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2875)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.doAbort(BasicAction.java:2854)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.phase2Abort(BasicAction.java:1924)
+	at com.arjuna.ats.arjuna.coordinator.BasicAction.End(BasicAction.java:1494)
+	at com.arjuna.ats.internal.jts.orbspecific.coordinator.ArjunaTransactionImple.commit(ArjunaTransactionImple.java:375)
+	at com.arjuna.ats.internal.jts.ControlWrapper.commit(ControlWrapper.java:243)
+	at com.arjuna.ats.internal.jts.orbspecific.CurrentImple.commit(CurrentImple.java:247)
+	at com.arjuna.ats.jts.extensions.AtomicTransaction.commit(AtomicTransaction.java:276)
+	at com.arjuna.ats.internal.jta.transaction.jts.TransactionImple.commitAndDisassociate(TransactionImple.java:1296)
+	at com.arjuna.ats.internal.jta.transaction.jts.BaseTransaction.commit(BaseTransaction.java:130)
+	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+	at org.jboss.as.ejb3.tx.CMTTxInterceptor.endTransaction(CMTTxInterceptor.java:92) [jboss-as-ejb3-7.3.4.Final-redhat-1.jar:7.3.4.Final-redhat-1]
+	
+[error2]
+09:59:46,962 ERROR [stderr] (EJB default - 4) org.omg.CORBA.TRANSACTION_ROLLEDBACK
+09:59:46,962 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.internal.jts.orbspecific.coordinator.ArjunaTransactionImple.commit(ArjunaTransactionImple.java:414)
+09:59:46,963 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.internal.jts.ControlWrapper.commit(ControlWrapper.java:243)
+09:59:46,963 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.internal.jts.orbspecific.CurrentImple.commit(CurrentImple.java:247)
+09:59:46,963 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.jts.extensions.AtomicTransaction.commit(AtomicTransaction.java:276)
+09:59:46,963 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.internal.jta.transaction.jts.TransactionImple.commitAndDisassociate(TransactionImple.java:1296)
+09:59:46,963 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.internal.jta.transaction.jts.BaseTransaction.commit(BaseTransaction.java:130)
+09:59:46,964 ERROR [stderr] (EJB default - 4) 	at com.arjuna.ats.jbossatx.BaseTransactionManagerDelegate.commit(BaseTransactionManagerDelegate.java:75)
+09:59:46,964 ERROR [stderr] (EJB default - 4) 	at org.jboss.as.ejb3.tx.CMTTxInterceptor.endTransaction(CMTTxInterceptor.java:92)

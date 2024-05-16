@@ -1,0 +1,2 @@
+Create only the JTS jbossas integration jar
+None

@@ -1,0 +1,12 @@
+Allow in-flowed XAR to be scanned for Xid more than once between scans of the recovery system
+The JCA getNewXAResource() call can only bring forward the scanning of XAResources once per recovery pass (i.e. once every two minutes per default).
+
+The following signature can be observed in the log file:
+{noformat}
+2016-06-28 12:18:33,068 TRACE [com.arjuna.ats.jta] (EJB default - 98) XAResourceRecord.topLevelCommit for XAResourceRecord < resource:null, txid:< formatId=131077, gtrid_length=40, bqual_length=48, tx_uid=0:ffff0af7f615:19718dac:576e895c:d7da9, node_name=svc_1_cmserv, branch_uid=0:ffff0af7f663:ba85fe7:57714e42:7058f2, subordinatenodename=svc_2_mscmce, eis_name=java:/eis/custom-ra >, heuristic: TwoPhaseOutcome.FINISH_OK, product: com/ecim/1.0, jndiName: java:/eis/custom-ra com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord@64fa6d0e >, record id=0:ffff0af7f663:ba85fe7:57714e42:7058f3
+2016-06-28 12:18:33,068 WARN  [com.arjuna.ats.jta] (EJB default - 98) ARJUNA016038: No XAResource to recover < formatId=131077, gtrid_length=40, bqual_length=48, tx_uid=0:ffff0af7f615:19718dac:576e895c:d7da9, node_name=svc_1_cmserv, branch_uid=0:ffff0af7f663:ba85fe7:57714e42:7058f2, subordinatenodename=svc_2_mscmce, eis_name=java:/eis/custom-ra >
+2016-06-28 12:18:33,069 TRACE [com.arjuna.ats.arjuna] (EJB default - 98) BasicAction.doCommit for 0:ffff0af7f663:ba85fe7:57714e42:705303 received TwoPhaseOutcome.FINISH_ERROR from class com.arjuna.ats.internal.jta.resources.arjunacore.XAResourceRecord
+2016-06-28 12:18:33,069 TRACE [com.arjuna.ats.arjuna] (EJB default - 98) RecordList::insert(RecordList: empty) : appending /StateManager/AbstractRecord/XAResourceRecord for 0:ffff0af7f663:ba85fe7:57714e42:7058f3
+{noformat}
+
+It would be useful to allow the getNewXAResource() call to re-scan XAR in case it is called in between recovery scans multiple times.

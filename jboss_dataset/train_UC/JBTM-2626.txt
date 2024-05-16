@@ -1,0 +1,9 @@
+Journal Store QA test failures
+There was a single test failure on each of the following CI runs:
+
+crashrecovery05_2 CrashRecovery05_2_Test080 failed on the idlj run on the jobs:
+      http://albany.eng.hst.ams2.redhat.com/job/narayana-hqstore/147/PROFILE=QA_JTS_JDKORB,jdk=jdk8.latest,label=linux/console
+      http://albany.eng.hst.ams2.redhat.com/job/narayana-hqstore/PROFILE=QA_JTS_JDKORB,jdk=jdk8.latest,label=linux/148/console
+
+and jtatests01 JTATests01_Test006 failed on the jacorb run of job:
+      http://albany.eng.hst.ams2.redhat.com/job/narayana-hqstore/149/PROFILE=QA_JTA,jdk=jdk8.latest,label=linux/console

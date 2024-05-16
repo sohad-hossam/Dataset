@@ -1,0 +1,2 @@
+Upgrade to Artemis journal from HornetQ journal
+When available

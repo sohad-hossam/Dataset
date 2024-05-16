@@ -1,0 +1,10 @@
+Remove / from ConfigurationInfo
+I've been working on compiling Java using the Avian project (http://oss.readytalk.com/avian/) and have eventually had success in running some of our hammer tests. However, there was a blocker which was to do with the way in which we locate the property file within the jar using the manifest. We can argue as to whether the issue resides within Avian or the way in which we do things, but the solution was to simply remove the / from:
+
+int suffixLength = ("/"+ConfigurationInfo.class.getCanonicalName()+".class").length();
+
+Rebuilding and rerunning the tests made everything work.
+
+I don't want to check in this change until I am sure that it is right, so would appreciate someone looking at it and at least running all of the QE tests to be sure nothing else breaks.
+
+I've included a reference to the Avian forum article where I discussed this with their team.

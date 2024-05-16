@@ -1,0 +1,13 @@
+Recovery Support in Compensation API
+*Background*
+Currently Compensations API cannot handle system failures. Transaction state is not persisted in any stage. Thus no handlers will be invoked in case of the system crash.
+
+*Requirements*
+# Make handlers persistable (CompensationHandler, ConfirmationHandler, TransactionLoggedHandler).
+## Require Serializable interface.
+## Create PersistableHandler interface (similar to PersistableParticipant in RTS integration).
+# Make participant persistable (ParticipantImpl, LocalParticipant, RemoteParticipant).
+## Make transaction identifier persistable (converting it to String should work).
+## Implement PersistableParticipant in ParticipantImpl.
+## Investigate if PARTICIPANT_COUNTERS in ParticipatnImpl have to be updated.
+# Make compensation scoped beans persistable.

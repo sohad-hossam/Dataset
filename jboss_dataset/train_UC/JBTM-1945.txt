@@ -1,0 +1,10 @@
+BlackTie can drop a message when multiple threads send a tpcall at the same time
+Test failed: test_215(org.jboss.narayana.blacktie.jatmibroker.xatmi.CSTest)
+
+Intermittent failure seems to have been triggered by: https://github.com/jbosstm/narayana/commit/e0e5d7ab58e377ad6eb43e1737baa716d1c4836e
+
+Nothing obvious in the commit so setting up a repeating job
+
+It seems that calling receive on a JMS session while the connection is stopped, then in a different thread call start a few seconds later means that hornetq may not restart delivery of messages. If you have a timed receive at the end of the wait period the message is available for delivery.
+
+I will raise a HQ issue but for ourselves I am changing the algorithm so that we do not call connection.start after the receive.

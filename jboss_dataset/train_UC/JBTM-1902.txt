@@ -1,0 +1,9 @@
+Build number of Narayana is not resolved, says ${buildNumber}
+Logs say..
+
+{noformat}
+	at com.arjuna.ats.internal.jbossatx.jta.XAResourceRecoveryHelperWrapper.getXAResources(XAResourceRecoveryHelperWrapper.java:51) [narayana-jts-integration-5.0.0.M3.jar:5.0.0.M3 (revision: ${buildNumber})]
+
+{noformat}
+
+which is not very useful :-)

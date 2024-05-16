@@ -1,0 +1,2 @@
+BACrashDuringCommit.txt byteman script does not detect CoordinatorCompletionCoordinatorEngine#closed
+The was because the rule needs to run during recovery and it was set to run "IF NOT recovered"

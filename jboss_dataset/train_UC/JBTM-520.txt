@@ -1,0 +1,7 @@
+Include distribution information in MANIFEST.MF
+It would be nice if the jar files contain information inside the MANIFEST.MF files - like
+
+Implementation-Title
+Implementation-Vendor
+Implementation-Vendor-Id
+Implementation-Version

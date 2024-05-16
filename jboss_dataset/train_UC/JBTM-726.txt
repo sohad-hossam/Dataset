@@ -1,0 +1,2 @@
+Change some CosTransactions exceptions to be CORBA exceptions
+None

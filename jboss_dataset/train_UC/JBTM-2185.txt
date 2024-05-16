@@ -1,0 +1,2 @@
+Re-enable the CMR integration test
+For some reason the CMR integration test was disabled/not fully added so re-enable it in master.

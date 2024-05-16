@@ -1,0 +1,41 @@
+BlackTie disconnections on CI
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/431/consoleText
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-windows2008-taconic/432/consoleText
+
+{code}
+junit.framework.AssertionFailedError: Could not start the server
+	at junit.framework.Assert.fail(Assert.java:50)
+	at org.jboss.narayana.blacktie.btadmin.UnadvertiseTest.setUp(UnadvertiseTest.java:39)
+	at junit.framework.TestCase.runBare(TestCase.java:132)
+	at junit.framework.TestResult$1.protect(TestResult.java:110)
+	at junit.framework.TestResult.runProtected(TestResult.java:128)
+	at junit.framework.TestResult.run(TestResult.java:113)
+	at junit.framework.TestCase.run(TestCase.java:124)
+	at junit.framework.TestSuite.runTest(TestSuite.java:243)
+	at junit.framework.TestSuite.run(TestSuite.java:238)
+	at org.junit.internal.runners.JUnit38ClassRunner.run(JUnit38ClassRunner.java:83)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.execute(JUnit4Provider.java:252)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.executeTestSet(JUnit4Provider.java:141)
+	at org.apache.maven.surefire.junit4.JUnit4Provider.invoke(JUnit4Provider.java:112)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:57)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:601)
+	at org.apache.maven.surefire.util.ReflectionUtils.invokeMethodWithArray(ReflectionUtils.java:189)
+	at org.apache.maven.surefire.booter.ProviderFactory$ProviderProxy.invoke(ProviderFactory.java:165)
+	at org.apache.maven.surefire.booter.ProviderFactory.invokeProvider(ProviderFactory.java:85)
+	at org.apache.maven.surefire.booter.ForkedBooter.runSuitesInProcess(ForkedBooter.java:115)
+	at org.apache.maven.surefire.booter.ForkedBooter.main(ForkedBooter.java:75)
+
+Running org.jboss.narayana.blacktie.btadmin.VersionTest
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.031 sec
+20:01:58,194 ERROR [org.codehaus.stomp.tcp.TcpTransport] (StompConnect Transport: tcp:///172.17.131.21:54840) Caught an exception: Connection reset: java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:189) [rt.jar:1.7.0_03]
+	at java.net.SocketInputStream.read(SocketInputStream.java:121) [rt.jar:1.7.0_03]
+	at java.net.SocketInputStream.read(SocketInputStream.java:203) [rt.jar:1.7.0_03]
+	at java.io.DataInputStream.readByte(DataInputStream.java:265) [rt.jar:1.7.0_03]
+	at org.codehaus.stomp.StompMarshaller.readLine(StompMarshaller.java:183) [wildfly-blacktie-8.0.0.Beta1-SNAPSHOT.jar:8.0.0.Beta1-SNAPSHOT]
+	at org.codehaus.stomp.StompMarshaller.unmarshal(StompMarshaller.java:94) [wildfly-blacktie-8.0.0.Beta1-SNAPSHOT.jar:8.0.0.Beta1-SNAPSHOT]
+	at org.codehaus.stomp.tcp.TcpTransport.run(TcpTransport.java:98) [wildfly-blacktie-8.0.0.Beta1-SNAPSHOT.jar:8.0.0.Beta1-SNAPSHOT]
+	at java.lang.Thread.run(Thread.java:722) [rt.jar:1.7.0_03]
+{code}

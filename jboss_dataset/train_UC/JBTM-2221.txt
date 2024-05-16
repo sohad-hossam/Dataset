@@ -1,0 +1,2 @@
+Remove old TXFramework API
+This is now replaced by the CDI based Compensations API.

@@ -1,0 +1,4 @@
+Make @Transactional work without specifying the "org.jboss.jts export services" dependency
+Currently all deployments that use @Tranactional should have a MANIFEST.MF containing "Dependencies: org.jboss.jts export services".
+
+We should find a better approach to activating these interceptors.

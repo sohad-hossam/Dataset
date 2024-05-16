@@ -1,0 +1,11 @@
+The coordinator can throw a ConcurrentModificationException during transaction termination
+Throws the following exception:
+
+java.util.ConcurrentModificationException
+    at java.util.HashMap$HashIterator.nextEntry(HashMap.java:793)
+    at java.util.HashMap$KeyIterator.next(HashMap.java:828)
+    at org.jboss.jbossts.star.service.Coordinator.terminateTransaction(Coordinator.java:331)
+    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:39)
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:25)
+    at java.lang.reflect.Method.invoke(Method.java:597)

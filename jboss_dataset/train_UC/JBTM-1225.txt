@@ -1,0 +1,2 @@
+TestBASubordinateCrashDuringComplete fails: jboss-as not killed and shutdown
+see http://172.17.131.2/job/narayana-java6-xts/91/artifact/XTS/localjunit/crash-recovery-tests/target/surefire-reports/com.arjuna.qa.junit.TestBASubordinateCrashDuringComplete-output.txt

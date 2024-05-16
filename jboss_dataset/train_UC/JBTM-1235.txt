@@ -1,0 +1,2 @@
+IPv6 XTS Crash Recovery test failure: Kill Sequence failed
+http://172.17.131.2/view/Narayana+BlackTie/job/narayana-ipv6/42/console

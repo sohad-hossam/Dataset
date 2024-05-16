@@ -1,0 +1,2 @@
+Make the service context id for JTS coordinator propagation configurable
+JTS transaction propagation uses a CORBA service context to transmit the coordinator object reference. We use a proprietary id to identify this context but if we want to interoperate with foreign transaction managers we need to use the standard value of zero.

@@ -1,0 +1,4 @@
+Use xerces instead of expat for parsing btconfig.xml
+We still use expat for parsing the main btconfig.xml file, and combine that with the XSDValidator using Xerces.
+
+We should just dump expat and use Xerces for both these jobs, reducing the dependencies and avoiding two sweeps of the file.

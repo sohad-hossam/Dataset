@@ -1,0 +1,10 @@
+perf problem in FileSystemStore.openAndLock
+if(!file.exits())
+{
+   if(createHierarchy(file))
+
+incorrectly calls the expensive (because synchronized) createHierarchy method in the common case where the file does not exist (because it's a uniq named new tx record) but the directory hierarchy does (because it's the create-once hashed dir tree).  This causes excessive contention on the FileSystemStore instance object monitor lock.  Should probably be something more like 
+
+if(!file.getParent().exists())
+{
+  if(createHierarchy(file))

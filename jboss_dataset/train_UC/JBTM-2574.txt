@@ -1,0 +1,2 @@
+invalid local variable binding $this AT ENTRY injection when the tests run with the jacoco
+The detail should see in the discuss JBTM-2553. The workaround is use the $0 instead of $this now.

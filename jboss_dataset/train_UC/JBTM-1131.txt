@@ -1,0 +1,14 @@
+TransactionRolledBackException during MultiParticipantParticipantCompletionParticipantCloseTest
+See:
+http://172.17.131.2/view/XTS recovery/job/narayana-xts-recovery-java6/55
+
+{code}
+07:01:20,274 INFO  [stdout] (TaskWorker-2) Rule.execute called for trigger rendezvous on complete_5
+07:01:20,275 INFO  [stdout] (TaskWorker-2) trigger rendezvous on complete execute
+07:01:20,275 INFO  [stdout] (TaskWorker-2) rule.debug{trigger rendezvous on complete} : decrementing
+07:01:20,290 INFO  [org.apache.cxf.service.factory.ReflectionServiceFactoryBean] (TaskWorker-1) Creating Service {http://schemas.arjuna.com/ws/2005/10/wsarjtx}TerminationParticipantService from WSDL: jar:file:/home/hudson/workspace/narayana-xts-recovery-java6/jboss-as/build/target/jboss-as-7.1.2.Final-SNAPSHOT/modules/org/jboss/xts/main/jbossxts-5.0.0.M2-SNAPSHOT.jar!/com/arjuna/schemas/ws/_2005/_10/wsarjtx/wsdl/wsarjtx-termination-participant-binding.wsdl
+07:01:20,325 ERROR [stderr] (Thread-79) org.jboss.jbossts.xts.servicetests.test.ba.subordinate.MultiParticipantParticipantCompletionParticipantCloseTest : commit failure com.arjuna.wst.TransactionRolledBackException
+07:01:20,326 INFO  [stdout] (Thread-79) org.jboss.jbossts.xts.servicetests.test.ba.subordinate.MultiParticipantParticipantCompletionParticipantCloseTest : completed
+Apr 21, 2012 7:01:25 AM com.arjuna.qa.extension.JBossAS7ServerKillProcessor kill
+INFO: jboss-as is alive
+{code}

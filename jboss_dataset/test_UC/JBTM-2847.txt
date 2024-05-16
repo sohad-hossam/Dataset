@@ -1,0 +1,15 @@
+Static code analysis - check report and fix issues
+By going through static code analysis report of changes done during last a half year there are few issues that would be fine to be adjusted.
+
+They are following
+
+# at com.arjuna.ats.internal.jta.transaction.arjunacore.jca.XATerminatorImple, 
+L614; com.arjuna.ats.internal.jta.transaction.jts.jca, L471
+(https://github.com/jbosstm/narayana/blob/master/ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/transaction/arjunacore/jca/XATerminatorImple.java#L614) the calling method getCurrentTransactionId() potentially could end with 
+NullPointerException (caused by TransactionImple#getTransaction when `final BasicAction current = BasicAction.Current()` is null)
+
+# possible resource leak - connection was ommitted to be closed
+## org.jboss.narayana.tomcat.jta.integration.TestExecutor
+## TestCommitMarkableResourceFailAfterCommitOrphan
+
+# inner class SampleLockable of org.jboss.stm.STMVerticle could be static (http://station5.brq.redhat.com:8080/docs/en/findbugs/fb_checker_ref.html#FB.SIC_INNER_SHOULD_BE_STATIC)

@@ -1,0 +1,2 @@
+Update activemq-artemis to 1.1.0.wildfly-010
+None

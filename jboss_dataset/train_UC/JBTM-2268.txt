@@ -1,0 +1,4 @@
+narayana-hqstore-jacorb fails due to missing netty class
+The last run (http://172.17.131.2/job/narayana-hqstore-jacorb/74/) failed for two reasons:
+1) qa test failures because of a change of netty version: NoClassDefFoundError: org/jboss/netty/buffer/ChannelBuffers
+2) org.jboss.jbossts.qa.junit.TaskImpl stuck waiting on a lock (jstack trace attached)

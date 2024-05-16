@@ -1,0 +1,2 @@
+Move REST-AT Utility classes into their own maven artifacts
+Currently the support classes are bundled with the coordinator. Other JAX-RS applications cannot depend on the coordinator due to resteasy bug (https://issues.jboss.org/browse/RESTEASY-650) which only allows one javax.ws.rs.core.Application per web archive.

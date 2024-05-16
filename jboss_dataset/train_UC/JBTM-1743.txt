@@ -1,0 +1,2 @@
+Added JAVA_HOME note to Readme
+When building on Mac OS 10 it appears that JAVA_HOME must be set with the current build system. Add that note to the readme.

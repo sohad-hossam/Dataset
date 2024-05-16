@@ -1,0 +1,2 @@
+Make sure that subordinate transactions retain knowledge of the timeout value so that they can be queried for the imported timeout value
+Issue was discovered during https://issues.jboss.org/browse/JBEAP-11701

@@ -1,0 +1,11 @@
+Replace Emma with JaCoCo
+http://172.17.131.2/job/narayana-codeCoverage/92/consoleText
+
+{code}
+[INFO] -------------------------------------------------------------
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/hudson/workspace/narayana-codeCoverage/ArjunaJTA/spi/src/test/java/io/narayana/spi/util/DummyXAResource.java:[39,75] diamond operator is not supported in -source 1.6
+  (use -source 7 or higher to enable diamond operator)
+[INFO] 1 error
+{code}

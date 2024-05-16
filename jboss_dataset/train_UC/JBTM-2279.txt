@@ -1,0 +1,2 @@
+Provide a way to allow overriding of a set CheckedActionFactory
+Out of the box the BasicAction caches the reference to the checkedactionfactory and so if a users classpath is not available to narayana there is no way for a user to provide a CAF to Narayana.

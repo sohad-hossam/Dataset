@@ -1,0 +1,4 @@
+improve XAResource preparefailed logging
+com.arjuna.ats.internal.jta.resources.arjunacore.preparefailed does not log the underlying XA exception. In cases where e.g. db constraints are deferred to tx commit time, such errors can contain useful information.
+
+Note that non-deferred constraints are covered by JBTM-575 as the problem manifests at the earlier beforeCompletion (i.e. sql flush) stage.

@@ -1,0 +1,2 @@
+ObjectStoreBrowser cannot cope with JDBC store on Windows
+While testing backport of JBTM-2614 I came across the ObjStoreBrowser test. This was failing on Windows. On looking into it I saw it was because the Browser map swaps the "/" in the type name to the system file separator path. This is likely because of the file system store. I have a fix that puts the entry in both ways but it will likely need some more work so providing as an example.

@@ -1,0 +1,11 @@
+Add google analytics to the docs and narayana.io
+For the docs, see an example here:
+https://github.com/pressgang/pressgang-tools/blob/master/pressgang-tools-example/pom.xml#L79
+
+<transformerParameters>
+<html.googleAnalyticsId>UA-XXXXXXX-X</html.googleAnalyticsId>
+<html.googleTagManagerId>GTM-NJWS5L</html.googleTagManagerId>
+<html.googleTagManagerChannel>MyProject</html.googleTagManagerChannel>
+</transformerParameters>
+
+We don't want that in normal builds, maybe add it in a release profile and update brp.xml to generate the docs with that enabled.

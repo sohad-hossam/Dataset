@@ -1,0 +1,21 @@
+Static code analysis: potential lock collisions FileProcessId#getpid - interned string used as a lock
+_CID-17581_: Bad choice of lock object - Potential lock collisions
+
+at class `FileProcessId`[6] method `getpid` with error message
+
+{quote}
+Interned string as a lock may cause deadlocks or performance problems if a library also uses the interned string as a lock.
+ string_literal: The string literal "0x" is an interned string.
+ interned_string_lock: Locking on an interned string can cause unexpected locking collisions with third party code.
+ Instead of using "0x" as a lock, create a final field of type Object which is only used as a lock.
+{quote}
+
+See Java examples at Coverity page [7]. The explanation there is that
+  String literals are centrally interned and could also be locked on by a
+ library, causing you to potentially have deadlocks or lock collisions 
+with other code.
+There are several places [8] on net when searching for `java synchronzation on strings`.
+
+[6] https://github.com/jbosstm/narayana/blob/master/ArjunaCore/arjuna/classes/com/arjuna/ats/internal/arjuna/utils/FileProcessId.java#L63
+[7] https://ondemand.coverity.com/reference/7.6.1/en/coverity#N5069A
+[8] http://www.javalobby.org/java/forums/t96352.html

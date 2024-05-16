@@ -1,0 +1,5 @@
+Issue with MAVEN_OPTS on Debian
+MAVEN_OPTS unset
+
+mark@debian:~/Desktop/narayana$ ./build.sh -am -l :arjunacore
+./build.sh: 42: ./build.sh: [[: not found

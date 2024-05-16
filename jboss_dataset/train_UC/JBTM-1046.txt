@@ -1,0 +1,2 @@
+Provide the TXFramework as a JBoss Module
+Currently, the TXFramework is deployed with the application that uses it. This is a temporary solution to get us up and running quickly.

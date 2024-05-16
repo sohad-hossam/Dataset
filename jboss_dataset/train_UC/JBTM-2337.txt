@@ -1,0 +1,2 @@
+Add a PR profile for triggering a performance check
+Add an extra profile to our build script (scripts/hudson/narayana.sh) to force a performance run on PRs that require a performance regression check.

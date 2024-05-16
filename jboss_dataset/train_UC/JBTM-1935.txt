@@ -1,0 +1,43 @@
+Replace printStackTrace logging with the i18n logger in XARecoveryModule
+The following stderr loging is shown when XAException happened at rollback:
+
+{code}
+ERROR [stderr] (Periodic Recovery) javax.transaction.xa.XAException
+ERROR [stderr] (Periodic Recovery)      at org.hornetq.core.client.impl.ClientSessionImpl.rollback(ClientSessionImpl.java:1666)
+ERROR [stderr] (Periodic Recovery)      at org.hornetq.core.client.impl.DelegatingSession.rollback(DelegatingSession.java:494)
+ERROR [stderr] (Periodic Recovery)      at org.hornetq.jms.server.recovery.HornetQXAResourceWrapper.rollback(HornetQXAResourceWrapper.java:126)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.handleOrphan(XARecoveryModule.java:741)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.xaRecoverySecondPass(XARecoveryModule.java:647)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.bottomUpRecovery(XARecoveryModule.java:419)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.jta.recovery.arjunacore.XARecoveryModule.periodicWorkSecondPass(XARecoveryModule.java:194)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.doWorkInternal(PeriodicRecovery.java:789)
+ERROR [stderr] (Periodic Recovery)      at com.arjuna.ats.internal.arjuna.recovery.PeriodicRecovery.run(PeriodicRecovery.java:371)
+{code}
+
+This is thrown inside XARecoveryModule#handleOrphan():
+
+{code:title=ArjunaJTA/jta/classes/com/arjuna/ats/internal/jta/recovery/arjunacore/XARecoveryModule.java|borderStyle=solid}
+    private boolean handleOrphan(XAResource xares, Xid xid)
+    {   
+        ...(snip)...
+        try 
+        {   
+            if(votingOutcome == XAResourceOrphanFilter.Vote.ROLLBACK)
+            {   
+                jtaLogger.i18NLogger.info_recovery_rollingback(XAHelper.xidToString(xid));
+
+                xares.rollback(xid);
+            }   
+        }   
+        catch (XAException e1) 
+        {   
+            e1.printStackTrace();
+
+        ...(snip)...
+{code}
+
+I think {{e1.printStackTrace();}} should be should be replaced by using the i18n logger. For example: 
+
+{code}
+jtaLogger.i18NLogger.warn_recovery_xarecovery1(_logName+".xaRecovery", XAHelper.printXAErrorCode(e1), e1);
+{code}

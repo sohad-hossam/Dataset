@@ -1,0 +1,4 @@
+Rename all byteman script suffix with .btm
+byteman-rulecheck-plugin has default to check all .btm
+
+It looks like it is checking none byteman README files in the target folder when loaded in the eclipse 

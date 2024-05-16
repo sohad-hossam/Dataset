@@ -1,0 +1,8 @@
+Build does not stop on Windows if there is a build failure on the AS and it is not a pull request
+You can see the AS failed to build:
+http://172.17.131.2/job/narayana-windows2008-taconic/415/console
+
+I suspect it is something to do with:
+call build.bat clean install "-DskipTests" "-Drelease=true" || (call:comment_on_pull "AS Failed %BUILD_URL%" && exit -1)
+
+Maybe commit on pull is returning false because nothing is done?

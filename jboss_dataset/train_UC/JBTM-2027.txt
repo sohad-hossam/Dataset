@@ -1,0 +1,2 @@
+@Transactional not working correctly with @Stereotype wrt. Exception handling
+See linked WFLY jira

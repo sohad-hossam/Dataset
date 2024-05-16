@@ -1,0 +1,18 @@
+Transactional FileIO demo fail on window due to special character in file path
+{code}
+org.jboss.jbossts.fileio.xalib.txdirs.dir.XADirFile(SEVERE:Saving status information to 'C:\hudson\workspace\btny-quickstarts\businesstxdir/txDir_work/txDir-C:\hudson\workspace\btny-quickstarts\businesstxdir_txDir_work_64!5401921662186675/transaction.log' failed! Could not create filejavax.transaction.xa.XAException: txDir-C:\hudson\workspace\btny-quickstarts\businesstxdir_txDir_work_64!5401921662186675: Saving status information to 'C:\hudson\workspace\btny-quickstarts\businesstxdir/txDir_work/txDir-C:\hudson\workspace\btny-quickstarts\businesstxdir_txDir_work_64!5401921662186675/transaction.log' failed! Could not create file (ERR_SYSTEM)
+Caused by: java.io.FileNotFoundException: C:\hudson\workspace\btny-quickstarts\businesstxdir\txDir_work\txDir-C:\hudson\workspace\btny-quickstarts\businesstxdir_txDir_work_64!5401921662186675\transaction.log (The filename, directory name, or volume label syntax is incorrect)
+	at java.io.FileOutputStream.open(Native Method)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:194)
+	at java.io.FileOutputStream.<init>(FileOutputStream.java:145)
+	at org.apache.commons.transaction.file.FileResourceManager$TransactionContext.saveState(FileResourceManager.java:1521)
+        at org.apache.commons.transaction.file.FileResourceManager$TransactionContext.init(FileResourceManager.java:1416)
+	at org.apache.commons.transaction.file.FileResourceManager.startTransaction(FileResourceManager.java:536)
+	at org.jboss.jbossts.fileio.xalib.txdirs.dir.XAFileResourceManager.start(XAFileResourceManager.java:257)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:636)
+	at com.arjuna.ats.internal.jta.transaction.arjunacore.TransactionImple.enlistResource(TransactionImple.java:397)
+	at org.jboss.jbossts.fileio.xalib.txdirs.dir.XADir.startTransactionOn(XADir.java:138)
+	at org.jboss.jbossts.fileio.xalib.txdirs.demo.TXDirsDemoApp.executeDemo(TXDirsDemoApp.java:102)
+	at org.jboss.jbossts.fileio.xalib.txdirs.demo.TXDirsDemoApp.<init>(TXDirsDemoApp.java:51)
+	at org.jboss.jbossts.fileio.xalib.txdirs.demo.TXDirsDemoApp.main(TXDirsDemoApp.java:137)
+{code}

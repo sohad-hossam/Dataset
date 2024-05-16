@@ -1,0 +1,4 @@
+SAX parsing of properties file fails when offline
+The SAX parser verifies DTDs during parsing of the XML files, this is not done for the StAX parser. As our properties files usually link to the Sun DTD for properties on from java.sun.com this causes SAX parsing to fail when offline.
+
+We only have one test that uses SAX parsing (SAX parsing was added for Android). The workaround is to access the XMLReader from the parser and disable validation and loading-external-dtd's. The unit test still works with this disabled so I think it is safe to ignore downloading the Sun properties DTD.

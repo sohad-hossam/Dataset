@@ -1,0 +1,4 @@
+Include profiler output in benchmark runs
+Benchmarks runs should include profiling data to help diagnose performance issues and find opportunities for performance enhancements.
+
+The natural choice is Java Flight Recorder (http://www.oracle.com/technetwork/java/javaseproducts/mission-control/java-mission-control-1998576.html)

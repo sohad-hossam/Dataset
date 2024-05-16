@@ -1,0 +1,2 @@
+Some code that writes to the file store is missing PrivilidgedAction blocks
+This means the code can fail when a security manager is present, as if deployment code is on the call stack it will not be able to write or read from the files. 

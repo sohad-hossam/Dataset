@@ -1,0 +1,2 @@
+When a transaction times out, print the stack traces of the threads involved
+Would be useful to help understand what the code was doing when the transaction times out.

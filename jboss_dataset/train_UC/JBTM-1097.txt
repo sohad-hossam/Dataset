@@ -1,0 +1,7 @@
+Use sensible names for generic transaction types
+Curently we have @AT and @BA, which are quite tied to WS-AT and WS-BA. I think we could come up with more generic, yet descriptive names for these annotations.
+
+For example:
+
+@ACID, @Compensatable
+@AT, @CT

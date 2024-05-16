@@ -1,0 +1,2 @@
+Allow pre-release.sh to update version number to a different version than the current snapshot
+e.g. allow us to move from 1.0.Alpha2-SNAPSHOT to 1.0.Beta1 usings scripts/pre-release.sh

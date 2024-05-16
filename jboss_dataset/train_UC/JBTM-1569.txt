@@ -1,0 +1,29 @@
+Allow topics to be shared between servers
+At the moment topics can only service one server with multiple instances.  If you try to add a topic to 2 different servers the XSD parsing fails with a message that a service must be unique to one server.  
+
+Agreed that generally this should be the case, but for topics it would be advantageous for all servers to be able to subscribe to a topic, as although the logic is mostly different some of ours share functionality, and being able to send the same info in one call to multiple servers is useful.
+
+eg current functionality is allowed:
+
+
+<server name='foo'>
+  <machine-ref id='fooapp1'/>
+  <machine-ref id='fooapp2' />
+  <service id='topica' type='topic' />
+</server>
+
+but I would like this to be possible:
+
+
+<server name='foo'>
+  <machine-ref id='fooapp1'/>
+  <machine-ref id='fooapp2' />
+  <service id='topica' type='topic' />
+</server>
+
+<server name='bar'>
+  <machine-ref id='barapp1'/>
+  <machine-ref id='barapp2' />
+  <service id='topica' type='topic' />
+  <service id='barsvc'/>
+</server>

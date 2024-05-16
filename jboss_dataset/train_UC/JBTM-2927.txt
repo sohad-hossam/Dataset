@@ -1,0 +1,4 @@
+@Transactional CDI annotation does not work in transitive way within @Stereotype
+When {{@Transactional}} annotation is used within the {{@Stereotype}} one and the {{@Stereotype}} enhanced another stereotype the @Transactional interceptor (Narayana CDI implementation) does not see the transactional under the stereotype.
+
+This is a follow-up to issue https://jira.jboss.org/browse/WFLY-2485 which did not fix the trouble whole over.

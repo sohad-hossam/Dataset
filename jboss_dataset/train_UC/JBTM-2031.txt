@@ -1,0 +1,51 @@
+Intermittant RESTAT testListTransactionsWhenNoActiveTxns failure
+testListTransactionsWhenNoActiveTxns socket read times out waiting for coordinator to respond. The test, http server and coordinator are all running in the same VM.
+
+Surefire test result:
+
+-------------------------------------------------------------------------------
+Test set: org.jboss.jbossts.star.test.TxSupportTest
+-------------------------------------------------------------------------------
+Tests run: 2, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 6.277 sec <<< FAILURE!
+testListTransactionsWhenNoActiveTxns(org.jboss.jbossts.star.test.TxSupportTest)  Time elapsed: 5.665 sec  <<< ERROR!
+org.jboss.jbossts.star.provider.HttpResponseException: java.net.SocketTimeoutException: Read timed out
+	at java.net.SocketInputStream.socketRead0(Native Method)
+	at java.net.SocketInputStream.read(SocketInputStream.java:150)
+	at java.net.SocketInputStream.read(SocketInputStream.java:121)
+	at java.io.BufferedInputStream.fill(BufferedInputStream.java:235)
+	at java.io.BufferedInputStream.read1(BufferedInputStream.java:275)
+	at java.io.BufferedInputStream.read(BufferedInputStream.java:334)
+	at sun.net.www.http.HttpClient.parseHTTPHeader(HttpClient.java:633)
+	at sun.net.www.http.HttpClient.parseHTTP(HttpClient.java:579)
+	at sun.net.www.protocol.http.HttpURLConnection.getInputStream(HttpURLConnection.java:1322)
+	at java.net.HttpURLConnection.getResponseCode(HttpURLConnection.java:468)
+	at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:477)
+	at org.jboss.jbossts.star.util.TxSupport.httpRequest(TxSupport.java:466)
+	at org.jboss.jbossts.star.util.TxSupport.getTransactions(TxSupport.java:143)
+	at org.jboss.jbossts.star.util.TxSupport.getTransactions(TxSupport.java:139)
+	at org.jboss.jbossts.star.test.TxSupportTest.testListTransactionsWhenNoActiveTxns(TxSupportTest.java:38)
+
+and test output was:
+
+log4j:WARN No appenders could be found for logger (org.jboss.logging).
+log4j:WARN Please initialize the log4j system properly.
+log4j:WARN See http://logging.apache.org/log4j/1.2/faq.html#noconfig for more info.
+Nov 15, 2013 10:55:16 AM com.sun.grizzly.Controller logVersion
+INFO: GRIZZLY0001: Starting Grizzly Framework 1.9.59 - 11/15/13 10:55 AM
+Nov 15, 2013 10:55:17 AM com.sun.jersey.api.core.PackagesResourceConfig init
+INFO: Scanning for root resource and provider classes in the packages:
+  org.jboss.jbossts.star.service
+  org.jboss.jbossts.star.provider
+  org.jboss.jbossts.star.test
+Nov 15, 2013 10:55:17 AM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Root resource classes found:
+  class org.jboss.jbossts.star.service.Coordinator
+  class org.jboss.jbossts.star.test.BaseTest$TransactionalResource
+Nov 15, 2013 10:55:17 AM com.sun.jersey.api.core.ScanningResourceConfig logClasses
+INFO: Provider classes found:
+  class org.jboss.jbossts.star.provider.TransactionStatusMapper
+  class org.jboss.jbossts.star.provider.TMUnavailableMapper
+  class org.jboss.jbossts.star.provider.NotFoundMapper
+  class org.jboss.jbossts.star.provider.HttpResponseMapper
+Nov 15, 2013 10:55:17 AM com.sun.jersey.server.impl.application.WebApplicationImpl _initiate
+INFO: Initiating Jersey application, version 'Jersey: 1.9.1 09/14/2011 02:05 PM'

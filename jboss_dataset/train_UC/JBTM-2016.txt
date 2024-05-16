@@ -1,0 +1,3 @@
+Cannot stop WildFly recovery manager when configured with volatile store
+When using jboss 5, i was able to configure a 'Volatile' action store. I understand it's not the most robust store, but in my case performance is more important than tx consistency.
+I tried to configure the Volatile store in AS 7.1.3 as well (using a custom jbossts-properties.xml file defined via the com.arjuna.ats.arjuna.common.propertiesFile systemsetting ), but doing that breaks the recovery thread. It prints out a warning message (Volatile storage does not support recovery blablabla...). That would be fine, but this recovery issue also prevents jboss from shutting down cleanly. I have to kill it to stop it.

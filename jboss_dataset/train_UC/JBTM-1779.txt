@@ -1,0 +1,6 @@
+txframework DataManagementTest does not work under emma
+There is a single txf test that does not run correctly under emma. It complains about not being able to find vladium.
+
+The problem appears to be that this test creates an arq deployment containing its own copy of the TXDataMap rather than trying to use the one that is deployed already in the AS and is therefore in a different classloader so can't see the shaded emma classes from the real module. 
+
+When I modify the test to remove that class and use the txf module directly, the same as all the other tests in the txf module, it can't load the TXDM class from the module. The difference is that the TXDM is injected into test beans that are injected into the tests, rather than directly injected. I think this could be a limitation of Emma.

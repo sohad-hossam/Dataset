@@ -1,0 +1,5 @@
+Initialize method of JDBC object store driver uses a connection outside of a try with resources
+Offending code: https://github.com/jbosstm/narayana/blob/5.2.1.Final/ArjunaCore/arjuna/classes/com/arjuna/ats/internal/arjuna/objectstore/jdbc/JDBCImple_driver.java#L649
+
+Technique to use:
+https://docs.oracle.com/javase/tutorial/essential/exceptions/tryResourceClose.html

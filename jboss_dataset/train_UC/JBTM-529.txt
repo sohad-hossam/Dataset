@@ -1,0 +1,24 @@
+Provide a way to disable connection pooling within a transaction
+Suppose you are using JBossTS within you webapp, configured using Spring.
+Suppose you're doing connection pooling over JBossTS: that is, you have your data source with connection pooling managing connections obtained from the TransactionalDriver of JBossJTA.
+
+As of now, com.arjuna.ats.jdbc.TransactionalDriver.connect(String, Properties) is calling com.arjuna.ats.internal.jdbc.ConnectionManager.create(String, Properties) to get a connection. The latter is behaving like this:
+- if an "equivalent" connection has been already created, it's not closed and it is associated with the same transaction, return that connection
+- otherwise create a new one
+In other words, as stated by the comments in ConnectionManager source, this class is pooling connections for the duration of a transaction.
+
+This however this can lead to severe and hard-to-find problems when you're doing your own connection pooling above JBossJTA using a data source like DBCP. These are two scenarios in which problems can occur:
+
+1) suppose you have two different data sources that are modeling two logically different databases. However, suppose you're configuring both of them to point to the same physical database (that is: same URL, same username, same password) and you're off course using the same dynamic class to drive the TransactionalDriver to the actual JDBC driver.
+Suppose transaction 1 (tx1) is started and, within its duration, a connection is asked to data source 1 (ds1) and another connection is asked to data source 2 (ds2). ds1 and ds2 are initially empty, so the request leads to the creation of two new connections, through TransactionalDriver.connect. Therefore, ds1 asks the TransactionalDriver for a new connection (conn1) and the TransactionalDriver asks the ConnectionManager to create it. conn1 is created and put into ds1, then made available to the client code. But also ds2 is requesting a new connection to the TransactionalDriver: this asks the ConnectionManager, which in turns realizes that it has been requested a connection for the same transaction (tx1), for the same URL, username and password and using the same dynamic class... then, instead of creating another connection (conn2), thanks to its pooling algorythm it returns again conn1, which then goes into ds2! Anyway, tx1 terminates without problems, because the physical database is actually the same.
+However, after tx1 has terminated and new transactions are created, because conn1 is in both ds1 and ds2, it may happen that ds1 gives away conn1 to be used for a transaction tx2 while ds2 gives away conn1 to be used for another concurrent transaction tx3. Then, during tx2 or tx3 execution the "Checking transaction and found that this connection is already associated with a different transaction!" error occurs.
+
+To work around this problem you could configure each data source to use a different implementation (that is, different class names!) of the dynamic class. However, another problem could still happen.
+
+2) suppose you work around problem 1) by using a different dynamic class implementation for each data source. Now, suppose tx4 is started and, during its execution, a thread requests two different connections to ds1. Because of the pooling done by ConnectionManager, it may happen that ds1 receives conn1 twice from the TransactionalDriver, while thinking to receive two DIFFERENT connections. Now, suppose that the data source implementation can handle that without corrupting its internal data structures (and, based on my experiences with DBCP, I wouldn't bet on this!), however this causes conn1 to appear twice in ds1. Then, if tx5 and tx6 are two new concurrent transactions during which requests to ds1 are made, it can happen that conn1 is given to be used in both tx5 and tx6, producing again the already mentioned error.
+
+So, my request is to support a configuration like the one I described by adding the ability to disable connection pooling at transaction level completely.
+
+I'm attaching a suggested patch that provides this functionality by:
+- adding support for a connection property named POOL_CONNECTIONS_WITHIN_TRANSACTION wich is assumed to be "true" by default but that can be set to "false" as needed
+- changing ConnectionManager.create(String, Properties) to honour that property: if it is set to "false", pooling is disabled and a new connection is always created

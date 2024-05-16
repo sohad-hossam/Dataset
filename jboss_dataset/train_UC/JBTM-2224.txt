@@ -1,0 +1,4 @@
+Move Compensations dependency adder to transactions subsytem
+The Compensating transactions API can now be used in standalone.xml as well as standalone-xts.xml. XTS is now only needed for distributed compensating transactions.
+
+Therefore, it would be better to move the automatic dependency adding code to the transactions subsystem.

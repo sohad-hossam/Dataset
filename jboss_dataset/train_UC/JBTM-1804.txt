@@ -1,0 +1,4 @@
+JTS remote tests not run and no code coverage
+The tests in .remote. package for JTS are not run by default. We should consider adding a build option so that they are run (will require some mods to the tests since many of them are client/server based - see associated Readme.txt files); don't run them by default since they will add delay to a normal build.
+
+It would then be beneficial to have them instrumented by emma to get code coverage.

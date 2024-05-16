@@ -1,0 +1,52 @@
+qa timeout MFACTOR (was: crashrecovery07 tests failing on Solaris11 x86/x86_64 platform)
+When running QA testsuite on Solaris 11 x86/x86_64 platform with Oracle JDK7 I hit intermittent failures at crashrecovery07 tests. 
+
+Affected tests:
+CrashRecovery07_Test04
+CrashRecovery07_Test05
+CrashRecovery07_Test11
+CrashRecovery07_Test12
+
+output of Test05 (qa/results/113/task_0_out):
+{noformat}
+Sleeping for 180000ms.
+Test will fail because we have just received value 2 for resource 0
+Test will fail because we have just received value 2 for resource 1
+Test has failed because we got 2 for 2
+Failed
+{noformat}
+
+output of Test11 (qa/results/25/task_0_out):
+{noformat}
+Sleeping for 360000ms.
+Test will fail because we have just received value 2 for resource 0
+Test will fail because we have just received value 2 for resource 1
+Test will fail because we have just received value 2 for resource 2
+Test has failed because we got 2 for 3
+Failed
+{noformat}
+
+Complete logs for the two issues detailed above can be found here:
+https://jenkins.mw.lab.eng.bos.redhat.com/hudson/view/JBoss%20TS/view/JBossTS-EAP5/job/jbossts-testsuite-solaris-oraclejdk7-eap5/LABEL=sol11_x86_64,jdk=java17_default/1/artifact/sol11_x86_64,java17_default_N1_Thu%20Sep%2006%2001%3A30%3A21%20EDT%202012.zip
+
+
+output of Test04 (qa/results/92/task_0_out):
+{noformat}
+Sleeping for 450000ms.
+Test will fail because we have just received value 2 for resource 0
+Test has failed because we got 2 for 1
+Failed
+{noformat}
+
+output of Test12 (qa/results/14/task_0_out):
+{noformat}
+Sleeping for 450000ms.
+Test will fail because we have just received value 2 for resource 0
+Test will fail because we have just received value 2 for resource 1
+Test will fail because we have just received value 2 for resource 2
+Test has failed because we got 2 for 3
+Failed
+{noformat}
+
+Complete logs for Test04 and Test12 can be found here:
+https://jenkins.mw.lab.eng.bos.redhat.com/hudson/view/JBoss%20TS/view/JBossTS-EAP5/job/jbossts-testsuite-solaris-oraclejdk7-eap5/LABEL=sol11_x86,jdk=java17_default/1/artifact/sol11_x86,java17_default_N1_Thu%20Sep%2006%2001%3A30%3A21%20EDT%202012.zip

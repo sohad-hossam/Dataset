@@ -1,0 +1,24 @@
+"ModuleNotFoundException: org.junit:main" when deploying XTS unit and interop tests to JBossAS-7.1.1
+The XTS unit and interop tests have a dependency on the org.junit module that no longer ships with JBossAS.
+
+{code}
+13:24:38,414 ERROR [org.jboss.msc.service.fail] (MSC service thread 1-4) MSC00001: Failed to start service jboss.module.service."deployment.wscf-tests.ear".main: org.jboss.msc.service.StartEx
+ception in service jboss.module.service."deployment.wscf-tests.ear".main: Failed to load module: deployment.wscf-tests.ear:main
+        at org.jboss.as.server.moduleservice.ModuleLoadService.start(ModuleLoadService.java:91) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+        at org.jboss.msc.service.ServiceControllerImpl$StartTask.startService(ServiceControllerImpl.java:1811) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+        at org.jboss.msc.service.ServiceControllerImpl$StartTask.run(ServiceControllerImpl.java:1746) [jboss-msc-1.0.2.GA.jar:1.0.2.GA]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.runTask(ThreadPoolExecutor.java:886) [rt.jar:1.6.0_30]
+        at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:908) [rt.jar:1.6.0_30]
+        at java.lang.Thread.run(Thread.java:662) [rt.jar:1.6.0_30]
+Caused by: org.jboss.modules.ModuleNotFoundException: org.junit:main
+        at org.jboss.modules.ModuleLoader$FutureModule.getModule(ModuleLoader.java:511) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.ModuleLoader.loadModuleLocal(ModuleLoader.java:267) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.ModuleLoader.preloadModule(ModuleLoader.java:222) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.LocalModuleLoader.preloadModule(LocalModuleLoader.java:94) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.Module.addPaths(Module.java:841) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.Module.link(Module.java:1181) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.Module.relinkIfNecessary(Module.java:1207) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.modules.ModuleLoader.loadModule(ModuleLoader.java:208) [jboss-modules.jar:1.1.1.GA]
+        at org.jboss.as.server.moduleservice.ModuleLoadService.start(ModuleLoadService.java:70) [jboss-as-server-7.1.1.Final.jar:7.1.1.Final]
+        ... 5 more
+{code}

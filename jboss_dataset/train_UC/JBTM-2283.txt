@@ -1,0 +1,2 @@
+Tooling no longer exposes JTS record types
+Transacton records of type StateManager/BasicAction/TwoPhaseCoordinator/ArjunaTransactionImple are no longer exposed via the tooling.

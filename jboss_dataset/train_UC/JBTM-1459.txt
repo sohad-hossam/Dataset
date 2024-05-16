@@ -1,0 +1,2 @@
+Create a parallel version of beforeCompletion invocations
+Some RM's do the bulk of there work in the beforeCompletion synchronisations so it would be beneficial to have an option for calling it asynchronously.

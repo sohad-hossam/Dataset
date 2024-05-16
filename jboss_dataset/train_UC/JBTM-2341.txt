@@ -1,0 +1,5 @@
+Add two more statistics
+Add the following two statistics:
+
+System Rollbacks (the number of transactions that were rolled back due to an internal system error such as failure to write a log);
+Average Commit Time.

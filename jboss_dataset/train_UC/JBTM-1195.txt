@@ -1,0 +1,2 @@
+TestXAResourceRecoveryHelper needs a public constructor to workaround JBAS014227
+I think EJB's should have public or protected constructor

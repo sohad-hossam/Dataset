@@ -1,0 +1,2 @@
+Initiate connection in JmsXAResourceRecoveryHelper.getXAResources instead of recover
+Initially I've added assertions in JmsXAResourceRecoveryHelper to check if the recovery scan was started and delegate was initialised. However, XARecoveryModule only catches XAException, so if assertion fails periodic recovery cannot handle it.
