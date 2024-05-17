@@ -1,6 +1,0 @@
-Provide ability define "execution properties" as VDB properties
-Currently if user needs to set any execution properties on their connection, with JDBC they can define on the URL or use "SET " statement to issue a query. In ODBC can also use "SET " method.
-
-However, when working with packaged applications and ODBC or in some situations it may be better to configure these properties VDB wide so that all the connections are using same execution properties.
-
-This JIRA proposes ability to add execution properties as vdb properties in vdb.xml file. 

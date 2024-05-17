@@ -1,5 +1,0 @@
-NPE in excel translator if xlsx file is missing
-If xlsx file, which is pointed by resource adater & source model (in VDB) is missing, then any query ends with NPE.
-
-Actual result: NullPointerException
-Expected result: some better message or exception (e.g. FileNotFoundException or some TeiidException with good mesage)

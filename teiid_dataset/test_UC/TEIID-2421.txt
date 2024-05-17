@@ -1,2 +1,0 @@
-Allow Designer to ask for stored procedure columns
-Successive simplifications to the procedure metadata has left designer without a convenient way to automatically resolve the result set columns for a stored procedure.

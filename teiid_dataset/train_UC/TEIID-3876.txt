@@ -1,2 +1,0 @@
-Add an option to import RowId as binary
-RowId values will be seen as object type, which may not be useful for consumers.  We should offer a mapping to varbinary to pull the raw byte value, which can be properly typed.

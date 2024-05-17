@@ -1,2 +1,0 @@
-Use array comparison for dependent join using multiple attributes.
-Many jdbc sources support array comparison which is more efficient that expressing comparisons using a cross space of in predicates.

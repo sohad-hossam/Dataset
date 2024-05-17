@@ -1,4 +1,0 @@
-Oracle requires column alias list when using recursive CTE
-Running a recursive common table expression query against an Oracle source removes the columns alias list, which causes {noformat}ORA-32039: recursive WITH clause must have column alias list{noformat}
-
-Note that there might be an issue with some specific versions of Oracle 11g, the columns alias list is required 11.2.0.4, but might not be in 11.2.0.2.

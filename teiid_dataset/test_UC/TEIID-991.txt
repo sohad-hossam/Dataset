@@ -1,7 +1,0 @@
-Request for support of Sybase IQ as a supported data source
-Per client:
-We'd like the ability to have a built-in connector type for Sybase IQ,
-just the same as Sybase ASE  We have been getting inquiries and we've
-had to decline one project because we didn't support Sybase IQ out of
-the box.  We foresee that Sybase IQ will be getting some play within
-important Data Warehouses and Data Marts within the firm.

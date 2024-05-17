@@ -1,2 +1,0 @@
-Accumulo as a Supported Data Source
-Support for Accumulo as a data source in Teiid.  Would require Resource Adapter and Translator development.

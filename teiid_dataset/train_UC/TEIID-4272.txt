@@ -1,6 +1,0 @@
-NPE when CTE and subuquery without a WITH clause are pushed together
-With a query such as:
-
-WITH qry_0 as /*+ no_inline */ (SELECT e2 AS a1, e1 as str FROM pm1.g1 AS t) select (select e1 from pm1.g1) as x, a1 from qry_0
-
-that is pushed together to the source, the relationalplanner will throw an NPE when pulling up any nested with clauses because there is no with clause assigned to the subquery.

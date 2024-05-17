@@ -1,7 +1,0 @@
-Multi-dimensional array evaluation is incorrect 
-Issuing a query with a multi-dimensional array such as:
-
-select (('a', 'b'),('c','d'))
-
-results in java.lang.ArrayStoreException as the evaluator is not unwrapping the ArrayImpl when assigning the value into the parent array.
-

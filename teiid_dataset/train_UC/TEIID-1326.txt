@@ -1,6 +1,0 @@
-API request:  rewrite query/command before it reaches the teiid planner
-I'd like an API to inspect and rewrite a user query/command before it reaches the Teiid planner. The use case is to rewrite the query/command to implement view-like capabilities.  For example:
-SELECT a,b,c FROM table1 AS t WHERE t.a='xyz'  would be rewritten as:
-SELECT a,b,c FROM (SELECT a,b,c FROM table2 UNION SELECT a,b,c FROM table3) AS t
-
-I imagine this API would be similar to the translator API:  it would receive a data structure representing the query/command and use a visitor to rewrite the query.  As a convenience, it would be nice to have something similar to the SQLConversionVisitor.

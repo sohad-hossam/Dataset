@@ -1,2 +1,0 @@
-FileStore compaction issues
-Compaction does not reset the unused space counter, which means that large files will continually be compacted.  Also the compaction copy logic does not copy the correct bytes past the first buffer boundary.  Finally the batch cleanup logic is not properly coordinated against a simultaneous compaction.

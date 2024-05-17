@@ -1,8 +1,0 @@
-OData response does not contain header "allow"
-If user sends request to URL with unsupported HTTP method, OData service should return allowed methods in header _allow_.
-
-*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/
-*Method:* DELETE
-*Response headers:* date=Wed, 09 Mar 2016 08:21:17 GMT, server=Apache-Coyote/1.1, content-length=192, expires=Thu, 01 Jan 1970 00:00:00 GMT+00:00, content-type=application/xml, cache-control=no-cache, pragma=No-cache, odata-version=4.0
-
-See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398259

@@ -1,2 +1,0 @@
-Sybase translator needs to handle CROSS JOIN syntax.
-Encountered this issue querying Sybase ASE 12.5 datasource.  The pushed down query contained CROSS JOIN syntax resulting in failure since Sybase ASE 12 does not support cross join.  This needs to be handled in the translator.

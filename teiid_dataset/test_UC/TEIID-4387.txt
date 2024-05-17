@@ -1,2 +1,0 @@
-Issues with $it support
-Only a single $it reference can exist with the current logic, and it can only be used in a filter.  With the refactoring to array style logic, we should be able to expand its usage.

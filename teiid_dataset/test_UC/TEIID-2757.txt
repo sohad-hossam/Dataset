@@ -1,2 +1,0 @@
-XML 1.0 invalid characters not supported in Odata Atom feed
-The odata framework sometimes has problems with transforming characters (invalid in XML 1.0) from the source data to the XML result. The result is an exception: TEIID16013 Error occured producing OData result.: java.lang.RuntimeException: com.ctc.wstx.exc.WstxIOException: Invalid white space character (0x1b) in text to output (in xml 1.1, could output as a character entity).

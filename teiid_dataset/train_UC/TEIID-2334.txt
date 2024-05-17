@@ -1,2 +1,0 @@
-Add keys to system tables
-The metadata changes to implement indexing on the system tables means that it is quite appropriate to include primary keys / indexes on system tables.  We should also probably add unique constraints to uids.

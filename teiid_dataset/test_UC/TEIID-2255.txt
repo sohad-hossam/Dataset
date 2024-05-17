@@ -1,2 +1,0 @@
-Allow for non-literal source_name values
-The current design of multi-source requires that the source_name is a literal, which prevents more common usage patterns, such as a prepared statement.

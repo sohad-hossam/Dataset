@@ -1,8 +1,0 @@
-LDAPSyncQueryExecution.createSearchContext() hides a root cause when an error occurs
-When an LDAP error occurs, org.teiid.translator.ldap.LDAPSyncQueryExecution.createSearchContext() shows the following error log:
-
-{code}
-14:23:18,723 ERROR [org.teiid.CONNECTOR] (Worker27_QueryProcessorQueue616) TEIID12002 Attempted to search context: dc=test.org
-{code}
-
-but does mention nothing about a cause.

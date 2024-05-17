@@ -1,2 +1,0 @@
-Add getRequestsForVDB() Method on RuntimeEngine
-In order to show request per VDB in Jopr, we need a method exposed that will return all request for a given VDB name and version

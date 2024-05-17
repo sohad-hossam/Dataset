@@ -1,8 +1,0 @@
-Issues with resource adapters with api modules in wildfly
-It appears that WildFly has issues with packages spanning modules, which JBossAS did not.
-
-With the simpledb and google spreadsheet translators the api module was simply pulled out of the resource adapter with the same package names.  This leads to odd errors at runtime:
-
-org.teiid.resource.adapter.google.GoogleSpreadsheetConnection: java.lang.ClassCastException: org.teiid.resource.adapter.google.SpreadsheetConnectionImpl cannot be cast to org.teiid.resource.adapter.google.GoogleSpreadsheetConnection
-
-Even though SpreadsheetConnectionImpl does implement GoogleSpreadsheetConnection and both the resource adapter and translator reference the same api module. 

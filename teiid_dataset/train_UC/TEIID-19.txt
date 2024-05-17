@@ -1,2 +1,0 @@
-Multiple subquery pushdown
-Defect Tracker #25002: In RuleCollapseSource, only one subquery per criteria predicate is supported.  The association strategy should be generalized to support multiple subqueries and subqueries in the select clause as well.

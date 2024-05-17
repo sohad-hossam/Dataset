@@ -1,2 +1,0 @@
-Remove JDOM
-Our usage of JDOM is fairly light.  It should be removed as a dependency to prevent possible dependency conflicts.

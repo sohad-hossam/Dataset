@@ -1,2 +1,0 @@
-Add support for EAP 6.3
-Add support for EAP 6.2 or 6.3.   The final version will not be known until EAP 6.3 release date is known.

@@ -1,2 +1,0 @@
-Security context is not propagated correctly between Teiid engine and data sources
-Security Context is not correctly propagated when used in remote connections (JDBC, ODBC) (Local connections OK) between Teiid Engine threads and rest of the system. The initial authentication is fine. This only poses issue with "CallerIdentityLoginModule" used in the data sources or any custom connectors that depend upon the authentication credentials that read off the executing thread. 

@@ -1,2 +1,0 @@
-Materialization planning should be sensitive to property changes
-The engine will cache the view for materialization including the on error action, and is not sensitive to property changes.

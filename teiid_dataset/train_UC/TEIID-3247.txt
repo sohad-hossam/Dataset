@@ -1,2 +1,0 @@
-MongoDB: Add "MinDistance" to near and nearSphere geo spatial functions
-MongoDB version 2.6,  adds extra "MinDistance" parameter to the $near and $nearSphere functions. Translator needs to reflect this change.

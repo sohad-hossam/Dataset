@@ -1,2 +1,0 @@
-Enable the availablity of VDB classloader in the ExecutionContext/CommandContext
-With the development of object based translators it is required that they have access to a class loader where the object library is defined. Extend the ExecutionContext and commandContext interface to provide the classloader of the VDB, which provides the libraries defined with "lib" property.

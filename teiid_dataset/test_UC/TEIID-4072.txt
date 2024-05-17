@@ -1,4 +1,0 @@
-Duplicate columns for insert should not be allowed
-We are not validating against have the same variable in insert/merge columns:
-
-insert into pm1.g1 (e1, e1) values ('a', 'b')

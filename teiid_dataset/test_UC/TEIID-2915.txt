@@ -1,9 +1,0 @@
-Support consuming REST based service that is secured by Kerberos
-Add SSO based support for consuming the REST based services that are secured by Kerberos.
-
-In order to support Kerberos at data source level, the engine needs to support Credential Delegation, then it can be used with CXF as shown in 
-http://cxf.apache.org/docs/jaxrs-kerberos.html#JAXRSKerberos-CredentialDelegation
-
-The SPENGO module needs to check getCredDelegState() flag on the GSS Context, and should provide a way to return the GSSCredential object then Teiid needs to propagate this as session payload and use it in the web-service connector as the delegate to target consumer service.
-
-As of JBoss EAP 6.1.Alpha, I do not see the delegation in the SPENGO module, so support needs to be available in SPENGO module. Needs to investigate which version of SPENGO module supports this.

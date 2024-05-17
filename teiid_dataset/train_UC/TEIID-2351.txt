@@ -1,2 +1,0 @@
-Inherent update compensating procedures are cached inappropriately
-TEIID-2226 introduced a regression where the initial compensation procedure plan will be reused for each update regardless of whether it is valid for other updates.

@@ -1,2 +1,0 @@
-Add support for odata translator geospatial handling
-We should use the Edm.Geometry type for the Teiid geometry type (we can also use system metadata to see if it's appropriate to use a geometry subtype) along with any geospatial operations that odata and Teiid support.

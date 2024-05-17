@@ -1,6 +1,0 @@
-Issues with entity set names
-The entity set name used for sql generation should be the fully qualified name.  If there is for example two table with the same names in schemas visible to odata, but one of the tables does not have a key, then an ambiguous name exception will be thrown if an odata url is used with only the base table name.
-
-It also appears that the URI link in the results metadata uses the non-qualified table name, which will have issues in the scenario above.
-
-We may also need to document or add an additional check for ambiguity as the OData4j findEdmEntitySet logic will return the first matching entity, which is generally against our approach to resolving.

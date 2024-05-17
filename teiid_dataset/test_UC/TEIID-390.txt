@@ -1,2 +1,0 @@
-Loopback execution fails to execute procedures correctly
-The method for determining output types did not look for the procedure result set.

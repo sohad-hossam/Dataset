@@ -1,2 +1,0 @@
-Support a more secure block mode for client/server encryption
-ECB is the current default for the socket transport encryption of secure messages.  While this is relatively ok for small messages as we also have a message key acting as a CTR counter to some of the blocks, it does not provide strong security - especially for large data volume scenarios, such as when using larger login payloads or the secure requests option.  We should default instead to CBC with an explicit initialization vector.

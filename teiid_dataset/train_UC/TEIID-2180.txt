@@ -1,4 +1,0 @@
-Limiting source tables in dynamic VDBs using importer.excludeTables
-JDBCMetdataProcessor.getColumns() calls metadata.getColumns() for all the tables even the excluded ones. The while loop to process the columns is what takes a long time.
-
-Is it possible to change the code in JDBCMetdataProcessor.getColumns() to only get columns for the tables that are included in the tableMap? i.e. if an exclusion filter is specified, call metadata.getColumns() separately for each table.

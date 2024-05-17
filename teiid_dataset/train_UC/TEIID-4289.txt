@@ -1,6 +1,0 @@
-Add transaction command support for syntax BEGIN/ROLLBACK/COMMIT WORK
-This request appears to be an expansion of TEIID-1701 to add syntax like the below as an alias for transactional commands.  This would be in line to make commands portable from other vendor DBs such as PostgreSQL/SQL Server/DB2/MySQL.
-
-BEGIN WORK
-ROLLBACK WORK
-COMMIT WORK

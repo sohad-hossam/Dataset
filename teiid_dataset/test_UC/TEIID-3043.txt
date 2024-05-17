@@ -1,2 +1,0 @@
-Build a Docker image based kit for Teiid
-Build a Docker image for Teiid server, may be host it at docker.io ?

@@ -1,2 +1,0 @@
-LogManager is tied with Current Conficuration and makes it hard to use with Embedded
-Remove the configuration of logging listeners and configuration out of the Log Manager, and make them injectable. Once this is done Server and Embedded can use it how it fits their needs.

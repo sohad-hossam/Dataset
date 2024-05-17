@@ -1,2 +1,0 @@
-Provide a mechanism to turn off string sorting
-Currently we don't have a fine grained mechanism to turn off source sorting of specifically string data.  If a source is using a different collation for example and cannot be set on a session basis (that could be configured on the datasource) to an ansi/utf collation, then at least for join scenarios we have to process the sort in the engine.  Optionally the user may wan the Teiid default collation enforced even for other sorts.

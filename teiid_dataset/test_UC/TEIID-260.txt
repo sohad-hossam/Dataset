@@ -1,2 +1,0 @@
-Secure RPC calls for secure services over JGroups
-Need to add security (message level or otherwise) to RPC calls made over JGroups based upon the configuration and whether the service is secure.

@@ -1,2 +1,0 @@
-JDBC Connector deregistration logic is incorrect.
-The current deregistration logic is checking the wrong classloader.  It should be using the context class loader to compare against the driver's classloader.  

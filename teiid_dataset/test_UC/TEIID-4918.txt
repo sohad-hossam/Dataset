@@ -1,2 +1,0 @@
-Enhance infinispan support for muti-threaded puts or using putAll
-For performance reasons, it was requested that the infinispan connector/translator be enhanced to be multi-threaded when doing batch inserts or try using the putAll option.

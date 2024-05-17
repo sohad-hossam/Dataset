@@ -1,5 +1,0 @@
-Hive translator pushdown improvements
-- Hive 0.11 windowing functions: push down
-- Native Queries support
-- Test multi-source bindings with Hive Partition Tables - each binding to a discrete partition table
-- validate that off-heap buffer management can be used with very large data sets from Hadoop/Hive

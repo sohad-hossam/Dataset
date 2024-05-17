@@ -1,4 +1,0 @@
-Allow for object type equality
-Allowing for object type equality would allow for the use of object values as keys.  Allowing for full comparability could be done as well, but would result in runtime errors if mixed values are used or if the type is not comparable. 
-
-Note that we could alternatively choose to represent object values as their serialized byte[] values, in which case compatibility is implied.  However that is still not the natural compare ordering nor does it account for method based equality vs. identical serialized bytes.

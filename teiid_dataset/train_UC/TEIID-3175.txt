@@ -1,2 +1,0 @@
-Allow property lookup on function parameters
-FunctionParameters until TEIID-3044 were not first class metadata objects, so now we need to round out support them including extension metadata lookup.

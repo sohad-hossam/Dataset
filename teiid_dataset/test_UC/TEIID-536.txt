@@ -1,4 +1,0 @@
-Evaluate uncorrleated subqueries prior to pushdown for all command types. 
-Criteria and expressions containing uncorrelated subqueries that cannot be pushed down should be evaluated at the access node.  Currently they require the introduction of a separate select node or will simply fail for insert/update/delete.
-
-See also JBEDSP-928

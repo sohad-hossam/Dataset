@@ -1,2 +1,0 @@
-External mat view without ttl behavior
-When no ttl is specified an external mat view will not be loaded by the management service - but the on vdb start / stop scripts will be run.  We should figure out if/when an initial load should take place.

@@ -1,2 +1,0 @@
-Remove the assignToModel admin method
-TEIID-2527 deprecated assignToModel, it should not be removed.

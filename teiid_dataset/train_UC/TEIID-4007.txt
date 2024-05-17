@@ -1,2 +1,0 @@
-Unparseable model name if user changes odata4 context root
-If user changes root context of odata4 service, Teiid does not parse model name from the URI and throws TEIID16022 instead.

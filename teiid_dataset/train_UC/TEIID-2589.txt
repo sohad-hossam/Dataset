@@ -1,2 +1,0 @@
-Subplans are repeated in the reported query plan
-TEIID-2256 introduced a regression where by subplans are added to the plan descriptions too many times.

@@ -1,7 +1,0 @@
-HANA MIN and MAX functions not applicable on boolean
-SAP HANA doesn't support MIN and MAX functions for BOOLEAN type.
-Compared to postgresql, which also has BOOLEAN data type, it seems inconsistent, as postgresql translator mimics MIN and MAX functions by translating them using PostgreSQL specific constructs:
-min(BooleanValue) as bool_and(BooleanValue)
-max(BooleanValue) as bool_or(BooleanValue)
-
-Similar issue is with CEILING and FLOOR functions.

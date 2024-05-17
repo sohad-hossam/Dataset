@@ -1,2 +1,0 @@
-Mark hbase/phoenix as supporting limit
-The support for row limit should be added.

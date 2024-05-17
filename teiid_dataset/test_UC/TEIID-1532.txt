@@ -1,2 +1,0 @@
-ODBC prepared statement handling can hang
-preparedstatement execution through odbc can hang since we are never sending a synch.  But we must only send a synch if there are no pending messages.

@@ -1,4 +1,0 @@
-Serialized datatype issue
-Serialized metadata will contain references to datatype entries that will be duplicated upon deserialization with system'vdb type entries.  Ideally there should be only 1 representation of each unique type. 
-
-In general we have a representation issue with datatypes, which are either system or vdb scoped, when we serialize just a MetadataFactory that only represents a schema.

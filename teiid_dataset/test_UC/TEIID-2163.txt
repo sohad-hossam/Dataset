@@ -1,2 +1,0 @@
-add support for binary xml serialization
-We should add the ability to serialize as blob/varbinary with a specified encoding.

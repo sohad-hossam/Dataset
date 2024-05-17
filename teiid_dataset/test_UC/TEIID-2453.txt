@@ -1,2 +1,0 @@
-Add a string_agg or similarly named aggregate for creating a delimited concat
-Similar to the pg string_agg (which supports blob/clob) delimited concat, we should offer a built-in aggregate.  There is similar support on oracle 11g+ and mysql.

@@ -1,8 +1,0 @@
-Datetime values not properly encoded in OData4 entity identifiers
-When the primary key of an OData entry consists of a timestamp or datetime value an odata get request returns the following error message:
-
-java.net.URISyntaxException: Illegal character in scheme name at index n: tablename(partofkey='keyvalue',datepartofkey=2016-01-13 11:25:03.884)
-
-For more information visit this thread on the user forums in which [~shawkins] said:
-_"Actually there is an issue with our handling of building the entity id to go into the response.  We are not properly encoding datatime values.''_
-

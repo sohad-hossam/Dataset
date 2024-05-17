@@ -1,2 +1,0 @@
-Add new logging level so that server startup information can be logged and be differentiated from critical/warning level entries
-Currently, at server startup, nothing is being written to the hostcontroller or vmprocess logs.   The previous server started information is no longer being written because of the log level wasn't being differentiated from actual critical/warning messages.  Therefore, a new level should be created so that the minimal server startup information can continue to be written to the logs.

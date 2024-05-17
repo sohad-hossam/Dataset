@@ -1,2 +1,0 @@
-Enrich "embedded" service offerings
-Currently "embedded" is missing service offerings that have been available in the earlier version of the Server offerings. The sub-tasks will define the individual services that needs to be added to "embedded"

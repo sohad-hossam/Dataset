@@ -1,9 +1,0 @@
-NPE during "get-query-plan" CLI request
-{code}
-10:22:47,609 ERROR [org.jboss.as.controller.management-operation] (HttpManagementService-threads - 26) JBAS014612: Operation ("get-query-plan") failed - address: ([("subsystem" => "teiid")]): java.lang.NullPointerException
-	at org.teiid.jboss.GetPlan.executeOperation(TeiidOperationHandler.java:482) [teiid-jboss-integration-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
-	at org.teiid.jboss.GetPlan.executeOperation(TeiidOperationHandler.java:467) [teiid-jboss-integration-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
-	at org.teiid.jboss.BaseOperationHandler$1.execute(BaseOperationHandler.java:71) [teiid-jboss-integration-8.2.0.CR1-SNAPSHOT.jar:8.2.0.CR1-SNAPSHOT]
-	at org.jboss.as.controller.AbstractOperationContext.executeStep(AbstractOperationContext.java:385) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
-	at org.jboss.as.controller.AbstractOperationContext.doCompleteStep(AbstractOperationContext.java:272) [jboss-as-controller-7.1.1.Final.jar:7.1.1.Final]
-{code}

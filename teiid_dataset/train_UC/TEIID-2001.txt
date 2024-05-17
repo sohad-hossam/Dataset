@@ -1,2 +1,0 @@
-Skip loading of Function/Other models during the Index Based VDBs
-Teiid only can read metadata from the PHYSICAL and VIRTUAL models, the OTHER (XSD) or FUNCTION models are there to represent the vdb structure but no metadata is actually loaded. FUNCTION model is still being loaded as original at the parse time. Lack of metadata is being flagged as an error during load, this needs to be fixed.

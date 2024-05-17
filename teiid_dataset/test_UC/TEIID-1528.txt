@@ -1,2 +1,0 @@
-ruleimplementjoin strategy may generate an order by that does not use a relevant index
-If a table is given additional join criteria not covered by an index or if a composite key is being used ruleimplementjoinstrategy may - either add an item not covered by the index to the order by or not use the proper order of the index columns.

@@ -1,2 +1,0 @@
-Enable JDG resource adapter to pass the username/password to HotRod Client
-Enable the JDG resource adapter to pass the username/password to the JDG hot rod client.

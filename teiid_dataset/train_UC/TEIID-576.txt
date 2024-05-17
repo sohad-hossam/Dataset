@@ -1,2 +1,0 @@
-When a property  is optional, the multiplicity on the connector type needs to be set to  "0..1",  not "0"
-The jdbc connectors cannot have their username and passwords set in the console due to the multiplicity setting in the JDBC Connector type.   The username and password (and possibliy others) have the multiplicity set to "0", thinking this meant optional.   However, the correct setting should be "0..n", where n is the max number acceptable values (i.e.,   "0..1" in the case of username and paswordl).

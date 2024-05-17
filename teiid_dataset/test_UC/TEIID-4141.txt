@@ -1,2 +1,0 @@
-Move REST auto-generate code into in its own module
-Move the REST generation stuff into its own module, as this is bringing in whole lot of swagger dependencies and as well others. Will also help if we ever decide to remove this altogether.

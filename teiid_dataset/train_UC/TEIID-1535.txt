@@ -1,2 +1,0 @@
-pg/odbc support should report rel oid with column metadata
-describe columns should return the proper table oid and attnum for each column.

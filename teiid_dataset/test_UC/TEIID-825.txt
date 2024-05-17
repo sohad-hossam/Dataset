@@ -1,6 +1,0 @@
-DEBUG level loggging Issues
-There are couple issues to view the log in the DEBUG mode.
-
-1) Exception objects not being showed in the logs
-
-2) Buffer manager stats were  by default set to every 1/2 second, so it fills up very quickly. This need to be set to every minute at best.

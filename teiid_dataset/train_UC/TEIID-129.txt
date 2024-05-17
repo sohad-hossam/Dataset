@@ -1,2 +1,0 @@
-Implement or remove unused transactions panel from console
-The console and admin api have stubs for administering transactions, which have not been implemented.  See ServerTransaction, TransactionAdminApi, TransactionManager, etc.

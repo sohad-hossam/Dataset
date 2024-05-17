@@ -1,2 +1,0 @@
-Limit pushdown of nulls first/last
-By default Teiid will attempt to virtualize the default null order of nulls low.  This can have a negative impact on performance and is not needed in many situations.

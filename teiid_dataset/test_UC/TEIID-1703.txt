@@ -1,2 +1,0 @@
-Allow for the parsing of fixed width files that don't use delimiters.
-Parsing a fixed width file that does not use a delimiter, or uses a newline for wrapping, is not currently possible.

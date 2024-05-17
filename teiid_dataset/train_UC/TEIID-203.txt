@@ -1,4 +1,0 @@
-Make connector capabilites more granular.
-Some connector capabilites are only available in combination with others.  For example, if you wish to support the SupportsAggregatesCount capability, you have to also support the SupportsAggregates capability(GROUP BY and HAVING).  This requirement creates additional requirements for a connector where the source syustem cabilities do not correspond with the relationships we have defined between capabilites.
-
-For instance, the SQL supported by salesforce can include the count(*) function, but it does not support GROUP BY or HAVING.  Because we require c connector to support SupportsAggregates befrore it can support count(*), the connector is required to implement those functions if it wishes to pus down count(*).

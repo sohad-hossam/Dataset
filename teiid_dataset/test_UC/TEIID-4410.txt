@@ -1,2 +1,0 @@
-ConnectorWorkItem setting of convertIn should be based upon the execution factory
-TEIID-4112 introduced behavior that is allowing IN to be pushed when it should using OR.  ConnectorWorkItem setting of convertIn should be based upon the execution factory not the capabilities object.

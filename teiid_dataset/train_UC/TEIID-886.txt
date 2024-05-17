@@ -1,2 +1,0 @@
-Request for more statistical functions in Teiid
-Please provide a richer set of aggregate functions, specifically statistical functions like population standard deviation, sample standard deviation, population standard variance, etc.  

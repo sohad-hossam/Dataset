@@ -1,4 +1,0 @@
-Reflect view transformation sql into SYSTEM schema
-It would nice to reflect view transformation SQL in the SYSTEM schema
-
-See https://community.jboss.org/message/879519?et=watches.email.thread#879519 for more detail

@@ -1,2 +1,0 @@
-Undeploying a vdb inappropriately updates all vdbs
-When a vdb is undeployed the VDBRepository.removeVDB logic unconditionally calls removeChild on all vdbs in the repository.  This causes each to build a new metadata state resulting in duplicate mat views and inconsistent metadata updates.

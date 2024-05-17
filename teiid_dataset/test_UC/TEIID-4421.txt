@@ -1,3 +1,0 @@
-Teiid Translator per source/version
-Teiid actually uses a single translator to connect to a single source/version. However in the case of translators that auto-configure to the given version it is expected to manage creating new instances when necessary.
-Case reproduced when connecting to 2 DBs, one on SQL Server 2012 and another on SQL Server 2008. The pagination SQL translation of SQL Server 2012 does not work on 2008.

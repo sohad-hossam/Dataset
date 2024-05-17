@@ -1,5 +1,0 @@
-Create connector-infinispan to support connecting to Infinispan when using translator-object
-Create the connector-infinispan resource adapter that supports the following:
--  finding CacheContainer via jndi
--  Create RemoteCacheContainer from a server list
--  create a CacheContainer from a configuration

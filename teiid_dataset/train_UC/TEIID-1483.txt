@@ -1,2 +1,0 @@
-Resolving changes to consolidate teiid/teiid designer handling
-Designer currently must supply external metadata that should be easily derived by Teiid.

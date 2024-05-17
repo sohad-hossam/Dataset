@@ -1,2 +1,0 @@
-Strict LIMITs are not properly enforced
-The notion of a strict limit introduced by TEIID-1806 - is not strictly enforced when an unordered limit is first pushed across a union.  The result may be fewer rows than expected if the limit is then pushed across a select node.

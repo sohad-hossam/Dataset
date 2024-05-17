@@ -1,6 +1,0 @@
-Queries with NextToken failing with NPE
-Issuing the queries that return more than single page with out any system parameters are failing with NPE.  Example:
-
-{code}
-http://localhost:8080/odata4/vdb.1/schema/view
-{code}

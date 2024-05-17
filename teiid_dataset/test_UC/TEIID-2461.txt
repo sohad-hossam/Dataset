@@ -1,2 +1,0 @@
-Better determine when to block on the output buffer
-The output buffer size limitation helps prevent forward only results from unnecessarily consuming resources, but it also may slow down the processing of otherwise already buffered results - which will hold those and other downstream resources unnecessarily.  We should examine the plan to see if this is possible before allowing the output buffer to be size limited.

@@ -1,2 +1,0 @@
-PermissionMap does not aggregate all permission types
-If multiple permission entries are used per resource path and the prior entries have alter or execute set, then those permissions will be lost.

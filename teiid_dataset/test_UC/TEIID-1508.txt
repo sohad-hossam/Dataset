@@ -1,4 +1,0 @@
-Dependent join planning problem
-Without a dependent join hint a composite cross source dependent join will not plan correctly unless the independent side can be pushed as a single query.  The root of the issue is that join planning involving more than 1 independent table does not consider the effect of potential dependent joins early enough. 
-
-The workaround is to use a dependent join hint or set the cardinality of the independent tables small enough to trigger the proper dependent join.

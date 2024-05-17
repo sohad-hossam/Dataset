@@ -1,2 +1,0 @@
-Add native query support to Cassandra
-The Cassandra translator should support both the native-query extension property and the ability to execute arbitrary CQL.

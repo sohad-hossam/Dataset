@@ -1,2 +1,0 @@
-Determine when systeminit and systemshutdown should be called
-Due to other refactoring, MetaMatrixController calls to performSystemInit and indicateSystemShutdown used to control promotion of the configuration were removed.  We need to rethink in general our strategy here.

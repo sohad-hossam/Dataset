@@ -1,2 +1,0 @@
-Add pk/fk to example
-The portfolio example should have pk/fk and in general needs the .project file updated to a 6.x series designer.

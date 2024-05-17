@@ -1,2 +1,0 @@
-Add translator support for dependent join pushdown
-JDBC translators should offer built-in support for dependent join pushdown - possibly with index creation and other options.

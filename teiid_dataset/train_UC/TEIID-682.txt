@@ -1,2 +1,0 @@
-Remove old transactionmanager framework
-Our old transactionmanager framework no longer provides any value since all of the transaction impls are dummy 

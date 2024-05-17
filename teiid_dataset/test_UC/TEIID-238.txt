@@ -1,2 +1,0 @@
-ENHANCEMENT: performance of non-pushed dependent set criteria
-Defect Tracker #24299: Dependent set criteria that is not pushed below an access node has potentially bad performance implications.  These nodes should either be removed or the evaluation of set criteria should be changed so that it does not need to be based upon iteration (such as a cached set of values).

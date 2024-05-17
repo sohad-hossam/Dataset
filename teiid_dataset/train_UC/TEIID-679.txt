@@ -1,2 +1,0 @@
-Make all scripts use TEIID_HOME
-Define TEIID_HOME environment variable to be used in all the scripts that start, stop and manage the server. 

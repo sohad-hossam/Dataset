@@ -1,2 +1,0 @@
-Selection of nested document based on non primary key does not work on MongoDB Translator
-When a table is either EMBEDDED or MERGED into a parent table, issuing a "SELECT" query using WHERE clause that uses a NON primary key results in empty result.

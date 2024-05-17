@@ -1,2 +1,0 @@
-Decompose join should work with non-ansi joins
-The current logic for RuleDecomposeJoins is only running before rule push criteria, so it needs ansi joins.  It should ideally work with non-ansi joins as well.

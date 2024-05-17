@@ -1,2 +1,0 @@
-Clean up console exception handling
-The console needs more consistency in exception logging and reporting to ensure that the user messages displayed are accurate and that the log is clean.

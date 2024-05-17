@@ -1,2 +1,0 @@
-Server should support JGroups communication over P2P
-Currently Server only supports the JGroups over Multicast we need to support unicast protocol tool, with configuration.

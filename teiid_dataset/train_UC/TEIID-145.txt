@@ -1,4 +1,0 @@
-Parse double quoted literals as identifiers by default
-The allowDoubleQuotedVariable property should default to true, rather than false.
-
-Need to make a special note of this in release notes.  An unknown number of unit tests will be affected.

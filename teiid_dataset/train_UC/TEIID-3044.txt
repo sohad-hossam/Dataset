@@ -1,2 +1,0 @@
-Add function metadata to system tables / databasemetadata
-We should expose source/system/udf functions via system metadata.

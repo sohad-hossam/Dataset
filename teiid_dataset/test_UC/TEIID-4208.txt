@@ -1,2 +1,0 @@
-Increase plan parallelism
-Increased parallelism within the plan, which includes parallelization of source queries via partitioning beyond multi-source and parallelizing the execution of union branches.

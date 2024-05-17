@@ -1,2 +1,0 @@
-MongoDB: Provide Array support 
-Provide array support for primitive data types in MongoDB  translator. The arrays are supported but as embedded documents in the one-2-many situation.

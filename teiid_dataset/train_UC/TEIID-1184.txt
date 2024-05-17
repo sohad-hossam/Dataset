@@ -1,5 +1,0 @@
-Patch to refactor numbered <sect> tags in documentation to <section>
-The Teiid docbook uses the numbered section tags (<sect1>, <sect2>, <sect3> etc).  The use of <section> is generally preferred for sections as they can be arbitrarily ordered & nested.
-
-A patch is attached that changes all these tags to <section></section>
-

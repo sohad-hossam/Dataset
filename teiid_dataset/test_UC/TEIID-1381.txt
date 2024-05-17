@@ -1,0 +1,2 @@
+pushdown validation not accurate for all update
+An physical insert with a query expression that contains a non-pushdown construct will fail validation in relational planner.

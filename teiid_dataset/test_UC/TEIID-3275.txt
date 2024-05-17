@@ -1,2 +1,0 @@
-remaining work should always be canceled
-When a result is partially read we typically send a cancel to source queries that remain open for faster cleanup.  Depending upon the plan and the usage of max rows this may not happen in all circumstances.  We should ensure that cancel is always called on partially read results.

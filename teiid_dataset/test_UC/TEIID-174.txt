@@ -1,4 +1,0 @@
-add support to MMCallableStatement for named parameter methods
-Defect Tracker #20152: Now that we support named parameters for procedure, we should implement the setter methods in CallableStatement having to do with named parameters.
-
-Be sure to update the list of Unsupported Methods in our JDBC driver, wherever that list is.  Last report, it was sent to Warren to be added as an appendix to some documentation.

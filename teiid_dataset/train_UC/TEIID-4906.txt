@@ -1,2 +1,0 @@
-Clean up licensing and copyright information
-There is some drift in our copyright and licensing information.  We also need to more broadly advertise the ancillary licenses we are pulling in.

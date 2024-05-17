@@ -1,2 +1,0 @@
-ResultSet caching should not default to unlimited
-Defect Tracker #24581: This should be looked at in the context of all the other caching changes.  Defaulting to unlimited size/age is very dangerous.

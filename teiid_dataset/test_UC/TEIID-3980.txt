@@ -1,6 +1,0 @@
-NPE with Salesforce retrieve query and no matching entity
-A query such as:
-
-select name, id from BusinessProcess where id = <does not exist>
-
-will result in an NPE since the retrieve call returns a null record for each id that doesn't match.

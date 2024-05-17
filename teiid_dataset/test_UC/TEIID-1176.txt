@@ -1,2 +1,0 @@
-Provide a non-blocking JDBC api for ODBC support
-ODBC uses netty threads to execute queries over blocking JDBC, it would be better if this could be done using a non-blocking version - which underlying the JDBC logic.

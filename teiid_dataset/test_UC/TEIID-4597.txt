@@ -1,5 +1,0 @@
-Issue loading staging table
-In the metadata processor, the loading of the staging table doesn't get loaded due to the isStaging() method return false.
-
-
-This jira is created so that this issue is documented, as the fix is included in the commit for TEIID-4588  because this has to be fixed in order to see the duplicate column issue in TEIID-4588.

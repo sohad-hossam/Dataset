@@ -1,4 +1,0 @@
-DatabaseMetadata Procedure Columns order is incorrect
-Parameters should be ordered by position - with the return first, but are ordered instead by type.  
-
-Also the return parameter should have an ordinal of 0.

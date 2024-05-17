@@ -1,2 +1,0 @@
-for multi-src vdb, the select count(*) does not work for oracle/sqlserver connector
-please see https://developer.jboss.org/message/948909 for detail.

@@ -1,2 +1,0 @@
-replace bittronix in the examples with ironjacamar
-The usage of bittronix in the examples should be replaced with jboss projects.  This could be taken further to offer an embedded kit that includes transactionmanager functionality.

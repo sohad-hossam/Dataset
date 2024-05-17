@@ -1,2 +1,0 @@
-Improve with clause performance via inlining
-We should inline a with clause item that is only referenced a single time with a hint to prevent this behavior.  Scalar with clauses could still be inlined multiple times. 

@@ -1,2 +1,0 @@
-HBase query issues
-Hbase has a number of issues with their sql handling / driver.  Adding a parent issue to track all of known issues.

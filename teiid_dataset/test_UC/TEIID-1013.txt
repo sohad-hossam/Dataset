@@ -1,2 +1,0 @@
-Load the UDF based on the information provided in the vdb.xml
-With the new "vdb.xml" the UDF files will be defined as "FUNCTION" models inside it. The actual physical files will be included inside the VDB. The VDB deployer needs to be modified to load the UDF files.  Note that there can be more then single UDF file inside a VDB.

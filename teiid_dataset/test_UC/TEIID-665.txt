@@ -1,4 +1,0 @@
-Add "authorization" service, and add support for entitlements in "embedded"
-Add authorization service to "embedded". This service will provide functionality "embedded" to check if a given user is entitled to follow though a given administrative task or has a required role to carry on a operation a virtual data base.  
-
-The "entitlements" information will be available in a well known XML format in VDB archive, VDB service needs to load and make this data available to the "authorization" service, so that Query Engine can make required calls to check the permissions. 

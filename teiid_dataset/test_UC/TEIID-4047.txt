@@ -1,6 +1,0 @@
-OData - $top with negative value return status code 500
-OData request with query option $top with negative value returns status code 500. The root cause is SQLException. OData service should check passed value and return e.g. 400 instead.
-
-*URL:* http://localhost:8080/odata4/olingo_basic/Source/Customers/?$top=-1
-
-See http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398306

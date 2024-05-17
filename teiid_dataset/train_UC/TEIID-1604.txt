@@ -1,2 +1,0 @@
-Rationalize the context objects
-The the CommandContext and the ExecutionContext should have their methods rationalized so that there is a uniform way to access information (ExecutionContext.getCommandContext().getSession().getUsername() vs. ExecutionContext.getUserName()) and/or at least ensure that method names are the same.

@@ -1,8 +1,0 @@
-Deployed vdbs should have a consistent unzipped location.
-Deployed vdbs, or vdb less configurationinfo.def files should have a consistent location for their exploded form.  
-
-Under <teiid home>/deploy there will be folders <vdb name>/<vdb version> - with lower cased names.  On the initial scan for vdbs and def files we will use the corresponding def file to see if the <teiid home>/deploy/<vdb name>/<vdb version> already exists.  If it does not we will create the exploded location, otherwise we'll use it rather than the archive file itself.
-
-Any changes after deployment time ConfigurationInfo, roles, etc. will only be made to the exploded location.  This will make it easy to document how to modify these files without constantly zipping and unzipping them.
-
-Ideally this exploded location should also be used by the index file logic rather than using yet another temporary location.

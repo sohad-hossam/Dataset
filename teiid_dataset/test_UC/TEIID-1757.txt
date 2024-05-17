@@ -1,2 +1,0 @@
-Add Support for OData Data Sources
-OData data sources, like SAP Gateway, should be consumable by Teiid. I suggest either a new translator or extending the existing web service translator to enable the OData protocol. A new translator would be cleaner, but since OData uses REST, it may not make sense to to have another translator.

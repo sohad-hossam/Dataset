@@ -1,4 +1,0 @@
-JDBC Connector updates
-The PostgreSQL translator should assume the use of a 8.0 jdbc client (supports back to the 7.2 server) so that we can remove DatePartFunctionModifer/ModifiedDatePartFunctionModifer also support for the bit functions should be added.
-
-The SQL Server translator / capabilities should be updated to assume the use of a 2005, DataDirect, or later driver (all support back to sql server 2000) so that support for most of the time functions can be added. 

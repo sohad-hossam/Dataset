@@ -1,2 +1,0 @@
-Prevent partial aggregate pushdown based upon type
-For limited value types, such as boolean or byte, there is little value in their use as grouping columns and should be avoided - even if distinct value counts are not available.

@@ -1,4 +1,0 @@
-"driver-name" property missing for resource-adapters
-For resource-adapter that are module based the "driver-name" property is missing, so it becomes cumbersome to match with its original type after the connection factory creation. 
-
-Admin API should provide a way when getDataSource(...) is called, "driver-name" must be always present

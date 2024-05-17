@@ -1,6 +1,0 @@
-External Materialization Management Issues
-Couple issues 
-
-1) Based on https://docs.jboss.org/author/display/TEIID/External+Materialization document, the property teiid_rel:MATVIEW_STAGE_TABLE needs to be optional, however it is been coded as required.
-
-2) If an exception occurs during the loadMatview, the status table is set to "FailedLoad" however the exception is not logged to know the source of the issue. This needs to logged.

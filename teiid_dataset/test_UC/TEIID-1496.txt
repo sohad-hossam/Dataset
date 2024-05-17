@@ -1,2 +1,0 @@
-disjunctive rewrite
-for better index usage, something like col = 1 or col = 2 should be rewriten as col in (1, 2)

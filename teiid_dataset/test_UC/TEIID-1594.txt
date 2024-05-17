@@ -1,2 +1,0 @@
-Add to the sandox the example Coherence translator and connector
-Adding to the sandbox example connector and translator for access an Oracle Coherence Cache.

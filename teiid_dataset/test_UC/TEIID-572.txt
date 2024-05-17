@@ -1,2 +1,0 @@
-Add direct support for bulk updates
-Our current approach to a jdbc preparedstatement batched update is to create an update command per batch row and allow the connector layer to determine if that can be collapsed again into a batched operation to the source.  It would be better to send a single command with batched parameters so that we don't waste type translating the same command n times.  The approach should be the same for insert/update/delete.

@@ -1,2 +1,0 @@
-limit the number of concurrent source queries for limited unions
-Add logic to union processing to limit the amount of concurrency based upon the presence of a higher level limit.

@@ -1,4 +1,0 @@
-Allow anonymous procedure blocks
-In some cases it is beneficial to submit a block of sql for processing rather than performing partial result processing in the client.
-
-Given that we are effectively using anon blocks internally, we should expose this feature for general use.

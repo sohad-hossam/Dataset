@@ -1,2 +1,0 @@
-Add realm authentication to teiid-security
-To allow teiid to use users added by the console by default we should add the RealmDirect login module to the teiid-security security domain.

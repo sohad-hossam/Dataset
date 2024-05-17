@@ -1,5 +1,0 @@
-Ensure string parsing routines are consistent
-String parsing strictness varies depending upon whether a convert or a parse function is used.  In short we should for all parse routines:
-1. Perform a trim prior to parsing (double and float converts already do this implicitly)
-2. Use all non-whitespace characters in the parse string - the DateFormat, NumberFormat, and most of the convert methods allow for junk to appear after a successful parsing.
-3. Time/Date/Timestamps should use non lenient parsing to disallow dates that are out of range, i.e. 2007-13-35

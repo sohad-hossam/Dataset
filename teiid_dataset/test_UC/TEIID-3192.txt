@@ -1,2 +1,0 @@
-Migrate Salesforce connectivity to sf partner api jars
-There are several deficiencies in using CXF for salesforce connectivity - we are not batching correctly, there is additional CXF overhead, and we have to maintain our own generated java of the api.  

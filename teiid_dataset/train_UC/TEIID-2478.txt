@@ -1,2 +1,0 @@
-incomplete with pushdown
-If all the with clauses are not fully pushed, but is still pushable, the resulting query plan will contain incomplete references to the clauses.

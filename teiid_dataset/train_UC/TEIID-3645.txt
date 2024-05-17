@@ -1,6 +1,0 @@
-Upgrade of Amazon aws sdk version
-I was working on dynamodb connector with latest dynamodb sdk.
-This sdk uses aws-java-sdk-core version 1.10.11 but teiid uses aws-java-sdk 1.5.7. internally for simple db connector. 
-
-Could you please upgrade  the aws sdk version to latest?
-  

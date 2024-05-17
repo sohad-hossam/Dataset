@@ -1,2 +1,0 @@
-Provide single HTML page for all the documents
-Currently Teiid documentation provides, html and PDF. The HTML is spread over multiple pages. Providing a single document will be easier for searching.

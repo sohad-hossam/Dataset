@@ -1,6 +1,0 @@
-Procedure logic clean up
-The procedure planning logic has several issues that should be addressed
-
-1. RaiseErrorStatement extends AssignmentStatement, which is confusing the designer code.
-2. Assigment/RaiseError/Declare have lots of specialized logic for dealing with commands.  It would be much simplier to just use a scalar subquery to represent the command execution.  This may need to be refined later if we want specialized handling for using the return value from storedprocedures and to use its cursor.
-3. Validation is not run on dynamic sql commands.

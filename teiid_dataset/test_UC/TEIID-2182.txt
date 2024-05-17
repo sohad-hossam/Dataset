@@ -1,8 +1,0 @@
-Mechanism to hook up event listener into Teiid runtime
-It would be to useful allow the installation of custom listeners since we don't have a global vdb table that could have customizable triggers.  This could cover for example custom strategies for external materialization initialization.
-
-This would also help in where an application wants to listen to when a VDB was added, made active, destroyed so that it can handle those events as required by the application.
-
-Please see the thread below for the context & details
-
-https://community.jboss.org/message/756060

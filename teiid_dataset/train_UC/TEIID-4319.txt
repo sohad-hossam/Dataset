@@ -1,6 +1,0 @@
-Deprecate automatically adding of the class object to the source table
-If the source model is not defined with the metadata, but allowing the infinispan (object) translator to reverse engineer the metadata from the cache object class, the process will add a column that represents the cache object.   This is a holdover from the original implementation that used the OBJECTTABLE function for transforming the object into a row in the result set.   This column is not required and can be excluded (or removed) if modeling the object source table.    
-
-This column also causes WARNING to show up in the server log because it is assumed by the engine to be part of materialization.  However,  this column is not updatable and can be excluded in materialization by not specifying it in the INSERT INTO statement.
-
-So to clean up all this, it would be good to stop adding the class object as a column in the source table.  And the user can always add it back if they wish to use it.  

@@ -1,2 +1,0 @@
-Enable access to the query plan without reference to Teiid classes.
-Eclipse Data Tools provides a framework for getting/displaying a query plan and I want to implement it as part of our DTP plug-ins.  Currently you can only get the query plan from the MMStatement class, but DTP works only with the JDBC interfaces.  Access to the query plan via the JDBC APIs and core java classes will enable us to plug into the framework.  

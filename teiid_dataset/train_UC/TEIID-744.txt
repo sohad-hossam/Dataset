@@ -1,2 +1,0 @@
-Inversion of convert(string, ...) and parseXXX(string, ...) is not always possible.
-The parsing routines for date and numeric types from string allow for non-canonical string forms.  Inverting the convert or parse assumes that the format matches exactly (no additional trailing 0's for example) and there is no leading/trailing ws.

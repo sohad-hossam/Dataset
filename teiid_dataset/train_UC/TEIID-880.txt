@@ -1,2 +1,0 @@
-SQL Server uniqueidentifier handling
-SQL Server's uniqueidentifier is typically imported as a string, but cannot be used in comparable operations (distinct, order by, group by).  Our designer cost analyzer logic already compensated for this, but a more general fix would be to wrap the uniqueidentifier as cast(col as char(36)), which would be safe.

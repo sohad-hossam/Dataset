@@ -1,4 +1,0 @@
-OData procedure issues
-Calling a procedure through Teiid's odata interface has several issues.  First is that joda time values are passed directly - which the runtime will not be able to convert to analogous Teiid time types.  Ultimately this appears as a classcastexception, which is due to logic in the joda time AbstractPartial.compareTo method (which may be reported with an erroneous message and seems odd in general, but is their way of saying the comparison is invalid).
-
-Another is that the logic assumes that the url will be called with the positional ordering of the parameters preserved.  We should use named parameters instead.

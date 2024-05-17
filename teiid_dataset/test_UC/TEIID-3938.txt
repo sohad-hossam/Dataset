@@ -1,5 +1,0 @@
-EdmDate and EdmTimeOfDay output in local timezone
-EdmDate and EdmTimeOfDay both assume GMT for incoming string values - however when the convert from Java objects to string they use the local/default Calendar.  So when Teiid is on a server not in GMT date and time value sent via the odata4 translator will likely be wrong.
-
-Ramesh:
-I have posted a question to the Olingo development group here http://markmail.org/search/list:org.apache.olingo.dev#query:list%3Aorg.apache.olingo.dev+page:1+mid:bfghfslrpwyjh6ii+state:results

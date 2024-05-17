@@ -1,2 +1,0 @@
-Connector development documentation out-of-date
-The included diagrams and documentation are not up-to-date with the limit, intersect, and except features.  Documentation needs to be added for GlobalCapabilitiesProvider as well.

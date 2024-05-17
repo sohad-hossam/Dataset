@@ -1,4 +1,0 @@
-rewrite caseexpression as searchedcaseexpression and remove caseexpression from connector api
-There is no instance of a connector supporting case, but not searched case - and we are already currently treating case a searched case in default translations.  It would be best to cannonicalize and remove case expression altogether.
-
-The current rewrite for case expression is not correct either.  Null values for case operands should not result in is null searched case criteria.

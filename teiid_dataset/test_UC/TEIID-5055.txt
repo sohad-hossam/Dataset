@@ -1,2 +1,0 @@
-Mark more functions using the TeiidFunction annotation as pushdown eligilble
-Functions added using the TeiidFunction annotation, such as for TEIID-4532, were not marked as pushdown eligible, even though they could be.

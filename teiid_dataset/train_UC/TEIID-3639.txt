@@ -1,2 +1,0 @@
-pg metadata query not qualified
-matpg_relatt is not qualified in the internal metadata query used by odbc clients.

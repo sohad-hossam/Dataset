@@ -1,2 +1,0 @@
-Streamline JDG integration
-This jira is to discuss the issues based on current design that inhibit the ability to stream line JDG integration and/or to recommend changes that would enable the use/access of a  JDG cache in an automated way.

@@ -1,7 +1,0 @@
-Update settings.xml to reflect JBoss maven repository changes 
-Details are defined here https://access.redhat.com/maven-repository
-
-For this technology preview, there are a set of Maven repositories. You can choose between the general availability (GA) repository and the early-access repository (Alpha and Beta builds).
-
-General availability repository: https://maven.repository.redhat.com/techpreview/all/
-Early-access repository: https://maven.repository.redhat.com/earlyaccess/all/

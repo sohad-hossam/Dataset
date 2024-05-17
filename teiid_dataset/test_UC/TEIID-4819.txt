@@ -1,2 +1,0 @@
-Tree page modifications removing the previous page, don't remove immediately
-TEIID-3119 introduced logic to reuse the existing cacheentry, but the removal of the old entry was based upon the wrong remove method - just a remove from cache and not memory.  That would delay the cleanup of the memory reference until eviction or when the buffer/tree is removed.

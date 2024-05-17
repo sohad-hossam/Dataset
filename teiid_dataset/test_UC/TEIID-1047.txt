@@ -1,2 +1,0 @@
-Teiid host resolution should match that of the JBoss AS
-Teiid "localhost" address resolution is done differently than that of the JBoss AS. JBoss AS always resolves to 127.0.0.1.  The host resolution it self completely different between both; Teiid should mimic or reuse this from JBoss AS.

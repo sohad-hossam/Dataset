@@ -1,2 +1,0 @@
-Allow positional group by for odbc
-A remaining item for TEIID-3073 was that since tableau assumes we are postgresql they will use the pg specific positional group by references.

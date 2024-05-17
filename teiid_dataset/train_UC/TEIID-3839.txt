@@ -1,2 +1,0 @@
-minimize implicit dependencies on sun classes
-Serialization of the server timezone can rely on sun.util.calendar.Zoneinfo, which is not allowed by default in EAP/Wildfly if using the driver as just a jar.  Ideally we should avoid direct serialization of these classes as much as possible.

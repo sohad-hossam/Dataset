@@ -1,2 +1,0 @@
-Managed connector  connection factory always closes the physical connection.
-As of 7.0 M3, the Connector's managed connection closes its physical connection each time the connection is released to the pool. This way the physical connection is not pooled at all and goes through unnecessary connection creation close for each query. The Managed connection should keep a stateful physical connection for the duration of its life. If the MC is destroyed then the phycal connection can be closed.

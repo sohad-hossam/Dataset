@@ -1,2 +1,0 @@
-Add a latest version of the salesforce connectivity to the server kit
-For convenience it would be good to offer a latest salesforce version, rather than requiring users to build a new translator/resource adapter.  We can also deprecate the v22 connectivity then. 

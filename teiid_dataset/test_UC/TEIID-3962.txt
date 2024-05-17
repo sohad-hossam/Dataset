@@ -1,2 +1,0 @@
-remove invalid character handling from Teiid odata4 logic
-Since we now have a better influence over the odata framework, we should remove the replacement character logic from Teiid and let that be handled by the serializers - as the current handling is intended for XML but will affect both JSON and XML results. 

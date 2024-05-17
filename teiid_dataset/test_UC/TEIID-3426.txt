@@ -1,2 +1,0 @@
-Salesforce importer does not set cardinalities
-The salesforce importer does not set cardinalities for salesforce objects it imports. That is causing problems with joins involving more than two tables, and when there are no criteria on a large table. If the large table is joined later, it retrieves all the rows of that table and joins them with the result of the previous joins.

@@ -1,2 +1,0 @@
-Unhandled exceptions during close can hang the client
-Although rare (generally due to unrelated code issues), an unhandled exception during attemptClose in requestworkitem will not result in the client being sent a response.  This is fine if the close was issued by the client, since it is effectively asynch.  However if the client is waiting for a response (such as when the close is triggered by an asynch cancel), that can hang the client. 

@@ -1,6 +1,0 @@
-Oracle queries with a TimeStamp in the WHERE clause are failing if multiple TimeStamps are used in "AND", "OR', and "IN" situations
-The following queries are failing in CTC with an ORCL errors "invalid characters" or "missing right parenthesis".  The ojdbc6 driver is being used.  Oracle10 VDB attached.
-
-SELECT BQT1.SmallA.IntKey FROM BQT1.SmallA WHERE BQT1.SmallA.TimeStampValue IN (convert('2000-01-01 00:00:12.0', timestamp), convert('2000-01-01 00:00:45.0', timestamp)) ORDER BY IntKey
-SELECT BQT1.SmallA.IntKey FROM BQT1.SmallA WHERE BQT1.SmallA.TimestampValue > '2000-01-01 00:00:25.0' AND BQT1.SmallA.TimeStampValue &lt; '2000-01-01 00:00:30.0' ORDER BY IntKey
-SELECT IntKey, TimestampValue FROM BQT1.SmallA WHERE TimestampValue > '2000-01-01 00:00:47.0' OR TimestampValue &lt; '2000-01-01 00:00:02.0' ORDER BY IntKey

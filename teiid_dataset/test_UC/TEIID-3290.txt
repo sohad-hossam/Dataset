@@ -1,6 +1,0 @@
-Auto generated REST WAR truncates the larger payloads
-Currently only query parameters are supported as the input parameters to the Teiid procedure in POST based call.
-
-The POST BODY also needs to be supported to handle larger payloads in this situation as query parameters has size limitations. Currently string based query parameters are supported, but since they passed as is as strings on larger payloads the they will be subject 4000 string length restriction.
-
-It should be possible to read metadata of the procedure and convert the string objects to respective objects before the query gets executed.

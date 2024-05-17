@@ -1,2 +1,0 @@
-Resolving order is not respected by the metadatavalidator
-When resolving a DDL based schema that uses view definitions that omit columns, the statement order of the schema matters to ensure that the views are properly resolved.  Currently we'll resolve based upon name order, which can lead to erroneous validation exceptions.

@@ -1,2 +1,0 @@
-OData V2: Add support for odata expand
-We should add support for odata expand.  This can be done with logic similar to the xml document model.

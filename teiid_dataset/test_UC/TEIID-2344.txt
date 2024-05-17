@@ -1,2 +1,0 @@
-Determine database version automatically
-It would be helpful if we could determine the database version automatically from the database metadata rather than relying on the user setting.  Of course if the property setting is present we shouldn't override it.

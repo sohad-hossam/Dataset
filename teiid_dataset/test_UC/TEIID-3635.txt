@@ -1,2 +1,0 @@
-Auto configuration of buffermanager values can be incorrect
-If the heap size is significantly larger than 2 gb, such that the auto computed value for the max reserve is larger than 2 gb and the memory buffer size is also auto calculated, then the computed values for max reserve and max memory buffer can be significantly different than expected.  At worst this results in the max memory buffer size of 0, which just default the buffer to being accessible by a single thread.

@@ -1,2 +1,0 @@
-select count(*) query not working on SimpleDB connector in Teiid
-select count(*) query not working on SimpleDB connector 

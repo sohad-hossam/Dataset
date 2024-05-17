@@ -1,2 +1,0 @@
-Admin connection is not being authorized correctly
-Currently the admin connections made using "ServerAdminFactory" were not subject to the login restrictions, so the connection is wide open. This needs to be fixed.

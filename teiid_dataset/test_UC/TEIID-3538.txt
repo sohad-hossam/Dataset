@@ -1,9 +1,0 @@
-Make OData V2 compatible with LINQPad
-Current OData V2 implementation is not able to load in LINQPad https://www.linqpad.net/
-
-Couple issues found
-- List(Edm.xxx) based collections are not supported. V2 Spec did not specify any List based collections. Only Collection(Edm.xxx) type. So, part of TEIID-3471 need to be rolled back and fix with Collection(Edm.xxx) type
-
-- Explicit definition of "not null" in Entity's key property.
-
-- TEIID-3471 did not go far enough to define accepts header to have "application/xml", "application/atom+xml" and "application/json" without "chaset=utf-8" appended to it. TEIID-3471 only added $metadata and service document. BTW, I was under the impression that I did add all the required places, and was surprised not see in commit :(

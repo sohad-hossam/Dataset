@@ -1,2 +1,0 @@
-Oracle pushdown of like_regex is incorrect
-The pushdown for oracle needs to use function notation, rather than an infix operator.

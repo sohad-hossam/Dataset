@@ -1,2 +1,0 @@
-Change nomenclature of "Connector Binding" to "Connection Factory"
-With the migration of Connectors to the JCA container, using the name "Connector Binding" is different than that of "Connection Factory" usage in the container world. Change all the references in code, pubic api and documentation to reflect the name change

@@ -1,2 +1,0 @@
-Upgrade the Olingo library to 4.2.0
-Upgrade the Olingo library to 4.2.0, this will also be used as bucket to all the related issues, patches that needs to be removed when the library is upgraded to 4.2.0

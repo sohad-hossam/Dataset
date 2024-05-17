@@ -1,6 +1,0 @@
-Excel translator extension property not specified correctly.
-The FIRST_DATA_ROW_NUMBER extension property for excel is specified as applicable to Column.  It should be Table.
-
-See line 53 of ExcelMetadataProcessor.
-
-We noticed a mismatch between the DDL where its specified on the table options.

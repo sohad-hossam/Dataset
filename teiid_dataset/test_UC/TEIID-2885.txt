@@ -1,2 +1,0 @@
-Allow dependent join pushdown to be chosen by the planner
-As a follow on to TEIID-2249, the planner should be able to choose when to use full join pushdown, rather than only relying upon a hint.  One downside to this currently is that there isn't a good way to do a back off to a different join processing (unless we embedded an alternative plan) and so we may have to add failure logic if too many independent values are retrieved.

@@ -1,0 +1,4 @@
+Validation issues with upsert
+An upsert using a primary key that is non-updatable should still succeed as the statement is not modifying the key.
+
+Similarly an upsert using a non-updatable primary key and a null value should still be allowed even if the column is marked as not null as long as it is auto increment or defaultable - as it can be source dependent whether the null key means an insert.

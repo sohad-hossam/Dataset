@@ -1,2 +1,0 @@
-Improve performance of st_extent
-The implementation of st_extent is very costly.  It should instead be based upon the Envelope class.  Also it is not being pushed to pg.

@@ -1,2 +1,0 @@
-getCatalogs call on DatabaseMetadata is returning no rows
-The call on DatabaseMetadata object, "getCatalogs" is returning no rows. This should return VDB as the catalog name.

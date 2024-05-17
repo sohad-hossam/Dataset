@@ -1,2 +1,0 @@
-Add support for array/list indexing in teiid script
-With Teiid script (the default for objecttable) you currently have to hand array processing over to arraytable rather than directly using arrays in the script.

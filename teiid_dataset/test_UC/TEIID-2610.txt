@@ -1,2 +1,0 @@
-pg protocol issues
-The primary issue is that closing a portal is also closing the prepared plan, which is causing a protocol error.

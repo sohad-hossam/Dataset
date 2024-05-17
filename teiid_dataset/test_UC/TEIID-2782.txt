@@ -1,2 +1,0 @@
-add another log context VDBLifeCycleListener
-It would be nice to have a logging context / logs for the lifecycle events of a VDB

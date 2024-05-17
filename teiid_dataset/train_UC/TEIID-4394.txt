@@ -1,4 +1,0 @@
-Impala Translator - add pushdown support for window functions
-Cloudera Impala supports window functions per http://www.cloudera.com/documentation/archive/impala/2-x/2-1-x/topics/impala_analytic_functions.html#window_clause_unique_1
-
-As a query executor I need to be able to push down window functions into Impala.

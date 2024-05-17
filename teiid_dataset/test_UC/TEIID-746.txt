@@ -1,2 +1,0 @@
-Composite keys should be detected by costing
-Detection of composite keys in costing logic has not worked since we break the criteria up prior to cost analysis.  A possible fix for this is to also re-combine criteria that has been pushed to a source node - this approach will still fail to detect the key criteria if one of the conjuncts cannot be pushed.  Also we should be able to detect disjunctive composite key usage more broadly.

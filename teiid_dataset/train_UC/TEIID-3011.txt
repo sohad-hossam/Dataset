@@ -1,8 +1,0 @@
-rewrite skipped
-The rewrite of a set predicate is being bypassed when all of the in values are constants, but when pushed through a view with a convert on the left expression there is still optimizations that can be performed.
-
-For example:
-
-select * from (select e1, e2 from pm1.g1 union all select convert(e2, string), e2 from pm1.g2) x where e1 in ('1', '2')
-
-such that e1 is string and e2 is integer, we expect that the second branch will have criteria of the form "e2 in (1, 2)" - with no conversion.

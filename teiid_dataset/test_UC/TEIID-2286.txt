@@ -1,2 +1,0 @@
-add native query support for spreadsheets
-google supports pivoting and other language features not supported by our sql, that should be accessible.

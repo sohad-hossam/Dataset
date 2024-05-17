@@ -1,2 +1,0 @@
-source hint placed in with clause
-The sql conversion visitor is placing the source hint in the first select, which can be in the with clause.

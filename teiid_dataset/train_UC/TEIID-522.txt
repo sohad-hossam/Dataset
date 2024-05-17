@@ -1,0 +1,23 @@
+JDBC DatabaseMetadata methods do not accept empty string as catalog name 
+This is related to internal support ticket I-T #212065 (which was against MetaMatrix 5.5SP2).
+
+To resolve that ticket (where a third party software package expected different behavior from the MetaMatrix JDBC driver than it actually had), we made three changes:
+
+1) DatabaseMetaData.supportsSchemaInDataManipulation() was changed to return true (which is correct) - looks like this change was also brought over to Teiid
+
+2) DatabaseMetaData.supportsCatalogInDataManipulation() was changed to return the value of the boolean driver property "supportsCatalog".  This change didn't come over to Teiid (in Teiid this method always returns "false").  I'm fine with the current Teiid behavior, since we don't have a notion of catalog, so really "false" is the correct response here.
+
+3)  The DatabaseMetaData methods getColumns, getExportedKeys, getImportedKeys, getIndexInfo, getPrimaryKeys, getProcedureColumns, getProcedures, and getTables all have a parameter for catalog name.  In the current Teiid implementation of MMDatabaseMetaData, if catalog is non-null an empty response is returned.  
+
+This is actually incorrect behavior according to both 1.5 and 1.6 javadoc - see http://java.sun.com/javase/6/docs/api/java/sql/DatabaseMetaData.html#getTables(java.lang.String,%20java.lang.String,%20java.lang.String,%20java.lang.String[]) where it says:
+
+catalog - a catalog name; must match the catalog name as it is stored in the database; "" retrieves those without a catalog; null means that the catalog name should not be used to narrow the search
+
+So, since Teiid does not have the notion of a catalog, it should accept either null or the empty string as valid values for the catalog parameter.
+
+In the MMx 5.5.x code base, all of these methods were changed to only return empty responses if catalog was non-null, and also was not the empty string:
+
+if ((catalog != null) && (catalog.length() > 0)) {
+
+This same change should be made to Teiid.
+

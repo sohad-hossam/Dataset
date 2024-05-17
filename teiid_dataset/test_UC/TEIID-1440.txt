@@ -1,2 +1,0 @@
-Add support for not null and auto increment for temp table columns
-It would be good to have auto increment and not null support for temp tables.

@@ -1,6 +1,0 @@
-Replace homegrown Logging with Log4J
-Teiid has Logging framework as well the implementation that supports the frame work, like Log Listeners, File appenders and Rolling File appenders, Platform loggers etc. Except for LogManager.java and its required constants, everything else can be replaced with Log4J implementation.
-
-Designer seems to be only dependent upon the "Logger" interface, so that will be kept. 
-
-A "log4j.properties" configured for "embedded" and "server" runtimes to configure the logging destinations.

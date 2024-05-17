@@ -1,2 +1,0 @@
-Postgresql translator should support recursive common table expressions
-The support for recursive common table expressions is missing for postgresql.

@@ -1,2 +1,0 @@
-Update Jopr Plugin to Use Long Running Query Property and Method on Teiid Engine
-Need to change the Jopr plugin logic to use the new LRQ property and method

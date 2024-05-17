@@ -1,2 +1,0 @@
-Simplify ConnectorCapabilities
-In making the other connector changes I would like to open a dialog on refining the connector capabilities mechanism.  At a minimum I would like to just use basicconnectorcapabilities rather than having the connectorcapabilities interface, which noonne is told to implement directly anyway.  A more aggressive approach would be to use the same approach as dqp, a map with an enum key.

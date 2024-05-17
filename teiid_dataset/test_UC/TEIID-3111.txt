@@ -1,7 +1,0 @@
-Function with multi-part names not resolving correctly
-When a function has multi-part name, like JCR for the modeshape functions, it won't resolve without the JCR prefix.  That is
-
-SYS.JCR.function works
-JCR.function works
-
-but just function doesn't work.

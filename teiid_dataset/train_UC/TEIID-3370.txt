@@ -1,2 +1,0 @@
-Add translator for OData V4 based service
-Feature Request to add support for OData V4 as Datasource

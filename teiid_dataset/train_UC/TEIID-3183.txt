@@ -1,6 +1,0 @@
-Join sort order altered inappropriately
-If a merge or other join configuration is chosen and there is a subquery affecting only a side of the join that is to be sorted such that the subquery can be rewritten as a semi/anti-semi join, then the subquery rewrite will alter the intended sort order of the original join.  This can result in incorrect results.
-
-An example query:
-
-select pm2.g2.e1 from pm1.g1 inner join pm2.g2 on (pm1.g1.e1 = pm2.g2.e1) where pm2.g2.e2 in /*+ mj */ (select count(e2) FROM pm1.g2 group by e1 having e1 < pm2.g2.e3)

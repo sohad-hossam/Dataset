@@ -1,6 +1,0 @@
-Pushdown support for arraytable
-Rewrite ARRAYTABLE queries as a series of cast and array_get functions calls.
-
-This would allow translators to support efficient queries using ARRAYTABLE.
-
-See https://community.jboss.org/thread/215915 for more information

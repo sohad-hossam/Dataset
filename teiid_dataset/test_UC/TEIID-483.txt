@@ -1,2 +1,0 @@
-Fix fetchsize engine settings
-There is a config property for maxfetchsize, but it is not currently used.  This should be implemented and the minfetchsize setting should be removed.

@@ -1,2 +1,0 @@
-DB2 lob values must be read inline
-With the DB2 9 driver and selecting a lob column, the resulting instance becomes invalid after the next row of the result is transitioned to.

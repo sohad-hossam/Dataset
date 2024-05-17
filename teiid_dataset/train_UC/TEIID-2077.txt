@@ -1,2 +1,0 @@
-Caching improvements
-Redundant source queries should be detected by the engine and result set cache entries should be able to specify updatable to indicate whether they should be sensitive to cache changes.

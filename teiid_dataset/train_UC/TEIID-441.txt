@@ -1,2 +1,0 @@
-Expand the requires restart property
-Requires restart instead of a simple boolean should be an enum = {none, service, process, cluster}, any configuration property would default to process restart.  any service property would default to service restart.

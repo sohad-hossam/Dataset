@@ -1,4 +1,0 @@
-Rename native query procedure
-We have two somewhat related native querying features - the native-query extension property used on tables/procedures/functions, and a native procedure that can be exposed to issue arbitrary statements.
-
-It has been proposed to rename the native query procedure to the direct query procedure (which matches the translator api).

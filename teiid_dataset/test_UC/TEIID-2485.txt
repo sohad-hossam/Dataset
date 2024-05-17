@@ -1,4 +1,0 @@
-Remove the resteasy patch thats no longer needed in EAP 6.1 ER5
-The resteasy patch thats provided in the kit is no longer needed.  As of EAP 6.1 ER5,  resteasy has been upgraded to 2.3.6, and resolves RESTEASY-812 issue. 
-
-I have verified the fix and have several EAP 6.1 ER5 servers running with Teiid 8.4 alpha without the patch applied.

@@ -1,8 +1,0 @@
-Evaluatable subquery in ON clause produces invalid query
-Using an evaluatable subquery, such as a scalar subquery in an outer join on clause will result in all criteria being removed and an invalid source query being issued.
-
-For example:
-
-with a (x, y, z) as (select e1, e2, e3 from pm1.g1 limit 1) SELECT pm2.g1.e1 from pm2.g1 left outer join pm2.g2 on (pm2.g1.e2 = pm2.g2.e2 and pm2.g1.e1 = (select a.x from a))
-
-And a source that doesn't support with (or the with clause cannot be pushed as part of the main query), then the evaluation of the scalar subquery will block and cause the issue.

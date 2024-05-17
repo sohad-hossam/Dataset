@@ -1,5 +1,0 @@
-quantified comparison results dependent on null ordering
-The handling of null and it's affect on the result is dependent upon it's position in the the subquery result.  
-
-Specifically if null occurs before something that would otherwise evaluate to true for an all comparison the result will be true and not the expected null.  Or if null occurs before something that would be otherwise false in a some comparison, then false will be returned rather than the expected null.
-

@@ -1,2 +1,0 @@
-String to boolean conversion should not throw an exception
-The string to boolean conversion should not throw an exception since that behavior is not easily ported to sources.  Instead both the number to boolean and the string to boolean conversion should rely on effective boolean value logic.  If the value is null, then null.  If the value is false ('0', 'false') then false, else true.

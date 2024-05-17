@@ -1,2 +1,0 @@
-Move warning handling onto CommandContext
-Having our warning logic on processing plans is inconvenient.  It should be on the CommandContext and we could also consider allowing access via the public org.teiid.CommandContext interface. 

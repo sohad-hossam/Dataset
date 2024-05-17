@@ -1,2 +1,0 @@
-Failed load shows a loading in the console
-The metadataexception in the forum post should transition the vdb to failed.  I'm logging this initially against the console as we have a similar unit test that correctly reports a failed load given invalid ddl, which is essentially the same exception.

@@ -1,2 +1,0 @@
-Define a new schema based VDB deployer xml (previously defined by ConfigurationInfo.def)
-With the changes in the JCA branch the ConfigurationInfo.def file inside the VDB needs to be modified to accommodate the new connector definitions. Create a schema based XML file that can be used with both with Designer generated VDB and also for Dynamic VDB. 

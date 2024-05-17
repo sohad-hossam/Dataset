@@ -1,8 +1,0 @@
-transaction support value not cloned on access node
-The transaction support flag is not cloned, which leads non-transactional access to still start a transaction.  For example with typical web services lateral join when preformed in a procedure:
-
-begin
-select ... from (invokeHttp...) as x, texttable(...);
-end
-
-Since the procedure plan is cloned for invocation, the transaction support flag won't be set.

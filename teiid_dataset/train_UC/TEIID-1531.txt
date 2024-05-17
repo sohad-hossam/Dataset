@@ -1,2 +1,0 @@
-ODBC charset issues
-In testing odbc using the postgres jdbc issue I can see that we are not consistently handling the conversion of client encodings to charsets.  Also later postgres clients can use the key UNICODE to refer to UTF-8.

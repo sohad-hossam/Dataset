@@ -1,6 +1,0 @@
-Dynamic command projection should be positional
-Dynamic commands using the as clause should match with the dynamic command based upon position, rather than name.
-
-For example exec string 'select x, y ...' as a string, b string;  
-
-should work since the right number of symbols are projected.

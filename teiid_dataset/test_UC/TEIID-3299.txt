@@ -1,7 +1,0 @@
-Errors when calculating bytes sent.
-TEIID-3147 caused several regressions:
-
-The client will appear to hang if we are determining the data bytes sent and there is a serialization error (which is not common).  This is because the receiver has already been cleared but an exception is thrown.
-
-Also if generated keys are requested, then an update will fail on the client side with an npe as the delayed deserialization logic will be used, but no attempt will have been made to reconstruct the results.
-

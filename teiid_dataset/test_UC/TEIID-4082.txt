@@ -1,7 +1,0 @@
-OData - null literal is not supported
-*URL:* http://localhost:8080/odata4/olingo_basic/Source/SimpleTableView/?$filter=stringval%20eq%20null
-*Actual result:* {"error":{"code": null,"message": "OData Library: An exception without message text was thrown."}}
-*Expected result:* Return all entities where stringval equals _null_
-
-See: http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part1-protocol/odata-v4.0-errata02-os-part1-protocol-complete.html#_Toc406398303
-http://docs.oasis-open.org/odata/odata/v4.0/errata02/os/complete/part2-url-conventions/odata-v4.0-errata02-os-part2-url-conventions-complete.html#_Toc406398155

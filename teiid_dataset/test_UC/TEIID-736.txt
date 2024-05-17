@@ -1,2 +1,0 @@
-MMJDBCSQLTypeInfo incorrectly maps char sql type
-The teiid char type should map to char and the char sql type should map to our string type.

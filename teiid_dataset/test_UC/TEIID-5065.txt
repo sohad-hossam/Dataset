@@ -1,2 +1,0 @@
-Unable to connect to VDB having names with unicode characters
-Unable to connect to VDB having names with unicode characters or most characters of any other language

@@ -1,2 +1,0 @@
-Blob/clob start index message incorrect
-The clob/blob message when the start is less than 1 mentions that it's a column index, which is incorrect.

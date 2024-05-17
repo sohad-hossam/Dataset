@@ -1,2 +1,0 @@
-comm refactoring
-remove com.metamatrix.common.exception.ApplicationException and com.metamatrix.common.com.I18nMessage.  Also move com.metamatrix.common.comm.exception into com.metamatrix.common.comm.api

@@ -1,2 +1,0 @@
-Improve parser errors
-It would be good if the parser reported more of the sql where the parse error occurred.

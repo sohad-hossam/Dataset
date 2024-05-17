@@ -1,2 +1,0 @@
-Multisource updates affecting multiple sources returns wrong update count
-The multisource plan to process converter uses union all even for insert/update/delete scenarios, which returns the wrong update count (only the first) to the client.

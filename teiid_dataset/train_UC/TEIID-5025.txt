@@ -1,2 +1,0 @@
-Improve BufferManagerCleaner shutdown
-When running an embedded example the static timer used for the buffer cleaner is a daemon thread that isn't otherwise shutdown and will cause a delay/warning.

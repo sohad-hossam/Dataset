@@ -1,2 +1,0 @@
-Merge VDB action should provide way to persist the results 
-Currently "merge vdb" admin action is memory resident and does not persist between server restarts. Need to explore way to make this action persistent.

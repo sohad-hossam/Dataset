@@ -1,2 +1,0 @@
-Summary of PrestoDB translator issues
-None

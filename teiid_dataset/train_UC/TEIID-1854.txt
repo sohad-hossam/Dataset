@@ -1,2 +1,0 @@
-OData server
-Teiid should act as an OData server as well as a JDBC server.  This is not TEIID-1757 as that is about Teiid being an OData client.

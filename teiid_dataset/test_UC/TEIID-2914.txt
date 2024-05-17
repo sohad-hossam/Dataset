@@ -1,4 +1,0 @@
-Infinispan Connector didn't have the advanced searching option exposed
-The advanced searching option (i.e, lucene searching) that is defined in the .rar was not being picked up in the connector.
-
-Also, it was incorrectly defined on the translator, because the translator cannot override how the cache is configured.

@@ -1,9 +1,0 @@
-Server fails to shutdown if vdb with REST service generation is deployed
-DV sometimes won't stop if vdb with REST service generation is deployed.
-
-Server log is in the attachment.
-
-When the server is killed and started again, it will stop correctly.
-
-The issue is random. Server fails to stop in 50% of cases.
-

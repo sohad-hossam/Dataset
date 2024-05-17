@@ -1,6 +1,0 @@
-OData V2: $top doesn't work with virtual procedures
-When using OData to query a virtual procedure with a input parameter $top gets ignored:
-
-http://127.0.0.1:8080/odata/odat/proctest?string_in='30'&$top=5
-
-Returns all the rows.

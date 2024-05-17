@@ -1,2 +1,0 @@
-Update google ra config
-With TEIID-4034 the kitted ds config also needed updated.

@@ -1,2 +1,0 @@
-Increase performance of XML-Relational connectors file cache
-I-T 248339.  XML-Relational File Connector has severe performance issues when forced to use file caching on Linux/Solaris OS.  When using only the in-memory cache, the sample query in 248339 takes around 10 seconds.  When using the file cache, the query takes around 270 seconds to complete.  The sample data file source in 248339 consumes around 25MB of memory, so the default memory cache setting of 16MB forces the file cache to be used.

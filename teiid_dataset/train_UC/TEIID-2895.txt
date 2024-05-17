@@ -1,8 +1,0 @@
-Missing message for multi-source validation
-User is seeing:
-
-{code}
-<Missing message for key "multi_source_update_not_allowed" in: org.teiid.query.i18n>
-{code}
-
-rather than the actual message.

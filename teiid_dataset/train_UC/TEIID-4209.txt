@@ -1,2 +1,0 @@
-Primary key import fails with OSIsoft PI translator
-As reported with https://developer.jboss.org/thread/269357 the PI driver does not support getShort for database metadata calls, even if that is expected by the JDBC spec.

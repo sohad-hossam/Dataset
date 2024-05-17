@@ -1,9 +1,0 @@
-Replace System VDB with DDL based metadata
-Currently System VDB is based on Designer based VDB which requires the vdb indexing logic to be present to load into system. Now that DDL based metadata facility is available, should consider removing the Designer based VDB over the DDL based. This has couple different advantages
-
-1) Removes the dependency indexing logic to load
-2) Embedded Teiid can also have System functionality (currently it does not)
-3) Modifications to System metadata will be much easier
-4) Teiid would be master copy that defines this, right now Designer has its own copy, Teiid has its own, keeping them in sync is proven to be hard based on recent JIRA
-
-as a initial step the "getSchema" method could be utilized to convert the current System.vdb into DDL form.

@@ -1,2 +1,0 @@
-Allow the text connector to load metadata referenced files relative to the metadata file
-Currently we expect the metadata file to either have an absolute path or a url, but it should also check for files relative to where it loaded the metadata file.

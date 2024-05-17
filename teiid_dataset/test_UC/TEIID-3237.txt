@@ -1,4 +1,0 @@
-Prevent processing cross joins with unknown cardinalities
-The optimizer will select plans with cross joins (particularly with a parent dependent join) when the join is to be processed in Teiid and the cardinality of both sides of the join are unknown.
-
-We should prefer non cross join plans in these scenarios.

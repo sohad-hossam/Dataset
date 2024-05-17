@@ -1,2 +1,0 @@
-Server Extensions should be loaded from a Extension classpath
-Currently the MembershipDomain, CustomTracker load from libraries which are defined as part of the boot class path, these need to be loaded from the extension classpath, so that they can be added or removed without server re-start.

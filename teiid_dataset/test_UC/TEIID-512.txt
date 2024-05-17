@@ -1,2 +1,0 @@
-Simplify evaluatablevisitor
-The evaluatablevisitor is using 4 booleans to represent possible evaluation states.  This is overly complex and redundant.

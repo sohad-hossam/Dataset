@@ -1,2 +1,0 @@
-Add engine support for lead/lag aggregate functions
-Lead/lag and first_value/last_value analytical function support should be added to the engine with appropriate pushdown support.

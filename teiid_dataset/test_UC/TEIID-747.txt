@@ -1,8 +1,0 @@
-Minor costing updates
-Virtual cost stats for ndv and nnv should be used if available
-nnv and ndv should be able to be calculated against projected expressions
-External use of useskey should check for intervening joins/unions
-The like cost check for just % should be moved to the rewriter
-Except/Intersect costing should be based upon average case
-
-This will be about as far as the current logic can be used, see TEIID-239 for using better estimates of ndv and nnv

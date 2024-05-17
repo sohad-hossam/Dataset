@@ -1,2 +1,0 @@
-MongoDB: Support VARBINARY type
-Map BinData structure of MongoDB to Teiid's VarBinary type, and MAP VARBINARY to byte[]. Correct the import time byte[] to VARBINARY instead of blob.

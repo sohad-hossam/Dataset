@@ -1,5 +1,0 @@
-Add additional ansi sql function support
-Add parsing/support for:
-substring using from/for
-trim
-extract

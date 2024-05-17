@@ -1,2 +1,0 @@
-Allow for the possiblity of rewriten user commands by the AuthoriztionValidator
-The AuthorizationValidator is a customizable extension point and although not officially supported could allow for the rewrite of incoming user queries in the engine command object form.  Since this will be after the query is resolved any modifications must also leave the query in resolved form, so it is necessary for the introduction of columns/tables to be resolved against the supplied QueryMetadataInterface.

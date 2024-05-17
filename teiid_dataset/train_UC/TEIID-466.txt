@@ -1,2 +1,0 @@
-Remove product based display and logic
-There is only a single product now, so there is no need for reporting product info, sessions by product, etc.

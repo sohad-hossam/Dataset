@@ -1,2 +1,0 @@
-MongoDB: Model "_id" during metadata import as string data type
-Currently when metadata is imported through NATIVE metadata processor, the "_id" column of the MongoDB collection is represented as "Object" but the value is always handled as "string". Convert this to a string type such that is column then can be used in criteria columns.

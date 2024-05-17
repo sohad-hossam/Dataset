@@ -1,2 +1,0 @@
-Requesting ability to add/use Oracle hints in EDS
-Requesting the ability to use Oracle hints inside virtual transformations and enduser queries in EDS and Teiid Designer

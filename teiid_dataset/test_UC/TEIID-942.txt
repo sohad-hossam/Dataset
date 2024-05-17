@@ -1,2 +1,0 @@
-Make ad hoc temp tables transactional
-Ad hoc temp tables are scoped to the session and should be transactional.

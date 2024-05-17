@@ -1,6 +1,0 @@
-Secure profile service access
-As of 7.0 M3 release, the "Profile Service" access is not secure. Currently the JOPR plug-in and Teiid Admin API, force users to authenticate with "jmx-console" security domain, both these do not prevent the direct access to the "Profile Service" EJB directly. 
-
-Profile Service can be deployed as secure EJB, such that it would require a login context to be authenticated before user has access to this bean. This needs to be configured and tested. Also document, how to configure the profile service as secure service.
-
-Also, AdminFactory class, which provides Admin connections, need to work with secure "Profile Service".

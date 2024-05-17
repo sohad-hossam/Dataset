@@ -1,2 +1,0 @@
-Refine autoCommitTxn detect
-The current logic does not consider the type of source being accessed.  In many circumstances we are coordinating a transaction with no sources participating.  We should refine our logic to avoid unnecessary transactions.

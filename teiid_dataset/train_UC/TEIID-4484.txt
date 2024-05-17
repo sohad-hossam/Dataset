@@ -1,9 +1,0 @@
-Random test failure with cancelled query
-Due to interrupt handling we can have spurious test failures such as:
-
-{code}
-Tests run: 6, Failures: 0, Errors: 1, Skipped: 0, Time elapsed: 1.39 sec <<< FAILURE! - in org.teiid.jdbc.TestResultsCache
-testScope(org.teiid.jdbc.TestResultsCache)  Time elapsed: 0.116 sec  <<< ERROR!
-org.teiid.jdbc.TeiidSQLException: 57014 TEIID30160 The request 1kMLfcEKVhMX.0 has been cancelled.
-	at org.teiid.query.processor.QueryProcessor.nextBatchDirect(QueryProcessor.java:146)
-{code}

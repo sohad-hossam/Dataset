@@ -1,2 +1,0 @@
-Invalid native query message values are incorrect.
-We're looking up the messages in the JDBCPlugin, it should be the DataPlugin.

@@ -1,4 +1,0 @@
-Give translators a better batch size
-7.5 and later releases refined logic in the engine to shape batch sizes based upon the data, however we still only use the default connector batch size when requesting data.
-
-This value currently defaults to 512, however that can be much too large for many scenarios given how the underlying sources handling buffering.  At the least we should provide the engine adjusted batch size.  It would be good as well to let the translator specify a scaling factor.

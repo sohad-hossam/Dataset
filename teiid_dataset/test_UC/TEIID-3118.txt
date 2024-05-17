@@ -1,2 +1,0 @@
-Excel translator is not able to manage WHERE clause with time value
-Excel translator is not able to manage WHERE clause with time value. When I use time value in WHERE clause (with <, >, =) I get bad result. There is no problem with Timestamp and Date.

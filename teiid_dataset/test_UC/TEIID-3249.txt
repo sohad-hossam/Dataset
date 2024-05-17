@@ -1,2 +1,0 @@
-XMLCOMMENT missing validation
-XMLCOMMENT should check if the string contains -- or ends with - to ensure that the comment content is valid.

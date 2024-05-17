@@ -1,2 +1,0 @@
-send results proactively under a cursor as it looks like the ODBC client requires a transaction.
-Currently when querying large resultsets with ODBC the results are not sent as soon as the batch is logically available (like we do for JDBC)

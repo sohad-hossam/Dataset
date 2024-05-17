@@ -1,4 +1,0 @@
-Add the ability to delegate one shot dependent joins to the translators
-Using a memory safe iterator, like with bulk handling, we should be able to push dependent joins to the translator to perform specialized source specific one-shot join handling.
-
-With the other dependent join improvements this should hopefully be needed only in the most extreme cases.

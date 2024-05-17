@@ -1,3 +1,0 @@
-Change the default Teiid user from "admin" to something else
-Currently Teiid default user is "admin" with password "teiid", also the Admin Console's default user name is "admin" with password "admin". This is a confusion point with users in differentiating the Admin user from default Teiid user. Should consider changing the default user to something else.
-

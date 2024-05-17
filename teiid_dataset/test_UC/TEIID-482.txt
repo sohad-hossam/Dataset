@@ -1,2 +1,0 @@
-Web Services Tab not Displaying in Console
-The tab used for publishing the WSDL URL for a Web Services VDB to a UDDI Registry is not displaying in the Console.

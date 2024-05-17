@@ -1,2 +1,0 @@
-Add a built-in delegating translator that allows overriding all supports
-To assist in toggling specific capabilities without a patch, we should provide a built-in delegating translator that can selective toggle capabilities.

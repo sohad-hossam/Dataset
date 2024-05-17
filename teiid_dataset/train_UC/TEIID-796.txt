@@ -1,2 +1,0 @@
-Allow for the import of overloaded procedures
-Currently our metadata doesn't allow for the definition of overloaded procedures - however many sources supply unique names for each procedure signature that can be used instead of the base procedure name.

@@ -1,2 +1,0 @@
-Processor is not exiting the join as soon as it's determined one side contains 0 rows
-There is an issue with the processor during a join, it doesn't exit the join as soon as it's determined that one side of the join returns 0 rows.

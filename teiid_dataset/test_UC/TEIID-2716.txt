@@ -1,4 +1,0 @@
-Add Insert/update/Delete capabilities to Cassandra translator
-- Provide capability to INSERT/UPDATE/DELETE
-
-- I also find some minor issues with search columns, as Cassandra only allows criteria on the index columns

@@ -1,2 +1,0 @@
-The engine should validate against using an insert with a query expression in a multisource scenario.
-SELECT INTO or an INSERT with a query expression will not work correctly under a multisource scenario since we do not modify ProjectIntoNodes.  We also do not properly handle a pushdown of a insert with a query expression, since the query may pull from multiple sources.

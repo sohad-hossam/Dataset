@@ -1,2 +1,0 @@
-BatchedUpdateException should be provided for JDBC prepared statement batches
-TEIID-4243 only covered batches of non-prepared statements in the JDBC translator case - it did not implement the BatchUpdateException handling for prepared statement value batching.

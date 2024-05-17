@@ -1,2 +1,0 @@
-Change metadata reference to return the metadata object rather than the metadataid
-Returning the metadata id forces the developer to keep track of the runtime metadata object, when it would be much simpler to return the metadataobject instead.

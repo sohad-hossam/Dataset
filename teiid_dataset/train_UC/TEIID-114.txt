@@ -1,0 +1,19 @@
+Execs of xml procedures cannot be used as correlated scalar subqueries
+Defect Tracker #24364: attempted to run select (exec BooksInfo.getXMLBooksByEdition(edition)) result from booksinfo.booksinfo from the e2e audiobooks and received the following error:
+
+java.lang.NullPointerException
+ at com.metamatrix.query.processor.xml.RelationalPlanExecutor.<init>(RelationalPlanExecutor.java:67)
+ at com.metamatrix.query.processor.xml.XMLProcessorEnvironment.createResultExecutor(XMLProcessorEnvironment.java:213)
+ at com.metamatrix.query.processor.xml.ExecSqlInstruction.process(ExecSqlInstruction.java:35)
+ at com.metamatrix.query.processor.xml.XMLPlan.getNextXMLChunk(XMLPlan.java:320)
+ at com.metamatrix.query.processor.xml.XMLPlan.processXML(XMLPlan.java:256)
+ at com.metamatrix.query.processor.xml.XMLPlan.nextBatch(XMLPlan.java:187)
+ at com.metamatrix.query.processor.relational.SubqueryProcessorUtility.process(SubqueryProcessorUtility.java:231)
+ at com.metamatrix.query.processor.relational.DependentProjectNode.prepareToProcessTuple(DependentProjectNode.java:96)
+ at com.metamatrix.query.processor.relational.ProjectNode.nextBatchDirect(ProjectNode.java:200)
+ at com.metamatrix.query.processor.relational.RelationalNode.nextBatch(RelationalNode.java:244)
+ at com.metamatrix.query.processor.relational.RelationalPlan.nextBatch(RelationalPlan.java:143)
+ at com.metamatrix.query.processor.QueryProcessor.process(QueryProcessor.java:194)
+ at com.metamatrix.dqp.internal.process.ProcessWorker.processDirect(ProcessWorker.java:159)
+ at com.metamatrix.dqp.internal.process.ProcessWorker.process(ProcessWorker.java:89)
+ at com.metamatrix.common.queue.QueueWorker.run(QueueWorker.java:64)

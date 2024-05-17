@@ -1,2 +1,0 @@
-Update costing metadata at runtime
-Defect Tracker #24584: Cost analysis should be both a design-time activity and scheduled/feed during runtime.

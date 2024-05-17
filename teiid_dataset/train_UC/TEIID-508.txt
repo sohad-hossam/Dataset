@@ -1,2 +1,0 @@
-Change the handling of dependentsets and subquery values
-Related to the reference handling, subquery values and dependent sets should be evaluated through the command context rather than having values set on them directly.

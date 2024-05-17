@@ -1,2 +1,0 @@
-Add CRUD support to Infinispan translator/connector
-Add CRUD support to the Infinispan translator/connector to work with JDG 6.2.

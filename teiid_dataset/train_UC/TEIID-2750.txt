@@ -1,2 +1,0 @@
-Improve handling of messages that are too large
-It is often unclear when a client message is too large.  There is also no mechanism to allow for larger messages.

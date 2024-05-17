@@ -1,2 +1,0 @@
-proactive buffering on an enhanced sort merge left outer join results in an assertionerror
-The proactive buffering logic with particular blocking patterns is not correct.  Namely the setting of the buffer to forward only prevents re-reading which results in an AssertionError.

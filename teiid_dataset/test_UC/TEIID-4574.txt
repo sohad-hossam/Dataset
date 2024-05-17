@@ -1,2 +1,0 @@
-Rename hbase translator to phoenix
-The hbase translator is specifically for usage with phoenix and should be renamed to reflect this.  An hbase translator will still remain, but be deprecated.

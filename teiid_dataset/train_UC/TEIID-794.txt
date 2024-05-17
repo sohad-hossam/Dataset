@@ -1,2 +1,0 @@
-Simplify functionmodifier
-It is no longer necessary to have both a modify and a translate method, since translate can be used to return the function itself.  Making this simplification prevents confusing problems such as changing a function name in modify and then having translate not be applied.

@@ -1,2 +1,0 @@
-NPE creating trigger on a view that doesn't exist
-If the target does not exist, then an NPE rather than a meaningful exception will be thrown.

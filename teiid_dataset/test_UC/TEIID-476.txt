@@ -1,2 +1,0 @@
-Add a restriction to allowable root logon hosts.
-Root logon attempts should be able to be restricted to only a known set of hosts.

@@ -1,2 +1,0 @@
-Allow more control over odata layer caching
-The caching is always performed at a user level and for each query.  Consumers may need to localize the caching affect only to paging results and  scope only to that interaction, rather than for all users.

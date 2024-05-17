@@ -1,2 +1,0 @@
-Change Apache POI version to 3.10
-Upgrade the Apache POI version used in accessing Excel file to use POI 3.10.

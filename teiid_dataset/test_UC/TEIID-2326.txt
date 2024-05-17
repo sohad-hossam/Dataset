@@ -1,2 +1,0 @@
-Allow importing vdbs to share the materialized view of imported vdbs
-Currently the end importing vdb will be the owner of a distinct set of internal materialized views regardless of whether those materialized views come from an imported vdb.

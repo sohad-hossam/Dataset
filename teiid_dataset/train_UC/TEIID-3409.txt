@@ -1,4 +1,0 @@
-PostgreSQLExecutionFactory TranslatorProperty annotation in wrong place
-As [1] it seems PostgreSQLExecutionFactory TranslatorProperty annotation in wrong place.
-
-[1] https://github.com/teiid/teiid/pull/435

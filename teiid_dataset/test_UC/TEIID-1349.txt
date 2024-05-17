@@ -1,2 +1,0 @@
-Better default update procedure handling
-We are currently very restrictive in what we can automatically handle in terms of updates procedures.  Anything other than a simple non-joined select cannot have a default update procedure.  We should look at expanding our default handling to simple joins and union all - along with designer warnings for derived columns or other situations that would not be automatically updatable. 

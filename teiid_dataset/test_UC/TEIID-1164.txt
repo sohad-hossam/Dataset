@@ -1,2 +1,0 @@
-Getting the Procedure Parameter metadata is not supported in ODBC
-Currently postgreSQL uses the JDBC array types in issuing the query  to read the Procedure parameters. However, Teiid does not support the Array types yet in the JDBC layer, thus this is currently not implemented. This needs to be fixed to correctly return the metadata about the procedures.

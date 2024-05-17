@@ -1,2 +1,0 @@
-Jopr Plugin has description for refreshing Materialized Views that's awkward: "Refresh a given any Materialized View for this VDB"
-On the VDB page, the JOPR description for the "Refresh a Materialized View" action says, "Refresh a given any Materialized View for this VDB". It should probably say something like, "Refresh a specified Materialized View for this VDB".

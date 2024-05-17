@@ -1,2 +1,0 @@
-Avoid name conflicts with source_name column
-Allow the multi-source column name to be configurable, or something more teiid specific, or use extension metadata, etc. to avoid name conflicts with source columns named source_name.

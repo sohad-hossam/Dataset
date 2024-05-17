@@ -1,3 +1,0 @@
-Enable/disable transport per model/view/virtual procedure
-It would be nice to be able to enable and disable access to models, tables, views or (virtual) procedures for a specific transport (JDBC, ODBC, OData, REST, Web services).
-One may want to have access to virtual procedures only by Odata for example.

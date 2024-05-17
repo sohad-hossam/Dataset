@@ -1,4 +1,0 @@
-Prepared Statements on ODBC ending with failure
-When a preprared statement executed on the ODBC transport, the below error occurs. This is with the PG's latest ODBC driver, not 8.4.200 that been validate current code against.
-
-Message: Error Code:ERR.015.008.0039 Message:The function 'pg_get_expr(d.adbin, d.adrelid)' is an unknown form.  Check that the function name and number of arguments is correct.

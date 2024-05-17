@@ -1,2 +1,0 @@
-Add more filtering in the internal processing of queries so that hidden items do not requires fully qualified names to be used
-If you have a table in a source model and a table in a view model with the same name, you must use the fully qualified name of the view model table when querying the VDB even if the source model is not visible.  It would be nice if the visibility flag was taken in to account when trying to resolve object names while querying the VDB

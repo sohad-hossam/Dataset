@@ -1,2 +1,0 @@
-Allow connectors to specify function capability for specific type signature
-Defect Tracker #15144: Connectors should be able to specify pushdown capability for particular type signatures of a function.  We have seen several cases where this would be helpful.  This can probably be done without changing current Connector API by allowing the ConnectorCapabilities function method to return method signatures instead of just function names.  For example, "mod(integer, integer)" instead of just "mod".  Needs some further design still.

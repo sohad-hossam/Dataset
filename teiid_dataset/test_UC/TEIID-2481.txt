@@ -1,5 +1,0 @@
-common table (with) push down improvements
-The general strategy for with pushdown should better handle:
-- a with clause that can be pushed against a source that does not support common table.  If a single reference or some other sufficient condition is met then we should just inline the pushdown rather than inhibiting the whole query from pushing down.
-- even if a source supports with pushdown, it may be more performant in some circumstances to inline the common table reference (such as only a single reference).  This is complicated slightly by subqueries.
-- alternatively in some situations even if a with clause can be pushed, it may be better to not perform the pushdown -e.g. two separate pushdown accesses to a common table that is expensive to compute (this may need to be hint driven).

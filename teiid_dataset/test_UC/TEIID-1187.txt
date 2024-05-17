@@ -1,6 +1,0 @@
-Refine vdb version logic
-We no longer have a built in configuration repository and we rely on container scans to do deploys, so we have lost the ability to internally control the notion of a deployed vdb version.  
-
-We should strive for the following:
-1. Overwrite of a deployed vdb should not invalidate or otherwise corrupt current connections.
-2. Switching to a different vdb as the new default for a particular name should not require two deployments of the same vdb.

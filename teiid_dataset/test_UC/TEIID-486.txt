@@ -1,2 +1,0 @@
-MOD() scalar function should be supported by DB2 Connector
-An issue was logged in where a function that resulted in the use of the mod() scalar function would result in a different query plan causing the queries criteria not to be pushed-down to the source.  It appears the cause of the misbehaved query plan was the DB2 connector not supporting the MOD() scalar function.  

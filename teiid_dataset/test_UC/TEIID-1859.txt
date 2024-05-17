@@ -1,2 +1,0 @@
-Add a capability to restrict comparisons
-Some sources such as Salesforce do not support non-join comparison between columns.  e.g. table.col1 = table.col2 is not allowed, but table.col1 = 'val' is.

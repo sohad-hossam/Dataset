@@ -1,2 +1,0 @@
-Improve transaction detection logic
-The current detection logic for txnAutoWrap=DETECT assumes nearly all relational nodes require a transaction and does not detect special cases for access nodes.

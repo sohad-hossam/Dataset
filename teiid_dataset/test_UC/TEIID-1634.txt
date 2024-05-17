@@ -1,4 +1,0 @@
-For file connector-based queries, please provide a DEBUG warning if no files are found
-I am writing a query against an XML file. I have a file connector referenced by a dynamic VDB. As luck would have it, I used an incorrect directory when the data source was defined. When the query is executed, it appears as though I have no results. (I actually have no data!) After fiddling with the XML for a while, I realized the error, corrected it, and went merrily on my way.
-
-Had there been some kind of notification that there were no files to process, I could have saved a half-hour. So, if a DEBUG message were put in the log file, it may help someone else (or me again) down the road.

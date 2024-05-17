@@ -1,9 +1,0 @@
-Add support for nested table references
-Our current approach to procedural relational queries that relies upon criteria is difficult to use and causes numerous problems, such as TEIID-32 and unclear applicability of default values.  It would be easier to just add support nested table references. e.g.
-
-select * from t, table(... t.x) t1
-
-Where the join between the procedure or query contained in the table expression is implied.  See http://publib.boulder.ibm.com/infocenter/dzichelp/v2r2/index.jsp?topic=/com.ibm.db29.doc.sqlref/db2z_sql_tablereference.htm for more on the usage constraints.
-
-This functionality is also needed by the XMLTABLE function.
-

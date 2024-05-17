@@ -1,2 +1,0 @@
-HBase - Phoenix does not support LIKE ESCAPE
-Phoenix does not support LIKE ESCAPE. There is hardcoded escape character \.

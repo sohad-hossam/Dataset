@@ -1,4 +1,0 @@
-unable to consume odata service deployed in teiid
-I am unable to consume odata service created in teiid.  
-
-Steps to reproduce and files are attached.

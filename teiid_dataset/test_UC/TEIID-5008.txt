@@ -1,2 +1,0 @@
-Range checks should not use transform logic
-Range checks in the number to fixed type transforms are converting the min/max each invocation.  We should use a single set of values instead.

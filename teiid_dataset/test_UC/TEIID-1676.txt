@@ -1,4 +1,0 @@
-Decomposed aggregates results can be wrong
-Decomposed aggregates results can be wrong when a cardinality dependent aggregate is computed against one side of a join and the other has a grouping pushed - and the staging grouping cols remove meaningful duplicate join results.
-
-See TestAggregateProcessing.testJira1621 for an example of this situation.  The current expected results are wrong.

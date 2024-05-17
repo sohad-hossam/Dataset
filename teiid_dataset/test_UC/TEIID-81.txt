@@ -1,6 +1,0 @@
-Cached plans are too big - can cause out of memory errors
-Defect Tracker #12381: Running the coper load tests led to this conclusion:
-Each cached plan takes on average 31 KB of memory.
-At 140 unique queries / connection and 128 connection this requires over 550 MB of memory just for the plan cache.
-
-Half of the memory was consumed by char[].  Over 10% of the memory was used by ElementSymbol objects.

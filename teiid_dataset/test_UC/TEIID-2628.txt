@@ -1,2 +1,0 @@
-StackOverflowError Running Query Against REST Service
-When executing a query against https://sapes1.sapdevcenter.com/sap/opu/odata/IWFND/RMTSAMPLEFLIGHT/FlightCollection, I get the following exception (with query plan included): https://gist.github.com/tejones/6250290

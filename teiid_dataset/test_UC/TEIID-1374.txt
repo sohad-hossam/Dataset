@@ -1,4 +1,0 @@
-Nested correlated reference issue with rewritten queries
-In a query such as "select * from bqt1.smalla where exists (select intnum from bqt1.smalla x where smalla.intnum = x.intnum and exists (select intnum from bqt1.smalla where exists (select intnum from bqt1.smalla x where smalla.intnum = x.intnum)))" we will inappropriately report that the top exists subquery has 2 correlated references since we see the more deeply nested smalla.intnum also.
-
-This is generally not a issue, it can introduce errors in places where subqueries are rewritten, such as with subquery optimization or inherently updatable view queries.

@@ -1,2 +1,0 @@
-Add support for integration with qgis 
-Similar to our support for GeoServer, we should support qgis integration if possible.

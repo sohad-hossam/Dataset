@@ -1,2 +1,0 @@
-Create Zip file for each connector with its dependencies for server setup
-Right now server pulls dependencies as whole, so it can not distinguish the dependencies between connector or itself. This poses issue in defining the files for the extension modules. So, these need to be come as whole with their dependencies.

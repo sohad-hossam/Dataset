@@ -1,5 +1,0 @@
-Remove need for quotes around cursor name declarations/fetches
-Attempting to declare a cursor without quotes results in an error similar to[1].  The quotes should be optional except in special cases, as this seems to match later standards (SQL2003).  Performing fetch operations against the cursor have the same issue, where if the cursorname is not quoted, parsing errors occur.
-
-[1] Caused by: org.teiid.api.exception.query.QueryParserException: TEIID31100 Parsing error: Encountered "[*]DECLARE[*] cursorname CURSOR" at line 1, column 1.
-Was expecting: "alter" | "begin" | "call" | "create" | "delete" | "drop" | "exec" | "execute" | "insert" | "merge" ...

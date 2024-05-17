@@ -1,2 +1,0 @@
-Use BatchUpdateException
-An invalid early assumption was that the a batched update would typically be performed atomically - however updates that span non-xa sources violate this assumption.  Also a wrapping transaction is not required by JDBC in auto commit true mode the updates are still logically performed individually.  We need to allow for BatchUpdateException to convey which updates actually succeeded and were attempted.

@@ -1,2 +1,0 @@
-Provide support for Composite Primary keys in MongoDB
-Provide support for composite keys in MongoDB

@@ -1,2 +1,0 @@
-ODBC does not report primarykeys on the tables
-ODBC Driver upon retrieval of metadata is not reporting the Primary Key information. Also it does not report "isNullable" property correctly.

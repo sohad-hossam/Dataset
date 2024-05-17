@@ -1,8 +1,0 @@
-External Materialization, When TTL is less than loading time, the scheduling is off
-During managed external mateiralization, 
-
-1) if the TTL specified is less than the amount of load time
-2) Then, if other nodes check the status at "LOADING", and the elapsed time is calculated from the time on the {{Status}} table. Which when goes over the TTL, it will be a negative value
-3) Then, the scheduling algorithm schedules the next check immediately, which will be exactly same as one before as it also checks from the last updated time. Thus going into a tight loop which consume all the resources spinning.
-
-Correct this to check that, the scheduler always schedules next check atleast a default time after the previous one, which is currently at a minute.

@@ -1,2 +1,0 @@
-Phoenix/Hbase should support functions
- http://phoenix.apache.org/language/functions.html are functions that Phoenix supported, we should add supported function and pushdown functions in translator implementation.

@@ -1,2 +1,0 @@
-Allow the file translator to abstract selecting a single file
-If a single file is desired from the file translator that requires embedding a file name in the vdb.  There should be a convenient way to abstract single file selection.

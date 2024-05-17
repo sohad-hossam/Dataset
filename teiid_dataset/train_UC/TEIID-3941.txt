@@ -1,2 +1,0 @@
-Upgrade Accumulo libraries to 1.6.4 version
-The latest version of the Accumulo is 1.6.4 and 1.7.0, the version Teiid supports is 1.5, which was chosen from 2 years ago. We should upgrade to 1.6.4. 

@@ -1,2 +1,0 @@
-google-spreadsheet translator not included standalone-teiid.xml
-The google-spreadsheet translator is not included in the standalone-teiid.xml.  Need to make sure this gets into the 8.7 product release branch also

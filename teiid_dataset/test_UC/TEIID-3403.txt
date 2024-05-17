@@ -1,4 +1,0 @@
-jaxrs version conflict in teiid jboss integration
-There is a version conflict with the cxf and resteasy jaxrs dependency in jboss integration.
-
-The cxf dependency may need to be separated to a different module.

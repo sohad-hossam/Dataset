@@ -1,4 +1,0 @@
-Update Teiid datasource examples to be fully parameterized
-Change the example datasources to be parameterized, and add an associated properties file so that to install, run:
-
-jboss-cli.sh -c --file={datasource}-ds.cli   --properties=/{datasource}-ds.properties

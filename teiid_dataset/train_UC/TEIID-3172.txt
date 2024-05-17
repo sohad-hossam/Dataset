@@ -1,6 +1,0 @@
-Improve bind type resolving
-Not all attempts to resolve are setting the desired type of a reference, thus something like:
-
-texttable(? columns ...)
-
-will fail to resolve - even though there is only a single expected type.

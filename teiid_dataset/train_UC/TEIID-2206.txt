@@ -1,2 +1,0 @@
-Improve ambiguous column message
-The ambiguous column reference should state the groups the column belongs in.

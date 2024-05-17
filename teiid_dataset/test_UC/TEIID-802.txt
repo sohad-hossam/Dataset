@@ -1,2 +1,0 @@
-Move the properties defined in DQPConfigSource into DQpEmbeddedProperties 
-Currently there are some properties defined under DQConfigSource class that are used by the engine code. The main class for the properties is defined under DQPEmbeddedProperties. We need consolidate them and I see few properties defined but not reading them in the code. Also, rename the properties to match the functionality where needed.

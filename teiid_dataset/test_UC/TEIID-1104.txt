@@ -1,2 +1,0 @@
-Teiid engine will be clusterable.
-The Teiid engine must support the ability to be clustered.

@@ -1,2 +1,0 @@
-ReadRARDescription should be a list of properties
-The current metadata for ReadRARDescription is a list of string, but it returns properties.

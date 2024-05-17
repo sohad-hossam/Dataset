@@ -1,4 +1,0 @@
-Make unordered limit handling consistent
-With the resolution of TEIID-1422, unordered limit handling was both internally inconsistent and typically did not reflect the logical application of the limit.
-
-We should be consistent by default and always enforce the presumed intent of the unordered limit.  A hint should be handled to allow for non-strict application similar to our current handling.

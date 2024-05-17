@@ -1,2 +1,0 @@
-Add ability to add OPTIONS on Key types in DDL
-In the DDL based matadata the extended properties through OPTIONS keyword can be specified on the Tables, columns,procedures and functions. Extend this feature to include the Primary Keys and Foreign keys etc.

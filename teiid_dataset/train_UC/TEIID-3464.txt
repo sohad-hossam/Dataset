@@ -1,6 +1,0 @@
-Inline scalar with clauses
-A query of the form:
-
-WITH t\(n) AS ( select 1 ) SELECT ...
-
-should inline the the with rather than evaluating separately.

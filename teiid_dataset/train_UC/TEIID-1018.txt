@@ -1,2 +1,0 @@
-Review all translator properties
-Translator properties should be reviewed to ensure that misplaced or legacy properties are removed.

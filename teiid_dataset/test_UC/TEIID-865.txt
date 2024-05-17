@@ -1,2 +1,0 @@
-WS-Relational SOAP Connector is sending empty SOAP-ACTION header.
-The XML-Relational SOAP connector is not picking up the SOAP-Action from the model and placing it in the correct HTTP Header.

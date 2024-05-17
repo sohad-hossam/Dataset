@@ -1,4 +1,0 @@
-Local result set cache is not transactionally consistent
-Local result set cache entries are stored in a DefaultCache instance, which has no notion of on-going transactions.  This makes session or less deterministic entries read uncommitted and possibly invalid if populated during a roll-back scenario.
-
-We should either add transaction aware logic or switch the local cache to a memory based infinispan instance.

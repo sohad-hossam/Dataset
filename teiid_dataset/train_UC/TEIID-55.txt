@@ -1,8 +1,0 @@
-Salesforce connector doesn't expose standard connection pooling or caching connector properties
-The connector framework provides both caching and pooling support for connectors that implement the required interfaces.  The SFDC connector code does indeed implement all of these interfaces.  
-
-In order to allow users to  fine tune caching or pooling behavior for a connector binding, the connector type's CDK file must also list all of the standard connector framework caching and pooling properties.  The SFDC connector does not currently expose these properties.
-
-The SFDC connector's CDK file should be updated to include these properties.  Unfortunately we don't document in the connector developer's guide what properties should be defined, but this info can be found in the definition of any of the standard JDBC connector types (Oracle ANSI, etc). These can be marked as "advanced" properties for SFDC as they are for the JDBC connector types.
-
-The max pooled connections per user property is especially important for SFDC, because of the hard limit on 5 concurrent server side cursors per user in SFDC.

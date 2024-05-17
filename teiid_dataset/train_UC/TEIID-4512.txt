@@ -1,2 +1,0 @@
-Issue with older drivers and useStreamsForLobs
-The newer JDBC 4 method with a long length is being called.  Older drivers may have only implemented the method that supports an int length.

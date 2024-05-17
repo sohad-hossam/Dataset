@@ -1,6 +1,0 @@
-Nested properties are not correctly being resolved
-A property that is using the ${teiid.home} in the connector binding property is not being resolved correctly when the connector is started. The issues found that
-
-1) PropertiesUtils.resoveNestedProperties  method silently swallows un-resolved property
-2) PropertiesUtils.resoveNestedProperties does un-necessary cloning of the properties object
-3) System properties can not be nested

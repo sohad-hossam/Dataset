@@ -1,2 +1,0 @@
-result set close after session close reported as an error
-An invalid session exception will be recorded as an error rather than a warning.  This is due to the exceptionutil converting inappropriately converting the exception into a teiid component exception.

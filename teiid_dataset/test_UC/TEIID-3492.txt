@@ -1,4 +1,0 @@
-Provide a mechanism for users to modify the salesforce api version
-We should provide a mechanism to easily target a different salesforce api version.  We are currently defaulting to v22, which is quite old.  The version change must be controlled as the metadata and the sf jars can be incompatible - if you for example build a model from v22, then you must stay on v22, and then recreate the model once you want to move to a later version.
-
-Currently the update procedure would be to copy/modify the salesforce translator module and have it point to newer wsc and partner api jars (which are java api compatible from what I have seen) and then change the  any salesforce resource adapters to use the new api url.

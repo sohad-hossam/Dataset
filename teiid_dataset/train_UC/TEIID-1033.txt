@@ -1,9 +1,0 @@
-Add state to request metadata
-We should add state to request metadata to differentiate between queries that are long running and those that have simply been left open by the client.
-
-Possible values:
-PROCESSING
-DONE (result set is complete, but the Statement is still open)
-CANCELED
-
-We could also add a new state to differentiate between requests that have been created and queued, but not yet processed.

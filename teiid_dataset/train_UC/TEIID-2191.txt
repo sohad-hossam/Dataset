@@ -1,2 +1,0 @@
-Detect recursive view definitions
-A feature from designer that was never added to the runtime is detection of recursive view definitions.  Currently if a recursive view is supplied via ddl or translator it will cause a stackoverflow in the relational planner when it is accessed.

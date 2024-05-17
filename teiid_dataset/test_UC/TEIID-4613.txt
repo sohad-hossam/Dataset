@@ -1,2 +1,0 @@
-OData client does not support old servers for boolean functions
-Some old data servers does not support to be called with a filter containing a boolean function and a operator (like "Customers?$filter=substringof('Alfreds', CompanyName) eq true"), they instead want a unary operation (i.e. "Customers?$filter=substringof('Alfreds', CompanyName)"). translator-odata forces the operator presence.

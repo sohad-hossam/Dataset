@@ -1,8 +1,0 @@
-If some functionality is not supported then OData should return status code 501 instead of 500
-*URLs:* 
-- http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0($count=true)
-- http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0($levels=1)
-- http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0($top=1)
-- http://localhost:8080/odata4/olingo_basic/Source/Customers/?$expand=Orders_FK0($top=1)
-
-None of these options is implemented, but OData service for every request returns status code 500.

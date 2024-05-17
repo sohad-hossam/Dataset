@@ -1,2 +1,0 @@
-AdminShell & Migrate shell scripts should be executable
-Both of these scripts unzip without executable permissions. Other JBoss shell scripts are executable "out of the box" and Teiid's should be as well. Please package these--and any other shell scripts we may create--as executable.

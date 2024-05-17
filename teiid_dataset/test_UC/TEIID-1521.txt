@@ -1,2 +1,0 @@
-Dynamic vdb import logic error with procedures
-When importing procedure metadata the enum for parameter type does not include result parameters, which causes an exception for return parameters.

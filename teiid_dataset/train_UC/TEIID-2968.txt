@@ -1,5 +1,0 @@
-issues with non-partitioned multi-source aggreage pushdown
-There are a couple of issues in the non-partitioned (no grouping over the multi-source column) case:
-
-1. The staged grouping columns do not include the grouping columns
-2. We won't push the grouping is there are no aggregates

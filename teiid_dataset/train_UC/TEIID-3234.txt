@@ -1,2 +1,0 @@
-better detail messages related to caching
-Some caching messages cover multiple cases.  It would make diagnosis easier to have them separated.

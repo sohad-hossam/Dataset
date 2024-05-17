@@ -1,8 +1,0 @@
-Anonymous procedure blocks should be used for materialization scripts
-Rather than relying on splitting queries by a delimiter, we should expect them to be wrapped in a procedure block:
-
-begin
-...
-end
-
-We'll need to introduce backwards compatibility so that older style statements still work. 

@@ -1,4 +1,0 @@
-Provide a mechanism to shutdown teiid embedded
-We should introduce a way to fully shutdown embedded.  This is useful for deploy.properties or other system resource changes not performed through adminapi to take effect.  
-
-Derby's approach: http://db.apache.org/derby/papers/DerbyTut/embedded_intro.html#shutdown

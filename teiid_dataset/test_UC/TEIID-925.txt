@@ -1,2 +1,0 @@
-dup removal results include duplicat rows
-Non-blocking dup removal batches are mishandled by the SortNode, since it expects batches to not overlap.  Also the SortUtility incorrectly includes duplicates since the master sort tuple may be marked as a duplicate, but it's pair is not.

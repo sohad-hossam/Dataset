@@ -1,2 +1,0 @@
-pg metadata always reports column names as lower case
-The result set metadata is reporting the column name in lower case regardless of the submitted query.

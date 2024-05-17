@@ -1,8 +1,0 @@
-Have SSL connector support for plaintext passwords
-Hi,
-
-At the moment the ssl configuration on the teiid jdbc and odbc connectors only supports keeping the keystore password in jboss vault. Can it please also support plain text passwords, and the documentation be updated to reflect this (at the moment the docs are incorrect as they have no mention of vault).
-
-Regards,
-
-Graeme

@@ -1,5 +1,0 @@
-COMMAND Logging incorrectly reporting END USER COMMAND record count in EDS for forward only resultsets
-Running a query [1] that returns 406 rows in sql client, near the end of my log I get this output [2].
-
-[1] select * from CIS_Test.GetListOfLanguageNames
-[2] 2011-12-28 12:34:34,169 DEBUG [org.teiid.COMMAND_LOG] (Worker0_QueryProcessorQueue26)     END USER COMMAND:    endTime=2011-12-28 12:34:34.169    requestID=EED0CMZyYmnc.7    txID=null    sessionID=EED0CMZyYmnc    principal=teiid@teiid-security    vdbName=CIStest    vdbVersion=1    finalRowCount=0 

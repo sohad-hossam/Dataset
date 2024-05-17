@@ -1,2 +1,0 @@
-add 'not' and 'or' support to the salesforce connector
-With the upcoming capabilities changes we are more diligently checking for not support, the salesforce connector should implement it to ensure push down of "not in", "not like", etc.

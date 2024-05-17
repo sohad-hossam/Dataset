@@ -1,2 +1,0 @@
-Move hostcontroller communication to JGroups
-We could remove the internal socket transport entirely if that communication was done over JGroups.  The only difficulty with this change is taking what were static calls and making them aware of the messagebus.

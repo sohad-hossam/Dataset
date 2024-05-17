@@ -1,4 +1,0 @@
-Add support for Oracle TRUNC function
-Teiid requires pushdown for the TRUNC function for the Oracle connector. Please add support into the Teiid layer for TRUNC.
-
-Refer to this discussion for context https://developer.jboss.org/message/969404.

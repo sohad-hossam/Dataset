@@ -1,6 +1,0 @@
-Connectorclasspath.xml file in Teiid depoy directory contains "extension:" instead of "extensionjar:" prefix for various dependencies.  Connectors fail to start.
-For various connectors defined in connectorclasspath.xml, many of the jars fulfilling external dependencies are prefixed incorrectly with "extension:" rather than "extensionjar:".  This causes those connectors to fail on startup.  For example, see the following excerpt for the Salesforce.com connector:
-
-DefaultValue="extensionjar:connector_patch.jar;extensionjar:connector-salesforce.6.0.0.jar;extension:commons-codec-1.2.jar;extension:commons-discovery-0.2.jar;extension:commons-httpclient-3.0.1.jar;extension:xmlsec-1.3.0.jar;extension:axis-1.3.jar;extension:axis-jaxrpc-1.3.jar;extension:axis-saaj-1.2.jar;extension:axis-schema-1.3.jar;extension:commons-discovery-0.2.jar;extension:commons-logging-1.1.jar;extension:jms-1.1.jar;extension:servlet-api-2.5.jar;extension:jaxen-1.1.1.jar;extension:jdom-1.0.jar;extension:log4j-1.2.8.jar;extension:opensaml-1.1b.jar;extension:salesforce-api-6.0.0.jar;extension:wsdl4j-1.5.1.jar;extension:wss4j-1.5.0.jar;extension:xalan-2.7.0.jar;extension:xml-apis-1.0.b2.jar"
-
-The XML Connector is also impacted.

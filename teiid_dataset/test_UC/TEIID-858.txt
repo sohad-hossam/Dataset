@@ -1,2 +1,0 @@
-DependentSetCriteria not being replaced
-This is a regression from TEIID-308.  If the DependentAccessNode is not performing the expansion, then the criteria is not replaced.  

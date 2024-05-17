@@ -1,4 +1,0 @@
-Create SqlAlchemy Dialect for Teiid
-Create SqlAlchemy Dialect for Teiid
-http://www.sqlalchemy.org/
-http://docs.sqlalchemy.org/en/latest/dialects/

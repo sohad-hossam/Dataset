@@ -1,8 +1,0 @@
-Nested subquery in an aggregate fails to evaluate
-A correlated subquery that appears in an aggregate value inside of a subquery, will not have the correlated values available and fail with a TEIID30328 exception.
-
-For example:
-
-SELECT g0.a, g0.b, (SELECT max((SELECT g2.a FROM m.z AS g2 WHERE g2.b = g1.a)) FROM m.y AS g1 WHERE g0.a = g1.b) FROM m.x AS g0
-
-will fail on the g0.a reference.

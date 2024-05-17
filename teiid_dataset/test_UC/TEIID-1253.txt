@@ -1,2 +1,0 @@
-Allow for cache scope to be set in the cache hint
-In some circumstances the cache scope may need to be set in the cache hint to override the detected scope.  The cache hint would need something like scope:{session|user|global} and we would need to ensure that the analysis log / debug log includes sufficient information to see what scope is in use.

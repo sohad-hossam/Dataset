@@ -1,2 +1,0 @@
-Simplify handling of parse format date/time functions
-There is no need to have separate implementations and pushdown paths for parsedate/parsetime, etc.  They should just be rewritten forms of parse/formattimestamp.  Also timestampadd is typically implemented to expect and return a timestamp, so non-timestamp forms should be rewritten to the timestamp form.

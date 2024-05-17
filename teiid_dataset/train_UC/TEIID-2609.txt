@@ -1,2 +1,0 @@
-teiid-odata-8.3.0.Final.war generates exception at startup
-In domain mode the module based deployment we have a module that conflict with the start of the server.

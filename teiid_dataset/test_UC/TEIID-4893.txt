@@ -1,2 +1,0 @@
-Inconsistent behavior of SUBSTRING function
-There is inconsistent behavior of SUBSTRING function in teiid and data sources.

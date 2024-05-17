@@ -1,2 +1,0 @@
-Need to Hard-code serialVersionUID in LogonResult
-Since com.metamatrix.platform.security.api.LogonResult exists in the teiid-client.jar, it may have a different serialVersionUID than the server when using the server kit and manually building the SOAP war. This causes an invalid serialVersionUID exception trying to connect. The serialVersionUID should be hard-coded to avoid this issue.

@@ -1,6 +1,0 @@
-mmadmin tool has many usability issues
-1) The script doesn't even run without first editing the script source itself, reading its initial comment, and performing an export for a variable that points to a folder containing the JDBC libraries.  The script should have just prompted me for this, or possibly just run mmtoolsenv from the Console's installation folder.
-2) I couldn't figure out how to either get help or even quit the program.  Turns out you have to enter everything like it's a function, with trailing parentheses and a semicolon.  If we're going to require trailing anything, we should at least indicate that after the next prompt when the user hits enter.  How hard can it possibly be to have BeanShell recognize simple commands like help and exit without requiring the function-like syntax?
-3) Many of the commands you enter are very long, but there is no way to retrieve (such as hitting the up arrow) and edit/use previous commands.
-4) You can't edit commands using the left arrow.  If I'm typing a long command, then realize that I made a type near the beginning of the command, all I can do is backspace over everything I typed and reenter it from the typo.
-5) When I enter a query that fails, I don't get back any of the information that might clue me in as to why it failed.  My only option is to access the logs that reside on the server.

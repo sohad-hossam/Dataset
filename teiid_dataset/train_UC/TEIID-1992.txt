@@ -1,4 +1,0 @@
-Create Connector/Translator to support Infinispan as a data source
-Create a Connector/Translator in order for Teiid to support Infinispan as a read-only data source on its initial release.  Read Only because if someone is building an object cache, the primary means for updating the cache would not be thru relational means.  However, if someone is wanting to add an object cache as a disparate data source for data integration for exposing the content, then this connector/translator will enable that. 
-
-A goal here is to build an object translator framework that can easily plug in other object cache sources.  Example, add support for Coherence.   There was a Coherence connector/translator already created in the sandbox, for which, it will provide direction for the object translator.  

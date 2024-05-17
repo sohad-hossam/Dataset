@@ -1,2 +1,0 @@
-Simplify "Audit Logging"
-Currently "Audit" logging, is managed by a separate logging framework, this should be no different than logging in Teiid, except that these messages should be placed a well known context. By default the messages can be streamed to Teiid's main log file at INFO level, however there must be an way to user to send these messages to a separate destination. A File based destination must be supported.

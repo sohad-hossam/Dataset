@@ -1,2 +1,0 @@
-Teiid Stored Procedure should support variable length arguments
-We need extended support of Stored procedures with providing support of variable length arguments(vararg). It saves our efforts a lot in our current product.

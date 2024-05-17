@@ -1,8 +1,0 @@
-JDG: Retain supported dependencies in the module.xml for out-of-the-box usage
-In the JDG translator/connector, retain the dependencies to prior versions so that they can be integrated out-of-the-box. 
-
-The dependencies are marked as optional, so there should be no impact until a corresponding JDG version is installed.
-
-Include the following prior versions:
-slot="jdg-6.5"
-slot="jdg-6.6"

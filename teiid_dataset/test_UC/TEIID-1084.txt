@@ -1,2 +1,0 @@
-Exception in BatchIterator
-There's an index out of bounds with buffered resets.  

@@ -1,2 +1,0 @@
-Class loading issue using ProtoSchemaBuilder to register annotated pojo
-Logic was changed in the infinispan dsl translator to use the ProtoSchemaBuilder to register the protobuf annotated pojo so that the marshaller(s) and protobuf definition files are not needed.   However, there's an infinispan class loading issue that requires the upgrading to the  protostream-3.0.5 version.

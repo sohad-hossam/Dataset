@@ -1,2 +1,0 @@
-Asynchronous union results
-This is really a request for a dup-removal algorithm that can return results without waiting for all results.  This would be generally less efficient than the full-sort approach, so it would be good to base the decision on a hint or costing information.

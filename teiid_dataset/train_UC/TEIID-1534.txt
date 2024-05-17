@@ -1,2 +1,0 @@
-The driver incorrectly reports column labels as column names
-The metadata for column names are actually column labels and the real value for the column name is not actually reported by the MetadataProcesor.

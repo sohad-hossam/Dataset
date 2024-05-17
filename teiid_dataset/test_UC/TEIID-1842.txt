@@ -1,2 +1,0 @@
-Remove translate criteria based update procedures
-The deprecated translate criteria feature should be removed.  Users will need to convert any remaining update procedures of that form to for each row updates.

@@ -1,2 +1,0 @@
-Server was failing to start because non-existing properties needed to be removed from the QueryService initialization
-The QueryService would fail at startup because of references to 2 properties that are no longer used.  Also, in this change, the property references in QueryServicePropertyNames will be changed to reference the statics in DQPConfigSource.

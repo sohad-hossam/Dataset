@@ -1,2 +1,0 @@
-Procedures without a return parameter and with output parameters indexing issue
-Procedures without a return parameter and with output parameters index the output parameter(s) by +1 of what they should be.

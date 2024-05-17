@@ -1,2 +1,0 @@
-Add remaining SQL/XML functions
-We should add the remaining functions, xmlparse, xmlserialize, xmlroot, etc.

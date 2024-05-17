@@ -1,4 +1,0 @@
-Teiid throws an NPE while executing query with nested subquery IN predicate
-Teiid throws an NPE while executing query with double IN predicate. Example query:
-SELECT intkey FROM BQT1.SmallA AS A WHERE INTKEY IN (SELECT CONVERT(STRINGKEY, INTEGER) FROM BQT1.SMALLA AS A WHERE STRINGKEY IN (SELECT CONVERT(INTKEY, STRING) FROM BQT1.SMALLA AS B WHERE A.INTNUM = B.INTNUM))
-

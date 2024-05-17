@@ -1,4 +1,0 @@
-Issues with fetchsize and local connections
-Settting the fetchSize property on localconnections (or if the internal batch size exceeds that of the maximum fetch size, which is unlikely by default) leads to several issues:
-
-It can cause an exception or the client may seem to hang (since the logic won't properly save the current batch).

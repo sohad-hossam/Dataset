@@ -1,2 +1,0 @@
-incorrect foreign keys
-With the broader introduction of array types the system tables for columns and procedure parameters with foreign keys to the datatype table are incorrect as there are no entries for the array types.

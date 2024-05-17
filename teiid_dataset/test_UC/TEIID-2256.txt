@@ -1,2 +1,0 @@
-Embedded refinements
-There should be a way to dump schemas and there should be a way to add named translators and translators by class, rather than just by instance without a name.

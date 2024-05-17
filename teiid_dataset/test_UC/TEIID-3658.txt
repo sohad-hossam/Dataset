@@ -1,2 +1,0 @@
-VDBs may start before transport service
-VDBs may start before transport services, which is an issue for ODBC access as the enabled flag on the vdbrepository is toggled in by the transport.  Any vdbs loaded prior to that point will not be properly accessible.

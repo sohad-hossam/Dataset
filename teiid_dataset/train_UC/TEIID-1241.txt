@@ -1,6 +1,0 @@
-Create a WSDL based WS translator
-The current WS resource adapter was designed for low-level usage, which doesn't even consult a WSDL.  It would be good though to update the existing adapter/translator to utilize a WSDL.  The WSDL would be used to expose the operations through connector metadata, so that the translator could create the corresponding procedures model.service.port.binding.operation(arg...).  Import options could be used to limit the import to only particular services/ports.
-
-The WSDL based approach would also allow for the CXF configuration to apply to more than a single port and to more easily allow the policy definition for WS security.
-
-Additional semantic support for RPC could be considered, but would need to use JAX-RPC

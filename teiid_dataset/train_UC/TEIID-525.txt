@@ -1,2 +1,0 @@
-Eliminate redundencies in capabilities override and existing binding properties.
-The max in size can now be specified by both an override and an existing setting for some connector types (such as JDBC).  We should probably just rely on the override in cases like this.

@@ -1,2 +1,0 @@
-Full odata expand support
-To move TEIID-3039 we need to have xml document model style processing for expand support.  That is top down generation that supports arbitrary descendants - with targeted optimizations for projection minimization and dependent joins.

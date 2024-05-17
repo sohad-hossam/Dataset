@@ -1,2 +1,0 @@
-XML-Relational File connector throws NPE.
-The XML-Relational File connector is throwing an NPE on start up because the  caching Boolean is null.

@@ -1,4 +1,0 @@
-Create connector for Google Spreadsheets.
-Connectivity to Google spreadsheets for Teiid was identified as a desirable feature.  I've hacked together a little prototype code that can access Google Spreadsheets through the Table feed. http://code.google.com/apis/spreadsheets/data/3.0/developers_guide_java.html#TableFeeds
-
-I envision the connector as driven by a text file for it's metadata just like the Text connector is.  I imagine it would be possible to create some tooling that could define a model from the same text file, but that is out of the scope of this Jira.

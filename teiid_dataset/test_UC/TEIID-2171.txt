@@ -1,2 +1,0 @@
-Performance Improvements
-General issue for performance improvements.

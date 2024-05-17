@@ -1,4 +1,0 @@
-SessionAware cache needs to use Infinispan as Cache Store always
-Currently SessionAwareCache uses the Infinispan cache factory for the distributed cache results and uses the Teiid defined DefaultCache for local storage of session scoped results.
-
-The usage of DefaultCache should be entirely removed and replaced with Infinispan's non-replicated local cache. This provides more consistent implementation of the cache store with better eviction policies.

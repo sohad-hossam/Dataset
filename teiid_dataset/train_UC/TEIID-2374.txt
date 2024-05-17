@@ -1,2 +1,0 @@
-OracleExecutionFactory should indicate support of common table expressions for 9.2 or later
-OracleExecutionFactory is not marked as supporting common table expressions.  It should be returning as supported for a database version of 9.2 or later.

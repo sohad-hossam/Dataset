@@ -1,2 +1,0 @@
-Misc procedure enhancements
-Add support for compound/block statements (rather than only allowing them at the top level of loops/if), BEGIN [[NOT] ATOMIC] for block level transactions, loop/block labels, and the leave statement.

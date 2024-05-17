@@ -1,4 +1,0 @@
-Large sort performance
-Large sorts (high data volume over above several hundred thousand rows) experience a disproportionate performance degradation as the data set grows larger.
-
-This is due to the SortUtility default collection strategy that will create intermediate sort buffers too proactively. 

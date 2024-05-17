@@ -1,2 +1,0 @@
-Issues with cloning on several language objects
-TextTable and ObjectTable have fields that are not cloned and AggregateSymbol cannot be cloned in some circumstances if not resolved.

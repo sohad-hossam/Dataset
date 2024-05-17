@@ -1,2 +1,0 @@
-missing property key for ERR.015.008.0032
-The message for ERR.015.008.0032 is missing.  This is the validation that a scalar subquery must project a single column.

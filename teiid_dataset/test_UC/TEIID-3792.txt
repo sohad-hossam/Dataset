@@ -1,2 +1,0 @@
-Add support for searching in array types
-We should support a simple syntax for searching within an array, such as the quantified comparison and/or a function to get the index of a value in an array.

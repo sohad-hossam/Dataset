@@ -1,4 +1,0 @@
-MySQL translator issues
-MySQL does not change the autocommit flag to false when running in a global transaction, however the current autocommit detection logic does not take whether we're in an xa transaction into account.
-
-Also the timestamp literal format TIMESTAMP(...) actually produces a null value.  This should be changed to either the jdbc escape syntax or simply the string literal form.

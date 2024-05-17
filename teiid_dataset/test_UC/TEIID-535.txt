@@ -1,2 +1,0 @@
-Add support for pushdown of select clause and join clause subqueries
-Currently we only allow pushdown of subqueries in the where clause.

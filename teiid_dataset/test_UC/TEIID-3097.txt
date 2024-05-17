@@ -1,2 +1,0 @@
-Model names should not be allowed to contain .
-The server should not allow model names to contain a . as that is not allowed by our resolving conventions.  This has been enforced in designer, but is not yet validated on the runtime side.

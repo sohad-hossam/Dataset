@@ -1,2 +1,0 @@
-Add the support for accessing Coherence
-Add the support for using the Coherence

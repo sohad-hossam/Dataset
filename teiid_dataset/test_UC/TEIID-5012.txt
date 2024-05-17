@@ -1,2 +1,0 @@
-Add the VDB description and creation timestamp information to the Sys.Virtualdatabases table as new columns (Database Description, Database Creation timestamp)
-None

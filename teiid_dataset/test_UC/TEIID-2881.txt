@@ -1,2 +1,0 @@
-Add support to use DSL when querying remote JDG 6.2
-Add support for querying remote JDG 6.2 using DSL.  

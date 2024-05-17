@@ -1,2 +1,0 @@
-Push down aggragate and distinct through union
-This is related to case 6652 and case 6653. It improves performance to push down aggragate and distinct through union. If this is done before 5.5.3 release, we will consider pulling the logics back to 5.5.3.
