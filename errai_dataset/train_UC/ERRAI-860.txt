@@ -1,0 +1,4 @@
+ClientMarshaller running on server side instead of a ServerMarshaller
+In short a client marshaller is running on the server side instead of the server side marshaller.
+
+Full details here  - https://developer.jboss.org/message/929212#929212

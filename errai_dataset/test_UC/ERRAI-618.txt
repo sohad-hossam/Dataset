@@ -1,4 +1,0 @@
-@Service discovery has two entirely separate implementations
-Currently, services marked with @Service can be discovered by turning on automatic service discovery with the Errai Bus, or by including ErraiCDI in the classpath.
-
-Currently, these two different discovery methods have entirely distinct implementations. The logic for scanning an individual class and subscribing services within it should be unified.

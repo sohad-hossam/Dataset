@@ -1,2 +1,0 @@
-MetaClass.isAssignableFrom() does not take into account interfaces on supertypes
-I discovered this bug while working on the JPA code generator: Hibernbate 4.1's SingularAttributeImpl.Identifier class extends SingularAttributeImpl, which implements SingularAttribute. Errai's MetaClass.isAssignableFrom() gives a false negative, saying that SingularAttributeImpl.Identifier cannot be assigned to SingularAttribute (in other words, it wrongly states that SingularAttributeImpl.Identifier is not a SingularAttribute).

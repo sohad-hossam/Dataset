@@ -1,0 +1,9 @@
+Add gatekeeper functionality to Errai IOC
+The HAL console project uses GWTP's @Gatekeeper feature to avoid loading UI code that is not applicable to the current environment. For example, if you attach to a standalone server, the UI components for managing a domain-mode server will not be used. The GWTP gatekeeper provides the application developer a declarative API for specifying which views should or should not be loaded under certain circumstances.
+
+At first, we thought we would add this functionality to Errai security, but after some exploration we realized it would be more general and potentially more useful if a gatekeeper could be specified on any IOC bean.
+
+There are some outstanding questions to answer:
+ * should the gatekeeper be able to hide a bean in the bean graph entirely, or would they only affect a flag (eg. on the IOCBeanDef interface)?
+ * should gatekeepers be allowed only on 'leaf' bean types (i.e. those that are only looked up programmatically, and do not appear at any @Inject point)
+ 

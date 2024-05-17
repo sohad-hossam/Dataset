@@ -1,2 +1,0 @@
-Exclude packages from ValidatorFactory generation
-It is not possible to specify packages to be ignored during the generation of the ValidatorFactory

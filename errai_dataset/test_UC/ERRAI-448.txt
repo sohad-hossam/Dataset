@@ -1,6 +1,0 @@
-Add a bean validation module to Errai
-A bean validation module in Errai would allow to:
-
-- inject a Validator
-- support data binding proxies by automatically unwrapping them when necessary
-- no longer require an AbstractGwtValidatorFactory implementation to define beans that can be validated

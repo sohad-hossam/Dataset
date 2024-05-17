@@ -1,0 +1,4 @@
+AbstractErraiCDITest.gwtSetUp() should be protected
+The supermethod GWTTestCase.gwtSetUp is protected, and we should follow suit. This method being public in Errai causes a nuisance error when modifying an existing GWT test to use CDI features.
+
+(The nuisance is that the test case would have originally declared a protected gwtSetUp() method, and after changing the superclass to AbstractErraiCDITest, it no longer compiles because it's trying to reduce the visibility of an overridden method.)

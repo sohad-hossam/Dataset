@@ -1,0 +1,6 @@
+Catch "bad payload" exception ... subsequently a Chrome bug (Websocket)
+The Chrome browser sends a second (unexpected) message (which is valid but empty) when a message was > ~145KB. This results in a RTE "bad payload" because no Errai message can be produced. A further problem is now, because this RTE is not catched and results in a closed socket channel after this error case.
+
+Most robust solution is to catch any Errai specific exceptions in the endpoint.
+
+https://code.google.com/p/chromium/issues/detail?id=510016&colspec=ID%20Pri%20M%20Stars%20ReleaseBlock%20Cr%20Status%20Owner%20Summary%20OS%20Modified

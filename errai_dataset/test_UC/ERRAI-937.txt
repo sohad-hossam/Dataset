@@ -1,2 +1,0 @@
-Looking up unqualified beans with Instance<T> fails
-Looking up unqualified beans with Instance<T> fails because the wrong comparison is being done with qualifiers. When an injection site has no qualifiers, it still implicitly has the @Default qualifier.

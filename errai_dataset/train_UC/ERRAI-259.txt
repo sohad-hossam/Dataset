@@ -1,2 +1,0 @@
-Modernize project poms for bus and cdi demos
-The archetypes have been updated. The jax-rs demo can serve as a template for what needs to be done for the bus and cdi demos.

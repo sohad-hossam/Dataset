@@ -1,2 +1,0 @@
-Style classes in Errai UI templates are not applied in IE8
-Errai UI uses {{setAttribute}} to copy all template attributes to the widget's element. However, {{setAttribute}} does not work for the class attribute in IE8. The style classes are not applied.

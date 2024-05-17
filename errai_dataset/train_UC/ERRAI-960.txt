@@ -1,0 +1,6 @@
+Upgrade to IP BOM 7.0.0.CR4 + related POM clean-up
+The next IP BOM version 7.0.0.CR4 brings few backwards incompatible changes. Most notable the upgrade of JavaEE APIs to be in sync with JEE7 (WildFly 10). The JBoss Spec jars use specification version as part of artifactId, so this requires changes in the POM files.
+
+See the full diff between CR3 and CR4 here: https://github.com/jboss-integration/jboss-integration-platform-bom/compare/7.0.0.CR3...7.0.0.CR4
+
+We should also inherit as much as possible from the ip-parent and the ip-bom, meaning plugin versions and dependency versions.

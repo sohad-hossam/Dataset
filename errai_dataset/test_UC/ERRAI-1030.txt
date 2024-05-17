@@ -1,2 +1,0 @@
-Add Bindable type name for NonExistingPropertyException
-Currently the message only contains the name of the missing property, but not the type the property was missing from.

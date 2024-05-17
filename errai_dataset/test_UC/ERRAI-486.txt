@@ -1,2 +1,0 @@
-Allow any class that implements IsWidget to be annotated with @Page
-We'd like to be able to more easily implement MVP using Errai-UI Navigation.  Having a Presenter implments IsWidget annotated as @Page would allow us to do that.

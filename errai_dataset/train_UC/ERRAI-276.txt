@@ -1,2 +1,0 @@
-Don't publish war files for demos
-When we deploy the Errai framework, we're publishing a .war file for each demo. The wars contain many megabytes of jars, but they can't actually be used because we don't run the GWT compiler during the release. We should avoid publishing these .wars with the framework release.

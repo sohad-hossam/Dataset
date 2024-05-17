@@ -1,0 +1,2 @@
+Provide functionality for CSRF protection
+Errai should provide built-in functionality for CSRF protection that can be enabled on demand. This functionality should satisfy Errai message bus requirements (i.e. multiple active .in and .out requests) and also be suitable for the more traditional request/response model.

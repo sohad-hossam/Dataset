@@ -1,2 +1,0 @@
-Implement (parts of) JPA on the client
-This is the master task for getting overall JPA support off the ground. I'll create subtasks as needed.

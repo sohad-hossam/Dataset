@@ -1,7 +1,0 @@
-Investigate Fine-Grained Authorization Rules for Errai Security
-There is a seemingly common use-case for more fine-grained access control that is not met by the current role-based access control in Errai Security. We should investigate adding more fine-grained authorization.
-
-Some questions that should be examined:
-* Should this feature replace or enhance the current access control?
-* Do we want to a more sophisticate User/Role model (maybe involving permissions)?
-* Or would it suffice to allow the user to define their own access control logic that hooks into existing security lifecycles/events?

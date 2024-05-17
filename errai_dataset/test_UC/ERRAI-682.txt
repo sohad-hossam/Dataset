@@ -1,0 +1,24 @@
+Qualifiers with members on events
+Example:
+
+@Qualifier
+@Target({ ElementType.FIELD, ElementType.PARAMETER })
+@Retention(RetentionPolicy.RUNTIME)
+public @interface Limit {
+    String value();
+}
+
+Producer.java:
+@Inject
+@Limit("BAR")
+private Event<String> willBeBar;
+
+public void produce() {
+     willBeBar.fire("bar");
+}
+
+Consumer.java:
+public void process(@Observes @Limit("FOO") String expectFoo) { ... }
+ 
+=========
+And in this case method process receives "bar" event marked with @Limit("BAR"), when it shouldn't.

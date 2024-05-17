@@ -1,0 +1,366 @@
+Annotations in generated code cause GWT to emit error messages at compile time
+When you run the errai-jaxrs-client tests, you see this:
+
+-------------------------------------------------------
+ T E S T S
+-------------------------------------------------------
+Running org.jboss.errai.enterprise.jaxrs.client.test.AllJaxrsTests
+SLF4J: Failed to load class "org.slf4j.impl.StaticLoggerBinder".
+SLF4J: Defaulting to no-operation (NOP) logger implementation
+SLF4J: See http://www.slf4j.org/codes.html#StaticLoggerBinder for further details.
+logging for HtmlUnit thread
+   [WARN] Obsolete content type encountered: 'application/x-javascript'.
+[errai] wait for: org.jboss.errai.marshalling.client.api.MarshallerFramework
+[errai] vote for: org.jboss.errai.marshalling.client.api.MarshallerFramework
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[errai] IOC bootstrapper successfully initialized.
+[errai] 6 beans successfully deployed.
+[errai] bean manager now in service.
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[errai] IOC bootstrapper successfully initialized.
+[errai] 6 beans successfully deployed.
+[errai] bean manager now in service.
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[errai] IOC bootstrapper successfully initialized.
+[errai] 6 beans successfully deployed.
+[errai] bean manager now in service.
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[WARN] 404 - GET /test/errorhandling (10.15.16.212) 1404 bytes
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[WARN] 404 - GET /test/errorhandling (10.15.16.212) 1404 bytes
+Jun 3, 2013 5:01:45 PM com.gargoylesoftware.htmlunit.javascript.StrictErrorReporter runtimeError
+SEVERE: runtimeError: message=[Access to restricted URI denied] sourceName=[injected script] line=[131] lineSource=[null] lineOffset=[0]
+[WARN] 404 - GET /test/errorhandling (10.15.16.212) 1404 bytes
+[WARN] 404 - GET /test/errorhandling (10.15.16.212) 1404 bytes
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[WARN] 404 - GET /test/jaxrs-response-object/error (10.15.16.212)
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+[ERROR] Errors in 'generated://C8BEDFB7AC5790B830DDF472BC095CB6/org/jboss/errai/enterprise/client/jaxrs/JaxrsProxyLoaderImpl.java'
+   [ERROR] Line 1305: No source code is available for type javax.ws.rs.GET; did you forget to inherit a required module?
+   [ERROR] Line 1322: No source code is available for type javax.ws.rs.Path; did you forget to inherit a required module?
+Tests run: 99, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 31.246 sec
+
+Results :
+
+Tests run: 99, Failures: 0, Errors: 0, Skipped: 0
+
+
+It's traceable back to a recent change in ProxyUtil which was done in support of the new security module:
+
+https://github.com/errai/errai/commit/7e43922bd6cf3a6995b94a4ba760fbbd978681bd#L1R78
+
+We'll need to find a way to balance the runtime requirements of the security framework with all the existing code that might be proxying interfaces/classes that have nontranslatable annotations on them (not sure if errai-jaxrs-client is the only one)

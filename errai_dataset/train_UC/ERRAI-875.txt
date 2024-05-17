@@ -1,9 +1,0 @@
-Make BindableProxyAgent.propertyTypes publicly available.
-BindableProxy<T> extends HasProperties and therefore has get/set(String propertyName) methods. But there is no way to figure out full list of possible property names and types. Actually this information is known and contained in BindableProxyAgent.propertyTypes, but it's not public. Please make it public (perhaps as readonly to protect from "external" changes).
-
-Right know I have to use ugly workaround through native method:
-{code:java}
-public static native Map<String, PropertyType> getProperties(BindableProxyAgent<?> agent) /*-{
-        return agent.@org.jboss.errai.databinding.client.BindableProxyAgent::propertyTypes;
-    }-*/;
-{code}

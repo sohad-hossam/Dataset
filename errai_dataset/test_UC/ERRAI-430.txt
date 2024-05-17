@@ -1,4 +1,0 @@
-When you @Inject ClientMessageBus[Impl] you end up with a different instance than ErraiBus.get()
-This happens because we include a provider for MessageBus but not ClientMessageBus or ClientMessageBusImpl.
-
-We attempted, as a quick fix, to change the provider so it declares ClientMessageBusImpl as its type, but this caused injection points for ClientMessageBus and MessageBus to fail at run time with "no matching types available."

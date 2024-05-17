@@ -1,0 +1,2 @@
+Non-ascïï characters get gårbléd during transmißion
+I tried putting several nonascii characters (ü and é) in the text field of the CDI quickstart project. They did not survive the round trip intact.

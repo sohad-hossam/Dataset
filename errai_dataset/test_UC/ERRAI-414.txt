@@ -1,0 +1,6 @@
+Errai JAX-RS may not be used without Errai Bus and Errai IOC
+Currently, Errai JAX-RS depends implicitly on Errai Bus module (it uses classes from Errai Bus, like RemoteCallback or ProxyFactory, but it does not inherit the Errai Bus module). Errai Bus may be disabled by setting erraiBusRemoteCommunicationEnabled = false, but the code is still compiled into the application.
+
+Another problem is that JaxrsProxyLoader and JaxrsProxy's are only generated when I inherit Errai IOC module. It is enough to simply inherit the modules without using @EntryPoint or @Inject Caller<?>.
+
+It should be possible to use Errai JAX-RS without other modules.

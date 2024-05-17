@@ -1,0 +1,18 @@
+Demarshalling fails for immutable types with null enum fields
+Demarshalling an immutable type with a null enum field fails with a NPE e.g.
+
+{code}
+@Portable
+public class Dto {
+
+    private Test test;
+
+    public Dto(@MapsTo("test") Test test) {
+        this.test = test;
+    }
+
+    public Test getTest() {
+        return test;
+    }
+}
+{code}

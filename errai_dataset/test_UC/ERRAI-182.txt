@@ -1,2 +1,0 @@
-Comment in the provided ErraiApp.properties file to say why it's there and what it does
-This applies to all the demo and quickstart projects. Basically every instance of ErraiApp.properties anywhere in our sources.

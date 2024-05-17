@@ -1,0 +1,32 @@
+Having an option on @DataField for alternative attribute merging strategies
+Hi Errai Team,
+
+We have some issues in to our GMD Widgets that everytime we inject the component widget it overrides it's class for e.g.
+
+*Inside WelcomPage.html*
+
+{code:html}
+<div data-field="icon" class="red-text"></div>
+{code}
+*Inside WelcomePage.java*
+{code:java}
+@Inject
+@DataField("icon")
+MaterialIcon icon; // this component has setStyleName("material-icon"); on its constructor.
+{code}
+*This is the MaterialIcon architecture*
+{code:java}
+    /**
+     * Creates an empty icon.
+     */
+    public MaterialIcon() {
+        super();
+        addStyleName("material-icons");
+    }
+{code}
+
+*Question*
+Can we avoid overriding the stylename once it's being rendered ? Instead we can append it so that it will not break the initialization of predefined class into MaterialIcon widget.
+
+*Conclusion*
+This feature request was discussed on this Github Issue thread https://github.com/errai/errai/issues/170#issuecomment-216293832. And we would to have an option on @DataField for alternative attribute merging strategies might be a good idea.

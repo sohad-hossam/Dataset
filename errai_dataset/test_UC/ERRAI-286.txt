@@ -1,2 +1,0 @@
-Add integration tests for @Service annotations on fields and methods
-The @Service annotation allows targeting methods and fields in addition to types, but there are no tests for this type of usage.

@@ -1,0 +1,2 @@
+Maven dependencyMangement & pluginManagement
+It would be extremely useful if dependency and plugin management could be consolidated at the top level in dependencyManagement and pluginManagement. This would allow automated alignment tools such as vman to be used by productisation. It would also avoid multiple plugin and dependency versions being used (by accident) - currently there are multiple plugin versions being used and several dependencies have multiple versions in use as well. 

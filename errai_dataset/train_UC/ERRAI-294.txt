@@ -1,4 +1,0 @@
-Performance regression: Bus federation results in client service RemoteSubscribe requests transmitting in individual messages instead of a single batched message.
-The problem is caused by the support that was added for subscription handles. Subscriptions which are created before the bus initializes, must create proxies and defer the binding of the subscription until a later phase of initialization. 
-
-The solution is to add a more granular phase, where subscription deferrals can be processed immediately before the state synchronization logic fires. 

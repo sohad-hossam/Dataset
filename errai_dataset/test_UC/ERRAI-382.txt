@@ -1,0 +1,4 @@
+EventHandler annotation should allow registering for events on "this"
+It's not uncommon to want to handle events happening on the templated widget itself (for example, click, mousein, mouseout, keyboard, etc.)
+
+One suggestion would be to allow the string "this" to stand for the object the method is declared on (or inherited by).

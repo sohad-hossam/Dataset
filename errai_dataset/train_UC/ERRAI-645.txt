@@ -1,4 +1,0 @@
-Entity Inheritance Not working with Errai JPA
-Please See this discussion for Description.
-https://community.jboss.org/thread/229477?start=15&tstart=0
- I have reported this bug on Jonathan's request. 

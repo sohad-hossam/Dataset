@@ -1,0 +1,2 @@
+Poor error message when a @Portable type has an interface property with no portable implementations
+None

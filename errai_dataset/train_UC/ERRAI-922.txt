@@ -1,0 +1,6 @@
+MarshallerImpl will fail to generate if there are too many @Portable Types
+We have a large number of @Portable types.  Currently, the getMarshaller(String) is done in a single method, which, for large number of types will exceed the size available in java.  The error message is:
+
+[ERROR] Line 2336: The code of method getMarshaller(String) is exceeding the 65535 bytes limit
+
+This used to happen on the BootstrapperImpl, but was fixed by chaining together a series of smaller classes.

@@ -1,6 +1,0 @@
-BootstrapperContainer() can grow larger than Java can accomodate.  Application no longer runs.
-As the application grows, the BootstrapperImpl puts all of its magic in one method.  Java has a limit as to how big this can be.  It is now failing.
-
-java.lang.Error: Unresolved compilation problem: 
-	The code of method bootstrapContainer() is exceeding the 65535 bytes limit
-

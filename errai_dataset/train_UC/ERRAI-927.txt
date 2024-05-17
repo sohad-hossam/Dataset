@@ -1,4 +1,0 @@
-Array marshaller generation causes rebind error
-In some cases generating an array marshaller may fail because of a missing generation context. This may be caused by the fact that array marshallers are always regenerated even if the MarshallerFactory (which creates the context) is not.
-
-Array marshallers were originally uncached because of generation issues in classic dev mode, but this workaround is no longer needed for SDM.

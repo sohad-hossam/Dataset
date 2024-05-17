@@ -1,4 +1,0 @@
-Separate Auto DataBinding from dependency on Errai-UI
-Currently, the only way to use annotations to decorate a class for data binding is to use it in conjunction with Templated (Errai-UI) classes.  There is no reason that Model to HasValue binding can't be 'auto bound' independent of the Errai-UI.  Otherwise, ErraiDatabinding, which looks like a very powerful feature, has its use tied to the layout mechanism being used, which seems like an unnecessary requirement.  
-
-There are many reasons one would not want to use the Errai Templating library for UI presentation (either not use it altogether, or in specific circumstances).  Especially when migrating a project, it would be beneficial to be able to make changes in pieces.

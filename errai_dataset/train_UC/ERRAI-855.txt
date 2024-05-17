@@ -1,4 +1,0 @@
-Upgrade to keycloak 1.2.0
-https://developer.jboss.org/thread/258359
-
-It'd be nice if 3.2.0 comes tested against keycloak 1.2.0.  Also, reconsider the Errai Security architecture decisions and choices now that PicketLink has been discontinued and merged into Keycloak.

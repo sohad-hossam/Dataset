@@ -1,0 +1,2 @@
+The CDI client event dispatcher is no longer subscribed after a connection failure
+None

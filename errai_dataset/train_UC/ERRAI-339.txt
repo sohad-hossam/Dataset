@@ -1,2 +1,0 @@
-Marshalling an array on its own (not as a member of another portable class) doesn't work
-As reported in https://community.jboss.org/thread/202125?tstart=0, we get an exception: "cannot find the marshaller for [Lclassname" when trying to use an array of a @Portable class as the message body.
