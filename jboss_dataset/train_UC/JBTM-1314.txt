@@ -1,0 +1,4 @@
+Update build-release-packages.xml to use rsync by default
+The problem with the current solution is that it copes files to an sshfs mounted directory. If the connection is dropped (which happens on a mac), the transfer can't be resumed.
+
+The rsync default will be linux only, so leave in the sshfs approach, and have it enabled by a property.

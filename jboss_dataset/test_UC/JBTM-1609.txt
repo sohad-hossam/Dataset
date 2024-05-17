@@ -1,0 +1,2 @@
+Certain XAResourceRecord constructors don't take into account configured SerializableXAResourceDeserializer(s)
+Certain XAResourceRecord constructors don't initialize the list of SerializableXAResourceDeserializer that's maintained in the XAResourceRecord. As a result, during restoring the state of the record, the XAResourceRecord will not be aware of the configured SerializableXAResourceDeserializer(s) and can end up not being able to deserialize the XAResource within that record.

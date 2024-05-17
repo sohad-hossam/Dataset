@@ -1,0 +1,9 @@
+Build and deploy Blacktie as part of BRP.xml
+We only update the Blacktie java artifacts so these should be able to be done from any machine:
+
+{code}
+call "C:\Program Files (x86)\Microsoft Visual Studio 9.0\VC\vcvarsall.bat" 
+build.bat -f blacktie\wildfly-blacktie\pom.xml install -DskipTests
+build.bat -f blacktie\pom.xml install -DskipTests
+build.bat -f blacktie\pom.xml deploy -DskipTests
+{code}

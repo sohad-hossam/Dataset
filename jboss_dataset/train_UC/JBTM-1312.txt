@@ -1,0 +1,14 @@
+build-release-pkgs.xml contains 4.17.0.Final version number
+See: https://github.com/jbosstm/narayana/blob/master/build-release-pkgs.xml for 4.17 and master.
+
+Notice:
+
+{code}
+<!-- The tag as it appears under svnbase -->
+<property name="pageName" value="4_17_0_Final"/>
+<property name="tag" value="4.17.0.Final"/>
+{code}
+
+I assume this should be set to the current release. Also, we need to update the release procedure to understand the '_' notation used in the 'pageName' property.
+
+This is assuming that these properties are even needed? They appear to be svn related, in which case not needed for Narayana 4.17 and 5.

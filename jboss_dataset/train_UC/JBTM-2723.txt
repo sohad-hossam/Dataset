@@ -1,0 +1,2 @@
+Upgrade the apr to 1.5
+This is to provide the basis of JBTM-2719. APR now provides a method to wakeup waiting pools which should be useful.

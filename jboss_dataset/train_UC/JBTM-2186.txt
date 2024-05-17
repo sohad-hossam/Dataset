@@ -1,2 +1,0 @@
-Probing the object store raises an error if the recovery manager has not performed a first pass
-ObjectStoreBrowser::probe requires that the recovery manager performs the first pass of recovery to load in the current in doubt Xids. This is not currently done so the user gets an error.

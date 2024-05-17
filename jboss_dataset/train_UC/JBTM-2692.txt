@@ -1,0 +1,20 @@
+Narayana OSGi bundle is missing optional packages
+The problem is that the annotations on @Transactional are lost, which makes this annotation unusable in a CDI environment.
+
+Patch below:
+{code}
+diff --git a/osgi/jta/pom.xml b/osgi/jta/pom.xml
+index 87d32c5..cd68637 100644
+--- a/osgi/jta/pom.xml
++++ b/osgi/jta/pom.xml
+@@ -206,6 +206,9 @@
+                                                   org.apache.felix.service.command,
+                                                   org.apache.karaf.shell.api.action,
+                                                   org.apache.karaf.shell.api.action.lifecycle,
++                                                  javax.enterprise.util;resolution:=optional,
++                                                  javax.interceptor;resolution:=optional
++                                                  javax.enterprise.context;resolution:=optional
+                                           </Import-Package>
+                                           <Embed-Transitive>true</Embed-Transitive>
+                                           <Embed-Dependency>
+{code}

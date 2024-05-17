@@ -1,0 +1,6 @@
+XA connections leak when no modifier available
+I recently upgraded JBossTS from 4.6.1 GA to 4.11 Final. I see that bug JBTM-532 that I opened against 4.5 and 4.6 should have been fixed in 4.8.0. However, besides still having a null _theModifier when using PostgreSQL, the current (4.11) implementation of com.arjuna.ats.internal.jdbc.ConnectionImple.close() has a problem.
+ 
+I mean, if _theModifier is null, a comment says: "no indication about connections, so assume close immediately". However in this case only _theConnection (java.sql.Connection) is closed and set to null, while _recoveryConnection.closeCloseCurrentConnection() is not called, leading to an XAConnection leak.
+
+What I would expect is that if _theModifier is null, a log entry were added but nothing else were done; in particular I would expect not to return and let the following "if (!delayClose)" (towards the end of the method) close both the connections immediately.

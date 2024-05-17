@@ -1,0 +1,16 @@
+Fix up pretty-printing of success/failures in build
+TS jtax .......................... SUCCESS [1:02.017s]
+[INFO] Narayana: ArjuntaJTS narayana-jts-jacorb .......... SUCCESS [7.963s]
+[INFO] Narayana: ArjunaJTS integration ................... SUCCESS [33.609s]
+[INFO] Narayana: rest-tx ................................. SUCCESS [0.009s]
+[INFO] Narayana: rest-tx util ............................ SUCCESS [2.646s]
+[INFO] Narayana: rest-tx tx (RESTful API for Atomic Transactions)  SUCCESS [34.522s]
+[INFO] Narayana: rest-tx webservice ...................... SUCCESS [0.720s]
+[INFO] Narayana: rest-tx integration ..................... SUCCESS [4.862s]
+[INFO] Narayana: txbridge ................................ SUCCESS [3.460s]
+[INFO] Narayana: fileio .................................. SUCCESS [1.089s]
+[INFO] Narayana: STM ..................................... SUCCESS [29.172s]
+[INFO] Narayana: txframework ............................. SUCCESS [2.526s]
+[INFO] Narayana: narayana-full ........................... SUCCESS [13.753s]
+
+Maybe remove the (RESTful API for Atomic Transactions) text, or shorten it.

@@ -1,0 +1,7 @@
+Narayana fails to compile on JDK6
+[ERROR] COMPILATION ERROR : 
+[INFO] -------------------------------------------------------------
+[ERROR] /home/tom/projects/jbosstm/narayana/ArjunaJTA/spi/src/test/java/org/jboss/tm/TestSPI.java:[43,15] cannot find symbol
+symbol  : method lookup()
+location: @interface javax.annotation.Resource
+[INFO] 1 error

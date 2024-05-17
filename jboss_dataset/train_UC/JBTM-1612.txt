@@ -1,2 +1,0 @@
-Remove orson dependency from SimpleIsolatedServers
-Simplifies maven import

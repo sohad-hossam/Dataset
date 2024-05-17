@@ -1,0 +1,4 @@
+Build is dependent upon Sun's JDK
+We have a dependency in the arjuna module on jconsole.jar which is potentially not shipped none-Sun JDK's for instance so our pom refers to JAVA_HOME/lib/jconsole.jar.
+
+This needs reviewing, we could add a profile that only includes the dependency on a build when the file exists and in other profiles does not build the classes that require this Jar, but if the code is critical we need to think about a rewrite to not depend on the (presumably) proprietary Jar.

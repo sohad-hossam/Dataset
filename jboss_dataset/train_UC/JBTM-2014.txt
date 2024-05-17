@@ -1,0 +1,2 @@
+Get rid of transitive Netty dependencies
+There is a transitive Netty dependency which conflicts with the new HornetQ in Wildfly. Requested by Jean-Frederic Mesnil.

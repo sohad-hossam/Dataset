@@ -1,0 +1,2 @@
+Use rsync to upload the documents on linux to the website
+We use rsync on mac but use an sshfs on linux but rsync seems much quicker so we should use that. We need --protocol=29 which I think was the reason we couldn't get it to work before on Linux

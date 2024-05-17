@@ -1,0 +1,2 @@
+blacktie pom.xml has hardcoded WildFly versions
+None

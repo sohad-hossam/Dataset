@@ -1,6 +1,0 @@
-Run bmcheck.sh regularly to spot inconsistencies between byteman scripts and the code
-I've found many bugs in the XTS crash recovery tests that where due to changes being made to the XTS code without updating the byteman scripts. The problem is that these inconsistencies often go unnoticed when the tests run, until you notice a failure in the test.
-
-Can we run bmcheck as part of the maven build and make the build fail if it detects errors? Needs to be integrated into the poms, perhaps by an exec in an antrun plugin
-
-NOTE: Before raising the pull req it will be necessary to resolve any the discovered errors.

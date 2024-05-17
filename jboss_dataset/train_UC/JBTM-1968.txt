@@ -1,4 +1,0 @@
-Add possibility to parametrize qa jts tests running with JDBC Object Store
-Current ant configuration is hardcoded and there is no possibility to parametrize db properties to get test running against different databases.
-
-Rework the qa/run-tests.xml file to add such functionality.

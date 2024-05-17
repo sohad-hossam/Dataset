@@ -1,0 +1,4 @@
+BRP rsync fails silently
+We see the output from the rsync command, but it doesn't apear to actually do anything.
+
+If you copy and paste the command into the terminal, it works.

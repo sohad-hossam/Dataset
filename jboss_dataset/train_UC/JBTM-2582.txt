@@ -1,2 +1,0 @@
-Re-enable SimpleIsolatedServers test
-During the changes to support IBM orb this test was acidently excluded (in ArjunaJTS/integration/pom.xml).

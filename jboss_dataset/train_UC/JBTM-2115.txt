@@ -1,0 +1,10 @@
+Not all classes are under code coverage
+The following poms contain skipped classes for code coverage:
+
+ArjunaCore/arjuna/pom.xml
+ArjunaJTA/jdbc/pom.xml
+ArjunaJTA/jta/pom.xml
+ArjunaJTA/spi/pom.xml
+XTS/localjunit/pom.xml
+
+We should aim to test everything

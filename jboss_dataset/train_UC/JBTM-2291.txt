@@ -1,6 +1,0 @@
-ObjStoreBrowser can return stale Uid if the machine is very fast or the machines clock has a low fidelity
-ObjStoreBrowser::probe uses System.currentTimeMillis to determine whether its list of allUids contains stale date during updateMBeans call.
-
-Now if you imagine a clock which never moved on (low fidelity) then this would mean that a Uid was never eligible to be reaper from this list.
-
-Or imagine a machine that is very fast (my laptop for example) and it is possible that probe, remove entry, probe can all be called in the same millisecond.

@@ -1,0 +1,2 @@
+build-release-pkgs.xml doesn't reflect change in XTS docs location
+None

@@ -1,2 +1,0 @@
-Need a qa test suite ant target to skip jts tests
-Useful for testing everything apart from JTS

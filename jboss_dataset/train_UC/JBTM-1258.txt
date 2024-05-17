@@ -1,6 +1,0 @@
-QA build does not archive testoutput for both ORBs
-The QA test suite runs the remote JTS tests against JacORB and the JDK orb but only the last run is archived.
-
-The fix should save the first run in an archive:
-qa/testoutput.zip
-The results from the second run will be in testoutput as normal

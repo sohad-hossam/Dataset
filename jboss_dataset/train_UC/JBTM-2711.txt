@@ -1,0 +1,2 @@
+Upgrade BlackTie to reference WildFly 11.0.0.Alpha1-SNAPSHOT
+WildFly have gone to 11.0.0.Alpha1-SNAPSHOT

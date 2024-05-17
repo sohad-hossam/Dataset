@@ -1,0 +1,2 @@
+Transactional Driver tests fail on MySQL and Postgres database
+http://albany.eng.hst.ams2.redhat.com/view/Status/job/narayana/736/PROFILE=QA_JTA,jdk=jdk7.latest,label=linux

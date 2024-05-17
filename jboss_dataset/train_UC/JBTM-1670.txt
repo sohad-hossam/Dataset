@@ -1,0 +1,14 @@
+Add a community profile to enable none-EAP features: was Remove jfreechart dependency from EAP6 profile
+Currently in EAP6 there is no jfreechart library so we need to remove the relative components from JBossTS:
+
+{code}
+ArjunaCore/arjuna/pom.xml
+pom.xml
+{code}
+
+And we need to remove these two classes which depend on jfreechart:
+
+{code}
+ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/tools/stats/TxPerfPlugin.java
+ArjunaCore/arjuna/classes/com/arjuna/ats/arjuna/tools/stats/TxPerfGraph.java
+{code}
